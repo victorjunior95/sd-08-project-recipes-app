@@ -28,6 +28,11 @@ function Login() {
     }
   }
 
+  function handleClick() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
   return (
     <form>
       <label htmlFor="email-input">
@@ -52,7 +57,7 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabled }
-        // onClick={ handleClick }
+        onClick={ handleClick }
       >
         Entrar
       </button>

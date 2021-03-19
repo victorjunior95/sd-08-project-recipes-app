@@ -4,6 +4,7 @@ import RecipeContext from './RecipeContext';
 
 function Provider({ children }) {
 //   const [meals, setMeals] = useState({});
+//
 
   const [searchType, setSearchType] = useState('ingrediente');
   const [searchInputValue, setSearchInputValue] = useState('');

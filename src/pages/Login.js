@@ -43,7 +43,6 @@ class Login extends Component {
       <div className="login">
         <main className="main">
           <div className="form">
-            <h1>Faça login usando sua conta</h1>
             <input
               className="input text"
               type="text"
@@ -62,20 +61,22 @@ class Login extends Component {
               data-testid="password-input"
               onChange={ (event) => this.change(event) }
             />
-            <button
-              className="button"
-              type="button"
-              data-testid="login-submit-btn"
-              disabled={ buttonDisabled }
-              onClick={ () => {
-                localStorage.setItem('mealsToken', 1);
-                localStorage.setItem('cocktailsToken', 1);
-                localStorage.setItem('user', JSON.stringify(objUser));
-                history.push('/comidas');
-              } }
-            >
+            <div>
+              <button
+                className="button"
+                type="button"
+                data-testid="login-submit-btn"
+                disabled={ buttonDisabled }
+                onClick={ () => {
+                  localStorage.setItem('mealsToken', 1);
+                  localStorage.setItem('cocktailsToken', 1);
+                  localStorage.setItem('user', JSON.stringify(objUser));
+                  history.push('/comidas');
+                } }
+              >
               Entrar
-            </button>
+              </button>
+            </div>
           </div>
         </main>
       </div>

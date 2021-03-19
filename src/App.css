@@ -15,6 +15,15 @@
   max-height: 80vh;
 }
 
+.login {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  border: 3px solid black;
+  background-image: url('./login1.jpg');
+  background-size: cover;
+}
 /*
 #iceLeft {
   animation: clink .8s infinite ease;

@@ -21,7 +21,7 @@ function App() {
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas;" component={ Receitas } />
       <Route path="/receitas-favoritas" component={ Receitas } /> */}
-      <Route path="/" component={ Login } />
+      <Route exact path="/" component={ Login } />
       <div className="meals" />
     </BrowserRouter>
   );

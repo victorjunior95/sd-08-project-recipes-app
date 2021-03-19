@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
 import login from '../store/actions/user.actions';
+import './perfil.css';
 
 class Perfil extends Component {
   constructor() {

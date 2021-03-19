@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './Pages/Login';
 
 function App() {
   return (
     <BrowserRouter>
-      <Route exact to="/" />
+      <Route exact to="/" component={ Login } />
       <Route to="/comidas" />
       <Route to="/bebidas" />
       <Route to="/comidas/{id-da-receita}" />
@@ -24,7 +25,7 @@ function App() {
       <Route to="/receitas-favoritas" />
       {/* <Route to="**" /> */}
 
-      <div className="meals">
+      {/* <div className="meals">
         <span className="logo">TRYBE!</span>
         <h1>Começando</h1>
         <object
@@ -34,7 +35,7 @@ function App() {
         >
           Glass
         </object>
-      </div>
+      </div> */}
     </BrowserRouter>
   );
 }

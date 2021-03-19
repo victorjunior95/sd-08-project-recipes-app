@@ -41,7 +41,6 @@ class App extends React.Component {
             <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
             {/* <Route component={ Expĺorar } /> */}
             <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
-            <Route exact path={ rota } component={ Generico } />
             <Route
               exact
               path="/explorar/bebidas/ingredientes"
@@ -53,8 +52,10 @@ class App extends React.Component {
               component={ ExplorarComidasIngredientes }
             />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route exact path={ rota } component={ Generico } />
             {/* <Route exact path="/receitas-feitas" component={ ReceitasFeitas } /> */}
-            {/* <Route exact path="/receitas-favoritadas" component={ ReceitasFavoritadas } /> */}
+            {/* <Route exact path="/receitas-favoritadas"
+            component={ ReceitasFavoritadas } /> */}
           </Switch>
         </BrowserRouter>
 

@@ -5,7 +5,7 @@ import mealIcon from '../images/mealIcon.svg';
 
 class Footer extends Component {
   render() {
-    const { history } = this.props;
+    // const { history } = this.props;
     return (
       <div data-testid="footer">
         <button

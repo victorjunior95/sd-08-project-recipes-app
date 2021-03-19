@@ -7,9 +7,14 @@ class Perfil extends Component {
     return (
       <div>
         <HeaderLocation />
-        <br />
-        <br />
-        <br />
+        <main>
+          <container className="perfil-container">
+            <span>e-mail</span>
+            <button type="button">Receitas Feitas</button>
+            <button type="button">Receitas Favoritas</button>
+            <button type="button">Sair</button>
+          </container>
+        </main>
         <Footer />
       </div>
     );

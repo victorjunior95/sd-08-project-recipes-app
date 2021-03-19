@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 function Login() {
@@ -6,19 +6,24 @@ function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [redirect, setRedirect] = useState(false);
 
-  const handleChange = ({ target }) => {
-    setUser({ ...user, [target.name]: target.value });
-    const minimumNameSize = 5;
+  useEffect(() => {
+    const minimumNameSize = 6;
     const { email, password } = user;
     const re = /.+@[A-z]+[.]com/;
     const isValidEmail = re.test(email);
-    const isValidPassword = password.length >= minimumNameSize;
+    const isValidPassword = password.length > minimumNameSize;
     if (isValidEmail && isValidPassword) {
       setIsDisabled(false);
       console.log(isValidEmail, isValidPassword, password.length);
     } else {
+      console.log('else');
       setIsDisabled(true);
     }
+  }, [user]);
+
+  const handleChange = ({ target }) => {
+    console.log('mudou');
+    setUser({ ...user, [target.name]: target.value });
   };
 
   const onSubmit = (e) => {

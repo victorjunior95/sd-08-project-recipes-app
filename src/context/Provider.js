@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import RecipeContext from './RecipeContext';
 
 function Provider({ children }) {
-  const [meals, setMeals] = useState({});
+//   const [meals, setMeals] = useState({});
 
-  const [searchType, setSearchType] = useState('');
+  const [searchType, setSearchType] = useState('ingrediente');
   const [searchInputValue, setSearchInputValue] = useState('');
 
   const searchBarRequest = async (type, inputvalue) => {

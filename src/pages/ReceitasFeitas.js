@@ -10,7 +10,6 @@ class ReceitasFeitas extends Component {
         <br />
         <br />
         <br />
-        <Footer />
       </div>
     );
   }

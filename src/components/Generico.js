@@ -12,11 +12,11 @@ class Generico extends Component {
   video() {
     const { detalhes } = this.props;
     let youtube;
-    if (detalhes !== undefined && detalhes.strYoutube !== undefined) {
-      youtube = detalhes.strYoutube.replace('watch?v=', 'embed/');
-    }
     if (detalhes.strYoutube === undefined) {
       youtube = this.randonDrinkVideo();
+    }
+    if (detalhes !== undefined && detalhes.strYoutube !== undefined) {
+      youtube = detalhes.strYoutube.replace('watch?v=', 'embed/');
     }
     return youtube;
   }

@@ -6,8 +6,10 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const changeStorage = () => {
+    const userEmail = { email };
     setLocalStorage('mealsToken', 1);
     setLocalStorage('cocktailsToken', 1);
+    setLocalStorage('user', userEmail);
   };
 
   return (

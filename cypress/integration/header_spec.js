@@ -24,7 +24,7 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um ícon
 
     cy.get('[data-testid="page-title"]').contains(title);
 
-    if (withSearchButton){
+    if (withSearchButton) {
       cy.get('[data-testid="search-top-btn"]')
         .should('have.attr', 'src')
         .should('include', 'searchIcon');
@@ -142,7 +142,7 @@ describe('11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no 
   });
 });
 
-describe('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer. O mesmo serve para escondê-la', () => {
+describe.only('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer. O mesmo serve para escondê-la', () => {
   it('Ao clicar no botão de busca pela primeira vez a barra de busca aparece', () => {
     cy.visit('http://localhost:3000/comidas');
 

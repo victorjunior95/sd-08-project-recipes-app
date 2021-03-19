@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import shareIcon from './images/shareIcon.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <object
         className="rocksGlass"
         type="image/svg+xml"
-        data={ rockGlass }
+        data={ shareIcon }
       >
         Glass
       </object>

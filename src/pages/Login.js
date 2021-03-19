@@ -1,9 +1,9 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
 
-function Login() {
+function Login(props) {
   return (
-    <LoginForm />
+    <LoginForm props={ props } />
   );
 }
 

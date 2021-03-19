@@ -28,7 +28,7 @@ describe('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever 
   });
 });
 
-describe.only('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', () => {
+describe('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', () => {
   it('O botão deve estar desativado se o email for inválido', () => {
     cy.visit('http://localhost:3000/');
 
@@ -94,7 +94,7 @@ describe('6 - Salve 2 tokens no localStorage após a submissão, identificados p
   });
 });
 
-describe('7 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
+describe.only('7 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
   it('Após a submissão a chave user deve estar salva em localStorage', () => {
     cy.visit('http://localhost:3000/', {
       onBeforeLoad(win) {

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { setMealsToken, setCocktailsToken } from '../services/storage';
+import { useHistory } from 'react-router-dom';
+import * as storage from '../services/storage';
 
 const MIN_PASSWORD_LENGTH = 6;
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   function isFormValid() {
     return (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)
@@ -13,8 +15,10 @@ const Login = () => {
   }
 
   function handleLogin() {
-    setMealsToken('1');
-    setCocktailsToken('1');
+    storage.setMealsToken('1');
+    storage.setCocktailsToken('1');
+    storage.updateUser({ email });
+    history.push('/comidas');
   }
 
   return (

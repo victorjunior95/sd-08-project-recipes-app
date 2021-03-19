@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
+import login from '../store/actions/user.actions';
 
 class Perfil extends Component {
   constructor() {
@@ -20,41 +21,49 @@ class Perfil extends Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, setEmail } = this.props;
     const { routeTo } = this.state;
+    const userEmailLocalStorage = JSON.parse(localStorage.getItem('user'));
+
+    if (routeTo || (!email && !userEmailLocalStorage)) {
+      return <Redirect push to={ routeTo } />;
+    }
+
     return (
       <div>
         <HeaderLocation />
         <main>
-          <container className="perfil-container">
+          <div className="perfil-container">
             <span data-testid="profile-email">
-              {email
-            || JSON.parse(localStorage.getItem('user')).email}
+              {userEmailLocalStorage.email || email}
             </span>
             <button
               type="button"
               data-testid="profile-done-btn"
-              onClick={ () => this.setRoute('/receitas-favoritas') }
+              onClick={ () => this.setRoute('/receitas-feitas') }
             >
               Receitas Feitas
             </button>
             <button
               type="button"
               data-testid="profile-favorite-btn"
-              onClick={ () => this.setRoute('/receitas-feitas') }
+              onClick={ () => this.setRoute('/receitas-favoritas') }
             >
               Receitas Favoritas
             </button>
             <button
               type="button"
               data-testid="profile-logout-btn"
-              onClick={ () => this.setRoute('/') }
+              onClick={ () => {
+                localStorage.clear('user');
+                setEmail('');
+                this.setRoute('/');
+              } }
             >
               Sair
             </button>
-          </container>
+          </div>
         </main>
-        {routeTo && <Redirect push to={ routeTo } />}
         <Footer />
       </div>
     );
@@ -65,8 +74,13 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setEmail: (email) => dispatch(login(email)),
+});
+
 Perfil.propTypes = {
   email: PropTypes.string.isRequired,
+  setEmail: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Perfil);
+export default connect(mapStateToProps, mapDispatchToProps)(Perfil);

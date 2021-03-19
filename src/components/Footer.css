@@ -1,0 +1,13 @@
+.footer-food {
+    position: fixed;
+    bottom: 0px;
+    font-size: xx-large;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    width: 100vw;
+    height: 10%;
+    background-color: gray;
+  }
+  

@@ -74,7 +74,7 @@ class Login extends Component {
                   history.push('/comidas');
                 } }
               >
-              Entrar
+                Entrar
               </button>
             </div>
           </div>

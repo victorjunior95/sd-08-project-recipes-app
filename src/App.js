@@ -53,8 +53,8 @@ class App extends React.Component {
               component={ ExplorarComidasIngredientes }
             />
             <Route exact path="/perfil" component={ Perfil } />
-            {/* <Route exact path="/receitas-feitas" component={ ReceitasFeitas } /> */}
-            {/* <Route exact path="/receitas-favoritadas" component={ ReceitasFavoritadas } /> */}
+            <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+            <Route exact path="/receitas-favoritadas" component={ ReceitasFavoritas } />
           </Switch>
         </BrowserRouter>
 

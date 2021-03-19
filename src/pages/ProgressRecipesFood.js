@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 
 class ProgressRecipesFood extends Component {
   render() {
-    return (
-      <div>
-        Eu sou página de ProgressRecipesFood
-      </div>
-    );
+    return <div>Eu sou página de ProgressRecipesFood</div>;
   }
 }
 

@@ -3,9 +3,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Provider from './context/Provider';
 
-// import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import { DrinkDetails, DrinkInProgress, Drinks } from './pages/Drinks';
 import { FoodDetails, FoodInProgress, Foods } from './pages/Foods';
 import {
@@ -18,6 +15,10 @@ import {
 } from './pages/Explore';
 import { RecipesDone, RecipesFavorite } from './pages/Recipes';
 import Profile from './pages/Profile';
+
+// import rockGlass from './images/rockGlass.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (

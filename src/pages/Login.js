@@ -25,6 +25,13 @@ const Login = () => {
     verifyFieldsValidation();
   }, [email, password]);
 
+  const localStorages = (e) => {
+    e.preventDefault();
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+  };
+
   return (
     <div>
       <input
@@ -43,6 +50,7 @@ const Login = () => {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ isDisabled }
+        onClick={ localStorages }
       >
         Entrar
       </button>

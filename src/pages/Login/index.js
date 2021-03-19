@@ -10,7 +10,7 @@ function Login() {
             id="email"
             placeholder="email@email.com"
             type="email"
-            data-testid="email-inpu"
+            data-testid="email-input"
           />
         </label>
         <label htmlFor="password">
@@ -27,11 +27,5 @@ function Login() {
     </div>
   );
 }
-
-// data-testid="email-input"
-
-// data-testid="password-input"
-
-// data-testid="login-submit-btn"
 
 export default Login;

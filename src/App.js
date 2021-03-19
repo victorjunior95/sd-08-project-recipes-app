@@ -1,20 +1,11 @@
 import React from 'react';
+import Login from './pages/Login';
 import './App.css';
-import shareIcon from './images/shareIcon.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ shareIcon }
-      >
-        Glass
-      </object>
-    </div>
+    <Login />
   );
 }
 

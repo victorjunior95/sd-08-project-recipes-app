@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('9 - Implemente os elementos do header na tela principal de receitas, respeitando os atributos descritos no protótipo', () => {
+describe.only('9 - Implemente os elementos do header na tela principal de receitas, respeitando os atributos descritos no protótipo', () => {
   it('Tem os data-testids profile-top-btn, page-title e search-top-btn', () => {
     cy.visit('http://localhost:3000/comidas');
 
@@ -24,7 +24,7 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um ícon
 
     cy.get('[data-testid="page-title"]').contains(title);
 
-    if (withSearchButton){
+    if (withSearchButton) {
       cy.get('[data-testid="search-top-btn"]')
         .should('have.attr', 'src')
         .should('include', 'searchIcon');

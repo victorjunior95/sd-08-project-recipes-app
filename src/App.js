@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import Comidas from './pages/Comidas';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
+      <Route path="/comidas" component={ Comidas } />
+      {/* <Route path="/bebidas" component={ Bebidas } />
       <Route path="/comidas/:id" component={ DetalheComida } />
       <Route path="/bebidas/:id" component={ DetalheBebidas } />
       <Route path="/comidas/:id/in-progress" component={ InProgressComida } />
@@ -21,7 +22,7 @@ function App() {
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas;" component={ Receitas } />
       <Route path="/receitas-favoritas" component={ Receitas } /> */}
-      <Route path="/" component={ Login } />
+      <Route exact path="/" component={ Login } />
       <div className="meals" />
     </BrowserRouter>
   );

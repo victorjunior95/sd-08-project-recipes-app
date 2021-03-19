@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const validation = () => {
     const reGex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -11,6 +13,13 @@ function LoginForm() {
       return false;
     }
     return true;
+  };
+
+  const handleClick = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
   };
 
   return (
@@ -37,6 +46,7 @@ function LoginForm() {
         name="login-button"
         id="login-button"
         disabled={ validation() }
+        onClick={ () => handleClick() }
       >
         Entrar
       </button>

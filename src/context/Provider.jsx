@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import contextRecipes from './Context';
 import App from '../App';
 // import PropTypes from 'prop-types';
@@ -6,13 +6,21 @@ import App from '../App';
 function RecipesProvider() {
   const [mealsToken, setMealsToken] = useState(1);
   const [cocktailsToken, setCocktailsToken] = useState(1);
+  const [user, setUser] = useState({
+    email: '',
+  });
 
-  function saveLocalStorage() {
-    localStorage.setItem('mealsToken', mealsToken);
-    localStorage.setItem('cocktailsToken', cocktailsToken);
-  }
+  useEffect(() => {
+    function saveLocalStorage() {
+      localStorage.setItem('mealsToken', mealsToken);
+      localStorage.setItem('cocktailsToken', cocktailsToken);
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+    saveLocalStorage();
+  }, [user, mealsToken, cocktailsToken]);
+
   const state = {
-    saveLocalStorage,
+    setUser,
     setMealsToken,
     setCocktailsToken,
   };

@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  rota: 'alguem@email.com',
+  rota: '/',
   detalhes: {},
 };
 

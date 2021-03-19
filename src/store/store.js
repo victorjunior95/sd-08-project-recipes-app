@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 
 import example from './reducers/example.reducer';
 import routes from './reducers/routes.reducer';
+import user from './reducers/user.reducer';
 
 const rootReducer = combineReducers({
   example,
   routes,
+  user,
 });
 
 const store = createStore(

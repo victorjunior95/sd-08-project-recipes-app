@@ -3,12 +3,14 @@ import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Meals from './pages/Meals';
+import Cocktails from './pages/Cocktails';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Meals } />
+      <Route exact path="/bebidas" component={ Cocktails } />
       {/* <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />

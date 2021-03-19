@@ -1,18 +1,36 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import RecipesContext from '../context/RecipesContext';
-import getMeals from '../services';
+import { getMeals, getCocktails } from '../services';
 
-function SearchBar() {
+function SearchBar({ type }) {
   const [inputSearch, setInputSearch] = useState('');
   const [radioSearchType, setRadioSearchType] = useState('');
 
-  const { setMeals } = useContext(RecipesContext);
+  const { setMeals, setDrinks } = useContext(RecipesContext);
 
   async function handleClick() {
-    const { meals } = await getMeals(radioSearchType, inputSearch);
-    if (!meals) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    setMeals(meals);
+    if (radioSearchType === 'first-letter-search' && inputSearch.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      if (type === 'meals') {
+        const { meals } = await getMeals(radioSearchType, inputSearch);
+        if (!meals) {
+          alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        } else {
+          setMeals(meals);
+        }
+      }
+      if (type === 'cocktails') {
+        const { drinks } = await getCocktails(radioSearchType, inputSearch);
+        if (!drinks) {
+          alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        } else {
+          setDrinks(drinks);
+        }
+      }
+    }
   }
 
   return (
@@ -66,5 +84,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default SearchBar;

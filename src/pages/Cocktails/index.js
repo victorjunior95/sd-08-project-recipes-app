@@ -2,21 +2,23 @@ import React, { useContext } from 'react';
 import RecipesContext from '../../context/RecipesContext';
 
 import SearchBar from '../../components/SearchBar';
-import MealCard from '../../components/MealCard';
+import DrinkCard from '../../components/DrinkCard';
 
 const LIMIT_OF_CARDS = 12;
 
-export default function Meals() {
-  const { meals } = useContext(RecipesContext);
+function Cocktails() {
+  const { drinks } = useContext(RecipesContext);
   return (
     <div>
-      <SearchBar type="meals" />
-      {meals.map((meal, index) => {
+      <SearchBar type="cocktails" />
+      {drinks.map((drink, index) => {
         if (index < LIMIT_OF_CARDS) {
-          return <MealCard key={ index } meal={ meal } />;
+          return <DrinkCard key={ index } drink={ drink } />;
         }
         return null;
       })}
     </div>
   );
 }
+
+export default Cocktails;

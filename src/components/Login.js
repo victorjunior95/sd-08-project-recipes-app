@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -6,42 +7,47 @@ class Login extends React.Component {
     this.state = {
       isNotValid: true,
       email: '',
-      name: '',
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.validButton = this.validButton.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleSettings = this.handleSettings.bind(this);
   }
-	
-	handleChange(event) {
+
+  handleChange({ target: { name, value } }) {
     this.setState({
-      [event.target.name]: event.target.value,
+      [name]: value,
     }, () => this.validButton());
   }
 
   handleLogin() {
+    const { email } = this.state;
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    const userEmail = { email };
+    localStorage.setItem('user', JSON.stringify(userEmail));
     const { history } = this.props;
-    // await getToken();
-    history.push('/game');
-	}
-	
-	validButton() {
-    const { email, name } = this.state;
-    const { handleLogin } = this.props;
-    if (email.length > 0 && name.length > 0) {
+    history.push('/comidas');
+  }
+
+  validButton() {
+    const { email, password } = this.state;
+    const LENGTH_SIX = 6;
+    const regex = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi.test(email);
+    if (regex
+      && password.length > LENGTH_SIX) {
       this.setState({ isNotValid: false });
-      handleLogin({ email, name });
+    } else {
+      this.setState({ isNotValid: true });
     }
-	}
-	
-	renderLogin() {
-    const { email, name, isNotValid } = this.state;
+  }
+
+  renderLogin() {
+    const { email, password, isNotValid } = this.state;
     return (
       <div>
-        <img src={ logo } className="App-logo" alt="logo" />
         <form>
           <div className="login-input">
             <label htmlFor="email">
@@ -61,12 +67,11 @@ class Login extends React.Component {
             <label htmlFor="name">
               Enter you password:
               <input
-                type="text"
+                type="password"
                 name="password"
                 onChange={ this.handleChange }
                 data-testid="password-input"
-                value={ name }
-                placeholder="Barak Obama"
+                value={ password }
                 required
               />
             </label>
@@ -76,14 +81,11 @@ class Login extends React.Component {
             onClick={ this.handleLogin }
             disabled={ isNotValid }
             className="button-jogar"
-            data-testid="btn-play"
+            data-testid="login-submit-btn"
           >
-            Jogar
+            Entrar
           </button>
         </form>
-        <button onClick={ this.handleSettings } data-testid="btn-settings" type="button">
-          Configurações
-        </button>
       </div>
     );
   }
@@ -91,20 +93,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-
-        <div>
-          <label htmlFor="email">
-            Email
-            <input data-testid="email-input" type="email" id="email" name="email" />
-
-          </label>
-          <label htmlFor="password">
-            Senha
-            <input data-testid="password-input" type="password" name="password" id="password" />
-
-          </label>
-        </div>
-        <button type="button" data-testid="login-submit-btn"> Entrar </button>
+        {this.renderLogin()}
       </div>
 
     );
@@ -112,3 +101,9 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

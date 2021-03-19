@@ -15,10 +15,20 @@ export default function Login() {
     setRedirect(true);
   };
 
+  const validate = () => {
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const minChars = 6;
+    if ((email !== '' && emailRegex.test(email)) && (password.length > minChars)) {
+      return false;
+    }
+    return true;
+  };
+
   if (redirect) return <Redirect to="/comidas" />;
   return (
     <section>
       <label htmlFor="email-input">
+        {console.log(validate())}
         <input
           type="text"
           value={ email }
@@ -36,7 +46,12 @@ export default function Login() {
           onChange={ (e) => setPassword(e.target.value) }
         />
       </label>
-      <button type="submit" data-testid="login-submit-btn" onClick={ changeStorage }>
+      <button
+        type="submit"
+        data-testid="login-submit-btn"
+        onClick={ changeStorage }
+        disabled={ validate() }
+      >
         Entrar
       </button>
     </section>

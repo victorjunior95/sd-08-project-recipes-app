@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../components/Button';
 import Input from '../components/Inputs';
 
 const Login = () => {
@@ -20,6 +21,10 @@ const Login = () => {
         name={ password }
         onChange={ (e) => setPassword(e.target.value) }
         data-testid="password-input"
+      />
+      <Button
+        label="Logar"
+        // onClick={ () => ) }
       />
     </fieldset>
 

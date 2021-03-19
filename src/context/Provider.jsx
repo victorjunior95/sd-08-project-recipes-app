@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import contextRecipes from './Context';
 import App from '../App';
 // import PropTypes from 'prop-types';
 
-const { Provider } = contextRecipes;
-
 function RecipesProvider() {
+  const [mealsToken, setMealsToken] = useState(1);
+  const [cocktailsToken, setCocktailsToken] = useState(1);
+
+  function saveLocalStorage() {
+    localStorage.setItem('mealsToken', mealsToken);
+    localStorage.setItem('cocktailsToken', cocktailsToken);
+  }
+  const state = {
+    saveLocalStorage,
+    setMealsToken,
+    setCocktailsToken,
+  };
   return (
-    <Provider value={ state }>
+    <contextRecipes.Provider value={ state }>
       <App />
-    </Provider>
+    </contextRecipes.Provider>
   );
 }
 // .propTypes = {};

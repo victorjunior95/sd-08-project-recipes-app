@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import contextRecipes from '../context/Context';
 import Button from '../components/Button';
 import Input from '../components/Inputs';
 
@@ -6,6 +7,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+
+  const { saveLocalStorage } = useContext(contextRecipes);
 
   useEffect(() => {
     function buttonAble() {
@@ -39,7 +42,7 @@ const Login = () => {
         label="Entrar"
         datatestid="login-submit-btn"
         disabled={ disabled }
-        // onClick={ () => ) }
+        onClick={ saveLocalStorage }
       />
     </fieldset>
 

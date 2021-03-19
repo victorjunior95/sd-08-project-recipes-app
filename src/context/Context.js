@@ -199,9 +199,9 @@ function DataProvider(props) {
           data,
           tokens,
           meals,
-          categoriesMeals,
+          // categoriesMeals,
           drinks,
-          categoriesDrinks,
+          // categoriesDrinks,
         } }
       >
         {children}

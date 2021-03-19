@@ -1,11 +1,14 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 import Login from './Pages/Login';
 
 function App() {
   return (
     <Provider>
-      <Login />
+      <Switch>
+        <Route path="/" component={ Login } />
+      </Switch>
     </Provider>
   );
 }

@@ -1,0 +1,36 @@
+.container-card-meal-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2%;
+  height: 80%;
+  justify-content: space-around;
+  margin-top: 2%;
+  overflow: scroll;
+  width: 100%;
+}
+
+.card-meal-details {
+  border-radius: 4px;
+  box-shadow: 0 0 8px orangered;
+  display: flex;
+  flex-direction: column;
+  height: 35%;
+  margin-top: 2%;
+  padding: 2px;
+  width: 90%;
+}
+
+.card-meal-details img {
+  align-self: center;
+  border-radius: 4px;
+  margin-top: 2%;
+  width: 90%;
+}
+
+.card-meal-details h2 {
+  align-self: center;
+  font-size: 25px;
+  margin-top: 2%;
+}
+

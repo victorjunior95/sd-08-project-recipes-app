@@ -18,7 +18,7 @@ function RecipesProvider() {
     }
     saveLocalStorage();
   }, [user, mealsToken, cocktailsToken]);
-
+  // console.log(test)
   const state = {
     setUser,
     setMealsToken,

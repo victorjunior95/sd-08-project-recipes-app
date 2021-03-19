@@ -1,13 +1,27 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
-  const {
-    setEmail,
-    setPassword,
-    buttonAble,
-    handleClick,
-  } = useContext(Context);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  function buttonAble() {
+    const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const minOfCaracteres = 6;
+    if (validEmail.test(email) && password.length > minOfCaracteres) {
+      return true;
+    }
+    return false;
+  }
+
+  function handleClick() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
+  }
+
   return (
     <>
       <input

@@ -11,3 +11,4 @@ export const fetchDrinksByIngredients = () => fetchData(AND_POINT_BY_INGREDIENTS
 // drinksByCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 // randomDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 // ingredientList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+// ingredientList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';

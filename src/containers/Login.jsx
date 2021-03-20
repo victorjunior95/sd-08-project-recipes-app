@@ -13,7 +13,7 @@ const Login = () => {
 
   useEffect(() => {
     const isValidEmail = core.validateEmail(email);
-    // console.log('validEmail', isValidEmail);
+    console.log('validEmail', isValidEmail);
     if (isValidEmail) {
       return setvalidEmail(true);
     }
@@ -22,7 +22,7 @@ const Login = () => {
 
   useEffect(() => {
     const isValidPassword = core.validatePassword(password);
-    // console.log('validPassword', isValidPassword);
+    console.log('validPassword', isValidPassword);
     if (isValidPassword) {
       return setvalidPassword(true);
     }
@@ -32,9 +32,9 @@ const Login = () => {
   useEffect(() => {
     if (redirect) {
       localStorage.setItem('user', JSON.stringify({ email }));
-      // localStorage.setItem('mealsToken', JSON.stringify(1));
-      // localStorage.setItem('cocktailsToken', JSON.stringify(1));
-      // return history.push('/comidas');
+      localStorage.setItem('mealsToken', JSON.stringify(1));
+      localStorage.setItem('cocktailsToken', JSON.stringify(1));
+      return history.push('/comidas');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [redirect, history]);

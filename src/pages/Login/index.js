@@ -29,8 +29,8 @@ export default function Login() {
   if (redirect) return <Redirect to="/comidas" />;
   return (
     <Form>
-      <Form.Group>
-        <Form.Label controlId="email-input">
+      <Form.Group controlId="email-input">
+        <Form.Label>
           Email
         </Form.Label>
         <Form.Control
@@ -41,8 +41,8 @@ export default function Login() {
           onChange={ (e) => setEmail(e.target.value) }
         />
       </Form.Group>
-      <Form.Group>
-        <Form.Label controlId="password-input">
+      <Form.Group controlId="password-input">
+        <Form.Label>
           Senha
         </Form.Label>
         <Form.Control
@@ -55,12 +55,11 @@ export default function Login() {
       </Form.Group>
       <div className="col text-center">
         <Button
-          className="justify-content-center"
           variant="success"
           data-testid="login-submit-btn"
           onClick={ changeStorage }
           disabled={ validate() }
-          size="lg"
+          size="block"
         >
           Entrar
         </Button>

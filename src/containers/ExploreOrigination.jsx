@@ -1,14 +1,14 @@
 import React from 'react';
-import components from '../components/index';
+import components from '../components';
 
-function Explore() {
+function ExploreOrigination() {
   return (
     <div className="explore-container">
       <components.Header />
-      Explorar
+      <p>Explorar Origem</p>
       <components.Footer />
     </div>
   );
 }
 
-export default Explore;
+export default ExploreOrigination;

@@ -1,12 +1,14 @@
 import React from 'react';
 import components from '../components/index';
 
-export default function Drinks() {
+function ExploreFoods() {
   return (
-    <div>
+    <div className="explore-container">
       <components.Header />
-      <p>Drinks</p>
+      <p>Explorar comidas</p>
       <components.Footer />
     </div>
   );
 }
+
+export default ExploreFoods;

@@ -87,13 +87,13 @@
 .footer-container {
   align-items: center;
   background-color: #0fa36b;
-  bottom:0;
+  bottom: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
-  position:absolute;
-  width:100%;
+  position: absolute;
+  width: 100%;
 }
 
 .main-buttons {

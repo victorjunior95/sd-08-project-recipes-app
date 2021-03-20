@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
+  Foods,
   DetailsRecipeDrink,
   DetailsRecipeFood,
   DoneRecipes,
@@ -24,7 +25,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ DoneRecipes } />
+        <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/bebidas" component={ Drinks } />
         <Route path="/comidas/:id" component={ DetailsRecipeFood } />
         <Route path="/bebidas/:id" component={ DetailsRecipeDrink } />

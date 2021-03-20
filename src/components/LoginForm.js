@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUserAction } from '../store/actions/loginActions';
+import { loginUserAction } from '../store/actions';
+import {
+  setMealsToken as setMealsTokenLocalStorage,
+  setCocktailsToken as setCocktailsTokenLocalStorage,
+  setUser as setUserLocalStorage,
+} from '../service';
+
+const SIX_LENGTH_PASSWORDS = 6;
 
 class LoginForm extends Component {
   constructor(props) {
@@ -17,9 +24,12 @@ class LoginForm extends Component {
   }
 
   handleSubmit() {
-    const { loginUser } = this.props;
+    const { setLoginState } = this.props;
     const { email } = this.state;
-    loginUser(email);
+    setLoginState(email);
+    setUserLocalStorage(email);
+    setMealsTokenLocalStorage();
+    setCocktailsTokenLocalStorage();
     this.setState({
       redirectWallet: true,
     });
@@ -32,8 +42,7 @@ class LoginForm extends Component {
   }
 
   validatorPassword(password) {
-    const MIN_LENGTH_PASSWORD = 6;
-    return password.length >= MIN_LENGTH_PASSWORD;
+    return password.length > SIX_LENGTH_PASSWORDS;
   }
 
   validatorEmail(email) {
@@ -49,7 +58,7 @@ class LoginForm extends Component {
 
   render() {
     const { redirectWallet } = this.state;
-    if (redirectWallet) return <Redirect to="/carteira" />;
+    if (redirectWallet) return <Redirect to="/comidas" />;
     return (
       <div>
         <form>
@@ -73,8 +82,9 @@ class LoginForm extends Component {
           </label>
           <button
             type="button"
-            value="Enviar"
+            value="Entrar"
             onClick={ this.handleSubmit }
+            data-testid="login-submit-btn"
             disabled={ this.validatorDataLog() }
           >
             Entrar
@@ -86,11 +96,11 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+  setLoginState: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (email) => dispatch(loginUserAction(email)),
+  setLoginState: (email) => dispatch(loginUserAction(email)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);

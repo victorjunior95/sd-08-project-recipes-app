@@ -9,8 +9,6 @@ import {
   setUser as setUserLocalStorage,
 } from '../services';
 
-const SIX_LENGTH_PASSWORDS = 6;
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -86,7 +84,6 @@ class LoginForm extends Component {
             value="Enviar"
             data-testid="login-submit-btn"
             onClick={ this.handleSubmit }
-            data-testid="login-submit-btn"
             disabled={ this.validatorDataLog() }
           >
             Entrar

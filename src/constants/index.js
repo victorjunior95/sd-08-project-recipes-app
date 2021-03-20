@@ -11,7 +11,7 @@ export const DATA_TEST_ID_LOGING_BTN = 'login-submit-btn';
 export const MIN_PASSWORD_LENGTH = 7;
 export const VALID_EMAIL = 'alguem@email.com';
 export const VALID_EMAIL_REGEX = /\S+@\S+\.\S+/;
-export const VALID_PASSWORD = '123456';
+export const VALID_PASSWORD = '1234567';
 // const regex =  new RegExp('[a-zA-Z0-9.]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$', 'gm');
 export const login = {
   MIN_PASSWORD_LENGTH,
@@ -21,4 +21,10 @@ export const login = {
   DATA_TEST_ID_EMAIL,
   DATA_TEST_ID_PASSWORD,
   DATA_TEST_ID_LOGING_BTN,
+};
+
+export const header = {
+  COMIDAS: 'Comidas',
+  EXPLORAR: 'Explorar',
+  EXPLORAR_COMIDAS: 'Explorar Comidas',
 };

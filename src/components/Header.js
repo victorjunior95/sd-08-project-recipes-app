@@ -4,8 +4,12 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
+  const searchItensInitial = {
+    input: '',
+    radio: 'ingredientes',
+  };
   const [searchBar, setSearchBar] = useState(false);
-
+  const [searchItens, setSearchItens] = useState(searchItensInitial);
   function handleClick() {
     setSearchBar(!searchBar);
   }
@@ -40,24 +44,60 @@ function Header() {
                 type="text"
                 placeholder="Buscar Receitas"
                 data-testid="search-input"
-                
+                value={ searchItens.input }
+                onChange={ (e) => setSearchItens({
+                  ...searchItens,
+                  input: e.target.value,
+                }) }
               />
             </Form.Group>
           </Form.Row>
-          <Form.Row >
-            <Form.Group controlId="radioPrefer" className="m-1 lh-1">
-              <Form.Check inline name="radioPrefer" id="ingredientes">
-                <Form.Check.Input type="radio" />
-                <Form.Check.Label>Ingredientes</Form.Check.Label>
-              </Form.Check>
-              <Form.Check inline name="radioPrefer" id="nome">
-                <Form.Check.Input type="radio" />
-                <Form.Check.Label>Nome</Form.Check.Label>
-              </Form.Check>
-              <Form.Check inline name="radioPrefer" id="primeira letr">
-                <Form.Check.Input type="radio" />
-                <Form.Check.Label>Primeira letra</Form.Check.Label>
-              </Form.Check>
+          <Form.Row>
+            <Form.Group
+              controlId="radioPrefer"
+              className="m-1 lh-1 d-flex align-items-center"
+              value={ searchItens.radio }
+              onChange={ (e) => setSearchItens({ ...searchItens, radio: e.target.id }) }
+            >
+              <Form.Check.Label
+                htmlFor="ingredientes"
+                className="m-1 d-flex align-items-center"
+              >
+                <Form.Check.Input
+                  inline
+                  name="radioPrefer"
+                  id="ingredientes"
+                  data-testid="ingredient-search-radio"
+                  checked={ searchItens.radio === 'ingredientes' }
+                  className="m-1"
+                />
+                Ingredientes
+              </Form.Check.Label>
+              <Form.Check.Label htmlFor="nome" className="m-1 d-flex align-items-center">
+                <Form.Check.Input
+                  inline
+                  name="radioPrefer"
+                  id="nome"
+                  data-testid="name-search-radio"
+                  checked={ searchItens.radio === 'nome' }
+                  className="m-1"
+                />
+                Nome
+              </Form.Check.Label>
+              <Form.Check.Label
+                htmlFor="primeira letra"
+                className="m-1 d-flex align-items-center"
+              >
+                <Form.Check.Input
+                  inline
+                  name="radioPrefer"
+                  id="primeira letra"
+                  data-testid="first-letter-search-radio"
+                  checked={ searchItens.radio === 'primeira letra' }
+                  className="m-1"
+                />
+                Primeira letra
+              </Form.Check.Label>
             </Form.Group>
           </Form.Row>
           <Button

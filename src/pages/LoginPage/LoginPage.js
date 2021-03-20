@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { validateLogin, saveOnStorage } from '../../services/utils';
 import { redirectLogin } from '../../redux/actions';
 
+import './LoginPage.css';
+import quatorzeBis from '../../images/14Bis.png';
+
 function enterButtonActions(email, dispatch) {
   const testToken = 1;
   const user = {
@@ -26,26 +29,29 @@ export default function LoginPage() {
     return <Redirect to="/comidas" />;
   }
   return (
-    <div>
-      <input
-        data-testid="email-input"
-        type="email"
-        value={ emailInput }
-        onChange={ ({ target: { value } }) => setEmailInput(value) }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        onChange={ ({ target: { value } }) => setPassLength(value.length) }
-      />
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ validateLogin(emailInput, passLength) }
-        onClick={ () => enterButtonActions(emailInput, dispatch) }
-      >
-        Entrar
-      </button>
+    <div className="login-page">
+      <form>
+        <div className="logo"><img src={ quatorzeBis } alt="Logo Quatorze Bis" /></div>
+        <input
+          data-testid="email-input"
+          type="email"
+          value={ emailInput }
+          onChange={ ({ target: { value } }) => setEmailInput(value) }
+        />
+        <input
+          data-testid="password-input"
+          type="password"
+          onChange={ ({ target: { value } }) => setPassLength(value.length) }
+        />
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ validateLogin(emailInput, passLength) }
+          onClick={ () => enterButtonActions(emailInput, dispatch) }
+        >
+          Entrar
+        </button>
+      </form>
     </div>
   );
 }

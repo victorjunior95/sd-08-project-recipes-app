@@ -7,7 +7,7 @@ import {
   setMealsToken as setMealsTokenLocalStorage,
   setCocktailsToken as setCocktailsTokenLocalStorage,
   setUser as setUserLocalStorage,
-} from '../service';
+} from '../services';
 
 const SIX_LENGTH_PASSWORDS = 6;
 

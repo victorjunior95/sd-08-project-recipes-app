@@ -59,5 +59,3 @@ class Routes extends Component {
 }
 
 export default Routes;
-
-// Rotas de exemplos

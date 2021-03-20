@@ -26,7 +26,7 @@ function Header() {
         >
           <img src={ profileIcon } className="img-fluid" alt="Profile Icon" />
         </NavLink>
-        <span data-testid="page-title">Comidas</span>
+        <h2 data-testid="page-title" className="m-0">Comidas</h2>
         <NavLink
           href="#"
           onClick={ handleClick }
@@ -37,11 +37,12 @@ function Header() {
         </NavLink>
       </Navbar>
       { searchBar ? (
-        <Form className="fs-6 border">
-          <Form.Row>
-            <Form.Group controlId="input-search" className="m-1">
+        <Form className="border bg-light d-flex flex-column align-items-center w-100">
+          <Form.Row className="w-100">
+            <Form.Group controlId="input-search" className="w-100 p-1">
               <Form.Control
                 type="text"
+                className="w-100"
                 placeholder="Buscar Receitas"
                 data-testid="search-input"
                 value={ searchItens.input }
@@ -101,10 +102,10 @@ function Header() {
             </Form.Group>
           </Form.Row>
           <Button
-            variant="primary"
+            variant="secondary"
             type="button"
             data-testid="exec-search-btn"
-            className="m-1"
+            className="m-1 w-50"
           >
             Buscar
           </Button>

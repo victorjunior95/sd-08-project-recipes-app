@@ -2,10 +2,12 @@ import React from 'react';
 import Header from '../components/Header';
 
 const Comida = () => (
-  <h1>
+  <section className="w-100">
     <Header />
-    Página comida
-  </h1>
+    <h1>
+      Página comida
+    </h1>
+  </section>
 );
 
 export default Comida;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
+import { Button, Form } from 'react-bootstrap';
 import { setLocalStorage } from '../../services/localStorage';
+import './login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -26,34 +28,43 @@ export default function Login() {
 
   if (redirect) return <Redirect to="/comidas" />;
   return (
-    <section>
-      <label htmlFor="email-input">
-        {console.log(validate())}
-        <input
-          type="text"
+    <Form>
+      <Form.Group>
+        <Form.Label controlId="email-input">
+          Email
+        </Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Digite seu Email"
           value={ email }
           data-testid="email-input"
-          placeholder="Email"
           onChange={ (e) => setEmail(e.target.value) }
         />
-      </label>
-      <label htmlFor="password-input">
-        <input
+      </Form.Group>
+      <Form.Group>
+        <Form.Label controlId="password-input">
+          Senha
+        </Form.Label>
+        <Form.Control
           type="password"
-          data-testid="password-input"
-          placeholder="senha"
+          placeholder="Digite sua senha"
           value={ password }
+          data-testid="password-input"
           onChange={ (e) => setPassword(e.target.value) }
         />
-      </label>
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        onClick={ changeStorage }
-        disabled={ validate() }
-      >
-        Entrar
-      </button>
-    </section>
+      </Form.Group>
+      <div className="col text-center">
+        <Button
+          className="justify-content-center"
+          variant="success"
+          data-testid="login-submit-btn"
+          onClick={ changeStorage }
+          disabled={ validate() }
+          size="lg"
+        >
+          Entrar
+        </Button>
+      </div>
+    </Form>
   );
 }

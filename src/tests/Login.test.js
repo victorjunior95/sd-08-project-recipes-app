@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { fireEvent, screen } from '@testing-library/react';
 import App from '../App';
 
-import { renderWithRouterAndStore } from '../utils';
+import renderWithRouterAndStore from '../utils/renderWithRouterAndStore';
 
 const testEmail = 'email@email.com';
 const emailInput = 'email-input';

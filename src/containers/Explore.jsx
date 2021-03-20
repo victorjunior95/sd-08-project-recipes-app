@@ -5,7 +5,7 @@ function Explore() {
   return (
     <div className="explore-container">
       <components.Header />
-      Explorar
+      <p>Explorar</p>
       <components.Footer />
     </div>
   );

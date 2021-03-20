@@ -63,8 +63,10 @@
   background-color: #eee;
   border: 2px inset #eee;
   color: black;
-  margin: auto;
-  min-height: 35px;
   outline: none;
-  width: 60%;
+}
+
+.login-page button:disabled {
+  background-color: #ccc;
+  border: none;
 }

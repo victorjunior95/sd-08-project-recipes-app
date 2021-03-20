@@ -10,6 +10,6 @@ export function loadFromStorage(key) {
 
 export function validateLogin(email, passLength) {
   const regexEmail = /^[^@\s]+@[^@\s.]+\.[^@.\s]+$/i;
-  const minPassLength = 6;
+  const minPassLength = 7;
   return !(passLength >= minPassLength && email.match(regexEmail));
 }

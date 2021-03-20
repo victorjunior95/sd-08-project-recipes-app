@@ -36,8 +36,7 @@ const Login = () => {
       localStorage.setItem('cocktailsToken', JSON.stringify(1));
       return history.push('/comidas');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [redirect, history]);
+  }, [redirect, history, email]);
   return (
     <div data-testid="login">
       <div className="meals">

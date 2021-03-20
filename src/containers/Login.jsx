@@ -52,6 +52,7 @@ const Login = () => {
           <legend className="login-title">Login</legend>
           <label htmlFor="email">
             <input
+              className="form-control"
               type="text"
               name="email"
               id="email"
@@ -63,7 +64,8 @@ const Login = () => {
           </label>
           <label htmlFor="password">
             <input
-              type="text"
+              className="form-control"
+              type="password"
               name="password"
               id="password"
               value={ password }
@@ -74,6 +76,7 @@ const Login = () => {
           </label>
         </form>
         <button
+          className="btn btn-primary"
           type="button"
           disabled={ !(validEmail && validPassword) }
           data-testid="login-submit-btn"

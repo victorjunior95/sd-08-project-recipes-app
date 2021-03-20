@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
 
+const loginImg = 'https://firebasestorage.googleapis.com/v0/b/imagenator-ccdab.appspot.com/o/loginImg.png?alt=media&token=ad2a1328-9964-42eb-86a8-514c0e3811f5';
+
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
@@ -39,10 +41,19 @@ function Login() {
     <>
       { redirect && <Redirect to="/comidas" /> }
       <div className="login-container">
-        <form onSubmit={ onSubmit }>
-          <label htmlFor="email">
+        <div className="login-img-container">
+          <img className="login-img-logo" src={ loginImg } alt="logo" />
+          <div className="center-items-div">
+            <span>
+              TastyFood´s
+            </span>
+          </div>
+        </div>
+        <form onSubmit={ onSubmit } className="form-box">
+          <label htmlFor="email" className="input-label">
             Digite seu email:
             <input
+              className="login-input"
               id="email"
               name="email"
               value={ user.email }
@@ -53,9 +64,10 @@ function Login() {
               required
             />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="password" className="input-label">
             Digite sua Senha:
             <input
+              className="login-input"
               id="password"
               name="password"
               value={ user.password }
@@ -67,6 +79,7 @@ function Login() {
             />
           </label>
           <button
+            className="input-login-button"
             data-testid="login-submit-btn"
             type="submit"
             disabled={ isDisabled }

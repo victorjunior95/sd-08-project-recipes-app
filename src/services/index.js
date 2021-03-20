@@ -1,6 +1,6 @@
 export {
-  setMealsToken,
-  setCocktailsToken,
+  setMealsTokenLocalStorage,
+  setCocktailsTokenLocalStorage,
   setUserLocalStorage,
   setDoneRecipes,
   setFavoriteRecipe,

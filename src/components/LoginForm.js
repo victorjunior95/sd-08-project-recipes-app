@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUserAction } from '../store/actions';
 import {
-  setMealsToken as setMealsTokenLocalStorage,
-  setCocktailsToken as setCocktailsTokenLocalStorage,
+  setMealsTokenLocalStorage,
+  setCocktailsTokenLocalStorage,
   setUserLocalStorage,
 } from '../services';
 

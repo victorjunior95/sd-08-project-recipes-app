@@ -19,6 +19,9 @@ class LoginForm extends Component {
   handleSubmit() {
     const { loginUser } = this.props;
     const { email } = this.state;
+    localStorage.setItem('cocktailsToken', '1')
+    localStorage.setItem('mealsToken', '1')
+    localStorage.setItem('user: email', email)
     loginUser(email);
     this.setState({
       redirectWallet: true,
@@ -49,7 +52,7 @@ class LoginForm extends Component {
 
   render() {
     const { redirectWallet } = this.state;
-    if (redirectWallet) return <Redirect to="/carteira" />;
+    if (redirectWallet) return <Redirect to="/comidas" />;
     return (
       <div>
         <form>
@@ -74,6 +77,7 @@ class LoginForm extends Component {
           <button
             type="button"
             value="Enviar"
+            data-testid="login-submit-btn"
             onClick={ this.handleSubmit }
             disabled={ this.validatorDataLog() }
           >

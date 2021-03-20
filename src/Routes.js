@@ -9,9 +9,14 @@ const Routes = () => (
       <Route exact path="/comidas" component={ containers.MainFood } />
       <Route exact path="/bebidas" component={ containers.Drinks } />
       <Route exact path="/explorar" component={ containers.Explore } />
-      <Route exact path="/Profile" component={ containers.Profile } />
+      <Route exact path="/profile" component={ containers.Profile } />
       <Route exact path="/receitas-feitas" component={ containers.DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ containers.FavoriteRecipes } />
+      <Route exact path="/explorar/comidas" component={ containers.ExploreFoods } />
+      <Route exact path="/explorar/bebidas" component={ containers.ExploreDrinks } />
+      <Route exact path="/explorar/comidas/ingredientes" component={ containers.ExploreFoodsByIngredients } />
+      <Route exact path="/explorar/bebidas/ingredientes" component={ containers.ExploreDrinksByIngredients } />
+      <Route exact path="/explorar/comidas/area" component={ containers.Explore } />
     </Switch>
   </BrowserRouter>
 );

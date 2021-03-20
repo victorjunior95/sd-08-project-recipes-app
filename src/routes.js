@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login/Login';
 import Explorer from './pages/Explorer/Explorer';
 import ExplorerByArea from './pages/ExplorerByArea/ExplorerByArea';
 import ExplorerByIngridients from './pages/ExplorerByIngridients/ExplorerByIngridients';
@@ -10,6 +11,9 @@ import RecipesFavDone from './pages/RecipesFavDone/RecipesFavDone';
 
 const Routes = () => (
   <Switch>
+    <Route exact path="/">
+      <Login />
+    </Route>
     <Route exact path="/comidas">
       <Home title="Comidas" />
     </Route>

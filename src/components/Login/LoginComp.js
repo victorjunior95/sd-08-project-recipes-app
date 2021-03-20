@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import LoginContext from '../ContextApi/createContext';
+import LoginContext from '../../contextApi/createContext';
 
 function LoginComponent() {
   const { setEmail,

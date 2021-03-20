@@ -1,0 +1,10 @@
+.loginContainer {
+  align-items: center;
+  background-color: var(--login-background);
+  display: flex;
+  flex-direction: center;
+  height: 640px;
+  justify-content: center;
+  padding: 8px;
+  width: 100%;
+}

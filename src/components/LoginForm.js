@@ -9,6 +9,8 @@ import {
   setUserLocalStorage,
 } from '../services';
 
+import '../styles/components/LoginForm.css';
+
 const MIN_LENGTH_PASSWORD = 6;
 
 class LoginForm extends Component {
@@ -60,38 +62,36 @@ class LoginForm extends Component {
     const { redirectFoods, email, password } = this.state;
     if (redirectFoods) return <Redirect to="/comidas" />;
     return (
-      <div>
-        <form>
-          <label htmlFor="email">
-            E-mail do Usuário:
-            <input
-              value={ email }
-              type="email"
-              name="email"
-              data-testid="email-input"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="password">
-            Senha:
-            <input
-              value={ password }
-              type="password"
-              name="password"
-              data-testid="password-input"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="login-submit-btn"
-            onClick={ this.handleSubmit }
-            disabled={ this.validatorDataLog() }
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
+      <form className="loginFormContainer">
+        <label htmlFor="email">
+          <input
+            placeholder="User email"
+            value={ email }
+            type="email"
+            name="email"
+            data-testid="email-input"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="password">
+          <input
+            placeholder="Password"
+            value={ password }
+            type="password"
+            name="password"
+            data-testid="password-input"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ this.handleSubmit }
+          disabled={ this.validatorDataLog() }
+        >
+          Sign in
+        </button>
+      </form>
     );
   }
 }

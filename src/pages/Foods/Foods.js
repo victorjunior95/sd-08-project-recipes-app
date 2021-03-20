@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import Header from '../../component/Header';
 import Context from '../../context/Context';
 import getApi from '../../services/apiRequests';
@@ -6,9 +7,9 @@ import getApi from '../../services/apiRequests';
 export default function Foods() {
   const { searchParams } = useContext(Context);
   const [meals, setMeals] = useState([]);
+  const history = useHistory();
 
   const { searchInput, selectedParameter } = searchParams;
-  console.log(meals);
 
   useEffect(() => {
     switch (selectedParameter) {
@@ -28,6 +29,12 @@ export default function Foods() {
       break;
     }
   }, [searchInput, selectedParameter]);
+
+  useEffect(() => {
+    if (meals.length === 1) {
+      history.push(`/comidas/${meals[0].idMeal}`);
+    }
+  }, [history, meals]);
 
   return (
     <Header pageTitle="Comidas" />

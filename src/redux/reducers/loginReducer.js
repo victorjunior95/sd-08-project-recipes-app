@@ -10,7 +10,7 @@ export default function loginReducer(state = INITIAL_STATE, { type }) {
     return {
       ...state,
       loginRedirect: !state.loginRedirect,
-    } 
+    };
   default:
     return state;
   }

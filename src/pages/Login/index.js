@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Container } from 'react-bootstrap';
 import { setLocalStorage } from '../../services/localStorage';
 import './login.css';
 
@@ -28,42 +28,44 @@ export default function Login() {
 
   if (redirect) return <Redirect to="/comidas" />;
   return (
-    <Form>
-      <Form.Group controlId="email-input">
-        <Form.Label>
-          Email
-        </Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Digite seu Email"
-          value={ email }
-          data-testid="email-input"
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-      </Form.Group>
-      <Form.Group controlId="password-input">
-        <Form.Label>
-          Senha
-        </Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          data-testid="password-input"
-          onChange={ (e) => setPassword(e.target.value) }
-        />
-      </Form.Group>
-      <div className="col text-center">
-        <Button
-          variant="success"
-          data-testid="login-submit-btn"
-          onClick={ changeStorage }
-          disabled={ validate() }
-          size="block"
-        >
-          Entrar
-        </Button>
-      </div>
-    </Form>
+    <Container fluid className="login-form">
+      <Form>
+        <Form.Group controlId="email-input">
+          <Form.Label>
+            Email
+          </Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Digite seu Email"
+            value={ email }
+            data-testid="email-input"
+            onChange={ (e) => setEmail(e.target.value) }
+          />
+        </Form.Group>
+        <Form.Group controlId="password-input">
+          <Form.Label>
+            Senha
+          </Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Digite sua senha"
+            value={ password }
+            data-testid="password-input"
+            onChange={ (e) => setPassword(e.target.value) }
+          />
+        </Form.Group>
+        <div className="col text-center">
+          <Button
+            variant="success"
+            data-testid="login-submit-btn"
+            onClick={ changeStorage }
+            disabled={ validate() }
+            size="block"
+          >
+            Entrar
+          </Button>
+        </div>
+      </Form>
+    </Container>
   );
 }

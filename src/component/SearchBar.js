@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
+import Context from '../context/Context';
 
 export default function SearchBar() {
-  const [searchParamenters, setSearchParameters] = useState({
+  const { setSearchParams } = useContext(Context);
+  const [filters, setFilters] = useState({
     searchInput: '',
     selectedParameter: '',
   });
 
-  const { searchInput, selectedParameter } = searchParamenters;
-
   const handleChange = ({ target }) => {
-    setSearchParameters({
-      ...searchParamenters,
+    setFilters({
+      ...filters,
       [target.name]: target.value,
     });
+  };
+
+  const startSearch = () => {
+    if (filters.selectedParameter === 'first-letter' && filters.searchInput.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    setSearchParams(filters);
   };
 
   return (
@@ -22,7 +28,7 @@ export default function SearchBar() {
         type="text"
         data-testid="search-input"
         name="searchInput"
-        value={ searchInput }
+        value={ filters.searchInput }
         onChange={ handleChange }
       />
       <label htmlFor="ingredient">
@@ -58,7 +64,9 @@ export default function SearchBar() {
         />
         Primeira letra
       </label>
-      <button type="button" data-testid="exec-search-btn">Buscar</button>
+      <button type="button" data-testid="exec-search-btn" onClick={ startSearch }>
+        Buscar
+      </button>
     </div>
   );
 }

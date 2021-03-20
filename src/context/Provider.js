@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
 export default function Provider({ children }) {
-  const context = {};
+  const [searchParams, setSearchParams] = useState({
+    searchInput: '',
+    selectedParameter: '',
+  });
 
-  return (
-    <Context.Provider value={ context }>{children}</Context.Provider>
-  );
+  const context = { searchParams, setSearchParams };
+
+  return <Context.Provider value={ context }>{children}</Context.Provider>;
 }
 
 Provider.propTypes = {

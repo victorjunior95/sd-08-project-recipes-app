@@ -9,13 +9,15 @@ import {
   setUser as setUserLocalStorage,
 } from '../services';
 
+const MIN_LENGTH_PASSWORD = 6;
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      redirectWallet: false,
+      redirectFoods: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +31,7 @@ class LoginForm extends Component {
     setMealsTokenLocalStorage();
     setCocktailsTokenLocalStorage();
     this.setState({
-      redirectWallet: true,
+      redirectFoods: true,
     });
   }
 
@@ -40,7 +42,6 @@ class LoginForm extends Component {
   }
 
   validatorPassword(password) {
-    const MIN_LENGTH_PASSWORD = 6;
     return password.length > MIN_LENGTH_PASSWORD;
   }
 
@@ -56,14 +57,15 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { redirectWallet } = this.state;
-    if (redirectWallet) return <Redirect to="/comidas" />;
+    const { redirectFoods, email, password } = this.state;
+    if (redirectFoods) return <Redirect to="/comidas" />;
     return (
       <div>
         <form>
           <label htmlFor="email">
             E-mail do Usuário:
             <input
+              value={ email }
               type="email"
               name="email"
               data-testid="email-input"
@@ -73,6 +75,7 @@ class LoginForm extends Component {
           <label htmlFor="password">
             Senha:
             <input
+              value={ password }
               type="password"
               name="password"
               data-testid="password-input"
@@ -81,7 +84,6 @@ class LoginForm extends Component {
           </label>
           <button
             type="button"
-            value="Enviar"
             data-testid="login-submit-btn"
             onClick={ this.handleSubmit }
             disabled={ this.validatorDataLog() }

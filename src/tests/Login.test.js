@@ -12,7 +12,6 @@ const loginSubmitBtn = 'login-submit-btn';
 
 const mealsTokenMock = { mealsToken: '1' };
 const cocktailsTokenMock = { cocktailsToken: '1' };
-const userEmailMock = { user: { email: testEmail } };
 
 afterEach(() => {
   window.localStorage.removeItem('mealsToken');
@@ -81,13 +80,15 @@ describe('Página inicial de login', () => {
     const submit = screen.getByTestId(loginSubmitBtn);
 
     userEvent.type(email, testEmail);
-    userEvent.type(password, '123456');
+    userEvent.type(password, '1234567');
     fireEvent.click(submit);
+
+    const userEmail = localStorage.getItem('user');
 
     expect(window
       .localStorage.getItem('cocktailsToken')).toEqual(cocktailsTokenMock.cocktailsToken);
     expect(window.localStorage.getItem('mealsToken')).toEqual(mealsTokenMock.mealsToken);
-    expect(window.localStorage.getItem('user: email')).toEqual(userEmailMock.user.email);
+    expect(window.localStorage.getItem('user')).toEqual(userEmail);
   });
 
   test('Redirecione o usuário para \'/comidas\' após a validação do login', () => {
@@ -97,7 +98,7 @@ describe('Página inicial de login', () => {
     const submit = screen.getByTestId(loginSubmitBtn);
 
     userEvent.type(email, testEmail);
-    userEvent.type(password, '123456');
+    userEvent.type(password, '1234567');
     fireEvent.click(submit);
 
     expect(history.location.pathname).toBe('/comidas');

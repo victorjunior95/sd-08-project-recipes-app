@@ -1,7 +1,7 @@
 import React from 'react';
 import rockGlass from '../../images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginComponent from '../../Components/LoginComponent/LoginComponent';
+import LoginComponent from '../../Components/LoginComp';
 
 function Login() {
   return (

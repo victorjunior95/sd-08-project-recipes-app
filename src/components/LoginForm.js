@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUserAction } from '../store/actions/loginActions';
+import { loginUserAction } from '../store/actions';
+import {
+  setMealsToken as setMealsTokenLocalStorage,
+  setCocktailsToken as setCocktailsTokenLocalStorage,
+  setUser as setUserLocalStorage,
+} from '../services';
+
+const SIX_LENGTH_PASSWORDS = 6;
 
 class LoginForm extends Component {
   constructor(props) {
@@ -17,14 +24,12 @@ class LoginForm extends Component {
   }
 
   handleSubmit() {
-    const { loginUser } = this.props;
+    const { setLoginState } = this.props;
     const { email } = this.state;
-    localStorage.setItem('cocktailsToken', '1');
-    localStorage.setItem('mealsToken', '1');
-    localStorage.setItem('user', JSON.stringify({
-      email,
-    }));
-    loginUser(email);
+    setLoginState(email);
+    setUserLocalStorage(email);
+    setMealsTokenLocalStorage();
+    setCocktailsTokenLocalStorage();
     this.setState({
       redirectWallet: true,
     });
@@ -81,6 +86,7 @@ class LoginForm extends Component {
             value="Enviar"
             data-testid="login-submit-btn"
             onClick={ this.handleSubmit }
+            data-testid="login-submit-btn"
             disabled={ this.validatorDataLog() }
           >
             Entrar
@@ -92,11 +98,11 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+  setLoginState: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (email) => dispatch(loginUserAction(email)),
+  setLoginState: (email) => dispatch(loginUserAction(email)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);

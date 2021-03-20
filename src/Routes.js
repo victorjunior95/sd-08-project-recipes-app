@@ -6,6 +6,7 @@ const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={ containers.Login } />
+      <Route exact path="/comidas" component={ containers.Home } />
     </Switch>
   </BrowserRouter>
 );

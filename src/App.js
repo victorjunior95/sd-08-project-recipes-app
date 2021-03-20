@@ -9,7 +9,6 @@ function App() {
     <div>
       <Provider>
         <Login />
-
       </Provider>
     </div>
   );

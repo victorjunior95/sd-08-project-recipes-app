@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={LoginPage}/>
+      <Route exact path="/" component={ LoginPage } />
     </Switch>
   );
 }

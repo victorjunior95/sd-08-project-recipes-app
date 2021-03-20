@@ -1,24 +1,27 @@
 import React from 'react';
+import { Navbar, NavLink } from 'react-bootstrap';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   return (
-    <header className="d-flex bg-primary justify-content-between align-items-center">
-      <button
-        type="button"
+    <Navbar className="d-flex bg-warning justify-content-between align-items-center">
+      <NavLink
+        href="/perfil"
         data-testids="profile-top-btn"
-        className="btn btn-primary border-0"
+        className="btn btn-warning border-0"
       >
-        <i className="bi-person-fill" style={ { fontSize: '2rem' } } />
-      </button>
+        <img src={ profileIcon } className="img-fluid" alt="Profile Icon" />
+      </NavLink>
       <span data-testids="page-title">pageTitle</span>
-      <button
-        type="button"
-        data-testids="search-top-btn"
-        className="btn btn-primary border-0"
+      <NavLink
+        href="/explorar"
+        data-testids="profile-top-btn"
+        className="btn btn-warning border-0"
       >
-        <i className="bi-search" style={ { fontSize: '2rem' } } />
-      </button>
-    </header>
+        <img src={ searchIcon } className="img-fluid" alt="Search Icon" />
+      </NavLink>
+    </Navbar>
   );
 }
 

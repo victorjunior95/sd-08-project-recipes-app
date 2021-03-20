@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import * as core from '../core/index';
+import fetchMeals from '../services/mealsAPI';
 import rockGlass from '../images/rockGlass.svg';
+import RecipiesContext from '../core/RecipiesContext';
 
 const Login = () => {
   const history = useHistory();
@@ -10,15 +12,22 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const { data, setUser, setData } = useContext(RecipiesContext);
+
+  useEffect(() => {
+    fetchMeals()
+      .then((response) => response.json()).then((result) => setData(result.meals));
+  }, []);
 
   useEffect(() => {
     const isValidEmail = core.validateEmail(email);
     console.log('validEmail', isValidEmail);
     if (isValidEmail) {
+      setUser(email);
       return setvalidEmail(true);
     }
     return () => setvalidEmail(false);
-  }, [email, setvalidEmail]);
+  }, [email, setvalidEmail, setUser]);
 
   useEffect(() => {
     const isValidPassword = core.validatePassword(password);
@@ -37,10 +46,12 @@ const Login = () => {
       return history.push('/comidas');
     }
   }, [redirect, history, email]);
+  const TRYBE = 'TRYBE';
+  console.log(data);
   return (
     <div data-testid="login">
       <div className="meals">
-        <span className="logo">TRYBE</span>
+        <span className="logo">{TRYBE}</span>
         <object
           className="rocksGlass"
           type="image/svg+xml"

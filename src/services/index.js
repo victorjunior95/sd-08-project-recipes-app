@@ -1,7 +1,7 @@
 export {
   setMealsToken,
   setCocktailsToken,
-  setUser,
+  setUserLocalStorage,
   setDoneRecipes,
   setFavoriteRecipe,
   setInProgressRecipe,
@@ -11,9 +11,7 @@ export {
   fetchFoodsByCategories,
   fetchFoodsByRegion,
   fetchFoodsByIngredients,
-} from './foodsApi';
-
-export {
   fetchDrinksByCategories,
   fetchDrinksByIngredients,
-} from './drinkApi';
+  default as fetchData,
+} from './fetchData';

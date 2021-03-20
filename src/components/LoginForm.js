@@ -21,7 +21,9 @@ class LoginForm extends Component {
     const { email } = this.state;
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('mealsToken', '1');
-    localStorage.setItem('user: email', email);
+    localStorage.setItem('user', JSON.stringify({
+      email,
+    }));
     loginUser(email);
     this.setState({
       redirectWallet: true,
@@ -36,7 +38,7 @@ class LoginForm extends Component {
 
   validatorPassword(password) {
     const MIN_LENGTH_PASSWORD = 6;
-    return password.length >= MIN_LENGTH_PASSWORD;
+    return password.length > MIN_LENGTH_PASSWORD;
   }
 
   validatorEmail(email) {

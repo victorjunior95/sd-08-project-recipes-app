@@ -6,7 +6,7 @@ import Provider from './ContextApi/loginPassContext';
 
 function App() {
   return (
-    <div >
+    <div>
       <Provider>
         <Login />
 

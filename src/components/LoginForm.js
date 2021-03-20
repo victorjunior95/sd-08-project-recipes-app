@@ -19,9 +19,9 @@ class LoginForm extends Component {
   handleSubmit() {
     const { loginUser } = this.props;
     const { email } = this.state;
-    localStorage.setItem('cocktailsToken', '1')
-    localStorage.setItem('mealsToken', '1')
-    localStorage.setItem('user: email', email)
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('user: email', email);
     loginUser(email);
     this.setState({
       redirectWallet: true,

@@ -5,6 +5,7 @@ import RecipiesContext from './RecipiesContext';
 const Provider = ({ children }) => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState('');
+  // const [food, setfood] = useState(initialState);
 
   const context = {
     data,

@@ -7,7 +7,9 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={ containers.Login } />
       <Route exact path="/comidas" component={ containers.MainFood } />
+      <Route exact path="/comidas/:id" component={ containers.FoodDetails } />
       <Route exact path="/bebidas" component={ containers.Drinks } />
+      <Route exact path="/bebidas/:id" component={ containers.DrinkDetails } />
       <Route exact path="/explorar" component={ containers.Explore } />
       <Route exact path="/profile" component={ containers.Profile } />
       <Route exact path="/receitas-feitas" component={ containers.DoneRecipes } />

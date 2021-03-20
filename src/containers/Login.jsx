@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import * as core from '../core/index';
-import fetchMeals from '../services/mealsAPI';
+import { fetchMeals } from '../services/mealsAPI';
 import rockGlass from '../images/rockGlass.svg';
 import RecipiesContext from '../core/RecipiesContext';
 

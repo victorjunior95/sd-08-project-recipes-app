@@ -12,22 +12,22 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  console.log(RecipiesContext);
-  const { setData } = useContext(RecipiesContext);
+  const { data, setUser, setData } = useContext(RecipiesContext);
 
   useEffect(() => {
     fetchMeals()
-      .then((response) => response.json()).then((result) => setData(result));
+      .then((response) => response.json()).then((result) => setData(result.meals));
   }, []);
 
   useEffect(() => {
     const isValidEmail = core.validateEmail(email);
     console.log('validEmail', isValidEmail);
     if (isValidEmail) {
+      setUser(email);
       return setvalidEmail(true);
     }
     return () => setvalidEmail(false);
-  }, [email, setvalidEmail]);
+  }, [email, setvalidEmail, setUser]);
 
   useEffect(() => {
     const isValidPassword = core.validatePassword(password);
@@ -47,6 +47,7 @@ const Login = () => {
     }
   }, [redirect, history, email]);
   const TRYBE = 'TRYBE';
+  console.log(data);
   return (
     <div data-testid="login">
       <div className="meals">

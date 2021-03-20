@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const numberLength = 5;
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   function validEmail(typedEmail) {
     const regex = /\S+@\S+\.\S+/;
@@ -31,6 +33,7 @@ function Login() {
   function handleClick() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    history.push('/comidas');
   }
 
   return (

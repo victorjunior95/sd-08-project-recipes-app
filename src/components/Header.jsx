@@ -7,14 +7,18 @@ function Header() {
   const { pathname } = useLocation();
 
   const changeTitleByPathName = () => {
+    console.log(pathname);
     if (pathname.includes('/comidas')) {
-      return 'comidas';
+      return 'Comidas';
     }
     if (pathname.includes('/bebidas')) {
-      return 'bebidas';
+      return 'Bebidas';
     }
     if (pathname.includes('/profile')) {
       return 'Perfil';
+    }
+    if (pathname.includes('/explorar')) {
+      return 'Explorar';
     }
     if (pathname.includes('/receitas-feitas')) {
       return 'Receitas Feitas';
@@ -23,7 +27,19 @@ function Header() {
       return 'Receitas Favoritas';
     }
     if (pathname.includes('/explorar/comidas')) {
-      return 'explorar comidas';
+      return 'Explorar Comidas';
+    }
+    if (pathname.includes('/explorar/bebidas')) {
+      return 'Explorar Bebidas';
+    }
+    if (pathname.includes('/explorar/bebidas/ingredientes')) {
+      return 'Explorar Ingredientes';
+    }
+    if (pathname.includes('/explorar/comidas/ingredientes')) {
+      return 'Explorar Ingredientes';
+    }
+    if (pathname.includes('/explorar/comidas/area')) {
+      return 'Explorar Origem';
     }
   };
 

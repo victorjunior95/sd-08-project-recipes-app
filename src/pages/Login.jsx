@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 // Da um auto fix com o eslint, n to conseguindo aqui, Att. Anti-Marcela thank you
 // Me ame menos por favor <3

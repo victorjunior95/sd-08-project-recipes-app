@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import './Login.css';
 
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -37,7 +38,7 @@ function Login() {
   return (
     <>
       { redirect && <Redirect to="/comidas" /> }
-      <div>
+      <div className="login-container">
         <form onSubmit={ onSubmit }>
           <label htmlFor="email">
             Digite seu email:

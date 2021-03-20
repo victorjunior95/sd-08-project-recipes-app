@@ -4,9 +4,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUserAction } from '../store/actions';
 import {
-  setMealsToken as setMealsTokenLocalStorage,
-  setCocktailsToken as setCocktailsTokenLocalStorage,
-  setUser as setUserLocalStorage,
+  setMealsTokenLocalStorage,
+  setCocktailsTokenLocalStorage,
+  setUserLocalStorage,
 } from '../services';
 
 const MIN_LENGTH_PASSWORD = 6;
@@ -27,6 +27,7 @@ class LoginForm extends Component {
     const { setLoginState } = this.props;
     const { email } = this.state;
     setLoginState(email);
+
     setUserLocalStorage(email);
     setMealsTokenLocalStorage();
     setCocktailsTokenLocalStorage();
@@ -46,13 +47,12 @@ class LoginForm extends Component {
   }
 
   validatorEmail(email) {
-    return !!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email));
+    return !!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
   }
 
   validatorDataLog() {
     const { email, password } = this.state;
-    if (this.validatorEmail(email)
-     && this.validatorPassword(password)) return false;
+    if (this.validatorEmail(email) && this.validatorPassword(password)) return false;
     return true;
   }
 

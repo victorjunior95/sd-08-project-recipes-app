@@ -25,7 +25,7 @@ const Routes = () => (
         component={ containers.DrinkDetainsInProgress }
       />
       <Route exact path="/explorar" component={ containers.Explore } />
-      <Route exact path="/profile" component={ containers.Profile } />
+      <Route exact path="/perfil" component={ containers.Profile } />
       <Route exact path="/receitas-feitas" component={ containers.DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ containers.FavoriteRecipes } />
       <Route exact path="/explorar/comidas" component={ containers.ExploreFoods } />
@@ -40,7 +40,16 @@ const Routes = () => (
         path="/explorar/bebidas/ingredientes"
         component={ containers.ExploreDrinksByIngredients }
       />
-      <Route exact path="/explorar/comidas/area" component={ containers.Explore } />
+      <Route
+        exact
+        path="/explorar/bebidas/area"
+        component={ containers.ExploreOrigination }
+      />
+      <Route
+        exact
+        path="/explorar/comidas/area"
+        component={ containers.NotFound }
+      />
     </Switch>
   </BrowserRouter>
 );
@@ -49,8 +58,5 @@ const Routes = () => (
 // Tela de detalhes de uma receita de bebida: /bebidas/{id-da-receita};
 // Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
 // Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress;
-// Tela de explorar comidas por ingrediente: /explorar/comidas/ingredientes;
-// Tela de explorar bebidas por ingrediente: /explorar/bebidas/ingredientes;
-// Tela de explorar comidas por local de origem: /explorar/comidas/area;
 
 export default Routes;

@@ -3,9 +3,12 @@ import components from '../components/index';
 
 function ExploreDrinks() {
   return (
-    <div className="explore-container">
-      <components.Header />
-      <p>Explorar bebidas</p>
+    <div>
+      <components.Header title="Explorar Bebidas" />
+      <main className="explore-container">
+        <components.ExploreDrinksByIngredients />
+        <components.SurpriseMeButton />
+      </main>
       <components.Footer />
     </div>
   );

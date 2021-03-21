@@ -12,6 +12,7 @@ const Provider = ({ children }) => {
     setData: (result) => setData(result),
     user,
     setUser: (email) => setUser(email),
+    // changeTitleByPathName,
   };
 
   return (

@@ -89,6 +89,7 @@
   border: none;
 }
 
+
 .visible {
   display: flex;
 }
@@ -101,3 +102,17 @@
   bottom: 0px;
   position: fixed;
 }
+
+.explore-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.btnz {
+  height: 80px;
+  margin: 10px;
+  width: 340px;
+}
+

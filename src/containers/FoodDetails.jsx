@@ -36,15 +36,18 @@ const filterIngredientsAndMeasures = (recipe) => {
 
 const initLocalStorage = () => {
   const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(isFavorite);
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (!inProgessRecipes) {
-    localStorage.setItem('inProgressRecipes',
-      JSON.stringify({ cocktails: {}, meals: {} }));
-  }
-  if (!isFavorite) {
-    localStorage.setItem('favoriteRecipes',
-      JSON.stringify([]));
-  }
+  console.log(inProgessRecipes);
+
+  // if (inProgessRecipes === null) {
+  //   localStorage.setItem('inProgressRecipes',
+  //     JSON.stringify({ cocktails: {}, meals: {} }));
+  // }
+  // if (isFavorite === null) {
+  //   localStorage.setItem('favoriteRecipes',
+  //     JSON.stringify([]));
+  // }
 };
 
 const setLocalStorage = (recipe) => {
@@ -66,6 +69,27 @@ const setLocalStorage = (recipe) => {
         ...meals, [recipe.idMeal]: ingredients } }));
 };
 
+const handleFavorite = (recipe, iFavorite) => {
+  console.log('entrou no favorite useEffect');
+  if (iFavorite) {
+    console.log('entrou no isFavorite');
+    const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    return localStorage.setItem('favoriteRecipes',
+      [...favoriteArray, JSON.stringify(recipe)]);
+  }
+  console.log('saiu do isFavorite');
+
+  const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(favoriteArray);
+  if (favoriteArray !== null && favoriteArray.length > 1) {
+    console.log('entrou no delete favorite length maior que 1');
+    return localStorage.setItem('favoriteRecipes', JSON.stringify([
+      favoriteArray.slice(0, favoriteArray[indexOf(recipe[0])]),
+      favoriteArray.slice(favoriteArray[indexOf(recipe[0])]),
+    ]));
+  }
+  localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+};
 const FoodDetails = () => {
   const history = useHistory();
   const [food, setFood] = useState([]);
@@ -75,50 +99,13 @@ const FoodDetails = () => {
   const [copied, setCopy] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
-  const handleFavorite = (recipe, iFavorite) => {
-    console.log('entrou no favorite useEffect');
-    if (iFavorite) {
-      console.log('entrou no isFavorite');
-      const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      return localStorage.setItem('favoriteRecipes', [...favoriteArray, JSON.stringify(recipe)]);
-    }
-    console.log('saiu do isFavorite');
-
-    const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favoriteArray);
-    if (favoriteArray !== null && favoriteArray.length > 1) {
-      console.log('entrou no delete favorite length maior que 1');
-      return localStorage.setItem('favoriteRecipes', JSON.stringify([
-        favoriteArray.slice(0, favoriteArray[indexOf(recipe[0])]),
-        favoriteArray.slice(favoriteArray[indexOf(recipe[0])]),
-      ]));
-    }
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-  };
-
-  useEffect(() => {
-    handleFavorite(food, favorite);
-    // const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    // if (favorite) {
-    //   localStorage.setItem('favoriteRecipes', [...favoriteArray, JSON.stringify(food)]);
-    // }
-    // // if (favoriteArray) {
-    // console.log(favoriteArray);
-    // const isIncluded = favoriteArray.find((e) => e === food[0]);
-    // console.log(isIncluded);
-    // localStorage.setItem('favoriteRecipes', [
-    //   favoriteArray.split(0, favoriteArray.indexOf(isIncluded)),
-    //   favoriteArray.split(favoriteArray.indexOf(isIncluded) + 1)]);
-    // }
-    // localStorage.removeItem('favoriteRecipes', JSON.stringify(food));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favorite]);
   useEffect(() => {
     api.fetchMealById('52771')
       .then((response) => response.json()).then((result) => setFood(result.meals));
     api.fetchDrinks()
       .then((response) => response.json()).then((result) => setDrinks(result.drinks));
     initLocalStorage();
+    return initLocalStorage();
   }, []);
 
   useEffect(() => {
@@ -133,8 +120,11 @@ const FoodDetails = () => {
       setLocalStorage(food[0]);
       return history.push(`/comidas/${food[0].idMeal}/in-progress`);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start]);
+
+  useEffect(() => {
+    handleFavorite(food, favorite);
+  }, [favorite]);
 
   const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)
     .then(() => {
@@ -146,12 +136,6 @@ const FoodDetails = () => {
     // });
 
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // let isFavorite;
-  // if (!loading) {
-  //   isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //     .some((recipe) => recipe.idMeal === food[0].idMeal);
-  //   console.log(isFavorite);
-  // }
 
   return (
     <div>
@@ -193,7 +177,6 @@ const FoodDetails = () => {
                       src={ blackHeartIcon }
                       alt="blackHeartIcon"
                     />
-
                   ) : (
                     <img
                       className="rocksGlass"
@@ -201,7 +184,6 @@ const FoodDetails = () => {
                       src={ whiteHeartIcon }
                       alt="whiteHeartIcon"
                     />
-
                   )}
               </button>
             </div>

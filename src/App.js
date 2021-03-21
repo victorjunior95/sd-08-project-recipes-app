@@ -2,10 +2,13 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './routes/routes';
+import ContextFood from './context/ContextFood';
 
 function App() {
   return (
-    <Routes />
+    <ContextFood>
+      <Routes />
+    </ContextFood>
   );
 }
 

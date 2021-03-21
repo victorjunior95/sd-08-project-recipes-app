@@ -3,9 +3,9 @@ import components from '../components/index';
 
 function ExploreFoodsByIngredients() {
   return (
-    <div className="explore-container">
+    <div>
       <components.Header title="Explorar Ingredientes" />
-      <p>Explorar comidas</p>
+      <h2>Ingredientes das comidas...</h2>
       <components.Footer />
     </div>
   );

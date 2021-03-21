@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderP from '../components/HeaderP';
 
 function ReceitasFavoritas() {
   return (
-    <p>ReceitasFavoritas</p>
+    <HeaderP title="Receitas Favoritas" />
   );
 }
 

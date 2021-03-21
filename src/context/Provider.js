@@ -4,8 +4,8 @@ import { PropTypes } from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [teste, setTeste] = useState('oi');
-  setTeste('tchau');
+  const [teste] = useState('oi');
+  // setTeste('tchau');
   const value = { teste };
 
   return (

@@ -6,13 +6,14 @@ import Provider from './context/Provider';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Login from './pages/Login';
 
 function App() {
   return (
     <BrowserRouter>
       <Provider>
         <Switch>
-          {/* <Route exact path='/' component={} /> */}
+          <Route exact path="/" component={ Login } />
         </Switch>
         {/* <div className="meals">
           <span className="logo">TRYBE</span>

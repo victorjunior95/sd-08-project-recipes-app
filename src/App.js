@@ -19,6 +19,7 @@ import Profile from './pages/Profile';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/comidas" component={ Foods } />
           <Route path="/bebidas" component={ Drinks } />
           <Route path="/explorar" component={ Explore } />
+          <Route exact path="/" component={ Login } />
         </Switch>
       </Provider>
     </BrowserRouter>

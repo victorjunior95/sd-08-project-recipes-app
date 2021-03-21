@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
+import Input from './Inputs';
+import Button from './Button';
 
 const Header = (props) => {
   const { title } = props;
@@ -42,6 +44,32 @@ const Header = (props) => {
           alt="search"
           onClick={ handleClick }
           data-testid="search-top-btn"
+        />
+        <Input
+          type="radio"
+          datatestid="ingredient-search-radio"
+          value="Ingredients"
+          name="food"
+          label="Ingredients"
+        />
+        <Input
+          type="radio"
+          datatestid="name-search-radio"
+          value="busca por nome"
+          label="busca por nome"
+          name="food"
+        />
+        <Input
+          type="radio"
+          datatestid="first-letter-search-radio"
+          value="busca da primeira letra"
+          label="busca da primeira letra"
+          name="food"
+        />
+        <Button
+          datatestid="exec-search-btn"
+          type="button"
+          label="Buscar"
         />
       </section>
       { showSearchBar && renderSearchBar() }

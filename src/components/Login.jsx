@@ -14,11 +14,13 @@ export default function Login() {
   const handleClick = () => {
     const user = { email, password };
     dispatch({ type: 'LOGIN_USER', payload: user });
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
   };
 
   useEffect(() => {
     const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i;
-    const PASSWORD_LENGTH = 6;
+    const PASSWORD_LENGTH = 5;
 
     if (regexEmail.test(email) && password.length > PASSWORD_LENGTH) {
       setVerification(true);

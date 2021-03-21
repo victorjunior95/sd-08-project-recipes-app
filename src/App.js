@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainRecipes from './pages/MainRecipes';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ LoginPage } />
         <Route path="/comidas" component={ MainRecipes } />
+        <Route path="/bebidas" component={ MainRecipes } />
+        <Route path="/perfil" component={ ProfilePage } />
       </Switch>
     </main>
   );

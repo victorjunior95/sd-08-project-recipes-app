@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import CardCarousel from '../components/CardCarousel';
-// import RecipiesContext from '../core/RecipiesContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import api from '../services/index';
 
 const copy = require('clipboard-copy');
@@ -15,7 +17,7 @@ const filterIngredients = (recipe) => Object.entries(recipe)
 const filterIngredientsAndMeasures = (recipe) => {
   const arrayFromObject = Object.entries(recipe)
     .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
-                  || ingredientIndex[0].startsWith('strIngredient'))
+                || ingredientIndex[0].startsWith('strIngredient'))
     .filter((ingredientIndex) => ingredientIndex[1] !== '')
     .filter((ingredientIndex) => ingredientIndex[1] !== null);
   const ingredientMeasurePairs = [
@@ -31,6 +33,38 @@ const filterIngredientsAndMeasures = (recipe) => {
   )));
 };
 
+const initLocalStorage = () => {
+  const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!inProgessRecipes) {
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({ cocktails: {}, meals: {} }));
+  }
+  if (!isFavorite) {
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify([]));
+  }
+};
+
+const setLocalStorage = (recipe) => {
+  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const { cocktails, meals } = inProgessRecipes;
+  const ingredients = filterIngredients(recipe);
+  if (inProgessRecipes) {
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({
+        cocktails,
+        meals: { ...meals,
+          [recipe.idMeal]: ingredients } }));
+  }
+  localStorage.setItem('inProgressRecipes',
+    JSON.stringify({
+      cocktails: {},
+      meals: {
+        ...meals, [recipe.idMeal]: ingredients } }));
+};
+
 const FoodDetails = () => {
   const history = useHistory();
   const [food, setFood] = useState([]);
@@ -38,17 +72,43 @@ const FoodDetails = () => {
   const [loading, setLoading] = useState(true);
   const [start, setStart] = useState(false);
   const [copied, setCopy] = useState(false);
-
+  const [favorite, setFavorite] = useState(false);
+  const handleFavorite = (recipe, iFavorite) => {
+    if (iFavorite) {
+      const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      localStorage.setItem('favoriteRecipes', [...favoriteArray, JSON.stringify(recipe)]);
+    }
+    // const isIncluded = favoriteArray.some((e) => e === recipe[0]);
+    // console.log(isIncluded);
+    // if (isIncluded) {
+    //   localStorage.setItem('favoriteRecipes', [
+    //     favoriteArray.split(0, favoriteArray.indexOf(isIncluded)),
+    //     favoriteArray.split(favoriteArray.indexOf(isIncluded) + 1)]);
+    // }
+  };
+  useEffect(() => {
+    handleFavorite(food, favorite);
+    // const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // if (favorite) {
+    //   localStorage.setItem('favoriteRecipes', [...favoriteArray, JSON.stringify(food)]);
+    // }
+    // // if (favoriteArray) {
+    // console.log(favoriteArray);
+    // const isIncluded = favoriteArray.find((e) => e === food[0]);
+    // console.log(isIncluded);
+    // localStorage.setItem('favoriteRecipes', [
+    //   favoriteArray.split(0, favoriteArray.indexOf(isIncluded)),
+    //   favoriteArray.split(favoriteArray.indexOf(isIncluded) + 1)]);
+    // }
+    // localStorage.removeItem('favoriteRecipes', JSON.stringify(food));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favorite]);
   useEffect(() => {
     api.fetchMealById('52771')
       .then((response) => response.json()).then((result) => setFood(result.meals));
     api.fetchDrinks()
       .then((response) => response.json()).then((result) => setDrinks(result.drinks));
-    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgessRecipes) {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify({ cocktails: {}, meals: {} }));
-    }
+    initLocalStorage();
   }, []);
 
   useEffect(() => {
@@ -59,22 +119,8 @@ const FoodDetails = () => {
   }, [food, setLoading, drinks]);
 
   useEffect(() => {
-    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { cocktails, meals } = inProgessRecipes;
     if (start) {
-      const ingredients = filterIngredients(food[0]);
-      if (inProgessRecipes) {
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify({
-            cocktails,
-            meals: { ...meals,
-              [food[0].idMeal]: ingredients } }));
-      }
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify({
-          cocktails: {},
-          meals: {
-            ...meals, [food[0].idMeal]: ingredients } }));
+      setLocalStorage(food[0]);
       return history.push(`/comidas/${food[0].idMeal}/in-progress`);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,12 +130,19 @@ const FoodDetails = () => {
     .then(() => {
       console.log('Copy OK!');
       setCopy(true);
-    })
-    .catch((err) => {
-      console.log('Copy failed: ', err);
     });
+    // .catch((err) => {
+    //   console.log('Copy failed: ', err);
+    // });
 
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // let isFavorite;
+  // if (!loading) {
+  //   isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
+  //     .some((recipe) => recipe.idMeal === food[0].idMeal);
+  //   console.log(isFavorite);
+  // }
+
   return (
     <div>
       {loading
@@ -107,10 +160,40 @@ const FoodDetails = () => {
                 data-testid="share-btn"
                 onClick={ () => copyToClipBoard(history.location.pathname) }
               >
-                Share
+                <object
+                  className="rocksGlass"
+                  type="image/svg+xml"
+                  data={ shareIcon }
+                >
+                  Share
+                </object>
               </button>
               {copied && <p>Link copiado!</p>}
-              <button type="submit" data-testid="favorite-btn">Favorite</button>
+              <button
+                type="submit"
+                data-testid="favorite-btn"
+                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                onClick={ () => setFavorite(!favorite) }
+              >
+                {favorite
+                  ? (
+                    <img
+                      className="rocksGlass"
+                      type="image/svg+xml"
+                      src={ blackHeartIcon }
+                      alt="blackHeartIcon"
+                    />
+
+                  ) : (
+                    <img
+                      className="rocksGlass"
+                      type="image/svg+xml"
+                      src={ whiteHeartIcon }
+                      alt="whiteHeartIcon"
+                    />
+
+                  )}
+              </button>
             </div>
             <p data-testid="recipe-category">{food[0].strCategory}</p>
             <h5>Ingredients</h5>

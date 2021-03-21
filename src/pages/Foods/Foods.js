@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import './Foods.css';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import { FoodCtx } from '../../context/ContextFood';
@@ -8,7 +9,7 @@ function Foods() {
   return (
     <div>
       <Header name="Comidas" icon="true" />
-      <div>
+      <div className="cards">
         {meals && meals.map((item) => (
           <Card
             key={ item.idMeal }

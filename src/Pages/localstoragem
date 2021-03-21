@@ -1,11 +1,3 @@
-a chave mealsToken deve conter a seguinte estrutura:
-1
-a chave cocktailsToken deve conter a seguinte estrutura:
-1
-a chave user deve conter a seguinte estrutura:
-{
-    email: email-da-pessoa
-}
 a chave doneRecipes deve conter a seguinte estrutura:
 [{
     id: id-da-receita,

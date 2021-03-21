@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Input, Button } from '../Components';
+import { rockGlass } from '../images';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [button, setButton] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   let timer = null;
   const quientos = 500;
@@ -14,7 +17,6 @@ function Login() {
     clearTimeout(timer);
     // armazenamos o timer novamente
     timer = setTimeout(() => {
-      console.log('entrei aqui');
       const six = 6;
       if (email.match(/\S+@\S+\.\S+/) && senha.length >= six) {
         setButton(false);
@@ -24,8 +26,26 @@ function Login() {
     }, quientos);
   };
 
+  const handelClick = () => {
+    localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    setRedirect(true);
+  };
+
   return (
     <>
+      {redirect && <Redirect to="/comidas" />}
+      <div className="meals">
+        <span className="logo">TRYBE!</span>
+        <object
+          className="rocksGlass"
+          type="image/svg+xml"
+          data={ rockGlass }
+        >
+          Glass
+        </object>
+      </div>
       <Input
         type="text"
         value={ email }
@@ -33,6 +53,7 @@ function Login() {
         onChange={ (e) => setEmail(e.target.value) || debounce() }
         dataid="email-input"
       />
+      <br />
       <Input
         type="password"
         name="senha"
@@ -40,20 +61,14 @@ function Login() {
         onChange={ (e) => setSenha(e.target.value) || debounce() }
         dataid="password-input"
       />
+      <br />
       <Button
-        onClick={ () => console.log('Clicou!!') }
+        onClick={ handelClick }
         dataid="login-submit-btn"
         disabled={ button }
       >
         ENTRAR
       </Button>
-      {/* <input
-        type="text"
-        value=""
-        name="email"
-        onChange={ (e) => console.log(e.target.value) }
-        data-testid="email-input"
-      /> */}
     </>
   );
 }

@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import CardCarousel from '../components/CardCarousel';
 import api from '../services/index';
 
 const DrinkDetails = () => {
+  const history = useHistory();
   const [drink, setDrink] = useState([]);
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
     api.fetchDrinkById('178319')
       .then((response) => response.json()).then((result) => setDrink(result.drinks));
     api.fetchMeals()
       .then((response) => response.json()).then((result) => setFoods(result.meals));
+    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgessRecipes) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({ cocktails: {}, meals: {} }));
+    }
   }, []);
 
   useEffect(() => {
@@ -20,6 +28,32 @@ const DrinkDetails = () => {
     }
     return setLoading(true);
   }, [drink, setLoading, foods]);
+
+  useEffect(() => {
+    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { cocktails, meals } = inProgessRecipes;
+    if (start) {
+      const ingredients = Object.entries(drink[0])
+        .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
+        .filter((ingredientIndex) => ingredientIndex[1] !== '')
+        .filter((ingredientIndex) => ingredientIndex[1] !== null)
+        .map((ingredientIndex) => ingredientIndex[1]);
+
+      if (inProgessRecipes) {
+        localStorage.setItem('inProgressRecipes',
+          JSON.stringify({
+            meals,
+            cocktails: { ...cocktails,
+              [drink[0].idDrink]: ingredients } }));
+      }
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          meals: {},
+          cocktails: {
+            ...cocktails, [drink[0].idDrink]: ingredients } }));
+      return history.push(`/bebidas/${drink[0].idDrink}/in-progress`);
+    }
+  }, [start]);
 
   const filterIngredients = (recipe) => {
     const arrayFromObject = Object.entries(recipe)
@@ -40,7 +74,8 @@ const DrinkDetails = () => {
       </li>
     )));
   };
-  console.log(drink);
+
+  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   return (
     <div>
       {loading
@@ -66,7 +101,15 @@ const DrinkDetails = () => {
             <p data-testid="instructions">{drink[0].strInstructions}</p>
             <h5>Recomendadas</h5>
             <CardCarousel foods={ foods } />
-            <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              onClick={ () => setStart(true) }
+            >
+              {inProgessRecipes.drinks !== {} ? 'Continuar Receita' : 'Iniciar Receita'}
+              {/* Req 39 e 40 passam mas precisamos melhorar isso depois. */}
+            </button>
           </div>
         )}
     </div>

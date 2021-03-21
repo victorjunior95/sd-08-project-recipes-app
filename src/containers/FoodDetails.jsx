@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import CardCarousel from '../components/CardCarousel';
 // import RecipiesContext from '../core/RecipiesContext';
 import api from '../services/index';
 
 const FoodDetails = () => {
-  // const { data } = useContext(RecipiesContext);
+  const history = useHistory();
   const [food, setFood] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
     api.fetchMealById('52771')
       .then((response) => response.json()).then((result) => setFood(result.meals));
     api.fetchDrinks()
       .then((response) => response.json()).then((result) => setDrinks(result.drinks));
+    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgessRecipes) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({ cocktails: {}, meals: {} }));
+    }
   }, []);
 
   useEffect(() => {
@@ -22,7 +29,31 @@ const FoodDetails = () => {
     }
     return setLoading(true);
   }, [food, setLoading, drinks]);
-  console.log(food);
+
+  useEffect(() => {
+    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { cocktails, meals } = inProgessRecipes;
+    if (start) {
+      const ingredients = Object.entries(food[0])
+        .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
+        .filter((ingredientIndex) => ingredientIndex[1] !== '')
+        .filter((ingredientIndex) => ingredientIndex[1] !== null)
+        .map((ingredientIndex) => ingredientIndex[1]);
+      if (inProgessRecipes) {
+        localStorage.setItem('inProgressRecipes',
+          JSON.stringify({
+            cocktails,
+            meals: { ...meals,
+              [food[0].idMeal]: ingredients } }));
+      }
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          cocktails: {},
+          meals: {
+            ...meals, [food[0].idMeal]: ingredients } }));
+      return history.push(`/comidas/${food[0].idMeal}/in-progress`);
+    }
+  }, [start]);
 
   const filterIngredients = (recipe) => {
     const arrayFromObject = Object.entries(recipe)
@@ -34,7 +65,6 @@ const FoodDetails = () => {
       arrayFromObject.slice(0, arrayFromObject.length / 2),
       arrayFromObject.slice(arrayFromObject.length / 2),
     ];
-    console.log(ingredientMeasurePairs);
     return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
       <li key={ indx } data-testid={ `${indx}-ingredient-name-and-measure` }>
         {ingredientsString[1]}
@@ -43,14 +73,14 @@ const FoodDetails = () => {
       </li>
     )));
   };
+
+  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   return (
     <div>
       {loading
         ? (
           <div>Loading</div>
-        )
-        : (
-          // <div>Hello</div>
+        ) : (
           <div>
             <div>
               <img src={ food[0].strMealThumb } alt="data" data-testid="recipe-photo" />
@@ -77,7 +107,15 @@ const FoodDetails = () => {
             </div>
             <h5>Recomendadas</h5>
             <CardCarousel drinks={ drinks } />
-            <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              onClick={ () => setStart(true) }
+            >
+              {inProgessRecipes.meals !== {} ? 'Continuar Receita' : 'Iniciar Receita'}
+              {/* Req 39 e 40 passam mas precisamos melhorar isso depois. */}
+            </button>
           </div>
         )}
     </div>

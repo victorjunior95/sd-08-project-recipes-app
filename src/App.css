@@ -108,3 +108,8 @@
 .notVisible {
   display: none;
 }
+
+.start-recipe-btn {
+  position: fixed;
+  bottom: 0px;
+}

@@ -1,9 +1,11 @@
 import Login from './Login';
 import MainFood from './MainFood';
 import FoodDetails from './FoodDetails';
+import FoodDetailsInProgress from './FoodDetailsInProgress';
 import Explore from './Explore';
 import Drinks from './Drinks';
 import DrinkDetails from './DrinkDetails';
+import DrinkDetainsInProgress from './DrinkDetailsInProgress';
 import Profile from './Profile';
 import DoneRecipes from './DoneRecipes';
 import FavoriteRecipes from './FavoriteRecipes';
@@ -17,9 +19,11 @@ const containers = {
   Login,
   MainFood,
   FoodDetails,
+  FoodDetailsInProgress,
   Explore,
   Drinks,
   DrinkDetails,
+  DrinkDetainsInProgress,
   Profile,
   DoneRecipes,
   FavoriteRecipes,

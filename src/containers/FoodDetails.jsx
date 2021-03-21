@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { indexOf } from 'lodash-es';
 import CardCarousel from '../components/CardCarousel';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -73,19 +74,28 @@ const FoodDetails = () => {
   const [start, setStart] = useState(false);
   const [copied, setCopy] = useState(false);
   const [favorite, setFavorite] = useState(false);
+
   const handleFavorite = (recipe, iFavorite) => {
+    console.log('entrou no favorite useEffect');
     if (iFavorite) {
+      console.log('entrou no isFavorite');
       const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      localStorage.setItem('favoriteRecipes', [...favoriteArray, JSON.stringify(recipe)]);
+      return localStorage.setItem('favoriteRecipes', [...favoriteArray, JSON.stringify(recipe)]);
     }
-    // const isIncluded = favoriteArray.some((e) => e === recipe[0]);
-    // console.log(isIncluded);
-    // if (isIncluded) {
-    //   localStorage.setItem('favoriteRecipes', [
-    //     favoriteArray.split(0, favoriteArray.indexOf(isIncluded)),
-    //     favoriteArray.split(favoriteArray.indexOf(isIncluded) + 1)]);
-    // }
+    console.log('saiu do isFavorite');
+
+    const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(favoriteArray);
+    if (favoriteArray !== null && favoriteArray.length > 1) {
+      console.log('entrou no delete favorite length maior que 1');
+      return localStorage.setItem('favoriteRecipes', JSON.stringify([
+        favoriteArray.slice(0, favoriteArray[indexOf(recipe[0])]),
+        favoriteArray.slice(favoriteArray[indexOf(recipe[0])]),
+      ]));
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   };
+
   useEffect(() => {
     handleFavorite(food, favorite);
     // const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));

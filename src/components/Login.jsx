@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verification, setVerification] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   // const userEmail = useSelector((state) => state.user.email);
   // const userPassword = useSelector((state) => state.user.password);
@@ -14,6 +16,11 @@ export default function Login() {
   const handleClick = () => {
     const user = { email, password };
     dispatch({ type: 'LOGIN_USER', payload: user });
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    const userEmail = { email };
+    localStorage.setItem('user', JSON.stringify(userEmail));
+    setRedirect(true);
   };
 
   useEffect(() => {
@@ -30,6 +37,7 @@ export default function Login() {
 
   return (
     <div>
+      {redirect && <Redirect to="/comidas" />}
       <form>
         <div>
           <label htmlFor="email-login" className="form-label">

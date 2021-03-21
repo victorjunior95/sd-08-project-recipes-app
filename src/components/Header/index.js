@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import './Header.css';
@@ -20,7 +20,7 @@ function Header(props) {
 
   useEffect(() => {
     setCurrentPage(currentPage);
-  }, []);
+  });
 
   return (
     <>

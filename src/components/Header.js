@@ -34,18 +34,18 @@ const Header = (props) => {
     );
   }
 
-  function handleClick() {
-    switch (showSearchBar) {
-    case true:
-      setShow(false);
-      break;
-    case false:
-      setShow(true);
-      break;
-    default:
-      break;
-    }
-  }
+  // function handleClick() {
+  //   switch (showSearchBar) {
+  //   case true:
+  //     setShow(false);
+  //     break;
+  //   case false:
+  //     setShow(true);
+  //     break;
+  //   default:
+  //     break;
+  //   }
+  // }
 
   function handleFilterType({ target: { value } }) {
     setUserButton(value);
@@ -53,7 +53,7 @@ const Header = (props) => {
 
   async function handleSearchButton() {
     if (userButton === 'busca da primeira letra' && userInput.length > 1) {
-      // alert('Sua busca deve conter somente 1 (um) caracter');
+      alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
     const results = await getResultFromAPI(userButton, location.pathname, userInput);
@@ -71,7 +71,7 @@ const Header = (props) => {
           type="image"
           src={ search }
           alt="search"
-          onClick={ handleClick }
+          onClick={ () => setShow(!showSearchBar) }
           datatestid="search-top-btn"
         />
         <Input

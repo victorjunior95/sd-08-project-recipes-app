@@ -40,14 +40,15 @@ const initLocalStorage = () => {
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   console.log(inProgessRecipes);
 
-  // if (inProgessRecipes === null) {
-  //   localStorage.setItem('inProgressRecipes',
-  //     JSON.stringify({ cocktails: {}, meals: {} }));
-  // }
-  // if (isFavorite === null) {
-  //   localStorage.setItem('favoriteRecipes',
-  //     JSON.stringify([]));
-  // }
+  if (inProgessRecipes === null) {
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({ cocktails: {}, meals: {} }));
+  }
+  if (isFavorite === null) {
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify([]));
+  }
+  return { isFavorite, inProgessRecipes };
 };
 
 const setLocalStorage = (recipe) => {
@@ -74,8 +75,9 @@ const handleFavorite = (recipe, iFavorite) => {
   if (iFavorite) {
     console.log('entrou no isFavorite');
     const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    return localStorage.setItem('favoriteRecipes',
-      [...favoriteArray, JSON.stringify(recipe)]);
+    return favoriteArray.length <= 1 ? localStorage.setItem('favoriteRecipes',
+      JSON.stringify([recipe])) : localStorage.setItem('favoriteRecipes',
+      JSON.stringify([...favoriteArray, recipe]));
   }
   console.log('saiu do isFavorite');
 
@@ -88,8 +90,9 @@ const handleFavorite = (recipe, iFavorite) => {
       favoriteArray.slice(favoriteArray[indexOf(recipe[0])]),
     ]));
   }
-  localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  // localStorage.setItem('favoriteRecipes', JSON.stringify([]));
 };
+
 const FoodDetails = () => {
   const history = useHistory();
   const [food, setFood] = useState([]);
@@ -104,8 +107,11 @@ const FoodDetails = () => {
       .then((response) => response.json()).then((result) => setFood(result.meals));
     api.fetchDrinks()
       .then((response) => response.json()).then((result) => setDrinks(result.drinks));
-    initLocalStorage();
-    return initLocalStorage();
+    console.log(initLocalStorage());
+    const { isFavorite } = initLocalStorage();
+    if (isFavorite.length > 0) {
+      setFavorite(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -120,11 +126,11 @@ const FoodDetails = () => {
       setLocalStorage(food[0]);
       return history.push(`/comidas/${food[0].idMeal}/in-progress`);
     }
-  }, [start]);
+  }, [start, food, history]);
 
   useEffect(() => {
     handleFavorite(food, favorite);
-  }, [favorite]);
+  }, [favorite, food]);
 
   const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)
     .then(() => {

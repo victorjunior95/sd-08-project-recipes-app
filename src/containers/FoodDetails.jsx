@@ -4,12 +4,40 @@ import CardCarousel from '../components/CardCarousel';
 // import RecipiesContext from '../core/RecipiesContext';
 import api from '../services/index';
 
+const copy = require('clipboard-copy');
+
+const filterIngredients = (recipe) => Object.entries(recipe)
+  .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
+  .filter((ingredientIndex) => ingredientIndex[1] !== '')
+  .filter((ingredientIndex) => ingredientIndex[1] !== null)
+  .map((ingredientIndex) => ingredientIndex[1]);
+
+const filterIngredientsAndMeasures = (recipe) => {
+  const arrayFromObject = Object.entries(recipe)
+    .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
+                  || ingredientIndex[0].startsWith('strIngredient'))
+    .filter((ingredientIndex) => ingredientIndex[1] !== '')
+    .filter((ingredientIndex) => ingredientIndex[1] !== null);
+  const ingredientMeasurePairs = [
+    arrayFromObject.slice(0, arrayFromObject.length / 2),
+    arrayFromObject.slice(arrayFromObject.length / 2),
+  ];
+  return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
+    <li key={ indx } data-testid={ `${indx}-ingredient-name-and-measure` }>
+      {ingredientsString[1]}
+      {' - '}
+      {ingredientMeasurePairs[1][indx][1]}
+    </li>
+  )));
+};
+
 const FoodDetails = () => {
   const history = useHistory();
   const [food, setFood] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [start, setStart] = useState(false);
+  const [copied, setCopy] = useState(false);
 
   useEffect(() => {
     api.fetchMealById('52771')
@@ -34,11 +62,7 @@ const FoodDetails = () => {
     const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { cocktails, meals } = inProgessRecipes;
     if (start) {
-      const ingredients = Object.entries(food[0])
-        .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
-        .filter((ingredientIndex) => ingredientIndex[1] !== '')
-        .filter((ingredientIndex) => ingredientIndex[1] !== null)
-        .map((ingredientIndex) => ingredientIndex[1]);
+      const ingredients = filterIngredients(food[0]);
       if (inProgessRecipes) {
         localStorage.setItem('inProgressRecipes',
           JSON.stringify({
@@ -55,24 +79,14 @@ const FoodDetails = () => {
     }
   }, [start]);
 
-  const filterIngredients = (recipe) => {
-    const arrayFromObject = Object.entries(recipe)
-      .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
-                  || ingredientIndex[0].startsWith('strIngredient'))
-      .filter((ingredientIndex) => ingredientIndex[1] !== '')
-      .filter((ingredientIndex) => ingredientIndex[1] !== null);
-    const ingredientMeasurePairs = [
-      arrayFromObject.slice(0, arrayFromObject.length / 2),
-      arrayFromObject.slice(arrayFromObject.length / 2),
-    ];
-    return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
-      <li key={ indx } data-testid={ `${indx}-ingredient-name-and-measure` }>
-        {ingredientsString[1]}
-        {' - '}
-        {ingredientMeasurePairs[1][indx][1]}
-      </li>
-    )));
-  };
+  const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)
+    .then(() => {
+      console.log('Copy OK!');
+      setCopy(true);
+    })
+    .catch((err) => {
+      console.log('Copy failed: ', err);
+    });
 
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   return (
@@ -87,13 +101,20 @@ const FoodDetails = () => {
             </div>
             <div>
               <h3 data-testid="recipe-title">{food[0].strMeal}</h3>
-              <button type="submit" data-testid="share-btn">Share</button>
+              <button
+                type="submit"
+                data-testid="share-btn"
+                onClick={ () => copyToClipBoard(history.location.pathname) }
+              >
+                Share
+              </button>
+              {copied && <p>Link copiado!</p>}
               <button type="submit" data-testid="favorite-btn">Favorite</button>
             </div>
             <p data-testid="recipe-category">{food[0].strCategory}</p>
             <h5>Ingredients</h5>
             <ul>
-              {filterIngredients(food[0])}
+              {filterIngredientsAndMeasures(food[0])}
             </ul>
             <h5>Instructions</h5>
             <p data-testid="instructions">{food[0].strInstructions}</p>

@@ -3,12 +3,41 @@ import { useHistory } from 'react-router';
 import CardCarousel from '../components/CardCarousel';
 import api from '../services/index';
 
+const copy = require('clipboard-copy');
+
+const finterIngredients = (recipe) => Object.entries(recipe)
+  .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
+  .filter((ingredientIndex) => ingredientIndex[1] !== '')
+  .filter((ingredientIndex) => ingredientIndex[1] !== null)
+  .map((ingredientIndex) => ingredientIndex[1]);
+
+const filterIngredientsAndMeasures = (recipe) => {
+  const arrayFromObject = Object.entries(recipe)
+    .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
+                  || ingredientIndex[0].startsWith('strIngredient'))
+    .filter((ingredientIndex) => ingredientIndex[1] !== '')
+    .filter((ingredientIndex) => ingredientIndex[1] !== null);
+  const ingredientMeasurePairs = [
+    arrayFromObject.slice(0, arrayFromObject.length / 2),
+    arrayFromObject.slice(arrayFromObject.length / 2),
+  ];
+
+  return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
+    <li key={ indx } data-testid={ `${indx}-ingredient-name-and-measure` }>
+      {ingredientsString[1]}
+      {' - '}
+      {ingredientMeasurePairs[1][indx][1]}
+    </li>
+  )));
+};
+
 const DrinkDetails = () => {
   const history = useHistory();
   const [drink, setDrink] = useState([]);
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [start, setStart] = useState(false);
+  const [copied, setCopy] = useState(false);
 
   useEffect(() => {
     api.fetchDrinkById('178319')
@@ -33,11 +62,7 @@ const DrinkDetails = () => {
     const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { cocktails, meals } = inProgessRecipes;
     if (start) {
-      const ingredients = Object.entries(drink[0])
-        .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
-        .filter((ingredientIndex) => ingredientIndex[1] !== '')
-        .filter((ingredientIndex) => ingredientIndex[1] !== null)
-        .map((ingredientIndex) => ingredientIndex[1]);
+      const ingredients = finterIngredients(drink[0]);
 
       if (inProgessRecipes) {
         localStorage.setItem('inProgressRecipes',
@@ -51,29 +76,19 @@ const DrinkDetails = () => {
           meals: {},
           cocktails: {
             ...cocktails, [drink[0].idDrink]: ingredients } }));
+
       return history.push(`/bebidas/${drink[0].idDrink}/in-progress`);
     }
   }, [start]);
 
-  const filterIngredients = (recipe) => {
-    const arrayFromObject = Object.entries(recipe)
-      .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
-                  || ingredientIndex[0].startsWith('strIngredient'))
-      .filter((ingredientIndex) => ingredientIndex[1] !== '')
-      .filter((ingredientIndex) => ingredientIndex[1] !== null);
-    const ingredientMeasurePairs = [
-      arrayFromObject.slice(0, arrayFromObject.length / 2),
-      arrayFromObject.slice(arrayFromObject.length / 2),
-    ];
-    console.log(ingredientMeasurePairs);
-    return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
-      <li key={ indx } data-testid={ `${indx}-ingredient-name-and-measure` }>
-        {ingredientsString[1]}
-        {' - '}
-        {ingredientMeasurePairs[1][indx][1]}
-      </li>
-    )));
-  };
+  const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)
+    .then(() => {
+      console.log('Copy OK!');
+      setCopy(true);
+    })
+    .catch((err) => {
+      console.log('Copy failed: ', err);
+    });
 
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   return (
@@ -89,13 +104,20 @@ const DrinkDetails = () => {
             </div>
             <div>
               <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
-              <button type="submit" data-testid="share-btn">Share</button>
+              <button
+                type="submit"
+                data-testid="share-btn"
+                onClick={ () => copyToClipBoard(history.location.pathname) }
+              >
+                Share
+              </button>
+              {copied && <p>Link copiado!</p> }
               <button type="submit" data-testid="favorite-btn">Favorite</button>
             </div>
             <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
             <h5>Ingredients</h5>
             <ul>
-              {filterIngredients(drink[0])}
+              {filterIngredientsAndMeasures(drink[0])}
             </ul>
             <h5>Instructions</h5>
             <p data-testid="instructions">{drink[0].strInstructions}</p>

@@ -5,7 +5,7 @@ export default function Drinks() {
   return (
     <div>
       <components.Header title="Bebidas" />
-      <p>Drinks</p>
+      <h2>Bebidas...</h2>
       <components.Footer />
     </div>
   );

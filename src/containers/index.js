@@ -10,6 +10,7 @@ import ExploreDrinksByIngredients from './ExploreDrinksByIngredients';
 import ExploreFoods from './ExploreFoods';
 import ExploreFoodsByIngredients from './ExploreFoodsByIngredients';
 import ExploreOrigination from './ExploreOrigination';
+import NotFound from './NotFound';
 
 const containers = {
   Login,
@@ -24,6 +25,7 @@ const containers = {
   ExploreFoods,
   ExploreFoodsByIngredients,
   ExploreOrigination,
+  NotFound,
 };
 
 export default containers;

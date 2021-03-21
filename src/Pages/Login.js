@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Input, Button } from '../Components';
-import { rockGlass } from '../images';
+import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import rockGlass from '../images/rockGlass.svg';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -45,30 +47,30 @@ function Login() {
         >
           Glass
         </object>
+        <Input
+          type="text"
+          value={ email }
+          name="email"
+          onChange={ (e) => setEmail(e.target.value) || debounce() }
+          dataid="email-input"
+        />
+        <br />
+        <Input
+          type="password"
+          name="senha"
+          value={ senha }
+          onChange={ (e) => setSenha(e.target.value) || debounce() }
+          dataid="password-input"
+        />
+        <br />
+        <Button
+          onClick={ handelClick }
+          dataid="login-submit-btn"
+          disabled={ button }
+        >
+          ENTRAR
+        </Button>
       </div>
-      <Input
-        type="text"
-        value={ email }
-        name="email"
-        onChange={ (e) => setEmail(e.target.value) || debounce() }
-        dataid="email-input"
-      />
-      <br />
-      <Input
-        type="password"
-        name="senha"
-        value={ senha }
-        onChange={ (e) => setSenha(e.target.value) || debounce() }
-        dataid="password-input"
-      />
-      <br />
-      <Button
-        onClick={ handelClick }
-        dataid="login-submit-btn"
-        disabled={ button }
-      >
-        ENTRAR
-      </Button>
     </>
   );
 }

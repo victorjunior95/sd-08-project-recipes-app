@@ -14,15 +14,15 @@ html {
 }
 
 body {
-  border: 1px solid #ccc;
+  background-color: #a6d3f8;
   display: flex;
   font-family: Roboto , sans-serif;
   height: 640px;
   margin: auto;
+  overflow: scroll;
   width: 360px;
 }
 
 .root {
-  height: 100%;
   width: 100%;
 }

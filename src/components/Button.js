@@ -16,7 +16,11 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
   datatestid: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  disabled: false,
 };
 
 export default Button;

@@ -9,6 +9,7 @@ function RecipesProvider() {
   const [user, setUser] = useState({
     email: '',
   });
+  const [filter, setFilter] = useState([]);
 
   useEffect(() => {
     function saveLocalStorage() {
@@ -23,6 +24,8 @@ function RecipesProvider() {
     setUser,
     setMealsToken,
     setCocktailsToken,
+    setFilter,
+    filter,
   };
   return (
     <contextRecipes.Provider value={ state }>

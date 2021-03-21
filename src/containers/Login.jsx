@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import * as core from '../core/index';
-import fetchMeals from '../services/mealsAPI';
+import api from '../services/index';
 import rockGlass from '../images/rockGlass.svg';
 import RecipiesContext from '../core/RecipiesContext';
 
@@ -15,8 +15,9 @@ const Login = () => {
   const { data, setUser, setData } = useContext(RecipiesContext);
 
   useEffect(() => {
-    fetchMeals()
-      .then((response) => response.json()).then((result) => setData(result.meals));// eslint-disable-next-line
+    api.fetchMeals()
+      .then((response) => response.json()).then((result) => setData(result.meals));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

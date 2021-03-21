@@ -7,7 +7,23 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={ containers.Login } />
       <Route exact path="/comidas" component={ containers.MainFood } />
-      <Route exact path="/bebidas" component={ containers.Drinks } />
+      <Route exact path="/comidas/:id" component={ containers.FoodDetails } />
+      <Route
+        exact
+        path="/comidas/:id/in-progress"
+        component={ containers.FoodDetailsInProgress }
+      />
+      <Route
+        exact
+        path="/bebidas"
+        component={ containers.Drinks }
+      />
+      <Route exact path="/bebidas/:id" component={ containers.DrinkDetails } />
+      <Route
+        exact
+        path="/bebidas/:id/in-progress"
+        component={ containers.DrinkDetainsInProgress }
+      />
       <Route exact path="/explorar" component={ containers.Explore } />
       <Route exact path="/perfil" component={ containers.Profile } />
       <Route exact path="/receitas-feitas" component={ containers.DoneRecipes } />

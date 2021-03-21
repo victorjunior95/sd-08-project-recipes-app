@@ -9,7 +9,7 @@ function Footer() {
   return (
     <footer className="footer-container" data-testid="footer">
       <button
-        onClick={ () => history.push('/bebidas') }
+        onClick={ () => { history.push('/bebidas'); } }
         src="drinkIcon"
         className="main-buttons"
         data-testid="drinks-bottom-btn"

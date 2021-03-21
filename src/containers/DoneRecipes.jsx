@@ -4,7 +4,7 @@ import components from '../components/index';
 export default function DoneRecipes() {
   return (
     <div>
-      <components.Header />
+      <components.Header title="Receitas Feitas" />
       <p>Receitas Feitas</p>
     </div>
   );

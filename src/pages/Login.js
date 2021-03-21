@@ -51,7 +51,8 @@ function Login() {
             name="email"
             onChange={ validateEmail }
             data-testid="email-input"
-            placeholder="example@email.com"
+            placeholder="email@email.com"
+            className="email-password"
           />
         </div>
         <br />
@@ -62,7 +63,8 @@ function Login() {
             name="password"
             onChange={ validatePassword }
             data-testid="password-input"
-            placeholder="password"
+            placeholder="Digite sua senha"
+            className="email-password"
           />
         </div>
         <div>
@@ -72,6 +74,7 @@ function Login() {
               onClick={ submit }
               data-testid="login-submit-btn"
               disabled={ email === '' || password === '' }
+              className="btn-submit"
             >
               Enter
             </button>

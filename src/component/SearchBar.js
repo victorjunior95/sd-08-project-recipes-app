@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import Context from '../context/Context';
 
 export default function SearchBar() {
   const { setSearchParams } = useContext(Context);
+  const history = useHistory();
   const [filters, setFilters] = useState({
     searchInput: '',
     selectedParameter: '',
+    location: history.location.pathname,
   });
 
   const handleChange = ({ target }) => {

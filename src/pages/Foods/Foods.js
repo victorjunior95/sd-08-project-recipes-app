@@ -1,42 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Header from '../../component/Header';
+import RecipeCards from '../../component/RecipesCard';
 import Context from '../../context/Context';
-import getApi from '../../services/apiRequests';
+
+const SHOW_TWELVE_RECIPES = 12;
 
 export default function Foods() {
-  const { searchParams } = useContext(Context);
-  const [meals, setMeals] = useState([]);
+  const { recipes } = useContext(Context);
   const history = useHistory();
-
-  const { searchInput, selectedParameter } = searchParams;
-
-  useEffect(() => {
-    switch (selectedParameter) {
-    case 'ingredient':
-      getApi(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`, 'meals')
-        .then((recipes) => setMeals(recipes));
-      break;
-    case 'name':
-      getApi(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`, 'meals')
-        .then((recipes) => setMeals(recipes));
-      break;
-    case 'first-letter':
-      getApi(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`, 'meals')
-        .then((recipes) => setMeals(recipes));
-      break;
-    default:
-      break;
-    }
-  }, [searchInput, selectedParameter]);
+  const [recipesToRender, setRecipesToRender] = useState([]);
 
   useEffect(() => {
-    if (meals.length === 1) {
-      history.push(`/comidas/${meals[0].idMeal}`);
+    if (recipes === 'NF') {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-  }, [history, meals]);
+    if (recipes.length === 1) {
+      return history.push(`/comidas/${recipes[0].idMeal}`);
+    }
+    if (recipes.length > 1) {
+      return setRecipesToRender([...recipes].slice(0, SHOW_TWELVE_RECIPES));
+    }
+  }, [recipes, history]);
 
   return (
-    <Header pageTitle="Comidas" />
+    <>
+      <Header pageTitle="Comidas" />
+      <div>
+        {recipesToRender.map((recipe, index) => (
+          <RecipeCards key={ index } recipe={ recipe } type="Meal" index={ index } />
+        ))}
+      </div>
+    </>
   );
 }

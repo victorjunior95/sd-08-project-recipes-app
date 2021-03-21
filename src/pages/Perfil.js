@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderP from '../components/HeaderP';
 
 function Perfil() {
   return (
-    <p>Perfil</p>
+    <HeaderP title="Perfil" />
   );
 }
 

@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderPS from '../components/HeaderPS';
 
 function Bebidas() {
   return (
-    <p>Bebidas</p>
+    <HeaderPS title="Bebidas" />
   );
 }
 

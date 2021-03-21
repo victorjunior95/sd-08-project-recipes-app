@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderPS from '../components/HeaderPS';
 
 function OrigemComidas() {
   return (
-    <p>OrigemComidas</p>
+    <HeaderPS title="Explorar Origem" />
   );
 }
 

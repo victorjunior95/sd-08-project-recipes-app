@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderP from '../components/HeaderP';
 
 function IngredientesComidas() {
   return (
-    <p>IngredientesComidas</p>
+    <HeaderP title="Explorar Ingredientes" />
   );
 }
 

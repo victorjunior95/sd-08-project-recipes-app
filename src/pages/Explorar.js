@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderP from '../components/HeaderP';
 
 function Explorar() {
   return (
-    <p>Explorar</p>
+    <HeaderP title="Explorar" />
   );
 }
 

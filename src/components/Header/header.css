@@ -1,15 +1,18 @@
-.container {
-  background-color: lightcoral;
-  padding: 16px;
-}
-
 .header {
+  background-color: lightcoral;
   display: flex;
   justify-content: space-between;
+  padding: 16px;
 }
 
 .header span {
   font-size: 20px;
   font-weight: 600;
   margin: auto;
+}
+
+.header button {
+  background-color: transparent;
+  border: none;
+  outline: none;
 }

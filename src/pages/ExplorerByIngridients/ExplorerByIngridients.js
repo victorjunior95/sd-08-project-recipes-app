@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header/Header';
-import './explorerByIngridients.css';
 
 const ExplorerByIngridients = ({ title, visible }) => (
   <Header title={ title } visible={ visible } />

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Context from './createContext';
+import Context from './Context';
 
 function Login({ children }) {
   const [email, setEmail] = useState('bla');
   const [password, setPassword] = useState();
+  const [searchBar, setSearchBar] = useState(false);
 
   const saveToLocalStorage = () => {
     const localOBJ = { email };
@@ -17,13 +18,10 @@ function Login({ children }) {
     setPassword,
     password,
     saveToLocalStorage,
-
+    searchBar,
+    setSearchBar,
   };
-  return (
-    <Context.Provider value={ OBJVALUE }>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;
 }
 
 Login.propTypes = {

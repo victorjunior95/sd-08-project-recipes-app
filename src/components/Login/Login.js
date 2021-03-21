@@ -1,21 +1,30 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import LoginContext from '../../contextApi/createContext';
+import { Redirect } from 'react-router-dom';
+import Context from '../../contextApi/Context';
 
-function LoginComponent() {
-  const { setEmail,
+function Login() {
+  const {
+    setEmail,
     email,
     setPassword,
-    password, saveToLocalStorage } = useContext(LoginContext);
+    password,
+    saveToLocalStorage,
+  } = useContext(Context);
 
   const [disableds, setDisabled] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const validations = () => {
       const PASSWRDLENGTH = 6;
       const re = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
-      if (password && password.length
-         > PASSWRDLENGTH && email && re.test(email) === true) {
+      if (
+        password
+        && password.length > PASSWRDLENGTH
+        && email
+        && re.test(email) === true
+      ) {
         setDisabled(false);
       }
     };
@@ -26,10 +35,12 @@ function LoginComponent() {
     saveToLocalStorage();
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    setRedirect(true);
   };
   console.log(email);
   return (
     <div>
+      {redirect && <Redirect to="/comidas" />}
       <label htmlFor="email">
         Email:
         <input
@@ -53,7 +64,6 @@ function LoginComponent() {
         data-testid="login-submit-btn"
         onClick={ submit }
         disabled={ disableds }
-
       >
         Entrar
       </Button>
@@ -61,4 +71,4 @@ function LoginComponent() {
   );
 }
 
-export default LoginComponent;
+export default Login;

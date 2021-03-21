@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
-import Provider from './contextApi/loginPassContext';
+import Provider from './contextApi/Provider';
 
 function App() {
   return (

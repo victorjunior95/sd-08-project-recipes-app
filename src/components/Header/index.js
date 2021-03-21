@@ -11,11 +11,16 @@ import { FoodCtx } from '../../context/ContextFood';
 
 function Header(props) {
   const [isSearch, setIsSearch] = useState(false);
-  const { name, icon } = props;
+  const { name, icon, currentPage } = props;
+  const { setCurrentPage } = useContext(FoodCtx);
 
   const handleSearch = () => {
     setIsSearch(!isSearch);
   };
+
+  useEffect(() => {
+    setCurrentPage(currentPage);
+  }, []);
 
   return (
     <>
@@ -47,6 +52,7 @@ function Header(props) {
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
+  currentPage: PropTypes.string.isRequired,
 };
 
 export default Header;

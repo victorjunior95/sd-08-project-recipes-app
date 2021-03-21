@@ -4,7 +4,10 @@ import Header from '../../components/Header/Header';
 import './profile.css';
 
 const Profile = ({ title, visible }) => (
-  <Header title={ title } visible={ visible } />
+  <div>
+    <h1>perfil</h1>
+    <Header title={ title } visible={ visible } />
+  </div>
 );
 Profile.defaultProps = {
   visible: true,

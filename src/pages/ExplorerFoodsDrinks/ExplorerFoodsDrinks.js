@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header';
 import './explorerFoodsDrinks.css';
 
 const FoodsAndDrinks = ({ title, visible }) => (
+
   <Header title={ title } visible={ visible } />
 );
 FoodsAndDrinks.defaultProps = {

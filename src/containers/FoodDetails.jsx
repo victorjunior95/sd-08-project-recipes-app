@@ -77,6 +77,7 @@ const FoodDetails = () => {
             ...meals, [food[0].idMeal]: ingredients } }));
       return history.push(`/comidas/${food[0].idMeal}/in-progress`);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start]);
 
   const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)

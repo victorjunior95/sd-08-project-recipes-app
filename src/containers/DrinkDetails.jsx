@@ -79,6 +79,7 @@ const DrinkDetails = () => {
 
       return history.push(`/bebidas/${drink[0].idDrink}/in-progress`);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start]);
 
   const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)

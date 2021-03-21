@@ -16,7 +16,7 @@ const Login = () => {
 
   useEffect(() => {
     fetchMeals()
-      .then((response) => response.json()).then((result) => setData(result.meals));
+      .then((response) => response.json()).then((result) => setData(result.meals));// eslint-disable-next-line
   }, []);
 
   useEffect(() => {

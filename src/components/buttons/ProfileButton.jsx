@@ -10,6 +10,7 @@ function ProfileButton() {
       className="main-buttons"
       data-testid="profile-top-btn"
       type="button"
+      src="profileIcon"
     >
       <img src={ profileIcon } alt="profile button" />
     </button>

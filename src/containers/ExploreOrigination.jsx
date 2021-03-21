@@ -3,9 +3,15 @@ import components from '../components';
 
 function ExploreOrigination() {
   return (
-    <div className="explore-container">
-      <components.Header />
-      <p>Explorar Origem</p>
+    <div>
+      <components.Header title="Explorar Origem" />
+      <main className="explore-container">
+        <select className="custom-select" data-testid="explore-by-area-dropdown">
+          <option>Canada</option>
+          <option>França</option>
+          <option>Japão</option>
+        </select>
+      </main>
       <components.Footer />
     </div>
   );

@@ -3,7 +3,12 @@ import searchIcon from '../../images/searchIcon.svg';
 
 function SearchButton() {
   return (
-    <button className="main-buttons" data-testid="search-top-btn" type="button">
+    <button
+      src="searchIcon"
+      className="main-buttons"
+      data-testid="search-top-btn"
+      type="button"
+    >
       <img src={ searchIcon } alt="search button" />
     </button>
   );

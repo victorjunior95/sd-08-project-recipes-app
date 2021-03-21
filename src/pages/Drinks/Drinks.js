@@ -14,12 +14,13 @@ function Drinks() {
       <div className="cards">
         {drinks && drinks
           .filter((drink, index) => index <= STOP_INDEX)
-          .map((item) => (
+          .map((item, index) => (
             <Card
               key={ item.idDrink }
               id={ item.idDrink }
               name={ item.strDrink }
               img={ item.strDrinkThumb }
+              index={ index }
             />
           ))}
         { drinks && drinks.length === 1

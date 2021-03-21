@@ -14,16 +14,21 @@ function Foods() {
       <div className="cards">
         {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)
-          .map((item) => (
+          .map((item, index) => (
             <Card
               key={ item.idMeal }
               id={ item.idMeal }
               name={ item.strMeal }
               img={ item.strMealThumb }
+              index={ index }
             />
           ))}
         { meals && meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }
+
+        {/* {meals && meals.length === 0
+          ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+          : '' } */}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+// import { useLocation } from 'react-router';
+
 // Meals and Drinks API URLS
 export const FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente}';
 export const FOOD_NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s={nome}';
@@ -28,3 +30,46 @@ export const header = {
   EXPLORAR: 'Explorar',
   EXPLORAR_COMIDAS: 'Explorar Comidas',
 };
+
+// const ReturnPathName = () => {
+//   const { pathname } = useLocation();
+//   return pathname;
+// };
+// console.log(ReturnPathName());
+// export const changeTitleByPathName = () => {
+//   console.log(pathname);
+//   ReturnPathName();
+//   if (pathname.includes('/comidas')) {
+//     return 'Comidas';
+//   }
+//   if (pathname.includes('/bebidas')) {
+//     return 'Bebidas';
+//   }
+//   if (pathname.includes('/perfil')) {
+//     return 'Perfil';
+//   }
+//   if (pathname.includes('/explorar')) {
+//     return 'Explorar';
+//   }
+//   if (pathname.includes('/receitas-feitas')) {
+//     return 'Receitas Feitas';
+//   }
+//   if (pathname.includes('/receitas-favoritas')) {
+//     return 'Receitas Favoritas';
+//   }
+//   if (pathname.includes('/explorar/comidas')) {
+//     return 'Explorar Comidas';
+//   }
+//   if (pathname.includes('/explorar/bebidas')) {
+//     return 'Explorar Bebidas';
+//   }
+//   if (pathname.includes('/explorar/bebidas/ingredientes')) {
+//     return 'Explorar Ingredientes';
+//   }
+//   if (pathname.includes('/explorar/comidas/ingredientes')) {
+//     return 'Explorar Ingredientes';
+//   }
+//   if (pathname.includes('/explorar/comidas/area')) {
+//     return 'Explorar Origem';
+//   }
+// };

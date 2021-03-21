@@ -5,6 +5,8 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import RecipeSearchBar from './RecipeSearchBar';
 
+// Fazer com que o H1 seja dinâmico de acordo com o endpoint
+
 export default function Header() {
   const [search, setSearchBar] = useState(false);
 
@@ -28,7 +30,7 @@ export default function Header() {
       <h1
         data-testid="page-title"
       >
-        Receitas
+        Comidas
       </h1>
       <button
         type="button"

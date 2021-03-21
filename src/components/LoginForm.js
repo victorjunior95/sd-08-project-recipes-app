@@ -8,7 +8,7 @@ import {
   setCocktailsTokenLocalStorage,
   setUserLocalStorage,
 } from '../services';
-
+import logoImage from '../images/logo.svg';
 import '../styles/components/LoginForm.css';
 
 const MIN_LENGTH_PASSWORD = 6;
@@ -63,6 +63,11 @@ class LoginForm extends Component {
     if (redirectFoods) return <Redirect to="/comidas" />;
     return (
       <form className="loginFormContainer">
+        <div>
+          <img src={ logoImage } alt="logo" />
+          <h1>Walcome Back</h1>
+          <small>Login to continue 26Group</small>
+        </div>
         <label htmlFor="email">
           <input
             placeholder="User email"

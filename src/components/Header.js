@@ -53,7 +53,7 @@ const Header = (props) => {
 
   async function handleSearchButton() {
     if (userButton === 'busca da primeira letra' && userInput.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      // alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
     const results = await getResultFromAPI(userButton, location.pathname, userInput);

@@ -38,6 +38,7 @@ const Login = () => {
         type="password"
         label="Senha"
         name={ password }
+        value={ password }
         onChange={ (e) => setPassword(e.target.value) }
         datatestid="password-input"
       />

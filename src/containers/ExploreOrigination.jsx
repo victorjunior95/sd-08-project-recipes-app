@@ -6,7 +6,7 @@ function ExploreOrigination() {
     <div>
       <components.Header title="Explorar Origem" />
       <main className="explore-container">
-        <select className="custom-select">
+        <select className="custom-select" data-testid="explore-by-area-dropdown">
           <option>Canada</option>
           <option>França</option>
           <option>Japão</option>

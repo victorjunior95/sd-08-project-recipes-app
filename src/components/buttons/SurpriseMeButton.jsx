@@ -7,6 +7,7 @@ function SurpriseMeButton() {
     <button
       onClick={ () => history.push('/explorar/bebidas') }
       className="btnz btn btn-primary"
+      data-testid="explore-surprise"
       type="button"
     >
       Me Surpreenda!

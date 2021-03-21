@@ -8,6 +8,9 @@ import ExploreByIngredientsButton from './buttons/ExploreByIngredientsButton';
 import ExploreDrinksByIngredients from './buttons/ExploreDrinksByIngredients';
 import ExploreByOriginationButton from './buttons/ExploreByOriginationButton';
 import SurpriseMeButton from './buttons/SurpriseMeButton';
+import DoneRecipesButton from './buttons/DoneRecipesButton';
+import FavoritesButton from './buttons/FavoritesButton';
+import LogoutButton from './buttons/LogoutButton';
 
 const components = {
   Header,
@@ -20,6 +23,9 @@ const components = {
   ExploreByOriginationButton,
   SurpriseMeButton,
   ExploreDrinksByIngredients,
+  DoneRecipesButton,
+  FavoritesButton,
+  LogoutButton,
 };
 
 export default components;

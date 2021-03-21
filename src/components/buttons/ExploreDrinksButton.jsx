@@ -7,6 +7,7 @@ function ExploreDrinksButton() {
     <button
       onClick={ () => history.push('/explorar/bebidas') }
       className="btnz btn btn-primary"
+      data-testid="explore-drinks"
       type="button"
     >
       Explorar Bebidas

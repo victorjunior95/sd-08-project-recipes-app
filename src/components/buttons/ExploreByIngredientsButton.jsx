@@ -7,6 +7,7 @@ function ExploreByIngredientsButton() {
     <button
       onClick={ () => history.push('/explorar/comidas/ingredientes') }
       className="btnz btn btn-primary"
+      data-testid="explore-by-ingredient"
       type="button"
     >
       Por Ingredientes

@@ -1,18 +1,18 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-function ExploreByOriginationButton() {
+function DoneRecipesButton() {
   const history = useHistory();
   return (
     <button
-      onClick={ () => history.push('/explorar/comidas/area') }
+      onClick={ () => history.push('/receitas-feitas') }
       className="btnz btn btn-primary"
-      data-testid="explore-by-area"
+      data-testid="profile-done-btn"
       type="button"
     >
-      Por Local De Origem
+      Receitas Feitas
     </button>
   );
 }
 
-export default ExploreByOriginationButton;
+export default DoneRecipesButton;

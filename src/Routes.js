@@ -26,8 +26,13 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/explorar/comidas/area"
+        path="/explorar/bebidas/area"
         component={ containers.ExploreOrigination }
+      />
+      <Route
+        exact
+        path="/explorar/comidas/area"
+        component={ containers.NotFound }
       />
     </Switch>
   </BrowserRouter>

@@ -5,7 +5,7 @@ function FavoriteRecipes() {
   return (
     <div>
       <components.Header title="Receitas Favoritas" />
-      <p>Receitas favoritas</p>
+      <h2>Receitas favoritas...</h2>
     </div>
   );
 }

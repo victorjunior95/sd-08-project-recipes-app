@@ -5,7 +5,7 @@ export default function DoneRecipes() {
   return (
     <div>
       <components.Header title="Receitas Feitas" />
-      <p>Receitas Feitas</p>
+      <h2>Receitas Feitas...</h2>
     </div>
   );
 }

@@ -1,18 +1,18 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-function ExploreByOriginationButton() {
+function LogoutButton() {
   const history = useHistory();
   return (
     <button
-      onClick={ () => history.push('/explorar/comidas/area') }
+      onClick={ () => history.push('/') }
       className="btnz btn btn-primary"
-      data-testid="explore-by-area"
+      data-testid="profile-logout-btn"
       type="button"
     >
-      Por Local De Origem
+      Sair
     </button>
   );
 }
 
-export default ExploreByOriginationButton;
+export default LogoutButton;

@@ -7,6 +7,7 @@ function ExploreFoodsButton() {
     <button
       onClick={ () => history.push('/explorar/comidas') }
       className="btnz btn btn-primary"
+      data-testid="explore-food"
       type="button"
     >
       Explorar Comidas

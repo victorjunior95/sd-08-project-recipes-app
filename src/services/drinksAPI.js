@@ -1,5 +1,5 @@
-const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const DRINKS_SEARCH_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-const fetchDrinksById = (id) => fetch(DRINKS_URL + id);
+const fetchDrinks = () => fetch(DRINKS_SEARCH_URL);
 
-export default fetchDrinksById;
+export default fetchDrinks;

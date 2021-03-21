@@ -1,10 +1,10 @@
 .login-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+	align-items: center;
+	display: flex;
+	height: 100vh;
+	justify-content: center;
 }
 .login-button {
-  display: inline-block;
-  text-align: center;
+	display: inline-block;
+	text-align: center;
 }

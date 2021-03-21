@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form, Navbar, NavLink } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import ContextRecipes from '../context/ContextRecipes';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -8,9 +10,17 @@ function Header() {
     input: '',
     radio: 'ingredientes',
   };
+  const { headerInfo, setHeaderInfo } = useContext(ContextRecipes);
+  const history = useHistory();
   const [searchBar, setSearchBar] = useState(false);
   const [searchItens, setSearchItens] = useState(searchItensInitial);
-  function handleClick() {
+
+  function handleClickProfileBtn() {
+    setHeaderInfo({ pageTitle: 'Perfil', showSearch: false });
+    return history.push('/perfil');
+  }
+
+  function handleClickSearchBtn() {
     setSearchBar(!searchBar);
   }
 
@@ -20,21 +30,21 @@ function Header() {
         className="d-flex bg-warning justify-content-between align-items-center w-100"
       >
         <NavLink
-          href="/perfil"
-          data-testid="profile-top-btn"
           className="btn btn-warning border-0"
+          onClick={ handleClickProfileBtn }
+          data-testid="profile-top-btn"
         >
           <img src={ profileIcon } className="img-fluid" alt="Profile Icon" />
         </NavLink>
-        <h2 data-testid="page-title" className="m-0">Comidas</h2>
-        <NavLink
-          href="#"
-          onClick={ handleClick }
-          data-testid="search-top-btn"
-          className="btn btn-warning border-0"
-        >
-          <img src={ searchIcon } className="img-fluid" alt="Search Icon" />
-        </NavLink>
+        <h2 data-testid="page-title" className="m-0">{ headerInfo.pageTitle }</h2>
+        { headerInfo.showSearch ? (
+          <NavLink
+            onClick={ handleClickSearchBtn }
+            data-testid="search-top-btn"
+            className="btn btn-warning border-0"
+          >
+            <img src={ searchIcon } className="img-fluid" alt="Search Icon" />
+          </NavLink>) : <div style={ { width: '62px' } } /> }
       </Navbar>
       { searchBar ? (
         <Form className="border bg-light d-flex flex-column align-items-center w-100">

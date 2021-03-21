@@ -4,12 +4,20 @@ import { PropTypes } from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [teste, setTeste] = useState('oi');
-  setTeste('tchau');
-  const value = { teste };
+  // const [teste, setTeste] = useState('oi');
+  // setTeste('tchau');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const context = {
+    email,
+    setEmail,
+    password,
+    setPassword,
+  };
 
   return (
-    <Context.Provider value={ value }>
+    <Context.Provider value={ context }>
       { children }
     </Context.Provider>
   );

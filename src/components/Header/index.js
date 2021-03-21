@@ -7,6 +7,7 @@ import profile from '../../images/profileIcon.svg';
 import search from '../../images/searchIcon.svg';
 import explorar from '../../images/exploreIcon.svg';
 import Search from '../Search';
+import { FoodCtx } from '../../context/ContextFood';
 
 function Header(props) {
   const [isSearch, setIsSearch] = useState(false);

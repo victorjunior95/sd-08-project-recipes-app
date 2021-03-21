@@ -8,6 +8,7 @@ function ContextFood(props) {
   const { children } = props;
   const [foodApi, setFoodApi] = useState([]);
   const [filter, setFilter] = useState({ key: 'name', value: 'be' });
+  const [currentPage, setCurrentPage] = useState('');
   const { key, value } = filter;
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function ContextFood(props) {
     conect();
   }, [key, value]);
   return (
-    <FoodCtx.Provider value={ { foodApi, setFoodApi, filter, setFilter } }>
+    <FoodCtx.Provider value={ { foodApi, setFoodApi, filter, setFilter, setCurrentPage } }>
       {children}
     </FoodCtx.Provider>
   );

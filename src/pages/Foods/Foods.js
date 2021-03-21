@@ -8,7 +8,7 @@ function Foods() {
   const { foodApi: { meals } } = useContext(FoodCtx);
   return (
     <div>
-      <Header name="Comidas" icon="true" />
+      <Header name="Comidas" icon="true" currentPage="Foods" />
       <div className="cards">
         {meals && meals.map((item) => (
           <Card

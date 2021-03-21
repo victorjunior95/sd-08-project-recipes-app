@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { filterFoods } from '../../services/FoodsRequests';
 import './searchBar.css';
+import { filterDrinks } from '../../services/DrinksRequests';
 
-const SearchBar = () => {
+const SearchBar = ({ title }) => {
+  const history = useHistory();
   const [filter, setFilter] = useState('i');
   const [query, setQuery] = useState('');
   const submitFilters = async () => {
@@ -10,7 +14,18 @@ const SearchBar = () => {
       alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
-    filterFoods(filter, query);
+    if (title === 'Comidas') {
+      const meals = await filterFoods(filter, query);
+      console.log(meals);
+      if (meals.length === 1) {
+        history.push(`/comidas/${meals[0].idMeal}`);
+      }
+    } else {
+      const drinks = await filterDrinks(filter, query);
+      if (drinks.length === 1) {
+        history.push(`/bebidas/${drinks[0].idDrink}`);
+      }
+    }
   };
   return (
     <div className="container mt-2">
@@ -63,5 +78,8 @@ const SearchBar = () => {
       </div>
     </div>
   );
+};
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 export default SearchBar;

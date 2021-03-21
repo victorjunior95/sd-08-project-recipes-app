@@ -9,7 +9,7 @@ const Home = ({ title }) => {
   return (
     <>
       <Header title={ title } />
-      {searchBar && <SearchBar />}
+      {searchBar && <SearchBar title={ title } />}
     </>
   );
 };

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import Context from '../context/Context';
 
 function Login() {
   const numberLength = 5;
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
+  const { setUser } = useContext(Context);
 
   function validEmail(typedEmail) {
     const regex = /\S+@\S+\.\S+/;
@@ -26,11 +30,6 @@ function Login() {
     } else if (testid === 'password-input') {
       setPassword(e.target.value);
     }
-  }
-
-  function handleClick() {
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
   }
 
   return (
@@ -57,7 +56,10 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabled }
-        onClick={ handleClick }
+        onClick={ () => {
+          setUser({ email });
+          history.push('/comidas');
+        } }
       >
         Entrar
       </button>

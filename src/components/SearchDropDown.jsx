@@ -6,7 +6,7 @@ function SearchDropDown() {
       <input
         data-testid="search-input"
         className="form-control"
-        style={ { width: 340, margin: 'auto', marginTop: 10 } }
+        style={ { width: 340, margin: 15 } }
       />
       <div className="radio-container">
         <label className="radio-button" htmlFor="ingredient-search-radio">
@@ -46,7 +46,7 @@ function SearchDropDown() {
       <button
         data-testid="exec-search-btn"
         type="button"
-        className="btn btn-primary"
+        className="btnz btn btn-primary"
       >
         BUSCAR
       </button>

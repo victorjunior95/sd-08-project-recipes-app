@@ -111,13 +111,15 @@
 }
 
 .btnz {
-  height: 80px;
+  height: 70px;
   margin: 10px;
   width: 340px;
 }
 
 .search-container {
   align-items: center;
+  background-color: #caffaf;
+  background: linear-gradient(180deg, rgba(15,163,107,1) 0%, rgba(130,207,178,1) 25%, rgba(255,255,255,1) 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;

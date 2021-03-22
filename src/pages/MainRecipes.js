@@ -1,12 +1,12 @@
 import React from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import CocktailPage from './CocktailPage';
 import Footer from '../components/Footer';
 
-function MainRecipes({ history }) {
+function MainRecipes(history) {
   const { pathname } = history.location;
   return (
     <main>
@@ -20,5 +20,5 @@ function MainRecipes({ history }) {
 export default MainRecipes;
 
 MainRecipes.propTypes = {
-  history: PropTypes.objectOf(PropTypes.object).isRequired,
+  // history: PropTypes.element.isRequired,
 };

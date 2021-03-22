@@ -3,11 +3,15 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function MainRecipes({ history }) {
   const { pathname } = history.location;
   return (
-    <Header title={ pathname } />
+    <main>
+      <Header title={ pathname } />
+      <Footer />
+    </main>
   );
 }
 

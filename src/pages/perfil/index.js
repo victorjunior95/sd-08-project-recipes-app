@@ -10,7 +10,7 @@ function Perfil() {
   const userEmail = JSON.parse(localStorage.user).email;
 
   return (
-     <div>
+    <div>
       <Header explore="false">Perfil</Header>
       <p data-testid="profile-email">{ userEmail }</p>
       <button

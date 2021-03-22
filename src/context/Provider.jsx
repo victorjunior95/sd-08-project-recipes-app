@@ -4,12 +4,14 @@ import App from '../App';
 // import PropTypes from 'prop-types';
 
 function RecipesProvider() {
+  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const [mealsToken, setMealsToken] = useState(1);
   const [cocktailsToken, setCocktailsToken] = useState(1);
   const [user, setUser] = useState({
     email: '',
   });
   const [filter, setFilter] = useState([]);
+  const [buttonFilter, setButtonFilter] = useState([]);
 
   useEffect(() => {
     function saveLocalStorage() {
@@ -20,11 +22,24 @@ function RecipesProvider() {
     saveLocalStorage();
   }, [user, mealsToken, cocktailsToken]);
   // console.log(test)
+
+  useEffect(() => {
+    async function fetchData() {
+      const FIVE_CATEGORYS = 5;
+      const { meals } = await fetch(url).then((response) => response.json());
+      console.log(meals.slice(0, FIVE_CATEGORYS));
+      setButtonFilter(meals.slice(0, FIVE_CATEGORYS));
+    }
+    fetchData();
+  }, []);
+
   const state = {
+    setButtonFilter,
     setUser,
     setMealsToken,
     setCocktailsToken,
     setFilter,
+    buttonFilter,
     filter,
   };
   return (

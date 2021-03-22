@@ -21,8 +21,7 @@ function SearchBarFood() {
 
   const requestAPI = async () => {
     if (searchType === 'first-letter-search' && searchInput.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-      return '';
+      return <p>Sua busca deve conter somente 1 (um) caracter</p>;
     }
     if (searchType === 'ingredient-search') {
       const response = await SearchMealByIngredient(searchInput);

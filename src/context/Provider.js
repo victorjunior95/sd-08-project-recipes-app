@@ -10,12 +10,11 @@ function Provider({ children }) {
   });
 
   useEffect(() => {
-    function handleLocalStorage() {
+    if (!localStorage.getItem('user')) {
       localStorage.setItem('mealsToken', mealsToken);
       localStorage.setItem('cocktailsToken', cocktailsToken);
       localStorage.setItem('user', JSON.stringify(user));
     }
-    handleLocalStorage();
   }, [user, mealsToken, cocktailsToken]);
 
   const data = {

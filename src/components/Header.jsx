@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import RecipeSearchBar from './RecipeSearchBar';
@@ -47,3 +48,7 @@ export default function Header({ title }) {
     // - Tem os data-testids `profile-top-btn`, `page-title` e `search-top-btn`
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};

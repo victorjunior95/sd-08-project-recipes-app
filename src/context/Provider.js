@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Context from './MyContext';
 
 function Provider({ children }) {
@@ -9,10 +10,18 @@ function Provider({ children }) {
     setEmail,
     password,
     setPassword,
-  }
-  return (<Context.Provider value={ contextValue }>
-    { children }
-  </Context.Provider>);
+  };
+
+  return (
+    <Context.Provider value={ contextValue }>
+      { children }
+    </Context.Provider>);
 }
 
 export default Provider;
+
+Provider.propTypes = {
+  children: PropTypes.objectOf(
+    PropTypes.any,
+  ).isRequired,
+};

@@ -80,14 +80,15 @@ function FoodContext(props) {
   const handleChangeSearch = (e) => {
     setSearchInputMeal(e);
   };
-
+  const myCustomAlert = (text) => {
+    const myAlert = window.alert;
+    myAlert(text);
+  };
   const handleClickSearch = async () => {
     if (nameSearchRadio) {
       const res = await getMealByName(searchInputMeal);
       if (res === null) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-        );
+        myCustomAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         return null;
       }
       if (res.length === 1) {
@@ -101,7 +102,7 @@ function FoodContext(props) {
       setMeals(res);
     }
     if (!!firstLetterSearchRadio && searchInputMeal.length !== 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
     }
     if (ingredientSearchRadio) {
       const res = await getMealByIngredients(searchInputMeal);

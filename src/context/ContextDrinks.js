@@ -69,14 +69,17 @@ function DrinksContext(props) {
     setSearchInputDrink(e);
   };
 
+  const myCustomAlert = (text) => {
+    const myAlert = window.alert;
+    myAlert(text);
+  };
+
   const handleClickSearchDrink = async () => {
     if (nameSearchRadioDrink) {
       const res = await getDrinkByName(searchInputDrink);
       // console.log(res);
       if (res === null) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-        );
+        myCustomAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         return null;
       }
       if (res.length === 1) {
@@ -90,7 +93,7 @@ function DrinksContext(props) {
       setDrinks(res);
     }
     if (!!firstLetterSearchRadioDrink && searchInputDrink.length !== 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
     }
     if (ingredientSearchRadioDrink) {
       const res = await getDrinkByIngredients(searchInputDrink);

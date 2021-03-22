@@ -5,6 +5,10 @@ import LoginPage from './pages/LoginPage';
 import MainRecipes from './pages/MainRecipes';
 import ProfilePage from './pages/ProfilePage';
 import Explore from './pages/Explore';
+import ExploreFoodDrink from './pages/ExploreFoodDrink';
+import DrinkIngredient from './pages/DrinkIngredient';
+import FoodIngredient from './pages/FoodIngredient';
+import ExploreOrigin from './pages/ExploreOrigin';
 
 function App() {
   return (
@@ -12,9 +16,13 @@ function App() {
       <Switch>
         <Route exact path="/perfil" component={ ProfilePage } />
         <Route exact path="/explorar" component={ Explore } />
+        <Route path="/explorar/comidas/ingredientes" component={ DrinkIngredient } />
+        <Route path="/explorar/bebidas/ingredientes" component={ FoodIngredient } />
+        <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
         <Route path="/comidas" component={ MainRecipes } />
         <Route path="/bebidas" component={ MainRecipes } />
         <Route exact path="/" component={ LoginPage } />
+        <Route path="/explorar/" component={ ExploreFoodDrink } />
       </Switch>
     </main>
   );

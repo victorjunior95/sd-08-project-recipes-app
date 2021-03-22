@@ -27,7 +27,11 @@ function App() {
       <Route exact path="/explorar" component={ Explorer } />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
-      <Route exact path="/comidas/:id" component={ MealRecipeDetails } />
+      <Route
+        exact
+        path="/comidas/:id"
+        render={ (props) => <MealRecipeDetails { ...props } /> }
+      />
       <Route exact path="/bebidas/:id" component={ CocktailRecipeDetails } />
       <Route exact path="/explorar/comidas" component={ MealsExplorer } />
       <Route exact path="/explorar/bebidas" component={ CocktailsExplorer } />

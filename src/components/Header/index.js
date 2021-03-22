@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { FormControl, Navbar } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './style.css';
+import SeekBar from '../SeekBar';
 
 export default function Header(props) {
   const [showSeachbar, setShowSeachbar] = useState(false);
@@ -46,7 +47,7 @@ export default function Header(props) {
         <h1 className="m-0 h5" data-testid="page-title">{title}</h1>
         { renderSearchBarIcon() }
       </Navbar>
-      { showSeachbar && <FormControl
+      { showSeachbar && <SeekBar
         type="text"
         placeholder="Pesquisar"
         className="mt-3"

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import '../styles/Login.css';
+
 function Login({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,8 +24,8 @@ function Login({ history }) {
   };
 
   return (
-    <div>
-      <div>
+    <div className="login-body">
+      <div className="login-content">
         <input
           type="text"
           data-testid="email-input"
@@ -37,15 +39,16 @@ function Login({ history }) {
           onChange={ (e) => setPassword(e.target.value) }
 
         />
+
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !checkValidity() }
+          onClick={ saveToken }
+        >
+          Entrar
+        </button>
       </div>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !checkValidity() }
-        onClick={ saveToken }
-      >
-        Entrar
-      </button>
     </div>
   );
 }

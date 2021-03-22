@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../../components/Header';
 
-function index() {
+function Perfil() {
   return (
-    <div>OI</div>
+    <div>
+      <Header explore="false">Perfil</Header>
+    </div>
   );
 }
 
-export default index;
+export default Perfil;

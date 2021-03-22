@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../../components/Header';
 
-function index() {
+function Comida() {
   return (
-    <div>OI</div>
+    <Header>Comidas</Header>
   );
 }
 
-export default index;
+export default Comida;

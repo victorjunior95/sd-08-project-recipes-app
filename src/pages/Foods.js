@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { Header } from '../components';
 
 class Foods extends Component {
   render() {
+    const { history } = this.props;
+
     return (
       <div>
-        <Header />
-        <SearchBar />
+        <Header history={ history } />
+        Eu sou o pagína de Comidas
       </div>
     );
   }
 }
 
-// Foods.propTypes = {
-
-// };
-
+Foods.defaultProps = {
+  history: {},
+};
+Foods.propTypes = {
+  history: PropTypes.objectOf,
+};
 export default Foods;

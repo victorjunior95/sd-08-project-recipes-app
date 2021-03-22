@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
@@ -34,22 +34,11 @@ const Header = (props) => {
     );
   }
 
-  // function handleClick() {
-  //   switch (showSearchBar) {
-  //   case true:
-  //     setShow(false);
-  //     break;
-  //   case false:
-  //     setShow(true);
-  //     break;
-  //   default:
-  //     break;
-  //   }
-  // }
-
   function handleFilterType({ target: { value } }) {
     setUserButton(value);
   }
+
+  const history = useHistory();
 
   async function handleSearchButton() {
     if (userButton === 'busca da primeira letra' && userInput.length > 1) {
@@ -57,6 +46,19 @@ const Header = (props) => {
       return;
     }
     const results = await getResultFromAPI(userButton, location.pathname, userInput);
+    console.log(results);
+    if (results === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (results.length === 1) {
+      const { idMeal } = results[0];
+      const { idDrink } = results[0];
+      if (idMeal === undefined) {
+        history.push(`/bebidas/${idDrink}`);
+      } else {
+        history.push(`/comidas/${idMeal}`);
+        console.log(results[0]);
+      }
+    }
     if (results) context.setFilter(results);
   }
 

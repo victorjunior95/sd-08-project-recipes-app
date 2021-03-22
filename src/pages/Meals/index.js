@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
 
@@ -16,8 +17,11 @@ export default function Meals() {
       <Header title="Comidas" />
       <SearchBar type="meals" />
       {meals.map((meal, index) => {
+        if (meals.length === 1) {
+          return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+        }
         if (index < LIMIT_OF_CARDS) {
-          return <MealCard key={ index } meal={ meal } />;
+          return <MealCard key={ index } meal={ meal } index={ index } />;
         }
         return null;
       })}

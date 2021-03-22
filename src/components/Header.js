@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import profileIcon from '../../assets/images/profileIcon.svg';
-import searchIcon from '../../assets/images/searchIcon.svg';
-import RecipesContext from '../../context/RecipesContext';
+import profileIcon from '../assets/images/profileIcon.svg';
+import searchIcon from '../assets/images/searchIcon.svg';
+import RecipesContext from '../context/RecipesContext';
 
 export default function Header({ title }) {
   const { setShow } = useContext(RecipesContext);

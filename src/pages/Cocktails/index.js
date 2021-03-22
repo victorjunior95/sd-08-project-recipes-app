@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
 
@@ -16,8 +17,12 @@ function Cocktails() {
       <Header title="Bebidas" />
       <SearchBar type="cocktails" />
       {drinks.map((drink, index) => {
+        if (drinks.length === 1) {
+          console.log(drinks);
+          return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
+        }
         if (index < LIMIT_OF_CARDS) {
-          return <DrinkCard key={ index } drink={ drink } />;
+          return <DrinkCard key={ index } drink={ drink } index={ index } />;
         }
         return null;
       })}

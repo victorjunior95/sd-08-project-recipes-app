@@ -1,5 +1,11 @@
 import React from 'react';
 
-export default function CocktailRecipeDetails() {
-  return <p>Detalhes</p>;
+function CocktailRecipeDetails() {
+  return (
+    <div>
+      Cocktail Recipe  Details
+    </div>
+  );
 }
+
+export default CocktailRecipeDetails;

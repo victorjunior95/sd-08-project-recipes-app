@@ -1,5 +1,11 @@
 import React from 'react';
 
-export default function MealRecipeDetails() {
-  return <p>Detalhes</p>;
+function MealRecipeDetails() {
+  return (
+    <div>
+      Recipe Details
+    </div>
+  );
 }
+
+export default MealRecipeDetails;

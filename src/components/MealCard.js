@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function MealCard({ meal }) {
+function MealCard({ meal, index }) {
   const { strMeal, strMealThumb } = meal;
   return (
-    <div>
-      <img src={ strMealThumb } alt="meal " />
-      <p>{ strMeal }</p>
+    <div data-testid={ `${index}-recipe-card` }>
+      <img src={ strMealThumb } alt="meal" data-testid={ `${index}-card-img` } />
+      <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
     </div>
   );
 }
@@ -16,6 +16,7 @@ MealCard.propTypes = {
     strMeal: PropTypes.string,
     strMealThumb: PropTypes.string,
   }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default MealCard;

@@ -1,35 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Button, NavLink } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import ContextRecipes from '../context/ContextRecipes';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   const history = useHistory();
+  const { setHeaderInfo } = useContext(ContextRecipes);
+
+  function handleClickDrinkBtn() {
+    setHeaderInfo({ pageTitle: 'Bebidas', showSearch: true });
+    return history.push('/bebidas');
+  }
+
+  function handleClickExploreBtn() {
+    setHeaderInfo({ pageTitle: 'Explorar', showSearch: false });
+    return history.push('/explorar');
+  }
+
+  function handleClickMeatBtn() {
+    setHeaderInfo({ pageTitle: 'Comidas', showSearch: true });
+    return history.push('/comidas');
+  }
 
   return (
     <section className="footer" data-testid="footer">
-      <a
+      <NavLink
         data-testid="drinks-bottom-btn"
-        href="/bebidas"
+        onClick={ handleClickDrinkBtn }
         src={ drinkIcon }
       >
         <img src={ drinkIcon } alt="drink-icon" />
-      </a>
+      </NavLink>
 
-      <button
+      <Button
         className="buttom"
         type="button"
         data-testid="explore-bottom-btn"
-        onClick={ () => history.push('/explorar') }
+        onClick={ handleClickExploreBtn }
         src={ exploreIcon }
       >
         <img src={ exploreIcon } alt="explore-icon" />
-      </button>
+      </Button>
 
-      <a data-testid="food-bottom-btn" href="/comidas" src={ mealIcon }>
+      <NavLink
+        data-testid="food-bottom-btn"
+        onClick={ handleClickMeatBtn }
+        src={ mealIcon }
+      >
         <img src={ mealIcon } alt="food icon" />
-      </a>
+      </NavLink>
     </section>
   );
 }

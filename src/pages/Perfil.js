@@ -22,8 +22,10 @@ class Perfil extends Component {
   }
 
   render() {
-    const { email, setEmail } = this.props;
     const { routeTo } = this.state;
+    if (routeTo) return <Redirect push to={ routeTo } />;
+
+    const { email, setEmail } = this.props;
     const userEmailLocalStorage = JSON.parse(localStorage.getItem('user'));
 
     return (
@@ -62,7 +64,6 @@ class Perfil extends Component {
             </button>
           </div>
         </main>
-        {routeTo && <Redirect push to={ routeTo } />}
         <Footer />
       </div>
     );

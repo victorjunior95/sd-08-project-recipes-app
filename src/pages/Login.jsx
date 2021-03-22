@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router';
+import ContextReceitas from '../context/ContextReceitas';
 // Da um auto fix com o eslint, n to conseguindo aqui, Att. Anti-Marcela thank you
 // Me ame menos por favor <3
 // Vou tentar o.o, Valeeeeu
 function Login() {
   const [info, setInfo] = useState({ email: '', password: '' });
-  const [redirect, setRedirect] = useState(false);
-
+  // const [redirect, setRedirect] = useState(false);
+  const { logedIn, setLoged } = useContext(ContextReceitas);
   function verificaEmailESenha(email, password) {
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
     const minCaracteres = 7;
@@ -21,7 +22,8 @@ function Login() {
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email: info.email }));
-    setRedirect(true);
+    setLoged(true);
+    // setRedirect(true);
   }
 
   return (
@@ -58,7 +60,7 @@ function Login() {
 
         </div>
       </form>
-      {redirect ? <Redirect to="/comidas" /> : false }
+      {logedIn ? <Redirect to="/comidas" /> : false }
 
     </>
   );

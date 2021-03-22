@@ -1,12 +1,11 @@
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import ContextReceitas from './ContextReceitas';
 
-const teste = { feijão: 'arroz' };
-
 function ProviderReceitas({ children }) {
+  const [logedIn, setLoged] = useState(0);
   return (
-    <ContextReceitas.Provider value={ { ...state, teste } }>
+    <ContextReceitas.Provider value={ { logedIn, setLoged } }>
       { children }
     </ContextReceitas.Provider>
   );

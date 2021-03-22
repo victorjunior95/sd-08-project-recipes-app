@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../../components/Header';
 
-function index() {
+function Perfil() {
   const logout = () => {
     localStorage.clear();
   };
@@ -9,8 +10,8 @@ function index() {
   const userEmail = JSON.parse(localStorage.user).email;
 
   return (
-    <div>
-      <h1>Perfil</h1>
+     <div>
+      <Header explore="false">Perfil</Header>
       <p data-testid="profile-email">{ userEmail }</p>
       <button
         data-testid="profile-done-btn"
@@ -41,4 +42,4 @@ function index() {
   );
 }
 
-export default index;
+export default Perfil;

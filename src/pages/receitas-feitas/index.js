@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../../components/Header';
 
-function index() {
+function ReceitasFeitas() {
   return (
-    <div>OI</div>
+    <div>
+      <Header explore="false">Receitas Feitas</Header>
+    </div>
   );
 }
 
-export default index;
+export default ReceitasFeitas;

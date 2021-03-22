@@ -1,0 +1,35 @@
+:root {
+
+  --login-background: linear-gradient(to bottom right, #fd951f, #eea564);
+
+  --login-text-color: #edd6c4;
+
+  --login-btn-background: #eea564;
+
+  --login-btn-text-disable: rgba(0, 0, 0, 0.7);
+
+  --color-borders: #323238;
+
+  --color-black: #0d0d0f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Ubuntu , sans-serif;
+  font-size: 0.8rem;
+  height: 100vh;
+  width: 100vw;
+}
+
+button, input, select {
+  border: none;
+  border-radius: 4px;
+  font-family: Ubuntu , sans-serif;
+  padding: 6px;
+  width: 100%;
+}

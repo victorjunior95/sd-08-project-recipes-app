@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import FoodContext from '../context/comidaContext/FoodContext';
+import DrinkContext from '../context/bebidaContext/DrinkContext';
 import {
-  SearchMealByIngredient,
-  SearchMealByName,
-  SearchMealByFirstLetter,
+  SearchCocktailByIngredient,
+  SearchCocktailByName,
+  SearchCocktailByFirstLetter,
 } from '../services/API';
 
 function SearchBarFood() {
@@ -12,24 +12,24 @@ function SearchBarFood() {
     values: {
       searchInput,
       searchType,
-      foods,
+      drinks,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
-      setFoods,
+      setDrinks,
     },
-  } = useContext(FoodContext);
+  } = useContext(DrinkContext);
 
   const [redirect, setRedirect] = useState(false);
   const [path, setPath] = useState(false);
 
   useEffect(() => {
-    if (foods.length === 1) {
+    if (drinks.length === 1) {
       setRedirect(true);
-      setPath(`/comidas/${foods[0].idMeal}`);
+      setPath(`/bebidas/${drinks[0].idDrink}`);
     }
-  }, [foods]);
+  }, [drinks]);
 
   const requestAPI = async () => {
     if (searchType === 'first-letter-search' && searchInput.length > 1) {
@@ -38,16 +38,16 @@ function SearchBarFood() {
     }
     let response = '';
     if (searchType === 'ingredient-search') {
-      response = await SearchMealByIngredient(searchInput);
+      response = await SearchCocktailByIngredient(searchInput);
     }
     if (searchType === 'name-search') {
-      response = await SearchMealByName(searchInput);
+      response = await SearchCocktailByName(searchInput);
     }
     if (searchType === 'first-letter-search') {
-      response = await SearchMealByFirstLetter(searchInput);
+      response = await SearchCocktailByFirstLetter(searchInput);
     }
-    if (response.meals !== null && searchType !== '') {
-      return setFoods(response.meals);
+    if (response.drinks !== null && searchType !== '') {
+      return setDrinks(response.drinks);
     }
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };

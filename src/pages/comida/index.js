@@ -2,6 +2,8 @@ import React, { useContext }  from 'react';
 import Header from '../../components/Header';
 import MainFoodContext from '../../context/mainFoodContext';
 import requestMealRecipe from '../../services/API';
+import CardFood from '../../components/CardFood';
+import SearchBarFood from '../../components/SearchBarFood';
 
 function Comida() {
   const {
@@ -22,7 +24,8 @@ function Comida() {
 
   return (
     <section>
-      <Header>Comidas</Header>
+      <Header component={ <SearchBarFood /> }>Comidas</Header>
+      <CardFood />
     </section>
   );
 }

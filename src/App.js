@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Login from './pages/login';
 // import Comida from './pages/comida';
 // import Bebida from './pages/bebida';
@@ -15,18 +15,19 @@ import Login from './pages/login';
 // import ComidaIngredientes from './pages/explorar/comida/ingredientes';
 // import BebidaIngredientes from './pages/explorar/bebida/ingredientes';
 // import ComidaArea from './pages/explorar/comida/area';
-// import Perfil from './pages/perfil';
-// import ReceitasFeitas from './pages/receitas-feitas';
-// import ReceitasFavoritas from './pages/receitas-favoritas';
+import Perfil from './pages/perfil';
+import ReceitasFeitas from './pages/receitas-feitas';
+import ReceitasFavoritas from './pages/receitas-favoritas';
 import ContextRoute from './context-route/ContextRoute';
 import UserProvider from './context/userContext/UserProvider';
 
 function App() {
   return (
     <Switch>
-      {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
-      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/perfil" component={ Perfil } />
+      <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      {/*
       <Route path="/explorar/comida/area" component={ ComidaArea } />
       <Route path="/explorar/comida/ingredientes" component={ ComidaIngredientes } />
       <Route path="/explorar/bebida/ingredientes" component={ BebidaIngredientes } />

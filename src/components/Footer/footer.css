@@ -1,0 +1,15 @@
+.footer {
+  background-color: lightcoral;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  position:fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.header button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}

@@ -7,13 +7,16 @@ function ProviderRecipes({ children }) {
     pageTitle: 'Comidas',
     showSearch: true,
   };
+
   const [headerInfo, setHeaderInfo] = useState(headerInfoInitial);
+
+  const data = {
+    headerInfo,
+    setHeaderInfo,
+  };
+
   return (
-    <ContextRecipes.Provider
-      value={
-        { headerInfo, setHeaderInfo }
-      }
-    >
+    <ContextRecipes.Provider value={ data }>
       {children}
     </ContextRecipes.Provider>
   );

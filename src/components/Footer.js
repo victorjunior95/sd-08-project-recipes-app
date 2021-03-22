@@ -18,6 +18,7 @@ function Footer() {
       </a>
 
       <button
+        className="buttom"
         type="button"
         data-testid="explore-bottom-btn"
         onClick={ () => history.push('/explorar') }

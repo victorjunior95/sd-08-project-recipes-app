@@ -10,7 +10,11 @@ function Header() {
     input: '',
     radio: 'ingredientes',
   };
-  const { headerInfo, setHeaderInfo } = useContext(ContextRecipes);
+  const {
+    headerInfo,
+    setHeaderInfo,
+    setBarraBuscar,
+    setIsFetching } = useContext(ContextRecipes);
   const history = useHistory();
   const [searchBar, setSearchBar] = useState(false);
   const [searchItens, setSearchItens] = useState(searchItensInitial);
@@ -24,6 +28,12 @@ function Header() {
     setSearchBar(!searchBar);
   }
 
+  function handleClickBuscarBtn() {
+    const { input, radio } = searchItens;
+    setBarraBuscar({ input, radio });
+    setIsFetching(true);
+  }
+
   return (
     <div className="w-100">
       <Navbar
@@ -33,6 +43,7 @@ function Header() {
           className="btn btn-warning border-0"
           onClick={ handleClickProfileBtn }
           data-testid="profile-top-btn"
+          src="../images/profileIcon.svg"
         >
           <img src={ profileIcon } className="img-fluid" alt="Profile Icon" />
         </NavLink>
@@ -42,6 +53,7 @@ function Header() {
             onClick={ handleClickSearchBtn }
             data-testid="search-top-btn"
             className="btn btn-warning border-0"
+            src="../images/searchIcon.svg"
           >
             <img src={ searchIcon } className="img-fluid" alt="Search Icon" />
           </NavLink>) : <div style={ { width: '62px' } } /> }
@@ -116,6 +128,7 @@ function Header() {
             type="button"
             data-testid="exec-search-btn"
             className="m-1 w-50"
+            onClick={ handleClickBuscarBtn }
           >
             Buscar
           </Button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const Comida = () => (
@@ -7,6 +8,7 @@ const Comida = () => (
     <h1>
       Página comida
     </h1>
+    <Footer />
   </section>
 );
 

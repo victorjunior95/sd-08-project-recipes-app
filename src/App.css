@@ -70,3 +70,13 @@ header {
     transform: rotate(-10deg);
   }
 }
+
+.footer {
+  background-color: grey;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
+}

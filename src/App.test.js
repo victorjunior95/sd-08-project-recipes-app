@@ -1,7 +1,9 @@
 import React from 'react';
 import renderWithRouter from './renderWithRouter';
 import App from './App';
+import Foods from './pages/Foods';
 import userEvent from '@testing-library/user-event';
+import { findByTestId, getAllByRole } from '@testing-library/dom';
 
 describe('Testa a tela de Login', () => {
   it('verifica existencia dos inputs e do botão', () => {
@@ -28,5 +30,3 @@ describe('Testa a tela de Login', () => {
     expect(pathname).toBe('/comidas');
   });
 })
-
-

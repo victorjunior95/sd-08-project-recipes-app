@@ -1,6 +1,7 @@
 .footer-food {
   align-items: center;
   background-color: gray;
+  bottom: 0;
   display: flex;
   font-size: xx-large;
   height: 10%;

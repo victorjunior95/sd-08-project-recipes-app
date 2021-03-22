@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Cards from '../Card/Cards';
 
 const List = ({ title, results }) => {
-  console.log(results);
   const CARDSFORPAGE = 12;
   return (
     <>

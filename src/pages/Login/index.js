@@ -36,7 +36,7 @@ export default function Login() {
         <InputPassword handleChange={ handleChange } />
       </div>
       <SubmitForm
-        disabled={ !REGEX.test(email) || password.length <= '5' }
+        disabled={ !REGEX.test(email) || password.length < '6' }
         handleSubmit={ handleSubmit }
       />
     </form>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import Header from '../../component/Header';
 import shareIcon from '../../images/shareIcon.svg';
@@ -9,7 +8,6 @@ export default function RecipesDone() {
   const storedDone = JSON.parse(localStorage.getItem('doneRecipes'));
   const [copied, setCopied] = useState(false);
   const [doneRecipes, setDoneRecipes] = useState(storedDone);
-  const history = useHistory();
 
   const filterRecipes = (filter) => {
     const filtered = !filter

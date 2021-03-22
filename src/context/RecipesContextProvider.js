@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import GetTitle from '../hooks/GetTitle';
 
 function RecipesContextProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
-  const [title, setTitle] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
-  function setTitleState() {
-    setIsLoading(true);
-    const name = GetTitle();
-    setTitle(name);
-    setIsLoading(false);
+  function setShow() {
+    console.log('setShow em provider');
+    const invert = !isShow;
+    console.log(invert);
+    setIsShow(invert);
   }
 
   const context = {
@@ -21,9 +19,8 @@ function RecipesContextProvider({ children }) {
     setMeals,
     drinks,
     setDrinks,
-    title,
-    setTitleState,
-    isLoading,
+    setShow,
+    isShow,
   };
 
   return (

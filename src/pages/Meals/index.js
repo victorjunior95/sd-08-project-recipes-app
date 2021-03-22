@@ -9,13 +9,11 @@ import MealCard from '../../components/MealCard';
 const LIMIT_OF_CARDS = 12;
 
 export default function Meals() {
-  const { setTitleState, isLoading, meals } = useContext(RecipesContext);
-  setTitleState();
+  const { meals } = useContext(RecipesContext);
 
-  if (isLoading) return <p>Carregando...</p>;
   return (
     <div>
-      <Header />
+      <Header title="Comidas" />
       <SearchBar type="meals" />
       {meals.map((meal, index) => {
         if (index < LIMIT_OF_CARDS) {

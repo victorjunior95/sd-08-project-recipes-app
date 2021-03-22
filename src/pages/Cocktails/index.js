@@ -9,14 +9,11 @@ import DrinkCard from '../../components/DrinkCard';
 const LIMIT_OF_CARDS = 12;
 
 function Cocktails() {
-  const { setTitleState, isLoading, drinks } = useContext(RecipesContext);
-  setTitleState();
-
-  if (isLoading) return <p>Carregando...</p>;
+  const { drinks } = useContext(RecipesContext);
 
   return (
     <div>
-      <Header />
+      <Header title="Bebidas" />
       <SearchBar type="cocktails" />
       {drinks.map((drink, index) => {
         if (index < LIMIT_OF_CARDS) {

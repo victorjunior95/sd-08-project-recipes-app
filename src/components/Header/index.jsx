@@ -1,24 +1,25 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import profileIcon from '../../assets/images/profileIcon.svg';
 import searchIcon from '../../assets/images/searchIcon.svg';
 import RecipesContext from '../../context/RecipesContext';
 
-export default function Header() {
-  const { title } = useContext(RecipesContext);
+export default function Header({ title }) {
+  const { setShow } = useContext(RecipesContext);
 
   function filter() {
-    console.log('ok');
+    setShow();
   }
 
   function headerBtn() {
-    const titlesList = ['comidas', 'bebidas', 'explorar origem'];
+    const titlesList = ['Comidas', 'Bebidas', 'Explorar Origem'];
     switch (titlesList.includes(title)) {
     case true:
       return (
-        <button type="button" data-testid="search-top-btn" onClick={ filter }>
-          <img src={ searchIcon } alt="search" />
+        <button type="button" onClick={ filter }>
+          <img data-testid="search-top-btn" src={ searchIcon } alt="search" />
         </button>);
     default:
       return ('');
@@ -37,3 +38,5 @@ export default function Header() {
     </header>
   );
 }
+
+Header.propTypes = ({ title: PropTypes.string.isRequired });

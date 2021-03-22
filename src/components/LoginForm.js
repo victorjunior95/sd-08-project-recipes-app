@@ -65,6 +65,5 @@ LoginForm.propTypes = {
   ).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
-  })
-  .isRequired,
+  }).isRequired,
 };

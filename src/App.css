@@ -36,13 +36,12 @@ header {
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-
   0% {
     transform: rotate(5deg);
   }
@@ -57,7 +56,6 @@ header {
 }
 
 @keyframes clink {
-
   0% {
     transform: rotate(-10deg);
   }
@@ -69,4 +67,14 @@ header {
   100% {
     transform: rotate(-10deg);
   }
+}
+
+.footer {
+  background-color: grey;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
 }

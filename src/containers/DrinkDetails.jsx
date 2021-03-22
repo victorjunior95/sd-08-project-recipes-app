@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardCarousel from '../components/CardCarousel';
 import api from '../services/index';
 
 const copy = require('clipboard-copy');
 
-const finterIngredients = (recipe) => Object.entries(recipe)
+const filterIngredients = (recipe) => Object.entries(recipe)
   .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
   .filter((ingredientIndex) => ingredientIndex[1] !== '')
   .filter((ingredientIndex) => ingredientIndex[1] !== null)
@@ -31,6 +33,65 @@ const filterIngredientsAndMeasures = (recipe) => {
   )));
 };
 
+const initLocalStorage = () => {
+  const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(isFavorite);
+  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log(inProgessRecipes);
+
+  if (inProgessRecipes === null) {
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({ cocktails: {}, meals: {} }));
+  }
+  if (isFavorite === null) {
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify([]));
+  }
+  return { isFavorite, inProgessRecipes };
+};
+
+const setLocalStorage = (recipe) => {
+  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const { cocktails, meals } = inProgessRecipes;
+  const ingredients = filterIngredients(recipe);
+  if (inProgessRecipes) {
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({
+        cocktails,
+        meals: { ...meals,
+          [recipe.idMeal]: ingredients } }));
+  }
+  localStorage.setItem('inProgressRecipes',
+    JSON.stringify({
+      cocktails: {},
+      meals: {
+        ...meals, [recipe.idMeal]: ingredients } }));
+};
+
+const handleFavorite = (recipe, iFavorite) => {
+  console.log('entrou no favorite useEffect');
+  if (iFavorite) {
+    console.log('entrou no isFavorite');
+    const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    return favoriteArray.length <= 1 ? localStorage.setItem('favoriteRecipes',
+      JSON.stringify([recipe])) : localStorage.setItem('favoriteRecipes',
+      JSON.stringify([...favoriteArray, recipe]));
+  }
+  console.log('saiu do isFavorite');
+
+  const favoriteArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(favoriteArray);
+  if (favoriteArray !== null && favoriteArray.length > 1) {
+    console.log('entrou no delete favorite length maior que 1');
+    return localStorage.setItem('favoriteRecipes', JSON.stringify([
+      favoriteArray.slice(0, favoriteArray[favoriteArray.indexOf(recipe[0])]),
+      favoriteArray.slice(favoriteArray[favoriteArray.indexOf(recipe[0])]),
+    ]));
+  }
+  // localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+};
+
 const DrinkDetails = () => {
   const history = useHistory();
   const [drink, setDrink] = useState([]);
@@ -38,16 +99,17 @@ const DrinkDetails = () => {
   const [loading, setLoading] = useState(true);
   const [start, setStart] = useState(false);
   const [copied, setCopy] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     api.fetchDrinkById('178319')
       .then((response) => response.json()).then((result) => setDrink(result.drinks));
     api.fetchMeals()
       .then((response) => response.json()).then((result) => setFoods(result.meals));
-    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgessRecipes) {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify({ cocktails: {}, meals: {} }));
+    console.log(initLocalStorage());
+    const { isFavorite } = initLocalStorage();
+    if (isFavorite.length > 0) {
+      setFavorite(true);
     }
   }, []);
 
@@ -59,28 +121,15 @@ const DrinkDetails = () => {
   }, [drink, setLoading, foods]);
 
   useEffect(() => {
-    const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { cocktails, meals } = inProgessRecipes;
     if (start) {
-      const ingredients = finterIngredients(drink[0]);
-
-      if (inProgessRecipes) {
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify({
-            meals,
-            cocktails: { ...cocktails,
-              [drink[0].idDrink]: ingredients } }));
-      }
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify({
-          meals: {},
-          cocktails: {
-            ...cocktails, [drink[0].idDrink]: ingredients } }));
-
+      setLocalStorage(drink[0]);
       return history.push(`/bebidas/${drink[0].idDrink}/in-progress`);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start]);
+  }, [start, drink, history]);
+
+  useEffect(() => {
+    handleFavorite(drink, favorite);
+  }, [favorite, drink]);
 
   const copyToClipBoard = (url) => copy(`http://localhost:3000${url}`)
     .then(() => {
@@ -113,7 +162,29 @@ const DrinkDetails = () => {
                 Share
               </button>
               {copied && <p>Link copiado!</p> }
-              <button type="submit" data-testid="favorite-btn">Favorite</button>
+              <button
+                type="submit"
+                data-testid="favorite-btn"
+                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                onClick={ () => setFavorite(!favorite) }
+              >
+                {favorite
+                  ? (
+                    <img
+                      className="rocksGlass"
+                      type="image/svg+xml"
+                      src={ blackHeartIcon }
+                      alt="blackHeartIcon"
+                    />
+                  ) : (
+                    <img
+                      className="rocksGlass"
+                      type="image/svg+xml"
+                      src={ whiteHeartIcon }
+                      alt="whiteHeartIcon"
+                    />
+                  )}
+              </button>
             </div>
             <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
             <h5>Ingredients</h5>

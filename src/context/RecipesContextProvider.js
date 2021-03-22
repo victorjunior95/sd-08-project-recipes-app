@@ -8,7 +8,6 @@ function RecipesContextProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   function setTitleState() {
     setIsLoading(true);
     const name = GetTitle();

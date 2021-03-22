@@ -1,19 +1,12 @@
 import React from 'react';
-import ProfileIcon from '../images/profileIcon.svg';
 import './DrinksByIngredients.css';
 import Footer from '../components/Footer';
+import HeaderSimple from '../components/HeaderSimple';
 
 function DrinksByIngredients() {
   return (
     <div className="container">
-      <div className="header-Drink-By-Ingredients">
-        <img
-          data-testid="profile-top-btn"
-          src={ ProfileIcon }
-          alt="user-profile"
-        />
-        <h2 data-testid="page-title">Explorar Ingredientes</h2>
-      </div>
+      <HeaderSimple />
       <div className="main">
         <button data-testid="explore-by-ingredient" type="button">
           Por Ingredientes

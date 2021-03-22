@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import './Login.css';
-import { DataContext } from '../context/Context';
+import { LoginAndFoodContext } from '../context/ContextFood';
 
 function Login() {
-  const dataContext = useContext(DataContext);
+  const dataContext = useContext(LoginAndFoodContext);
 
   const {
     handleSubmit,

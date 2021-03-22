@@ -13,7 +13,6 @@ form {
   width: 100%;
 }
 
-
 .label-login-form {
   align-self: center;
   display: flex;
@@ -30,4 +29,3 @@ label {
 button {
   margin-top: 10%;
 }
-

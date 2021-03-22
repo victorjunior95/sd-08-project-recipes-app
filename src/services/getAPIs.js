@@ -4,6 +4,12 @@ export const getMealCategories = async () => {
   return meals;
 };
 
+export const getMealsByCategory = async (byCategory) => {
+  const Url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${byCategory}`;
+  const { meals } = await fetch(Url).then((response) => response.json());
+  return meals;
+};
+
 export const getMealByIngredients = async (ingredient) => {
   const Url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const { meals } = await fetch(Url).then((response) => response.json());
@@ -24,6 +30,12 @@ export const getMealByFirstLetter = async (FirstLetter) => {
 
 export const getDrinksCategories = async () => {
   const Url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const { drinks } = await fetch(Url).then((response) => response.json());
+  return drinks;
+};
+
+export const getDrinksByCategory = async (byCategory) => {
+  const Url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${byCategory}`;
   const { drinks } = await fetch(Url).then((response) => response.json());
   return drinks;
 };

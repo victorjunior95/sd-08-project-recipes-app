@@ -3,7 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Comidas from './pages/Comidas';
-import Perfil from './pages/Perfil';
 import RecipesProvider from './context/RecipesProvider';
 import Login from './pages/Login';
 
@@ -24,7 +23,7 @@ function App() {
           <Route exact path="/explorar/comidas/ingredientes" />
           <Route exact path="/explorar/bebidas/ingredientes" />
           <Route exact path="/explorar/comidas/area" />
-          <Route exact path="/perfil" component={ Perfil } />
+          <Route exact path="/perfil" />
           <Route exact path="/receitas-feitas" />
           <Route exact path="/receitas-favoritas" />
           <Route exact path="/" component={ Login } />

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import RecipeSearchBar from './RecipeSearchBar';
 
 // Fazer com que o H1 seja dinâmico de acordo com o endpoint
 
-export default function Header() {
+export default function Header({ title }) {
   const [search, setSearchBar] = useState(false);
-
   const handleClick = () => {
     if (!search) {
       setSearchBar(true);
@@ -30,7 +30,7 @@ export default function Header() {
       <h1
         data-testid="page-title"
       >
-        Comidas
+        { title.charAt(1).toUpperCase() + title.slice(2) }
       </h1>
       <button
         type="button"
@@ -48,3 +48,7 @@ export default function Header() {
     // - Tem os data-testids `profile-top-btn`, `page-title` e `search-top-btn`
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};

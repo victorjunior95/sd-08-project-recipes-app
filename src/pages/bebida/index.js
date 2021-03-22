@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../../components/Header';
+import CardDrink from '../../components/CardDrink';
 
 function Bebida() {
   return (
-    <Header>Bebidas</Header>
+    <section>
+      <Header>Bebidas</Header>
+      <CardDrink />
+    </section>
   );
 }
 

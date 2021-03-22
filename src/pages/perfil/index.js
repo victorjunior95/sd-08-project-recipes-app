@@ -7,11 +7,11 @@ function Perfil() {
     localStorage.clear();
   };
 
-  const userEmail = JSON.parse(localStorage.user).email;
+  // const userEmail = JSON.parse(localStorage.user).email;
   return (
     <div>
       <Header explore="false">Perfil</Header>
-      <p data-testid="profile-email">{ userEmail }</p>
+      {/* <p data-testid="profile-email">{ userEmail }</p> */}
       <button
         data-testid="profile-done-btn"
         type="button"

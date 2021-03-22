@@ -2,12 +2,10 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import Context from '../context/Context';
 import { saveState } from '../services/LocalStorage';
-// import fetchReceitas from '../services/RequisicaoApi';
 
 import '../styles/Login.css';
 
 function Login() {
-  // console.log(fetchReceitas('i'));
   const {
     email,
     setEmail,

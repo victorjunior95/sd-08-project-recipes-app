@@ -20,7 +20,7 @@ function Detalhes() {
     if (value.includes('bebidas')) {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
-      setObjDetail(responseJson.meals);
+      setObjDetail(responseJson.drinks);
     }
     setLoading(false);
   };
@@ -33,12 +33,9 @@ function Detalhes() {
     <h1>{objDetail[0].strDrink}</h1>
   );
 
-  const renderFood = () => {
-    console.log(objDetail);
-    return (
-      <h1>{objDetail[0].strMeal}</h1>
-    );
-  };
+  const renderFood = () => (
+    <h1>{objDetail[0].strMeal}</h1>
+  );
 
   const render = () => {
     const value = history.location.pathname;

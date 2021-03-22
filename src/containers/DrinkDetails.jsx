@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardCarousel from '../components/CardCarousel';
 import api from '../services/index';
 
@@ -160,7 +162,29 @@ const DrinkDetails = () => {
                 Share
               </button>
               {copied && <p>Link copiado!</p> }
-              <button type="submit" data-testid="favorite-btn">Favorite</button>
+              <button
+                type="submit"
+                data-testid="favorite-btn"
+                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                onClick={ () => setFavorite(!favorite) }
+              >
+                {favorite
+                  ? (
+                    <img
+                      className="rocksGlass"
+                      type="image/svg+xml"
+                      src={ blackHeartIcon }
+                      alt="blackHeartIcon"
+                    />
+                  ) : (
+                    <img
+                      className="rocksGlass"
+                      type="image/svg+xml"
+                      src={ whiteHeartIcon }
+                      alt="whiteHeartIcon"
+                    />
+                  )}
+              </button>
             </div>
             <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
             <h5>Ingredients</h5>

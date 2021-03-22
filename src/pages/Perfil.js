@@ -1,9 +1,13 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import HeaderP from '../components/HeaderP';
 
 function Perfil() {
   return (
-    <HeaderP title="Perfil" />
+    <>
+      <HeaderP title="Perfil" />
+      <Footer />
+    </>
   );
 }
 

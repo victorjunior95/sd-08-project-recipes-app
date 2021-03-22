@@ -21,7 +21,10 @@ async function getResultFromAPI(filter, path, text) {
   const fetchURL = `${urlString[b]}${filterString[a]}${text}`;
   const apiResultJSON = await fetch(fetchURL);
   const apiResult = await apiResultJSON.json();
-  return apiResult[objParameter[b]].slice(0, TWELVE_FILTER);
+  console.log(apiResult);
+  if (apiResult.meals === null || apiResult.drinks === null) {
+    return null;
+  } return apiResult[objParameter[b]].slice(0, TWELVE_FILTER);
 }
 
 export default getResultFromAPI;

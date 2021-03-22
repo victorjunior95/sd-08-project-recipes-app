@@ -1,9 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Login } from './pages';
+import { Route, Switch } from 'react-router-dom';
+import { Login, Foods } from './pages';
 
 export default function Routes() {
   return (
-    <Route exact path="/" component={ Login } />
+    <Switch>
+      <Route exact path="/" component={ Login } />
+      <Route path="/comidas" component={ Foods } />
+    </Switch>
   );
 }

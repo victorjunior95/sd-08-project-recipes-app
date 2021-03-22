@@ -5,20 +5,14 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Context from '../../contextApi/Context';
 import List from '../../components/List/List';
 import Footer from '../../components/Footer/Footer';
-import { getAllMeals } from '../../services/FoodsRequests';
-import { getAllDrinks } from '../../services/DrinksRequests';
 import Categories from '../../components/Categories/Categories';
+import { getAllRecipes } from '../../services/FoodsDrinksRequests';
 
 const Home = ({ title }) => {
   const { searchBar, results, setResults } = useContext(Context);
 
   useEffect(() => {
-    if (title === 'Comidas') {
-      getAllMeals().then((response) => setResults(response));
-    }
-    if (title === 'Bebidas') {
-      getAllDrinks().then((response) => setResults(response));
-    }
+    getAllRecipes(title).then((response) => setResults(response));
   }, []);
   return (
     <>

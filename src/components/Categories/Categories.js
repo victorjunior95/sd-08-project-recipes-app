@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getFoodsCategories } from '../../services/FoodsRequests';
-import { getDrinksCategories } from '../../services/DrinksRequests';
+import { getCategories } from '../../services/FoodsDrinksRequests';
 
 const Categories = ({ title }) => {
   const [categories, setCategories] = useState([2]);
   useEffect(() => {
-    if (title === 'Comidas') {
-      getFoodsCategories().then((response) => setCategories(response));
-    } else {
-      getDrinksCategories().then((response) => setCategories(response));
-    }
-  }, []);
+    getCategories(title).then((response) => setCategories(response));
+  }, [title]);
   return (
     <div>
       {categories.length > 0 && (

@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { filterFoods } from '../../services/FoodsRequests';
 import './searchBar.css';
-import { filterDrinks } from '../../services/DrinksRequests';
 import Context from '../../contextApi/Context';
+import { filterRecipes } from '../../services/FoodsDrinksRequests';
 
 const SearchBar = ({ title }) => {
   const { setResults } = useContext(Context);
@@ -16,24 +15,16 @@ const SearchBar = ({ title }) => {
       alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
-    if (title === 'Comidas') {
-      const meals = await filterFoods(filter, query);
-      if (meals && meals.length === 1) {
-        history.push(`/comidas/${meals[0].idMeal}`);
-      } else if (meals === null) {
-        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-      } else {
-        setResults(meals);
-      }
+
+    const recipes = await filterRecipes(title, filter, query);
+    if (recipes && recipes.length === 1) {
+      history.push(
+        `/${title}/${recipes[0][title === 'Comidas' ? 'idMeal' : 'idDrink']}`,
+      );
+    } else if (recipes === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else {
-      const drinks = await filterDrinks(filter, query);
-      if (drinks && drinks.length === 1) {
-        history.push(`/bebidas/${drinks[0].idDrink}`);
-      } else if (drinks === null) {
-        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-      } else {
-        setResults(drinks);
-      }
+      setResults(recipes);
     }
   };
   return (

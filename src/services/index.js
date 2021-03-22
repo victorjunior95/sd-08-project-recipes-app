@@ -1,3 +1,4 @@
+
 export const headerSearch = async (search, type) => {
   let results = {};
   if (type === 'ingredients') {
@@ -21,6 +22,7 @@ const MEAL_API = 'https://www.themealdb.com/api/';
 const COCKTAIL_API = 'https://www.thecocktaildb.com/api/';
 
 export const fetchFood = async () => {
+
   const result = await fetch(`${MEAL_API}json/v1/1/random.php`);
   const json = await result.json();
   return json;

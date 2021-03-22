@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useHistory } from 'react-router-dom';
@@ -50,9 +49,5 @@ function ProfilePage() {
     </>
   );
 }
-
-ProfilePage.propTypes = {
-  history: PropTypes.element.isRequired,
-};
 
 export default ProfilePage;

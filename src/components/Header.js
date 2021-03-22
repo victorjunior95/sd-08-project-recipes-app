@@ -47,7 +47,9 @@ const Header = (props) => {
     }
     const results = await getResultFromAPI(userButton, location.pathname, userInput);
     console.log(results);
-    if (results.length === 1) {
+    if (results === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (results.length === 1) {
       const { idMeal } = results[0];
       const { idDrink } = results[0];
       if (idMeal === undefined) {

@@ -14,14 +14,14 @@ function App() {
   return (
     <main>
       <Switch>
-        <Route exact path="/" component={ LoginPage } />
+        <Route exact path="/perfil" component={ ProfilePage } />
         <Route exact path="/explorar" component={ Explore } />
         <Route path="/explorar/comidas/ingredientes" component={ DrinkIngredient } />
         <Route path="/explorar/bebidas/ingredientes" component={ FoodIngredient } />
         <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
         <Route path="/comidas" component={ MainRecipes } />
         <Route path="/bebidas" component={ MainRecipes } />
-        <Route path="/perfil" component={ ProfilePage } />
+        <Route exact path="/" component={ LoginPage } />
         <Route path="/explorar/" component={ ExploreFoodDrink } />
       </Switch>
     </main>

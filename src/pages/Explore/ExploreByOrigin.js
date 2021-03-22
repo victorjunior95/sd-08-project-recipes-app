@@ -1,8 +1,12 @@
 import React from 'react';
-import Header from '../../component/Header';
+import { Header, Footer } from '../../component';
 
 export default function ExploreByOrigin() {
   return (
-    <Header pageTitle="Explorar Origem" />
+    <>
+      <Header pageTitle="Explorar Origem" />
+
+      <Footer />
+    </>
   );
 }

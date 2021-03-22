@@ -22,8 +22,16 @@ const Comidas = () => {
   return (
     <>
       <Header title="Comidas" />
-      { meals.map((meal) => (
-        <div key={ meal.strMeal }>{ meal.strMeal }</div>
+      { meals.map((meal, index) => (
+        <div data-testid={ `${index}-recipe-card` } key={ meal.strMeal }>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ meal.strMealThumb }
+            alt="comida"
+            width="100px"
+          />
+          <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+        </div>
       ))}
     </>
   );

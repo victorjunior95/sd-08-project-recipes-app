@@ -17,7 +17,6 @@ import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
   return (
     <Switch>
@@ -39,6 +38,7 @@ function App() {
         component={ CocktailsIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
+
       {/* <Route exact path="/explorar/bebidas/area" component={ () => notFount() } /> */}
     </Switch>
   );

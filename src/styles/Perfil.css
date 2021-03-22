@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins , sans-serif;
   margin: 0;
 }
 
@@ -14,7 +14,7 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: center;
 }
 

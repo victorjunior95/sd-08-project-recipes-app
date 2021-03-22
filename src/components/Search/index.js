@@ -3,7 +3,7 @@ import './Search.css';
 import { FoodCtx } from '../../context/ContextFood';
 
 function Search() {
-  const { setFilter } = useContext(FoodCtx);
+  const { setFilter, currentPage } = useContext(FoodCtx);
   const [radio, setRadio] = useState('');
   const [input, setInput] = useState('');
 
@@ -18,7 +18,7 @@ function Search() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(radio, input);
-    setFilter({ key: radio, value: input });
+    setFilter({ key: radio, value: input, currentPage });
   };
 
   return (

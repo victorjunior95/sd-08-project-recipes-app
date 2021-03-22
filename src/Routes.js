@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import ProfilePage from './pages/ProfilePage';
 
 const Routes = () => (
   <Switch>
@@ -17,7 +18,7 @@ const Routes = () => (
     <Route exact path="/explorar/comidas/ingredientes" />
     <Route exact path="/explorar/bebidas/ingredientes" />
     <Route exact path="/explorar/comidas/area" />
-    <Route exact path="/perfil" />
+    <Route exact path="/perfil" component={ ProfilePage } />
     <Route exact path="/receitas-feitas" />
     <Route exact path="/receitas-favoritas" />
   </Switch>

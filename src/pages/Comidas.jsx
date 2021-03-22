@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import fetchMealsAPI from '../api/fetchMealsAPI';
 import contextRecipes from '../context/Context';
+import Footer from '../components/Footer';
 
 const Comidas = () => {
   const [meals, setMeals] = useState([]);
@@ -33,6 +34,7 @@ const Comidas = () => {
           <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
         </div>
       ))}
+      <Footer />
     </>
   );
 };

@@ -19,7 +19,7 @@ function App() {
       <Route path="/explorar/comidas" component={ Explorar } />
       <Route path="/explorar/bebidas" component={ Explorar } />
       <Route path="/explorar/comidas/ingredientes" component={ Explorar } />
-      <Route path="/explorar/bebidas/ingredientes" component={ Explorar } />
+      <Route path="/explorar/bebidas/ingredientes" component={ Explorar } /> 
       <Route path="/receitas-feitas;" component={ Receitas } />
       <Route path="/receitas-favoritas" component={ Receitas } /> */}
       <Route exact path="/" component={ Login } />

@@ -1,26 +1,25 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getMealByIngredients, getMealByName, getMealByFirstLetter,
-  getDrinkByIngredients, getDrinkByName, getDrinkByFirstLetter,
+import {
+  getMealByIngredients,
+  getMealByName,
+  getMealByFirstLetter,
+  getMealCategories,
+  getMealsByCategory,
 } from '../services/getAPIs';
 
-export const DataContext = createContext();
+export const LoginAndFoodContext = createContext();
 
-function DataProvider(props) {
+function FoodContext(props) {
   const history = useHistory();
   const [ingredientSearchRadio, setIngredientSearchRadio] = useState(false);
   const [nameSearchRadio, setNameSearchRadio] = useState(false);
   const [firstLetterSearchRadio, setFirstLetterSearchRadio] = useState(false);
-  const [ingredientSearchRadioDrink, setIngredientSearchRadioDrink] = useState(false);
-  const [nameSearchRadioDrink, setNameSearchRadioDrink] = useState(false);
-  const [firstLetterSearchRadioDrink, setFirstLetterSearchRadioDrink] = useState(false);
   const [meals, setMeals] = useState([]);
-  // const [categoriesMeals, setCategoriesMeals] = useState([]);
-  // const [categoriesDrinks, setCategoriesDrinksMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [categoryMeals, setCategoryMeals] = useState([]);
+  const [categoriesMeals, setCategoriesMeals] = useState([]);
   const [searchInputMeal, setSearchInputMeal] = useState([]);
-  const [searchInputDrink, setSearchInputDrink] = useState([]);
   const [data, setData] = useState({ email: '', password: '' });
   const [tokens, setTokens] = useState({ mealsToken: '', cocktailsToken: '' });
 
@@ -30,11 +29,11 @@ function DataProvider(props) {
       setMeals(initialContentMeal);
     }
     fetchDataMeal();
-    async function fetchDataDrinks() {
-      const initialContentDrink = await getDrinkByIngredients('vodka');
-      setDrinks(initialContentDrink);
+    async function fetchCategoriesMeal() {
+      const initialCategoriesMeal = await getMealCategories();
+      setCategoriesMeals(initialCategoriesMeal);
     }
-    fetchDataDrinks();
+    fetchCategoriesMeal();
   }, []);
 
   const handleChangeEmail = (e) => {
@@ -78,39 +77,18 @@ function DataProvider(props) {
     if (nameSearchRadio) setNameSearchRadio(!nameSearchRadio);
   };
 
-  const handleSearchByIngredientsDrink = () => {
-    setIngredientSearchRadioDrink(!ingredientSearchRadioDrink);
-    if (nameSearchRadioDrink) setNameSearchRadioDrink(!nameSearchRadioDrink);
-    if (firstLetterSearchRadioDrink) {
-      setFirstLetterSearchRadioDrink(!firstLetterSearchRadioDrink);
-    }
+  const handleChangeSearch = (e) => {
+    setSearchInputMeal(e);
   };
-
-  const handleSearchByNameDrink = () => {
-    setNameSearchRadioDrink(!nameSearchRadioDrink);
-    if (ingredientSearchRadioDrink) {
-      setIngredientSearchRadioDrink(!ingredientSearchRadioDrink);
-    }
-    if (firstLetterSearchRadioDrink) {
-      setFirstLetterSearchRadioDrink(!firstLetterSearchRadioDrink);
-    }
+  const myCustomAlert = (text) => {
+    const myAlert = window.alert;
+    myAlert(text);
   };
-
-  const handleSearchByFirstLetterDrink = () => {
-    setFirstLetterSearchRadioDrink(!firstLetterSearchRadioDrink);
-    if (ingredientSearchRadioDrink) {
-      setIngredientSearchRadioDrink(!ingredientSearchRadioDrink);
-    }
-  };
-
-  const handleChangeSearch = (e) => { setSearchInputMeal(e); };
-  const handleChangeSearchDrink = (e) => { setSearchInputDrink(e); };
-
   const handleClickSearch = async () => {
     if (nameSearchRadio) {
       const res = await getMealByName(searchInputMeal);
       if (res === null) {
-        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        myCustomAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         return null;
       }
       if (res.length === 1) {
@@ -124,7 +102,7 @@ function DataProvider(props) {
       setMeals(res);
     }
     if (!!firstLetterSearchRadio && searchInputMeal.length !== 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
     }
     if (ingredientSearchRadio) {
       const res = await getMealByIngredients(searchInputMeal);
@@ -132,84 +110,58 @@ function DataProvider(props) {
     }
   };
 
-  const handleClickSearchDrink = async () => {
-    if (nameSearchRadioDrink) {
-      const res = await getDrinkByName(searchInputDrink);
-      if (res === null) {
-        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-        return null;
-      }
-      if (res.length === 1) {
-        const onlyDrink = [res[0]];
-        onlyDrink.map((item) => history.push(`/bebidas/${item.idDrink}`));
-      }
-      setDrinks(res);
-    }
-    if (!!firstLetterSearchRadioDrink && searchInputDrink.length === 1) {
-      const res = await getDrinkByFirstLetter(searchInputDrink);
-      setDrinks(res);
-    }
-    if (!!firstLetterSearchRadioDrink && searchInputDrink.length !== 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    if (ingredientSearchRadioDrink) {
-      const res = await getDrinkByIngredients(searchInputDrink);
-      setDrinks(res);
+  const handleByCategoryMeal = async (category) => {
+    const mealsByCategory = await getMealsByCategory(category);
+    setMeals(mealsByCategory);
+    setCategoryMeals(category);
+    if (category === categoryMeals) {
+      const resetFilter = await getMealByIngredients('');
+      setMeals(resetFilter);
     }
   };
-
   const checkValidity = () => {
     const lengthOfPwd = 6;
     const { email, password } = data;
-    if (password.length > lengthOfPwd
+    if (
+      password.length > lengthOfPwd
       && /^[A-Za-z0-9.-]+@[A-Za-z0-9]+(\.[A-Za-z]{3}|\.[A-Za-z]{3}\.[A-Za-z]{2})$/.test(
         email,
       )
-
     ) return false;
     return true;
   };
   const { children } = props;
   return (
     <div>
-      <DataContext.Provider
+      <LoginAndFoodContext.Provider
         value={ {
           handleChangeEmail,
           handleChangePassword,
           handleSubmit,
           checkValidity,
           handleChangeSearch,
-          handleChangeSearchDrink,
           handleSearchByIngredients,
           handleSearchByFirstLetter,
           handleSearchByName,
-          handleSearchByIngredientsDrink,
-          handleSearchByFirstLetterDrink,
-          handleSearchByNameDrink,
           handleClickSearch,
-          handleClickSearchDrink,
+          handleByCategoryMeal,
           nameSearchRadio,
           ingredientSearchRadio,
           firstLetterSearchRadio,
-          nameSearchRadioDrink,
-          ingredientSearchRadioDrink,
-          firstLetterSearchRadioDrink,
           searchInputMeal,
-          searchInputDrink,
           data,
           tokens,
           meals,
+          categoryMeals,
           categoriesMeals,
-          drinks,
-          categoriesDrinks,
         } }
       >
         {children}
-      </DataContext.Provider>
+      </LoginAndFoodContext.Provider>
     </div>
   );
 }
-export default DataProvider;
-DataProvider.propTypes = {
+export default FoodContext;
+FoodContext.propTypes = {
   children: PropTypes.node.isRequired,
 };

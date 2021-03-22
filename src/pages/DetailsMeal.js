@@ -1,10 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DataContext } from '../context/Context';
+import { LoginAndFoodContext } from '../context/ContextFood';
 import './DetailsMeal.css';
 
 function DetailsMeal() {
-  const dataContext = useContext(DataContext);
+  const dataContext = useContext(LoginAndFoodContext);
   const { meals } = dataContext;
   const Params = useParams();
   const [mealDetail, setMealDetail] = useState([]);

@@ -1,24 +1,29 @@
-.container {
+.container-header-search {
   align-items: center;
-  background-color: #ddd;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100vw;
 }
 
-.header-drinks {
+.container-header-search:before {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 10vh;
+  width: 100vw;
+}
+
+.header {
   align-items: center;
   background-color: gray;
   display: flex;
   font-size: xx-large;
-  height: 10%;
   justify-content: space-around;
   text-align: center;
   width: 100vw;
 }
 
-.container button {
+.container-header button {
   background-color: transparent;
   border: none;
   font-size: unset;
@@ -65,53 +70,6 @@ label {
   margin-top: 2%;
 }
 
-.container-card-drink {
-  display: flex;
-  flex-flow: wrap;
-  flex-direction: row;
-  height: 80%;
-  justify-content: space-around;
+h2 {
   margin-top: 2%;
-  overflow: scroll;
-  width: 100%;
-}
-
-.card-drink {
-  border-radius: 4px;
-  box-shadow: 0 0 8px orangered;
-  height: 35%;
-  margin-top: 2%;
-  overflow: scroll;
-  padding: 2px;
-  width: 45%;
-}
-
-.card-drink img {
-  border-radius: 4px;
-  height: 80%;
-  margin-top: 2%;
-  width: 100%;
-}
-
-.card-drink h2 {
-  font-size: 15px;
-  margin-top: 2%;
-}
-
-.category-filter {
-  background-color: palegreen;
-  display: flex;
-  flex-flow: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 2%;
-  width: 100vw;
-}
-
-.category-filter button {
-  background-color: pink;
-  margin-bottom: 2%;
-  margin-right: 2px;
-  width: 25%;
-  word-wrap: break-word;
 }

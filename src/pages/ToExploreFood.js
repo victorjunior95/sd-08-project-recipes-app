@@ -1,19 +1,12 @@
 import React from 'react';
-import ProfileIcon from '../images/profileIcon.svg';
 import './ToExploreFood.css';
 import Footer from '../components/Footer';
+import HeaderSimple from '../components/HeaderSimple';
 
 function ToExploreFood() {
   return (
     <div className="container">
-      <div className="header-explore-food">
-        <img
-          data-testid="profile-top-btn"
-          src={ ProfileIcon }
-          alt="user-profile"
-        />
-        <h2 data-testid="page-title">Explorar Comidas</h2>
-      </div>
+      <HeaderSimple />
       <div className="main">
         <button data-testid="explore-by-ingredient" type="button">
           Por Ingredientes

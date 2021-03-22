@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-// import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import store from './store';
-import DataProvider from './context/Context';
+import FoodContext from './context/ContextFood';
+import DrinksContext from './context/ContextDrinks';
+import HeaderContext from './context/HeaderContext';
 
 ReactDOM.render(
   <BrowserRouter>
-    <DataProvider>
-      <App />
-    </DataProvider>
+    <HeaderContext>
+      <FoodContext>
+        <DrinksContext>
+          <App />
+        </DrinksContext>
+      </FoodContext>
+    </HeaderContext>
   </BrowserRouter>,
   document.getElementById('root'),
 );

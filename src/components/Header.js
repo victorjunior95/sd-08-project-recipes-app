@@ -34,11 +34,7 @@ function Header({ pageTitle }) {
           <img src={ SearchIcon } alt="search-icon" />
         </button>
       </div>
-      <div className="g6-header-row">
-        {search && (
-          <input data-testid="search-input" />
-        )}
-      </div>
+      <div className="g6-header-row" />
     </header>
   );
 }

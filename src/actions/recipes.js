@@ -22,7 +22,6 @@ export const fetchRecipes = (token, type = 'meals',
     dispatch(requestRecipes());
     const domains = { meals: 'themealdb', drinks: 'thecocktaildb' };
     const url = `https://www.${domains[type]}.com/api/json/v1/${token}/${request}.php?${key}=${parameter}`;
-    console.log(url);
     const data = await fetch(url);
     const { [type]: recipes } = await data.json();
     dispatch(addRecipes(recipes));

@@ -13,8 +13,8 @@
 .div-btn-perfil {
   align-items: center;
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  flex-direction: row;
   justify-content: center;
 }
 

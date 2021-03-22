@@ -7,9 +7,8 @@ import RecipeSearchBar from './RecipeSearchBar';
 
 // Fazer com que o H1 seja dinâmico de acordo com o endpoint
 
-export default function Header() {
+export default function Header({ title }) {
   const [search, setSearchBar] = useState(false);
-
   const handleClick = () => {
     if (!search) {
       setSearchBar(true);
@@ -30,7 +29,7 @@ export default function Header() {
       <h1
         data-testid="page-title"
       >
-        Comidas
+        { title.charAt(1).toUpperCase() + title.slice(2) }
       </h1>
       <button
         type="button"

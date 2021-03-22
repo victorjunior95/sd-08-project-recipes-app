@@ -3,9 +3,10 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 
-function MainRecipes() {
+function MainRecipes({ history }) {
+  const { pathname } = history.location;
   return (
-    <Header />
+    <Header title={ pathname } />
   );
 }
 

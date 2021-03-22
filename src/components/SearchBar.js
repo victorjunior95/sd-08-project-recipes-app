@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import RecipeContext from '../context/RecipeContext';
 
+import '../styles/SearchBar.css';
+
 function SearchBar() {
   const { setSearchType,
     setSearchInputValue,
@@ -8,7 +10,7 @@ function SearchBar() {
     searchType,
     searchBarRequest } = useContext(RecipeContext);
   return (
-    <div>
+    <div className="search-body">
       <input
         type="text"
         data-testid="search-input"

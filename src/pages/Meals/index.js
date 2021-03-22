@@ -19,7 +19,7 @@ export default function Meals() {
       <SearchBar type="meals" />
       {meals.map((meal, index) => {
         if (index < LIMIT_OF_CARDS) {
-          return <MealCard key={ index } meal={ meal } />;
+          return <MealCard key={ index } meal={ meal } index={ index } />;
         }
         return null;
       })}

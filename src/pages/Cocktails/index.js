@@ -20,7 +20,7 @@ function Cocktails() {
       <SearchBar type="cocktails" />
       {drinks.map((drink, index) => {
         if (index < LIMIT_OF_CARDS) {
-          return <DrinkCard key={ index } drink={ drink } />;
+          return <DrinkCard key={ index } drink={ drink } index={ index } />;
         }
         return null;
       })}

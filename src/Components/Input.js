@@ -1,18 +1,18 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 
-function Input({ type, name, value, onChange, dataid }) {
+function Input({ type, name, value, onChange, dataId }) {
   return (
-    <label htmlFor={ name }>
-      { name }
-      <input
+    <Form.Group controlId="emailInput">
+      <Form.Label>{ name }</Form.Label>
+      <Form.Control
         type={ type }
-        name={ name }
-        value={ value }
+        data-testid={ dataId }
         onChange={ onChange }
-        data-testid={ dataid }
+        value={ value }
       />
-    </label>
+    </Form.Group>
   );
 }
 
@@ -20,7 +20,7 @@ Input.propTypes = {
   type: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   value: propTypes.string.isRequired,
-  dataid: propTypes.string.isRequired,
+  dataId: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,
 };
 

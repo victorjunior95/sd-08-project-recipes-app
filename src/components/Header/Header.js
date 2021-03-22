@@ -1,38 +1,37 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './header.css';
-import SearchBar from '../SearchBar/search';
+
+import Context from '../../contextApi/Context';
 
 const Header = ({ title, visible }) => {
-  const [input, setInput] = useState(false);
-  const history = useHistory();
-  function redirect() {
-    history.push('/perfil');
-  }
-
+  const { setSearchBar, searchBar } = useContext(Context);
+  const [redirect, setRedirect] = useState(false);
   return (
-    <div className="container">
+    <div>
+      {redirect && <Redirect to="/perfil" />}
       <div className="header">
-        <img
-          src={ profileIcon }
-          alt="Profile icon"
-          data-testid="profile-top-btn"
-          onClick={ () => redirect() }
-        />
+        <button type="button" onClick={ () => setRedirect(true) }>
+          <img
+            src={ profileIcon }
+            alt="Profile icon"
+            data-testid="profile-top-btn"
+          />
+        </button>
         <span data-testid="page-title">{title}</span>
         {visible && (
-          <img
-            src={ searchIcon }
-            alt="Search icon"
-            data-testid="search-top-btn"
-            onClick={ () => (input === false ? setInput(true) : setInput(false)) }
-          />
+          <button type="button" onClick={ () => setSearchBar(!searchBar) }>
+            <img
+              src={ searchIcon }
+              alt="Search icon"
+              data-testid="search-top-btn"
+            />
+          </button>
         )}
       </div>
-      {input && <SearchBar />}
     </div>
   );
 };

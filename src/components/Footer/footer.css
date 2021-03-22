@@ -1,17 +1,14 @@
-.header {
+.footer {
   background-color: lightcoral;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   padding: 16px;
+  position: fixed;
+  width: 100%;
 }
 
-.header span {
-  font-size: 20px;
-  font-weight: 600;
-  margin: auto;
-}
-
-.header button {
+.footer button {
   background-color: transparent;
   border: none;
   outline: none;

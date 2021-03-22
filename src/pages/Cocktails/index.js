@@ -18,7 +18,6 @@ function Cocktails() {
       <SearchBar type="cocktails" />
       {drinks.map((drink, index) => {
         if (drinks.length === 1) {
-          console.log(drinks);
           return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
         }
         if (index < LIMIT_OF_CARDS) {

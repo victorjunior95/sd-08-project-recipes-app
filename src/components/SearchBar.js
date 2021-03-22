@@ -32,7 +32,7 @@ function SearchBar({ type }) {
       }
     }
   }
-  console.log(`${isShow} é o valor de isShow em SearchBar`);
+
   if (isShow) {
     return (
       <div>

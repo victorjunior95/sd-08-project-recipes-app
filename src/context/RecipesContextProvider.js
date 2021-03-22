@@ -8,9 +8,7 @@ function RecipesContextProvider({ children }) {
   const [isShow, setIsShow] = useState(false);
 
   function setShow() {
-    console.log('setShow em provider');
     const invert = !isShow;
-    console.log(invert);
     setIsShow(invert);
   }
 

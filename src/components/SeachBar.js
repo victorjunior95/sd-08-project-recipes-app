@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { headerSearch } from '../services';
+import LariContext from '../context/Context';
 
 const SearchBar = (props) => {
   const { showInput } = props;
   const [filter, setFilter] = useState('ingredients');
   const [search, setSearch] = useState('');
+  const { handleHeaderSearch } = useContext(LariContext);
 
   return (
     <div>
@@ -48,7 +49,7 @@ const SearchBar = (props) => {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ headerSearch }
+        onClick={ () => handleHeaderSearch(search, filter) }
       >
         Buscar
       </button>

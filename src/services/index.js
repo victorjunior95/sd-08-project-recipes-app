@@ -17,4 +17,17 @@ export const headerSearch = async (search, type) => {
   return results;
 };
 
-export const algumacoisa = 'dsfdsfdf';
+const MEAL_API = 'https://www.themealdb.com/api/';
+const COCKTAIL_API = 'https://www.thecocktaildb.com/api/';
+
+export const fetchFood = async () => {
+  const result = await fetch(`${MEAL_API}json/v1/1/random.php`);
+  const json = await result.json();
+  return json;
+};
+
+export const fetchDrink = async () => {
+  const result = await fetch(`${COCKTAIL_API}json/v1/1/random.php`);
+  const json = await result.json();
+  return json;
+};

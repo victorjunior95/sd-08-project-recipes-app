@@ -8,9 +8,6 @@ export default function Login() {
   const [verification, setVerification] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  // const userEmail = useSelector((state) => state.user.email);
-  // const userPassword = useSelector((state) => state.user.password);
-
   const dispatch = useDispatch();
 
   const handleClick = () => {

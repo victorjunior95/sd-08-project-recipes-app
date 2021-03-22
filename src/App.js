@@ -4,12 +4,14 @@ import { Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainRecipes from './pages/MainRecipes';
 import ProfilePage from './pages/ProfilePage';
+import Explore from './pages/Explore';
 
 function App() {
   return (
     <main>
       <Switch>
         <Route exact path="/" component={ LoginPage } />
+        <Route exact path="/explorar" component={ Explore } />
         <Route path="/comidas" component={ MainRecipes } />
         <Route path="/bebidas" component={ MainRecipes } />
         <Route path="/perfil" component={ ProfilePage } />

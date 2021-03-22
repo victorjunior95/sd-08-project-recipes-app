@@ -43,12 +43,12 @@ const Routes = () => (
       <Route
         exact
         path="/explorar/bebidas/area"
-        component={ containers.ExploreOrigination }
+        component={ containers.NotFound }
       />
       <Route
         exact
         path="/explorar/comidas/area"
-        component={ containers.NotFound }
+        component={ containers.ExploreOrigination }
       />
     </Switch>
   </BrowserRouter>

@@ -5,11 +5,19 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       search: '',
+      searchRadio: 'ingredient',
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
-    const { search } = this.state;
+    const { search, searchRadio } = this.state;
     return (
       <div>
         <label htmlFor="search">
@@ -18,30 +26,40 @@ class SearchBar extends Component {
             type="search"
             data-testid="search-input"
             value={ search }
+            onChange={ this.handleChange }
           />
         </label>
         <div>
-          <label htmlFor="search-radio">
+          <label htmlFor="searchRadio">
             <input
-              name="search-radio"
+              value="ingredient"
+              name="searchRadio"
               type="radio"
               data-testid="ingredient-search-radio"
+              onChange={ this.handleChange }
+              checked={ searchRadio === 'ingredient' }
             />
             Ingredientes
           </label>
-          <label htmlFor="search-radio">
+          <label htmlFor="searchRadio">
             <input
-              name="search-radio"
+              value="name"
+              name="searchRadio"
               type="radio"
               data-testid="name-search-radio"
+              onChange={ this.handleChange }
+              checked={ searchRadio === 'name' }
             />
             Nome
           </label>
-          <label htmlFor="search-radio">
+          <label htmlFor="searchRadio">
             <input
-              name="search-radio"
+              value="firstLetter"
+              name="searchRadio"
               type="radio"
               data-testid="first-letter-search-radio"
+              onChange={ this.handleChange }
+              checked={ searchRadio === 'firstLetter' }
             />
             Primeira Letra
           </label>

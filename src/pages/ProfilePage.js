@@ -3,11 +3,13 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-function ProfilePage() {
+function ProfilePage(history) {
+  const { pathname } = history.location;
   return (
     <>
-      <Header />
+      <Header title={ pathname } />
       <Link to="/receitas-feitas">
         <button type="button">
           Receitas Feitas
@@ -23,6 +25,7 @@ function ProfilePage() {
           Sair
         </button>
       </Link>
+      <Footer />
     </>
   );
 }

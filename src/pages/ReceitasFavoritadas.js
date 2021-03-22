@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 function ReceitasFavoritadas() {
   return (
-    <Header title="Receitas Favoritas" />
+    <Header title="Receitas Favoritas" explore={ false } />
   );
 }
 

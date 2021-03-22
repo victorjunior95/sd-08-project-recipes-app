@@ -1,22 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from '../components/Button';
 
 function ExploreFoodDrink() {
   const history = useHistory();
+  const { pathname } = history.location;
   const foodDrinks = history.location.pathname.split('/');
   return (
     <div>
-      {
-        history.location.pathname === '/explorar/comidas'
-         && <button
-           onClick={ () => history.push('/explorar/comidas/area') }
-           data-testid="explore-by-area"
-           type="button"
-         >
-           Por Local de Origem
-
-         </button>
-      }
+      { pathname === '/explorar/comidas' && <Button /> }
       <button
         onClick={ () => history.push(`/explorar/${foodDrinks[2]}/ingredientes`) }
         data-testid="explore-by-ingredient"

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
@@ -23,6 +24,6 @@ function RecipesContextProvider({ children }) {
   );
 }
 
-export default RecipesContextProvider;
-
 RecipesContextProvider.propTypes = ({ children: PropTypes.node.isRequired });
+
+export default RecipesContextProvider;

@@ -11,7 +11,7 @@ const Categories = ({ title }) => {
     } else {
       getDrinksCategories().then((response) => setCategories(response));
     }
-  }, []);
+  });
   return (
     <div>
       {categories.length > 0 && (

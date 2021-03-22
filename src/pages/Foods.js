@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
+
 // import PropTypes from 'prop-types';
 
 class Foods extends Component {
   render() {
     return (
       <div>
-        Eu sou o pagína de Comidas
+        <Header />
+        <SearchBar />
       </div>
     );
   }

@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <div>
-        Eu sou o Header
+        Header
       </div>
     );
   }

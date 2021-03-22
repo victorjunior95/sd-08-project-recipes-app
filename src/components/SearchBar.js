@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchFood } from '../store/actions/foodsActions';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class SearchBar extends Component {
 
   render() {
     const { search, searchRadio } = this.state;
+    const { getFood } = this.props;
     return (
       <div>
         <label htmlFor="search">
@@ -64,7 +68,12 @@ class SearchBar extends Component {
             Primeira Letra
           </label>
         </div>
-        <button type="button" data-testid="exec-search-btn">
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ () => getFood({
+            search, searchRadio }) }
+        >
           Buscar
         </button>
       </div>
@@ -72,4 +81,12 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+const mapDispatchToProps = (dispatch) => ({
+  getFood: (value) => dispatch(fetchFood(value)),
+});
+
+SearchBar.propTypes = {
+  getFood: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(SearchBar);

@@ -33,7 +33,7 @@ function LoginForm({ props }) {
           name="email"
           type="email"
           data-testid="email-input"
-          onChange={ handleChangeEmail } 
+          onChange={ handleChangeEmail }
         />
       </label>
       <label htmlFor="password">
@@ -63,4 +63,8 @@ LoginForm.propTypes = {
   props: PropTypes.objectOf(
     PropTypes.any,
   ).isRequired,
-}
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  })
+  .isRequired,
+};

@@ -19,7 +19,7 @@ const Home = ({ title }) => {
     if (title === 'Bebidas') {
       getAllDrinks().then((response) => setResults(response));
     }
-  });
+  }, []);
   return (
     <>
       <Header title={ title } />

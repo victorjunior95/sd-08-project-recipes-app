@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 import { Input, Button } from '../Components';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +13,7 @@ function Login() {
   const [redirect, setRedirect] = useState(false);
 
   let timer = null;
-  const quientos = 500;
+  const quinhentos = 500;
 
   const debounce = () => {
     // limpamos o timer
@@ -25,7 +26,7 @@ function Login() {
       } else {
         setButton(true);
       }
-    }, quientos);
+    }, quinhentos);
   };
 
   const handelClick = () => {
@@ -47,29 +48,29 @@ function Login() {
         >
           Glass
         </object>
-        <Input
-          type="text"
-          value={ email }
-          name="email"
-          onChange={ (e) => setEmail(e.target.value) || debounce() }
-          dataid="email-input"
-        />
-        <br />
-        <Input
-          type="password"
-          name="senha"
-          value={ senha }
-          onChange={ (e) => setSenha(e.target.value) || debounce() }
-          dataid="password-input"
-        />
-        <br />
-        <Button
-          onClick={ handelClick }
-          dataid="login-submit-btn"
-          disabled={ button }
-        >
-          ENTRAR
-        </Button>
+        <Form>
+          <Input
+            type="text"
+            value={ email }
+            name="email"
+            onChange={ (e) => setEmail(e.target.value) || debounce() }
+            dataId="email-input"
+          />
+          <Input
+            type="password"
+            name="senha"
+            value={ senha }
+            onChange={ (e) => setSenha(e.target.value) || debounce() }
+            dataId="password-input"
+          />
+          <Button
+            onClick={ handelClick }
+            dataId="login-submit-btn"
+            disabled={ button }
+          >
+            ENTRAR
+          </Button>
+        </Form>
       </div>
     </>
   );

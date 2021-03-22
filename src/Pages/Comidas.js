@@ -1,10 +1,11 @@
 import React from 'react';
+import Header from './Header';
 
 function Comidas() {
   return (
     <>
-      <h1> Comida </h1>
-      <h2> Entrou </h2>
+      <Header title="Comidas" />
+      <h2>Comidas</h2>
     </>
   );
 }

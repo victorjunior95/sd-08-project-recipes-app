@@ -1,12 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function Button({ children, onClick, dataid, disabled }) {
+function Button({ children, onClick, dataId, disabled }) {
   return (
     <button
       type="button"
       onClick={ onClick }
-      data-testid={ dataid }
+      data-testid={ dataId }
       disabled={ disabled }
     >
       { children }
@@ -17,8 +17,12 @@ function Button({ children, onClick, dataid, disabled }) {
 Button.propTypes = {
   children: propTypes.string.isRequired,
   onClick: propTypes.func.isRequired,
-  dataid: propTypes.string.isRequired,
-  disabled: propTypes.bool.isRequired,
+  dataId: propTypes.string.isRequired,
+  disabled: propTypes.bool,
+};
+
+Button.defaultProps = {
+  disabled: false,
 };
 
 export default Button;

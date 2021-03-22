@@ -16,7 +16,12 @@ const Bebidas = () => {
   console.log(drinks);
 
   return (
-    <Header title="Bebidas" />
+    <>
+      <Header title="Bebidas" />
+      { drinks.map((drink) => (
+        <div key={ drink.strDrink }>{ drink.strDrink }</div>
+      ))}
+    </>
   );
 };
 

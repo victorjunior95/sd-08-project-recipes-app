@@ -3,6 +3,7 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function ProfilePage() {
   return (
@@ -23,6 +24,7 @@ function ProfilePage() {
           Sair
         </button>
       </Link>
+      <Footer />
     </>
   );
 }

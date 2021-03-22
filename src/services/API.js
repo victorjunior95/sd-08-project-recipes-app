@@ -1,14 +1,29 @@
-// Requisição tela principal receitas
-const MAIN_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-// const MAIN_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+export async function SearchMealByIngredient(ingredient) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const json = await request.json();
+  return json;
+}
 
-export const requestMealRecipe = () => (
-  fetch(MAIN_MEAL_API)
-    .then((response) => (
-      response
-        .json()
-        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
-    ))
-);
+export async function SearchMealByName(name) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+  const json = await request.json();
+  return json;
+}
 
-export default requestMealRecipe;
+export async function SearchMealByFirstLetter(firstLetter) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`);
+  const json = await request.json();
+  return json;
+}
+
+export async function requestMealRecipe() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const json = await request.json();
+  return json;
+}
+
+export async function requestMealDrink() {
+  const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const json = await request.json();
+  return json;
+}

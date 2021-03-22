@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../../../components/Header';
 
-function index() {
+function ExplorarBebida() {
   return (
-    <div>OI</div>
+    <div>
+      <Header explore="false">Explorar Bebidas</Header>
+    </div>
   );
 }
 
-export default index;
+export default ExplorarBebida;

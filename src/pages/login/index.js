@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router';
 import UserContext from '../../context/userContext/UserContext';
 
 function Login() {
   const [disabled, setDisabled] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   const {
     values: {
@@ -29,8 +31,17 @@ function Login() {
     }
   }, [email, password.length]);
 
+  const handleClick = () => {
+    const user = { email };
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify(user));
+    setRedirect(true);
+  };
+
   return (
     <div>
+      {redirect && <Redirect to="/comidas" />}
       <label htmlFor="email-input">
         Email:
         <input
@@ -55,6 +66,7 @@ function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ disabled }
+        onClick={ handleClick }
       >
         Entrar
       </button>

@@ -2,12 +2,15 @@ import React from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
+import CocktailPage from './CocktailPage';
 import Footer from '../components/Footer';
 
-function MainRecipes() {
+function MainRecipes(history) {
+  const { pathname } = history.location;
   return (
     <main>
-      <Header />
+      <Header title={ pathname } />
+      <CocktailPage />
       <Footer />
     </main>
   );

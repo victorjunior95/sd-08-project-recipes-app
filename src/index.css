@@ -28,3 +28,20 @@ code {
   background-color: white;
   border: none;
 }
+
+.g6-footer {
+  background-color: gray;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  left: 0;
+  padding: 10px;
+  position: fixed;
+  right: 0;
+}
+
+.g6-footer-button {
+  background-color: gray;
+  border: none;
+}

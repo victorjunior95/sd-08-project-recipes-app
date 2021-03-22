@@ -1,9 +1,14 @@
 import React from 'react';
+import SearchBarDrink from '../../components/SearchBarDrink';
+import CardDrink from '../../components/CardDrink';
 
-function index() {
+function Bebida() {
   return (
-    <div>OI</div>
+    <section>
+      <SearchBarDrink />
+      <CardDrink />
+    </section>
   );
 }
 
-export default index;
+export default Bebida;

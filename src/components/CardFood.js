@@ -1,27 +1,28 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import FoodContext from '../context/comidaContext/FoodContext';
 
-function CardFood({ context }) {
+function CardFood() {
   const {
     values: {
       foods,
-      drinks,
     },
-  } = useContext(context);
+  } = useContext(FoodContext);
 
-  const foodOrDrink = (foods === undefined)
-    ? drinks
-    : foods;
+  const maxCards = 12;
 
   return (
-    <>
-      {foodOrDrink.map(({}))}
-    </>
+    <section>
+      {foods.map(({ strMeal, strMealThumb }, index) => {
+        if (index >= maxCards) return '';
+        return (
+          <div key={ strMeal }>
+            <img src={ strMealThumb } alt={ strMeal } />
+            <p>{strMeal}</p>
+          </div>
+        );
+      })}
+    </section>
   );
 }
-
-CardFood.propTypes = {
-  context: PropTypes.node.isRequired,
-};
 
 export default CardFood;

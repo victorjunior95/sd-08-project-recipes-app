@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 
-export default function Meals() {
+export default function CocktailsIngredients() {
   const { setTitleState, isLoading } = useContext(RecipesContext);
   setTitleState();
 

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import Header from '../../component/Header';
-import RecipeCards from '../../component/RecipesCard';
+import { Header, RecipeCards, Footer } from '../../component';
 import Context from '../../context/Context';
 
 const SHOW_TWELVE_RECIPES = 12;
@@ -26,11 +25,14 @@ export default function Foods() {
   return (
     <>
       <Header pageTitle="Comidas" />
+
       <div>
         {recipesToRender.map((recipe, index) => (
           <RecipeCards key={ index } recipe={ recipe } type="Meal" index={ index } />
         ))}
       </div>
+
+      <Footer />
     </>
   );
 }

@@ -5,7 +5,7 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SeachBar';
 
 const Header = () => {
-  const [hiddenInput, setHidden] = useState(true);
+  const [showInput, setHidden] = useState(false);
   const history = useHistory();
 
   const redirectPages = (path) => {
@@ -15,7 +15,7 @@ const Header = () => {
   return (
 
     <div>
-      <SearchBar />
+      <SearchBar showInput={ showInput } />
       <button
         type="button"
         data-test-id="profile-top-btn"
@@ -28,7 +28,7 @@ const Header = () => {
       <button
         type="button"
         data-testid="search-top-btn"
-        onClick={ ({ target: { value } }) => setHidden(value) }
+        onClick={ () => setHidden(!showInput) }
       >
         <img
           src={ searchIcon }

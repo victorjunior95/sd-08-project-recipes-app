@@ -8,7 +8,7 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       search: '',
-      searchRadio: 'ingredient',
+      searchRadio: 'name',
     };
     this.handleChange = this.handleChange.bind(this);
   }

@@ -118,8 +118,8 @@
 
 .search-container {
   align-items: center;
+  background: linear-gradient(180deg, rgba(15, 163, 107, 1) 0%, rgba(130, 207, 178, 1) 25%, white 100%);
   background-color: #caffaf;
-  background: linear-gradient(180deg, rgba(15,163,107,1) 0%, rgba(130,207,178,1) 25%, rgba(255,255,255,1) 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;

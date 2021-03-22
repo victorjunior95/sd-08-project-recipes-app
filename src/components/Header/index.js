@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import SearchBarFood from '../SearchBarFood';
 
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import exploreIcon from '../../images/exploreIcon.svg';
 
-function Header({ children, explore }) {
+function Header({ children, explore, component }) {
   const [search, setSearch] = useState(false);
 
   const searchBar = () => {
@@ -44,7 +43,7 @@ function Header({ children, explore }) {
           /> : searchButton()
         }
       </header>
-      {search && <SearchBarFood />}
+      {search && component}
     </>
   );
 }
@@ -52,6 +51,7 @@ function Header({ children, explore }) {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   explore: PropTypes.element.isRequired,
+  component: PropTypes.node.isRequired,
 };
 
 export default Header;

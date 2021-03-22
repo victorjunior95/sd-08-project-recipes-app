@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { Route, Switch } from 'react-router-dom';
 import { Login, Bebida, BebidaDetalhes, BebidaProcesso, Comida, ComidaDetalhes,
   ComidaProcesso, Explorar, ExplorarComida, ExplorarBebida, ComidaIngredientes,
@@ -10,6 +9,7 @@ import { Login, Bebida, BebidaDetalhes, BebidaProcesso, Comida, ComidaDetalhes,
 import ContextRoute from './context-route/ContextRoute';
 import UserProvider from './context/userContext/UserProvider';
 import FoodProvider from './context/comidaContext/FoodProvider';
+import DrinkProvider from './context/bebidaContext/DrinkProvider';
 
 function App() {
   return (
@@ -22,13 +22,17 @@ function App() {
       <Route path="/explorar/bebidas/ingredientes" component={ BebidaIngredientes } />
       <Route path="/explorar/comidas" component={ ExplorarComida } />
       <Route path="/explorar/bebidas" component={ ExplorarBebida } />
-
       <Route path="/explorar" component={ Explorar } />
       <Route path="/bebidas/:idDaReceita/in-progress" component={ BebidaProcesso } />
       <Route path="/comidas/:idDaReceita/in-progress" component={ ComidaProcesso } />
       <Route path="/bebidas/:idDaReceita" component={ BebidaDetalhes } />
       <Route path="/comidas/:idDaReceita" component={ ComidaDetalhes } />
-      <Route path="/bebidas" component={ Bebida } />
+      <ContextRoute
+        exact
+        path="/bebidas"
+        contextComponent={ DrinkProvider }
+        component={ Bebida }
+      />
       <ContextRoute
         exact
         path="/comidas"

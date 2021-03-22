@@ -6,6 +6,7 @@ import RecipesContext from '../../context/RecipesContext';
 import SearchBar from '../../components/SearchBar';
 import Header from '../../components/Header';
 import DrinkCard from '../../components/DrinkCard';
+import Footer from '../../components/Footer';
 
 const LIMIT_OF_CARDS = 12;
 
@@ -29,6 +30,7 @@ function Cocktails() {
         }
         return null;
       })}
+      <Footer />
     </div>
   );
 }

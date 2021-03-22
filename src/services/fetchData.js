@@ -15,9 +15,9 @@ const fetchData = (andPoint) => fetch(andPoint).then((response) => response
 
 export const fetchFoodsByCategories = () => fetchData(URL.categoryFood);
 export const fetchFoodsByRegion = () => fetchData(URL.regionFood);
-export const fetchFoodsByIngredients = () => fetchData(URL.ingredientsFood);
-export const fetchFoodsByName = () => fetchData(URL.nameFood);
-export const fetchFoodsByLetter = () => fetchData(URL.letterFood);
+export const fetchFoodsByIngredients = (value) => fetchData(URL.ingredientsFood(value));
+export const fetchFoodsByName = (value) => fetchData(URL.nameFood(value));
+export const fetchFoodsByLetter = (value) => fetchData(URL.letterFood(value));
 
 export const fetchDrinksByCategories = () => fetchData(URL.categoryDrink);
 export const fetchDrinksByIngredients = () => fetchData(URL.ingredientsDrink);

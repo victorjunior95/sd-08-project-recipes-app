@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header } from '../components';
+import { Header, SearchBar } from '../components';
 
 class Foods extends Component {
   render() {
@@ -9,7 +9,7 @@ class Foods extends Component {
     return (
       <div>
         <Header history={ history } />
-        Eu sou o pagína de Comidas
+        <SearchBar />
       </div>
     );
   }

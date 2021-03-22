@@ -68,7 +68,7 @@
 } */
 
 .footerContainer {
-  bottom: 0px;
+  bottom: 0;
   left: 105px;
   position: fixed;
   width: 100%;

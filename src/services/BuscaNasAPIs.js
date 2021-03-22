@@ -20,3 +20,24 @@ export const getComidasByPrimeiraLetra = (primeiraLetra) => (
     .then((json) => json)
     .catch((error) => console.log(error))
 );
+
+export const getBebidasByingredientes = (ingrediente) => (
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const getBebidasByName = (nome) => (
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${nome}`)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const getBebidasByPrimeiraLetra = (primeiraLetra) => (
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeiraLetra}`)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);

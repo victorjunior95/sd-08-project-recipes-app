@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Footer from '../components/Footer';
 import HeaderP from '../components/HeaderP';
 
 import '../styles/Perfil.css';
@@ -54,6 +55,10 @@ function Perfil() {
         </div>
       </div>
     </div>
+    <>
+      <HeaderP title="Perfil" />
+      <Footer />
+    </>
   );
 }
 

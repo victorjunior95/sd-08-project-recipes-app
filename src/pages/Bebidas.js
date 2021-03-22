@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import HeaderPS from '../components/HeaderPS';
 import RecipeList from '../components/RecipeList';
 
@@ -7,6 +8,7 @@ function Bebidas() {
     <>
       <HeaderPS title="Bebidas" endpoint="thecocktaildb" />
       <RecipeList route="bebidas" recipeType="Drink" />
+      <Footer />
     </>
   );
 }

@@ -1,9 +1,13 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import HeaderPS from '../components/HeaderPS';
 
 function OrigemComidas() {
   return (
-    <HeaderPS title="Explorar Origem" />
+    <>
+      <HeaderPS title="Explorar Origem" />
+      <Footer />
+    </>
   );
 }
 

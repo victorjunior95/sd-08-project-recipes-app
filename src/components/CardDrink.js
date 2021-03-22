@@ -10,14 +10,20 @@ function CardDrink() {
 
   const maxCards = 12;
 
+  if (drinks === undefined) return '';
+
   return (
     <section>
       {drinks.map(({ strDrink, strDrinkThumb }, index) => {
         if (index >= maxCards) return '';
         return (
-          <div key={ strDrink }>
-            <img src={ strDrinkThumb } alt={ strDrink } />
-            <p>{strDrink}</p>
+          <div key={ strDrink } data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ strDrinkThumb }
+              alt={ strDrink }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{strDrink}</p>
           </div>
         );
       })}

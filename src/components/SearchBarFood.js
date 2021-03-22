@@ -46,8 +46,8 @@ function SearchBarFood() {
     if (searchType === 'first-letter-search') {
       response = await SearchMealByFirstLetter(searchInput);
     }
-    if (response.drinks !== null && searchType !== '') {
-      return setFoods(response.drinks);
+    if (response.meals !== null && searchType !== '') {
+      return setFoods(response.meals);
     }
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };

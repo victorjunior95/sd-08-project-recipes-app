@@ -5,14 +5,18 @@ import profileIcon from '../images/profileIcon.svg';
 
 function ProfileButton() {
   const history = useHistory();
+  const handleClick = () => {
+    history.push('/perfil');
+  };
+
   return (
-    <button
-      type="button"
+    <input
+      type="image"
+      src={ profileIcon }
+      alt="Imagem do Perfil"
       data-testid="profile-top-btn"
-      onClick={ () => history.push('/perfil') }
-    >
-      <img src={ profileIcon } alt="Imagem do Perfil" />
-    </button>
+      onClick={ handleClick }
+    />
   );
 }
 

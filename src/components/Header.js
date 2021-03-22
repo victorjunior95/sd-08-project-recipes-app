@@ -34,11 +34,6 @@ class Header extends Component {
     this.setState({ isHidden: !isHidden });
   }
 
-  showAlert() {
-    // const alert = myCustomLib.customAlert;
-    // alert(phrase);
-  }
-
   submitSearch(searchIngredient) {
     const { text, searchBy } = this.state;
     if (searchBy === 'ingredient') {
@@ -49,8 +44,7 @@ class Header extends Component {
       return searchIngredient(url);
     }
     if (text.length > 1) {
-      this.showAlert('Nao');
-      return;
+      return alert('Não é permitido mais de uma letra');
     }
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
     return searchIngredient(url);

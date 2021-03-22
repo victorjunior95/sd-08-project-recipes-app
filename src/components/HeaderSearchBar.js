@@ -5,11 +5,13 @@ import ProfileIcon from '../images/profileIcon.svg';
 import './HeaderSearchBar.css';
 import { LoginAndFoodContext } from '../context/ContextFood';
 import { DataDrinksContext } from '../context/ContextDrinks';
+import { DataHeaderContext } from '../context/HeaderContext';
 
-// eslint-disable-next-line complexity
 function HeaderSearchBar() {
+  const headerContext = useContext(DataHeaderContext);
   const drinksContext = useContext(DataDrinksContext);
   const mealsContext = useContext(LoginAndFoodContext);
+  const { title } = headerContext;
   const {
     handleChangeSearch,
     handleSearchByIngredients,
@@ -41,13 +43,7 @@ function HeaderSearchBar() {
   const changeVisible = () => {
     setIsvisible(!isVisible);
   };
-  const zero = 0;
-  const one = 1;
-  const loc = location.pathname;
-  const v = loc.includes('-') ? loc.replace('-', ' ') : loc;
-  const d = v.includes('/') ? v.replace(/[/]/g, '') : v;
-  const j = d.substring(zero, one).toLocaleUpperCase().concat(d.substring(one));
-  const title = j === 'Explorarcomidasarea' ? 'Explorar Origem' : j;
+
   return (
     <div className="container-header-search">
       <div className="header">

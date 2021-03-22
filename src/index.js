@@ -6,14 +6,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import FoodContext from './context/ContextFood';
 import DrinksContext from './context/ContextDrinks';
+import HeaderContext from './context/HeaderContext';
 
 ReactDOM.render(
   <BrowserRouter>
-    <FoodContext>
-      <DrinksContext>
-        <App />
-      </DrinksContext>
-    </FoodContext>
+    <HeaderContext>
+      <FoodContext>
+        <DrinksContext>
+          <App />
+        </DrinksContext>
+      </FoodContext>
+    </HeaderContext>
   </BrowserRouter>,
   document.getElementById('root'),
 );

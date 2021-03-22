@@ -67,8 +67,8 @@ label {
 
 .container-card-meal {
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  flex-direction: row;
   gap: 2%;
   height: 70%;
   justify-content: space-around;
@@ -101,8 +101,8 @@ label {
 
 .category-filter {
   background-color: palegreen;
-  display: flex;
   flex-direction: row;
+  display: flex;
   flex-flow: wrap;
   justify-content: space-around;
   margin-top: 2%;

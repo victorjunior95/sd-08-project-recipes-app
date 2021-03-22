@@ -15,8 +15,8 @@ import MealsOrigin from './pages/MealsOrigin';
 import MealRecipeDetails from './pages/MealRecipeDetails';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (

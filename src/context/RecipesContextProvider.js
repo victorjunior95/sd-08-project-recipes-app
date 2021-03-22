@@ -1,13 +1,14 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import GetTitle from '../hooks/GetTitle';
 
 function RecipesContextProvider({ children }) {
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+ 
   function setTitleState() {
     setIsLoading(true);
     const name = GetTitle();
@@ -15,7 +16,15 @@ function RecipesContextProvider({ children }) {
     setIsLoading(false);
   }
 
-  const context = { title, setTitleState, isLoading };
+  const context = {
+    meals,
+    setMeals,
+    drinks,
+    setDrinks,
+    title,
+    setTitleState,
+    isLoading,
+  };
 
   return (
     <RecipesContext.Provider value={ context }>
@@ -24,6 +33,8 @@ function RecipesContextProvider({ children }) {
   );
 }
 
-RecipesContextProvider.propTypes = ({ children: PropTypes.node.isRequired });
+RecipesContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default RecipesContextProvider;

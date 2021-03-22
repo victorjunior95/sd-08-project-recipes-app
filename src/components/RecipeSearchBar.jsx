@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function RecipeSearchBar() {
-  return (    
+  return (
     <form action="">
       <label htmlFor="search-input">
         <input
@@ -35,6 +35,6 @@ export default function RecipeSearchBar() {
       <button type="submit" data-testid="exec-search-btn">
         Pesquisar
       </button>
-    </form>  
+    </form>
   );
 }

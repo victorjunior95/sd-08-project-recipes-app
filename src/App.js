@@ -16,8 +16,8 @@ function App() {
       <Switch>
         <Route exact path="/perfil" component={ ProfilePage } />
         <Route exact path="/explorar" component={ Explore } />
-        <Route path="/explorar/comidas/ingredientes" component={ DrinkIngredient } />
-        <Route path="/explorar/bebidas/ingredientes" component={ FoodIngredient } />
+        <Route path="/explorar/comidas/ingredientes" component={ FoodIngredient } />
+        <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredient } />
         <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
         <Route path="/comidas" component={ MainRecipes } />
         <Route path="/bebidas" component={ MainRecipes } />

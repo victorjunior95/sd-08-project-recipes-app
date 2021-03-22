@@ -3,7 +3,7 @@ import React from 'react';
 function CocktailRecipeDetails() {
   return (
     <div>
-      Cocktail Recipe Details
+      Cocktail Recipe  Details
     </div>
   );
 }

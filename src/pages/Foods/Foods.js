@@ -25,10 +25,9 @@ function Foods() {
           ))}
         { meals && meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }
-
-        {/* {meals && meals.length === 0
+        { meals === null
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-          : '' } */}
+          : ''}
       </div>
     </div>
   );

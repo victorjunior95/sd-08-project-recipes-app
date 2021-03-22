@@ -25,6 +25,9 @@ function Drinks() {
           ))}
         { drinks && drinks.length === 1
           ? <Redirect to={ `/bebidas/${drinks[0].idDrink}` } /> : '' }
+        { drinks === null
+          ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+          : ''}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch } from 'react-router-dom';
 import Login from './pages/login';
-// import Comida from './pages/comida';
+import Comida from './pages/comida';
 // import Bebida from './pages/bebida';
 // import ComidaDetalhes from './pages/comida/detalhes';
 // import BebidaDetalhes from './pages/bebida/detalhes';
@@ -20,6 +20,7 @@ import Login from './pages/login';
 // import ReceitasFavoritas from './pages/receitas-favoritas';
 import ContextRoute from './context-route/ContextRoute';
 import UserProvider from './context/userContext/UserProvider';
+import FoodProvider from './context/comidaContext/FoodProvider';
 
 function App() {
   return (
@@ -37,8 +38,13 @@ function App() {
       <Route path="/comidas/:idDaReceita/in-progress" component={ ComidaProcesso } />
       <Route path="/bebidas/:idDaReceita" component={ BebidaDetalhes } />
       <Route path="/comidas/:idDaReceita" component={ ComidaDetalhes } />
-      <Route path="/bebidas" component={ Bebida } />
-      <Route path="/comidas" component={ Comida } /> */}
+      <Route path="/bebidas" component={ Bebida } /> */}
+      <ContextRoute
+        exact
+        path="/comidas"
+        contextComponent={ FoodProvider }
+        component={ Comida }
+      />
       <ContextRoute
         exact
         path="/"

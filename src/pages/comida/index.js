@@ -1,9 +1,12 @@
 import React from 'react';
+import SearchBarFood from '../../components/SearchBarFood';
 
-function index() {
+function Comida() {
   return (
-    <div>OI</div>
+    <section>
+      <SearchBarFood />
+    </section>
   );
 }
 
-export default index;
+export default Comida;

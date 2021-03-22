@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Header } from '../components';
 
 class Drinks extends Component {
@@ -14,8 +14,10 @@ class Drinks extends Component {
   }
 }
 
-// Drinks.propTypes = {
-
-// };
+Drinks.propTypes = {
+  history: PropTypes.shape(
+    PropTypes.func,
+  ).isRequired,
+};
 
 export default Drinks;

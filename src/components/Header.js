@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../styles/components/Header.css';
@@ -24,6 +24,7 @@ class Header extends Component {
   render() {
     /* console.log(this.props.history.location.pathname); */
     return (
+
       <header className="headerContainer">
         <button
           type="button"
@@ -53,8 +54,10 @@ class Header extends Component {
   }
 }
 
-/* Header.propTypes = {
-  pathname: PropTypes.string.isRequired,
-}; */
+Header.propTypes = {
+  history: PropTypes.shape(
+    PropTypes.string,
+  ).isRequired,
+};
 
 export default Header;

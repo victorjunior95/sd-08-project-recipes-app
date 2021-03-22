@@ -11,6 +11,8 @@ export {
   fetchFoodsByCategories,
   fetchFoodsByRegion,
   fetchFoodsByIngredients,
+  fetchFoodsByName,
+  fetchFoodsByLetter,
   fetchDrinksByCategories,
   fetchDrinksByIngredients,
   default as fetchData,

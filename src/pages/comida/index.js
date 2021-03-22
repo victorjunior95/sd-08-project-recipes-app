@@ -3,7 +3,9 @@ import Header from '../../components/Header';
 
 function Comida() {
   return (
-    <Header>Comidas</Header>
+    <section>
+      <Header>Comidas</Header>
+    </section>
   );
 }
 

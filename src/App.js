@@ -8,6 +8,7 @@ import { Login, Bebida, BebidaDetalhes, BebidaProcesso, Comida, ComidaDetalhes,
   ReceitasFavoritas } from './pages';
 import ContextRoute from './context-route/ContextRoute';
 import UserProvider from './context/userContext/UserProvider';
+import FoodProvider from './context/comidaContext/FoodProvider';
 
 function App() {
   return (
@@ -26,7 +27,12 @@ function App() {
       <Route path="/bebidas/:idDaReceita" component={ BebidaDetalhes } />
       <Route path="/comidas/:idDaReceita" component={ ComidaDetalhes } />
       <Route path="/bebidas" component={ Bebida } />
-      <Route path="/comidas" component={ Comida } />
+      <ContextRoute
+        exact
+        path="/comidas"
+        contextComponent={ FoodProvider }
+        component={ Comida }
+      />
       <ContextRoute
         exact
         path="/"

@@ -18,13 +18,13 @@ const Header = () => {
       <SearchBar showInput={ showInput } />
       <button
         type="button"
-        data-test-id="profile-top-btn"
+        data-testid="profile-top-btn"
         onClick={ () => redirectPages('./perfil') }
       >
         <img src={ profileIcon } alt="profileIcon" />
       </button>
 
-      <h2 data-test-id="page-title">Page Title</h2>
+      <h2 data-testid="page-title">Page Title</h2>
       <button
         type="button"
         data-testid="search-top-btn"

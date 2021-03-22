@@ -2,12 +2,16 @@ import React from 'react';
 
 import searchIcon from '../images/searchIcon.svg';
 
-function ProfileButton() {
+function SearchButton() {
   return (
-    <button type="button" data-testid="search-top-btn">
-      <img src={ searchIcon } alt="Imagem da Busca" />
-    </button>
+    <input
+      type="image"
+      src={ searchIcon }
+      alt="Imagem da Busca"
+      data-testid="search-top-btn"
+      onClick={ () => '' }
+    />
   );
 }
 
-export default ProfileButton;
+export default SearchButton;

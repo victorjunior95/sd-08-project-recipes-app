@@ -5,6 +5,7 @@ import RecipeContext from '../context/RecipeContext';
 function RecipesList() {
   const MAX_ITEMS = 12;
   const { meals } = useContext(RecipeContext);
+
   return (
     <div>
       {meals.map((elem, index) => {

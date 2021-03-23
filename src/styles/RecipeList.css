@@ -9,6 +9,7 @@
 https://pt.stackoverflow.com/questions/288878/
 como-dispor-imagens-uma-ao-lado-da-outra-com-t%C3%ADtulos-abaixo-em-css
 */
+
 .holder {
   display: inline-block;
   justify-content: center;

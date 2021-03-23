@@ -30,6 +30,6 @@
 }
 
 .btn-recipes-completed:focus {
-  box-shadow: none;  
+  box-shadow: none;
   outline: none;
 }

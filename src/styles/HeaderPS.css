@@ -34,7 +34,7 @@
   background-color: #c8aab6;
   border-radius: 10px;
   color: rgb(77, 74, 74);
-  padding: 5px 5px;
+  padding: 5px;
   text-decoration: none;
   width: 100px;
 }
@@ -44,12 +44,12 @@
   border-radius: 10px;
   color: rgb(77, 74, 74);
   cursor: pointer;
-  padding: 5px 5px;
+  padding: 5px;
   text-decoration: none;
   width: 100px;
 }
 
 .btn-headerps:focus {
-  box-shadow: none;  
+  box-shadow: none;
   outline: none;
 }

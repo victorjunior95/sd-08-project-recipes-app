@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import fetchDrinksAPI from '../api/fetchDrinksAPI';
 import contextRecipes from '../context/Context';
+import Button from '../components/Button';
 
 const Bebidas = () => {
   const [drinks, setDrinks] = useState([]);
-  const { filter } = useContext(contextRecipes);
+  const { filter, drinkApiButton } = useContext(contextRecipes);
 
   useEffect(() => {
     async function getDrinksFromAPI() {
@@ -22,6 +23,13 @@ const Bebidas = () => {
   return (
     <>
       <Header title="Bebidas" />
+      { drinkApiButton.map(({ strCategory: category }, index) => (
+        <Button
+          datatestid={ `${category}-category-filter` }
+          label={ category }
+          key={ index }
+        />
+      ))}
       { drinks.map((drink, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
           <img

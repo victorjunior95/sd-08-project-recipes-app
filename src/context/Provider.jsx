@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import contextRecipes from './Context';
 import App from '../App';
+import fetchCategories from '../api/fetchCategories';
 // import PropTypes from 'prop-types';
 
 function RecipesProvider() {
-  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-  const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [mealsToken, setMealsToken] = useState(1);
   const [cocktailsToken, setCocktailsToken] = useState(1);
   const [user, setUser] = useState({
     email: '',
   });
   const [filter, setFilter] = useState([]);
-  const [buttonFilter, setButtonFilter] = useState([]);
-  const [drinkApiButton, setDrinkApiButton] = useState([]);
+  const [mealsCategories, setMealsCategories] = useState([]);
+  const [drinksCategories, setDrinksCategories] = useState([]);
 
   useEffect(() => {
     function saveLocalStorage() {
@@ -26,32 +25,22 @@ function RecipesProvider() {
 
   useEffect(() => {
     async function fetchData() {
-      const FIVE_CATEGORYS = 5;
-      const { drinks } = await fetch(drinkUrl).then((response) => response.json());
-      // console.log(meals.slice(0, FIVE_CATEGORYS));
-      setDrinkApiButton(drinks.slice(0, FIVE_CATEGORYS));
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const FIVE_CATEGORYS = 5;
-      const { meals } = await fetch(url).then((response) => response.json());
-      // console.log(meals.slice(0, FIVE_CATEGORYS));
-      setButtonFilter(meals.slice(0, FIVE_CATEGORYS));
+      const drinksCategoriesAPI = await fetchCategories('drinks');
+      const mealCategoriesAPI = await fetchCategories('meals');
+      setDrinksCategories(drinksCategoriesAPI);
+      setMealsCategories(mealCategoriesAPI);
     }
     fetchData();
   }, []);
 
   const state = {
-    setButtonFilter,
+    setMealsCategories,
     setUser,
     setMealsToken,
     setCocktailsToken,
     setFilter,
-    buttonFilter,
-    drinkApiButton,
+    mealsCategories,
+    drinksCategories,
     filter,
   };
   return (

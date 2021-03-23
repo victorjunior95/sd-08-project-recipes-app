@@ -33,7 +33,13 @@ function SearchBar() {
           Primeira letra
         </label>
       </div>
-      <button type="button" data-testid="exec-search-btn">Buscar</button>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ () => {} }
+      >
+        Buscar
+      </button>
     </div>
   );
 }

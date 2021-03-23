@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../../components/Header';
 
 export default function FoodInProgress() {
   return (
     <div>
-      Food in progress
+      <Header title="Food in progress" />
     </div>
   );
 }

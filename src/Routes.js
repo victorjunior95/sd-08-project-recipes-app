@@ -22,15 +22,15 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ RecipesFood } />
-      <Route path="/bebidas" component={ Cocktails } />
-      <Route path="/comidas/:id" component={ FoodDetails } />
-      <Route path="/bebidas/:id" component={ CocktailDetails } />
+      <Route exact path="/comidas" component={ RecipesFood } />
+      <Route exact path="/bebidas" component={ Cocktails } />
+      <Route exact path="/comidas/:id" component={ FoodDetails } />
+      <Route exact path="/bebidas/:id" component={ CocktailDetails } />
       <Route path="/comidas/:id/in-progress" componente={ FoodInProgress } />
       <Route path="/bebidas/:id/in-progress" componente={ CocktailsInProgress } />
-      <Route path="/explorar" component={ Explorer } />
-      <Route path="/explorar/comidas" component={ ExploreFood } />
-      <Route path="/explorar/bebidas" component={ ExplorerCocktails } />
+      <Route exact path="/explorar" component={ Explorer } />
+      <Route exact path="/explorar/comidas" component={ ExploreFood } />
+      <Route exact path="/explorar/bebidas" component={ ExplorerCocktails } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExplorerFoodIngredients }

@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 export default function ExploreArea() {
   return (
     <div>
-      <Header />
+      <Header title="Explorar Origem" search="true" />
     </div>
   );
 }

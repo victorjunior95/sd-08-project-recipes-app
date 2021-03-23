@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchFood } from '../../store/actions/foodsActions';
 
-const SearchBarAlertLib = {
-  fistLetter: (text) => text,
-};
-
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +25,6 @@ class SearchBar extends Component {
     const { search, searchRadio } = this.state;
     const { getFood } = this.props;
     if (searchRadio === 'firstLetter') {
-      const alert = SearchBarAlertLib.fistLetter;
-
       if (search.length === searchLength) {
         return getFood({ search, searchRadio });
       }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,12 +12,18 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import CardsContainer from '../components/CardsContainer';
 import Container from '../components/Container';
+import FilterList from '../components/FilterList';
 
 const RESULTS_LIMIT = 12;
 
-const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
+const Cocktails = ({ fetchCocktails, fetchCategories, drinks, notFound, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
+
+  useEffect(() => {
+    fetchCocktails();
+    fetchCategories();
+  }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
   if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -30,6 +36,7 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
+      <FilterList categories={ categories } />
       { showSearchBar && <SearchBar fetchFunction={ fetchCocktails } /> }
       { notFound && <p>Nenhuma bebida encontrada</p> }
       <CardsContainer>
@@ -48,13 +55,16 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
 
 Cocktails.propTypes = {
   fetchCocktails: PropTypes.func.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
   drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   notFound: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ cocktails }) => ({
   drinks: cocktails.drinks,
   notFound: cocktails.notFound,
+  categories: cocktails.categories,
 });
 
 const mapDispatchToProps = (dispatch) => (

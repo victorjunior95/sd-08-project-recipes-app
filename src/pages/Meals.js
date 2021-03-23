@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, useParams } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as RecipesActions } from '../store/ducks/meals';
+import { Creators as MealsActions } from '../store/ducks/meals';
 import useToggle from '../hooks/useToggle';
 
 import Header from '../components/Header';
@@ -17,9 +17,14 @@ import FilterList from '../components/FilterList';
 
 const RESULTS_LIMIT = 12;
 
-const Meals = ({ fetchMeals, meals, notFound }) => {
+const Meals = ({ fetchMeals, fetchCategories, meals, notFound, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
+
+  useEffect(() => {
+    fetchMeals();
+    fetchCategories();
+  }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
   if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -32,7 +37,7 @@ const Meals = ({ fetchMeals, meals, notFound }) => {
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
-      <FilterList />
+      <FilterList categories={ categories } />
       { showSearchBar && <SearchBar fetchFunction={ fetchMeals } /> }
       { notFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
@@ -51,16 +56,19 @@ const Meals = ({ fetchMeals, meals, notFound }) => {
 
 Meals.propTypes = {
   fetchMeals: PropTypes.func.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
   meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   notFound: PropTypes.bool.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = ({ meals }) => ({
   meals: meals.meals,
   notFound: meals.notFound,
+  categories: meals.categories,
 });
 
 const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(RecipesActions, dispatch));
+  bindActionCreators(MealsActions, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(Meals);

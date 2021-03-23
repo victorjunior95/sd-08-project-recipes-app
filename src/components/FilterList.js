@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../styles/components/FilterList.module.css';
 
-const filters = ['All', 'Beef', 'Lamb', 'Chicken', 'Breakfast', 'Dessert'];
+const FILTER_LIMIT = 5;
 
-function FilterList() {
+function FilterList({ categories }) {
+  console.log(categories);
   return (
     <section className={ styles.filterContainer }>
-      {filters.map((filter) => (
+      {['All', ...categories.slice(0, FILTER_LIMIT)].map((filter) => (
         <button
+          data-testid={ `${filter}-category-filter` }
           className={ styles.filterButton }
           type="button"
           key={ filter }
@@ -17,5 +20,9 @@ function FilterList() {
     </section>
   );
 }
+
+FilterList.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default FilterList;

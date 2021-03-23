@@ -5,7 +5,6 @@ import SearchBarFood from '../../components/SearchBarFood';
 import FoodContext from '../../context/comidaContext/FoodContext';
 import Footer from '../../components/footer';
 
-
 function Comida() {
   const { values: { mealArray } } = useContext(FoodContext);
   console.log(mealArray);

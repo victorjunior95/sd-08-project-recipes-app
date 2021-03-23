@@ -15,7 +15,7 @@ function Header({ children, explore, component }) {
   };
 
   const searchButton = () => (
-    <button type="button" onClick={ searchBar }>
+    <button type="button" onClick={ searchBar } className="header-search-button">
       <img
         src={ searchIcon }
         alt="Ícone de Pesquisa"
@@ -26,8 +26,7 @@ function Header({ children, explore, component }) {
 
   return (
     <>
-      <header>
-        <h2 data-testid="page-title">{children}</h2>
+      <header className="header-container">
         <Link to="/perfil">
           <img
             src={ profileIcon }
@@ -35,6 +34,7 @@ function Header({ children, explore, component }) {
             data-testid="profile-top-btn"
           />
         </Link>
+        <h2 data-testid="page-title">{children}</h2>
         {
           (explore === 'false') ? <img
             src={ exploreIcon }

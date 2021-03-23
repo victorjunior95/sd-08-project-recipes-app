@@ -11,6 +11,8 @@ function DrinkProvider({ children }) {
 
   const [drinks, setDrinks] = useState([]);
   const [drinksCategory, setDrinksCategory] = useState([]);
+  const [filteredDrinks, setfilteredDrinks] = useState('');
+  const handleFilteredDrinks = ({ target }) => setfilteredDrinks(target.innerText);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,13 +36,17 @@ function DrinkProvider({ children }) {
       searchType,
       drinks,
       drinksCategory,
+      filteredDrinks,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
       setDrinks,
+      handleFilteredDrinks,
     },
   };
+  console.log(filteredDrinks);
+
   return (
     <FoodContext.Provider value={ provide }>
       {children}

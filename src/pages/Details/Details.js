@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
-import Context from '../../contextApi/Context';
+import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 const Details = ({ title, match }) => {
   const { params: { id } } = match;
@@ -12,38 +15,139 @@ const Details = ({ title, match }) => {
   //   (element) => element.idMeal === id || element.idDrink === id,
   // );
 
+  const [object, setObject] = useState({});
+  const [isLoading, setLoad] = useState(false);
+
   const getMealOrDrink = async () => {
     if (title === 'Comidas') {
       const meal = await getMeal(id);
       console.log(meal);
-    } else {
-      const drink = await getDrink(id);
-      console.log(drink);
+      return meal;
+    }
+    const drink = await getDrink(id);
+    console.log(drink);
+    return drink;
+  };
+
+  useEffect(() => {
+    (async () => {
+      setLoad(true);
+      const mealOrDrink = await getMealOrDrink();
+      setObject(mealOrDrink);
+      setLoad(false);
+    })();
+  }, []);
+
+  // return (
+  //   <div>
+  //     teste
+  //   </div>
+  // );
+  // const renderIngredientList = () => {
+  //   for (let index = 1; index < 50; index += 1) {
+  //     // if (object[`strIngredient${index}`]
+  //     //   !== null
+  //     //   // && object[`strIngredient${index}`] !== ''
+  //     // ) {
+  //     return (
+  //       <ListGroup.Item>{object[`strIngredient${index}`]}</ListGroup.Item>
+  //     );
+  //     // }
+  //   }
+  // };
+
+  const renderIngredientList = () => {
+    const listKeys = Object.keys(object);
+    console.log(listKeys);
+    const ingredients = listKeys.filter((key) => key.includes('strIngredient'));
+    console.log(ingredients);
+    return ingredients.map((ingredient, index) => {
+      if (object[ingredient]) {
+        return (
+          <ListGroup.Item
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {object[ingredient]}
+          </ListGroup.Item>);
+      }
+    });
+  };
+
+  const renderVideo = () => {
+    if (title === 'Comidas') {
+      return (
+        <video
+          width="320"
+          height="240"
+          controls
+          data-testid="video"
+        >
+          <track src={ object.strYoutube } />
+          <source src={ object.strYoutube } />
+        </video>
+      );
     }
   };
 
-  getMealOrDrink();
-  return (
-    <div>teste</div>
-    // <Card
-    //   // data-testid={ `${index}-recipe-card` }
-    //   style={ { width: '18rem' } }
-    // >
-    //   <Card.Img
-    //     data-testid="recipe-photo"
-    //     variant="top"
-    //     src={ (title === 'Comidas') ? result[0].strMealThumb : result[0].strDrinkThumb }
-    //   />
-    //   <Card.Body>
-    //     <Card.Title
-    //       data-testid={ `${index}-card-name` }
-    //     >
-    //       { (title === 'Comidas') ? object.strMeal : object.strDrink}
-    //     </Card.Title>
-    //     <Button variant="primary">Go somewhere</Button>
-    //   </Card.Body>
-    // </Card>
-  );
+  if (isLoading === true) {
+    return (
+      <div>Loading</div>
+    );
+  } if (isLoading === false && object !== {}) {
+    return (
+      // <div>teste</div>
+      <Card
+        // data-testid={ `${index}-recipe-card` }
+        style={ { width: '18rem' } }
+      >
+        <Card.Img
+          data-testid="recipe-photo"
+          variant="top"
+          src={ (title === 'Comidas') ? object.strMealThumb : object.strDrinkThumb }
+        />
+        <Card.Body>
+          <Card.Title
+            data-testid="recipe-title"
+          >
+            { (title === 'Comidas') ? object.strMeal : object.strDrink}
+          </Card.Title>
+          <Button
+            variant="outline-secondary"
+            data-testid="share-btn"
+          >
+            <img
+              src={ shareIcon }
+              alt="Profile icon"
+              data-testid="explore-bottom-btn"
+            />
+          </Button>
+          {' '}
+          <Button
+            variant="outline-secondary"
+            data-testid="favorite-btn"
+          >
+            <img
+              src={ whiteHeartIcon }
+              alt="Profile icon"
+              data-testid="explore-bottom-btn"
+            />
+          </Button>
+          {' '}
+          <Card.Text data-testid="recipe-category">
+            { object.strCategory }
+          </Card.Text>
+          <ListGroup>
+            Ingredientes:
+            {renderIngredientList()}
+          </ListGroup>
+          <Card.Text data-testid="instructions">
+            { object.strInstructions }
+          </Card.Text>
+          {renderVideo()}
+        </Card.Body>
+      </Card>
+    );
+  }
 };
 
 Details.propTypes = {

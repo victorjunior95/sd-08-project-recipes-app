@@ -6,8 +6,8 @@ import RecipesContext from '../../context/RecipesContext';
 import SearchBar from '../../components/SearchBar';
 import Header from '../../components/Header';
 import DrinkCard from '../../components/DrinkCard';
-
-const LIMIT_OF_CARDS = 12;
+import CategoryBar from '../../components/CategoryBar';
+import { LIMIT_OF_CARDS } from '../../common/defs';
 
 function Cocktails() {
   const { drinks } = useContext(RecipesContext);
@@ -16,6 +16,7 @@ function Cocktails() {
     <div>
       <Header title="Bebidas" />
       <SearchBar type="cocktails" />
+      <CategoryBar type="cocktails" />
       {drinks.map((drink, index) => {
         if (drinks.length === 1) {
           return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;

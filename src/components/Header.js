@@ -33,7 +33,7 @@ export default function Header({ title }) {
           <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
         </Link>
       </div>
-      <div data-testid="page-title" className="text-capitalize">{title}</div>
+      <div data-testid="page-title" id="header-title">{title}</div>
       {headerBtn()}
     </header>
   );

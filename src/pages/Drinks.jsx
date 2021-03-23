@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import SearchButton from '../components/SearchButton';
 import Card from '../components/Card';
 import '../styles/card.css';
+import Footer from '../components/Footer';
 
 function Drinks() {
   const MAX_ARRAY_SIZE = 12;
@@ -39,6 +40,7 @@ function Drinks() {
     <>
       <Header label="Bebidas" Search={ SearchButton } page="Bebidas" />
       { showCards() }
+      <Footer />
     </>
   );
 }

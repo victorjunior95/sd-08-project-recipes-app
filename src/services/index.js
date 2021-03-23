@@ -27,6 +27,18 @@ export const fetchFood = async () => {
 export const fetchDrink = async () => {
   const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((response) => response.json());
-  console.log(result);
+  // console.log(result);
   return result;
+};
+export const categoryFood = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json());
+  console.log(result.meals);
+  return result.meals;
+};
+export const categoryDrink = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json());
+  // console.log(result);
+  return result.drinks;
 };

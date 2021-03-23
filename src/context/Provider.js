@@ -19,7 +19,6 @@ const Provider = ({ children }) => {
       results = await fetchDrink();
       setDrink(results.drinks);
     }
-    console.log(results);
     return results;
   };
   const context = { handleHeaderSearch, food, recipesFetch, drink };

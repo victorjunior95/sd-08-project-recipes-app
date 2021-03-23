@@ -10,6 +10,7 @@ import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
+import CardsContainer from '../components/CardsContainer';
 
 const RESULTS_LIMIT = 12;
 
@@ -30,13 +31,15 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
       />
       { showSearchBar && <SearchBar fetchFunction={ fetchCocktails } /> }
       { notFound && <p>Nenhuma bebida encontrada</p> }
-      { drinks.length > 1 && drinks.slice(0, RESULTS_LIMIT).map((drink, index) => (
-        <Card
-          key={ drink.idDrink }
-          nome={ drink.strDrink }
-          thumbnail={ drink.strDrinkThumb }
-          index={ index }
-        />)) }
+      <CardsContainer>
+        { drinks.length > 1 && drinks.slice(0, RESULTS_LIMIT).map((drink, index) => (
+          <Card
+            key={ drink.idDrink }
+            nome={ drink.strDrink }
+            thumbnail={ drink.strDrinkThumb }
+            index={ index }
+          />)) }
+      </CardsContainer>
       <Footer />
     </>
   );

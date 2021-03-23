@@ -3,7 +3,7 @@ const URL = {
   regionFood: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
   ingredientsFood: (value) => `https://www.themealdb.com/api/json/v1/1/filter.php?i=${value}`,
   nameFood: (value) => `https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`,
-  letterFood: (value) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`,
+  letterFood: (value) => `https://www.themealdb.com/api/json/v1/1/search.php?f=${value}`,
   categoryDrink: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
   ingredientsDrink:
     'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',

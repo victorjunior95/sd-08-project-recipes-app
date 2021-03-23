@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function RecipesCard(props) {
   const { index, meal } = props;
@@ -9,5 +10,13 @@ function RecipesCard(props) {
     </div>
   );
 }
+
+RecipesCard.propTypes = {
+  index: PropTypes.number.isRequired,
+  meal: PropTypes.shape({
+    strMeal: PropTypes.string.isRequired,
+    strMealThumb: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default RecipesCard;

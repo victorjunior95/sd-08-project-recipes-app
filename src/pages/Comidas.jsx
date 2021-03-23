@@ -38,9 +38,19 @@ const Comidas = () => {
     setMeals(filterdBtn);
   };
 
+  async function filterAll() {
+    const filterAllApi = await getResultFromAPI('/comidas');
+    setMeals(filterAllApi);
+  }
+
   return (
     <>
       <Header title="Comidas" />
+      <Button
+        datatestid="All-category-filter"
+        label="All"
+        onClick={ filterAll }
+      />
       {mealsCategories.map(({ strCategory: category }, index) => (
         <Button
           datatestid={ `${category}-category-filter` }

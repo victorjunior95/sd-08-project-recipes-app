@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import RecipeDetails from './pages/RecipeDetails';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/comidas/:id" render={ (props) => <RecipeDetails { ...props } /> } />
       <Route path="/bebidas" component={ Main } />
       <Route path="/comidas" component={ Main } />
+      <Route path="/perfil" component={ Profile } />
       <Route path="/" component={ Login } />
     </Switch>
   );

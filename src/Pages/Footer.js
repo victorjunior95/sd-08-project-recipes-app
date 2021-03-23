@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Container, Nav, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
@@ -13,17 +14,17 @@ function Footer() {
           textAlign: 'center',
           justifyContent: 'space-around' } }
       >
-        <Nav.Link href="/bebidas">
+        <Nav.Link as={ Link } to="/bebidas">
           <Col>
             <img src={ drinkIcon } alt="Perfil" data-testid="drinks-bottom-btn" />
           </Col>
         </Nav.Link>
-        <Nav.Link href="/explorar">
+        <Nav.Link as={ Link } to="/explorar">
           <Col>
             <img src={ exploreIcon } alt="Perfil" data-testid="explore-bottom-btn" />
           </Col>
         </Nav.Link>
-        <Nav.Link href="/comidas">
+        <Nav.Link as={ Link } to="/comidas">
           <Col>
             <img src={ mealIcon } alt="Perfil" data-testid="food-bottom-btn" />
           </Col>

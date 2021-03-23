@@ -8,6 +8,7 @@ import ExplorerFoodsDrinks from './pages/ExplorerFoodsDrinks/ExplorerFoodsDrinks
 import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
 import RecipesFavDone from './pages/RecipesFavDone/RecipesFavDone';
+import Details from './pages/Details/Details';
 
 const Routes = () => (
   <Switch>
@@ -47,6 +48,18 @@ const Routes = () => (
     <Route exact path="/explorar/comidas/area">
       <ExplorerByArea title="Explorar Origem" />
     </Route>
+    <Route
+      path="/comidas/:id"
+      render={ (props) => (
+        <Details title="Comidas" { ...props } />
+      ) }
+    />
+    <Route
+      path="/bebidas/:id"
+      render={ (props) => (
+        <Details title="Bebidas" { ...props } />
+      ) }
+    />
   </Switch>
 );
 export default Routes;

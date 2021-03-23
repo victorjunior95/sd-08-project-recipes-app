@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Cards from '../Card/Cards';
 
 const List = ({ title, results }) => {
@@ -9,12 +10,18 @@ const List = ({ title, results }) => {
       {results.map((object, index) => {
         if (index < CARDSFORPAGE) {
           return (
-            <Cards
-              key={ title === 'Comidas' ? object.idMeal : object.idDrink }
-              object={ object }
-              title={ title }
-              index={ index }
-            />
+            <Link
+              to={ title === 'Comidas'
+                ? `/comidas/${object.idMeal}`
+                : `/bebidas/${object.idDrink}` }
+            >
+              <Cards
+                key={ title === 'Comidas' ? object.idMeal : object.idDrink }
+                object={ object }
+                title={ title }
+                index={ index }
+              />
+            </Link>
           );
         }
         return true;

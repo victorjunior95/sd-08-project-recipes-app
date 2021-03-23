@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 import { toggleButtonSearch } from '../../store/actions';
-import { SearchBar } from '..';
+import SearchBar from './SearchBar';
 
 import '../../styles/components/Header.css';
 

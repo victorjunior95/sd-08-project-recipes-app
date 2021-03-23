@@ -88,10 +88,9 @@ describe('Login', () => {
     const NextBtn = getByTestId('login-submit-btn');
 
     fireEvent.click(NextBtn);
-    history.push('/comidas');
 
-    const textHi = getByText('Oi')
+    const { pathname } = history.location;
 
-    expect(textHi).toBeInTheDocument();
+    expect(pathname).toBe('/comidas');
   });
 });

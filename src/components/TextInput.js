@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import RecipesContext from '../ContextApi/RecipesContext';
 
 function TextInput() {
@@ -63,14 +64,16 @@ function TextInput() {
           />
         </label>
       </form>
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ handleClick }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="submit"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          onClick={ handleClick }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
 
   );

@@ -30,8 +30,8 @@ function Drinks() {
           // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

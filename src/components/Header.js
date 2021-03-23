@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
@@ -14,8 +14,9 @@ const Header = (props) => {
   const [userButton, setUserButton] = useState('');
   const [userInput, setUserInput] = useState('');
 
-  const location = useLocation();
+  const { pathname } = useLocation();
   const context = useContext(contextRecipes);
+  const history = useHistory();
 
   function handleSearchInput({ target: { value } }) {
     setUserInput(value);
@@ -25,13 +26,27 @@ const Header = (props) => {
     setUserButton(value);
   }
 
+  const idStringOptions = {
+    '/comidas': 'idMeal',
+    '/bebidas': 'idDrink',
+  };
+
   async function handleSearchButton() {
     if (userButton === 'busca da primeira letra' && userInput.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
-    const results = await getResultFromAPI(location.pathname, userButton, userInput);
+    const results = await getResultFromAPI(pathname, userButton, userInput);
+    if (results === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return;
+    }
     if (results) context.setFilter(results);
+    if (results.length === 1) {
+      const idType = idStringOptions[pathname];
+      const id = results[0][idType];
+      history.push(`${pathname}/${id}`);
+    }
   }
 
   function renderSearchBar() {

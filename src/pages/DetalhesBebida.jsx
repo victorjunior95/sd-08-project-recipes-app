@@ -1,9 +1,12 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 function DetalhesBebida() {
+  const { id } = useParams();
+
   return (
     <div>
-      DETALHES BEBIDA
+      { id }
       <footer>footer</footer>
     </div>
   );

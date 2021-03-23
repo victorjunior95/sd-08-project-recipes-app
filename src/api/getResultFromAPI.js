@@ -3,6 +3,7 @@ const filterString = {
   'busca por nome': 'search.php?s=',
   'busca da primeira letra': 'search.php?f=',
   filterBy: 'filter.php?c=',
+  lookup: 'lookup.php?i=',
 };
 
 const urlString = {

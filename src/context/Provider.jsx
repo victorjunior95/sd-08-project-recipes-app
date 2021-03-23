@@ -13,6 +13,7 @@ function RecipesProvider() {
   const [filter, setFilter] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
+  const [currentFood, setCurrentFood] = useState([]);
 
   useEffect(() => {
     function saveLocalStorage() {
@@ -34,6 +35,8 @@ function RecipesProvider() {
   }, []);
 
   const state = {
+    setCurrentFood,
+    currentFood,
     setMealsCategories,
     setUser,
     setMealsToken,

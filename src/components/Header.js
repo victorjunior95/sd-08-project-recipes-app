@@ -1,37 +1,52 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import ProfileIcon from '../images/profileIcon.svg';
+import SearchIcon from '../images/searchIcon.svg';
+import { toggleButtonSearch } from '../store/actions';
+import { SearchBar } from '.';
+
 import '../styles/components/Header.css';
 
 class Header extends Component {
   render() {
-    const { title, showButton } = this.props;
+    const { title, showButton, setToggle } = this.props;
     return (
-      <header className="headerContainer">
-        <button
-          type="button"
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-        >
-          <img
-            src={ profileIcon }
-            alt="profile"
-          />
-        </button>
-        <h1 data-testid="page-title">{title}</h1>
-        {showButton && (
-          <button
-            type="button"
-            src={ searchIcon }
-            data-testid="search-top-btn"
-          >
-            <img
-              src={ searchIcon }
-              alt="search"
-            />
-          </button>)}
+      <header>
+        <div className="headerContainer">
+          <div>
+            <Link to="/perfil">
+              <img
+                className="headerButton"
+                data-testid="profile-top-btn"
+                src={ ProfileIcon }
+                alt="perfil"
+              />
+            </Link>
+          </div>
+          <div>
+            <h1 data-testid="page-title">
+              { title }
+            </h1>
+          </div>
+          {(
+            title === 'Comidas'
+            || title === 'Bebidas'
+            || title.includes('Origem')
+          ) && (
+            <div>
+              <button
+                className="headerButton"
+                type="button"
+                onClick={ () => setToggle() }
+              >
+                <img data-testid="search-top-btn" src={ SearchIcon } alt="search" />
+              </button>
+            </div>
+          )}
+        </div>
+        {showButton && <SearchBar title={ title } />}
 
       </header>
     );
@@ -40,12 +55,17 @@ class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  setToggle: PropTypes.func.isRequired,
   showButton: PropTypes.bool.isRequired,
 
 };
 
 const mapStateToProps = (state) => ({
-  title: state.headerReducer.titleHeader,
   showButton: state.headerReducer.showButtonSearch,
 });
-export default connect(mapStateToProps)(Header);
+
+const mapDispatchToProps = (dispatch) => ({
+  setToggle: () => dispatch(toggleButtonSearch()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

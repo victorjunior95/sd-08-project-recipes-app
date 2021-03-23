@@ -1,5 +1,5 @@
-import userEvent from '@testing-library/user-event';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import renderWithStoreAndRouter from '../helpers/renderWithStoreAndRouter';
 import Login from '../pages/Login';
 
@@ -82,5 +82,16 @@ describe('Login', () => {
     userEvent.type(inputPassword, VALID_PASSWORD);
 
     expect(button).not.toBeDisabled();
+  });
+
+  test.only('Ao fazer login é redirecionado para rota /comidas', () => {
+    const { getByTestId, history } = renderWithStoreAndRouter(<Login />);
+    const button = getByTestId(testIds.loginSubmitButton);
+    const inputEmail = getByTestId(testIds.emailInput);
+    const inputPassword = getByTestId(testIds.passwordInput);
+    userEvent.type(inputEmail, VALID_EMAIL);
+    userEvent.type(inputPassword, VALID_PASSWORD);
+    userEvent.click(button);
+    expect(history.location.pathname).toBe('/comidas');
   });
 });

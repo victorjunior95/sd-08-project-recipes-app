@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as storage from '../services/storage';
 
+import styles from '../styles/pages/Login.module.css';
+
 const MIN_PASSWORD_LENGTH = 6;
 
 const Login = () => {
@@ -22,30 +24,33 @@ const Login = () => {
   }
 
   return (
-    <form>
-      <input
-        type="text"
-        data-testid="email-input"
-        placeholder="Email"
-        value={ email }
-        onChange={ ({ target }) => setEmail(target.value) }
-      />
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="Senha"
-        value={ password }
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ !isFormValid() }
-        onClick={ handleLogin }
-      >
-        Login
-      </button>
-    </form>
+    <div className={ styles.loginContainer }>
+      <h1>Login</h1>
+      <form className={ styles.loginForm }>
+        <input
+          type="text"
+          data-testid="email-input"
+          placeholder="Email"
+          value={ email }
+          onChange={ ({ target }) => setEmail(target.value) }
+        />
+        <input
+          type="password"
+          data-testid="password-input"
+          placeholder="Senha"
+          value={ password }
+          onChange={ ({ target }) => setPassword(target.value) }
+        />
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ !isFormValid() }
+          onClick={ handleLogin }
+        >
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 

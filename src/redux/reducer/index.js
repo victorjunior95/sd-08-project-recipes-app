@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import FilteredFoodsRecipes from './FilteredRecipes';
+import FilteredRecipes from './FilteredRecipes';
 import Login from './Login';
 
-const rootReducers = combineReducers({ FilteredFoodsRecipes, Login });
+const rootReducers = combineReducers({ FilteredRecipes, Login });
 
 export default rootReducers;

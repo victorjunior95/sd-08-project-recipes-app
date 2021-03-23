@@ -5,7 +5,7 @@ import SearchButton from '../components/SearchButton';
 import Card from '../components/Card';
 
 function Foods() {
-  const foods = useSelector((state) => state.FilteredFoodsRecipes.foods);
+  const foods = useSelector((state) => state.FilteredRecipes.foods);
   return (
     <>
       <Header label="Comidas" Search={ SearchButton } page="Comidas" />

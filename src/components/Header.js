@@ -34,7 +34,7 @@ function Header({ title, search }) {
             />)}
 
       </div>
-      {renderSeachBar && <SearchBar />}
+      {renderSeachBar && <SearchBar title={ title } />}
     </header>
   );
 }

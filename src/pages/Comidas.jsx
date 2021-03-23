@@ -1,7 +1,8 @@
 import React from 'react';
+import BarraPesquisa from '../components/BarraPesquisa';
 
 function Comidas() {
-  return (<h1>BEMVINDO</h1>);
+  return (<BarraPesquisa />);
 }
 
 export default Comidas;

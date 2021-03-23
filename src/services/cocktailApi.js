@@ -13,3 +13,7 @@ export const getByName = (name) => (
 export const getByFirstLetter = (firstLetter) => (
   fetchEndpoint(`${BASE_URL}/search.php?f=${firstLetter}`)
 );
+
+export const getRandomCocktail = () => (
+  fetchEndpoint(`${BASE_URL}/random.php`)
+);

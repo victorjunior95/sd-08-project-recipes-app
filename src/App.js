@@ -5,10 +5,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import Main from './pages/Main';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
     <Switch>
+      <Route
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <RecipeDetails { ...props } /> }
+      />
+      <Route
+        path="/comidas/:id/in-progress"
+        render={ (props) => <RecipeDetails { ...props } /> }
+      />
+      <Route path="/bebidas/:id" render={ (props) => <RecipeDetails { ...props } /> } />
+      <Route path="/comidas/:id" render={ (props) => <RecipeDetails { ...props } /> } />
       <Route path="/bebidas" component={ Main } />
       <Route path="/comidas" component={ Main } />
       <Route path="/" component={ Login } />

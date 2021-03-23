@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import ProviderRecipes from './context/ProviderRecipes';
 import './App.css';
 import Login from './pages/Login';
-import Comida from './pages/Comida';
+import Comidas from './pages/Comidas';
 import Perfil from './pages/Perfil';
 import Bebidas from './pages/Bebidas';
 import DetalhesComidas from './pages/DetalhesComidas';
@@ -29,7 +29,7 @@ function App() {
         <Route path="/comidas/:id" component={ DetalhesComidas } />
         <Route path="/bebidas/:id" component={ DetalhesBebidas } />
         <Route path="/explorar" component={ Explorar } />
-        <Route path="/comidas" component={ Comida } />
+        <Route path="/comidas" component={ Comidas } />
         <Route path="/bebidas" component={ Bebidas } />
         <Route path="/Perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ ReceitasFeitas } />

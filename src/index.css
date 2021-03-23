@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.food-card {
+  border: solid 1px rgb(150, 150, 150);
+  border-radius: 1em;
+  margin: 8px;
+  padding: 8px;
+  box-shadow: 1px 1px 5px rgb(100, 100, 100);
+}
+
+.food-card:hover{
+  border: solid 1px rgb(150, 150, 150);
+  border-radius: 1em;
+  margin: 8px;
+  padding: 8px;
+  box-shadow: 2px 2px 10px rgb(100, 100, 100);
+}
+.food-card img {
+  width: 500px;
+}
+
+.food-card-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

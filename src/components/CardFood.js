@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import FoodContext from '../context/comidaContext/FoodContext';
+import '../index.css';
 
 function CardFood() {
   const {
@@ -13,11 +14,15 @@ function CardFood() {
   if (foods === undefined) return '';
 
   return (
-    <section>
+    <section className="food-card-container">
       {foods.map(({ strMeal, strMealThumb }, index) => {
         if (index >= maxCards) return '';
         return (
-          <div key={ strMeal } data-testid={ `${index}-recipe-card` }>
+          <div
+            key={ strMeal }
+            data-testid={ `${index}-recipe-card` }
+            className="food-card"
+          >
             <img
               src={ strMealThumb }
               alt={ strMeal }

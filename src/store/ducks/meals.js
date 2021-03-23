@@ -6,14 +6,14 @@ export const Types = {
   FETCH_MEALS_ERROR: 'FETCH_MEALS_ERROR',
 };
 
-const INITIAL_STATE = {
+const INITIAL_MEALS_STATE = {
   isFetching: false,
   meals: [],
   error: '',
   notFound: false,
 };
 
-const meals = (state = INITIAL_STATE, action) => {
+const meals = (state = INITIAL_MEALS_STATE, action) => {
   switch (action.type) {
   case Types.SET_FETCH:
     return { ...state, isFetching: true, notFound: false };

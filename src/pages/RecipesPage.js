@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, useHistory } from 'react-router';
+// import { Redirect, useHistory } from 'react-router';
 import useFetchDrinkRecipes from '../hooks/useFetchDrinkRecipes';
 import useFetchMealRecipes from '../hooks/useFetchMealRecipes';
 
@@ -9,7 +9,7 @@ function RecipesPage() {
   const [recipesDrink, randomDrinks, drinkBySearch] = useFetchDrinkRecipes();
   const [recipesMeal, randomMeal, mealBySearch] = useFetchMealRecipes();
 
-  function generateRecipesList(list, type, from) {
+  function generateRecipesList(list, type) {
     const idType = `id${type}`;
     const strType = `str${type}`;
     const strTypeThumb = `str${type}Thumb`;
@@ -41,7 +41,7 @@ function RecipesPage() {
     return (
       <div>
         <h2>Random suggestion</h2>
-        { generateRecipesList(recipe, type, 'random') }
+        { generateRecipesList(recipe, type) }
       </div>
     );
   }
@@ -50,7 +50,7 @@ function RecipesPage() {
   if (pathname === '/comidas') { searchRecipes = recipesMeal; searchType = 'Meal'; }
   if (pathname === '/bebidas') { searchRecipes = recipesDrink; searchType = 'Drink'; }
 
-  return generateRecipesList(searchRecipes, searchType, 'search');
+  return generateRecipesList(searchRecipes, searchType);
 }
 
 export default RecipesPage;

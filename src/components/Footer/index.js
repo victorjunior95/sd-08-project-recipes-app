@@ -5,8 +5,6 @@ import exploreIcon from '../../images/exploreIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
 import './style.css';
 
-// import { Container } from './styles';
-
 function Footer() {
   return (
     <Container as="footer" className="footer bg-warning" data-testid="footer" fluid>

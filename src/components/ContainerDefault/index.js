@@ -10,9 +10,9 @@ function ContainerDefault({ title, children }) {
       <Row className="mb-5">
         <Header title={ title } />
       </Row>
-      <Row>
+      <Container className="d-flex flex-column" fluid>
         { children }
-      </Row>
+      </Container>
       <Row>
         <Footer />
       </Row>

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
@@ -9,7 +10,7 @@ import MealCard from '../../components/MealCard';
 import CategoryBar from '../../components/CategoryBar';
 import { LIMIT_OF_CARDS } from '../../common/defs';
 
-export default function Meals() {
+export default function Meals({ history }) {
   const { meals, isShow } = useContext(RecipesContext);
 
   return (
@@ -22,10 +23,14 @@ export default function Meals() {
           return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
         }
         if (index < LIMIT_OF_CARDS) {
-          return <MealCard key={ index } meal={ meal } index={ index } />;
+          return (
+            <MealCard key={ index } meal={ meal } index={ index } history={ history } />
+          );
         }
         return null;
       })}
     </div>
   );
 }
+
+Meals.propTypes = ({ history: PropTypes.objectOf(PropTypes.string).isRequired });

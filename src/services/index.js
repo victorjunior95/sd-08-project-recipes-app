@@ -1,8 +1,6 @@
 import { FINAL_INDEX, INITIAL_INDEX } from '../common/defs';
 
 const getMeals = async (type, payload) => {
-  console.log(type);
-  console.log(payload);
   let data = {};
   switch (type) {
   case 'ingredient-search':

@@ -16,13 +16,14 @@ import MealRecipeDetails from './pages/MealRecipeDetails';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/comidas" component={ Meals } />
-      <Route exact path="/bebidas" component={ Cocktails } />
+      <Route exact path="/comidas" render={ (props) => <Meals { ...props } /> } />
+      <Route exact path="/bebidas" render={ (props) => <Cocktails { ...props } /> } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/explorar" component={ Explorer } />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />

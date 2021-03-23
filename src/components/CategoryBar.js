@@ -11,14 +11,6 @@ export default function CategoryBar({ type }) {
   const [categoriesList, setCategoriesList] = useState([]);
   const [filteredBy, setFilteredBy] = useState('');
 
-  const categoriesListGen = async () => {
-    if (type === 'meals') {
-      setCategoriesList(await getMealsList());
-    } else {
-      setCategoriesList(await getCocktailsList());
-    }
-  };
-
   const handleClick = async (evt) => {
     const categoryChoised = evt.target.name;
     if (type === 'meals' && filteredBy !== categoryChoised) {
@@ -52,8 +44,31 @@ export default function CategoryBar({ type }) {
     }
   };
 
-  useEffect(() => categoriesListGen(), []);
-  useEffect(() => clearFilters(), []);
+  useEffect(() => {
+    const getCategories = async () => {
+      if (type === 'meals') {
+        const mealCategoriesList = await getMealsList();
+        setCategoriesList(mealCategoriesList);
+      } else {
+        const cocktailCategoriesList = await getCocktailsList();
+        setCategoriesList(cocktailCategoriesList);
+      }
+    };
+    getCategories();
+  }, [type]);
+
+  useEffect(() => {
+    const getInitialList = async () => {
+      if (type === 'meals') {
+        const { meals } = await getMeals(SEARCH_BY_NAME, '');
+        setMeals(meals);
+      } else {
+        const { drinks } = await getCocktails(SEARCH_BY_NAME, '');
+        setDrinks(drinks);
+      }
+    };
+    getInitialList();
+  }, [setDrinks, setMeals, type]);
 
   return (
     <section>

@@ -1,15 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-function DrinkCard({ drink, index }) {
+function DrinkCard({ drink, index, history }) {
   const { strDrink, strDrinkThumb, idDrink } = drink;
+
   return (
-    <Link data-testid={ `${index}-recipe-card` } to={ `/bebidas/${idDrink}` }>
-      <img src={ strDrinkThumb } alt="Drink" data-testid={ `${index}-card-img` } />
+    <button
+      type="button"
+      data-testid={ `${index}-recipe-card` }
+      onClick={ () => history.push(`/bebidas/${idDrink}`) }
+    >
+      <img
+        src={ strDrinkThumb }
+        alt="drink"
+        data-testid={ `${index}-card-img` }
+        className="button-item"
+      />
       <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
-    </Link>
-  );
+    </button>);
 }
 
 DrinkCard.propTypes = {
@@ -17,6 +25,9 @@ DrinkCard.propTypes = {
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     idDrink: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };

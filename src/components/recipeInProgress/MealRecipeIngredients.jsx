@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { filterIngAndMeasuresList } from '../../core';
 // import api from '../../services';
 import data from './data';
+import MealRecipeInstruction from './MealRecipeInstruction';
 
 const MealRecipeIngredients = () => {
   // const [recipe, setRecipe] = useState([]);
@@ -23,6 +25,8 @@ const MealRecipeIngredients = () => {
   //   }
   // }, [recipeData]);
   const [progress, setProgress] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const history = useHistory();
   // const [change, setchange] = useState(initialState)
   const recipe = [data[0]];
   const store = JSON.parse(localStorage.getItem('inProgressRecipe'));
@@ -54,6 +58,12 @@ const MealRecipeIngredients = () => {
       meals: { [data[0].idMeal]: [data[0]], prog: progress },
     }));
   }, [progress]);
+  useEffect(() => {
+    if (redirect) {
+      // setLocalStorage(food[0]);
+      return history.push('/receitas-feitas');
+    }
+  }, [redirect, history]);
   const steps = filterIngAndMeasuresList(recipe[0]);
   return (
     <div>
@@ -72,7 +82,8 @@ const MealRecipeIngredients = () => {
                     ...progress,
                     e.target.value,
                   ]) }
-                  checked={ progress.length > 0 ? progress.some((e) => e === ingredientsString[1]) : false }
+                  checked={ progress.length > 0
+                    ? progress.some((e) => e === ingredientsString[1]) : false }
                 />
                 {ingredientsString[1]}
                 {' - '}
@@ -86,6 +97,15 @@ const MealRecipeIngredients = () => {
             </li>
           ))}
         </ol>
+        <MealRecipeInstruction />
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ progress.length !== steps[0].length }
+          onClick={ () => setRedirect(true) }
+        >
+          Finalizar
+        </button>
       </div>
     </div>
   );

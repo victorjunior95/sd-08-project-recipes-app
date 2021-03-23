@@ -135,3 +135,10 @@ export function unregister() {
     });
   }
 }
+
+
+
+export function alertSearch(){
+  return  alert('Sua busca deve conter somente 1 (um) caracter')
+}
+

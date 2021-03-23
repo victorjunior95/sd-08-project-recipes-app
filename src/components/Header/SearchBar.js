@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchFood } from '../../store/actions/foodsActions';
+import { alertSearch } from '../../serviceWorker';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -28,8 +29,7 @@ class SearchBar extends Component {
       if (search.length === searchLength) {
         return getFood({ search, searchRadio });
       }
-
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      alertSearch();
     }
     getFood({
       search,

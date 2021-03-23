@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderP from '../components/HeaderP';
-
 import '../styles/Perfil.css';
 
 function Perfil() {
@@ -11,9 +10,7 @@ function Perfil() {
       localStorage.clear();
     }
   };
-
   const userEmail = JSON.parse(localStorage.user).email;
-
   return (
     <div>
       <HeaderP title="Perfil" />
@@ -54,12 +51,8 @@ function Perfil() {
           </NavLink>
         </div>
       </div>
-    </div>
-    <>
-      <HeaderP title="Perfil" />
       <Footer />
-    </>
+    </div>
   );
 }
-
 export default Perfil;

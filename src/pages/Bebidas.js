@@ -17,6 +17,7 @@ const Bebidas = () => {
   const history = useHistory();
   const [dataBebidas, setDataBebidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [actualCategory, setActualCategory] = useState('');
 
   useEffect(() => {
     setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
@@ -43,10 +44,12 @@ const Bebidas = () => {
   }, [dataByBusca, history]);
 
   async function filterCategory(category) {
-    const allFood = category === 'All'
+    const eatable = actualCategory === category ? 'All' : category;
+    const allFood = eatable === 'All'
       ? await getAllBebida()
       : await getBebidaByCategory(category);
     setDataBebidas(allFood.drinks);
+    setActualCategory(category);
   }
 
   return (
@@ -71,36 +74,34 @@ const Bebidas = () => {
           return false;
         })}
       </div>
-      { dataBebidas.length > 0 ? (
-        <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
-          {
-            dataBebidas.map((bebida, index) => {
-              if (index < MAX_CARDS) {
-                return (
-                  <Card
-                    key={ bebida.idDrink }
-                    data-testid={ `${index}-recipe-card` }
-                    className="col-5 m-2"
-                    onClick={ () => history.push(`/bebidas/${bebida.idDrink}`) }
-                  >
-                    <Card.Img
-                      variant="top"
-                      data-testid={ `${index}-card-img` }
-                      src={ bebida.strDrinkThumb }
-                    />
-                    <Card.Body>
-                      <Card.Title data-testid={ `${index}-card-name` }>
-                        { bebida.strDrink }
-                      </Card.Title>
-                    </Card.Body>
-                  </Card>
-                );
-              }
-              return false;
-            })
-          }
-        </CardDeck>
-      ) : false }
+      <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+        {
+          dataBebidas && dataBebidas.length && dataBebidas.map((bebida, index) => {
+            if (index < MAX_CARDS) {
+              return (
+                <Card
+                  key={ bebida.idDrink }
+                  data-testid={ `${index}-recipe-card` }
+                  className="col-5 m-2"
+                  onClick={ () => history.push(`/bebidas/${bebida.idDrink}`) }
+                >
+                  <Card.Img
+                    variant="top"
+                    data-testid={ `${index}-card-img` }
+                    src={ bebida.strDrinkThumb }
+                  />
+                  <Card.Body>
+                    <Card.Title data-testid={ `${index}-card-name` }>
+                      { bebida.strDrink }
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              );
+            }
+            return false;
+          })
+        }
+      </CardDeck>
       <Footer />
     </section>
   );

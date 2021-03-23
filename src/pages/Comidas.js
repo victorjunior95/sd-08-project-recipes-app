@@ -17,6 +17,7 @@ const Comidas = () => {
   const history = useHistory();
   const [dataComidas, setDataComidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [actualCategory, setActualCategory] = useState('');
 
   useEffect(() => {
     async function getCategorias() {
@@ -39,10 +40,12 @@ const Comidas = () => {
   }, [dataByBusca, history]);
 
   async function filterCategory(category) {
-    const allFood = category === 'All'
+    const eatable = actualCategory === category ? 'All' : category;
+    const allFood = eatable === 'All'
       ? await getAllComida()
       : await getComidaByCategory(category);
     setDataComidas(allFood.meals);
+    setActualCategory(category);
   }
 
   return (
@@ -67,36 +70,34 @@ const Comidas = () => {
           return false;
         })}
       </div>
-      { dataComidas.length > 0 ? (
-        <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
-          {
-            dataComidas.map((comida, index) => {
-              if (index < MAX_CARDS) {
-                return (
-                  <Card
-                    key={ comida.idMeal }
-                    data-testid={ `${index}-recipe-card` }
-                    className="col-5 m-2"
-                    onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
-                  >
-                    <Card.Img
-                      variant="top"
-                      data-testid={ `${index}-card-img` }
-                      src={ comida.strMealThumb }
-                    />
-                    <Card.Body>
-                      <Card.Title data-testid={ `${index}-card-name` }>
-                        { comida.strMeal }
-                      </Card.Title>
-                    </Card.Body>
-                  </Card>
-                );
-              }
-              return false;
-            })
-          }
-        </CardDeck>
-      ) : false }
+      <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+        {
+          dataComidas && dataComidas.length && dataComidas.map((comida, index) => {
+            if (index < MAX_CARDS) {
+              return (
+                <Card
+                  key={ comida.idMeal }
+                  data-testid={ `${index}-recipe-card` }
+                  className="col-5 m-2"
+                  onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
+                >
+                  <Card.Img
+                    variant="top"
+                    data-testid={ `${index}-card-img` }
+                    src={ comida.strMealThumb }
+                  />
+                  <Card.Body>
+                    <Card.Title data-testid={ `${index}-card-name` }>
+                      { comida.strMeal }
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              );
+            }
+            return false;
+          })
+        }
+      </CardDeck>
       <Footer />
     </section>
   );

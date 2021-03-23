@@ -68,9 +68,14 @@ export const filterSteps = (recipe) => {
   ];
   return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
     <li key={ indx } data-testid={ `${indx}-ingredient-step` }>
-      {ingredientsString[1]}
-      {' - '}
-      {ingredientMeasurePairs[1][indx][1]}
+      <label htmlFor={ `step-${indx}` }>
+        <input type="checkbox" name={ `step-${indx}` } id={ `step-${indx}` } />
+      </label>
+      <p>
+        {ingredientsString[1]}
+        {' - '}
+        {ingredientMeasurePairs[1][indx][1]}
+      </p>
     </li>
   )));
 };

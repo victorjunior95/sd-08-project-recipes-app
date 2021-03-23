@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+// import { _ } from '../../store/actions/';
+
 import '../styles/components/Footer.css';
 
 class Footer extends Component {
@@ -46,4 +50,18 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+// _.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   setToggle: PropTypes.func.isRequired,
+//   showButton: PropTypes.bool.isRequired,
+// };
+
+// const mapStateToProps = (state) => ({
+//   _: state,
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   _: () => dispatch(_()),
+// });
+
+export default connect(null, null)(Footer);

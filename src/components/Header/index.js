@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ProfileIcon from '../images/profileIcon.svg';
-import SearchIcon from '../images/searchIcon.svg';
-import { toggleButtonSearch } from '../store/actions';
-import { SearchBar } from '.';
+import ProfileIcon from '../../images/profileIcon.svg';
+import SearchIcon from '../../images/searchIcon.svg';
+import { toggleButtonSearch } from '../../store/actions';
+import { SearchBar } from '..';
 
-import '../styles/components/Header.css';
+import '../../styles/components/Header.css';
 
 class Header extends Component {
   render() {

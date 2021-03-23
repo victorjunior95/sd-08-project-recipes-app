@@ -22,13 +22,11 @@ class Perfil extends Component {
   }
 
   render() {
-    const { email, setEmail } = this.props;
     const { routeTo } = this.state;
-    const userEmailLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (routeTo) return <Redirect push to={ routeTo } />;
 
-    if (routeTo || (!email && !userEmailLocalStorage)) {
-      return <Redirect push to={ routeTo } />;
-    }
+    const { email, setEmail } = this.props;
+    const userEmailLocalStorage = JSON.parse(localStorage.getItem('user'));
 
     return (
       <div>
@@ -36,7 +34,8 @@ class Perfil extends Component {
         <main>
           <div className="perfil-container">
             <span data-testid="profile-email">
-              {userEmailLocalStorage.email || email}
+              {(userEmailLocalStorage && userEmailLocalStorage.email)
+              || email || ''}
             </span>
             <button
               type="button"

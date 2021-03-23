@@ -18,6 +18,9 @@ class Generico extends Component {
     if (!detalhes.strYoutube) {
       youtube = this.randonDrinkVideo();
     }
+    if (detalhes !== undefined && detalhes.strYoutube !== undefined) {
+      youtube = detalhes.strYoutube.replace('watch?v=', 'embed/');
+    }
     return youtube;
   }
 

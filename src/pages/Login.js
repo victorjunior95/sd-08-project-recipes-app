@@ -44,9 +44,8 @@ class Login extends Component {
       <div className="login">
         <main className="main">
           <div className="form">
-            <h1>Faça login usando sua conta</h1>
             <input
-              className="input text"
+              className="input-text"
               type="text"
               name="Email"
               value={ Email }
@@ -55,7 +54,7 @@ class Login extends Component {
               onChange={ (event) => this.change(event) }
             />
             <input
-              className="input text"
+              className="input-text"
               type="text"
               name="senha"
               value={ senha }

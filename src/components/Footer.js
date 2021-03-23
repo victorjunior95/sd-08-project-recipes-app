@@ -1,36 +1,45 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import drinkIcon from '../images/drinkIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 class Footer extends Component {
   render() {
-    // const { history } = this.props;
+    const { history } = this.props;
     return (
-      <div data-testid="footer">
-        <button
-          type="button"
+      <div data-testid="footer" className="footer">
+        <input
+          type="image"
+          src={ drinkIcon }
+          alt="drinkIcon"
           data-testid="drinks-bottom-btn"
-        >
-          <img src={ drinkIcon } alt="drinkIcon" />
-        </button>
-        <button
-          type="button"
+          onClick={ () => history.push('/bebidas') }
+        />
+        <input
+          type="image"
+          src={ exploreIcon }
+          alt="exploreIcon"
           data-testid="explore-bottom-btn"
-        >
-          <img src={ searchIcon } alt="searchIcon" />
-        </button>
-        <button
-          type="button"
+          onClick={ () => history.push('/explorar') }
+        />
+        <input
+          type="image"
+          src={ mealIcon }
+          alt="mealIcon"
           data-testid="food-bottom-btn"
-        >
-          <img src={ mealIcon } alt="mealIcon" />
-        </button>
-
-        a
+          onClick={ () => history.push('/comidas') }
+        />
       </div>
     );
   }
 }
 
-export default Footer;
+Footer.propTypes = {
+  history: PropTypes.shape.isRequired,
+};
+
+const FooterWithRouter = withRouter(Footer);
+
+export default FooterWithRouter;

@@ -10,12 +10,12 @@ import CategoryBar from '../../components/CategoryBar';
 import { LIMIT_OF_CARDS } from '../../common/defs';
 
 export default function Meals() {
-  const { meals } = useContext(RecipesContext);
+  const { meals, isShow } = useContext(RecipesContext);
 
   return (
     <div>
       <Header title="Comidas" />
-      <SearchBar type="meals" />
+      {isShow && <SearchBar type="meals" />}
       <CategoryBar type="meals" />
       {meals.map((meal, index) => {
         if (meals.length === 1 && !meals[0].idMeal === '52968') {

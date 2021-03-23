@@ -8,7 +8,7 @@ function SearchBar({ type }) {
   const [inputSearch, setInputSearch] = useState('');
   const [radioSearchType, setRadioSearchType] = useState('');
 
-  const { setMeals, setDrinks, isShow } = useContext(RecipesContext);
+  const { setMeals, setDrinks } = useContext(RecipesContext);
 
   async function handleClick() {
     if (radioSearchType === 'first-letter-search' && inputSearch.length > 1) {
@@ -33,59 +33,56 @@ function SearchBar({ type }) {
     }
   }
 
-  if (isShow) {
-    return (
-      <div>
+  return (
+    <div>
+      <input
+        type="text"
+        value={ inputSearch }
+        data-testid="search-input"
+        onChange={ (e) => setInputSearch(e.target.value) }
+      />
+      <label htmlFor="ingredient-search">
+        Ingrediente
         <input
-          type="text"
-          value={ inputSearch }
-          data-testid="search-input"
-          onChange={ (e) => setInputSearch(e.target.value) }
+          type="radio"
+          name="radio-search-type"
+          value="ingredient-search"
+          onClick={ (e) => setRadioSearchType(e.target.value) }
+          data-testid="ingredient-search-radio"
+          id="ingredient-search"
         />
-        <label htmlFor="ingredient-search">
-          Ingrediente
-          <input
-            type="radio"
-            name="radio-search-type"
-            value="ingredient-search"
-            onClick={ (e) => setRadioSearchType(e.target.value) }
-            data-testid="ingredient-search-radio"
-            id="ingredient-search"
-          />
-        </label>
-        <label htmlFor="name-search">
-          Nome
-          <input
-            type="radio"
-            name="radio-search-type"
-            value="name-search"
-            onClick={ (e) => setRadioSearchType(e.target.value) }
-            data-testid="name-search-radio"
-            id="name-search"
-          />
-        </label>
-        <label htmlFor="first-letter-search">
-          Primeira letra
-          <input
-            type="radio"
-            value="first-letter-search"
-            onClick={ (e) => setRadioSearchType(e.target.value) }
-            name="radio-search-type"
-            data-testid="first-letter-search-radio"
-            id="first-letter-search"
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ handleClick }
-        >
-          Buscar
-        </button>
-      </div>
-    );
-  }
-  return ('');
+      </label>
+      <label htmlFor="name-search">
+        Nome
+        <input
+          type="radio"
+          name="radio-search-type"
+          value="name-search"
+          onClick={ (e) => setRadioSearchType(e.target.value) }
+          data-testid="name-search-radio"
+          id="name-search"
+        />
+      </label>
+      <label htmlFor="first-letter-search">
+        Primeira letra
+        <input
+          type="radio"
+          value="first-letter-search"
+          onClick={ (e) => setRadioSearchType(e.target.value) }
+          name="radio-search-type"
+          data-testid="first-letter-search-radio"
+          id="first-letter-search"
+        />
+      </label>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ handleClick }
+      >
+        Buscar
+      </button>
+    </div>
+  );
 }
 
 SearchBar.propTypes = {

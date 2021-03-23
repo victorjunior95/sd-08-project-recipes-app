@@ -10,12 +10,12 @@ import CategoryBar from '../../components/CategoryBar';
 import { LIMIT_OF_CARDS } from '../../common/defs';
 
 function Cocktails() {
-  const { drinks } = useContext(RecipesContext);
+  const { drinks, isShow } = useContext(RecipesContext);
 
   return (
     <div>
       <Header title="Bebidas" />
-      <SearchBar type="cocktails" />
+      {isShow && <SearchBar type="cocktails" />}
       <CategoryBar type="cocktails" />
       {drinks.map((drink, index) => {
         if (drinks.length === 1) {

@@ -1,25 +1,33 @@
-const URL = {
-  categoryFood: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
-  regionFood: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
-  ingredientsFood: (value) => `https://www.themealdb.com/api/json/v1/1/filter.php?i=${value}`,
-  nameFood: (value) => `https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`,
-  letterFood: (value) => `https://www.themealdb.com/api/json/v1/1/search.php?f=${value}`,
-  categoryDrink: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
-  ingredientsDrink:
+const END_POINTS = {
+  FOODS: {
+    category: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+    region: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
+    ingredients: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
+    name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+    letter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
+  },
+  DRINKS: {
+    category: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+    ingredients:
     'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+  },
 };
 
-const fetchData = (andPoint) => fetch(andPoint).then((response) => response
+const fetchAPI = (andPoint) => fetch(andPoint).then((response) => response
   .json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const fetchFoodsByCategories = () => fetchData(URL.categoryFood);
-export const fetchFoodsByRegion = () => fetchData(URL.regionFood);
-export const fetchFoodsByIngredients = (value) => fetchData(URL.ingredientsFood(value));
-export const fetchFoodsByName = (value) => fetchData(URL.nameFood(value));
-export const fetchFoodsByLetter = (value) => fetchData(URL.letterFood(value));
+export const fetchFoodsByCategories = () => fetchAPI(END_POINTS.FOODS.category);
+export const fetchFoodsByRegion = () => fetchAPI(END_POINTS.FOODS.region);
+export const fetchFoodsByIngredients = (value) => {
+  fetchAPI(`${END_POINTS.FOODS.ingredients}${value}`);
+};
+export const fetchFoodsByName = (value) => fetchAPI(`${END_POINTS.FOODS.name}${value}`);
+export const fetchFoodsByLetter = (value) => {
+  fetchAPI(`${END_POINTS.FOODS.letter}${value}`);
+};
 
-export const fetchDrinksByCategories = () => fetchData(URL.categoryDrink);
-export const fetchDrinksByIngredients = () => fetchData(URL.ingredientsDrink);
+export const fetchDrinksByCategories = () => fetchAPI(END_POINTS.DRINKS.category);
+export const fetchDrinksByIngredients = () => fetchAPI(END_POINTS.DRINKS.ingredients);
 
-export default fetchData;
+export default fetchAPI;

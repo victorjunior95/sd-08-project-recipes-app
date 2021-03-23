@@ -44,11 +44,12 @@ const Header = ({ title, showSearchButton, handleToggleSearchBar }) => (
 Header.defaultProps = {
   showSearchButton: false,
   handleToggleSearchBar: () => {},
+  title: '',
 };
 
 Header.propTypes = {
   showSearchButton: PropTypes.bool,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   handleToggleSearchBar: PropTypes.func,
 };
 

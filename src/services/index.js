@@ -15,5 +15,5 @@ export {
   fetchFoodsByLetter,
   fetchDrinksByCategories,
   fetchDrinksByIngredients,
-  default as fetchData,
+  default as fetchAPI,
 } from './fetchData';

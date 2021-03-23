@@ -1,12 +1,12 @@
 import React from 'react';
 import ContainerDefault from '../../components/ContainerDefault';
 
-function Profile() {
+function Drinks() {
   return (
-    <ContainerDefault title="Perfil">
-      <p>Perfil</p>
+    <ContainerDefault title="Bebidas">
+      <p>bebidas</p>
     </ContainerDefault>
   );
 }
 
-export default Profile;
+export default Drinks;

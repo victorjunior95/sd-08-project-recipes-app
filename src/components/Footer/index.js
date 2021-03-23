@@ -11,17 +11,17 @@ function Footer() {
   return (
     <Container as="footer" className="footer bg-warning" data-testid="footer" fluid>
       <Navbar className="justify-content-around align-items-center">
-        <Navbar.Brand>
+        <Navbar.Brand href="/bebidas">
           <img src={ drinkIcon } alt="Ir para bebidas" data-testid="drinks-bottom-btn" />
         </Navbar.Brand>
-        <Navbar.Brand>
+        <Navbar.Brand href="/explorar">
           <img
             src={ exploreIcon }
             alt="Link para exploração"
             data-testid="explore-bottom-btn"
           />
         </Navbar.Brand>
-        <Navbar.Brand>
+        <Navbar.Brand href="/comidas">
           <img
             src={ mealIcon }
             alt="Link para comidas"

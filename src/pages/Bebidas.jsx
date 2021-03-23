@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 
 const Bebidas = () => {
   const [drinks, setDrinks] = useState([]);
+  const [targetButton, setTargetButton] = useState('');
   const { filter, drinksCategories } = useContext(contextRecipes);
 
   useEffect(() => {
@@ -21,8 +22,15 @@ const Bebidas = () => {
     setDrinks(filter);
   }, [filter]);
 
-  const filterByCategory = async (category) => {
-    const filterdBtn = await getResultFromAPI('/bebidas', 'filterBy', category);
+  const filterByCategory = async (category, { target: { innerHTML } }) => {
+    let filterdBtn;
+    if (innerHTML !== targetButton) {
+      filterdBtn = await getResultFromAPI('/bebidas', 'filterBy', category);
+      setTargetButton(innerHTML);
+    } else {
+      filterdBtn = await getResultFromAPI('/bebidas');
+      setTargetButton('');
+    }
     setDrinks(filterdBtn);
   };
 
@@ -34,7 +42,7 @@ const Bebidas = () => {
           datatestid={ `${category}-category-filter` }
           label={ category }
           key={ index }
-          onClick={ () => filterByCategory(category) }
+          onClick={ (event) => filterByCategory(category, event) }
         />
       ))}
       { drinks.map((drink, index) => (

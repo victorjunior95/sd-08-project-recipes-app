@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 
 const Comidas = () => {
   const [meals, setMeals] = useState([]);
+  const [targetButton, setTargetButton] = useState('');
   // const [saveMeals, setSaveMeals] = useState([]);
   // const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
 
@@ -25,8 +26,15 @@ const Comidas = () => {
     setMeals(filter);
   }, [filter]);
 
-  const filterByCategory = async (category) => {
-    const filterdBtn = await getResultFromAPI('/comidas', 'filterBy', category);
+  const filterByCategory = async (category, { target: { innerHTML } }) => {
+    let filterdBtn;
+    if (innerHTML !== targetButton) {
+      filterdBtn = await getResultFromAPI('/comidas', 'filterBy', category);
+      setTargetButton(innerHTML);
+    } else {
+      filterdBtn = await getResultFromAPI('/comidas');
+      setTargetButton('');
+    }
     setMeals(filterdBtn);
   };
 
@@ -38,7 +46,7 @@ const Comidas = () => {
           datatestid={ `${category}-category-filter` }
           label={ category }
           key={ index }
-          onClick={ () => filterByCategory(category) }
+          onClick={ (event) => filterByCategory(category, event) }
         />
       ))}
       { meals.map((meal, index) => (

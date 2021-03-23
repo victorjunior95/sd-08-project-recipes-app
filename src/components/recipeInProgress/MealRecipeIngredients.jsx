@@ -72,14 +72,17 @@ const MealRecipeIngredients = () => {
                     ...progress,
                     e.target.value,
                   ]) }
-                  checked={ progress.length > 0 ? progress.some((e) => e === ingredientsString[1]) : null }
+                  checked={ progress.length > 0 ? progress.some((e) => e === ingredientsString[1]) : false }
                 />
-              </label>
-              <p>
                 {ingredientsString[1]}
                 {' - '}
                 {steps[1][indx][1]}
-              </p>
+              </label>
+              {/* <p>
+                {ingredientsString[1]}
+                {' - '}
+                {steps[1][indx][1]}
+              </p> */}
             </li>
           ))}
         </ol>

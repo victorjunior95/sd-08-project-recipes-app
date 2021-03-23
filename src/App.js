@@ -6,18 +6,22 @@ import Comidas from './pages/Comidas';
 import Perfil from './pages/Perfil';
 import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
+import ExplorarComidas from './pages/ExplorarComidas';
+import ExplorarBebidas from './pages/ExplorarBebidas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Comidas } />
-      <Route path="/perfil" component={ Perfil } />
-      <Route path="/receitas-feitas" component={ Perfil } />
-      <Route path="/receitas-favoritas" component={ Perfil } />
-      <Route path="/bebidas" component={ Bebidas } />
-      <Route path="/explorar" component={ Explorar } />
+      <Route exact path="/comidas" component={ Comidas } />
+      <Route exact path="/perfil" component={ Perfil } />
+      <Route exact path="/receitas-feitas" component={ Perfil } />
+      <Route exact path="/receitas-favoritas" component={ Perfil } />
+      <Route exact path="/bebidas" component={ Bebidas } />
+      <Route exact path="/explorar" component={ Explorar } />
+      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
     </Switch>
   );
 }

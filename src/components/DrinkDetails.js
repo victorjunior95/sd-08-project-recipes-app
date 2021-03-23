@@ -30,7 +30,11 @@ function DrinkDetails({ drink }) {
       <img src={ drink.strDrinkThumb } alt="drink" data-testid="recipe-photo" />
       <button type="button" data-testid="share-btn">Share</button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
-      <p data-testid="recipe-category">{drink.strCategory}</p>
+      <p data-testid="recipe-category">
+        {drink.strCategory}
+        {'  -  '}
+        {drink.strAlcoholic}
+      </p>
       {ingredients.map((ingredient, index) => (
         <p
           key={ index }
@@ -51,6 +55,7 @@ DrinkDetails.propTypes = {
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     strCategory: PropTypes.string,
+    strAlcoholic: PropTypes.string,
     strInstructions: PropTypes.string,
   }).isRequired,
 };

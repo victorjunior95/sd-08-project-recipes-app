@@ -7,6 +7,7 @@ import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
 import CategoryButton from '../components/CategoryButton';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Main({ location: { pathname } }) {
   const { list, isFetching, categories } = useSelector((state) => state.recipes);
@@ -34,6 +35,7 @@ function Main({ location: { pathname } }) {
           recipe={ recipe }
           key={ `recipe-${index}` }
         />))}
+      <Footer />
     </>
   );
 }

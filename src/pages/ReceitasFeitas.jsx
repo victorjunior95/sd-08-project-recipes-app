@@ -1,5 +1,11 @@
 import React from 'react';
 
-const ReceitasFeitas = () => (<h1>Sou ReceitasFeitas</h1>);
+function ReceitasFeitas() {
+  return (
+    <div>
+      <h1>Receitas feitas... página em construção</h1>
+    </div>
+  );
+}
 
 export default ReceitasFeitas;

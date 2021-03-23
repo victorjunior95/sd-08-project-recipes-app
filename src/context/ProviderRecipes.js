@@ -14,6 +14,7 @@ function ProviderRecipes({ children }) {
     pageTitle: 'Comidas',
     showSearch: true,
   };
+
   const barraBuscarInitial = {
     input: '',
     radio: '',

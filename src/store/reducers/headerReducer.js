@@ -1,6 +1,6 @@
 import {
-  SHOW_HEADER_ACTION,
-} from '../actions/showHeaderAction';
+  TOGGLE_BUTTON_SEARCH, TOGGLE_HEADER_TITLE,
+} from '../actions/headerAction';
 
 const INITIAL_STATE_USER = {
   titleHeader: 'Title',
@@ -8,11 +8,16 @@ const INITIAL_STATE_USER = {
 };
 export default function headerReducer(state = INITIAL_STATE_USER, action) {
   switch (action.type) {
-  case SHOW_HEADER_ACTION:
+  case TOGGLE_BUTTON_SEARCH:
+
+    return {
+      ...state,
+      showButtonSearch: !state.showButtonSearch,
+    };
+  case TOGGLE_HEADER_TITLE:
     return {
       ...state,
       titleHeader: action.payload.titleHeader,
-      showButtonSearch: action.payload.showButtonSearch,
     };
   default:
     return state;

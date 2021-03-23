@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 function HeaderWithSearch() {
-  const history = useHistory();
   const { pathname } = useLocation();
   const [searchBar, setSearchBar] = useState(false);
   const firstLetterUppercased = pathname[1].toUpperCase();
@@ -12,7 +11,7 @@ function HeaderWithSearch() {
   return (
     <header>
       <div data-testid="header" className="header">
-        <button type="button" onClick={ () => history.push('/perfil') }>
+        <button type="button" onClick={ () => <Redirect to="/perfil" /> }>
           <img
             src="../images/profileIcon.svg"
             data-testid="profile-top-btn"

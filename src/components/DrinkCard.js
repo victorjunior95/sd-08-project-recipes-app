@@ -1,20 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function DrinkCard({ drink, index }) {
-  const { strDrink, strDrinkThumb } = drink;
+function DrinkCard({ drink, index, history }) {
+  const { strDrink, strDrinkThumb, idDrink } = drink;
+
   return (
-    <div data-testid={ `${index}-recipe-card` } className="drink-card">
-      <img src={ strDrinkThumb } alt="Drink" data-testid={ `${index}-card-img` } />
+    <button
+      type="button"
+      data-testid={ `${index}-recipe-card` }
+      onClick={ () => history.push(`/bebidas/${idDrink}`) }
+    >
+      <img
+        src={ strDrinkThumb }
+        alt="drink"
+        data-testid={ `${index}-card-img` }
+        className="button-item"
+      />
       <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
-    </div>
-  );
+    </button>);
 }
 
 DrinkCard.propTypes = {
   drink: PropTypes.shape({
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
+    idDrink: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };

@@ -1,17 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import RecipesContext from '../../context/RecipesContext';
 
 export default function CocktailsExplorer() {
-  const { setTitleState, isLoading } = useContext(RecipesContext);
-  setTitleState();
-
-  if (isLoading) return <p>Carregando...</p>;
-
   return (
     <div>
-      <Header />
+      <Header title="Explorar Bebidas" />
       <Footer />
     </div>
   );

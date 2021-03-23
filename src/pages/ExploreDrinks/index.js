@@ -17,6 +17,8 @@ function ExploreDrinks() {
           Por Ingredientes
         </Button>
       </NavbarBrand>
+      { // Necessario alterar href depois
+      }
       <NavbarBrand href="/" className="mx-0">
         <Button
           type="button"

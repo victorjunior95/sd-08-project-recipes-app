@@ -8,7 +8,7 @@ function Foods() {
   const foods = useSelector((state) => state.FilteredFoodsRecipes.foods);
   return (
     <>
-      <Header label="Comidas" Search={ SearchButton } />
+      <Header label="Comidas" Search={ SearchButton } page="Comidas" />
       {foods.map((food) => (
         <Card
           key={ food.idMeal }

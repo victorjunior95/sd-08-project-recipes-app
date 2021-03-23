@@ -21,3 +21,12 @@ export const actionFilteredFoods = (foods) => ({
     foods,
   },
 });
+
+export const FILTERED_DRINKS = 'FILTERED_DRINKS';
+
+export const actionFilteredDrinks = (drinks) => ({
+  type: FILTERED_DRINKS,
+  payload: {
+    drinks,
+  },
+});

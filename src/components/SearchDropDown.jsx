@@ -23,7 +23,10 @@ function SearchDropDown({ setDropSearch }) {
       <input
         data-testid="search-input"
         className="form-control"
-        style={ { width: 340, margin: 'auto', marginTop: 10 } }
+        style={ {
+          width: 340,
+          margin: 'auto',
+          marginTop: 10 } }
         onChange={ (event) => handleChange(event) }
         name="text"
         type="text"

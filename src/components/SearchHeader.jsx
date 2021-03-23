@@ -30,6 +30,9 @@ function SearchHeader() {
       const foods = await requestByName(searchText);
       dispatch(actionFilteredFoods(foods));
     } else if (filterRadio === 'first-letter') {
+      if (searchText.length !== 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
       const foods = await requestByFirstLetter(searchText);
       dispatch(actionFilteredFoods(foods));
     } else {

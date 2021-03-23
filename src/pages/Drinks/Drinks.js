@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import { FoodCtx } from '../../context/ContextFood';
+import Footer from '../../components/Footer';
 
 function Drinks() {
   const STOP_INDEX = 11;
@@ -29,6 +30,7 @@ function Drinks() {
           // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
+        <Footer />
       </div>
     </div>
   );

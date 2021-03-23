@@ -6,7 +6,7 @@ const Card = ({ index, name, thumbnail }) => {
   console.log(name);
   console.log(thumbnail);
   return (
-    <div data-testid={ `${index}-recipe-card ` }>
+    <div data-testid={ `${index}-recipe-card` }>
       <p data-testid={ `${index}-card-name` }>{name}</p>
       <img src={ thumbnail } alt="Foto da receita" data-testid={ `${index}-card-img` } />
     </div>

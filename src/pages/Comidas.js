@@ -27,7 +27,6 @@ const Comidas = () => {
                 index={ index }
                 name={ meal.strMeal }
                 thumbnail={ meal.strMealThumb }
-                data-testid={ `${index}-recipe-card ` }
               />
             );
           }

@@ -13,7 +13,7 @@ const Bebidas = () => {
   const [dataBebidas, setDataBebidas] = useState([]);
 
   useEffect(() => {
-    setHeaderInfo({ pageTitle: 'Bebidas', showSearch: true });
+    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
   }, [setHeaderInfo]);
 
   useEffect(() => {

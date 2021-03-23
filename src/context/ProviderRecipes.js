@@ -12,7 +12,7 @@ import getComidasByName,
 function ProviderRecipes({ children }) {
   const headerInfoInitial = {
     pageTitle: 'Comidas',
-    showSearch: true,
+    showSearchIcon: true,
   };
 
   const barraBuscarInitial = {

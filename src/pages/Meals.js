@@ -13,6 +13,7 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import CardsContainer from '../components/CardsContainer';
 import Container from '../components/Container';
+import FilterList from '../components/FilterList';
 
 const RESULTS_LIMIT = 12;
 
@@ -31,6 +32,7 @@ const Meals = ({ fetchMeals, meals, notFound }) => {
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
+      <FilterList />
       { showSearchBar && <SearchBar fetchFunction={ fetchMeals } /> }
       { notFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>

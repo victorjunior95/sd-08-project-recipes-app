@@ -57,3 +57,13 @@ export async function requestDrinksCategory() {
   const json = await request.json();
   return json;
 }
+
+export async function requestDrinkId(id) {
+  const results = await (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)).json();
+  return results;
+}
+
+export async function requestFoodId(id) {
+  const results = await (await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)).json();
+  return results;
+}

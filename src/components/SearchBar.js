@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 class SearchBar extends Component {
   constructor() {
@@ -38,7 +37,7 @@ class SearchBar extends Component {
 
   async APIcomidas() {
     const { radio, input } = this.state;
-    const { geraRota, detalhes, history } = this.props;
+    const { history } = this.props;
     let endPoint;
     if (radio === 'ingredientes') {
       endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`;
@@ -55,22 +54,19 @@ class SearchBar extends Component {
     const { meals } = await fetch(endPoint)
       .then((response) => response.json());
     if (meals) {
-      console.log(meals);
       this.setState({ array: meals, rotaComida: true, rotaBebida: false });
     } else {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return [];
     }
     if (meals.length === 1) {
-      geraRota(`/comidas/${meals[0].idMeal}`);
-      detalhes(meals);
       history.push(`/comidas/${meals[0].idMeal}`);
     }
   }
 
   async APIbebidas() {
     const { radio, input } = this.state;
-    const { geraRota, detalhes, history } = this.props;
+    const { history } = this.props;
     let endPoint;
     if (radio === 'ingredientes') {
       endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`;
@@ -94,8 +90,6 @@ class SearchBar extends Component {
       return [];
     }
     if (drinks.length === 1) {
-      geraRota(`/bebidas/${drinks[0].idDrink}`);
-      detalhes(drinks.drinks);
       history.push(`/bebidas/${drinks[0].idDrink}`);
     }
   }
@@ -113,7 +107,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { detalhes, geraRota, history } = this.props;
+    const { history } = this.props;
     const { array, rotaComida, rotaBebida } = this.state;
     const newArr = this.twelveCards(array);
     return (
@@ -167,8 +161,6 @@ class SearchBar extends Component {
             <button
               type="button"
               onClick={ () => {
-                geraRota(`/comidas/${food.idMeal}`);
-                detalhes(food);
                 history.push(`/comidas/${food.idMeal}`);
               } }
             >
@@ -186,8 +178,6 @@ class SearchBar extends Component {
             <button
               type="button"
               onClick={ () => {
-                geraRota(`/bebidas/${drink.idDrink}`);
-                detalhes(drink);
                 history.push(`/bebidas/${drink.idDrink}`);
               } }
             >
@@ -207,18 +197,10 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
   location: PropTypes.shape.isRequired,
   history: PropTypes.shape.isRequired,
-  geraRota: PropTypes.func.isRequired,
-  detalhes: PropTypes.func.isRequired,
 };
 
 const SearchBarLocation = withRouter(SearchBar);
 
-const mapDispatchToProps = (dispatch) => ({
-  geraRota: (rota) => dispatch({ type: 'GERA_ROTA', rota }),
-  detalhes: (detalhes) => dispatch({ type: 'COMIDA_DETALHES', detalhes }),
-  // bebida: (bebidaid) => dispatch({ type: 'BEBIDAS', bebidaid }),
-});
-
-export default connect(null, mapDispatchToProps)(SearchBarLocation);
+export default SearchBarLocation;
 
 // export default SearchBarLocation;

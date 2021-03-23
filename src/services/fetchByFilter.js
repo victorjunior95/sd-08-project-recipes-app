@@ -18,7 +18,7 @@ const fetchByFilters = async (inputs, setIsLoading, setMealData) => {
   const json = await data.json();
   console.log(json);
   setIsLoading(false);
-  setMealData(json);
+  setMealData(json.meals);
 };
 
 export default fetchByFilters;

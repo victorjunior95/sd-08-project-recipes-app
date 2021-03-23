@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../../components/footer';
 import Header from '../../components/Header';
 
 function Perfil() {
@@ -7,11 +8,11 @@ function Perfil() {
     localStorage.clear();
   };
 
-  const userEmail = JSON.parse(localStorage.user).email;
+  // const userEmail = JSON.parse(localStorage.user).email;
   return (
     <div>
       <Header explore="false">Perfil</Header>
-      <p data-testid="profile-email">{ userEmail }</p>
+      {/* <p data-testid="profile-email">{ userEmail }</p> */}
       <button
         data-testid="profile-done-btn"
         type="button"
@@ -37,6 +38,7 @@ function Perfil() {
           Sair
         </Link>
       </button>
+      <Footer />
     </div>
   );
 }

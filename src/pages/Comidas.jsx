@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { fetchMealsAPI, fetchFilteredMealsAPI } from '../api/fetchMealsAPI';
-
 import contextRecipes from '../context/Context';
 import Button from '../components/Button';
+import Footer from '../components/Footer';
 
 const Comidas = () => {
   const TWELVE_MEALS = 12;
@@ -55,6 +55,7 @@ const Comidas = () => {
           <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
         </div>
       ))}
+      <Footer />
     </>
   );
 };

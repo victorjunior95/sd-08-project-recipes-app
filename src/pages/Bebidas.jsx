@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import fetchDrinksAPI from '../api/fetchDrinksAPI';
 import contextRecipes from '../context/Context';
 import Button from '../components/Button';
+import Footer from '../components/Footer';
 
 const Bebidas = () => {
   const [drinks, setDrinks] = useState([]);
@@ -41,6 +42,7 @@ const Bebidas = () => {
           <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
         </div>
       ))}
+      <Footer />
     </>
   );
 };

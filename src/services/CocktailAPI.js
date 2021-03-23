@@ -21,3 +21,11 @@ export function fetchCocktailByFirstLetter(primeiraLetra) {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchRandomDrinks() {
+  const randomDrinkURL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
+  return fetch(randomDrinkURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

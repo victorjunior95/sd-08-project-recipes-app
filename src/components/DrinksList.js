@@ -17,7 +17,14 @@ function DrinksList() {
       {
         allDrinks.map((drink, index) => {
           if (index <= MAX_INDEX) {
-            return <DrinksCard key={ drink.idDrink } drink={ drink } index={ index } />;
+            return (
+              <DrinksCard
+                key={ drink.idDrink }
+                drink={ drink }
+                index={ index }
+                id={ drink.idDrink }
+              />
+            );
           }
           return '';
         })

@@ -11,6 +11,7 @@ class SearchBar extends Component {
       searchRadio: 'name',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -19,9 +20,22 @@ class SearchBar extends Component {
     });
   }
 
-  render() {
+  handleClick() {
+    const searchLength = 1;
     const { search, searchRadio } = this.state;
     const { getFood } = this.props;
+    if (searchRadio === 'firstLetter') {
+      if (search.length === searchLength) {
+        return getFood({ search, searchRadio });
+      }
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    getFood({
+      search, searchRadio });
+  }
+
+  render() {
+    const { search, searchRadio } = this.state;
     return (
       <div>
         <label htmlFor="search">
@@ -71,8 +85,7 @@ class SearchBar extends Component {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => getFood({
-            search, searchRadio }) }
+          onClick={ this.handleClick }
         >
           Buscar
         </button>

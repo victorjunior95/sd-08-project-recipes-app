@@ -11,9 +11,9 @@ const Comidas = () => {
   const [saveMeals, setSaveMeals] = useState([]);
   // const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
   const { filter, buttonFilter } = useContext(contextRecipes);
-  console.log(fetchFilteredMealsAPI);
 
   useEffect(() => {
+    console.log(fetchFilteredMealsAPI('beef'));
     async function getMealsFromAPI() {
       const mealsAPI = await fetchMealsAPI();
       setSaveMeals(mealsAPI);

@@ -8,6 +8,7 @@ export const headerSearch = async (search, type) => {
       .then((response) => response.json());
   } else {
     if (search.length > 1) {
+      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
@@ -17,17 +18,15 @@ export const headerSearch = async (search, type) => {
   return results;
 };
 
-const MEAL_API = 'https://www.themealdb.com/api/';
-const COCKTAIL_API = 'https://www.thecocktaildb.com/api/';
-
 export const fetchFood = async () => {
-  const result = await fetch(`${MEAL_API}json/v1/1/random.php`);
-  const json = await result.json();
-  return json;
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json());
+  return result;
 };
 
 export const fetchDrink = async () => {
-  const result = await fetch(`${COCKTAIL_API}json/v1/1/random.php`);
-  const json = await result.json();
-  return json;
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json());
+  console.log(result);
+  return result;
 };

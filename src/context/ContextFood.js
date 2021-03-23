@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useAlert } from 'react-alert';
 import { filterFirstLetter, filterIngredient, filterName } from '../services/api';
 
 export const FoodCtx = createContext();
@@ -11,6 +12,7 @@ function ContextFood(props) {
   const [filter, setFilter] = useState({ key: 'name', value: 'be' });
   const [currentPage, setCurrentPage] = useState('');
   const { key, value } = filter;
+  const alert = useAlert();
 
   useEffect(() => {
     async function connect() {
@@ -24,8 +26,13 @@ function ContextFood(props) {
       }
       if (key === 'first') {
         if (value.length > 1) {
-          // eslint-disable-next-line no-alert
-          alert('Sua busca deve conter somente 1 (um) caracter');
+          alert.error('Sua busca deve conter somente 1 (um) caracter', {
+            onOpen: () => {
+              console.log('subiu o alerta');
+            },
+            onClose: () => {
+              console.log('fechou alerta');
+            } });
           return;
         }
         const f = await filterFirstLetter(value, currentPage);
@@ -34,7 +41,7 @@ function ContextFood(props) {
       }
     }
     connect();
-  }, [key, value, currentPage]);
+  }, [key, value, currentPage, alert]);
 
   return (
     <FoodCtx.Provider

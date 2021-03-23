@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import './Foods.css';
+// import { useAlert } from 'react-alert';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import { FoodCtx } from '../../context/ContextFood';
 
 function Foods() {
   const STOP_INDEX = 11;
+  // const alert = useAlert();
   const { foodApi: { meals } } = useContext(FoodCtx);
   return (
     <div>
@@ -26,9 +28,17 @@ function Foods() {
         { meals && meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }
 
-        {/* {meals && meals.length === 0
+        {meals === null
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-          : '' } */}
+          /* alert.error( =====> não funfa, aponta para o context, tentando renderizar como objeto;
+            'Sinto muito, não encontramos nenhuma receita para esses filtros.', {
+              onOpen: () => {
+                console.log('subiu o alerta');
+              },
+              onClose: () => {
+                console.log('fechou alerta');
+              } }, */
+          : '' }
       </div>
     </div>
   );

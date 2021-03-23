@@ -13,7 +13,7 @@ export default function Drinks() {
   useEffect(() => {
     if (recipes === 'NF') {
       return (
-        customAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       );
     }
     if (recipes.length === 1) {

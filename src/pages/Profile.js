@@ -4,7 +4,7 @@ import { Header, Footer } from '../component';
 
 export default function Profile() {
   const history = useHistory();
-  const userEmail = JSON.parse(localStorage.getItem('user')).email || '';
+  const userEmail = JSON.parse(localStorage.getItem('user')) || '';
 
   const recipesDone = () => {
     history.push('/receitas-feitas');
@@ -22,7 +22,7 @@ export default function Profile() {
     <>
       <Header pageTitle="Perfil" showSearchButton={ false } />
       <div>
-        <span data-testid="profile-email">{userEmail}</span>
+        <span data-testid="profile-email">{userEmail.email}</span>
       </div>
       <button
         data-testid="profile-done-btn"

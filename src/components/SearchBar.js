@@ -85,7 +85,7 @@ class SearchBar extends Component {
       .then((response) => response.json());
     if (drinks !== null && drinks.length > 1) {
       this.setState({ array: drinks, rotaComida: false, rotaBebida: true });
-    } else {
+    } if (drinks === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return [];
     }

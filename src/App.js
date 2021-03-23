@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import Expĺorar from './pages/Explorar';
-import Generico from './components/Generico';
+// import Generico from './components/Generico';
 import ComidasIngredientes from './pages/ComidasIngredientes';
 import BebidasIngredientes from './pages/BebidasIngredientes';
 import ExplorarPorArea from './pages/ExplorarPorArea';

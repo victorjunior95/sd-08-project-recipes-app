@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   drinks: [],
 };
 
-const FilteredFoodsRecipes = (state = INITIAL_STATE, action) => {
+const FilteredRecipes = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case FILTERED_FOODS:
     return {
@@ -22,4 +22,4 @@ const FilteredFoodsRecipes = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default FilteredFoodsRecipes;
+export default FilteredRecipes;

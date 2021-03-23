@@ -6,7 +6,7 @@ import Card from '../components/Card';
 import '../styles/card.css';
 
 function Drinks() {
-  const drinks = useSelector((state) => state.FilteredFoodsRecipes.drinks);
+  const drinks = useSelector((state) => state.FilteredRecipes.drinks);
   return (
     <>
       <Header label="Bebidas" Search={ SearchButton } page="Bebidas" />

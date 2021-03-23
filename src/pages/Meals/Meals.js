@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMeals } from '../../redux/actions';
 import Card from '../../components/cards/MealCard';
 import Categories from '../../components/Categorie/MealsCategories';
+import Footer from '../../components/Footer';
 
 function Comidas() {
   const QUANTITY_OF_CARDS = 12;
@@ -21,6 +22,7 @@ function Comidas() {
       <Categories />
       {mealsFiltred
         .map((meal, index) => <Card key={ meal.idMeal } data={ { meal, index } } />)}
+      <Footer />
     </>
   );
 }

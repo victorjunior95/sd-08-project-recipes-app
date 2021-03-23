@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './DrinkContext';
+import { requestDrinkRecipe } from '../../services/API';
 
 function DrinkProvider({ children }) {
   const [searchInput, setSearchInput] = useState('');
@@ -9,6 +10,14 @@ function DrinkProvider({ children }) {
   const handleSearchType = ({ target }) => setSearchType(target.value);
 
   const [drinks, setDrinks] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await requestDrinkRecipe();
+      setDrinks(result.drinks);
+    };
+    fetchData();
+  }, []);
 
   const provide = {
     values: {

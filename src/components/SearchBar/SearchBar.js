@@ -19,7 +19,7 @@ const SearchBar = ({ title }) => {
     const recipes = await filterRecipes(title, filter, query);
     if (recipes && recipes.length === 1) {
       history.push(
-        `/${title}/${recipes[0][title === 'Comidas' ? 'idMeal' : 'idDrink']}`,
+        `/${title.toLowerCase()}/${recipes[0][title === 'Comidas' ? 'idMeal' : 'idDrink']}`,
       );
     } else if (recipes === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchButton from '../components/SearchButton';
 import Card from '../components/Card';
+import Footer from '../components/Footer';
 
 function Foods() {
   const MAX_ARRAY_SIZE = 12;
@@ -38,6 +39,7 @@ function Foods() {
     <>
       <Header label="Comidas" Search={ SearchButton } page="Comidas" />
       { showCards() }
+      <Footer />
     </>
   );
 }

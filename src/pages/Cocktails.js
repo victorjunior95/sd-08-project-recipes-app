@@ -11,6 +11,7 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 import CardsContainer from '../components/CardsContainer';
+import Container from '../components/Container';
 
 const RESULTS_LIMIT = 12;
 
@@ -23,7 +24,7 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
   if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
 
   return (
-    <>
+    <Container>
       <Header
         title="Bebidas"
         showSearchButton
@@ -41,7 +42,7 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
           />)) }
       </CardsContainer>
       <Footer />
-    </>
+    </Container>
   );
 };
 

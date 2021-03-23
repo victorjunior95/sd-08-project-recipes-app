@@ -11,8 +11,8 @@ const CardsContainer = ({ children }) => (
 
 CardsContainer.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
 };
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 class Footer extends Component {
   render() {
-    const { match, location, history } = this.props;
-    console.log(match, location, history);
+    const { history } = this.props;
     return (
       <div data-testid="footer" className="footer">
         <input
@@ -37,9 +37,9 @@ class Footer extends Component {
 }
 
 Footer.propTypes = {
-  match: PropTypes.shape.isRequired,
-  location: PropTypes.shape.isRequired,
   history: PropTypes.shape.isRequired,
 };
 
-export default Footer;
+const FooterWithRouter = withRouter(Footer);
+
+export default FooterWithRouter;

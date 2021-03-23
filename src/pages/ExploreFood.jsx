@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 function ExploreFood() {
   return (
-    <Header label="Perfil" Search={ () => '' } />
+    <Header label="Explorar Comidas" Search={ () => '' } />
   );
 }
 

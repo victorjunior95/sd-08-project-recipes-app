@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 function ReadyMadeRecipes() {
   return (
-    <Header label="Perfil" Search={ () => '' } />
+    <Header label="Receitas Feitas" Search={ () => '' } />
   );
 }
 

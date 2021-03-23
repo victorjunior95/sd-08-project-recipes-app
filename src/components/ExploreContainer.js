@@ -10,10 +10,7 @@ const ExploreContainer = ({ children }) => (
 );
 
 ExploreContainer.propTypes = {
-  children: PropTypes.oneOf([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ExploreContainer;

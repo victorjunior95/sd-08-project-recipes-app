@@ -1,30 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../styles/components/Header.css';
 
 class Header extends Component {
-  getByTitle() {
-    const { history: { location: { pathname } } } = this.props;
-    if (pathname === '/comidas') return ['Comidas', true];
-    if (pathname === '/bebidas') return ['Bebidas', true];
-    if (pathname === '/explorar') return ['Explorar', false];
-    if (pathname === '/explorar/comidas') return ['Explorar Comidas', false];
-    if (pathname === '/explorar/bebidas') return ['Explorar Bebidas', false];
-    if (pathname === '/explorar/comidas/ingredientes'
-    || pathname === '/explorar/bebidas/ingredientes'
-    ) return ['Explorar Ingredientes', false];
-    if (pathname === '/explorar/comidas/area') return ['Explorar Origens', true];
-    if (pathname === '/perfil') return ['Perfil', false];
-    if (pathname === '/receitas-feitas') return ['Receitas feitas', false];
-    if (pathname === '/receitas-favoritas') return ['Receitas favoritas', false];
-  }
-
   render() {
-    /* console.log(this.props.history.location.pathname); */
+    const { title, showButton } = this.props;
     return (
-
       <header className="headerContainer">
         <button
           type="button"
@@ -36,8 +20,8 @@ class Header extends Component {
             alt="profile"
           />
         </button>
-        <h1 data-testid="page-title">{this.getByTitle()[0]}</h1>
-        {this.getByTitle()[1] && (
+        <h1 data-testid="page-title">{title}</h1>
+        {showButton && (
           <button
             type="button"
             src={ searchIcon }
@@ -55,9 +39,13 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  history: PropTypes.shape(
-    PropTypes.string,
-  ).isRequired,
+  title: PropTypes.string.isRequired,
+  showButton: PropTypes.bool.isRequired,
+
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  title: state.headerReducer.titleHeader,
+  showButton: state.headerReducer.showButtonSearch,
+});
+export default connect(mapStateToProps)(Header);

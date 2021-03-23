@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Header } from '../../components';
 import { showHeaderAction } from '../../store/actions/showHeaderAction';
 
-class ExploreRegionalFoods extends Component {
+class DoneRecipes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: 'Explorar Origem',
-      showButtonSearch: true,
+      title: 'Receitas Feitas',
+      showButtonSearch: false,
     };
   }
 
@@ -20,13 +20,13 @@ class ExploreRegionalFoods extends Component {
     return (
       <div>
         <Header />
-        Eu sou o pagína de Explorar Comidas por Origem
+        Eu sou o pagína de Receitas Feitas
       </div>
     );
   }
 }
 
-ExploreRegionalFoods.propTypes = {
+DoneRecipes.propTypes = {
   setShowHeaderAction: PropTypes.func.isRequired,
 };
 
@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(ExploreRegionalFoods);
+export default connect(null, mapDispatchToProps)(DoneRecipes);

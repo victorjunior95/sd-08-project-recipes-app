@@ -6,6 +6,7 @@ import RecipesContext from '../../context/RecipesContext';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import MealCard from '../../components/MealCard';
+import Footer from '../../components/Footer';
 
 const LIMIT_OF_CARDS = 12;
 
@@ -15,7 +16,7 @@ export default function Meals() {
 
   if (isLoading) return <p>Carregando...</p>;
   return (
-    <div>
+    <div className="meals-page">
       <Header />
       <SearchBar type="meals" />
       {meals.map((meal, index) => {
@@ -27,6 +28,7 @@ export default function Meals() {
         }
         return null;
       })}
+      <Footer />
     </div>
   );
 }

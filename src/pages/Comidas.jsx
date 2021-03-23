@@ -6,16 +6,15 @@ import Button from '../components/Button';
 import Footer from '../components/Footer';
 
 const Comidas = () => {
-  const TWELVE_MEALS = 12;
   const [meals, setMeals] = useState([]);
-  const [saveMeals, setSaveMeals] = useState([]);
+  // const [saveMeals, setSaveMeals] = useState([]);
   // const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
   const { filter, mealsCategories } = useContext(contextRecipes);
 
   useEffect(() => {
     async function getMealsFromAPI() {
       const mealsAPI = await getResultFromAPI('/comidas');
-      setSaveMeals(mealsAPI);
+      // setSaveMeals(mealsAPI);
       setMeals(mealsAPI);
     }
     getMealsFromAPI();
@@ -25,25 +24,23 @@ const Comidas = () => {
     setMeals(filter);
   }, [filter]);
 
-  const filteredName = (category) => {
-    console.log(category);
-    const filterdBtn = saveMeals.filter((meal) => (
-      meal.strCategory === category));
+  const filterByCategory = async (category) => {
+    const filterdBtn = await getResultFromAPI('/comidas', 'filterBy', category);
     setMeals(filterdBtn);
   };
 
   return (
     <>
       <Header title="Comidas" />
-      {mealsCategories.map((category, index) => (
+      {mealsCategories.map(({ strCategory: category }, index) => (
         <Button
-          datatestid={ `${category.strCategory}-category-filter` }
-          label={ category.strCategory }
+          datatestid={ `${category}-category-filter` }
+          label={ category }
           key={ index }
-          onClick={ () => filteredName(category.strCategory) }
+          onClick={ () => filterByCategory(category) }
         />
       ))}
-      { meals.slice(0, TWELVE_MEALS).map((meal, index) => (
+      { meals.map((meal, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ meal.strMeal }>
           <img
             data-testid={ `${index}-card-img` }

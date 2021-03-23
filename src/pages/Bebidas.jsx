@@ -21,6 +21,11 @@ const Bebidas = () => {
     setDrinks(filter);
   }, [filter]);
 
+  const filterByCategory = async (category) => {
+    const filterdBtn = await getResultFromAPI('/bebidas', 'filterBy', category);
+    setDrinks(filterdBtn);
+  };
+
   return (
     <>
       <Header title="Bebidas" />
@@ -29,6 +34,7 @@ const Bebidas = () => {
           datatestid={ `${category}-category-filter` }
           label={ category }
           key={ index }
+          onClick={ () => filterByCategory(category) }
         />
       ))}
       { drinks.map((drink, index) => (

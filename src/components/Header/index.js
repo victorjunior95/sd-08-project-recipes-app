@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
@@ -15,7 +15,7 @@ export default function Header(props) {
     setShowSeachbar(checked);
   }
   function renderSearchBarIcon() {
-    if (title !== 'Perfil') {
+    if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
       return (
         <label htmlFor="searchBarControl" className="navbar-brand searchIcon">
           <img
@@ -35,7 +35,7 @@ export default function Header(props) {
     return <span>{' '}</span>;
   }
   return (
-    <>
+    <Container className="px-0" fluid>
       <Navbar className="justify-content-around align-items-center bg-warning header">
         <Navbar.Brand href="/perfil">
           <img
@@ -50,10 +50,9 @@ export default function Header(props) {
       { showSeachbar && <SeekBar
         type="text"
         placeholder="Pesquisar"
-        className="mt-3"
         data-testid="search-input"
       />}
-    </>
+    </Container>
   );
 }
 

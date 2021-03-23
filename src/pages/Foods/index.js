@@ -1,12 +1,12 @@
 import React from 'react';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import ContainerDefault from '../../components/ContainerDefault';
 
-export default function Foods() {
+function Foods() {
   return (
-    <section>
-      <Header title="Comidas" />
-      <Footer />
-    </section>
+    <ContainerDefault title="Comidas">
+      <p>testando</p>
+    </ContainerDefault>
   );
 }
+
+export default Foods;

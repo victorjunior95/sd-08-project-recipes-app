@@ -21,7 +21,13 @@ export default function Drinks() {
     <div className="container">
       <HeaderSearchBar />
       <div className="category-filter">
-        <button data-testid="All-category-filter" type="button">all</button>
+        <button
+          onClick={ () => handleByCategoryDrink('all') }
+          data-testid="All-category-filter"
+          type="button"
+        >
+          All
+        </button>
         {categoriesDrinks
           .slice(startOfSlice, endOfSliceOfCategories)
           .map((category) => (

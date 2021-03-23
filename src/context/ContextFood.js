@@ -111,14 +111,20 @@ function FoodContext(props) {
   };
 
   const handleByCategoryMeal = async (category) => {
-    const mealsByCategory = await getMealsByCategory(category);
-    setMeals(mealsByCategory);
-    setCategoryMeals(category);
     if (category === categoryMeals) {
       const resetFilter = await getMealByIngredients('');
       setMeals(resetFilter);
+    } else if (category === 'all') {
+      const mealsByCategory = await getMealByIngredients('');
+      setMeals(mealsByCategory);
+      setCategoryMeals(category);
+    } else {
+      const mealsByCategory = await getMealsByCategory(category);
+      setMeals(mealsByCategory);
+      setCategoryMeals(category);
     }
   };
+
   const checkValidity = () => {
     const lengthOfPwd = 6;
     const { email, password } = data;

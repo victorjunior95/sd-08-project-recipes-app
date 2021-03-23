@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import drinkIcon from '../../images/drinkIcon.svg'; 
-import mealIcon from '../../images/mealIcon.svg'; 
-import exploreIcon from '../../images/exploreIcon.svg'; 
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import drinkIcon from '../../images/drinkIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
+import exploreIcon from '../../images/exploreIcon.svg';
 
 function FooterButton({ toPage }) {
   const pages = {
@@ -25,9 +26,13 @@ function FooterButton({ toPage }) {
       data-testid={ `${toPage}-bottom-btn` }
       to={ `${pages[toPage].path}` }
     >
-      <img src={ pages[toPage].image } />
+      <img src={ pages[toPage].image } alt={ `${toPage} icon` } />
     </Link>
   );
 }
+
+FooterButton.propTypes = {
+  toPage: PropTypes.string.isRequired,
+};
 
 export default FooterButton;

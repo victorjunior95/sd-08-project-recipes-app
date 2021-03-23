@@ -5,12 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <Switch>
       <Route path="/bebidas" component={ Main } />
       <Route path="/comidas" component={ Main } />
+      <Route path="/perfil" component={ Profile } />
       <Route path="/" component={ Login } />
     </Switch>
   );

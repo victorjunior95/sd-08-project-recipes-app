@@ -8,7 +8,7 @@ import {
   requestDrinkByIngredient,
   requestDrinkByFirstLetter,
 } from '../services/requestDrinksAPI';
-/*eslint-disable*/ 
+
 export const requestsForSearchHeaderFoods = async (searchText, filterRadio) => {
   if (searchText === '') {
     alert('Digite alguma coisa!');
@@ -29,7 +29,10 @@ export const requestsForSearchHeaderFoods = async (searchText, filterRadio) => {
   }
 };
 
-export const requestsForSearchHeaderDrinks = async (searchText, filterRadio) => {
+export const requestsForSearchHeaderDrinks = async (
+  searchText,
+  filterRadio,
+) => {
   if (searchText === '') {
     alert('Digite alguma coisa!');
   } else if (filterRadio === 'ingredient') {

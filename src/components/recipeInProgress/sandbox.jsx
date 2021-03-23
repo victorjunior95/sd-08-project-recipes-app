@@ -25,22 +25,36 @@ const MealRecipeIngredients = () => {
   const [progress, setProgress] = useState([]);
   // const [change, setchange] = useState(initialState)
   const recipe = [data[0]];
+  console.log(recipe);
   const store = JSON.parse(localStorage.getItem('inProgressRecipe'));
   console.log(store);
-  // const { meals: { prog } } = JSON.parse(localStorage.getItem('inProgressRecipe'));
+  const steps = filterIngAndMeasuresList(recipe[0]);
+
   if (store === null) {
     localStorage.setItem('inProgressRecipe', JSON.stringify({
       cocktails: {},
       meals: { [data[0].idMeal]: [data[0]], prog: progress },
     }));
   }
-  console.log(recipe);
+  localStorage.setItem('inProgressRecipe', JSON.stringify({
+    cocktails: {},
+    meals: { [data[0].idMeal]: [data[0]], prog: store.prog },
+  }));
   useEffect(() => {
-    const retrieve = JSON.parse(localStorage.getItem('inProgressRecipe'));
-    console.log(retrieve);
+    const { meals: { prog } } = JSON.parse(localStorage.getItem('inProgressRecipe'));
+    console.log(prog);
+    let progr;
+    progr = prog;
+    if (progress === undefined) {
+      progr = progress;
+    }
+    localStorage.setItem('inProgressRecipe', JSON.stringify({
+      cocktails: {},
+      meals: { [data[0].idMeal]: [data[0]], prog },
+    }));
     // const inputs = document.getElementsByTagName('input');
     // console.log(inputs);
-    setProgress(retrieve.meals.prog);
+    setProgress(progr);
   }, []);
   useEffect(() => {
     // const { cocktails, meals } = JSON.parse(localStorage.getItem('inProgressRecipe'));
@@ -49,12 +63,12 @@ const MealRecipeIngredients = () => {
       cocktails: {},
       meals: { [data[0].idMeal]: [data[0]], prog: progress },
     }));
+    setProgress(progress);
     return localStorage.setItem('inProgressRecipe', JSON.stringify({
       cocktails: {},
       meals: { [data[0].idMeal]: [data[0]], prog: progress },
     }));
   }, [progress]);
-  const steps = filterIngAndMeasuresList(recipe[0]);
   return (
     <div>
       <div>
@@ -72,7 +86,7 @@ const MealRecipeIngredients = () => {
                     ...progress,
                     e.target.value,
                   ]) }
-                  checked={ progress.length > 0 ? progress.some((e) => e === ingredientsString[1]) : null }
+                  checked={ progress ? progress.some((e) => e === ingredientsString[1]) : null }
                 />
               </label>
               <p>
@@ -88,4 +102,4 @@ const MealRecipeIngredients = () => {
   );
 };
 
-export default MealRecipeIngredients;
+// export default MealRecipeIngredients;

@@ -9,7 +9,7 @@ import {
   ExploreDrinks,
   ExploreFoods,
   ExploreIngredientsFood,
-  ExploreRecipes,
+  Explore,
   ExploreRegionalFoods,
   FavoriteRecipes,
   Login,
@@ -37,7 +37,7 @@ class Routes extends Component {
           path="/bebidas/:id/in-progress"
           component={ ProgressRecipesDrink }
         />
-        <Route exact path="/explorar" component={ ExploreRecipes } />
+        <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route

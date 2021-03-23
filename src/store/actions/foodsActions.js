@@ -1,6 +1,8 @@
-import { fetchFoodsByLetter,
+import {
+  fetchFoodsByLetter,
   fetchFoodsByName,
-  fetchFoodsByIngredients } from '../../services';
+  fetchFoodsByIngredients,
+} from '../../services';
 
 export const FETCH_FOOD = 'FETCH_FOOD';
 export const GET_SEARCH_FOOD = 'GET_SEARCH_FOOD';

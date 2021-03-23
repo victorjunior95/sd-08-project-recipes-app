@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { showHeaderAction } from '../store/actions/showHeaderAction';
 import { Header, SearchBar } from '../components';
 
 class Foods extends Component {
-  render() {
-    const { history } = this.props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Comidas',
+      showButtonSearch: true,
+    };
+  }
 
+  render() {
+    const { setShowHeaderAction } = this.props;
+    const { title, showButtonSearch } = this.state;
+    setShowHeaderAction(title, showButtonSearch);
     return (
       <div>
-        <Header history={ history } />
+        <Header />
         <SearchBar />
       </div>
     );
   }
 }
 
-Foods.defaultProps = {
-  history: {},
-};
 Foods.propTypes = {
-  history: PropTypes.objectOf,
+  setShowHeaderAction: PropTypes.func.isRequired,
 };
-export default Foods;
+
+const mapDispatchToProps = (dispatch) => ({
+  setShowHeaderAction: (titleHeader, showButtonSearch) => {
+    dispatch(showHeaderAction(titleHeader, showButtonSearch));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Foods);

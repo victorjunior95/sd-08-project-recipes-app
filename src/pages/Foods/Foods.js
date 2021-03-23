@@ -12,7 +12,9 @@ export default function Foods() {
 
   useEffect(() => {
     if (recipes === 'NF') {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return (
+        customAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+      );
     }
     if (recipes.length === 1) {
       return history.push(`/comidas/${recipes[0].idMeal}`);

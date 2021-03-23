@@ -8,20 +8,22 @@ import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   const history = useHistory();
-  const { setHeaderInfo } = useContext(ContextRecipes);
+  const { setHeaderInfo, setBarraBuscar } = useContext(ContextRecipes);
 
   function handleClickDrinkBtn() {
-    setHeaderInfo({ pageTitle: 'Bebidas', showSearch: true });
+    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
+    setBarraBuscar({ input: '', radio: '' });
     return history.push('/bebidas');
   }
 
   function handleClickExploreBtn() {
-    setHeaderInfo({ pageTitle: 'Explorar', showSearch: false });
+    setHeaderInfo({ pageTitle: 'Explorar', showSearchIcon: false });
     return history.push('/explorar');
   }
 
   function handleClickMeatBtn() {
-    setHeaderInfo({ pageTitle: 'Comidas', showSearch: true });
+    setHeaderInfo({ pageTitle: 'Comidas', showSearchIcon: true });
+    setBarraBuscar({ input: '', radio: '' });
     return history.push('/comidas');
   }
 

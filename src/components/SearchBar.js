@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { fetchFoodApiByIngredient,
+  fetchFoodApiByLetter, fetchFoodApiByName } from '../helpers';
 
 class SearchBar extends Component {
   constructor() {
@@ -38,21 +40,20 @@ class SearchBar extends Component {
   async APIcomidas() {
     const { radio, input } = this.state;
     const { history } = this.props;
-    let endPoint;
+    let meals;
     if (radio === 'ingredientes') {
-      endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`;
+      meals = await fetchFoodApiByIngredient(input);
     }
     if (radio === 'nome') {
-      endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`;
+      meals = await fetchFoodApiByName(input);
     }
     if (radio === 'primeiraLetra') {
-      if (input.length > 1) {
+      if (input.length === 1) {
+        meals = await fetchFoodApiByLetter(input);
+      } else {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
     }
-    const { meals } = await fetch(endPoint)
-      .then((response) => response.json());
     if (meals) {
       this.setState({ array: meals, rotaComida: true, rotaBebida: false });
     } else {

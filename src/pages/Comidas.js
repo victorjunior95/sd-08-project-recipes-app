@@ -7,21 +7,17 @@ import Footer from '../components/Footer';
 
 const MAX_CARDS = 12;
 
-const Bebidas = () => {
-  const { dataByBusca, setHeaderInfo } = useContext(ContextRecipes);
+const Comidas = () => {
+  const { dataByBusca } = useContext(ContextRecipes);
   const history = useHistory();
-  const [dataBebidas, setDataBebidas] = useState([]);
+  const [dataComidas, setDataComidas] = useState([]);
 
   useEffect(() => {
-    setHeaderInfo({ pageTitle: 'Bebidas', showSearch: true });
-  }, [setHeaderInfo]);
-
-  useEffect(() => {
-    if (dataByBusca.drinks !== undefined) {
-      if (dataByBusca.drinks.length > 1) {
-        setDataBebidas([...dataByBusca.drinks]);
-      } else if (dataByBusca.drinks.length === 1) {
-        history.push(`/bebidas/${dataByBusca.drinks[0].idDrink}`);
+    if (dataByBusca.meals !== undefined) {
+      if (dataByBusca.meals.length > 1) {
+        setDataComidas([...dataByBusca.meals]);
+      } else if (dataByBusca.meals.length === 1) {
+        history.push(`/comidas/${dataByBusca.meals[0].idMeal}`);
       }
     }
   }, [dataByBusca]);
@@ -29,25 +25,25 @@ const Bebidas = () => {
   return (
     <section className="w-100">
       <Header />
-      { dataBebidas.length > 0 ? (
+      { dataComidas.length > 0 ? (
         <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
           {
-            dataBebidas.map((bebida, index) => {
+            dataComidas.map((bebida, index) => {
               if (index < MAX_CARDS) {
                 return (
                   <Card
-                    key={ bebida.idDrink }
+                    key={ bebida.idMeal }
                     data-testid={ `${index}-recipe-card` }
                     className="col-5 m-2"
                   >
                     <Card.Img
                       variant="top"
                       data-testid={ `${index}-card-img` }
-                      src={ bebida.strDrinkThumb }
+                      src={ bebida.strMealThumb }
                     />
                     <Card.Body>
                       <Card.Title data-testid={ `${index}-card-name` }>
-                        { bebida.strDrink }
+                        { bebida.strMeal }
                       </Card.Title>
                     </Card.Body>
                   </Card>
@@ -63,4 +59,4 @@ const Bebidas = () => {
   );
 };
 
-export default Bebidas;
+export default Comidas;

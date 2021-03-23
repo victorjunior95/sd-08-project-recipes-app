@@ -10,3 +10,14 @@ export const actionStartLogin = () => ({
 export const actionFinishedLogin = () => ({
   type: FINISHED_LOADING,
 });
+
+// ACTIONS FILTERED_FOODS
+
+export const FILTERED_FOODS = 'FILTERED_FOODS';
+
+export const actionFilteredFoods = (foods) => ({
+  type: FILTERED_FOODS,
+  payload: {
+    foods,
+  },
+});

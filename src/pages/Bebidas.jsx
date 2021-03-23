@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import getResultFromAPI from '../api/getResultFromAPI';
 import contextRecipes from '../context/Context';
@@ -9,10 +10,12 @@ const Bebidas = () => {
   const [drinks, setDrinks] = useState([]);
   const [targetButton, setTargetButton] = useState('');
   const { filter, drinksCategories } = useContext(contextRecipes);
+  const history = useHistory();
 
   useEffect(() => {
     async function getDrinksFromAPI() {
       const drinksAPI = await getResultFromAPI('/bebidas');
+      console.log(drinksAPI);
       setDrinks(drinksAPI);
     }
     getDrinksFromAPI();
@@ -47,11 +50,13 @@ const Bebidas = () => {
       ))}
       { drinks.map((drink, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
-          <img
+          <input
+            type="image"
             data-testid={ `${index}-card-img` }
             src={ drink.strDrinkThumb }
             alt="bebida"
-            width="100px"
+            width="100%"
+            onClick={ () => history.push(`/bebidas/${drink.idDrink}`) }
           />
           <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
         </div>

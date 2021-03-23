@@ -5,7 +5,6 @@ import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import Expĺorar from './pages/Explorar';
-// import Generico from './components/Generico';
 import ComidasIngredientes from './pages/ComidasIngredientes';
 import BebidasIngredientes from './pages/BebidasIngredientes';
 import ExplorarPorArea from './pages/ExplorarPorArea';
@@ -16,6 +15,7 @@ import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
 import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Generico from './components/Generico';
 
 class App extends React.Component {
   render() {

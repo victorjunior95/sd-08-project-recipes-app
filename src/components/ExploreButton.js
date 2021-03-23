@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import searchIcon from '../images/searchIcon.svg';
 import requestApi from '../services/requestApi';
-import PropTypes from 'prop-types';
 
 function ExploreButton({ title }) {
   const history = useHistory();

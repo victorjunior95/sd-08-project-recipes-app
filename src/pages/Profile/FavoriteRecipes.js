@@ -1,39 +1,53 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header } from '../../components';
-import { showHeaderAction } from '../../store/actions/showHeaderAction';
+// import { _ } from '../../store/actions';
 
 class FavoriteRecipes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Receitas Favoritas',
-      showButtonSearch: false,
-    };
-  }
-
   render() {
-    const { setShowHeaderAction } = this.props;
-    const { title, showButtonSearch } = this.state;
-    setShowHeaderAction(title, showButtonSearch);
     return (
       <div>
-        <Header />
-        Eu sou o pagína de Receitas Favoritas
+        <Header title="Receitas Favoritas" />
+        <div>
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+
+          >
+            Drinks
+          </button>
+        </div>
+        <div>
+          {/* //map */}
+        </div>
       </div>
     );
   }
 }
 
-FavoriteRecipes.propTypes = {
-  setShowHeaderAction: PropTypes.func.isRequired,
-};
+// _.propTypes = {
+//   _: PropTypes._.isRequired,
+// };
 
-const mapDispatchToProps = (dispatch) => ({
-  setShowHeaderAction: (titleHeader, showButtonSearch) => {
-    dispatch(showHeaderAction(titleHeader, showButtonSearch));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   _: (_) => {
+//     dispatch(_(_));
+//   },
+// });
 
-export default connect(null, mapDispatchToProps)(FavoriteRecipes);
+export default connect(null, null)(FavoriteRecipes);

@@ -13,7 +13,7 @@ export default function loginReducer(state = INITIAL_STATE_USER, action) {
       ...state, email: action.payload }; // não está feito
   case LOGOUT_USER:
     return {
-      ...state }; // não está feito
+      ...state, email: '' }; // não está feito
   default:
     return state;
   }

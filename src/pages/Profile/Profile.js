@@ -1,39 +1,58 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header } from '../../components';
-import { showHeaderAction } from '../../store/actions/showHeaderAction';
+import { Link } from 'react-router-dom';
+import { Footer, Header } from '../../components';
+// import { _ } from '../../store/actions';
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Perfil',
-      showButtonSearch: false,
-    };
-  }
-
   render() {
-    const { setShowHeaderAction } = this.props;
-    const { title, showButtonSearch } = this.state;
-    setShowHeaderAction(title, showButtonSearch);
     return (
       <div>
-        <Header />
-        Eu sou o pagína de Perfil
+        <Header title="Perfil" />
+        <p data-testid="profile-email">email@email</p>
+        <Link
+          to="/receitas-feitas"
+        >
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Receitas Feitas
+          </button>
+        </Link>
+        <Link
+          to="/receitas-favoritas"
+        >
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+          >
+            Receitas Favoritas
+          </button>
+        </Link>
+        <Link
+          to="/"
+        >
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+          >
+            Sair
+          </button>
+        </Link>
+        <Footer />
       </div>
     );
   }
 }
 
-Profile.propTypes = {
-  setShowHeaderAction: PropTypes.func.isRequired,
-};
+// _.propTypes = {
+//   _: PropTypes.string.isRequired,
+// };
 
-const mapDispatchToProps = (dispatch) => ({
-  setShowHeaderAction: (titleHeader, showButtonSearch) => {
-    dispatch(showHeaderAction(titleHeader, showButtonSearch));
-  },
-});
+// const mapStateToProps = (state) => ({
+//   _,
+// });
 
-export default connect(null, mapDispatchToProps)(Profile);
+export default connect(null, null)(Profile);

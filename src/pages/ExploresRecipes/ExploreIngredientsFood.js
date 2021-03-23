@@ -1,39 +1,29 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header } from '../../components';
-import { showHeaderAction } from '../../store/actions/showHeaderAction';
+import { Footer, Header } from '../../components';
+// import { _ } from '../../store/actions';
 
 class ExploreIngredientsFood extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Explorar Ingredientes',
-      showButtonSearch: false,
-    };
-  }
-
   render() {
-    const { setShowHeaderAction } = this.props;
-    const { title, showButtonSearch } = this.state;
-    setShowHeaderAction(title, showButtonSearch);
     return (
       <div>
-        <Header />
+        <Header title="Explorar Ingredientes" />
         Eu sou o pagína de Explorar Ingredientes Comidas
+        <Footer />
       </div>
     );
   }
 }
 
-ExploreIngredientsFood.propTypes = {
-  setShowHeaderAction: PropTypes.func.isRequired,
-};
+// _.propTypes = {
+//   _: PropTypes._.isRequired,
+// };
 
-const mapDispatchToProps = (dispatch) => ({
-  setShowHeaderAction: (titleHeader, showButtonSearch) => {
-    dispatch(showHeaderAction(titleHeader, showButtonSearch));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   _: (_) => {
+//     dispatch(_(_));
+//   },
+// });
 
-export default connect(null, mapDispatchToProps)(ExploreIngredientsFood);
+export default connect(null, null)(ExploreIngredientsFood);

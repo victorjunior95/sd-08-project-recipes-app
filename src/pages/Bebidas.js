@@ -4,7 +4,10 @@ import { CardDeck, Card, Button } from 'react-bootstrap';
 import ContextRecipes from '../context/ContextRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getAllBebida, getBebidaCategory } from '../services/BuscaNasAPIs';
+import {
+  getAllBebida,
+  getBebidaCategory,
+  getBebidaByCategory } from '../services/BuscaNasAPIs';
 
 const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
@@ -33,11 +36,18 @@ const Bebidas = () => {
       }
     }
     async function getAll() {
-      const allFood = await getAllBebida();
-      setDataBebidas(allFood.drinks);
+      const allDrink = await getAllBebida();
+      setDataBebidas(allDrink.drinks);
     }
     getAll();
   }, [dataByBusca, history]);
+
+  async function filterCategory(category) {
+    const allFood = category === 'All'
+      ? await getAllBebida()
+      : await getBebidaByCategory(category);
+    setDataBebidas(allFood.drinks);
+  }
 
   return (
     <section className="w-100">
@@ -52,6 +62,7 @@ const Bebidas = () => {
                 className="categoryButton"
                 type="button"
                 key={ index }
+                onClick={ () => filterCategory(categoria.strCategory) }
               >
                 {categoria.strCategory}
               </Button>

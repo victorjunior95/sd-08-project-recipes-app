@@ -81,3 +81,17 @@ export const getBebidaCategory = () => (
     .then((json) => json)
     .catch((error) => console.log(error))
 );
+
+export const getComidaByCategory = (category) => (
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const getBebidaByCategory = (category) => (
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);

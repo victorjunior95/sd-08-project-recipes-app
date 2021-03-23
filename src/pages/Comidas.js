@@ -4,7 +4,10 @@ import { CardDeck, Card, Button } from 'react-bootstrap';
 import ContextRecipes from '../context/ContextRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getAllComida, getComidaCategory } from '../services/BuscaNasAPIs';
+import {
+  getAllComida,
+  getComidaCategory,
+  getComidaByCategory } from '../services/BuscaNasAPIs';
 
 const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
@@ -35,6 +38,13 @@ const Comidas = () => {
     getAll();
   }, [dataByBusca, history]);
 
+  async function filterCategory(category) {
+    const allFood = category === 'All'
+      ? await getAllComida()
+      : await getComidaByCategory(category);
+    setDataComidas(allFood.meals);
+  }
+
   return (
     <section className="w-100">
       <Header />
@@ -48,6 +58,7 @@ const Comidas = () => {
                 className="categoryButton"
                 type="button"
                 key={ index }
+                onClick={ () => filterCategory(categoria.strCategory) }
               >
                 {categoria.strCategory}
               </Button>

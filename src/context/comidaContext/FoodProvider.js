@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
-import { requestMealRecipe } from '../../services/API';
+import { requestMealRecipe, requestFoodCategory } from '../../services/API';
 
 function FoodProvider({ children }) {
   const [searchInput, setSearchInput] = useState('');
@@ -10,6 +10,7 @@ function FoodProvider({ children }) {
   const handleSearchType = ({ target }) => setSearchType(target.value);
 
   const [foods, setFoods] = useState([]);
+  const [foodCategory, setFoodCategory] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,11 +20,20 @@ function FoodProvider({ children }) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await requestFoodCategory();
+      setFoodCategory(result.meals);
+    };
+    fetchData();
+  }, []);
+
   const provide = {
     values: {
       searchInput,
       searchType,
       foods,
+      foodCategory,
     },
     functions: {
       handleSearchInput,

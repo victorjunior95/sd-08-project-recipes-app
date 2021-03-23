@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRedirect } from '../store/loginSlice';
 import { Input, Button } from '../Components';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,7 +12,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [button, setButton] = useState(true);
-  const [redirect, setRedirect] = useState(false);
+  const redirect = useSelector((state) => state.login.redirect);
+  const dispatch = useDispatch();
 
   let timer = null;
   const quinhentos = 500;
@@ -33,7 +36,7 @@ function Login() {
     localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
-    setRedirect(true);
+    dispatch(setRedirect());
   };
 
   return (

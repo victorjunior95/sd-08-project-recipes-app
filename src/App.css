@@ -1,6 +1,20 @@
+.header {
+  display: flex;
+  top: 0;
+}
+
 .footer {
   bottom: 0;
   position: fixed;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar-radio-btn {
+  display: flex;
 }
 
 .meals {

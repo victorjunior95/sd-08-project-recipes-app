@@ -144,6 +144,13 @@ const Details = ({ title, match }) => {
             { object.strInstructions }
           </Card.Text>
           {renderVideo()}
+          <Card.Text data-testid="0-recomendation-card">
+            Aqui virá o card das recomendações
+          </Card.Text>
+          <Button
+          variant="primary"
+          data-testid="start-recipe-btn"
+          >Iniciar receita</Button>
         </Card.Body>
       </Card>
     );

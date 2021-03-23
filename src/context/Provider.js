@@ -5,8 +5,12 @@ import { headerSearch } from '../services';
 
 const Provider = ({ children }) => {
   const [food, setFood] = useState([]);
-  const handleHeaderSearch = async (search, type) => {
-    const results = await headerSearch(search, type);
+  const handleHeaderSearch = async (search, type, typeAPI) => {
+    const results = await headerSearch(search, type, typeAPI);
+    console.log(results);
+    // results.meals.length === 1
+    //  ? (`/${typeAPI}/${idMeal}`)
+    //  : setFood(results ? results.meals : []);
     setFood(results ? results.meals : []);
   };
   const context = { handleHeaderSearch, food };

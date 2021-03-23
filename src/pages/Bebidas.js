@@ -1,7 +1,12 @@
 import React from 'react';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const Drinks = () => (
-  <p>drinks</p>
+  <div>
+    <Header title="Bebidas" />
+    <Footer />
+  </div>
 );
 
 export default Drinks;

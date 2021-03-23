@@ -1,12 +1,11 @@
 import React from 'react';
-import profileIcon from '../images/profileIcon.svg';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const ProfilePage = () => (
   <div>
-    <p data-testid="page-title"> Perfil</p>
-    <button type="button">
-      <img src={ profileIcon } alt="profileIcon" />
-    </button>
+    <Header title="Perfil" showSearchButton={ false } />
+    <Footer />
   </div>
 );
 export default ProfilePage;

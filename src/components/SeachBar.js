@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LariContext from '../context/Context';
 
 const SearchBar = (props) => {
-  const { showInput } = props;
+  const { showInput, typeAPI } = props;
   const [filter, setFilter] = useState('ingredients');
   const [search, setSearch] = useState('');
   const { handleHeaderSearch } = useContext(LariContext);
@@ -49,7 +49,7 @@ const SearchBar = (props) => {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => handleHeaderSearch(search, filter) }
+        onClick={ () => handleHeaderSearch(search, filter, typeAPI) }
       >
         Buscar
       </button>
@@ -59,5 +59,6 @@ const SearchBar = (props) => {
 
 SearchBar.propTypes = {
   showInput: PropTypes.bool.isRequired,
+  typeAPI: PropTypes.string.isRequired,
 };
 export default SearchBar;

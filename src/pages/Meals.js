@@ -10,6 +10,7 @@ import useToggle from '../hooks/useToggle';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
+import Footer from '../components/Footer';
 
 const RESULTS_LIMIT = 12;
 
@@ -22,7 +23,7 @@ const Meals = ({ fetchMeals, meals, notFound }) => {
   if (meals.length === 1) return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
 
   return (
-    <div>
+    <>
       <Header
         title="Comidas"
         showSearchButton
@@ -37,7 +38,8 @@ const Meals = ({ fetchMeals, meals, notFound }) => {
           thumbnail={ meal.strMealThumb }
           index={ index }
         />)) }
-    </div>
+      <Footer />
+    </>
   );
 };
 

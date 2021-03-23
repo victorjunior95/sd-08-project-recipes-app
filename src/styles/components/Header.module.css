@@ -1,6 +1,15 @@
 .header {
-  display: flex;
-  justify-content: space-around;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
+  text-align: center;
   width: 100%;
+}
+
+.header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
 }

@@ -9,6 +9,7 @@ import useToggle from '../hooks/useToggle';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Card from '../components/Card';
+import Footer from '../components/Footer';
 
 const RESULTS_LIMIT = 12;
 
@@ -21,7 +22,7 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
   if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
 
   return (
-    <div>
+    <>
       <Header
         title="Bebidas"
         showSearchButton
@@ -36,7 +37,8 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
           thumbnail={ drink.strDrinkThumb }
           index={ index }
         />)) }
-    </div>
+      <Footer />
+    </>
   );
 };
 

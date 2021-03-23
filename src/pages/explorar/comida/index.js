@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../components/Header';
+import Footer from '../../../components/footer';
 
 function ExplorarComida() {
   return (
@@ -21,6 +22,7 @@ function ExplorarComida() {
           Me Surpreenda!
         </button>
       </section>
+      <Footer />
     </>
   );
 }

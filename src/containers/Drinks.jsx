@@ -65,6 +65,7 @@ function Drinks() {
             key={ index }
             dataDrinks={ drink }
             index={ index }
+            id={ drink.idDrink }
           />
         ))}
         <components.Footer />

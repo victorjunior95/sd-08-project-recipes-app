@@ -66,6 +66,7 @@ function Home() {
             key={ index }
             dataFoods={ food }
             index={ index }
+            id={ food.idMeal }
           />
         ))}
         <components.Footer />

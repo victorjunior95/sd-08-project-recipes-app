@@ -24,6 +24,19 @@ export const filterIngredients = (recipe) => Object.entries(recipe)
   .filter((ingredientIndex) => ingredientIndex[1] !== null)
   .map((ingredientIndex) => ingredientIndex[1]);
 
+export const filterIngAndMeasuresList = (recipe) => {
+  const arrayFromObject = Object.entries(recipe)
+    .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
+              || ingredientIndex[0].startsWith('strIngredient'))
+    .filter((ingredientIndex) => ingredientIndex[1] !== '')
+    .filter((ingredientIndex) => ingredientIndex[1] !== null);
+  const ingredientMeasurePairs = [
+    arrayFromObject.slice(0, arrayFromObject.length / 2),
+    arrayFromObject.slice(arrayFromObject.length / 2),
+  ];
+  return ingredientMeasurePairs;
+};
+
 export const filterIngredientsAndMeasures = (recipe) => {
   const arrayFromObject = Object.entries(recipe)
     .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
@@ -36,6 +49,25 @@ export const filterIngredientsAndMeasures = (recipe) => {
   ];
   return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
     <li key={ indx } data-testid={ `${indx}-ingredient-name-and-measure` }>
+      {ingredientsString[1]}
+      {' - '}
+      {ingredientMeasurePairs[1][indx][1]}
+    </li>
+  )));
+};
+
+export const filterSteps = (recipe) => {
+  const arrayFromObject = Object.entries(recipe)
+    .filter((ingredientIndex) => ingredientIndex[0].startsWith('strMeasure')
+                || ingredientIndex[0].startsWith('strIngredient'))
+    .filter((ingredientIndex) => ingredientIndex[1] !== '')
+    .filter((ingredientIndex) => ingredientIndex[1] !== null);
+  const ingredientMeasurePairs = [
+    arrayFromObject.slice(0, arrayFromObject.length / 2),
+    arrayFromObject.slice(arrayFromObject.length / 2),
+  ];
+  return (ingredientMeasurePairs[0].map((ingredientsString, indx) => (
+    <li key={ indx } data-testid={ `${indx}-ingredient-step` }>
       {ingredientsString[1]}
       {' - '}
       {ingredientMeasurePairs[1][indx][1]}
@@ -63,19 +95,19 @@ export const initLocalStorage = () => {
 export const setLocalStorage = (recipe) => {
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const { cocktails, meals } = inProgessRecipes;
-  const ingredients = filterIngredients(recipe);
+  // const ingredients = filterIngredients(recipe);
   if (inProgessRecipes) {
     localStorage.setItem('inProgressRecipes',
       JSON.stringify({
         cocktails,
         meals: { ...meals,
-          [recipe.idMeal]: ingredients } }));
+          [recipe.idMeal]: [recipe] } }));
   }
   localStorage.setItem('inProgressRecipes',
     JSON.stringify({
       cocktails: {},
       meals: {
-        ...meals, [recipe.idMeal]: ingredients } }));
+        ...meals, [recipe.idMeal]: [recipe] } }));
 };
 
 const favoriteObject = (meal) => {

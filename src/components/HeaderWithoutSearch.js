@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import SearchBar from './SearchBar';
 
-function HeaderWithSearch() {
+function HeaderWithoutSearch() {
   const history = useHistory();
   const { pathname } = useLocation();
-  const [searchBar, setSearchBar] = useState(false);
   const firstLetterUppercased = pathname[1].toUpperCase();
   const title = firstLetterUppercased + pathname.slice(2);
 
@@ -20,23 +18,9 @@ function HeaderWithSearch() {
           />
         </button>
         <h1 data-testid="page-title">{title}</h1>
-        <button type="button" onClick={ () => setSearchBar(!searchBar) }>
-          <img
-            src="../images/searchIcon.svg"
-            data-testid="search-top-btn"
-            alt="search button"
-          />
-        </button>
-      </div>
-      <div>
-        {
-          searchBar
-            ? <SearchBar />
-            : ''
-        }
       </div>
     </header>
   );
 }
 
-export default HeaderWithSearch;
+export default HeaderWithoutSearch;

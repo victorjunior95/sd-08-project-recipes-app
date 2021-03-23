@@ -1,8 +1,12 @@
 import React from 'react';
-import Header from '../../component/Header';
+import { Header, Footer } from '../../component';
 
 export default function ExploreDrinksByIngredient() {
   return (
-    <Header pageTitle="Explorar Ingredientes" showSearchButton={ false } />
+    <>
+      <Header pageTitle="Explorar Ingredientes" showSearchButton={ false } />
+
+      <Footer />
+    </>
   );
 }

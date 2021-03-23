@@ -20,7 +20,9 @@ export default function SearchBar() {
 
   const startSearch = () => {
     if (filters.selectedParameter === 'first-letter' && filters.searchInput.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
+      return (
+        alert('Sua busca deve conter somente 1 (um) caracter')
+      );
     }
     setSearchParams(filters);
   };

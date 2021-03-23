@@ -14,9 +14,9 @@ function Comidas() {
   return (
     <div>
       <Header title="Comidas" />
+      <CategoriasFood />
       {!isDrinkLoading ? (
         <div>
-          <CategoriasFood />
           <RecipesList />
         </div>) : <p>Carregando</p>}
       <Footer />

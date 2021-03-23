@@ -20,6 +20,7 @@ function CategoriasFood() {
       <button
         type="button"
         onClick={ () => directRequestDrink() }
+        data-testid="All-category-filter"
       >
         All
       </button>
@@ -27,12 +28,18 @@ function CategoriasFood() {
         if (index < MIN_ELEMN) {
           return (
             <button
-              type="button"
               data-testid={ `${elem.strCategory}-category-filter` }
+              type="button"
               value={ elem.strCategory }
-              onClick={ ({ target }) => fetchCategory(target.value) }
+              onClick={ ({ target }) => {
+                target.firstChild.checked = !target.firstChild.checked;
+                return (
+                  target.firstChild.checked
+                    ? fetchCategory(target.value) : directRequestDrink());
+              } }
               key={ elem.strCategory }
             >
+              <input style={ { display: 'none' } } type="checkbox" />
               {elem.strCategory}
             </button>);
         }

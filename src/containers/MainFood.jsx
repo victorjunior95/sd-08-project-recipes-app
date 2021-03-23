@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import RecipesContext from '../core/RecipesContext';
 import components from '../components/index';
+import loading from '../assets/oval.svg';
 
 import api from '../services/index';
 import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
 import MainFoodsCard from '../components/MainFoodsCard';
 
 function Home() {
+  const { isLoading } = useContext(RecipesContext);
   const [dataFoods, setDataFoods] = useState([]);
   const [dataFoodsCategories, setDataFoodCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
@@ -38,6 +41,7 @@ function Home() {
   return (
     <div>
       <components.Header title="Comidas" />
+      {isLoading ? <img className="loading-img" src={ loading } alt="loading icon" /> : null}
       <div>
         {dataFoodsCategories.slice(0, CATEGORIES_LENGTH_5).map(
           ({ strCategory }, index) => (

@@ -77,6 +77,7 @@ const Comidas = () => {
                     key={ comida.idMeal }
                     data-testid={ `${index}-recipe-card` }
                     className="col-5 m-2"
+                    onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
                   >
                     <Card.Img
                       variant="top"

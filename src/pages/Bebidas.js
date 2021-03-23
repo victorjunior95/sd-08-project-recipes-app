@@ -81,6 +81,7 @@ const Bebidas = () => {
                     key={ bebida.idDrink }
                     data-testid={ `${index}-recipe-card` }
                     className="col-5 m-2"
+                    onClick={ () => history.push(`/bebidas/${bebida.idDrink}`) }
                   >
                     <Card.Img
                       variant="top"

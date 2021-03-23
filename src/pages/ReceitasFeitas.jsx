@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import ContextReceitas from '../context/ContextReceitas';
+import Header from '../components/Header';
 
 function ReceitasFeitas() {
+  const {
+    enviarTituloDaPagina,
+    mudarStatusBotaoPesquisa,
+  } = useContext(ContextReceitas);
+  useEffect(() => {
+    enviarTituloDaPagina('Receitas Feitas');
+    mudarStatusBotaoPesquisa(false);
+  }, []);
   return (
     <div>
-      <h1>Receitas feitas... página em construção</h1>
+      <Header />
     </div>
   );
 }

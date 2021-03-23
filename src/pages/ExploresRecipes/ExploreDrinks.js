@@ -1,39 +1,48 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header } from '../../components';
-import { showHeaderAction } from '../../store/actions/showHeaderAction';
+import { Link } from 'react-router-dom';
+import { Footer, Header } from '../../components';
+// import { _ } from '../../store/actions';
 
 class ExploreDrinks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Explorar Bebidas',
-      showButtonSearch: false,
-    };
-  }
-
   render() {
-    const { setShowHeaderAction } = this.props;
-    const { title, showButtonSearch } = this.state;
-    setShowHeaderAction(title, showButtonSearch);
     return (
       <div>
-        <Header />
-        Eu sou o pagína de Explorar Bebidas
+        <Header title="Explorar Bebidas" />
+
+        <Link to="/explorar/bebidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+
+        <Link to="/bebidas/178319">
+          <button
+            type="button"
+            data-testid="explore-surprise"
+          >
+            Me Surpreenda!
+          </button>
+        </Link>
+        <Footer />
+
       </div>
     );
   }
 }
 
-ExploreDrinks.propTypes = {
-  setShowHeaderAction: PropTypes.func.isRequired,
-};
+// _.propTypes = {
+//   _: PropTypes._.isRequired,
+// };
 
-const mapDispatchToProps = (dispatch) => ({
-  setShowHeaderAction: (titleHeader, showButtonSearch) => {
-    dispatch(showHeaderAction(titleHeader, showButtonSearch));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   _: (_) => {
+//     dispatch(_(_));
+//   },
+// });
 
-export default connect(null, mapDispatchToProps)(ExploreDrinks);
+export default connect(null, null)(ExploreDrinks);

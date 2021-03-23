@@ -5,6 +5,7 @@ import App from '../App';
 
 function RecipesProvider() {
   const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [mealsToken, setMealsToken] = useState(1);
   const [cocktailsToken, setCocktailsToken] = useState(1);
   const [user, setUser] = useState({
@@ -12,6 +13,7 @@ function RecipesProvider() {
   });
   const [filter, setFilter] = useState([]);
   const [buttonFilter, setButtonFilter] = useState([]);
+  const [drinkApiButton, setDrinkApiButton] = useState([]);
 
   useEffect(() => {
     function saveLocalStorage() {
@@ -21,13 +23,22 @@ function RecipesProvider() {
     }
     saveLocalStorage();
   }, [user, mealsToken, cocktailsToken]);
-  // console.log(test)
+
+  useEffect(() => {
+    async function fetchData() {
+      const FIVE_CATEGORYS = 5;
+      const { drinks } = await fetch(drinkUrl).then((response) => response.json());
+      // console.log(meals.slice(0, FIVE_CATEGORYS));
+      setDrinkApiButton(drinks.slice(0, FIVE_CATEGORYS));
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       const FIVE_CATEGORYS = 5;
       const { meals } = await fetch(url).then((response) => response.json());
-      console.log(meals.slice(0, FIVE_CATEGORYS));
+      // console.log(meals.slice(0, FIVE_CATEGORYS));
       setButtonFilter(meals.slice(0, FIVE_CATEGORYS));
     }
     fetchData();
@@ -40,6 +51,7 @@ function RecipesProvider() {
     setCocktailsToken,
     setFilter,
     buttonFilter,
+    drinkApiButton,
     filter,
   };
   return (

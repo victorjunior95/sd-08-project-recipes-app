@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
-import fetchMealsAPI from '../api/fetchMealsAPI';
+import { fetchMealsAPI, fetchFilteredMealsAPI } from '../api/fetchMealsAPI';
+
 import contextRecipes from '../context/Context';
 import Button from '../components/Button';
 
@@ -8,9 +9,9 @@ const Comidas = () => {
   const TWELVE_MEALS = 12;
   const [meals, setMeals] = useState([]);
   const [saveMeals, setSaveMeals] = useState([]);
-  const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
+  // const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
   const { filter, buttonFilter } = useContext(contextRecipes);
-  // console.log(meals);
+  console.log(fetchFilteredMealsAPI);
 
   useEffect(() => {
     async function getMealsFromAPI() {
@@ -37,7 +38,7 @@ const Comidas = () => {
       <Header title="Comidas" />
       {buttonFilter.map((category, index) => (
         <Button
-          datatestid={ `data-testid=${category.strCategory}-category-filter` }
+          datatestid={ `${category.strCategory}-category-filter` }
           label={ category.strCategory }
           key={ index }
           onClick={ () => filteredName(category.strCategory) }

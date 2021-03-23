@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import searchIcon from '../images/searchIcon.svg';
 import requestApi from '../services/requestApi';
+import PropTypes from 'prop-types';
 
 function ExploreButton({ title }) {
   const history = useHistory();

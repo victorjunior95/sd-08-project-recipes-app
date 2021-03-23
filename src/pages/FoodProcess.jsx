@@ -1,9 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
 
 function FoodProcess() {
   return (
-    <Header label="Perfil" Search={ () => '' } />
+    <h1>Processo de comida</h1>
   );
 }
 

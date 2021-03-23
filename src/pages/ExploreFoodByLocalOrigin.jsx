@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../components/Header';
 import SearchButton from '../components/SearchButton';
 
-function Foods() {
+function ExploreFoodByLocalOrigin() {
   return (
-    <Header label="Comidas" Search={ SearchButton } />
+    <Header label="Explorar Origem" Search={ SearchButton } />
   );
 }
 
-export default Foods;
+export default ExploreFoodByLocalOrigin;

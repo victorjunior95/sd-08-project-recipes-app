@@ -3,7 +3,7 @@ import React from 'react';
 function DrinkProcess() {
   return (
     <div>
-      <sapn>ok</sapn>
+      <span>ok</span>
     </div>
   );
 }

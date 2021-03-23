@@ -6,12 +6,12 @@ import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import ExploreFood from './pages/ExploreFood';
 import DrinksExplore from './pages/DrinksExplore';
-import ExploreFoodsLocal from './pages/ExploreFoodsLocal';
+import ExploreFoodByLocalOrigin from './pages/ExploreFoodByLocalOrigin';
 import ProfilePage from './pages/ProfilePage';
 import ReadyMadeRecipes from './pages/ReadyMadeRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
-import FoodExploreIngredients from './pages/FoodExploreIngredients';
-import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
+import ExploreFoodsByIngredients from './pages/ExploreFoodsByIngredients';
+import ExploreDrinksByIngredients from './pages/ExploreDrinksByIngredients';
 import FoodProcess from './pages/FoodProcess';
 import DrinkProcess from './pages/DrinkProcess';
 import FoodDetails from './pages/FoodDetails';
@@ -32,14 +32,14 @@ const Routes = () => (
     <Route
       exact
       path="/explorar/comidas/ingredientes"
-      component={ FoodExploreIngredients }
+      component={ ExploreFoodsByIngredients }
     />
     <Route
       exact
       path="/explorar/bebidas/ingredientes"
-      component={ ExploreDrinksIngredients }
+      component={ ExploreDrinksByIngredients }
     />
-    <Route exact path="/explorar/comidas/area" component={ ExploreFoodsLocal } />
+    <Route exact path="/explorar/comidas/area" component={ ExploreFoodByLocalOrigin } />
     <Route exact path="/perfil" component={ ProfilePage } />
     <Route exact path="/receitas-feitas" component={ ReadyMadeRecipes } />
     <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />

@@ -8,6 +8,14 @@ function Drinks() {
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataDrinksCategories, setDataDrinksCategories] = useState([]);
   const [drinkCategorySelected, setDrinkCategorySelected] = useState([]);
+  const [selectedDrink, setSelectedDrink] = useState(false);
+
+  function handleClick({ target }) {
+    setDrinkCategorySelected(target.value);
+    if (drinkCategorySelected !== target.value && drinkCategorySelected.length > 0) {
+      setSelectedDrink(selectedDrink);
+    } else { setSelectedDrink(!selectedDrink); }
+  }
 
   useEffect(() => {
     api.fetchCategoriesDrink()
@@ -15,7 +23,7 @@ function Drinks() {
       .then((result) => setDataDrinksCategories(
         result.drinks.slice(0, CATEGORIES_LENGTH_5),
       ));
-    if (drinkCategorySelected.length > 0) {
+    if (drinkCategorySelected.length && selectedDrink) {
       api.fetchDrinkByCategory(drinkCategorySelected)
         .then((response) => response.json())
         .then((result) => setDataDrinks(result.drinks));
@@ -24,22 +32,33 @@ function Drinks() {
         .then((response) => response.json())
         .then((result) => setDataDrinks(result.drinks));
     }
-  }, [drinkCategorySelected]);
-  console.log(drinkCategorySelected);
+  }, [drinkCategorySelected, selectedDrink]);
   return (
     <div>
       <components.Header title="Bebidas" />
-      {dataDrinksCategories.slice(0, CATEGORIES_LENGTH_5).map(({ strCategory }, index) => (
+      <div>
+
+        {dataDrinksCategories.slice(0, CATEGORIES_LENGTH_5).map(
+          ({ strCategory }, index) => (
+            <button
+              onClick={ handleClick }
+              data-testid={ `${strCategory}-category-filter` }
+              type="button"
+              key={ index }
+              value={ strCategory }
+            >
+              {strCategory}
+            </button>
+          ),
+        )}
         <button
-          onClick={ ({ target }) => setDrinkCategorySelected(target.value) }
-          data-testid={ `${strCategory}-category-filter` }
+          onClick={ () => setDrinkCategorySelected([]) }
           type="button"
-          key={ index }
-          value={ strCategory }
+          data-testid="All-category-filter"
         >
-          {strCategory}
+          All
         </button>
-      ))}
+      </div>
       <div className="home-container">
         {dataDrinks.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((drink, index) => (
           <MainDrinksCard

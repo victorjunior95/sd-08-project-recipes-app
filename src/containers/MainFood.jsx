@@ -9,12 +9,22 @@ function Home() {
   const [dataFoods, setDataFoods] = useState([]);
   const [dataFoodsCategories, setDataFoodCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
+  const [selected, setSelected] = useState(false);
+
+  function handleClick({ target }) {
+    setCategorySelected(target.value);
+    if (categorySelected !== target.value && categorySelected.length > 0) {
+      setSelected(selected);
+    } else {
+      setSelected(!selected);
+    }
+  }
 
   useEffect(() => {
     api.fetchCategoriesFood()
       .then((response) => response.json())
       .then((result) => setDataFoodCategories(result.meals));
-    if (categorySelected.length > 0) {
+    if (categorySelected.length && selected) {
       api.fetchFoodByCategory(categorySelected)
         .then((response) => response.json())
         .then((result) => setDataFoods(result.meals));
@@ -24,22 +34,32 @@ function Home() {
         .then((result) => setDataFoods(result.meals));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categorySelected]);
-
+  }, [categorySelected, selected]);
   return (
     <div>
       <components.Header title="Comidas" />
-      {dataFoodsCategories.slice(0, CATEGORIES_LENGTH_5).map(({ strCategory }, index) => (
+      <div>
+        {dataFoodsCategories.slice(0, CATEGORIES_LENGTH_5).map(
+          ({ strCategory }, index) => (
+            <button
+              onClick={ handleClick }
+              value={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              type="button"
+              key={ index }
+            >
+              {strCategory}
+            </button>
+          ),
+        )}
         <button
-          onClick={ ({ target }) => setCategorySelected(target.value) }
-          value={ strCategory }
-          data-testid={ `${strCategory}-category-filter` }
+          onClick={ () => setCategorySelected([]) }
           type="button"
-          key={ index }
+          data-testid="All-category-filter"
         >
-          {strCategory}
+          All
         </button>
-      ))}
+      </div>
       <div className="home-container">
         {dataFoods.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((food, index) => (
           <MainFoodsCard

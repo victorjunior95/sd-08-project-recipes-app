@@ -1,0 +1,21 @@
+.header {
+  align-items: center;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 60px;
+  left: 0;
+  padding: 10px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100%;
+}
+
+.header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}

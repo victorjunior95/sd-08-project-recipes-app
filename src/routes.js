@@ -2,12 +2,40 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Foods from './pages/Foods';
+import Profile from './pages/Profile';
+import Meals from './pages/Meals';
+import Cocktails from './pages/Cocktails';
+import Explore from './pages/Explore';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import DoneRecipes from './pages/DoneRecipes';
+import ExploreMealsByIngredient from './pages/ExploreMealsByIngredient';
+import ExploreCocktailsByIngredient from './pages/ExploreCocktailsByIngredient';
+import ExploreMealsByArea from './pages/ExploreMealsByArea';
+import ExploreMeals from './pages/ExploreMeals';
+import ExploreCocktails from './pages/ExploreCocktails';
 
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/comidas" component={ Foods } />
+      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route path="/receitas-feitas" component={ DoneRecipes } />
+      <Route path="/perfil" component={ Profile } />
+      <Route path="/comidas/:id" component={ Meals } />
+      <Route path="/bebidas/:id" component={ Cocktails } />
+      <Route path="/comidas" component={ Meals } />
+      <Route path="/bebidas" component={ Cocktails } />
+      <Route
+        path="/explorar/comidas/ingredientes"
+        component={ ExploreMealsByIngredient }
+      />
+      <Route
+        path="/explorar/bebidas/ingredientes"
+        component={ ExploreCocktailsByIngredient }
+      />
+      <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
+      <Route path="/explorar/comidas" component={ ExploreMeals } />
+      <Route path="/explorar/bebidas" component={ ExploreCocktails } />
+      <Route path="/explorar" component={ Explore } />
       <Route path="/" component={ Login } />
     </Switch>
   );

@@ -54,7 +54,8 @@ class SearchBar extends Component {
     }
     const { meals } = await fetch(endPoint)
       .then((response) => response.json());
-    if (meals !== null) {
+    if (meals) {
+      console.log(meals);
       this.setState({ array: meals, rotaComida: true, rotaBebida: false });
     } else {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

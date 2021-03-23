@@ -29,7 +29,7 @@ function DrinksContext(props) {
 
   useEffect(() => {
     async function fetchDataDrinks() {
-      const initialContentDrink = await getDrinkByIngredients('Light rum');
+      const initialContentDrink = await getDrinkByName('');
       setDrinks(initialContentDrink);
     }
     fetchDataDrinks();
@@ -101,15 +101,33 @@ function DrinksContext(props) {
     }
   };
 
+  // const handleByCategoryDrinkAll = async () => {
+  //   console.log(categoriesDrinks);
+  //   const result = await Promise.all(categoriesDrinks.map(async ({ strCategory }) => {
+  //     const drinksAll = await getDrinksByCategory(strCategory);
+  //     // console.log(drinksAll);
+  //     return drinksAll;
+  //   }));
+  //   const reduceDrinks = result.reduce((acc, curr) => acc.concat(curr));
+  //   console.log(reduceDrinks);
+  //   return reduceDrinks;
+  // };
+
   const handleByCategoryDrink = async (category) => {
-    const drinksByCategory = await getDrinksByCategory(category);
-    setDrinks(drinksByCategory);
-    setCategoryDrinks(category);
     if (category === categoryDrinks) {
-      const resetFilter = await getDrinkByIngredients();
+      const resetFilter = await getDrinkByName('');
       setDrinks(resetFilter);
+    } else if (category === 'all') {
+      const drinksByCategory = await getDrinkByName('');
+      setDrinks(drinksByCategory);
+      setCategoryDrinks(category);
+    } else {
+      const drinksByCategory = await getDrinksByCategory(category);
+      setDrinks(drinksByCategory);
+      setCategoryDrinks(category);
     }
   };
+
   const { children } = props;
   return (
     <div>

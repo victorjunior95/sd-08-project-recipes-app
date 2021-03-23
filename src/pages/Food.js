@@ -17,7 +17,13 @@ function Food() {
     <div className="container">
       <HeaderSearchBar />
       <div className="category-filter">
-        <button data-testid="All-category-filter" type="button">all</button>
+        <button
+          onClick={ () => handleByCategoryMeal('all') }
+          data-testid="All-category-filter"
+          type="button"
+        >
+          All
+        </button>
         {categoriesMeals
           .slice(startOfSlice, endOfSliceOfCategories)
           .map((category) => (

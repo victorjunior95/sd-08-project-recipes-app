@@ -25,14 +25,23 @@ function SearchHeader({ page }) {
       const foods = await requestsForSearchHeaderFoods(searchText, filterRadio);
       if (foods) {
         dispatch(actionFilteredFoods(foods));
+      } else {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
       }
     } else if (page === 'Bebidas') {
       const drinks = await requestsForSearchHeaderDrinks(
         searchText,
         filterRadio,
       );
+      console.log(drinks);
       if (drinks) {
         dispatch(actionFilteredDrinks(drinks));
+      } else {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
       }
     } else {
       console.log('DEFINA UMA PÁGINA');
@@ -77,11 +86,7 @@ function SearchHeader({ page }) {
           onChange={ handleChangeRadio }
         />
       </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ onClick }
-      >
+      <button type="button" data-testid="exec-search-btn" onClick={ onClick }>
         Buscar
       </button>
     </form>

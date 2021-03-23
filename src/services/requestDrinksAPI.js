@@ -7,9 +7,13 @@ export const requestDrinkByName = async (name) => {
 
 export const requestDrinkByIngredient = async (ingredient) => {
   const path = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-  const response = await fetch(path);
-  const data = await response.json();
-  return data.drinks;
+  try {
+    const response = await fetch(path);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const requestDrinkByFirstLetter = async (letter) => {

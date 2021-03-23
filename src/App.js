@@ -3,11 +3,13 @@ import { Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Recipes from './pages/Recipes';
 import Profile from './pages/Profile';
+import Comidas from './pages/Meals/Meals';
+import Bebidas from './pages/Drinks/Drinks';
 import './App.css';
 
 function App() {
   return (
-    <div className="app">
+    <div className="meals">
       <Switch>
         <Route path="/comidas" component={ Recipes } />
         <Route path="/bebidas" component={ Recipes } />
@@ -32,6 +34,8 @@ function App() {
         {/* <Route path="/explorar" component={ Explore } /> */}
         {/* <Route path="/comidas/:id/in-progress" component={ Progress } /> */}
         {/* <Route path="/comidas/:id" component={ Details } /> */}
+        <Route path="/comidas" component={ Comidas } />
+        <Route path="/bebidas" component={ Bebidas } />
       </Switch>
     </div>
   );

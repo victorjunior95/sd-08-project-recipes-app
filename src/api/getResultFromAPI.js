@@ -2,6 +2,7 @@ const filterString = {
   Ingredients: 'filter.php?i=',
   'busca por nome': 'search.php?s=',
   'busca da primeira letra': 'search.php?f=',
+  filterBy: 'filter.php?c=',
 };
 
 const urlString = {
@@ -14,7 +15,7 @@ const objParameter = {
   '/bebidas': 'drinks',
 };
 
-async function getResultFromAPI(filter, path, text) {
+async function getResultFromAPI(path, filter = 'busca por nome', text = '') {
   const a = filter;
   const b = path;
   const TWELVE_FILTER = 12;

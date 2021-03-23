@@ -30,7 +30,7 @@ const Header = (props) => {
       alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
-    const results = await getResultFromAPI(userButton, location.pathname, userInput);
+    const results = await getResultFromAPI(location.pathname, userButton, userInput);
     if (results) context.setFilter(results);
   }
 

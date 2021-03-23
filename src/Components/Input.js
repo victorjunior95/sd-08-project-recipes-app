@@ -17,11 +17,15 @@ function Input({ type, name, value, onChange, dataId }) {
 }
 
 Input.propTypes = {
-  type: propTypes.string.isRequired,
+  type: propTypes.string,
   name: propTypes.string.isRequired,
   value: propTypes.string.isRequired,
   dataId: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,
+};
+
+Input.defaultProps = {
+  type: 'text',
 };
 
 export default Input;

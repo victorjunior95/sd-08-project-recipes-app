@@ -12,11 +12,14 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { data, setUser, setData } = useContext(RecipesContext);
+  const { data, setUser, setData, setMealData } = useContext(RecipesContext);
 
   useEffect(() => {
     api.fetchMeals()
-      .then((response) => response.json()).then((result) => setData(result.meals));
+      .then((response) => response.json()).then((result) => {
+        setData(result.meals);
+        setMealData(result.meals);
+      });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

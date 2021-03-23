@@ -30,7 +30,8 @@ export const header = {
   EXPLORAR: 'Explorar',
   EXPLORAR_COMIDAS: 'Explorar Comidas',
 };
-
+export const MAIN_FOOD_CARD_LENGTH_12 = 12;
+export const CATEGORIES_LENGTH_5 = 5;
 // const ReturnPathName = () => {
 //   const { pathname } = useLocation();
 //   return pathname;

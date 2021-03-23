@@ -9,26 +9,26 @@ class ExplorarComidas extends Component {
       <div>
         <HeaderLocation />
         <div>
-        <Link
-          data-testid="explore-by-ingredient"
-          to="/explorar/comidas/ingredientes"
-        >
-          Por Ingredientes
-        </Link>
-        <Link
-          data-testid="explore-by-area"
-          to="/explorar/comidas/area"
-        >
-          Por Local de Origem
-        </Link>
-        <Link
-          data-testid="explore-surprise"
-          to="/explorar/comidas"
-        >
-          Me Surpreenda!
-        </Link>
+          <Link
+            data-testid="explore-by-ingredient"
+            to="/explorar/comidas/ingredientes"
+          >
+            Por Ingredientes
+          </Link>
+          <Link
+            data-testid="explore-by-area"
+            to="/explorar/comidas/area"
+          >
+            Por Local de Origem
+          </Link>
+          <Link
+            data-testid="explore-surprise"
+            to="/explorar/comidas"
+          >
+            Me Surpreenda!
+          </Link>
 
-      </div>
+        </div>
         <Footer />
       </div>
     );

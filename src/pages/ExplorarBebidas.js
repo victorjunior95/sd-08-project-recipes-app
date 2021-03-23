@@ -7,22 +7,22 @@ class ExplorarBebidas extends Component {
   render() {
     return (
       <div>
-        <HeaderLocation title="Explorar Bebidas"/>
+        <HeaderLocation title="Explorar Bebidas" />
         <div>
-        <Link
-          data-testid="explore-by-ingredient"
-          to="/explorar/bebidas/ingredientes"
-        >
-          Por Ingredientes
-        </Link>
-        <Link
-          data-testid="explore-surprise"
-          to="/explorar/bebidas"
-        >
-          Me Surpreenda!
-        </Link>
+          <Link
+            data-testid="explore-by-ingredient"
+            to="/explorar/bebidas/ingredientes"
+          >
+            Por Ingredientes
+          </Link>
+          <Link
+            data-testid="explore-surprise"
+            to="/explorar/bebidas"
+          >
+            Me Surpreenda!
+          </Link>
 
-      </div>
+        </div>
         <Footer />
       </div>
     );

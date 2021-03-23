@@ -1,16 +1,46 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 
 import '../styles/SearchBar.css';
 
-function SearchBar() {
+function SearchBar(props) {
+  const { title } = props;
   const { setSearchType,
     setSearchInputValue,
     searchInputValue,
     searchType,
-    searchBarRequest } = useContext(RecipeContext);
+    searchBarRequestDrink,
+    searchBarRequestFood,
+    meals,
+    shouldRedirect,
+  } = useContext(RecipeContext);
+  const history = useHistory();
+
+  const requestAPI = async (value) => {
+    if (value === 'Comidas') {
+      await searchBarRequestFood(searchType, searchInputValue);
+    }
+    if (value === 'Bebidas') {
+      await searchBarRequestDrink(searchType, searchInputValue);
+    }
+  };
+
+  const redirect = (value) => {
+    if (meals.length === 1) {
+      if (value === 'Comidas') {
+        history.push(`/comidas/${meals[0].idMeal}`);
+      }
+      if (value === 'Bebidas') {
+        history.push(`/bebidas/${meals[0].idDrink}`);
+      }
+    }
+  };
+
   return (
     <div className="search-body">
+      {shouldRedirect && redirect(title)}
       <input
         type="text"
         data-testid="search-input"
@@ -54,12 +84,16 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => searchBarRequest(searchType, searchInputValue) }
+        onClick={ () => requestAPI(title) }
       >
         Buscar
       </button>
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;

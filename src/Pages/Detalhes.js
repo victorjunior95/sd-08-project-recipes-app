@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
+import '../styles/Card.css';
 
 function Detalhes() {
   const { setShouldRedirect } = useContext(RecipeContext);
@@ -31,11 +32,27 @@ function Detalhes() {
   }, []);
 
   const renderDrink = () => (
-    <h1>{objDetail[0].strDrink}</h1>
+    <div>
+      {console.log(objDetail[0])}
+      <h1>{objDetail[0].strDrink}</h1>
+      <img
+        className="food-image"
+        src={ objDetail[0].strDrinkThumb }
+        alt={ objDetail[0].strDrink }
+      />
+    </div>
   );
 
   const renderFood = () => (
-    <h1>{objDetail[0].strMeal}</h1>
+    <div>
+      <h1>{objDetail[0].strMeal}</h1>
+      <img
+        className="food-image"
+        src={ objDetail[0].strMealThumb }
+        alt={ objDetail[0].strMeal }
+      />
+    </div>
+
   );
 
   const render = () => {
@@ -48,10 +65,10 @@ function Detalhes() {
     }
   };
 
-  if (loading) return <p>Carregando</p>;
   return (
     <div>
-      {loading ? '' : render()}
+      {console.log(objDetail[0])}
+      {loading ? <p>Carregando</p> : render()}
     </div>
   );
 }

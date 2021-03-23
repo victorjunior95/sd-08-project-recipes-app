@@ -9,6 +9,7 @@ export const filterIngredient = async (query, currentPage) => {
     : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
   const api = await fetch(`${INGREDIENT_API}?i=${query}`);
   const result = await api.json();
+  console.log(result);
   return result;
 };
 

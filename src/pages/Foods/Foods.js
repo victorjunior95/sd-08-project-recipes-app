@@ -4,6 +4,7 @@ import './Foods.css';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import { FoodCtx } from '../../context/ContextFood';
+import Footer from '../../components/Footer';
 
 function Foods() {
   const STOP_INDEX = 11;
@@ -23,13 +24,15 @@ function Foods() {
               index={ index }
             />
           ))}
+
         { meals && meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }
-
-        {/* {meals && meals.length === 0
+        { meals === null
+          // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-          : '' } */}
+          : ''}
       </div>
+      <Footer />
     </div>
   );
 }

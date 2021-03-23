@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import { FoodCtx } from '../../context/ContextFood';
+import Footer from '../../components/Footer';
 
 function Drinks() {
   const STOP_INDEX = 11;
@@ -25,7 +26,12 @@ function Drinks() {
           ))}
         { drinks && drinks.length === 1
           ? <Redirect to={ `/bebidas/${drinks[0].idDrink}` } /> : '' }
+        { drinks === null
+          // eslint-disable-next-line no-alert
+          ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+          : ''}
       </div>
+      <Footer />
     </div>
   );
 }

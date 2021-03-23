@@ -41,6 +41,8 @@ export default function SeekBar() {
       <Button
         data-testid="exec-search-btn"
         className="ml-3"
+        size="sm"
+        variant="outline-info"
       >
         Buscar
       </Button>

@@ -7,23 +7,21 @@ export default function SeekBar() {
   return (
 
     <Form>
-      <Form.Row>
+      <Form.Row className="m-3">
         <FormControl
           type="text"
           placeholder="Pesquisar"
-          className="m-3"
           data-testid="search-input"
           onChange={ (e) => setOnSeek(e.target.value) }
         />
       </Form.Row>
-      <Form.Group as={ Row } className="justify-content-center">
+      <Form.Group as={ Row } className="justify-content-around mx-0 flex-row">
         <Form.Check
           sm={ 4 }
           data-testid="ingredient-search-radio"
           label="Ingrediente"
           type="radio"
           name="SearchChoise"
-          className="mr-3"
         />
         <Form.Check
           sm={ 4 }
@@ -31,7 +29,6 @@ export default function SeekBar() {
           label="Nome"
           type="radio"
           name="SearchChoise"
-          className="mr-3"
         />
         <Form.Check
           sm={ 4 }
@@ -39,7 +36,6 @@ export default function SeekBar() {
           label="Primeira Letra"
           type="radio"
           name="SearchChoise"
-          className="mr-3"
         />
       </Form.Group>
       <Button

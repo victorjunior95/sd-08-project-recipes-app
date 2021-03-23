@@ -3,32 +3,32 @@ import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 
-function Explorar() {
+function ExplorarBebidas() {
   const history = useHistory();
   return (
     <div>
       <HeaderWithoutSearch />
       <button
         type="button"
-        data-testid="explore-food "
+        data-testid="explore-by-ingredient"
         onClick={ () => {
-          history.push('/explorar/comidas');
+          history.push('/explorar/bebidas/ingredientes');
         } }
       >
-        Explorar Comidas
+        Por Ingredientes
       </button>
       <button
         type="button"
-        data-testid="explore-drinks"
+        data-testid="explore-surprise"
         onClick={ () => {
-          history.push('/explorar/bebidas');
+          history.push('/'); // endpoint: https://www.thecocktaildb.com/api/json/v1/1/random.php
         } }
       >
-        Explorar Bebidas
+        Me surpreenda!
       </button>
       <Footer />
     </div>
   );
 }
 
-export default Explorar;
+export default ExplorarBebidas;

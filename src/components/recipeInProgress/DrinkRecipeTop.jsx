@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import data from './data';
 
+const copy = require('clipboard-copy');
+
 const DrinkRecipeTop = () => {
   const recipe = [data[1]];
-  // const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // const recipe = meals[Object.keys(meals)[0]];
+  const history = useHistory();
+  const [copied, setCopy] = useState(false);
   console.log(recipe);
-
+  const copyToClipBoard = (url) => {
+    const rootUrl = url.replace('/in-progress', '');
+    copy(`http://localhost:3000${rootUrl}`)
+      .then(() => {
+        console.log('Copy OK!');
+        setCopy(true);
+      });
+  };
   return (
     <div>
       <div>
@@ -24,9 +34,14 @@ const DrinkRecipeTop = () => {
           <p data-testid="recipe-category">{recipe[0].strCategory}</p>
         </div>
         <div>
-          <button type="button" data-testid="share-btn">
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => copyToClipBoard(history.location.pathname) }
+          >
             <img src={ shareIcon } alt={ shareIcon } />
           </button>
+          {copied && <p>Link copiado!</p>}
           <button type="button" data-testid="favorite-btn">
             <img src={ whiteHeartIcon } alt={ whiteHeartIcon } />
           </button>

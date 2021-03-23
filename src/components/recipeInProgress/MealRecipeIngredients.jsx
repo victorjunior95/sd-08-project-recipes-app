@@ -89,11 +89,6 @@ const MealRecipeIngredients = () => {
                 {' - '}
                 {steps[1][indx][1]}
               </label>
-              {/* <p>
-                {ingredientsString[1]}
-                {' - '}
-                {steps[1][indx][1]}
-              </p> */}
             </li>
           ))}
         </ol>

@@ -26,6 +26,7 @@ function Foods() {
         { meals && meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }
         { meals === null
+          // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
       </div>

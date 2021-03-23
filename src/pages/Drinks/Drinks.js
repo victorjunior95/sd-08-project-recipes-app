@@ -7,7 +7,7 @@ import Context from '../../context/Context';
 
 const SHOW_TWELVE_RECIPES = 12;
 
-export default function Foods() {
+export default function Drinks() {
   const { recipes, setSearchParams,
     searchParams: { selectedParameter } } = useContext(Context);
   const history = useHistory();

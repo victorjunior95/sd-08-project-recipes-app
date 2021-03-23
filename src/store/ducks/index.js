@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
 import user from './user';
-import recipes from './recipes';
+import meals from './meals';
+import cocktails from './cocktails';
 
 export default combineReducers({
   user,
-  recipes,
+  meals,
+  cocktails,
 });

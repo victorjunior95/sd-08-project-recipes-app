@@ -1,6 +1,6 @@
 import fetchEndpoint from './utils';
 
-const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
+const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 
 export const getByIngredient = (ingredient) => (
   fetchEndpoint(`${BASE_URL}/filter.php?i=${ingredient}`)

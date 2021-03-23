@@ -1,6 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DataDrinksContext } from '../context/ContextDrinks';
+import { getDrinkRecipesDetails } from '../services/getAPIs';
+
 import './DetailsDrink.css';
 
 function DetailsDrink() {
@@ -10,8 +12,15 @@ function DetailsDrink() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   useEffect(() => {
     const result = drinks.filter((drink) => drink.idDrink === Params.id);
-    setDrinkDetail(result);
+    const getIdDrink = result.map((item) => item.idDrink);
+    async function fetchDetailsRecipe() {
+      const getDetailsRecipe = await getDrinkRecipesDetails(getIdDrink);
+      setDrinkDetail(getDetailsRecipe);
+    }
+    fetchDetailsRecipe();
   }, [drinks, Params.id]);
+
+  // console.log(drinkDetail);
   return (
     <div>
       <div className="container-card-drink-details">

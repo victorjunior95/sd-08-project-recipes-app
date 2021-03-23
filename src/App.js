@@ -3,11 +3,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './routes/routes';
 import ContextFood from './context/ContextFood';
+import ContextDrink from './context/ContextDrink';
 
 function App() {
   return (
     <ContextFood>
-      <Routes />
+      <ContextDrink>
+        <Routes />
+      </ContextDrink>
     </ContextFood>
   );
 }

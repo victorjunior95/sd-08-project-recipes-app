@@ -2,24 +2,23 @@ import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { filterFirstLetter, filterIngredient, filterName } from '../services/api';
 
-export const FoodCtx = createContext();
+export const DrinkCtx = createContext();
 
 function ContextFood(props) {
   const { children } = props;
-  const [foodApi, setFoodApi] = useState([]);
-  const [filterFood, setFilterFood] = useState({ key: 'name', value: 'be' });
-  const { key, value } = filterFood;
+  const [drinkApi, setDrinkApi] = useState([]);
+  const [filterDrink, setFilterDrink] = useState({ key: 'name', value: '' });
+  const { key, value } = filterDrink;
 
   useEffect(() => {
     async function connect() {
       if (key === 'ing') {
-        const i = await filterIngredient(value, 'Foods');
-        return setFoodApi(i);
+        const i = await filterIngredient(value, 'Drinks');
+        return setDrinkApi(i);
       }
       if (key === 'name') {
-        const n = await filterName(value, 'Foods');
-        console.log('name');
-        return setFoodApi(n);
+        const n = await filterName(value, 'Drinks');
+        return setDrinkApi(n);
       }
       if (key === 'first') {
         if (value.length > 1) {
@@ -27,20 +26,20 @@ function ContextFood(props) {
           alert('Sua busca deve conter somente 1 (um) caracter');
           return;
         }
-        const f = await filterFirstLetter(value, 'Foods');
+        const f = await filterFirstLetter(value, 'Drinks');
         console.log(value);
-        return setFoodApi(f);
+        return setDrinkApi(f);
       }
     }
     connect();
   }, [key, value]);
 
   return (
-    <FoodCtx.Provider
-      value={ { foodApi, setFoodApi, filterFood, setFilterFood } }
+    <DrinkCtx.Provider
+      value={ { drinkApi, filterDrink, setFilterDrink } }
     >
       {children}
-    </FoodCtx.Provider>
+    </DrinkCtx.Provider>
   );
 }
 

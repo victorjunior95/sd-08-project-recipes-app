@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import './Search.css';
 import { FoodCtx } from '../../context/ContextFood';
+import { DrinkCtx } from '../../context/ContextDrink';
 
-function Search() {
-  const { setFilter, currentPage } = useContext(FoodCtx);
+function Search(props) {
+  const { setFilterFood } = useContext(FoodCtx);
+  const { setFilterDrink } = useContext(DrinkCtx);
   const [radio, setRadio] = useState('');
   const [input, setInput] = useState('');
 
@@ -16,9 +19,13 @@ function Search() {
   };
 
   const handleSubmit = (e) => {
+    const { currentPage } = props;
     e.preventDefault();
-    // console.log(radio, input);
-    setFilter({ key: radio, value: input, currentPage });
+    if (currentPage === 'Foods') {
+      setFilterFood({ key: radio, value: input });
+    } else {
+      setFilterDrink({ key: radio, value: input });
+    }
   };
 
   return (
@@ -71,5 +78,9 @@ function Search() {
     </div>
   );
 }
+
+Search.propTypes = {
+  currentPage: PropTypes.string.isRequired,
+};
 
 export default Search;

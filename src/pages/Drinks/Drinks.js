@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
-import { FoodCtx } from '../../context/ContextFood';
+import { DrinkCtx } from '../../context/ContextDrink';
 import Footer from '../../components/Footer';
 
 function Drinks() {
   const STOP_INDEX = 11;
-  const { drinkApi: { drinks } } = useContext(FoodCtx);
+  const { drinkApi: { drinks } } = useContext(DrinkCtx);
   console.log(drinks);
   return (
     <div>
-      <Header name="Bebidas" currentPage="Drinks" />
+      <Header name="Bebidas" icon="true" currentPage="Drinks" />
       <div className="cards">
         {drinks && drinks
           .filter((drink, index) => index <= STOP_INDEX)
@@ -31,6 +31,7 @@ function Drinks() {
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
       </div>
+      <div className="spacing" />
       <Footer />
     </div>
   );

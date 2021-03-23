@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import DrinkContext from '../context/bebidaContext/DrinkContext';
+import DrinkContext from '../../context/bebidaContext/DrinkContext';
 
 function CardDrink() {
   const {

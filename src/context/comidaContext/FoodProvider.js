@@ -10,16 +10,20 @@ function FoodProvider({ children }) {
 
   const [foods, setFoods] = useState([]);
 
+  const [detailFoods, setDetailsFoods] = useState([]);
+
   const provide = {
     values: {
       searchInput,
       searchType,
       foods,
+      detailFoods,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
       setFoods,
+      setDetailsFoods,
     },
   };
   return (

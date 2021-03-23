@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import searchIcon from '../images/searchIcon.svg';
+import requestApi from '../services/requestApi';
 
 function ExploreButton({ title }) {
   const history = useHistory();
@@ -9,11 +10,11 @@ function ExploreButton({ title }) {
     toggleExplore,
     setToggleExplore,
     setSearchFilter,
-    searchFilter,
     setInputSearch,
-    inputSearch,
     setApiResponse,
     setCreateCards,
+    searchFilter,
+    inputSearch,
   } = useContext(MyContext);
 
   function changeToggle() {
@@ -29,39 +30,21 @@ function ExploreButton({ title }) {
   }
 
   async function requisitarReceitas() {
-    let endPoint;
     let url = { name: 'thecocktaildb', id: 'idDrink', type: 'drinks' };
-    let tamanhoResposta;
-
+    
     if (title === 'Comidas') {
       url = { name: 'themealdb', id: 'idMeal', type: 'meals' };
     }
 
-    if (searchFilter === 'ingredientes') {
-      endPoint = `https://www.${url.name}.com/api/json/v1/1/filter.php?i=${inputSearch}`;
-    } else if (searchFilter === 'name') {
-      endPoint = `https://www.${url.name}.com/api/json/v1/1/search.php?s=${inputSearch}`;
-    } else if (searchFilter === 'primeira' && inputSearch.length === 1) {
-      endPoint = `https://www.${url.name}.com/api/json/v1/1/search.php?f=${inputSearch}`;
-    } else {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    let terminatedRequest;
-    try {
-      const requestApi = await fetch(endPoint);
-      const jsonApi = await requestApi.json();
-      terminatedRequest = await jsonApi;
-      tamanhoResposta = await jsonApi;
-    } catch (error) {
-      tamanhoResposta = undefined;
-    }
+    const { tamanhoResposta, terminatedRequest } = await requestApi(url, searchFilter, inputSearch);
 
-    setApiResponse(await terminatedRequest);
+    setApiResponse(terminatedRequest);
 
     if (!tamanhoResposta || !terminatedRequest[url.type]) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros');
+      alert(`Sinto muito, não encontramos nenhuma receita para esses filtros.`);
     } else if (terminatedRequest[url.type].length === 1) {
-      history.push(`/${title.toLowerCase()}/${url.id}`);
+      console.log(terminatedRequest[url.type][0][url.id]);
+      history.push(`/${title.toLowerCase()}/${terminatedRequest[url.type][0][url.id]}`);
     } else {
       setCreateCards(true);
     }

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
+import MyContext from '../context/MyContext';
+import Cards from '../components/Cards';
 
 function Bebidas() {
+  const {
+    createCards,
+  } = useContext(MyContext);
+
   return (
-    <Header title="Bebidas" explore />
+    <div>
+      <Header title="Bebidas" explore />
+      {createCards ? <Cards /> : null}
+    </div>
   );
 }
 

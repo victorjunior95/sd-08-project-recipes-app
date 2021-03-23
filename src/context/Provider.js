@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [inputSearch, setInputSearch] = useState('');
   const [createCards, setCreateCards] = useState(false);
   const [apiResponse, setApiResponse] = useState([]);
+  const [type, setType] = useState('');
   const contextValue = {
     userEmail,
     setEmail,
@@ -25,6 +26,8 @@ function Provider({ children }) {
     setCreateCards,
     apiResponse,
     setApiResponse,
+    type,
+    setType,
   };
 
   return (

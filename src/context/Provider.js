@@ -5,6 +5,7 @@ import getApi from '../services/apiRequests';
 
 export default function Provider({ children }) {
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [searchParams, setSearchParams] = useState({
     searchInput: '',
     selectedParameter: '',
@@ -15,7 +16,7 @@ export default function Provider({ children }) {
 
   useEffect(() => {
     let domain = '';
-    if (location.includes('comida')) {
+    if (location.includes('comidas')) {
       domain = 'themealdb';
     } else if (location.includes('bebidas')) {
       domain = 'thecocktaildb';
@@ -26,20 +27,41 @@ export default function Provider({ children }) {
       getApi(domain, `filter.php?i=${searchInput}`)
         .then((response) => setRecipes(response));
       break;
+
     case 'name':
       getApi(domain, `search.php?s=${searchInput}`)
         .then((response) => setRecipes(response));
       break;
+
     case 'first-letter':
       getApi(domain, `search.php?f=${searchInput}`)
         .then((response) => setRecipes(response));
       break;
+
+    case 'category':
+      getApi(domain, `filter.php?c=${searchInput}`)
+        .then((response) => setRecipes(response));
+      break;
+
     default:
+      if (domain) {
+        getApi(domain, 'search.php?s=')
+          .then((response) => setRecipes(response));
+
+        getApi(domain, 'list.php?c=list')
+          .then((response) => response.map((category) => category.strCategory))
+          .then((response) => setCategories(['All', ...response]));
+      }
       break;
     }
   }, [location, searchInput, searchParams, selectedParameter]);
 
-  const context = { searchParams, setSearchParams, recipes };
+  const context = {
+    setSearchParams,
+    searchParams,
+    recipes,
+    categories,
+  };
 
   return <Context.Provider value={ context }>{children}</Context.Provider>;
 }

@@ -8,7 +8,6 @@ import ExploreButton from './ExploreButton';
 
 function Header({ title, explore }) {
   const {
-    type,
     setType,
   } = useContext(MyContext);
   let name;
@@ -18,13 +17,13 @@ function Header({ title, explore }) {
       name = {
         palavra: 'Meal',
         item: 'meals',
-      }
+      };
       setType(name);
     } else {
       name = {
         palavra: 'Drink',
         item: 'drinks',
-      }
+      };
       setType(name);
     }
   }, []);
@@ -40,8 +39,9 @@ function Header({ title, explore }) {
   );
 }
 
-export default Header;
-
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  explore: PropTypes.bool.isRequired,
 };
+
+export default Header;

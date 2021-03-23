@@ -31,17 +31,20 @@ function ExploreButton({ title }) {
 
   async function requisitarReceitas() {
     let url = { name: 'thecocktaildb', id: 'idDrink', type: 'drinks' };
-    
+
     if (title === 'Comidas') {
       url = { name: 'themealdb', id: 'idMeal', type: 'meals' };
     }
 
-    const { tamanhoResposta, terminatedRequest } = await requestApi(url, searchFilter, inputSearch);
+    const {
+      tamanhoResposta,
+      terminatedRequest,
+    } = await requestApi(url, searchFilter, inputSearch);
 
     setApiResponse(terminatedRequest);
 
     if (!tamanhoResposta || !terminatedRequest[url.type]) {
-      alert(`Sinto muito, não encontramos nenhuma receita para esses filtros.`);
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (terminatedRequest[url.type].length === 1) {
       console.log(terminatedRequest[url.type][0][url.id]);
       history.push(`/${title.toLowerCase()}/${terminatedRequest[url.type][0][url.id]}`);
@@ -92,7 +95,13 @@ function ExploreButton({ title }) {
             data-testid="first-letter-search-radio"
           />
         </label>
-        <button type="button" data-testid="exec-search-btn" onClick={ requisitarReceitas }>Buscar</button>
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ requisitarReceitas }
+        >
+          Buscar
+        </button>
       </>
     );
   }
@@ -107,6 +116,9 @@ function ExploreButton({ title }) {
   );
 }
 
+ExploreButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  toLowerCase: PropTypes.func.isRequired,
+};
+
 export default ExploreButton;
-
-

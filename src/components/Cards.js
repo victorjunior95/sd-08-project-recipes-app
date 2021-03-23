@@ -3,33 +3,31 @@ import MyContext from '../context/MyContext';
 
 function Cards() {
   const {
-    createCards,
     apiResponse,
     type,
   } = useContext(MyContext);
+  const LIMIT = 11;
 
   return (
     apiResponse[type.item].map((item, index) => {
-      console.log(type.palavra);
-
-      if (index <= 11) {
+      if (index <= LIMIT) {
         return (
           <div
-          key={index}
-          data-testid={`${index}-recipe-card`}
-        >
-          <h3
-            data-testid={`${index}-card-name`}
-          >{item[`str${type.palavra}`]}</h3>
-          <img
-            data-testid={`${index}-card-img`}
-            src={item[`str${type.palavra}Thumb`]}
-          ></img>
-        </div>
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <h3 data-testid={ `${index}-card-name` }>
+              { item[`str${type.palavra}`] }
+            </h3>
+            <img
+              alt={ item[`str${type.palavra}`] }
+              data-testid={ `${index}-card-img` }
+              src={ item[`str${type.palavra}Thumb`] }
+            />
+          </div>
         );
-      } else {
-        return null;
       }
+      return null;
     })
   );
 }

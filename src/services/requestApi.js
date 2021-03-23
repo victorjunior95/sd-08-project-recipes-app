@@ -14,8 +14,8 @@ const requestApi = async (url, searchFilter, inputSearch) => {
   }
 
   try {
-    const requestApi = await fetch(endPoint);
-    const jsonApi = await requestApi.json();
+    const featchApi = await fetch(endPoint);
+    const jsonApi = await featchApi.json();
     terminatedRequest = await jsonApi;
     tamanhoResposta = await jsonApi;
   } catch (error) {
@@ -25,7 +25,7 @@ const requestApi = async (url, searchFilter, inputSearch) => {
   const retornoApi = {
     tamanhoResposta,
     terminatedRequest,
-  }
+  };
 
   return retornoApi;
 };

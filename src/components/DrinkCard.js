@@ -5,7 +5,7 @@ function DrinkCard({ drink, index, history }) {
   const { strDrink, strDrinkThumb, idDrink } = drink;
 
   return (
-    <button
+<button
       type="button"
       data-testid={ `${index}-recipe-card` }
       onClick={ () => history.push(`/bebidas/${idDrink}`) }

@@ -2,9 +2,7 @@ import React from 'react';
 import TextInput from '../components/TextInput';
 
 function Login() {
-  return(
-    <TextInput />
-  )
+  return <TextInput />;
 }
 
 export default Login;

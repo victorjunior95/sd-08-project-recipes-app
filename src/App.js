@@ -1,15 +1,14 @@
 import React from 'react';
+
 import RecipesProvider from './ContextApi/RecipesProvider';
-import RecipesFood from './pages/RecipesFood';
-import Login from './pages/Login';
-import { Route, Switch } from 'react-router-dom';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Routes from './Routes';
 
 function App() {
   return (
-    //gif inicial da Trybe
+    // gif inicial da Trybe
     // <div className="meals">
     //   <span className="logo">TRYBE</span>
     //   <object
@@ -21,10 +20,7 @@ function App() {
     //   </object>
     // </div>
     <RecipesProvider>
-      <Switch>
-        <Route exact path='/' component={ Login } />
-        <Route path='/comidas' component={ RecipesFood } />
-      </Switch>
+      <Routes />
     </RecipesProvider>
   );
 }

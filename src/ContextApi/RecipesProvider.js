@@ -8,28 +8,28 @@ function RecipesProvider({ children }) {
 
   const handleEmail = ({ target: { value } }) => {
     setEmail(value);
-  }
-  
+  };
+
   const handlePassword = ({ target: { value } }) => {
     setPassword(value);
-  }
-  
+  };
+
   const provide = {
     email,
     password,
     handleEmail,
     handlePassword,
-  }
+  };
 
   return (
     <RecipesContext.Provider value={ provide }>
-      { children }
+      {children}
     </RecipesContext.Provider>
-  )
+  );
 }
 
 RecipesProvider.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
 export default RecipesProvider;

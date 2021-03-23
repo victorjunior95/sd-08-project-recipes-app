@@ -10,6 +10,8 @@ import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Card from '../components/Card';
 
+const RESULTS_LIMIT = 12;
+
 const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
@@ -27,7 +29,7 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
       />
       { showSearchBar && <SearchBar fetchFunction={ fetchCocktails } /> }
       { notFound && <p>Nenhuma bebida encontrada</p> }
-      { drinks.length > 1 && drinks.slice(0, 12).map((drink, index) => (
+      { drinks.length > 1 && drinks.slice(0, RESULTS_LIMIT).map((drink, index) => (
         <Card
           key={ drink.idDrink }
           nome={ drink.strDrink }

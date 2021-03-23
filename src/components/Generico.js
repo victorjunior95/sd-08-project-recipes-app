@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fetchFoodApiById } from '../helpers';
+import { fetchFoodApiById, fetchRandomFood } from '../helpers';
 
 class Generico extends Component {
   constructor() {
@@ -16,6 +16,12 @@ class Generico extends Component {
 
   componentDidMount() {
     this.fetchRecipe();
+    this.getRandomRecomendation();
+  }
+
+  async getRandomRecomendation() {
+    const recomendation = await fetchRandomFood(2);
+    console.log(recomendation);
   }
 
   async fetchRecipe() {

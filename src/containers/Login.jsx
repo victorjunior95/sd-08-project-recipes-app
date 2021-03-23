@@ -17,7 +17,7 @@ const Login = () => {
   useEffect(() => {
     api.fetchMeals()
       .then((response) => response.json()).then((result) => setData(result.meals));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
-import CocktailPage from './CocktailPage';
+import RecipesPage from './RecipesPage';
 import Footer from '../components/Footer';
 
 function MainRecipes(history) {
@@ -10,7 +10,7 @@ function MainRecipes(history) {
   return (
     <main>
       <Header title={ pathname } />
-      <CocktailPage />
+      <RecipesPage />
       <Footer />
     </main>
   );

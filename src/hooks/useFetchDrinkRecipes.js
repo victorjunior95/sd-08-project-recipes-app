@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -8,10 +8,10 @@ import {
   fetchRandomDrinks,
 } from '../services/CocktailAPI';
 
-function CocktailPage() {
-  const [recipes, setRecipes] = useState([]);
+const useFetchDrinkRecipes = () => {
+  const [recipesDrink, setRecipesDrink] = useState([]);
   const [randomDrinks, setRandomDrinks] = useState([]);
-  const [bySearch, setBySearch] = useState(false);
+  const [drinkBySearch, setDrinkBySearch] = useState(false);
 
   const searchValue = useSelector((state) => state.search.inputValue);
   const searchType = useSelector((state) => state.search.inputType);
@@ -19,18 +19,18 @@ function CocktailPage() {
   const getSearchValues = useCallback(async () => {
     if (searchType === 'ingredient') {
       const { drinks } = await fetchCocktailByIngredients(searchValue);
-      setRecipes(drinks);
-      setBySearch(true);
+      setRecipesDrink(drinks);
+      setDrinkBySearch(true);
     }
     if (searchType === 'name') {
       const { drinks } = await fetchCocktailByName(searchValue);
-      setRecipes(drinks);
-      setBySearch(true);
+      setRecipesDrink(drinks);
+      setDrinkBySearch(true);
     }
     if (searchType === 'first-letter' && searchValue.length === 1) {
       const { drinks } = await fetchCocktailByFirstLetter(searchValue);
-      setRecipes(drinks);
-      setBySearch(true);
+      setRecipesDrink(drinks);
+      setDrinkBySearch(true);
     }
   }, [searchType, searchValue]);
 
@@ -47,33 +47,7 @@ function CocktailPage() {
     }
   }, [getSearchValues, randomDrinks, searchType, searchValue]);
 
-  function generateRecipesList(list) {
-    return (
-      <div>
-        { list.map((elem) => (
-          <div key={ elem.idDrink }>
-            <h4>{ elem.strDrink }</h4>
-            <span>{ elem.idDrink }</span>
-            <img
-              src={ elem.strDrinkThumb }
-              alt={ elem.strDrink }
-            />
-          </div>
-        ))}
-      </div>
-    );
-  }
+  return [recipesDrink, randomDrinks, drinkBySearch];
+};
 
-  if (!bySearch) {
-    return (
-      <div>
-        <h2>Random suggestion</h2>
-        { generateRecipesList(randomDrinks) }
-      </div>
-    );
-  }
-
-  return generateRecipesList(recipes);
-}
-
-export default CocktailPage;
+export default useFetchDrinkRecipes;

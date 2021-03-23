@@ -1,28 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import SearchDropDown from './SearchDropDown';
 import ProfileButton from './buttons/ProfileButton';
 import SearchButton from './buttons/SearchButton';
 
 function Header(props) {
   const { pathname } = useLocation();
   const { title } = props;
+  const [dropSearch, setDropSearch] = useState(false);
   return (
-    <header className="header-container">
-      <ProfileButton />
-      <h2 data-testid="page-title">
+    <>
+      <header className="header-container">
+        <ProfileButton />
+        <h2 data-testid="page-title">
+          {
+            title
+          }
+        </h2>
         {
-          title
+          pathname === '/comidas'
+          || pathname === '/bebidas'
+          || pathname === '/explorar/comidas/area'
+            ? <SearchButton handleDrop={ setDropSearch } status={ dropSearch } /> : null
         }
-      </h2>
-      {
-        pathname === '/comidas'
-        || pathname === '/bebidas'
-        || pathname === '/explorar/comidas/area'
-          ? <SearchButton /> : null
-      }
-    </header>
+      </header>
+      {dropSearch ? <SearchDropDown /> : null}
+    </>
   );
 }
 

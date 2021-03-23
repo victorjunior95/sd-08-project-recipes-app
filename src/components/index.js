@@ -11,6 +11,7 @@ import SurpriseMeButton from './buttons/SurpriseMeButton';
 import DoneRecipesButton from './buttons/DoneRecipesButton';
 import FavoritesButton from './buttons/FavoritesButton';
 import LogoutButton from './buttons/LogoutButton';
+import SearchDropDown from './SearchDropDown';
 
 const components = {
   Header,
@@ -26,6 +27,7 @@ const components = {
   DoneRecipesButton,
   FavoritesButton,
   LogoutButton,
+  SearchDropDown,
 };
 
 export default components;

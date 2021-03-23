@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import * as core from '../core/index';
 import api from '../services/index';
 import rockGlass from '../images/rockGlass.svg';
-import RecipiesContext from '../core/RecipiesContext';
+import RecipesContext from '../core/RecipesContext';
 
 const Login = () => {
   const history = useHistory();
@@ -12,7 +12,7 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { data, setUser, setData } = useContext(RecipiesContext);
+  const { data, setUser, setData } = useContext(RecipesContext);
 
   useEffect(() => {
     api.fetchMeals()

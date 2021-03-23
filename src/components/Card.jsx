@@ -2,19 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/card.css';
 
-const Card = ({ idMeal, imagePath, title, category }) => (
-  <section key={ idMeal } className="card">
-    <img src={ imagePath } alt={ title } />
+const Card = ({ id, imagePath, title, category, index }) => (
+  <section key={ id } className="card" data-testid={ `${index}-recipe-card` }>
+    <img src={ imagePath } alt={ title } data-testid={ `${index}-card-img` } />
     <p>{category}</p>
-    <p>{title}</p>
+    <p data-testid={ `${index}-card-name` }>{title}</p>
   </section>
 );
 
 Card.propTypes = {
-  idMeal: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default Card;

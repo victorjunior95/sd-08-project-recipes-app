@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { fetchFoodApiById } from '../helpers';
 
 class Generico extends Component {
   constructor() {
@@ -19,8 +20,7 @@ class Generico extends Component {
 
   async fetchRecipe() {
     const { match: { params: { foodId } } } = this.props;
-    const recipe = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodId}`)
-      .then((response) => response.json()).then((e) => e.meals[0]);
+    const recipe = await fetchFoodApiById(foodId);
     this.generateIngredientList(recipe);
     this.video(recipe);
   }

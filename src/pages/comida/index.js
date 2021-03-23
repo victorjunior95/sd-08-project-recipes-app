@@ -1,31 +1,22 @@
-import React, { useContext }  from 'react';
+import React, { useContext } from 'react';
 import Header from '../../components/Header';
-import MainFoodContext from '../../context/mainFoodContext';
-import requestMealRecipe from '../../services/API';
+
 import CardFood from '../../components/CardFood';
 import SearchBarFood from '../../components/SearchBarFood';
+import FoodContext from '../../context/comidaContext/FoodContext';
 
 function Comida() {
-  const {
-    values: {
-      mealThumbnail,
-      mealName,
-    },
-    functions: {
-      handleMealThumbnail,
-      handleMealName,
-    },
-  } = useContext(MainFoodContext);
-
-  const requestAPI = async () => {
-    const response = await requestMealRecipe(searchInput);
-    return setFoods(response);
-  };
+  const { values: { mealArray } } = useContext(FoodContext);
+  console.log(mealArray);
 
   return (
     <section>
       <Header component={ <SearchBarFood /> }>Comidas</Header>
       <CardFood />
+      {/* <div>{mealArray.strMeal}</div> */}
+      {/* <MainFoodProvider>
+        OI
+      </MainFoodProvider> */}
     </section>
   );
 }

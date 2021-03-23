@@ -6,7 +6,10 @@ import exploreIcon from '../images/exploreIcon.svg';
 
 function Footer() {
   return (
-    <div data-testid="footer">
+    <div
+      data-testid="footer"
+      className="footer"
+    >
       <Link to="/comidas">
         <img
           src={ mealIcon }

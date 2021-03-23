@@ -2,6 +2,7 @@ const filterString = {
   Ingredients: 'filter.php?i=',
   'busca por nome': 'search.php?s=',
   'busca da primeira letra': 'search.php?f=',
+  filterBy: 'filter.php?c=',
 };
 
 const urlString = {
@@ -14,14 +15,13 @@ const objParameter = {
   '/bebidas': 'drinks',
 };
 
-async function getResultFromAPI(filter, path, text) {
+async function getResultFromAPI(path, filter = 'busca por nome', text = '') {
   const a = filter;
   const b = path;
   const TWELVE_FILTER = 12;
   const fetchURL = `${urlString[b]}${filterString[a]}${text}`;
   const apiResultJSON = await fetch(fetchURL);
   const apiResult = await apiResultJSON.json();
-  console.log(apiResult);
   if (apiResult.meals === null || apiResult.drinks === null) {
     return null;
   } return apiResult[objParameter[b]].slice(0, TWELVE_FILTER);

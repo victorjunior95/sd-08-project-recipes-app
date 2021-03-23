@@ -25,7 +25,7 @@ function Header(props) {
             ? <SearchButton handleDrop={ setDropSearch } status={ dropSearch } /> : null
         }
       </header>
-      {dropSearch ? <SearchDropDown /> : null}
+      {dropSearch ? <SearchDropDown setDropSearch={ setDropSearch } /> : null}
     </>
   );
 }

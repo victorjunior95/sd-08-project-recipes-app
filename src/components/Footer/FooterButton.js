@@ -22,11 +22,12 @@ function FooterButton({ toPage }) {
   };
 
   return (
-    <Link
-      data-testid={ `${toPage}-bottom-btn` }
-      to={ `${pages[toPage].path}` }
-    >
-      <img src={ pages[toPage].image } alt={ `${toPage} icon` } />
+    <Link to={ `${pages[toPage].path}` }>
+      <img
+        data-testid={ `${toPage}-bottom-btn` }
+        src={ pages[toPage].image }
+        alt={ `${toPage} icon` }
+      />
     </Link>
   );
 }

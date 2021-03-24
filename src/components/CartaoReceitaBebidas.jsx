@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import ContextReceitas from '../context/ContextReceitas';
 
 const DOZE = 12;
+const CEM = 100;
 const CartaoReceitaBebidas = () => {
   const {
     apiResult,
@@ -12,6 +13,7 @@ const CartaoReceitaBebidas = () => {
       {apiResult.slice(0, DOZE).map((element, i) => (
         <div key={ i } data-testid={ `${i}-recipe-card` }>
           <img
+            width={ `${CEM}px` }
             data-testid={ `${i}-card-img` }
             src={ element.strDrinkThumb }
             alt={ element.strDrink }

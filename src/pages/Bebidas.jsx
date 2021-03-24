@@ -28,7 +28,9 @@ function Bebidas() {
       && apiResult.length === 1
       && tituloDaPagina === 'Bebidas'
         ? <Redirect to={ `/bebidas/${apiResult[0].idDrink}` } /> : false }
-      {apiResult !== null && apiResult.length > 1 && <CartaoReceitaBebidas />}
+      {apiResult !== null
+      && apiResult.length > 1
+      && <CartaoReceitaBebidas />}
 
       <Footer />
     </div>

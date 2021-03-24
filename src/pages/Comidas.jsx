@@ -24,6 +24,7 @@ function Comidas() {
       {apiResult !== null
       && apiResult.length === 1 && tituloDaPagina === 'Comidas'
         ? <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> : false }
+      {console.log(apiResult)}
       {apiResult !== null
       && apiResult.length > 1
       && <CartaoReceitaComidas />}

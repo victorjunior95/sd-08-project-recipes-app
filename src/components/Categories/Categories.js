@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getCategories, getFilterCategories, getAllRecipes } from '../../services/FoodsDrinksRequests';
+import { getCategories, getFilterCategories,
+  getAllRecipes } from '../../services/FoodsDrinksRequests';
 import Context from '../../contextApi/Context';
 
 const Categories = ({ title }) => {
@@ -27,10 +28,6 @@ const Categories = ({ title }) => {
     }
   };
 
-  const filtroALL = () => {
-    setResults(all);
-  };
-
   return (
     <div>
       {categories.length > 0 && (
@@ -49,7 +46,7 @@ const Categories = ({ title }) => {
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={ () => filtroALL() }
+            onClick={ () => setResults(all) }
           >
             All
           </button>

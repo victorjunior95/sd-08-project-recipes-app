@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import components from '../components/index';
 import MainDrinksCard from '../components/MainDrinksCard';
 import api from '../services';
 import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
+import RecipesContext from '../core/RecipesContext';
 
 function Drinks() {
+  const { isLoading, drinkData } = useContext(RecipesContext);
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataDrinksCategories, setDataDrinksCategories] = useState([]);
   const [drinkCategorySelected, setDrinkCategorySelected] = useState([]);
@@ -36,8 +38,8 @@ function Drinks() {
   return (
     <div>
       <components.Header title="Bebidas" />
+      {isLoading ? 'Loading...' : null}
       <div>
-
         {dataDrinksCategories.slice(0, CATEGORIES_LENGTH_5).map(
           ({ strCategory }, index) => (
             <button
@@ -52,7 +54,10 @@ function Drinks() {
           ),
         )}
         <button
-          onClick={ () => setDrinkCategorySelected([]) }
+          onClick={ () => {
+            setDrinkCategorySelected([]);
+            setSelectedDrink(false);
+          } }
           type="button"
           data-testid="All-category-filter"
         >
@@ -60,14 +65,24 @@ function Drinks() {
         </button>
       </div>
       <div className="home-container">
-        {dataDrinks.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((drink, index) => (
-          <MainDrinksCard
-            key={ index }
-            dataDrinks={ drink }
-            index={ index }
-            id={ drink.idDrink }
-          />
-        ))}
+        {drinkData.length && !selectedDrink
+          ? drinkData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
+            <MainDrinksCard
+              key={ index }
+              dataDrinks={ curr }
+              index={ index }
+              id={ curr.idDrink }
+            />
+          ))
+
+          : dataDrinks.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((drink, index) => (
+            <MainDrinksCard
+              key={ index }
+              dataDrinks={ drink }
+              index={ index }
+              id={ drink.idDrink }
+            />
+          ))}
         <components.Footer />
       </div>
     </div>

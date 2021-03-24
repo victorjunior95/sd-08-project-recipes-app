@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../core/RecipesContext';
-import fetchByFilter from '../services/fetchByFilter';
+import api from '../services';
 
 function SearchDropDown({ setDropSearch }) {
-  const { setIsLoading, setMealData } = useContext(RecipesContext);
+  const { setIsLoading, setMealData, setDrinkData } = useContext(RecipesContext);
   const [inputs, setInputs] = useState({
     text: '',
     radio: null,
@@ -15,7 +15,8 @@ function SearchDropDown({ setDropSearch }) {
     setInputs({ ...inputs, [name]: value });
   };
   const handleClick = () => {
-    fetchByFilter(inputs, setIsLoading, setMealData);
+    api.fetchByFilters(inputs, setIsLoading, setMealData);
+    api.fetchByDrinkFilters(inputs, setIsLoading, setDrinkData);
     setDropSearch(false);
   };
   return (
@@ -23,12 +24,11 @@ function SearchDropDown({ setDropSearch }) {
       <input
         data-testid="search-input"
         className="form-control"
-
-        style={ { width: 340, margin: 15 } }
-        main-group-1
         onChange={ (event) => handleChange(event) }
         name="text"
         type="text"
+        style={ { width: 340,
+          margin: 15 } }
       />
       <div className="radio-container">
         <label className="radio-button" htmlFor="ingredient-search-radio">

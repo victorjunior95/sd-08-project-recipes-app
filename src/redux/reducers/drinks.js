@@ -14,7 +14,7 @@ const drinks = (state = INITIALSTATE, action) => {
     };
   case GET_API_DRINKS:
     return { ...state,
-      drinks: action.payload,
+      drinks: action.payload.drinks,
       isFetching: false,
     };
   default:

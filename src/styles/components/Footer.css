@@ -2,20 +2,25 @@
   background-color: #fd951f;
   bottom: 0;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
-  clear: both;
   display: flex;
+  height: 80px;
   justify-content: space-around;
   position: fixed;
+  right: 0;
   width: 100%;
 }
 
 .footerContainer > a {
-  align-items: center;
   display: flex;
-  height: 50px;
+  padding: 6px;
   width: 33%;
 }
 
 .footerContainer > a > button {
   background-color: rgba(255, 255, 255, 0.09);
+}
+
+.footerContainer > a > button > img {
+  padding: 3px;
+  width: 60px;
 }

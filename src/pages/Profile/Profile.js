@@ -4,43 +4,47 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Footer, Header } from '../../components';
 // import { _ } from '../../store/actions';
+import '../../styles/pages/Container.css';
 
 class Profile extends Component {
   render() {
     return (
       <div>
         <Header title="Perfil" />
-        <p data-testid="profile-email">email@email</p>
-        <Link
-          to="/receitas-feitas"
-        >
-          <button
-            type="button"
-            data-testid="profile-done-btn"
+        <div className="container">
+
+          <p data-testid="profile-email">email@email</p>
+          <Link
+            to="/receitas-feitas"
           >
-            Receitas Feitas
-          </button>
-        </Link>
-        <Link
-          to="/receitas-favoritas"
-        >
-          <button
-            type="button"
-            data-testid="profile-favorite-btn"
+            <button
+              type="button"
+              data-testid="profile-done-btn"
+            >
+              Receitas Feitas
+            </button>
+          </Link>
+          <Link
+            to="/receitas-favoritas"
           >
-            Receitas Favoritas
-          </button>
-        </Link>
-        <Link
-          to="/"
-        >
-          <button
-            type="button"
-            data-testid="profile-logout-btn"
+            <button
+              type="button"
+              data-testid="profile-favorite-btn"
+            >
+              Receitas Favoritas
+            </button>
+          </Link>
+          <Link
+            to="/"
           >
-            Sair
-          </button>
-        </Link>
+            <button
+              type="button"
+              data-testid="profile-logout-btn"
+            >
+              Sair
+            </button>
+          </Link>
+        </div>
         <Footer />
       </div>
     );

@@ -13,8 +13,8 @@ class Header extends Component {
   render() {
     const { title, showButton, setToggle } = this.props;
     return (
-      <header>
-        <div className="headerContainer">
+      <header className="headerContainer">
+        <div>
           <div>
             <Link to="/perfil">
               <img

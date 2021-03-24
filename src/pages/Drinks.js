@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Header, Footer, Loading, Cards } from '../components';
 import { fetchDrink } from '../store/actions';
+import '../styles/pages/Container.css';
 
 const MAX_NUMBER_CARDS = 11;
 class Drinks extends Component {
@@ -32,20 +33,23 @@ class Drinks extends Component {
     return (
       <div>
         <Header title="Bebidas" />
-        {listDrinks && listDrinks.reduce((acc, cur, index) => {
-          if (index <= MAX_NUMBER_CARDS) {
-            acc.push(cur);
-          }
-          return acc;
-        }, []).map((drink, index) => (
-          <Cards
-            data-testid={ `${index}-recipe-card` }
-            key={ index }
-            strThumb={ drink.strDrinkThumb }
-            str={ drink.strDrink }
-            index={ index }
-          />
-        ))}
+        <div className="container">
+
+          {listDrinks && listDrinks.reduce((acc, cur, index) => {
+            if (index <= MAX_NUMBER_CARDS) {
+              acc.push(cur);
+            }
+            return acc;
+          }, []).map((drink, index) => (
+            <Cards
+              data-testid={ `${index}-recipe-card` }
+              key={ index }
+              strThumb={ drink.strDrinkThumb }
+              str={ drink.strDrink }
+              index={ index }
+            />
+          ))}
+        </div>
         <Footer />
       </div>
     );

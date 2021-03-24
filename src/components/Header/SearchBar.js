@@ -49,7 +49,7 @@ class SearchBar extends Component {
             onChange={ this.handleChange }
           />
         </div>
-        <div>
+        <div className="searchBarRadios">
           <label htmlFor="searchRadio">
             <input
               value="ingredient"

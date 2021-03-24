@@ -16,6 +16,12 @@ export async function SearchMealByFirstLetter(firstLetter) {
   return json;
 }
 
+export async function requestMealRecipe() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const json = await request.json();
+  return json;
+}
+
 export async function SearchCocktailByIngredient(ingredient) {
   const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const json = await request.json();
@@ -32,4 +38,20 @@ export async function SearchCocktailByFirstLetter(firstLetter) {
   const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`);
   const json = await request.json();
   return json;
+}
+
+export async function requestDrinkRecipe() {
+  const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const json = await request.json();
+  return json;
+}
+
+export async function requestDrinkId(id) {
+  const results = await (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)).json();
+  return results;
+}
+
+export async function requestFoodId(id) {
+  const results = await (await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)).json();
+  return results;
 }

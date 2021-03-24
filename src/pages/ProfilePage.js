@@ -7,7 +7,10 @@ import Footer from '../components/Footer';
 
 function ProfilePage() {
   const history = useHistory();
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const user = localStorage.getItem('user');
+  let email = '';
+  if (user) email = JSON.parse(user).email;
+  // const { email } = JSON.parse(localStorage.getItem('user'));
   const removeLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('mealsToken');
@@ -21,7 +24,7 @@ function ProfilePage() {
   return (
     <>
       <Header />
-      <span data-testid="profile-email">{email}</span>
+      {user && <span data-testid="profile-email">{email}</span> }
       <button
         type="button"
         data-testid="profile-done-btn"

@@ -1,13 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../components/Button';
+import Header from '../components/Header';
 
 function ExploreFoodDrink() {
   const history = useHistory();
   const { pathname } = history.location;
   const foodDrinks = history.location.pathname.split('/');
   return (
-    <div>
+    <main>
+      <Header />
       { pathname === '/explorar/comidas' && <Button /> }
       <button
         onClick={ () => history.push(`/explorar/${foodDrinks[2]}/ingredientes`) }
@@ -26,7 +28,7 @@ function ExploreFoodDrink() {
 
       </button>
 
-    </div>
+    </main>
   );
 }
 

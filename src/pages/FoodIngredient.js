@@ -1,10 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function FoodIngredient() {
   return (
-    <div>
+    <main>
+      <Header />
       Foods
-    </div>
+    </main>
   );
 }
 

@@ -3,6 +3,7 @@ import { CLEAR_SEARCH, SEARCH_INPUT } from '../actions';
 const INITIAL_STATE = {
   inputValue: '',
   inputType: '',
+  areas: '',
 };
 
 export default function searchBar(state = INITIAL_STATE, action) {

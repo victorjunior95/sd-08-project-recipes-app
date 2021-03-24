@@ -1,10 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExploreOrigin() {
   return (
-    <div>
+    <main>
+      <Header />
       Local Origen
-    </div>
+    </main>
   );
 }
 

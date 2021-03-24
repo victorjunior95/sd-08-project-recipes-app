@@ -29,3 +29,11 @@ export function fetchRandomMeal() {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchAreaMeal(area) {
+  const AreaMealURL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+
+  return fetch(AreaMealURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

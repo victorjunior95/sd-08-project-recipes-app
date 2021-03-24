@@ -20,12 +20,15 @@ import Profile from './pages/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './pages/Login';
+import NotFound from './pages/Explore/NotFound';
 
 function App() {
   return (
     <BrowserRouter>
       <Provider>
         <Switch>
+          <Route path="/explorar/comidas/area" component={ ExploreByOrigin } />
+          <Route path="/explorar/comidas/area/:id" component={ FoodDetails } />
           <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
           <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
           <Route path="/comidas/:id" component={ FoodDetails } />
@@ -38,7 +41,7 @@ function App() {
             path="/explorar/bebidas/ingredientes"
             component={ ExploreDrinksByIngredient }
           />
-          <Route path="/explorar/comidas/area" component={ ExploreByOrigin } />
+          <Route path="/explorar/bebidas/area" component={ NotFound } />
           <Route path="/explorar/comidas" component={ ExploreFoods } />
           <Route path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route path="/receitas-feitas" component={ RecipesDone } />

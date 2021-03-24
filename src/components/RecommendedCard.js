@@ -12,7 +12,7 @@ function RecommendedCard({ index, card }) {
     return (
       <Link to={ `/bebidas/${idDrink}` }>
         <div
-          className="recommended-card carousel-item"
+          className="recommended-card"
           data-testid={ `${index}-recomendation-card` }
         >
           <h1 data-testid={ `${index}-recomendation-title` }>{strDrink}</h1>

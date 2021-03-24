@@ -22,7 +22,7 @@ function MealRecipeDetails({ match }) {
     <div>
       <MealDetails meal={ meal } />
       <Recomendations recipeType="meal" />
-      <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </div>
   );
 }

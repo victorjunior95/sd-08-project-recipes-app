@@ -29,3 +29,11 @@ export function fetchRandomMeal() {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchFistMealCats() {
+  const mealCatsURL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+
+  return fetch(mealCatsURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

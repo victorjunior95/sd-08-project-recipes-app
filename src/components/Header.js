@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ pageTitle }) {
   const [search, setSearch] = useState(false);
@@ -34,11 +35,8 @@ function Header({ pageTitle }) {
           <img src={ SearchIcon } alt="search-icon" />
         </button>
       </div>
-      <div className="g6-header-row">
-        {search && (
-          <input data-testid="search-input" />
-        )}
-      </div>
+      <div className="g6-header-row" />
+      <SearchBar />
     </header>
   );
 }

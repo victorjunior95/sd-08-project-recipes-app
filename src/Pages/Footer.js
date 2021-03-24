@@ -8,7 +8,7 @@ import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   return (
-    <Container fluid style={ { bottom: '0px', position: 'fixed' } } data-testid="footer">
+    <Container fluid style={ { bottom: '0', position: 'fixed' } } data-testid="footer">
       <Row
         style={ { backgroundColor: 'lightgray',
           textAlign: 'center',

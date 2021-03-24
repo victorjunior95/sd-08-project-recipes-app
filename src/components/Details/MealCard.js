@@ -4,14 +4,8 @@ import PropTypes from 'prop-types';
 import './cards.css';
 
 function Card({ data }) {
-  const [cardSelected, setCardSelected] = useState(false);
-  const { meal, index, recipeCard } = data;
+  const { meal, index } = data;
   const { strMealThumb, strMeal } = meal;
-
-  if (cardSelected) {
-    return <Redirect to={ `/comidas/${meal.idMeal}` } />;
-  }
-
   return (
     <section data-testid={ `${index}-recomendation-card` } className="card">
       <img
@@ -19,19 +13,17 @@ function Card({ data }) {
         src={ strMealThumb }
         alt={ strMeal }
       />
-      <button
-        onClick={ () => setCardSelected(true) }
-        data-testid={ `${index}-recomendation-title` }
-        type="button"
-      >
-        { strMeal }
-      </button>
+      { strMeal }
     </section>
   );
 }
 
 Card.propTypes = {
-  data: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    strMeal: PropTypes.string.isRequired,
+    strMealThumb: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default Card;

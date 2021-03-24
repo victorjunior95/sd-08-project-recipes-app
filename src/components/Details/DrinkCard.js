@@ -4,13 +4,8 @@ import { Redirect } from 'react-router-dom';
 import './cards.css';
 
 function Card({ data }) {
-  const [cardSelected, setCardSelected] = useState(false);
-  const { drink, index, recipeCard } = data;
+  const { drink, index } = data;
   const { strDrinkThumb, strDrink } = drink;
-
-  if (cardSelected) {
-    return <Redirect to={ `/bebidas/${drink.idDrink}` } />;
-  }
 
   return (
     <section data-testid={ `${index}-recomendation-card` } className="card">
@@ -19,19 +14,17 @@ function Card({ data }) {
         src={ strDrinkThumb }
         alt={ strDrink }
       />
-      <button
-        onClick={ () => setCardSelected(true) }
-        data-testid={ `${index}-recomendation-title` }
-        type="button"
-      >
-        { strDrink }
-      </button>
+      { strDrink }
     </section>
   );
 }
 
 Card.propTypes = {
-  data: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    strDrink: PropTypes.string.isRequired,
+    strDrinkThumb: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default Card;

@@ -14,6 +14,7 @@ import IngredientsList from '../../components/Details/IngredientsList';
 import InstructionsText from '../../components/Details/InstructionsText';
 import YTVideo from '../../components/Details/YTVideo';
 import Recommendations from '../../components/Details/Recommendations';
+import DynamicButton from '../../components/Details/DynamicButton';
 
 async function getRecipe(dispatch, id, isMeal) {
   let api = '';
@@ -52,6 +53,7 @@ function Details() {
       <InstructionsText />
       { isMeal && <YTVideo /> }
       <Recommendations />
+      <DynamicButton />
     </main>
   );
 }

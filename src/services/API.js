@@ -83,6 +83,7 @@ export const fetchDrinks = async (value, type) => {
   }
   if (url === '') return null;
   const response = await fetch(url);
+  console.log(response);
   const { drinks } = await response.json();
   const empty = [];
   return drinks || empty;

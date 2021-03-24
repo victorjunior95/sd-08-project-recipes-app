@@ -4,7 +4,7 @@ import { getDrinks } from '../../redux/actions';
 import Card from '../../components/cards/DrinkCard';
 import Categories from '../../components/Categorie/DrinkCategories';
 
-function Comidas() {
+function Bebidas() {
   const QUANTITY_OF_CARDS = 12;
   let drinksFiltred = [];
   const dispatch = useDispatch();
@@ -25,4 +25,4 @@ function Comidas() {
   );
 }
 
-export default Comidas;
+export default Bebidas;

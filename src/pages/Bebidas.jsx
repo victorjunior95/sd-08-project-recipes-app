@@ -10,15 +10,28 @@ function Bebidas() {
   const {
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
+    categoriasBebidas,
   } = useContext(ContextReceitas);
+
   useEffect(() => {
     enviarTituloDaPagina('Bebidas');
     mudarStatusBotaoPesquisa(true);
   }, []);
+
   return (
     <div>
       <Header />
       <h1>Bebidas</h1>
+      {!categoriasBebidas
+        ? <h1>Carregando ...</h1>
+        : categoriasBebidas.map(({ strCategory }) => (
+          <button
+            type="button"
+            key={ strCategory }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            {strCategory}
+          </button>))}
       <Footer />
     </div>
   );

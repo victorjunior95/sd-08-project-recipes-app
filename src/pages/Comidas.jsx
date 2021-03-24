@@ -7,14 +7,27 @@ function Comidas() {
   const {
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
+    categoriasComidas,
   } = useContext(ContextReceitas);
+
   useEffect(() => {
     enviarTituloDaPagina('Comidas');
     mudarStatusBotaoPesquisa(true);
   }, []);
+
   return (
     <div>
       <Header />
+      {!categoriasComidas
+        ? <h1>Carregando ...</h1>
+        : categoriasComidas.map(({ strCategory }) => (
+          <button
+            type="button"
+            key={ strCategory }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            {strCategory}
+          </button>))}
       <Footer />
     </div>
   );

@@ -1,3 +1,5 @@
-export const API_FOOD = 'API_FOOD';
-export const FETCH_API = 'FETCH_API';
+export const GET_API_FOOD = 'API_FOOD';
+export const FETCH_API_FOODS = 'FETCH_API_FOODS';
+export const FETCH_API_DRINKS = 'FETCH_API_DRINKS';
 export const ERROR_REQUEST_API = 'ERROR_REQUEST_API';
+export const GET_API_DRINKS = 'GET_API_DRINKS';

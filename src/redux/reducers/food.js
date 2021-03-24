@@ -1,20 +1,20 @@
-import { API_FOOD, FETCH_API } from '../actions/types';
+import { GET_API_FOOD, FETCH_API_FOODS } from '../actions/types';
 
 const INITIALSTATE = {
-  data: [],
+  meals: [],
   isFetching: false,
 };
 
 const food = (state = INITIALSTATE, action) => {
   switch (action.type) {
-  case FETCH_API:
+  case FETCH_API_FOODS:
     return {
       ...state,
       isFetching: true,
     };
-  case API_FOOD:
+  case GET_API_FOOD:
     return { ...state,
-      data: action.payload,
+      meals: action.payload,
       isFetching: false,
     };
   default:

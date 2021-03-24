@@ -51,6 +51,7 @@ export default function Header(props) {
         type="text"
         placeholder="Pesquisar"
         data-testid="search-input"
+        title={ title }
       />}
     </Container>
   );

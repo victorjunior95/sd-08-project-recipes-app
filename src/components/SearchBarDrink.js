@@ -55,12 +55,13 @@ function SearchBarFood() {
   if (redirect) return <Redirect to={ path } />;
 
   return (
-    <section>
+    <section className="search-bar-container">
       <input
         type="text"
         data-testid="search-input"
         value={ searchInput }
         onChange={ handleSearchInput }
+        className="search-bar-text-input"
       />
       <label htmlFor="ingredient-search">
         <input
@@ -70,6 +71,7 @@ function SearchBarFood() {
           data-testid="ingredient-search-radio"
           onChange={ handleSearchType }
           value="ingredient-search"
+          className="search-bar-radio-input"
         />
         Buscar por ingrediente
       </label>
@@ -81,6 +83,7 @@ function SearchBarFood() {
           data-testid="name-search-radio"
           onChange={ handleSearchType }
           value="name-search"
+          className="search-bar-radio-input"
         />
         Buscar por nome
       </label>
@@ -92,6 +95,7 @@ function SearchBarFood() {
           data-testid="first-letter-search-radio"
           onChange={ handleSearchType }
           value="first-letter-search"
+          className="search-bar-radio-input"
         />
         Buscar pela primeira letra
       </label>
@@ -99,6 +103,7 @@ function SearchBarFood() {
         data-testid="exec-search-btn"
         type="button"
         onClick={ requestAPI }
+        className="search-bar-button"
       >
         Procurar
       </button>

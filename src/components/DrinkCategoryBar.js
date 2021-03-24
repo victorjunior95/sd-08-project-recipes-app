@@ -9,8 +9,14 @@ function DrinkCategoryBar() {
   const maxCategories = 5;
 
   return (
-    <div>
-      <button type="button" key="All">
+    <div className="search-button-container">
+      <button
+        type="button"
+        key="All"
+        data-testid="All-category-filter"
+        className="search-button"
+        onClick={ handleFilteredDrinks }
+      >
         All
       </button>
       {drinksCategory.map(({ strCategory }, index) => {
@@ -22,6 +28,7 @@ function DrinkCategoryBar() {
             type="button"
             key={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
+            className="search-button"
             onClick={ handleFilteredDrinks } // setar no estado global o filtro que está sendo selecionado e utilizar ele para expor os drinks
           >
             {strCategory}

@@ -6,10 +6,14 @@ export default function FeitasFavoritas() {
   const history = useHistory();
   const path = history.location.pathname;
   let listCart = [];
+  let listFavCart = [];
   listCart = JSON.parse(localStorage.getItem('doneRecipes'));
-  const [filteredList, setFilteredList] = useState(listCart);
+  listFavCart = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [filteredDoneList, setDoneList] = useState(listCart);
+  const [FList, setFavList] = useState(listFavCart);
   useEffect(() => {
-    setFilteredList(listCart);
+    setDoneList(listCart);
+    setFavList(listFavCart);
   }, []);
   if (path === '/receitas-feitas') {
     return (
@@ -21,7 +25,7 @@ export default function FeitasFavoritas() {
             value="All"
             id="All"
             data-testid="filter-by-all-btn"
-            onClick={ () => setFilteredList(listCart) }
+            onClick={ () => setDoneList(listCart) }
           />
           All
         </label>
@@ -32,7 +36,7 @@ export default function FeitasFavoritas() {
             value="Food"
             id="Food"
             data-testid="filter-by-food-btn"
-            onClick={ () => setFilteredList(listCart.filter((a) => a.type === 'comida')) }
+            onClick={ () => setDoneList(listCart.filter((a) => a.type === 'comida')) }
           />
           Food
         </label>
@@ -43,11 +47,11 @@ export default function FeitasFavoritas() {
             value="Drinks"
             id="Drinks"
             data-testid="filter-by-drink-btn"
-            onClick={ () => setFilteredList(listCart.filter((a) => a.type === 'bebida')) }
+            onClick={ () => setDoneList(listCart.filter((a) => a.type === 'bebida')) }
           />
           Drinks
         </label>
-        { filteredList.map((card, index) => (
+        { filteredDoneList.map((card, index) => (
           <Card
             key={ card.id }
             id={ card.id }
@@ -55,11 +59,66 @@ export default function FeitasFavoritas() {
             name={ card.name }
             thumbnail={ card.image }
             isFood={ card.type === 'comida' }
-            category={ card.category }
+            cat={ card.category }
             doneDate={ card.doneDate }
             tags={ card.tags }
             area={ card.area }
             alcoholic={ card.alcoholicOrNot }
+          />
+        ))}
+
+      </div>
+    );
+  } if (path === '/receitas-favoritas') {
+    return (
+      <div>
+        <label htmlFor="All">
+          <input
+            type="radio"
+            name="filter"
+            value="All"
+            id="All"
+            data-testid="filter-by-all-btn"
+            onClick={ () => setFavList(listFavCart) }
+          />
+          All
+        </label>
+        <label htmlFor="Food">
+          <input
+            type="radio"
+            name="filter"
+            value="Food"
+            id="Food"
+            data-testid="filter-by-food-btn"
+            onClick={
+              () => setFavList(listFavCart.filter((a) => a.type === 'comida'))
+            }
+          />
+          Food
+        </label>
+        <label htmlFor="Drinks">
+          <input
+            type="radio"
+            name="filter"
+            value="Drinks"
+            id="Drinks"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => setFavList(listFavCart.filter((a) => a.type === 'bebida')) }
+          />
+          Drinks
+        </label>
+        { FList.map((card, index) => (
+          <Card
+            key={ card.id }
+            id={ card.id }
+            tags={ card.tags }
+            area={ card.area }
+            index={ index }
+            cat={ card.category }
+            alcoholic={ card.alcoholicOrNot }
+            name={ card.name }
+            thumbnail={ card.image }
+            isFood={ card.type === 'comida' }
           />
         ))}
 

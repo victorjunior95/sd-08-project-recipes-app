@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const Card = ({ id,
-  index, name, thumbnail, isFood, category, doneDate, tags, area, alcoholic }) => {
+  index, name, thumbnail, isFood, cat, doneDate, tags, area, alcoholic }) => {
   const history = useHistory();
   const path = history.location.pathname;
   let isClicked = false;
@@ -13,6 +14,16 @@ const Card = ({ id,
   //   console.log(index);
   //   console.log(name);
   //   console.log(thumbnail);
+  const popTags = () => (
+    tags.map((tagName, tagInex) => (
+      <p
+        key={ tagInex }
+        data-testid={ `${index}-${tagName}-horizontal-tag` }
+      >
+        {tagName}
+      </p>
+    ))
+  );
   function handleClick() {
     if (isFood) {
       history.push(`/comidas/${id}`);
@@ -49,41 +60,72 @@ const Card = ({ id,
         />
       </button>
     );
-  } return (
-    <div data-testid={ `${index}-recipe-card` }>
+  } if (path === '/receitas-feitas') {
+    return (
+      <div data-testid={ `${index}-recipe-card` }>
 
-      <input
-        type="image"
-        onClick={ () => handleClick() }
-        width="320"
-        height="205"
-        src={ thumbnail }
-        alt="Foto da receita"
-        data-testid={ `${index}-horizontal-image` }
-      />
-      {isFood
-        ? <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
-        : <p data-testid={ `${index}-horizontal-top-text` }>{alcoholic}</p>}
-      <a data-testid={ `${index}-horizontal-name` } href={ urlDetails }>{name}</a>
-      <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-      <input
-        type="image"
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ shareIcon }
-        alt="share"
-        onClick={ () => { copy(urlDetails); isClicked = true; } }
-      />
-      <p hidden={ isClicked }>Link copiado!</p>
-      { tags.map((tagName, tagInex) => (
-        <p
-          key={ tagInex }
-          data-testid={ `${index}-${tagName}-horizontal-tag` }
-        >
-          {tagName}
-        </p>
-      ))}
-    </div>
-  );
+        <input
+          type="image"
+          onClick={ () => handleClick() }
+          width="320"
+          height="205"
+          src={ thumbnail }
+          alt="Foto da receita"
+          data-testid={ `${index}-horizontal-image` }
+        />
+        {isFood
+          ? <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${cat}`}</p>
+          : <p data-testid={ `${index}-horizontal-top-text` }>{alcoholic}</p>}
+        <a data-testid={ `${index}-horizontal-name` } href={ urlDetails }>{name}</a>
+        <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+        <input
+          type="image"
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          alt="share"
+          onClick={ () => { copy(urlDetails); isClicked = true; } }
+        />
+        <p hidden={ isClicked }>Link copiado!</p>
+        {() => popTags()}
+      </div>
+    );
+  } if (path === '/receitas-favoritas') {
+    return (
+      <div data-testid={ `${index}-recipe-card` }>
+
+        <input
+          type="image"
+          onClick={ () => handleClick() }
+          width="320"
+          height="205"
+          src={ thumbnail }
+          alt="Foto da receita"
+          data-testid={ `${index}-horizontal-image` }
+        />
+        {isFood
+          ? <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${cat}`}</p>
+          : <p data-testid={ `${index}-horizontal-top-text` }>{alcoholic}</p>}
+        <a data-testid={ `${index}-horizontal-name` } href={ urlDetails }>{name}</a>
+        <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+        <input
+          type="image"
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          alt="share"
+          onClick={ () => { copy(urlDetails); isClicked = true; } }
+        />
+        <input
+          type="image"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          src={ blackHeartIcon }
+          alt="share"
+          onClick={ () => { } }
+        />
+        <p hidden={ isClicked }>Link copiado!</p>
+        {() => popTags()}
+      </div>
+    );
+  }
 };
 Card.defaultProps = {
   category: '',

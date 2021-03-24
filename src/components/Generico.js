@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
+import { share } from '../images/shareIcon.svg';
 import { fetchDrinkApiById, fetchFoodApiById,
   fetchDrinkRecomendation, fetchFoodRecomendation } from '../helpers';
 import RecomendationCard from './RecomendationCard';
@@ -97,7 +98,7 @@ class Generico extends Component {
           {currentRecipe.strDrink || currentRecipe.strMeal}
         </h1>
         {currentRecipe.strDrink && <h2>{}</h2>}
-        <button type="button" data-testid="share-btn">Compartilhar</button>
+        <img src={ share } alt="" data-testid="share-btn" />
         <button type="button" data-testid="favorite-btn">Favorito</button>
         <span data-testid="recipe-category">
           {currentRecipe.strAlcoholic || currentRecipe.strCategory}

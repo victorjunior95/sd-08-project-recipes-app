@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Button, ToggleButtonGroup } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import Header from './Header';
 import Footer from './Footer';
-
 import { fetchItem } from '../store/apiSlice';
 import { fetchCategories } from '../store/apiCategoriesSlice';
 import CardItens from './Card';
+
+const FETCH_ALL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 function Comidas() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
-    dispatch(fetchItem('https://www.themealdb.com/api/json/v1/1/search.php?s='));
+    dispatch(fetchItem(FETCH_ALL));
   }, [dispatch]);
   const loadingAPI = useSelector((state) => state.api.loading);
   const loadingCategoriesAPI = useSelector((state) => state.categoriesButton.loading);
   const foodsArray = useSelector((state) => state.api.data.meals);
   const foodCategories = useSelector((state) => state.categoriesButton.categories.meals);
   const [value, setValue] = useState('5');
+  const history = useHistory();
+  const isSearching = useSelector((state) => state.search.isSearching);
 
   if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled') {
+    if (foodsArray.length === 1 && isSearching === true) {
+      history.push(`/comidas/${foodsArray[0].idMeal}`);
+    }
     const foodsNew = [...foodsArray];
     foodsNew.length = 12;
     const foodCategoriesNew = [...foodCategories];
-    foodCategoriesNew.splice(5, 9);
+    foodCategoriesNew.length = 5;
     return (
       <>
         <Header title="Comidas" />
-        <h2>Comidas</h2>
         <Container fluid>
           <Row style={ { justifyContent: 'space-around' } }>
             { foodCategoriesNew.map((categories, index) => (
@@ -40,14 +46,11 @@ function Comidas() {
                 data-testid={ `${categories.strCategory}-category-filter` }
                 onClick={ (e) => {
                   if (e.target.value !== value) {
-                    console.log('value diferente');
                     dispatch(fetchItem(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categories.strCategory}`));
                     setValue(e.target.value);
-                    console.log(e.target.checked);
                   } else if (e.target.value === value) {
-                    console.log('Value iguais');
-                    dispatch(fetchItem('https://www.themealdb.com/api/json/v1/1/search.php?s='));
-                    console.log(e.target.checked);
+                    dispatch(fetchItem(FETCH_ALL));
+                    setValue('5');
                   }
                 } }
               >
@@ -57,7 +60,7 @@ function Comidas() {
             <Button
               variant="secondary"
               style={ { margin: '10px 0px', borderRadius: '5px' } }
-              onClick={ () => dispatch(fetchItem('https://www.themealdb.com/api/json/v1/1/search.php?s=')) }
+              onClick={ () => dispatch(fetchItem(FETCH_ALL)) }
               data-testid="All-category-filter"
             >
               All
@@ -73,6 +76,8 @@ function Comidas() {
                   index={ index }
                   name={ food.strMeal }
                   image={ food.strMealThumb }
+                  id={ food.idMeal }
+                  food="true"
                 />
               )) }
           </Row>
@@ -91,3 +96,19 @@ function Comidas() {
 }
 
 export default Comidas;
+
+// const estado = useSelector((state) => state.api);
+//   console.log(estado);
+//   const history = useHistory();
+
+//   useEffect(() => {
+//     if (estado.data === 'SN') {
+//       console.log('Sem filtros');
+//     } else if (estado.data.meals === null) {
+//       console.log('Entrou null');
+//     } else if (estado.data.meals.length === 1) {
+//       history.push(`/comidas/${estado.data.meals[0].idMeal}`);
+//     } else if (estado.data.meals.length > 1) {
+//       console.log('fazer map');
+//     }
+//   }, [estado, history]);

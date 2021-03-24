@@ -5,7 +5,6 @@ export const fetchCategories = createAsyncThunk(
   async (endPoint) => {
     const categories = await fetch(endPoint)
       .then((response) => response.json());
-    console.log(categories);
     return categories;
   },
 );

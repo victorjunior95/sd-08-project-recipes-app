@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 class Footer extends Component {
   render() {
-    // const { history } = this.props;
     return (
-      <div data-testid="footer">
-        <button
-          type="button"
-          data-testid="drinks-bottom-btn"
-        >
-          <img src={ drinkIcon } alt="drinkIcon" />
-        </button>
-        <button
-          type="button"
-          data-testid="explore-bottom-btn"
-        >
-          <img src={ searchIcon } alt="searchIcon" />
-        </button>
-        <button
-          type="button"
-          data-testid="food-bottom-btn"
-        >
-          <img src={ mealIcon } alt="mealIcon" />
-        </button>
+      <div className="footer" data-testid="footer">
+        <Link to="/bebidas">
+          <img src={ drinkIcon } alt="drinkIcon" data-testid="drinks-bottom-btn" />
+        </Link>
+        <Link to="/explorar">
+          <img
+            src={ exploreIcon }
+            alt="searchIcon"
+            data-testid="explore-bottom-btn"
+          />
+        </Link>
+        <Link to="/comidas">
 
-        a
+          <img
+            src={ mealIcon }
+            alt="mealIcon"
+            data-testid="food-bottom-btn"
+          />
+        </Link>
+
       </div>
     );
   }

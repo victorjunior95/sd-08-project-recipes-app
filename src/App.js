@@ -19,6 +19,7 @@ import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
 import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Footer from './components/Footer';
 
 // import rockGlass from './images/rockGlass.svg';
 
@@ -41,7 +42,6 @@ class App extends React.Component {
             <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
             {/* <Route component={ Expĺorar } /> */}
             <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
-            <Route exact path={ rota } component={ Generico } />
             <Route
               exact
               path="/explorar/bebidas/ingredientes"
@@ -53,8 +53,10 @@ class App extends React.Component {
               component={ ExplorarComidasIngredientes }
             />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route exact path="/footernaoentrenesselink" component={ Footer } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
             <Route exact path="/receitas-favoritadas" component={ ReceitasFavoritas } />
+            <Route exact path={ rota } component={ Generico } />
           </Switch>
         </BrowserRouter>
 

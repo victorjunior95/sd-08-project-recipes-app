@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getComidasRandom, getBebidasRandom } from '../services/BuscaNasAPIs';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ContextRecipes from '../context/ContextRecipes';
 
 const ExplorarComidasEBebidadas = () => {
   const history = useHistory();
@@ -19,12 +20,26 @@ const ExplorarComidasEBebidadas = () => {
     getRandomId();
   }, [setRandomId, Type]);
 
+  const { setHeaderInfo, setBarraBuscar } = useContext(ContextRecipes);
+
+  function handleClickIngredientsBtn() {
+    setHeaderInfo({ pageTitle: 'Explorar Ingredientes', showSearchIcon: false });
+    setBarraBuscar({ input: '', radio: '' });
+    return history.push(`${history.location.pathname}/ingredientes`);
+  }
+
+  function handleClickOriginBtn() {
+    setHeaderInfo({ pageTitle: 'Explorar Origem', showSearchIcon: true });
+    setBarraBuscar({ input: '', radio: '' });
+    return history.push('/explorar/comidas/area');
+  }
+
   return (
     <section className="w-100">
       <Header />
       <button
         type="button"
-        onClick={ () => history.push(`${history.location.pathname}/ingredientes`) }
+        onClick={ () => handleClickIngredientsBtn() }
         data-testid="explore-by-ingredient"
       >
         Por Ingredientes
@@ -34,7 +49,7 @@ const ExplorarComidasEBebidadas = () => {
           ? (
             <button
               type="button"
-              onClick={ () => history.push('/explorar/comidas/area') }
+              onClick={ () => handleClickOriginBtn() }
               data-testid="explore-by-area"
             >
               Por Local de Origem

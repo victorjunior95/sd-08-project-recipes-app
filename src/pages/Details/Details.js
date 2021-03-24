@@ -5,6 +5,7 @@ import { useIsMeal } from '../../services/customHooks';
 import { fetchDetails, fetchDrinks, fetchMeal } from '../../services/API';
 import { saveActualRecipe, saveRecommendations } from '../../redux/actions/details';
 import Loading from '../../components/Details/Loading';
+import CoverImg from '../../components/Details/CoverImg';
 
 async function getRecipe(dispatch, id, isMeal) {
   let api = '';
@@ -29,12 +30,13 @@ function Details() {
   useEffect(() => {
     getRecipe(dispatch, id, isMeal);
   }, []);
+  console.log(Object.keys(actualRecipe).length < 1);
   if (Object.keys(actualRecipe).length < 1) {
     return <Loading />;
   }
   return (
     <main className="recipe-details">
-      Teste
+      <CoverImg />
     </main>
   );
 }

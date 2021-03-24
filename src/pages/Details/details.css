@@ -1,0 +1,9 @@
+.recipe-details .image-container {
+  display: flex;
+  max-height: 25vh;
+}
+
+.recipe-details .image-container img {
+  object-fit: cover;
+  width: 100%;
+}

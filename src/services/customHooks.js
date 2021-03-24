@@ -1,8 +1,7 @@
 import { useHistory } from 'react-router-dom';
 
 export function useIsMeal() {
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  const { location: { pathname } } = useHistory();
   return pathname.includes('comida');
 }
 

@@ -1,7 +1,7 @@
 import { GET_SEARCH_FOOD } from '../actions/foodsActions';
 
 const INITIAL_STATE = {
-  data: '',
+  data: [],
 };
 
 export default function foodsReducer(state = INITIAL_STATE, action) {

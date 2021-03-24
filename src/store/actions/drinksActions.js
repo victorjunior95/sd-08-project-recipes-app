@@ -18,5 +18,5 @@ function getSearchDrink(data) {
 
 export const fetchDrink = ({ search, searchRadio }) => (dispatch) => {
   const fetch = createDrink(search);
-  fetch[searchRadio].then((data) => console.log(data) || dispatch(getSearchDrink(data)));
+  fetch[searchRadio].then((data) => dispatch(getSearchDrink(data)));
 };

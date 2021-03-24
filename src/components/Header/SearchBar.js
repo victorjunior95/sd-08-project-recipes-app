@@ -26,7 +26,7 @@ class SearchBar extends Component {
     const { search, searchRadio } = this.state;
     const { getFood, title, getDrink } = this.props;
     if (searchRadio === 'firstLetter' && search.length > SEARCH_LENGTH) {
-      return alertSearch();
+      return alertSearch('14');
     }
     if (title === 'Comidas') {
       return getFood({ search, searchRadio });
@@ -94,13 +94,20 @@ class SearchBar extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  getFood: (value) => dispatch(fetchFood(value)),
-  getDrink: (value) => dispatch(fetchDrink(value)),
-});
+SearchBar.defaultProps = { listDrinks: [], listFoods: [] };
 
 SearchBar.propTypes = {
   getFood: PropTypes.func,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+const mapStateToProps = (state) => ({
+  listFoods: state.foodsReducer.data.meals,
+  listDrinks: state.foodsReducer.data.drinks,
+
+});
+const mapDispatchToProps = (dispatch) => ({
+  getFood: (value) => dispatch(fetchFood(value)),
+  getDrink: (value) => dispatch(fetchDrink(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

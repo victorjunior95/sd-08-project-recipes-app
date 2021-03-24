@@ -1,0 +1,26 @@
+.filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.filterButton {
+  align-items: center;
+  background: #c4c4c4;
+  border: none;
+  display: flex;
+  font-weight: 700;
+  height: 28px;
+  justify-content: flex-start;
+  margin: 5px;
+  padding: 10px;
+  width: 105px;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 10px;
+  text-align: start;
+}

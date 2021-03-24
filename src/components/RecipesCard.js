@@ -10,7 +10,7 @@ function RecipesCard(props) {
     <div data-testid={ `${index}-recipe-card` }>
       <input
         type="image"
-        data-testid={ `${index}-card-img` }
+        data-testid={ `${index}-card-image` }
         src={ meal.strMealThumb }
         alt="comida"
         onClick={ () => history.push(`/comidas/${id}`) }

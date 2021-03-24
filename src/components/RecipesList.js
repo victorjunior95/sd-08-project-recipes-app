@@ -36,12 +36,12 @@ function RecipesList() {
           ? allMeals.map((meal, index) => {
             if (index <= MAX_INDEX) {
               return (
-                <RecipesCard 
-                  key={ meal.idMeal } 
-                  meal={ meal } 
+                <RecipesCard
+                  key={ meal.idMeal }
+                  meal={ meal }
                   index={ index }
                   id={ meal.idMeal }
-                />;
+                />
               );
             }
             return '';

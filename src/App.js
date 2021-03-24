@@ -38,6 +38,7 @@ class App extends React.Component {
             <Route exact path="/comidas/ingredientes" component={ ComidasIngredientes } />
             <Route exact path="/bebidas/ingredientes" component={ BebidasIngredientes } />
             <Route exact path="/explorar/comidas/area" component={ ExplorarPorArea } />
+            <Route exact path="/explorar/bebidas/area" component={ NotFound } />
             <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
             {/* <Route component={ Expĺorar } /> */}
             <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />

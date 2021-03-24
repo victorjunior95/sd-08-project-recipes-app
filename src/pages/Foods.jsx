@@ -13,7 +13,7 @@ function Foods() {
   const isLoading = useSelector((state) => state.Loading.isLoading);
   const foods = useSelector((state) => state.FilteredRecipes.foods);
   const mainFoods = useSelector((state) => state.MainRecipes.mainFoods);
-  
+
   // const requestMainFoods = () => {
   //   dispatch(actionThunkMainFoods());
   // };

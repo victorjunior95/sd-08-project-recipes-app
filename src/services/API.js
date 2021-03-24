@@ -89,3 +89,13 @@ export async function requestIngredientsMeal() {
   const results = await (await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')).json();
   return results;
 }
+
+export async function getRandomDrink() {
+  const drink = await (await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')).json();
+  return drink;
+}
+
+export async function getRandomFood() {
+  const food = await (await fetch('https://www.themealdb.com/api/json/v1/1/random.php')).json();
+  return food;
+}

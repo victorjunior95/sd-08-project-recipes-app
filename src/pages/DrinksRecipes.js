@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchDrinkThunk from '../redux/actions/fetchDrinkAction';
@@ -9,6 +9,7 @@ import clearSearchAction from '../redux/actions/clearSearchAction';
 
 function DrinksRecipes() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const input = useSelector((state) => state.search.inputValue);
   const type = useSelector((state) => state.search.inputType);
   const drinks = useSelector((state) => state.recipes.recipes);
@@ -26,15 +27,21 @@ function DrinksRecipes() {
         && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Header />
       { drinks && drinks.map((elem) => (
-        <div key={ elem.idDrink }>
-          <h4>{ elem.strDrink }</h4>
-          <span>{ elem.idDrink }</span>
-          <img
-            className="card"
-            src={ elem.strDrinkThumb }
-            alt={ elem.strDrink }
-          />
-        </div>
+        <button
+          key={ elem.idDrink }
+          type="button"
+          onClick={ () => history.push(`/bebidas/${elem.idDrink}`) }
+        >
+          <div>
+            <h4>{ elem.strDrink }</h4>
+            <span>{ elem.idDrink }</span>
+            <img
+              className="card"
+              src={ elem.strDrinkThumb }
+              alt={ elem.strDrink }
+            />
+          </div>
+        </button>
       ))}
       <Footer />
     </main>

@@ -11,7 +11,7 @@ import IngredientesComidas from './IngredientesComidas';
 import IngredientesBebidas from './IngredientesBebidas';
 import ExplorarOrigem from './ExplorarOrigem';
 import NotFound from './NotFound';
-import InProgressComidas from './InProgressComida';
+import InProgressComidas from './InProgressComidas';
 import InProgressBebidas from './InProgressBebidas';
 
 export { Comidas };

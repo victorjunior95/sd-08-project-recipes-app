@@ -19,6 +19,7 @@ const CheckBoxIngredients = ({ object }) => {
         return (
           <div key={ingredient} className="mb-3" data-testid={ `${index}-ingredient-step` }>
             <input
+              className="checkClass"
               type="checkbox"
               name={ingredient}
               id={ingredient}

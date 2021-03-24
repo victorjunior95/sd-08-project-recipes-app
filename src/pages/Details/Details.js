@@ -76,6 +76,9 @@ Details.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    }),
 };
 
 export default Details;

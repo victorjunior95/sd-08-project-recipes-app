@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import './checkBoxIngredient.css';
 
 const CheckBoxIngredients = ({ object }) => {
@@ -16,7 +12,7 @@ const CheckBoxIngredients = ({ object }) => {
     const ingredients = listKeys.filter((key) => key.includes('strIngredient'));
 
     const listKeysMeasure = Object.keys(object);
-    const measures = listKeysMeasure.filter((key) => key.includes('strMeasure'));
+    const measures = listKeysMeasure.filter((key) => key.includes('strMeasure'))
 
     return ingredients.map((ingredient, index) => {
       if (object[ingredient]) {
@@ -28,7 +24,7 @@ const CheckBoxIngredients = ({ object }) => {
               id={ingredient}
               />
             <label
-              for={ingredient}
+              htmlFor={ingredient}
               className="strikethrough"
             >
               {`${object[ingredient]} - ${object[measures[index]]}`}

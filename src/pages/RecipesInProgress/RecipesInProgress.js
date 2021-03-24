@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
 import CardDetails from '../../components/CardDetail/CardDetail';
-import Context from '../../contextApi/Context';
 import CheckBoxIngredients from '../../components/CheckBoxIngredients/CheckBoxIngredients';
 import Button from 'react-bootstrap/Button';
 

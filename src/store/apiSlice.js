@@ -12,7 +12,7 @@ export const fetchItem = createAsyncThunk(
 const apiSlice = createSlice({
   name: 'api',
   initialState: {
-    data: [],
+    data: 'SN',
     loading: 'idle',
   },
   reducers: {},

@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 import contextRecipes from '../context/Context';
-import createIngredientsArray from '../services/createIngredientsArray';
 
 function Details() {
-  const { currentFood } = useContext(contextRecipes);
-
-  console.log(createIngredientsArray(currentFood));
+  const { currentFood, currentFoodIngredients } = useContext(contextRecipes);
 
   return (
     <>
@@ -17,7 +14,13 @@ function Details() {
           <p>btnFavorito</p>
           <h6>{ food.strCategory }</h6>
           <h2>Ingredientes</h2>
-          <p>{ food.strIngredient1 }</p>
+          <ul>
+            { currentFoodIngredients.map((curr, index) => (
+              <li key={ index }>
+                { curr }
+              </li>
+            ))}
+          </ul>
           <h2>Instruções</h2>
           <p>{ food.strInstructions }</p>
           <p>Video</p>

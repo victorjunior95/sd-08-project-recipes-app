@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import getResultFromAPI from '../api/getResultFromAPI';
 import contextRecipes from '../context/Context';
@@ -10,6 +11,7 @@ const Comidas = () => {
   const [targetButton, setTargetButton] = useState('');
   // const [saveMeals, setSaveMeals] = useState([]);
   // const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
+  const history = useHistory();
 
   const { filter, mealsCategories } = useContext(contextRecipes);
 
@@ -38,9 +40,19 @@ const Comidas = () => {
     setMeals(filterdBtn);
   };
 
+  async function filterAll() {
+    const filterAllApi = await getResultFromAPI('/comidas');
+    setMeals(filterAllApi);
+  }
+
   return (
     <>
       <Header title="Comidas" />
+      <Button
+        datatestid="All-category-filter"
+        label="All"
+        onClick={ filterAll }
+      />
       {mealsCategories.map(({ strCategory: category }, index) => (
         <Button
           datatestid={ `${category}-category-filter` }
@@ -51,11 +63,13 @@ const Comidas = () => {
       ))}
       { meals.map((meal, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ meal.strMeal }>
-          <img
+          <input
+            type="image"
             data-testid={ `${index}-card-img` }
             src={ meal.strMealThumb }
             alt="comida"
-            width="100px"
+            width="100%"
+            onClick={ () => history.push(`/comidas/${meal.idMeal}`) }
           />
           <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
         </div>

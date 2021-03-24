@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import getResultFromAPI from '../api/getResultFromAPI';
 import contextRecipes from '../context/Context';
 import Details from '../components/Details';
+import createIngredientsArray from '../services/createIngredientsArray';
 
 function DetalhesComida() {
   const { id } = useParams();
@@ -12,9 +13,10 @@ function DetalhesComida() {
     async function getMeal() {
       const food = await getResultFromAPI('/comidas', 'lookup', id);
       context.setCurrentFood(food);
+      context.setCurrentFoodIngredients(createIngredientsArray(food));
     }
     getMeal();
-  }, [id, context]);
+  }, []);
 
   return (
     <div>

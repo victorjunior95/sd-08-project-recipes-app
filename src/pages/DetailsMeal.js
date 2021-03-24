@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DataDrinksContext } from '../context/ContextDrinks';
-import { getMealsDetails, getDrinkByName } from '../services/getAPIs';
+import { getMealRecipesDetails, getDrinkByName } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -14,7 +14,7 @@ function DetailsMeal() {
   const [mealDetail, setMealDetail] = useState([]);
   useEffect(() => {
     async function fetchDetails() {
-      const saveDetail = await getMealsDetails(Params.id);
+      const saveDetail = await getMealRecipesDetails(Params.id);
       setMealDetail(saveDetail);
     }
     fetchDetails();

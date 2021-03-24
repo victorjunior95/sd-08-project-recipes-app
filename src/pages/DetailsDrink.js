@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDrinksDetails, getMealByName } from '../services/getAPIs';
+import { getDrinkRecipesDetails, getMealByName } from '../services/getAPIs';
 import { LoginAndFoodContext } from '../context/ContextFood';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -13,7 +13,7 @@ function DetailsDrink() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   useEffect(() => {
     async function fetchDetails() {
-      const saveDetail = await getDrinksDetails(Params.id);
+      const saveDetail = await getDrinkRecipesDetails(Params.id);
       console.log(saveDetail);
       setDrinkDetail(saveDetail);
     }

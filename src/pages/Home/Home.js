@@ -9,17 +9,21 @@ import Categories from '../../components/Categories/Categories';
 import { getAllRecipes } from '../../services/FoodsDrinksRequests';
 
 const Home = ({ title }) => {
-  const { searchBar, results, setResults } = useContext(Context);
+  const { searchBar, results, setResults, setALL } = useContext(Context);
 
   useEffect(() => {
-    getAllRecipes(title).then((response) => setResults(response));
-  }, []);
+    getAllRecipes(title).then((response) => {
+      setResults(response);
+      setALL(response);
+    });
+  }, [title]);
+
   return (
     <>
       <Header title={ title } />
       {searchBar && <SearchBar title={ title } />}
       <Categories title={ title } />
-      {results.length > 0 && <List title={ title } results={ results } />}
+      { results && <List title={ title } results={ results } />}
       <Footer />
     </>
   );

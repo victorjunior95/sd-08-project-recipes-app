@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { recomendedRecipes } from '../../services/FoodsDrinksRequests';
 import SlideCards from '../SlideCards/SlideCards';
 import './cardDetail.css';
 
+<<<<<<< HEAD
 const CardDetails = ({ title, object, isLoading }) => {
   const [recomended, setRecomended] = useState([]);
 
@@ -34,6 +34,11 @@ const CardDetails = ({ title, object, isLoading }) => {
     });
   };
 
+=======
+const CardDetails = ({ title, object, isLoading, children }) => {
+  
+  // é preciso trocar watch por embed na url do youtube
+>>>>>>> main-group-9
   const renderVideo = () => {
     if (title === 'Comidas' && object.strYoutube !== undefined) {
       const urlVideo = object.strYoutube.replace('watch', 'embed');
@@ -83,14 +88,12 @@ const CardDetails = ({ title, object, isLoading }) => {
           <Card.Text data-testid="recipe-category">
             {title === 'Comidas' ? object.strCategory : object.strAlcoholic}
           </Card.Text>
-          <ListGroup>
-            Ingredientes:
-            {renderIngredientList()}
-          </ListGroup>
+          {children}
           <Card.Text data-testid="instructions">
             {object.strInstructions}
           </Card.Text>
           {renderVideo()}
+<<<<<<< HEAD
           <span data-testid="0-recomendation-title">Recomendações</span>
 
           <SlideCards
@@ -98,6 +101,11 @@ const CardDetails = ({ title, object, isLoading }) => {
             results={ recomended }
             numberOfCards={ 6 }
           />
+=======
+          <Card.Text data-testid="0-recomendation-card">
+            Aqui virá o card das recomendações
+          </Card.Text>
+>>>>>>> main-group-9
         </Card.Body>
         <Button
           className="btn-recipe btn btn-primary w-100"

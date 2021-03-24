@@ -9,6 +9,7 @@ import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
 import RecipesFavDone from './pages/RecipesFavDone/RecipesFavDone';
 import Details from './pages/Details/Details';
+import RecipesInProgress from './pages/RecipesInProgress/RecipesInProgress';
 
 const Routes = () => (
   <Switch>
@@ -49,15 +50,27 @@ const Routes = () => (
       <ExplorerByArea title="Explorar Origem" />
     </Route>
     <Route
-      path="/comidas/:id"
+      exact path="/comidas/:id"
       render={ (props) => (
         <Details title="Comidas" { ...props } />
       ) }
     />
     <Route
-      path="/bebidas/:id"
+      exact path="/bebidas/:id"
       render={ (props) => (
         <Details title="Bebidas" { ...props } />
+      ) }
+    />
+    <Route
+      path="/comidas/:id/in-progress"
+      render={ (props) => (
+        <RecipesInProgress title="Comidas" { ...props } />
+      ) }
+    />
+    <Route
+      path="/bebidas/:id/in-progress"
+      render={ (props) => (
+        <RecipesInProgress title="Bebidas" { ...props } />
       ) }
     />
   </Switch>

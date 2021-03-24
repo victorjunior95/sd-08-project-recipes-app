@@ -1,18 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
 import CardDetails from '../../components/CardDetail/CardDetail';
-import Context from '../../contextApi/Context';
+import CheckBoxIngredients from '../../components/CheckBoxIngredients/CheckBoxIngredients';
 import Button from 'react-bootstrap/Button';
-import ListIngredients from '../../components/ListIngredients/ListIngredients';
 
-const Details = ({ title, match, history }) => {
+const RecipesInProgress = ({ title, match }) => {
   const { params: { id } } = match;
-
-  const {
-    setProductDetails
-  } = useContext(Context);
 
   const [object, setObject] = useState({});
   const [isLoading, setLoad] = useState(false);
@@ -37,38 +32,24 @@ const Details = ({ title, match, history }) => {
     })();
   }, []);
 
-  const handleClick = ( ) => {
-    setProductDetails(
-      {object: object,
-      isLoading: isLoading,
-    })
-    if (title === 'Comidas') {
-      history.push(`/comidas/${id}/in-progress`);
-    } else {
-      history.push(`/bebidas/${id}/in-progress`);
-    }
-    
-  }
-
-  // De repente eu tenha que colocar o load aqui, por causa do botão
   return (
     <>
-    <CardDetails title={ title } object={ object } isLoading={ isLoading }>
-      <ListIngredients object={ object } />
-    </CardDetails>
-    <Button
+      <CardDetails title={ title } object={ object } isLoading={ isLoading }>
+        <CheckBoxIngredients object={ object } />
+      </CardDetails>
+      <Button
             variant="primary"
-            data-testid="start-recipe-btn"
-            onClick={ handleClick }
+            data-testid="finish-recipe-btn"
           >
             Iniciar receita
-    </Button>
+      </Button>
     </>
+    
     
   );
 };
 
-Details.propTypes = {
+RecipesInProgress.propTypes = {
   title: PropTypes.string.isRequired,
   object: PropTypes.shape({ }).isRequired,
   match: PropTypes.shape({
@@ -76,9 +57,6 @@ Details.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    }),
 };
 
-export default Details;
+export default RecipesInProgress;

@@ -11,7 +11,6 @@ import CardItens from './Card';
 const FETCH_ALL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
 function Bebidas() {
-// <<<<<<< main-group-20-Req-25-ao-32
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'));
@@ -28,7 +27,7 @@ function Bebidas() {
   const history = useHistory();
   const isSearching = useSelector((state) => state.search.isSearching);
 
-  if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled') {
+  if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled' && drinksArray) {
     if (drinksArray.length === 1 && isSearching === true) {
       history.push(`/bebidas/${drinksArray[0].idDrink}`);
     }
@@ -90,24 +89,15 @@ function Bebidas() {
       </>
     );
   }
-// =======
-//   const estado = useSelector((state) => state.api);
-//   const history = useHistory();
 
-//   useEffect(() => {
-//     if (estado.data === 'SN') {
-//       console.log('Sem filtros');
-//     } else if (estado.data.drinks.length === 1) {
-//       history.push(`/bebidas/${estado.data.drinks[0].idDrink}`);
-//     } else if (estado.data.drinks.length > 1) {
-//       console.log('fazer map');
-//     }
-//   }, [estado, history]);
+  if ((drinksArray === null && loadingAPI === 'fulfilled')
+    || loadingAPI === 'rejected') {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
 
-// >>>>>>> main-group-20
   return (
     <>
-      <Header title="Comidas" />
+      <Header title="Bebidas" />
       <h2>Carregando...</h2>
       <Footer />
     </>

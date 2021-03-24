@@ -15,7 +15,7 @@ function SearchBar() {
   const history = useHistory();
   const local = history.location.pathname;
 
-  function handelPesquisa() {
+  function handlePesquisa() {
     let site = '';
     if (local.includes('comida')) {
       site = 'themealdb';
@@ -78,7 +78,7 @@ function SearchBar() {
         <Button
           variant="primary"
           data-testid="exec-search-btn"
-          onClick={ () => handelPesquisa() }
+          onClick={ () => handlePesquisa() }
         >
           Pesquisar
         </Button>

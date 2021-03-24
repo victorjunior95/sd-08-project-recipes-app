@@ -11,7 +11,7 @@ import '../../styles/components/Header/index.css';
 
 class Header extends Component {
   render() {
-    const { title, setToggle } = this.props;
+    const { title, showButton, setToggle } = this.props;
     return (
       <header className="headerContainer">
         <div>
@@ -46,7 +46,7 @@ class Header extends Component {
             </div>
           )}
         </div>
-        <SearchBar title={ title } />
+        {showButton && <SearchBar title={ title } />}
 
       </header>
     );
@@ -56,6 +56,7 @@ class Header extends Component {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   setToggle: PropTypes.func.isRequired,
+  showButton: PropTypes.bool.isRequired,
 
 };
 

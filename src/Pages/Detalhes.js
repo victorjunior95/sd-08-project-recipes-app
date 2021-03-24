@@ -6,15 +6,19 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 import RecommendedList from '../components/RecommendedList';
+import ButtonIniciar from '../components/ButtonIniciar';
 
 function Detalhes() {
-  const { setShouldRedirect,
+  const history = useHistory();
+  const urlText = history.location.pathname;
+  const id = urlText.split('s/')[1];
+
+  const { setShouldRedirect, addStartedRecipes,
     recommendedFood, recommendedDrink, setRecommendedFood,
     setRecommendedDrink } = useContext(RecipeContext);
 
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
-  const history = useHistory();
 
   const requestRecommendedFood = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -30,16 +34,14 @@ function Detalhes() {
 
   const requestByID = async () => {
     const TWO_SECONDS = 2000;
-    const value = history.location.pathname;
     let response = [];
-    const id = value.split('s/')[1];
-    if (value.includes('bebidas')) {
+    if (urlText.includes('bebidas')) {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.drinks);
       requestRecommendedFood();
     }
-    if (value.includes('comidas')) {
+    if (urlText.includes('comidas')) {
       response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.meals);
@@ -117,13 +119,7 @@ function Detalhes() {
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <RecommendedList value={ recommendedFood } />
-      <button
-        className="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <ButtonIniciar onClick={ () => addStartedRecipes(id) } id={ id } />
     </div>
   );
 
@@ -162,13 +158,7 @@ function Detalhes() {
       />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <RecommendedList value={ recommendedDrink } />
-      <button
-        className="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <ButtonIniciar onClick={ () => addStartedRecipes(id) } id={ id } />
     </div>
   );
 

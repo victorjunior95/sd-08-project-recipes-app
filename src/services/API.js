@@ -1,12 +1,23 @@
-// import React, { useEffect } from 'react';
-
 const endpointIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-// const endpointNome = 'https://www.themealdb.com/api/json/v1/1/search.php?s={nome}';
-// const endpointPrimeiraLetra = 'https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}';
+const endpointName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const endpointFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 
-const getIngredients = (ingrediente) => {
-  fetch(`${endpointIngredient}${ingrediente}`)
+const getFoodIngredients = async (ingredient) => {
+  fetch(`${endpointIngredient}${ingredient}`)
     .then((response) => response.json())
     .then(({ meals }) => console.log(meals));
 };
-export default getIngredients;
+
+export default getFoodIngredients;
+
+export const getFoodName = async (name) => {
+  fetch(`${endpointName}${name}`)
+    .then((response) => response.json())
+    .then(({ meals }) => console.log(meals));
+};
+
+export const getFoodFirstLetter = async (firstLetter) => {
+  fetch(`${endpointFirstLetter}${firstLetter}`)
+    .then((response) => response.json())
+    .then(({ meals }) => console.log(meals));
+};

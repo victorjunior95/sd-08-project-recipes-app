@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
 
 function Search() {
+  const [textInput, setTextInput] = useState('');
+  const [radio, setRadio] = useState();
+  const { getAPI } = useContext(RecipesContext);
+  const handleChange = ({ target }) => {
+    setRadio(target.value);
+  };
   return (
     <div>
       <label htmlFor="search">
@@ -10,8 +17,8 @@ function Search() {
           id="search"
           name="search"
           data-testid="search-input"
-          value="search"
-          onChange={ handleChange }
+          value={ textInput }
+          onChange={ ({ target }) => setTextInput(target.value) }
         />
       </label>
       <label htmlFor="search-radio">
@@ -19,9 +26,10 @@ function Search() {
         <input
           type="radio"
           data-testid="ingredient-search-radio"
-          name="search-radio"
+          name="radio"
           id="search-radio"
-          value="ingredientes"
+          value="ingredient"
+          onChange={ handleChange }
         />
       </label>
       <label htmlFor="name-search-radio">
@@ -29,9 +37,10 @@ function Search() {
         <input
           type="radio"
           data-testid="name-search-radio"
-          name="name-search-radio"
+          name="radio"
           id="name-search-radio"
-          value="nome"
+          value="name"
+          onChange={ handleChange }
         />
       </label>
       <label htmlFor="first-letter-search-radio">
@@ -39,14 +48,16 @@ function Search() {
         <input
           type="radio"
           data-testid="first-letter-search-radio"
-          name="first-letter-search-radio"
+          name="radio"
           id="first-letter-search-radio"
-          value="letra"
+          value="firstLetter"
+          onChange={ handleChange }
         />
       </label>
       <button
         data-testid="exec-search-btn"
         type="submit"
+        onClick={ () => getAPI(radio, textInput) }
       >
         Pesquisar
       </button>

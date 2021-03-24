@@ -20,7 +20,7 @@ function Header() {
   const [searchItens, setSearchItens] = useState(searchItensInitial);
 
   function handleClickProfileBtn() {
-    setHeaderInfo({ pageTitle: 'Perfil', showSearch: false });
+    setHeaderInfo({ pageTitle: 'Perfil', showSearchIcon: false });
     return history.push('/perfil');
   }
 
@@ -48,7 +48,7 @@ function Header() {
           <img src={ profileIcon } className="img-fluid" alt="Profile Icon" />
         </NavLink>
         <h2 data-testid="page-title" className="m-0">{ headerInfo.pageTitle }</h2>
-        { headerInfo.showSearch ? (
+        { headerInfo.showSearchIcon ? (
           <NavLink
             onClick={ handleClickSearchBtn }
             data-testid="search-top-btn"

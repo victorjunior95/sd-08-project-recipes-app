@@ -20,7 +20,7 @@ const Comidas = () => {
         history.push(`/comidas/${dataByBusca.meals[0].idMeal}`);
       }
     }
-  }, [dataByBusca]);
+  }, [dataByBusca, history]);
 
   return (
     <section className="w-100">

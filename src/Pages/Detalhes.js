@@ -4,6 +4,7 @@ import RecipeContext from '../context/RecipeContext';
 import '../styles/Detalhes.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import Loading from '../components/Loading';
 
 function Detalhes() {
   const { setShouldRedirect } = useContext(RecipeContext);
@@ -152,7 +153,7 @@ function Detalhes() {
 
   return (
     <div>
-      {loading ? <p>Carregando</p> : render()}
+      {loading ? <Loading /> : render()}
     </div>
   );
 }

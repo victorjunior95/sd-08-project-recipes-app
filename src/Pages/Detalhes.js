@@ -5,12 +5,28 @@ import '../styles/Detalhes.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
+import RecommendedList from '../components/RecommendedList';
 
 function Detalhes() {
-  const { setShouldRedirect } = useContext(RecipeContext);
+  const { setShouldRedirect,
+    recommendedFood, recommendedDrink, setRecommendedFood,
+    setRecommendedDrink } = useContext(RecipeContext);
+
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+
+  const requestRecommendedFood = async () => {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const result = await response.json();
+    setRecommendedFood(result.meals);
+  };
+
+  const requestRecommendedDrink = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const result = await response.json();
+    setRecommendedDrink(result.drinks);
+  };
 
   const requestByID = async () => {
     const TWO_SECONDS = 2000;
@@ -21,11 +37,13 @@ function Detalhes() {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.drinks);
+      requestRecommendedDrink();
     }
     if (value.includes('comidas')) {
       response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.meals);
+      requestRecommendedFood();
     }
 
     setTimeout(() => {
@@ -54,7 +72,7 @@ function Detalhes() {
   useEffect(() => {
     requestByID();
     setShouldRedirect(false);
-  }, []);
+  }, [history.location.pathname]);
 
   const renderDrink = () => (
     <div className="details">
@@ -84,7 +102,7 @@ function Detalhes() {
         { getIngredients() }
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <div>Recomendados</div>
+      <RecommendedList value={ recommendedDrink } />
       <button
         className="start-recipe-btn"
         type="button"
@@ -129,7 +147,7 @@ function Detalhes() {
         title="YouTube video player"
       />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <div>Recomendados</div>
+      <RecommendedList value={ recommendedFood } />
       <button
         className="start-recipe-btn"
         type="button"
@@ -138,7 +156,6 @@ function Detalhes() {
         Iniciar Receita
       </button>
     </div>
-
   );
 
   const render = () => {

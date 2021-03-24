@@ -12,7 +12,6 @@ class ReceitasFeitas extends Component {
     this.filters = this.filters.bind(this);
     this.inputCard = this.inputCard.bind(this);
     this.share = this.share.bind(this);
-    this.alcoholicOrNot = this.alcoholicOrNot.bind(this);
   //   this.APIcomidas = this.APIcomidas.bind(this);
   //   this.APIbebidas = this.APIbebidas.bind(this);
   //   this.twelveCards = this.twelveCards.bind(this);
@@ -29,20 +28,18 @@ class ReceitasFeitas extends Component {
     );
   }
 
-  share() {
-    copy(window.location);
-    // const SHOW_TIME = 3000;
-    // this.setState({ displayShareMesage: true }, () => {
-    //   setTimeout(() => this.setState({ displayShareMesage: false }), SHOW_TIME);
-    // });
-  }
-
-  alcoholicOrNot() {
-
+  share(obj) {
+    const location = `http://localhost:3000/${obj.type}s/${obj.id}`;
+    copy(location);
+    const SHOW_TIME_MILISECONDS = 3000;
+    this.setState({ displayShareMesage: true }, () => {
+      setTimeout(() => this.setState(
+        { displayShareMesage: false },
+      ), SHOW_TIME_MILISECONDS);
+    });
   }
 
   inputCard() {
-    let value;
     const recipes = [
       {
         id: '52771',
@@ -86,13 +83,14 @@ class ReceitasFeitas extends Component {
             <p data-testid={ `${index}-horizontal-done-date` }>{obj.doneDate}</p>
             <button
               type="button"
-              onClick={ () => this.share() }
+              onClick={ () => this.share(obj) }
             >
               <img
                 alt="card"
                 data-testid={ `${index}-horizontal-share-btn` }
                 src={ shareIcon }
               />
+              {' '}
             </button>
             { obj.tags.map((tag) => (
               <p
@@ -109,6 +107,8 @@ class ReceitasFeitas extends Component {
   }
 
   render() {
+    const { displayShareMesage } = this.state;
+
     return (
       <div>
         <HeaderLocation />
@@ -116,6 +116,7 @@ class ReceitasFeitas extends Component {
         <br />
         <br />
         {this.filters()}
+        { displayShareMesage ? <p>Link copiado!</p> : <div />}
         {this.inputCard()}
       </div>
     );

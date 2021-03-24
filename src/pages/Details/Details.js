@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 import { useIsMeal } from '../../services/customHooks';
 import { fetchDetails, fetchDrinks, fetchMeal } from '../../services/API';
 import { saveActualRecipe, saveRecommendations } from '../../redux/actions/details';
+import './details.css';
+
 import Loading from '../../components/Details/Loading';
 import CoverImg from '../../components/Details/CoverImg';
-
-import './details.css';
 import Title from '../../components/Details/Title';
+import ShareFavBtn from '../../components/Details/ShareFavBtn';
 
 async function getRecipe(dispatch, id, isMeal) {
   let api = '';
@@ -39,7 +40,10 @@ function Details() {
   return (
     <main className="recipe-details">
       <CoverImg />
-      <Title />
+      <div className="upper-container">
+        <Title />
+        <ShareFavBtn />
+      </div>
     </main>
   );
 }

@@ -6,40 +6,40 @@ const endPointDrinkName = 'https://www.thecocktaildb.com/api/json/v1/1/search.ph
 
 const endPointDrinkFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
-const getFoodIngredients = async (ingredient) => {
+export const getFoodIngredients = async (ingredient) => (
   fetch(`${endpointFoodIngredient}${ingredient}`)
     .then((response) => response.json())
-    .then(({ meals }) => console.log(meals));
-};
+    .then(({ meals }) => { console.log(meals); return meals; })
+);
 
-export default getFoodIngredients;
+// export default getFoodIngredients;
 
-export const getFoodName = async (name) => {
+export const getFoodName = async (name) => (
   fetch(`${endpointFoodName}${name}`)
     .then((response) => response.json())
-    .then(({ meals }) => console.log(meals));
-};
+    .then(({ meals }) => meals)
+);
 
-export const getFoodFirstLetter = async (firstLetter) => {
+export const getFoodFirstLetter = async (firstLetter) => (
   fetch(`${endpointFoodFirstLetter}${firstLetter}`)
     .then((response) => response.json())
-    .then(({ meals }) => console.log(meals));
-};
+    .then(({ meals }) => meals)
+);
 
-export const getDrinkIngredients = async (ingredient) => {
+export const getDrinkIngredients = async (ingredient) => (
   fetch(`${endpointDrinkIngredient}${ingredient}`)
     .then((response) => response.json())
-    .then(({ drinks }) => console.log(drinks));
-};
+    .then(({ drinks }) => drinks)
+);
 
-export const getDrinkName = async (name) => {
+export const getDrinkName = async (name) => (
   fetch(`${endPointDrinkName}${name}`)
     .then((response) => response.json())
-    .then(({ drinks }) => console.log(drinks));
-};
+    .then(({ drinks }) => drinks)
+);
 
-export const getDrinkFirstLetter = async (firstLetter) => {
+export const getDrinkFirstLetter = async (firstLetter) => (
   fetch(`${endPointDrinkFirstLetter}${firstLetter}`)
     .then((response) => response.json())
-    .then(({ drinks }) => console.log(drinks));
-};
+    .then(({ drinks }) => drinks)
+);

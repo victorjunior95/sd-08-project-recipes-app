@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from './RecipesContext';
-import getFoodIngredients,
-{ getFoodFirstLetter,
+import
+{ getFoodIngredients,
+  getFoodFirstLetter,
   getFoodName,
   getDrinkIngredients,
   getDrinkName,
@@ -10,11 +12,13 @@ import getFoodIngredients,
 
 export default function RecipesProvider({ children }) {
   const [data, setData] = useState({ food: [], drink: [] });
+  const history = useHistory();
+  const { location: { pathname } } = history;
 
-  const getAPI = async (radio, textInput, pathname) => {
+  const getAPI = async (radio, textInput, path) => {
     switch (radio) {
     case ('ingredient'):
-      return pathname === '/comidas'
+      return path === '/comidas'
         ? setData({
           ...data,
           food: await getFoodIngredients(textInput) })
@@ -22,7 +26,7 @@ export default function RecipesProvider({ children }) {
           ...data,
           drink: await getDrinkIngredients(textInput) });
     case ('name'):
-      return pathname === '/comidas'
+      return path === '/comidas'
         ? setData({
           ...data,
           food: await getFoodName(textInput) })
@@ -35,7 +39,7 @@ export default function RecipesProvider({ children }) {
           'Sua busca deve conter somente 1 (um) caracter',
         );
       }
-      return pathname === '/comidas'
+      return path === '/comidas'
         ? setData({
           ...data,
           food: await getFoodFirstLetter(textInput) })
@@ -47,6 +51,20 @@ export default function RecipesProvider({ children }) {
       break;
     }
   };
+
+  useEffect(() => {
+    if (pathname === '/comidas'
+      && (data.food.length > 0)) {
+      return data.food.length > 1
+        ? history.push('/comidas')
+        : history.push(`/comidas/${data.food[0].idMeal}`);
+    } if (pathname === '/bebidas'
+    && (data.drink.length > 0)) {
+      return data.drink.length > 1
+        ? history.push('/bebidas/')
+        : history.push(`/bebidas/${data.drink[0].idDrink}`);
+    }
+  }, [data]);
 
   const context = { getAPI };
 

@@ -5,10 +5,12 @@ import Loading from '../../components/Loading';
 
 function Foods() {
   const { isFetching } = useSelector((state) => state.foods);
-  if (isFetching) return <Loading />;
   return (
     <ContainerDefault title="Comidas">
-      <p>testando</p>
+      {
+        isFetching ? <Loading />
+          : <p>Comidas</p>
+      }
     </ContainerDefault>
   );
 }

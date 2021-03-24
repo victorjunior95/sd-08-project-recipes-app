@@ -53,7 +53,6 @@ function filterMatchRecipe(actualRecipe, favorites, isMeal) {
   });
 }
 
-
 function isInFavorites(actualRecipe, favorites, isMeal) {
   const matches = filterMatchRecipe(actualRecipe, favorites, isMeal);
   if (matches.length < 1) {

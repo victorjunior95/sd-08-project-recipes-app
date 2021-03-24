@@ -23,7 +23,7 @@ function CardFoodDetails() {
   return (
     <section>
       {detailFoods.map((item) => (
-        <div key={ item.strMeal }>
+        <div key={ item.strMeal } className="BBB">
           <img
             src={ item.strMealThumb }
             alt={ item.strMeal }
@@ -53,11 +53,11 @@ function CardFoodDetails() {
           <p data-testid="video">{item.strYoutube}</p>
         </div>
       ))}
-      <div className="carousel">
+      <div className="carouselAAA">
         {recomendations.map((item, index) => {
           if (index >= LAST_CARD_CAROUSEL) return '';
           return (
-            <div key={ item.strDrink } className="carousel-item">
+            <div key={ item.strDrink } className="carouselAAA-item">
               {console.log(item.strDrinkThumb)}
               <img
                 src={ item.strDrinkThumb }

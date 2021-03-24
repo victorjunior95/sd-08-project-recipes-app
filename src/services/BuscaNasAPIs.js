@@ -55,3 +55,15 @@ export const getBebidasByPrimeiraLetra = (primeiraLetra) => (
     .then((json) => json)
     .catch((error) => console.log(error))
 );
+
+export async function getReceitaBebidasDetalhesPorId(id) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const details = await response.json();
+  return details.drinks;
+}
+
+export async function getReceitaComidasDetalhesPorId(id) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const details = await response.json();
+  return details.meals;
+}

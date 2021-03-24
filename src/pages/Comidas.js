@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
 import Cards from '../components/Cards';
+import Footer from '../components/Footer';
 
 function Comidas() {
   const {
@@ -12,6 +13,7 @@ function Comidas() {
     <div>
       <Header title="Comidas" explore />
       {createCards ? <Cards /> : null}
+      <Footer />
     </div>
   );
 }

@@ -12,6 +12,8 @@ import DoneRecipesButton from './buttons/DoneRecipesButton';
 import FavoritesButton from './buttons/FavoritesButton';
 import LogoutButton from './buttons/LogoutButton';
 import SearchDropDown from './SearchDropDown';
+import MainIngredientCard from './MainIngredientCard';
+import MainIngredientDrinkCard from './MainIngredientDrinkCard';
 
 const components = {
   Header,
@@ -28,6 +30,8 @@ const components = {
   FavoritesButton,
   LogoutButton,
   SearchDropDown,
+  MainIngredientCard,
+  MainIngredientDrinkCard,
 };
 
 export default components;

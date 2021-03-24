@@ -10,6 +10,8 @@ import fetchFoodByCategory from './foodByCategory';
 import fetchDrinkByCategory from './drinkByCategory';
 import fetchByDrinkFilters from './drinkBySearchFilter';
 import fetchByFilters from './fetchByFilter';
+import fetchIngredients from './ingredientsAPI';
+import fetchDrinkIngredients from './ingredientDrinkAPI';
 
 const api = {
   fetchDrinks,
@@ -22,6 +24,8 @@ const api = {
   fetchDrinkByCategory,
   fetchByDrinkFilters,
   fetchByFilters,
+  fetchIngredients,
+  fetchDrinkIngredients,
 };
 
 export default api;

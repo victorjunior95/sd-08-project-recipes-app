@@ -39,6 +39,7 @@ function Home() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categorySelected, selected]);
+  console.log(categorySelected, selected);
   return (
     <div>
       <components.Header title="Comidas" />
@@ -75,7 +76,7 @@ function Home() {
               key={ index }
               dataFoods={ curr }
               index={ index }
-              id={ curr.idMeal }
+              id={ curr }
             />
           ))
           : dataFoods.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((food, index) => (

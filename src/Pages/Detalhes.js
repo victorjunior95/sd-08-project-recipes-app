@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
-import '../styles/Card.css';
+import '../styles/Detalhes.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -56,7 +56,7 @@ function Detalhes() {
   }, []);
 
   const renderDrink = () => (
-    <div>
+    <div className="details">
       <h1 data-testid="recipe-category">{objDetail[0].strCategory}</h1>
       <h2 data-testid="recipe-title">{objDetail[0].strDrink}</h2>
       <img
@@ -84,17 +84,22 @@ function Detalhes() {
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <div>Recomendados</div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 
   const renderFood = () => (
-    <div>
+    <div className="details">
       <h1 data-testid="recipe-category">{objDetail[0].strCategory}</h1>
       <h2 data-testid="recipe-title">{objDetail[0].strMeal}</h2>
       <img
         data-testid="recipe-photo"
-        className="food-image"
         src={ objDetail[0].strMealThumb }
         alt={ objDetail[0].strMeal }
       />
@@ -124,7 +129,13 @@ function Detalhes() {
       />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <div>Recomendados</div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
 
   );

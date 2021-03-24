@@ -10,7 +10,7 @@ function Card({ index, card }) {
     const { strDrink, strDrinkThumb, idDrink } = card;
     return (
       <Link to={ `/bebidas/${idDrink}` }>
-        <div>
+        <div className="card">
           <h1 className="food-title" data-testid={ `${index}-card-name` }>{strDrink}</h1>
           <img
             className="food-image"
@@ -27,7 +27,7 @@ function Card({ index, card }) {
     const { strMeal, strMealThumb, idMeal } = card;
     return (
       <Link to={ `/comidas/${idMeal}` }>
-        <div>
+        <div className="card">
           <h1 className="food-title" data-testid={ `${index}-card-name` }>{strMeal}</h1>
           <img
             className="food-image"

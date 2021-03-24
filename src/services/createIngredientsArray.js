@@ -5,7 +5,11 @@ function createIngredientsArray(obj) {
     const ingr = `strIngredient${i}`;
     const meas = `strMeasure${i}`;
     if (obj[0][ingr]) {
-      IngredientsArray.push(`${obj[0][ingr]} - ${obj[0][meas]}`);
+      if (obj[0][meas]) {
+        IngredientsArray.push(`${obj[0][ingr]} - ${obj[0][meas]}`);
+      } else {
+        IngredientsArray.push(`${obj[0][ingr]}`);
+      }
     }
   }
   return IngredientsArray;

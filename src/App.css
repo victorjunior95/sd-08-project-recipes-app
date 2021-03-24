@@ -4,18 +4,14 @@
 
 .meals {
   align-items: center;
-  /* background: #0fa36b; */
   color: #464646;
-  display: grid;
-  /* flex-direction: column; */
-  font-family: sans-serif;
-  height: 100vh;
-  /* justify-content: center; */
-  width: 100%;
-
-  row-gap: 2px;
   column-gap: 2px;
+  display: grid;
+  font-family: sans-serif;
   grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+  height: 100vh;
+  row-gap: 2px;
+  width: 100%;
 }
 
 .rocksGlass {

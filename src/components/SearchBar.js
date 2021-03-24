@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
 function Search() {
   const [textInput, setTextInput] = useState('');
   const [radio, setRadio] = useState();
   const { getAPI } = useContext(RecipesContext);
+  const { location: { pathname } } = useHistory();
   const handleChange = ({ target }) => {
     setRadio(target.value);
   };
@@ -57,7 +59,7 @@ function Search() {
       <button
         data-testid="exec-search-btn"
         type="submit"
-        onClick={ () => getAPI(radio, textInput) }
+        onClick={ () => getAPI(radio, textInput, pathname) }
       >
         Pesquisar
       </button>

@@ -15,7 +15,7 @@ function BarraPesquisa() {
   return (
     <form>
       <input
-        className="searchInput"
+        className="zTry"
         type="text"
         name="search"
         data-testid="search-input"
@@ -27,7 +27,7 @@ function BarraPesquisa() {
       >
         Ingrediente
         <input
-          className="search"
+          className="zTry"
           id="i"
           type="radio"
           name="type"
@@ -42,7 +42,8 @@ function BarraPesquisa() {
       >
         Nome
         <input
-          className="search"
+          className="zTry"
+
           id="s"
           type="radio"
           name="type"
@@ -57,7 +58,8 @@ function BarraPesquisa() {
       >
         Primeira Letra
         <input
-          className="search"
+          className="zTry"
+
           id="f"
           type="radio"
           name="type"
@@ -67,7 +69,8 @@ function BarraPesquisa() {
         />
       </label>
       <button
-        className="searchInput"
+        className="zTry"
+
         type="button"
         onClick={ handleClick }
         data-testid="exec-search-btn"

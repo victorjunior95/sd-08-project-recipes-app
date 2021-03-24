@@ -1,4 +1,4 @@
-/* .meals {
+.meals {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -13,26 +13,6 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
-} */
-
-.login {
-  font-size: 10px;
-  margin-left: 20px;
-  margin-top: 20px;
-}
-
-.search {
-  font-size: 12px;
-  margin-left: 10px;
-  margin-top: 10px;
-}
-
-.searchInput {
-  display: block;
-  font-size: 5px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-top: 10px;
 }
 
 /*
@@ -87,7 +67,32 @@
   }
 }
 
-/* .footer {
+
+/* .login {
+  font-size: 10px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.search {
+  font-size: 12px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.searchInput {
+  display: block;
+  font-size: 5px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.footer {
+  bottom: 0;
+  position: fixed;
+} */
+
+.footer {
   background-color: gray;
   bottom: 0;
   display: flex;
@@ -95,9 +100,9 @@
   justify-content: space-around;
   position: fixed;
   width: 100%;
-} */
+}
 
-.footer {
-  bottom: 0;
-  position: fixed;
+.zTry {
+  z-index: 1;
+  margin:10px;
 }

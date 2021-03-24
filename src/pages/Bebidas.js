@@ -55,7 +55,7 @@ const Drinks = () => {
       )
     );
     mapDrinks();
-  }, [filteredDrinks]);
+  }, [filteredDrinks, recipesFetch]);
   useEffect(() => {
     // const filterCategories = (cat) => {
     //   console.log(cat);

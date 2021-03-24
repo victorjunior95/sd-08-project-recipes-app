@@ -54,7 +54,7 @@ const Comidas = () => {
       )
     );
     mapFoods();
-  }, [filteredFoods]);
+  }, [filteredFoods, recipesFetch]);
   useEffect(() => {
     // const filterCategories = (cat) => {
     //   console.log(cat);

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import RecomandationCard from '../components/RecomandationCard';
-import { getDoneRecipes, inProgressRecipes } from '../utils';
 
 import { fetchProductDetailsById } from '../services';
 
@@ -15,16 +13,8 @@ const Detalhes = () => {
   const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [buttonRecipe, setButtonRecipe] = useState(true);
-  const [inProgress, setProgress] = useState(false);
-  const location = useLocation();
-  const history = useHistory();
 
-  useEffect(() => {
-    const doneRecipes = getDoneRecipes();
-    const [,, id] = location.pathname.split('/');
-    const isDone = doneRecipes.some((recipe) => recipe.id === id);
-    setButtonRecipe(!isDone);
-  }, [location.pathname]);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,16 +36,6 @@ const Detalhes = () => {
 
     fetchData();
   }, [location.pathname]);
-
-  useEffect(() => {
-    const fetchInProgress = async () => {
-      const inProgres = await inProgressRecipes(isMeal);
-      const [,, id] = location.pathname.split('/');
-      if (!inProgres) return;
-      setProgress(!!inProgres[id]);
-    };
-    fetchInProgress();
-  }, [location.pathname, isMeal]);
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
@@ -89,34 +69,20 @@ const Detalhes = () => {
           const ingMeasure = foodDetails[ingredient.replace('Ingredient', 'Measure')];
 
           return (
-            <p key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
+            <div key={ ingredient }>
               {`${ingredientName} - ${ingMeasure}`}
-            </p>
+              <input
+                type="checkbox"
+                data-testid={ `${index}-ingredient-name-and-measure` }
+
+              />
+            </div>
           );
         })
       }
       <p data-testid="instructions">{foodDetails.strInstructions}</p>
 
-      {foodDetails.strYoutube && <iframe
-        src={ `https://www.youtube.com/embed/${foodDetails.strYoutube.split('v=')[1]}` }
-        frameBorder="0"
-        allowFullScreen
-        title="video"
-        data-testid="video"
-      />}
-
-      <RecomandationCard type={ isMeal ? 'comidas' : 'bebidas' } />
-
-      {buttonRecipe && (
-        <button
-          onClick={ () => { history.push(`${location.pathname}/in-progress`); } }
-          type="button"
-          className="btnStyle"
-          data-testid="start-recipe-btn"
-        >
-          { inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-
-        </button>)}
+      <button type="button" data-testid="start-recipe-btn">Finalizar Receita</button>
     </div>
   );
 };

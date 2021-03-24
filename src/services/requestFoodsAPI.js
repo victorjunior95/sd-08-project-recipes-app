@@ -1,3 +1,5 @@
+const TAG_ARRAY_LENGTH = 5;
+
 export const requestByName = async (name) => {
   const path = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
   const response = await fetch(path);
@@ -21,6 +23,20 @@ export const requestByFirstLetter = async (letter) => {
 
 export const requestMainFoods = async () => {
   const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals;
+};
+
+export const requestCategoriesMeals = async () => {
+  const path = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals.splice(0, TAG_ARRAY_LENGTH);
+};
+
+export const requestFoodById = async (id) => {
+  const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const response = await fetch(path);
   const data = await response.json();
   return data.meals;

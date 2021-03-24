@@ -1,10 +1,6 @@
-.footer {
-  bottom: 0;
-  color: white;
-  left: 0;
-  position: fixed;
-  text-align: center;
-  width: 100%;
+.btn-login {
+  margin-left: 140px;
+  margin-top: 10px;
 }
 
 .meals {
@@ -21,7 +17,6 @@
 
 .rocksGlass {
   animation: shake 1s infinite ease;
-  max-height: 80vh;
 }
 
 .login {
@@ -64,6 +59,25 @@
   transform-origin: 60px 78px;
 }
 */
+
+.footer {
+  background-color: rgba(57, 62, 65, 0.3);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100vw;
+}
+
+.notFound {
+  background-image: url('https://zlionbrasil.com.br/img/icons/404.png');
+  background-size: cover;
+  color: rgb(16, 135, 190);
+  font-size: 50px;
+  height: 100vh;
+  text-align: center;
+  width: 100vw;
+}
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;

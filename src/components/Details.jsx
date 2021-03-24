@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import contextRecipes from '../context/Context';
+import Recomendations from './Recomendations';
 
 function Details() {
   const { currentFood, currentFoodIngredients } = useContext(contextRecipes);
@@ -33,7 +34,7 @@ function Details() {
           <h2>Instruções</h2>
           <p data-testid="instructions">{ food.strInstructions }</p>
           <p data-testid="video">Video</p>
-          <p>scrollLateral Recomendadas</p>
+          <Recomendations />
           <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
         </div>
       ))}

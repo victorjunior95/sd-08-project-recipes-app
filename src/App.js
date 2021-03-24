@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Comidas, Bebidas, Login, Perfil, DetalhesComida,
   DetalhesBebida, Explorar, ExplorarComidas, ExplorarBebidas,
   IngredientesComidas, IngredientesBebidas, ExplorarOrigem,
@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Route path="/comidas/:id" component={ DetalhesComida } />
       <Route exact path="/comidas" component={ Comidas } />
       <Route exact path="/bebidas" component={ Bebidas } />
@@ -28,7 +28,7 @@ function App() {
       <Route path="/receitas-feitas;" component={ Receitas } />
       <Route path="/receitas-favoritas" component={ Receitas } /> */}
       <Route exact path="/" component={ Login } />
-    </BrowserRouter>
+    </>
   );
 }
 

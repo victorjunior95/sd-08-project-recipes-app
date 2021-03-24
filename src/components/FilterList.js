@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Creators as MealsActions } from '../store/ducks/meals';
+// import { Creators as MealsActions } from '../store/ducks/cocktails';
 import styles from '../styles/components/FilterList.module.css';
 
 const FILTER_LIMIT = 5;
@@ -15,9 +16,7 @@ function FilterList({ categories, fetchByCategory }) {
   }, [currentFilter]);
 
   const handleChangeFilter = ({ target }) => {
-    if (target.value !== currentFilter) {
-      setCurrentFilter(target.value);
-    }
+    setCurrentFilter(target.value);
   };
 
   return (
@@ -28,6 +27,7 @@ function FilterList({ categories, fetchByCategory }) {
           className={ styles.filterButton }
           type="button"
           key={ filter }
+          value={ filter }
           onClick={ handleChangeFilter }
         >
           {filter}

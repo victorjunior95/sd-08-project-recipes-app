@@ -10,7 +10,6 @@ export const Types = {
   SET_FETCH_BY_CATEGORY: 'SET_FETCH_BY_CATEGORY',
   FETCH_BY_CATEGORY_SUCCESS: 'FETCH_BY_CATEGORY_SUCCESS',
   FETCH_BY_CATEGORY_ERROR: 'FETCH_BY_CATEGORY_ERROR',
-  ADD_FILTER: 'ADD_FILTER',
 };
 
 const INITIAL_MEALS_STATE = {
@@ -21,13 +20,7 @@ const INITIAL_MEALS_STATE = {
   categories: [],
   error: '',
   notFound: false,
-  filter: 'All',
 };
-
-const addFilter = (state, action) => ({
-  ...state,
-  filter: action.filter,
-});
 
 const setFetchMeals = (state) => ({
   ...state, isFetchingMeals: true, notFound: false,
@@ -90,7 +83,6 @@ const fetchByCategoryError = (state, action) => ({
 
 const meals = (state = INITIAL_MEALS_STATE, action) => {
   switch (action.type) {
-  case Types.ADD_FILTER: return addFilter(state, action);
   case Types.SET_FETCH_MEALS: return setFetchMeals(state);
   case Types.FETCH_MEALS_SUCCESS: return fetchMealsSuccess(state, action);
   case Types.FETCH_MEALS_ERROR: return fetchMealsError(state, action);
@@ -105,11 +97,6 @@ const meals = (state = INITIAL_MEALS_STATE, action) => {
 };
 
 export const Creators = {
-  addFilter: (filter) => ({
-    type: Types.ADD_FILTER,
-    filter,
-  }),
-
   setFetchMeals: () => ({
     type: Types.SET_FETCH_MEALS,
   }),

@@ -18,20 +18,28 @@ import LoadingScreen from '../components/LoadingScreen';
 const RESULTS_LIMIT = 12;
 
 const Cocktails = ({ fetchCocktails, fetchCategories,
-  isFetchingCocktails, drinks, notFound, categories }) => {
+  isFetchingCocktails, isFetchingCategories, drinks, notFound, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
+  // useEffect(() => {
+  //   fetchCocktails();
+  //   fetchCategories();
+  // }, []);
+
   useEffect(() => {
-    fetchCocktails();
-    fetchCategories();
+    const fetchingCocktails = async () => {
+      await fetchCocktails();
+      await fetchCategories();
+    };
+    fetchingCocktails();
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
   if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
 
-  if (isFetchingCocktails) {
+  if (isFetchingCocktails && isFetchingCategories) {
     return (
       <Container>
         <Header
@@ -73,6 +81,7 @@ Cocktails.propTypes = {
   fetchCocktails: PropTypes.func.isRequired,
   fetchCategories: PropTypes.func.isRequired,
   isFetchingCocktails: PropTypes.bool.isRequired,
+  isFetchingCategories: PropTypes.bool.isRequired,
   drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   notFound: PropTypes.bool.isRequired,
@@ -81,6 +90,7 @@ Cocktails.propTypes = {
 const mapStateToProps = ({ cocktails }) => ({
   drinks: cocktails.drinks,
   isFetchingCocktails: cocktails.isFetchingCocktails,
+  isFetchingCategories: cocktails.isFetchingCategories,
   notFound: cocktails.notFound,
   categories: cocktails.categories,
 });

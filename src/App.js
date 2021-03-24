@@ -8,15 +8,16 @@ import './App.css';
 
 function App() {
   return (
-    <div className="meals">
-      <Switch>
-        <Route exact path="/" component={ LoginPage } />
-        <Route path="/comidas/:id" component={ Details } />
-        <Route path="/bebidas/:id" component={ Details } />
+
+    <Switch>
+      <Route exact path="/" component={ LoginPage } />
+      <Route path="/comidas/:id" component={ Details } />
+      <Route path="/bebidas/:id" component={ Details } />
+      <div className="meals">
         <Route path="/comidas" component={ Comidas } />
         <Route path="/bebidas" component={ Bebidas } />
-      </Switch>
-    </div>
+      </div>
+    </Switch>
   );
 }
 

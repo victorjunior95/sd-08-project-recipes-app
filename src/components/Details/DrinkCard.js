@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import './cards.css';
 
 function Card({ data }) {
@@ -14,17 +13,19 @@ function Card({ data }) {
         src={ strDrinkThumb }
         alt={ strDrink }
       />
-      { strDrink }
+      <h3 data-testid={ `${index}-recomendation-title` }>{ strDrink }</h3>
     </section>
   );
 }
 
 Card.propTypes = {
   data: PropTypes.shape({
-    strDrink: PropTypes.string.isRequired,
-    strDrinkThumb: PropTypes.string.isRequired,
+    drink: PropTypes.shape({
+      strDrink: PropTypes.string.isRequired,
+      strDrinkThumb: PropTypes.string.isRequired,
+    }).isRequired,
+    index: PropTypes.number.isRequired,
   }).isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default Card;

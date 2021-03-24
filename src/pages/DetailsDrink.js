@@ -25,7 +25,7 @@ function DetailsDrink() {
   const startOfSlice = 0;
   const endOfSlice = 2;
   const measure = Object.entries(drinkDetail).reduce(
-    (acc, [key, value], index) => {
+    (acc, [key, value]) => {
       if (key.includes('strMeasure') && value) {
         return acc.concat(value);
       }

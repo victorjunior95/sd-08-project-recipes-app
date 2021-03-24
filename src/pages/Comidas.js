@@ -24,7 +24,15 @@ const Comidas = () => {
       const categoriasResult = await getComidaCategory();
       setCategorias([{ strCategory: 'All' }, ...categoriasResult.meals]);
     }
+    async function getAll() {
+      const allFood = await getAllComida();
+      setDataComidas(allFood.meals);
+    }
+    getAll();
     getCategorias();
+  }, []);
+
+  useEffect(() => {
     if (dataByBusca.meals !== undefined) {
       if (dataByBusca.meals.length > 1) {
         setDataComidas([...dataByBusca.meals]);
@@ -32,11 +40,6 @@ const Comidas = () => {
         history.push(`/comidas/${dataByBusca.meals[0].idMeal}`);
       }
     }
-    async function getAll() {
-      const allFood = await getAllComida();
-      setDataComidas(allFood.meals);
-    }
-    getAll();
   }, [dataByBusca, history]);
 
   async function filterCategory(category) {

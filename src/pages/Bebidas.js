@@ -28,7 +28,15 @@ const Bebidas = () => {
       const categoriasResult = await getBebidaCategory();
       setCategorias([{ strCategory: 'All' }, ...categoriasResult.drinks]);
     }
+    async function getAll() {
+      const allDrink = await getAllBebida();
+      setDataBebidas(allDrink.drinks);
+    }
+    getAll();
     getCategorias();
+  }, []);
+
+  useEffect(() => {
     if (dataByBusca.drinks !== undefined) {
       if (dataByBusca.drinks.length > 1) {
         setDataBebidas([...dataByBusca.drinks]);
@@ -36,11 +44,6 @@ const Bebidas = () => {
         history.push(`/bebidas/${dataByBusca.drinks[0].idDrink}`);
       }
     }
-    async function getAll() {
-      const allDrink = await getAllBebida();
-      setDataBebidas(allDrink.drinks);
-    }
-    getAll();
   }, [dataByBusca, history]);
 
   async function filterCategory(category) {

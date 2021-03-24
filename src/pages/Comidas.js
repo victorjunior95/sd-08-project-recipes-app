@@ -31,7 +31,7 @@ const Comidas = () => {
     // console.log(category);
     fetchFetch();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [recipesFetch]);
   useEffect(() => {
     // console.log(food);
     const mapFoods = () => (
@@ -54,7 +54,7 @@ const Comidas = () => {
       )
     );
     mapFoods();
-  }, [filteredFoods, recipesFetch]);
+  }, [filteredFoods]);
   useEffect(() => {
     // const filterCategories = (cat) => {
     //   console.log(cat);

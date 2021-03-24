@@ -14,7 +14,7 @@ const food = (state = INITIALSTATE, action) => {
     };
   case GET_API_FOOD:
     return { ...state,
-      meals: action.payload,
+      meals: action.payload.meals,
       isFetching: false,
     };
   default:

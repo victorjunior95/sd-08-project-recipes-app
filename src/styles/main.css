@@ -6,7 +6,7 @@
 
   --login-btn-background: #eea564;
 
-  --login-btn-text-disable: rgba(0, 0, 0, 0.7);
+  --login-btn-text-disable: rgba(0, 0, 0, 0.9);
 
   --color-borders: #323238;
 
@@ -33,4 +33,8 @@ button, input, select {
   font-family: Ubuntu , sans-serif;
   padding: 6px;
   width: 100%;
+}
+
+img {
+  fill: var(--login-text-color);
 }

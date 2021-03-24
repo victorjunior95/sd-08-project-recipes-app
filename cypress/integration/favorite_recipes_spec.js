@@ -71,7 +71,7 @@ describe('Favorite recipes screen', () => {
     });
   });
 
-  describe.only('62 - Desenvolva a tela de maneira que, caso a receita do card seja uma bebida, ela deve possuir: a foto da receita, o nome, se é alcoólica ou não, um botão de compartilhar e um de "desfavoritar"', () => {
+  describe('62 - Desenvolva a tela de maneira que, caso a receita do card seja uma bebida, ela deve possuir: a foto da receita, o nome, se é alcoólica ou não, um botão de compartilhar e um de "desfavoritar"', () => {
     it('O card possui os atributos corretos de uma bebida', () => {
       cy.get('[data-testid="1-horizontal-image"]')
         .should('have.attr', 'src')

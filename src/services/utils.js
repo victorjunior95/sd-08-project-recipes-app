@@ -26,3 +26,9 @@ export function makeListWithObj(objParam, keyBase) {
   });
   return response;
 }
+
+export function embedLink(watchLink) {
+  const cuttedLink = watchLink.split('watch?v=');
+  const [base, id] = cuttedLink;
+  return `${base}embed/${id}`;
+}

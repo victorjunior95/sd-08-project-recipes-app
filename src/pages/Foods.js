@@ -1,28 +1,71 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Footer } from '../components';
-// import { _ } from '../store/actions';
+import { Redirect } from 'react-router-dom';
+import { Header, Footer, Loading, Cards } from '../components';
+import { fetchFood } from '../store/actions';
+
+const MAX_NUMBER_CARDS = 11;
 
 class Foods extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: '',
+      searchRadio: 'name',
+    };
+  }
+
+  componentDidMount() {
+    const { search, searchRadio } = this.state;
+    const { getFood } = this.props;
+    getFood({ search, searchRadio });
+  }
+
   render() {
+    const { listFoods, isFetching } = this.props;
+    if (isFetching) return <Loading />;
+    if (listFoods && listFoods.length === 1) {
+      return <Redirect to={ `/comidas/${listFoods[0].idMeal}` } />;
+    }
+
     return (
       <div>
         <Header title="Comidas" />
+        { listFoods && listFoods.reduce((acc, cur, index) => {
+          if (index <= MAX_NUMBER_CARDS) {
+            acc.push(cur);
+          }
+          return acc;
+        }, [])
+          .map((food, index) => (
+            <Cards
+              key={ index }
+              strThumb={ food.strMealThumb }
+              str={ food.strMeal }
+              index={ index }
+            />
+          ))}
         <Footer />
       </div>
     );
   }
 }
 
-// _.propTypes = {
-//   _: PropTypes._.isRequired,
-// };
+Foods.propTypes = {
+  listFoods: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  getFood: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+};
 
-// const mapDispatchToProps = (dispatch) => ({
-//   _: (_) => {
-//     dispatch(_(_));
-//   },
-// });
+const mapStateToProps = (state) => ({
+  listFoods: state.cloneFoodsReducer.recipes.meals,
+  isFetching: state.cloneFoodsReducer.isFetching,
 
-export default connect(null, null)(Foods);
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getFood: (value) => dispatch(fetchFood(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Foods);

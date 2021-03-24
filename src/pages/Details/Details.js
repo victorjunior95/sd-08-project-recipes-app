@@ -5,6 +5,7 @@ import getDrink from '../../services/RequestDrinkForId';
 import CardDetails from '../../components/CardDetail/CardDetail';
 import Context from '../../contextApi/Context';
 import Button from 'react-bootstrap/Button';
+import ListIngredients from '../../components/ListIngredients/ListIngredients';
 
 const Details = ({ title, match, history }) => {
   const { params: { id } } = match;
@@ -33,15 +34,15 @@ const Details = ({ title, match, history }) => {
       const mealOrDrink = await getMealOrDrink();
       setObject(mealOrDrink);
       setLoad(false);
-      return () => setProductDetails(
-        {object: object,
-        isLoading: isLoading,
-    })
     })();
   }, []);
 
   const handleClick = ( ) => {
-    if (title = 'Comidas') {
+    setProductDetails(
+      {object: object,
+      isLoading: isLoading,
+    })
+    if (title === 'Comidas') {
       history.push(`/comidas/${id}/in-progress`);
     } else {
       history.push(`/bebidas/${id}/in-progress`);
@@ -49,9 +50,12 @@ const Details = ({ title, match, history }) => {
     
   }
 
+  // De repente eu tenha que colocar o load aqui, por causa do botão
   return (
     <>
-    <CardDetails title={ title } object={ object } isLoading={ isLoading } />
+    <CardDetails title={ title } object={ object } isLoading={ isLoading }>
+      <ListIngredients object={ object } />
+    </CardDetails>
     <Button
             variant="primary"
             data-testid="start-recipe-btn"

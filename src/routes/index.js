@@ -8,13 +8,19 @@ import ContextRoute from '../context-route/ContextRoute';
 import UserProvider from '../context/userContext/UserProvider';
 import FoodProvider from '../context/comidaContext/FoodProvider';
 import DrinkProvider from '../context/bebidaContext/DrinkProvider';
+import GlobalProvider from '../context/globalContext/GlobalProvider';
 
 function Routes() {
   return (
     <Switch>
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route path="/perfil" component={ Perfil } />
+      <ContextRoute
+        exact
+        path="/perfil"
+        contextComponent={ GlobalProvider }
+        component={ Perfil }
+      />
       <Route path="/explorar/comidas/area" component={ ComidaArea } />
       <Route path="/explorar/bebidas/area" component={ BebidaArea } />
       <Route path="/explorar/comidas/ingredientes" component={ ComidaIngredientes } />

@@ -9,16 +9,19 @@ import Footer from '../components/Footer';
 const Comidas = () => {
   const [meals, setMeals] = useState([]);
   const [targetButton, setTargetButton] = useState('');
-  // const [saveMeals, setSaveMeals] = useState([]);
-  // const [fiterByAllCategory, setfiterByAllCategory] = useState([]);
   const history = useHistory();
-
-  const { filter, mealsCategories } = useContext(contextRecipes);
+  const BOOLEAN_FALSE = false;
+  const { filter, mealsCategories, mainIngredient, setMain } = useContext(contextRecipes);
 
   useEffect(() => {
     async function getMealsFromAPI() {
-      const mealsAPI = await getResultFromAPI('/comidas');
-      // setSaveMeals(mealsAPI);
+      let mealsAPI = '';
+      if (mainIngredient === '') {
+        mealsAPI = await getResultFromAPI('/comidas');
+      } else {
+        mealsAPI = await getResultFromAPI('/comidas', 'Ingredients', mainIngredient);
+        setMain('');
+      }
       setMeals(mealsAPI);
     }
     getMealsFromAPI();
@@ -47,7 +50,7 @@ const Comidas = () => {
 
   return (
     <>
-      <Header title="Comidas" />
+      <Header title="Comidas" searchBtn={ BOOLEAN_FALSE } />
       <Button
         datatestid="All-category-filter"
         label="All"

@@ -6,9 +6,10 @@ import Header from '../components/Header';
 
 function Explorar() {
   const history = useHistory();
+  const BOOLEAN_TRUE = true;
   return (
     <div>
-      <Header title="Explorar" />
+      <Header title="Explorar" searchBtn={ BOOLEAN_TRUE } />
       <Button
         type="button"
         label="Explorar Comidas"

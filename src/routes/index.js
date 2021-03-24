@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Login, Bebida, BebidaDetalhes, BebidaProcesso, Comida, ComidaDetalhes,
   ComidaProcesso, Explorar, ExplorarComida, ExplorarBebida, ComidaIngredientes,
-  BebidaIngredientes, ComidaArea, Perfil, ReceitasFeitas,
+  BebidaIngredientes, ComidaArea, BebidaArea, Perfil, ReceitasFeitas,
   ReceitasFavoritas } from '../pages';
 import ContextRoute from '../context-route/ContextRoute';
 import UserProvider from '../context/userContext/UserProvider';
@@ -16,6 +16,7 @@ function Routes() {
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/explorar/comidas/area" component={ ComidaArea } />
+      <Route path="/explorar/bebidas/area" component={ BebidaArea } />
       <Route path="/explorar/comidas/ingredientes" component={ ComidaIngredientes } />
       <Route path="/explorar/bebidas/ingredientes" component={ BebidaIngredientes } />
       <Route path="/explorar/comidas" component={ ExplorarComida } />

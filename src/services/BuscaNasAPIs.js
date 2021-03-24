@@ -95,3 +95,17 @@ export const getBebidaByCategory = (category) => (
     .then((json) => json)
     .catch((error) => console.log(error))
 );
+
+export const getIngredientsFoodList = () => (
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const getIngredientsDrinkList = () => (
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);

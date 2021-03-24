@@ -19,11 +19,6 @@ const ReceitasFavoritas = () => {
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
 
-  // ao carregar a página os favoritos são salvos no local storage - Aqui preciso de Logica anterior
-  // useEffect(() => {
-  //   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-  // }, []);
-
   // Logica para remover do LocalStorage
   const removerLocalStorage = (id) => {
     console.log(favoritesArray.filter((fav) => fav.id !== id));

@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Footer, Header } from '../../components';
-// import { _ } from '../../store/actions';
+import { logoutUserAction } from '../../store/actions';
+import { getProfileEmailLocalStorage as emailLocalStorage } from '../../services';
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.emailUser = emailLocalStorage();
+  }
+
   render() {
+    const { user: { email } } = this.emailUser;
+    const { logoutUser } = this.props;
+
     return (
       <div>
         <Header title="Perfil" />
-        <p data-testid="profile-email">email@email</p>
+        <p data-testid="profile-email">{email}</p>
         <Link
           to="/receitas-feitas"
         >
@@ -37,6 +46,7 @@ class Profile extends Component {
           <button
             type="button"
             data-testid="profile-logout-btn"
+            onClick={ () => logoutUser() }
           >
             Sair
           </button>
@@ -47,12 +57,12 @@ class Profile extends Component {
   }
 }
 
-// _.propTypes = {
-//   _: PropTypes.string.isRequired,
-// };
+Profile.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+};
 
-// const mapStateToProps = (state) => ({
-//   _,
-// });
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logoutUserAction()),
+});
 
-export default connect(null, null)(Profile);
+export default connect(null, mapDispatchToProps)(Profile);

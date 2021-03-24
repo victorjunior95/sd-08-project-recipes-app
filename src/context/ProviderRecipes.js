@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ContextRecipes from './ContextRecipes';
-import getComidasByName,
-{
+import {
+  getComidasByName,
   getComidasByIngredientes,
   getComidasByPrimeiraLetra,
   getBebidasByName,

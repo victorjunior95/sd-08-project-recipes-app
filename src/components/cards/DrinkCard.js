@@ -5,7 +5,7 @@ import './cards.css';
 
 function Card({ data }) {
   const [cardSelected, setCardSelected] = useState(false);
-  const { drink, index } = data;
+  const { drink, index, recipeCard } = data;
   const { strDrinkThumb, strDrink } = drink;
 
   if (cardSelected) {
@@ -21,7 +21,7 @@ function Card({ data }) {
       />
       <button
         onClick={ () => setCardSelected(true) }
-        data-testid={ `${index}-recipe-card` }
+        data-testid={ `${index}${recipeCard}` }
         type="button"
       >
         { strDrink }

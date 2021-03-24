@@ -24,16 +24,13 @@ function Categories() {
   async function handleClick(e) {
     const category = e.target.value;
     setSelectedDrink(category);
-    console.log(selectedDrink, 'e', category);
     if (selectedDrink === category || category === 'All') {
-      const ops = await fetchDrinks('', 'name');
-      console.log(ops);
-      dispatch(requestDrinks(ops));
+      const arrayOFDrinks = await fetchDrinks('', 'name');
+      dispatch(requestDrinks(arrayOFDrinks));
       setSelectedDrink('');
     } else {
-      const ops = await fetchDrinks(category, 'categories');
-      console.log(ops);
-      dispatch(requestDrinks(ops));
+      const arrayOFDrinks = await fetchDrinks(category, 'categories');
+      dispatch(requestDrinks(arrayOFDrinks));
     }
   }
 

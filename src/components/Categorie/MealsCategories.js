@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsCategories, requestMeals } from '../../redux/actions';
 import { fetchMeal } from '../../services/API';
-// import PropTypes from 'prop-types';
 
 function Categories() {
   const [selected, setSelected] = useState('');
@@ -23,16 +22,13 @@ function Categories() {
   async function handleClick(e) {
     const category = e.target.value;
     setSelected(category);
-    console.log(selected, 'e', category);
     if (selected === category || category === 'All') {
-      const ops = await fetchMeal(' ', 'name');
-      // console.log(ops);
-      dispatch(requestMeals(ops));
+      const arrayOFMeals = await fetchMeal(' ', 'name');
+      dispatch(requestMeals(arrayOFMeals));
       setSelected('');
     } else {
-      const ops = await fetchMeal(category, 'categories');
-      // console.log(ops);
-      dispatch(requestMeals(ops));
+      const arrayOFMeals = await fetchMeal(category, 'categories');
+      dispatch(requestMeals(arrayOFMeals));
     }
   }
 

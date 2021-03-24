@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderPS from '../components/HeaderPS';
-import Context from '../context/Context';
-import { fetchListByFilter, fetchRecipes, fetchRecipeByArea } from '../services/RequisicaoApi';
+import { fetchListByFilter, fetchRecipeByArea } from '../services/RequisicaoApi';
 
 const TWELVE_RECIPES = 12;
 
 function OrigemComidas() {
-  const { apiReturn, requestApiData } = useContext(Context);
   const [areasApi, setAreasApi] = useState(null);
   const [activeArea, setActiveArea] = useState('American');
   const [redirect, setRedirect] = useState(false);
@@ -36,7 +34,7 @@ function OrigemComidas() {
     requestApiData('themealdb');
     getRecipes();
     getAreasApi();
-  }, [requestApiData]);
+  }, []);
 
   if (redirect) return <Redirect to={ `/comidas/${selectedRecipe}` } />;
 

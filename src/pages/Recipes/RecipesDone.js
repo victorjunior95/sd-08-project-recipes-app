@@ -5,7 +5,7 @@ import Header from '../../component/Header';
 import shareIcon from '../../images/shareIcon.svg';
 
 export default function RecipesDone() {
-  const storedDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  const storedDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const [copied, setCopied] = useState(false);
   const [doneRecipes, setDoneRecipes] = useState(storedDone);
 

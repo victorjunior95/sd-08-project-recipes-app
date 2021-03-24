@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import CategoryFilter from '../../component/CategoryFilter';
-import Header from '../../component/Header';
-import RecipeCards from '../../component/RecipesCard';
-import { Header, RecipeCards, Footer } from '../../component';
+import { Header, RecipeCards, Footer, CategoryFilter } from '../../component';
 import Context from '../../context/Context';
 
 const SHOW_TWELVE_RECIPES = 12;
@@ -21,7 +18,7 @@ export default function Drinks() {
     if (recipes === 'NF') {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (recipes.length === 1 && selectedParameter !== 'category') {
-      return history.push(`/bebidas/${recipes[0].idMeal}`);
+      return history.push(`/bebidas/${recipes[0].idDrink}`);
     } else if (recipes.length >= 1) {
       return setRecipesToRender([...recipes].slice(0, SHOW_TWELVE_RECIPES));
     }

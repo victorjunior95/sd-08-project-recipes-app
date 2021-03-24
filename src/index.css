@@ -13,8 +13,9 @@ code {
     monospace;
 }
 
-.food-card {
+.recipe-card {
   border: none;
+  /* width:min-content; */
   border-radius: 1em;
   margin: 8px;
   box-shadow: 1px 1px 8px rgb(155, 152, 146);
@@ -23,7 +24,7 @@ code {
   object-fit: contain;
 }
 
-.food-card:hover{
+.recipe-card:hover{
   border: none;
   border-radius: 1em;
   margin: 8px;
@@ -32,18 +33,18 @@ code {
   object-fit: contain;
   box-shadow: 2px 2px 10px rgb(129, 127, 121);
 }
-.food-card img {
+.recipe-card img {
   width: 500px;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
 }
 
-.food-card p {
+.recipe-card p {
   margin: 8px 0px;
   justify-self: center;
   align-self: center;
 }
-.food-card-container {
+.recipe-card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,8 +53,11 @@ code {
 .search-button {
   border-radius: 1em;
   border: none;
-  width: 100%;
-  height: 40px;
+  flex-basis: 100px;
+  flex-grow: 1;
+  /* width: min-content; */
+  display: inline-block;
+  height: 50px;
   background-color: rgb(236, 142, 0);
   color: white;
   margin: 8px;
@@ -63,7 +67,7 @@ code {
 }
 
 .search-button:hover{
-  background-color: rgb(212, 129, 5);
+  background-color: rgb(207, 124, 0);
   color: white;
   box-shadow: 2px 2px 5px rgb(100, 100, 100);
 }
@@ -71,9 +75,32 @@ code {
 .search-button-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
+
+.search-bar-button {
+  border-radius: 1em;
+  border: none;
+  width: 30%;
+  padding: 10px;
+  height: 40px;
+  background-color: rgb(236, 142, 0);
+  color: white;
+  margin: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow: 1px 1px 8px rgb(209, 206, 198);
+}
+
+.search-bar-button:hover{
+  background-color: rgb(212, 129, 5);
+  color: white;
+  box-shadow: 2px 2px 5px rgb(100, 100, 100);
+}
+
 .header-container {
   display: flex;
+  /* width: max-content; */
   flex-direction: row;
   justify-content: space-between;
   padding: 8px;

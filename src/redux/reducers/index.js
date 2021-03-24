@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import user from './user';
+import food from './food';
 
-const rootReducers = combineReducers({ user });
+const rootReducers = combineReducers({ foods: food });
 
 export default rootReducers;

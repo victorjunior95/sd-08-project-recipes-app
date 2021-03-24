@@ -1,13 +1,25 @@
-import { SAVE_EMAIL, API_FOOD } from './types';
+import FecthMeals from '../../services/theMeadlDB';
+import { API_FOOD, FETCH_API, ERROR_REQUEST_API } from './types';
 
-export const emailAccess = (email) => ({
-  type: SAVE_EMAIL,
-  payload: email,
-});
-
-export const food = (data) => ({
+export const setFood = (data) => ({
   type: API_FOOD,
-  payload: {
-    data: [data],
-  },
+  payload: data,
 });
+
+const isFetching = () => ({
+  type: FETCH_API,
+});
+
+const errorFetching = (error) => ({
+  type: ERROR_REQUEST_API,
+  payload: error,
+});
+export const fetchMealsByFilter = (radio, inputName) => async (dispatch) => {
+  dispatch(isFetching());
+  try {
+    const apiData = await FecthMeals(radio, inputName);
+    dispatch(setFood(apiData));
+  } catch (error) {
+    dispatch(errorFetching(error));
+  }
+};

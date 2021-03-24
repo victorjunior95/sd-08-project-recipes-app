@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import {useDispatch} from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, FormControl, Button, Row } from 'react-bootstrap';
-import theMeadlDB from '../../services/theMeadlDB';
-import { food } from '../../  redux /actions';
-
+import { fetchMealsByFilter } from '../../redux/actions';
 
 export default function SeekBar() {
   const [onSeek, setOnSeek] = useState('');
-  const [onradio, setOnradio] = useState('');
-  
+  const [onRadio, setOnRadio] = useState('');
   const dispatch = useDispatch();
+  const fetchApiByFilters = (e) => {
+    e.preventDefault();
+    dispatch(fetchMealsByFilter(onRadio, onSeek));
+  };
+  const handleOnSeek = ({ target }) => {
+    const { value } = target;
+    if (onRadio === 'Primeira Letra') {
+      if (onSeek.length === 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      const firstWord = value.slice(0, 1);
+      setOnSeek(firstWord);
+    } else {
+      setOnSeek(value);
+    }
+  };
 
-   useEffect((onradio, onSeek) => {
-   const endpoint = fetch(theMeadlDB(onradio, onSeek))
-   const data = await endpoint.json();
-   dispatch(food(data));
-  }, [onradio]);
-
-  console.log(onSeek);
-  console.log(onradio);
   return (
 
     <Form>
@@ -27,7 +32,8 @@ export default function SeekBar() {
           type="text"
           placeholder="Pesquisar"
           data-testid="search-input"
-          onChange={ (e) => setOnSeek(e.target.value) }
+          value={ onSeek }
+          onChange={ handleOnSeek }
         />
       </Form.Row>
       <Form.Group as={ Row } className="justify-content-around mx-0 flex-row">
@@ -38,7 +44,7 @@ export default function SeekBar() {
           type="radio"
           name="SearchChoise"
           value="Ingrediente"
-          onChange={ (e) => setOnradio(e.target.value) }
+          onChange={ (e) => setOnRadio(e.target.value) }
         />
         <Form.Check
           sm={ 4 }
@@ -47,7 +53,7 @@ export default function SeekBar() {
           type="radio"
           name="SearchChoise"
           value="Nome"
-          onChange={ (e) => setOnradio(e.target.value) }
+          onChange={ (e) => setOnRadio(e.target.value) }
         />
         <Form.Check
           sm={ 4 }
@@ -56,14 +62,16 @@ export default function SeekBar() {
           type="radio"
           name="SearchChoise"
           value="Primeira Letra"
-          onChange={ (e) => setOnradio(e.target.value) }
+          onChange={ (e) => setOnRadio(e.target.value) }
         />
       </Form.Group>
       <Button
+        type="submit"
         data-testid="exec-search-btn"
         className="ml-3"
         size="sm"
         variant="outline-info"
+        onClick={ fetchApiByFilters }
       >
         Buscar
       </Button>

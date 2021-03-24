@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Button, Form, Container } from 'react-bootstrap';
 import { setLocalStorage } from '../../services/localStorage';
 import './login.css';
-import { emailAccess } from '../../redux/actions';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
 
-  const dispatch = useDispatch();
-
   const changeStorage = () => {
     const userEmail = { email };
     setLocalStorage('mealsToken', 1);
     setLocalStorage('cocktailsToken', 1);
     setLocalStorage('user', userEmail);
-    dispatch(emailAccess(email));
     setRedirect(true);
   };
 

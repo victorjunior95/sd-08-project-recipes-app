@@ -26,19 +26,21 @@ function DrinksRecipes() {
       { drinks && drinks.length === 1
         && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Header />
-      { drinks && drinks.map((elem) => (
+      { drinks && drinks.map((elem, index) => (
         <button
           key={ elem.idDrink }
           type="button"
           onClick={ () => history.push(`/bebidas/${elem.idDrink}`) }
+          data-testid={ `${index}-recipe-card` }
         >
           <div>
-            <h4>{ elem.strDrink }</h4>
+            <h4 data-testid={ `${index}-card-name` }>{ elem.strDrink }</h4>
             <span>{ elem.idDrink }</span>
             <img
               className="card"
               src={ elem.strDrinkThumb }
               alt={ elem.strDrink }
+              data-testid={ `${index}-card-img` }
             />
           </div>
         </button>

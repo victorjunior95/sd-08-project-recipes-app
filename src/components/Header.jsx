@@ -35,10 +35,10 @@ export default function Header() {
       </h1>
       <button
         type="button"
-        data-testid="search-top-btn"
         onClick={ handleClick }
       >
         <img
+          data-testid="search-top-btn"
           src={ searchIcon }
           alt="search-icon"
         />

@@ -11,7 +11,6 @@ import CardItens from './Card';
 const FETCH_ALL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 function Comidas() {
-// <<<<<<< main-group-20-Req-25-ao-32
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
@@ -87,23 +86,12 @@ function Comidas() {
       </>
     );
   }
-  // =======
-  //   const estado = useSelector((state) => state.api);
-  //   console.log(estado);
-  //   const history = useHistory();
 
-  //   useEffect(() => {
-  //     if (estado.data === 'SN') {
-  //       console.log('Sem filtros');
-  //     } else if (estado.data.meals === null) {
-  //       console.log('Entrou null');
-  //     } else if (estado.data.meals.length === 1) {
-  //       history.push(`/comidas/${estado.data.meals[0].idMeal}`);
-  //     } else if (estado.data.meals.length > 1) {
-  //       console.log('fazer map');
-  //     }
-  //   }, [estado, history]);
-  // >>>>>>> main-group-20
+  if ((foodsArray === null && loadingAPI === 'fulfilled')
+    || loadingAPI === 'rejected') {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
   return (
     <>
       <Header title="Comidas" />

@@ -1,11 +1,14 @@
 import React from 'react';
 import Header from '../../../../components/Header';
+import Footer from '../../../../components/footer';
 
 function ComidaArea() {
   return (
-    <div>
+    <>
       <Header>Explorar Origem</Header>
-    </div>
+      <h2>Not Found</h2>
+      <Footer />
+    </>
   );
 }
 

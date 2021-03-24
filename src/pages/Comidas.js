@@ -7,7 +7,7 @@ function Comidas() {
   return (
     <>
       <HeaderPS title="Comidas" endpoint="themealdb" />
-      <RecipeList route="comidas" recipeType="Meal" />
+      <RecipeList route="comidas" recipeType="Meal" endpoint="themealdb" />
       <Footer />
     </>
   );

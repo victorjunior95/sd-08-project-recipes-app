@@ -7,7 +7,7 @@ function Bebidas() {
   return (
     <>
       <HeaderPS title="Bebidas" endpoint="thecocktaildb" />
-      <RecipeList route="bebidas" recipeType="Drink" />
+      <RecipeList route="bebidas" recipeType="Drink" endpoint="thecocktaildb" />
       <Footer />
     </>
   );

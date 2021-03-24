@@ -18,7 +18,9 @@ function Perfil() {
     <div>
       <HeaderP title="Perfil" />
       <div className="container-perfil">
-        <div><h4 data-testid="profile-email">{ userEmail }</h4></div>
+        <div>
+          <h4 data-testid="profile-email">{userEmail}</h4>
+        </div>
         <div className="div-btn-perfil">
           <NavLink to="/receitas-feitas">
             <button
@@ -54,11 +56,8 @@ function Perfil() {
           </NavLink>
         </div>
       </div>
-    </div>
-    <>
-      <HeaderP title="Perfil" />
       <Footer />
-    </>
+    </div>
   );
 }
 

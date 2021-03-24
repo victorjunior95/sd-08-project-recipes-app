@@ -7,12 +7,12 @@ function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [inputText, setInputText] = useState('');
-  const [radioValue, setRadioValue] = useState('i');
+  const [radioValue, setRadioValue] = useState('s');
   const [isFetching, setIsFetching] = useState(true);
   const [apiReturn, setApiReturn] = useState(null);
 
   async function requestApiData(endpoint) {
-    const searchType = radioValue === 'i' ? 'filter' : 'search';
+    const searchType = radioValue === 's' ? 'search' : 'filter';
     setIsFetching(true);
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
     setIsFetching(false);

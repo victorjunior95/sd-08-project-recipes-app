@@ -15,6 +15,7 @@ function RecipesProvider() {
   const [drinksCategories, setDrinksCategories] = useState([]);
   const [currentFood, setCurrentFood] = useState([]);
   const [currentFoodIngredients, setCurrentFoodIngredients] = useState([]);
+  const [mainIngredient, setMain] = useState('');
 
   useEffect(() => {
     function saveLocalStorage() {
@@ -48,6 +49,8 @@ function RecipesProvider() {
     mealsCategories,
     drinksCategories,
     filter,
+    mainIngredient,
+    setMain,
   };
   return (
     <contextRecipes.Provider value={ state }>

@@ -4,6 +4,9 @@ const filterString = {
   'busca da primeira letra': 'search.php?f=',
   filterBy: 'filter.php?c=',
   lookup: 'lookup.php?i=',
+  random: 'random.php',
+  list: 'list.php?',
+  filterArea: 'filter.php?a=',
 };
 
 const urlString = {
@@ -21,10 +24,13 @@ async function getResultFromAPI(path, filter = 'busca por nome', text = '') {
   const b = path;
   const TWELVE_FILTER = 12;
   const fetchURL = `${urlString[b]}${filterString[a]}${text}`;
+  console.log(fetchURL);
   const apiResultJSON = await fetch(fetchURL);
   const apiResult = await apiResultJSON.json();
   if (apiResult.meals === null || apiResult.drinks === null) {
     return null;
+  } if (text === 'a=list') {
+    return apiResult[objParameter[b]];
   } return apiResult[objParameter[b]].slice(0, TWELVE_FILTER);
 }
 

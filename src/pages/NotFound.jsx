@@ -3,10 +3,10 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function NotFound() {
-  // const history = useHistory();
+  const BOOLEAN_TRUE = true;
   return (
     <div>
-      <Header title="Explorar Origem" />
+      <Header title="Explorar Origem" searchBtn={ BOOLEAN_TRUE } />
       Not Found
       <Footer />
     </div>

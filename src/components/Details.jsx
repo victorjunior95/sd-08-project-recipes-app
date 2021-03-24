@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import contextRecipes from '../context/Context';
 import Button from './Button';
+import Recomendations from './Recomendations';
 
 function Details() {
   const history = useHistory();
@@ -53,6 +54,7 @@ function Details() {
           </ul>
           <h2>Instruções</h2>
           <p data-testid="instructions">{ food.strInstructions }</p>
+
           <div>
             {ytVideo()}
           </div>
@@ -62,6 +64,7 @@ function Details() {
             label="Iniciar Receita"
             onClick={ historyPath }
           />
+          <Recomendations />
         </div>
       ))}
     </>

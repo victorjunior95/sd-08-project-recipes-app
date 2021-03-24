@@ -80,3 +80,10 @@
   position: fixed;
   width: 100%;
 }
+
+.recommendationList {
+  display: flex;
+  list-style: none;
+  overflow-x: scroll;
+  width: 100%;
+}

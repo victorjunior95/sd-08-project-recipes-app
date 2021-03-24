@@ -1,4 +1,5 @@
-import { ADD_CATEGORIES, ADD_FILTER, ADD_RECIPES, REQUEST_RECIPES } from './index';
+import { ADD_CATEGORIES, ADD_FILTER, ADD_RECIPES,
+  ADD_RECOMMENDATIONS, REQUEST_RECIPES } from './index';
 
 const addRecipes = (payload) => ({
   type: ADD_RECIPES,
@@ -44,5 +45,20 @@ export const fetchCategories = (token, type = 'meals') => (
     const categoriesArray = categories.slice(0, CATEGORIES_NUMBER)
       .map(({ strCategory }) => strCategory);
     dispatch(addCategories(categoriesArray));
+  }
+);
+
+const addRecommendations = (payload) => ({
+  type: ADD_RECOMMENDATIONS,
+  payload,
+});
+
+export const fetchRecommendations = (token, type = 'meals') => (
+  async (dispatch) => {
+    const domains = { meals: 'themealdb', drinks: 'thecocktaildb' };
+    const url = `https://www.${domains[type]}.com/api/json/v1/${token}/search.php?s=`;
+    const data = await fetch(url);
+    const { [type]: recipes } = await data.json();
+    dispatch(addRecommendations(recipes));
   }
 );

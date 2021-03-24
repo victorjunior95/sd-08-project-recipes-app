@@ -5,7 +5,7 @@ import Card from '../../components/cards/DrinkCard';
 import Categories from '../../components/Categorie/DrinkCategories';
 import Footer from '../../components/Footer';
 
-function Comidas() {
+function Bebidas() {
   const QUANTITY_OF_CARDS = 12;
   let drinksFiltred = [];
   const dispatch = useDispatch();
@@ -21,10 +21,13 @@ function Comidas() {
     <>
       <Categories />
       {drinksFiltred
-        .map((drink, index) => <Card key={ drink.idDrink } data={ { drink, index } } />)}
+        .map((drink, index) => (<Card
+          key={ drink.idDrink }
+          data={ { drink, index, recipeCard: '-recipe-card' } }
+        />))}
       <Footer />
     </>
   );
 }
 
-export default Comidas;
+export default Bebidas;

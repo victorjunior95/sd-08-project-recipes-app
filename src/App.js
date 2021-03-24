@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Comidas from './pages/Meals/Meals';
 import Bebidas from './pages/Drinks/Drinks';
+import Details from './pages/Details/Details';
 import Explore from './pages/Explore';
 import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
 import ExploreDrinks from './pages/ExploreDrinks';
@@ -17,8 +18,6 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ LoginPage } />
-        <Route exact path="/comidas" component={ Comidas } />
-        <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
@@ -32,6 +31,10 @@ function App() {
           path="/explorar/comidas/ingredientes"
           component={ ExploreMealIngredients }
         />
+        <Route path="/comidas/:id" component={ Details } />
+        <Route path="/bebidas/:id" component={ Details } />
+        <Route path="/comidas" component={ Comidas } />
+        <Route path="/bebidas" component={ Bebidas } />
       </Switch>
     </div>
   );

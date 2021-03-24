@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import './cards.css';
 
 function Card({ data }) {
-  const { drink, index } = data;
+  const [cardSelected, setCardSelected] = useState(false);
+  const { drink, index, recipeCard } = data;
   const { strDrinkThumb, strDrink } = drink;
+
+  if (cardSelected) {
+    return <Redirect to={ `/bebidas/${drink.idDrink}` } />;
+  }
+
   return (
-    <section data-testid={ `${index}-recipe-card` } className="card">
+    <section data-testid={ `${index}-card-name` } className="card">
       <img
         data-testid={ `${index}-card-img` }
         src={ strDrinkThumb }
         alt={ strDrink }
       />
-      <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
+      <button
+        onClick={ () => setCardSelected(true) }
+        data-testid={ `${index}${recipeCard}` }
+        type="button"
+      >
+        { strDrink }
+      </button>
     </section>
   );
 }

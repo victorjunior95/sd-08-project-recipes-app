@@ -21,7 +21,10 @@ function Comidas() {
     <>
       <Categories />
       {mealsFiltred
-        .map((meal, index) => <Card key={ meal.idMeal } data={ { meal, index } } />)}
+        .map((meal, index) => (<Card
+          key={ meal.idMeal }
+          data={ { meal, index, recipeCard: '-recipe-card' } }
+        />))}
       <Footer />
     </>
   );

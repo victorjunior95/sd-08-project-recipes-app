@@ -1,9 +1,30 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import contextRecipes from '../context/Context';
+import Button from './Button';
 import Recomendations from './Recomendations';
 
 function Details() {
+  const history = useHistory();
   const { currentFood, currentFoodIngredients } = useContext(contextRecipes);
+
+  const ytVideo = () => (
+    history.location.pathname.includes('comidas')
+      ? currentFood.map((video) => (
+        <iframe
+          frameBorder="0"
+          data-testid="video"
+          key={ video.strYoutube }
+          src={ video.strYoutube.split('watch?v=').join('embed/') }
+          title="recipe video"
+        />
+      ))
+      : ''
+  );
+
+  const historyPath = () => (
+    history.push(`${history.location.pathname}/in-progress`)
+  );
 
   return (
     <>
@@ -33,9 +54,17 @@ function Details() {
           </ul>
           <h2>Instruções</h2>
           <p data-testid="instructions">{ food.strInstructions }</p>
-          <p data-testid="video">Video</p>
+
+          <div>
+            {ytVideo()}
+          </div>
+          <p>scrollLateral Recomendadas</p>
+          <Button
+            datatestid="start-recipe-btn"
+            label="Iniciar Receita"
+            onClick={ historyPath }
+          />
           <Recomendations />
-          <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
         </div>
       ))}
     </>

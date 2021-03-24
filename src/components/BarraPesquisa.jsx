@@ -43,7 +43,6 @@ function BarraPesquisa() {
         Nome
         <input
           className="zTry"
-
           id="s"
           type="radio"
           name="type"
@@ -59,7 +58,6 @@ function BarraPesquisa() {
         Primeira Letra
         <input
           className="zTry"
-
           id="f"
           type="radio"
           name="type"
@@ -70,7 +68,6 @@ function BarraPesquisa() {
       </label>
       <button
         className="zTry"
-
         type="button"
         onClick={ handleClick }
         data-testid="exec-search-btn"

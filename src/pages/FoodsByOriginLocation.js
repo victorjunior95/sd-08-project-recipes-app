@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './FoodsByOriginLocation.css';
 import Footer from '../components/Footer';
 import HeaderSearchBar from '../components/HeaderSearchBar';
@@ -9,14 +9,14 @@ function FoodsByOringLocation() {
   const [mealsForArea, setMealsForArea] = useState([]);
   const TWELVE = 12;
 
-  const mealsAreaFetching = async () => {
+  const fetchMealsArea = useCallback(async () => {
     const Url = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
     const response = await fetch(Url);
     const results = await response.json();
     setMealsArea([...mealsArea, ...results.meals]);
-  };
+  }, []);
 
-  const fechtchingMealsForArea = async (selectedArea) => {
+  const fetchSelectedMealsForArea = async (selectedArea) => {
     const Url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedArea}`;
     const response = await fetch(Url);
     const results = await response.json();
@@ -24,7 +24,7 @@ function FoodsByOringLocation() {
   };
 
   const initialFoods = async () => {
-    const foods = await fechtchingMealsForArea();
+    const foods = await fetchSelectedMealsForArea();
     setMealsForArea(foods.meals);
   };
 
@@ -32,13 +32,13 @@ function FoodsByOringLocation() {
     if (value === 'All') {
       initialFoods();
     }
-    fechtchingMealsForArea(value);
+    fetchSelectedMealsForArea(value);
   };
 
   useEffect(() => {
-    mealsAreaFetching();
-    fechtchingMealsForArea();
-  }, []);
+    fetchMealsArea();
+    fetchSelectedMealsForArea();
+  }, [fetchMealsArea]);
 
   return (
     <div className="container">

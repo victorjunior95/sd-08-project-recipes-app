@@ -5,7 +5,6 @@ import RecipesContext from '../../ContextApi/RecipesContext';
 
 function RecipesFood() {
   const { recipes } = useContext(RecipesContext);
-  console.log(recipes.meals);
 
   const recipeMeals = recipes.meals;
 

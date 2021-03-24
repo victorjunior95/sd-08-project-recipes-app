@@ -26,14 +26,15 @@ function MealsRecipes() {
     <main>
       {meals && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
-      { meals && meals.map((elem) => (
-        <div key={ elem.idMeal }>
-          <h4>{ elem.strMeal }</h4>
+      { meals && meals.map((elem, index) => (
+        <div key={ elem.idMeal } data-testid={ `${index}-recipe-card` }>
+          <h4 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h4>
           <span>{ elem.idMeal }</span>
           <img
             className="card"
             src={ elem.strMealThumb }
             alt={ elem.strMeal }
+            data-testid={ `${index}-card-img` }
           />
         </div>
       ))}

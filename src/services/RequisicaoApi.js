@@ -30,3 +30,14 @@ export async function fetchListByFilter(endpoint, filter) {
     return { recipe: null };
   }
 }
+
+export async function fetchRecipeByArea(area) {
+  const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  try {
+    const requestReturn = await fetch(url);
+    const requestObject = await requestReturn.json();
+    return requestObject;
+  } catch (error) {
+    return { recipe: null };
+  }
+}

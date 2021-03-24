@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderPS from '../components/HeaderPS';
-import { fetchListByFilter, fetchRecipes } from '../services/RequisicaoApi';
+import Context from '../context/Context';
+import { fetchListByFilter, fetchRecipes, fetchRecipeByArea } from '../services/RequisicaoApi';
 
 const TWELVE_RECIPES = 12;
 
-const filterRecipes = (recipes, option) => recipes.filter((recipe) => {
-  if (option !== 'All') return recipe.strArea === option;
-  return recipe;
-});
-
 function OrigemComidas() {
+  const { apiReturn, requestApiData } = useContext(Context);
   const [areasApi, setAreasApi] = useState(null);
-  const [activeArea, setActiveArea] = useState('All');
+  const [activeArea, setActiveArea] = useState('American');
   const [redirect, setRedirect] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState('');
   const [recipes, setRecipes] = useState(null);
@@ -28,13 +25,18 @@ function OrigemComidas() {
   }
 
   async function getRecipes() {
-    setRecipes(await fetchRecipes('themealdb', 'search', 'f', 'k'));
+    setRecipes(await fetchRecipeByArea(activeArea));
   }
 
   useEffect(() => {
     getRecipes();
+  }, [activeArea]);
+
+  useEffect(() => {
+    requestApiData('themealdb');
+    getRecipes();
     getAreasApi();
-  }, []);
+  }, [requestApiData]);
 
   if (redirect) return <Redirect to={ `/comidas/${selectedRecipe}` } />;
 
@@ -64,24 +66,23 @@ function OrigemComidas() {
         <div>
           { !recipes
             ? <p>Carregando...</p>
-            : (filterRecipes(recipes.meals.slice(0, TWELVE_RECIPES), activeArea)
-              .map((recipe, index) => (
-                <button
-                  data-testid={ `${index}-recipe-card` }
-                  id={ recipe.idMeal }
-                  key={ index }
-                  onClick={ handleClick }
-                  type="button"
-                >
-                  <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
-                  <img
-                    alt="ingredient"
-                    className="ingredient-img"
-                    data-testid={ `${index}-card-img` }
-                    src={ recipe.strMealThumb }
-                  />
-                </button>
-              )))}
+            : (recipes.meals.slice(0, TWELVE_RECIPES).map((recipe, index) => (
+              <button
+                data-testid={ `${index}-recipe-card` }
+                id={ recipe.idMeal }
+                key={ index }
+                onClick={ handleClick }
+                type="button"
+              >
+                <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
+                <img
+                  alt="ingredient"
+                  className="ingredient-img"
+                  data-testid={ `${index}-card-img` }
+                  src={ recipe.strMealThumb }
+                />
+              </button>
+            )))}
         </div>
       </main>
       <Footer />

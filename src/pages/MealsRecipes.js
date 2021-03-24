@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchMealThunk from '../redux/actions/fetchMealAction';
@@ -9,6 +9,7 @@ import clearSearchAction from '../redux/actions/clearSearchAction';
 
 function MealsRecipes() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const input = useSelector((state) => state.search.inputValue);
   const type = useSelector((state) => state.search.inputType);
   const meals = useSelector((state) => state.recipes.recipes);
@@ -27,15 +28,21 @@ function MealsRecipes() {
       {meals && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
       { meals && meals.map((elem) => (
-        <div key={ elem.idMeal }>
-          <h4>{ elem.strMeal }</h4>
-          <span>{ elem.idMeal }</span>
-          <img
-            className="card"
-            src={ elem.strMealThumb }
-            alt={ elem.strMeal }
-          />
-        </div>
+        <button
+          key={ elem.idMeal }
+          type="button"
+          onClick={ () => history.push(`/comidas/${elem.idMeal}`) }
+        >
+          <div>
+            <h4>{ elem.strMeal }</h4>
+            <span>{ elem.idMeal }</span>
+            <img
+              className="card"
+              src={ elem.strMealThumb }
+              alt={ elem.strMeal }
+            />
+          </div>
+        </button>
       ))}
       <Footer />
     </main>

@@ -1,10 +1,6 @@
-.footer {
-  bottom: 0;
-  color: white;
-  left: 0;
-  position: fixed;
-  text-align: center;
-  width: 100%;
+.btn-login {
+  margin-left: 140px;
+  margin-top: 10px;
 }
 
 .meals {
@@ -21,7 +17,6 @@
 
 .rocksGlass {
   animation: shake 1s infinite ease;
-  max-height: 80vh;
 }
 
 .login {

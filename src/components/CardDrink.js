@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import DrinkContext from '../context/bebidaContext/DrinkContext';
 import '../App.css';
 
@@ -17,10 +18,12 @@ function CardDrink() {
 
   return (
     <section className="recipe-card-container">
-      {data.map(({ strDrink, strDrinkThumb }, index) => {
+      {data.map(({ strDrink, strDrinkThumb, idDrink }, index) => {
         if (index >= maxCards) return '';
         return (
-          <div
+          <Link
+            src={ strDrinkThumb }
+            to={ `/bebidas/${idDrink}` }
             key={ strDrink }
             data-testid={ `${index}-recipe-card` }
             className="recipe-card"
@@ -31,7 +34,7 @@ function CardDrink() {
               data-testid={ `${index}-card-img` }
             />
             <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-          </div>
+          </Link>
         );
       })}
     </section>

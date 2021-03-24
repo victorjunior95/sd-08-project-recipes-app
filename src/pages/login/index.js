@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
+import GlobalContext from '../../context/globalContext/GlobalContext';
 import UserContext from '../../context/userContext/UserContext';
 
 function Login() {
@@ -8,14 +9,21 @@ function Login() {
 
   const {
     values: {
-      email,
       password,
     },
     functions: {
-      handleEmail,
       handlePassword,
     },
   } = useContext(UserContext);
+
+  const {
+    values: {
+      email,
+    },
+    functions: {
+      handleEmail,
+    },
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i;

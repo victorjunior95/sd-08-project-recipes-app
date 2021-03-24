@@ -8,6 +8,8 @@ function Provider({ children }) {
   const [user, setUser] = useState({
     email: '',
   });
+  const [searchParams, setSearchParams] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
@@ -24,7 +26,9 @@ function Provider({ children }) {
   };
 
   return (
-    <Context.Provider value={ data }>
+    <Context.Provider
+      value={ { data, searchParams, setSearchParams, inputValue, setInputValue } }
+    >
       { children }
     </Context.Provider>
   );

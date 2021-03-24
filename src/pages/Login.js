@@ -8,7 +8,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  const { setUser } = useContext(Context);
+  const { data } = useContext(Context);
 
   function validEmail(typedEmail) {
     const regex = /\S+@\S+\.\S+/;
@@ -57,7 +57,7 @@ function Login() {
         data-testid="login-submit-btn"
         disabled={ disabled }
         onClick={ () => {
-          setUser({ email });
+          data.setUser({ email });
           history.push('/comidas');
         } }
       >

@@ -28,7 +28,7 @@ function Bebidas() {
   const history = useHistory();
   const isSearching = useSelector((state) => state.search.isSearching);
 
-  if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled') {
+  if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled' && drinksArray) {
     if (drinksArray.length === 1 && isSearching === true) {
       history.push(`/bebidas/${drinksArray[0].idDrink}`);
     }
@@ -90,21 +90,21 @@ function Bebidas() {
       </>
     );
   }
-// =======
-//   const estado = useSelector((state) => state.api);
-//   const history = useHistory();
+  // =======
+  //   const estado = useSelector((state) => state.api);
+  //   const history = useHistory();
 
-//   useEffect(() => {
-//     if (estado.data === 'SN') {
-//       console.log('Sem filtros');
-//     } else if (estado.data.drinks.length === 1) {
-//       history.push(`/bebidas/${estado.data.drinks[0].idDrink}`);
-//     } else if (estado.data.drinks.length > 1) {
-//       console.log('fazer map');
-//     }
-//   }, [estado, history]);
+  //   useEffect(() => {
+  //     if (estado.data === 'SN') {
+  //       console.log('Sem filtros');
+  //     } else if (estado.data.drinks.length === 1) {
+  //       history.push(`/bebidas/${estado.data.drinks[0].idDrink}`);
+  //     } else if (estado.data.drinks.length > 1) {
+  //       console.log('fazer map');
+  //     }
+  //   }, [estado, history]);
 
-// >>>>>>> main-group-20
+  // >>>>>>> main-group-20
   return (
     <>
       <Header title="Comidas" />

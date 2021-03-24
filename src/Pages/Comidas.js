@@ -25,7 +25,7 @@ function Comidas() {
   const history = useHistory();
   const isSearching = useSelector((state) => state.search.isSearching);
 
-  if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled') {
+  if (loadingAPI === 'fulfilled' && loadingCategoriesAPI === 'fulfilled' && foodsArray) {
     if (foodsArray.length === 1 && isSearching === true) {
       history.push(`/comidas/${foodsArray[0].idMeal}`);
     }
@@ -87,23 +87,23 @@ function Comidas() {
       </>
     );
   }
-// =======
-//   const estado = useSelector((state) => state.api);
-//   console.log(estado);
-//   const history = useHistory();
+  // =======
+  //   const estado = useSelector((state) => state.api);
+  //   console.log(estado);
+  //   const history = useHistory();
 
-//   useEffect(() => {
-//     if (estado.data === 'SN') {
-//       console.log('Sem filtros');
-//     } else if (estado.data.meals === null) {
-//       console.log('Entrou null');
-//     } else if (estado.data.meals.length === 1) {
-//       history.push(`/comidas/${estado.data.meals[0].idMeal}`);
-//     } else if (estado.data.meals.length > 1) {
-//       console.log('fazer map');
-//     }
-//   }, [estado, history]);
-// >>>>>>> main-group-20
+  //   useEffect(() => {
+  //     if (estado.data === 'SN') {
+  //       console.log('Sem filtros');
+  //     } else if (estado.data.meals === null) {
+  //       console.log('Entrou null');
+  //     } else if (estado.data.meals.length === 1) {
+  //       history.push(`/comidas/${estado.data.meals[0].idMeal}`);
+  //     } else if (estado.data.meals.length > 1) {
+  //       console.log('fazer map');
+  //     }
+  //   }, [estado, history]);
+  // >>>>>>> main-group-20
   return (
     <>
       <Header title="Comidas" />

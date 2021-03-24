@@ -1,15 +1,30 @@
 import React from 'react';
-import DrinksButton from './DrinksButton';
-import ExploreButton from './ExploreButton';
-import FoodButton from './FoodButton';
+
+import FooterButton from './FooterButton';
 import '../styles/footer.css';
+import { drinkIcon, exploreIcon, mealIcon } from '../common/svgStore';
 
 function Footer() {
   return (
     <footer className="footer" data-testid="footer">
-      <DrinksButton />
-      <ExploreButton />
-      <FoodButton />
+      <FooterButton
+        src={ drinkIcon }
+        alt="Ícone Bebidas"
+        data-testid="drinks-bottom-btn"
+        path="/bebidas"
+      />
+      <FooterButton
+        src={ exploreIcon }
+        alt="Ícone Explorar"
+        data-testid="explore-bottom-btn"
+        path="/explorar"
+      />
+      <FooterButton
+        src={ mealIcon }
+        alt="Ícone Comidas"
+        data-testid="food-bottom-btn"
+        path="/comidas"
+      />
     </footer>
   );
 }

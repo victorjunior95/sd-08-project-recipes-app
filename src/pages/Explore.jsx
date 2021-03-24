@@ -5,7 +5,7 @@ import Header from '../components/Header';
 function Explore() {
   return (
     <>
-      <Header label="Explorar" Search={ () => '' } />
+      <Header label="Explorar" Search={ () => '' } page="Explorar" />
       <Footer />
     </>
   );

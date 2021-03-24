@@ -34,3 +34,10 @@ export const requestCategoriesMeals = async () => {
   const data = await response.json();
   return data.meals.splice(0, TAG_ARRAY_LENGTH);
 };
+
+export const requestFoodById = async (id) => {
+  const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals;
+};

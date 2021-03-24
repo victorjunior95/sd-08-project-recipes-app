@@ -38,3 +38,10 @@ export const requestCategoriesDrinks = async () => {
   const data = await response.json();
   return data.drinks.splice(0, TAG_ARRAY_LENGTH);
 };
+
+export const requestDrinkById = async (id) => {
+  const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.drinks;
+};

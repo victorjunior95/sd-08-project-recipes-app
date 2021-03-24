@@ -13,6 +13,7 @@ import ShareFavBtn from '../../components/Details/ShareFavBtn';
 import IngredientsList from '../../components/Details/IngredientsList';
 import InstructionsText from '../../components/Details/InstructionsText';
 import YTVideo from '../../components/Details/YTVideo';
+import Recommendations from '../../components/Details/Recommendations';
 
 async function getRecipe(dispatch, id, isMeal) {
   let api = '';
@@ -50,6 +51,7 @@ function Details() {
       <IngredientsList />
       <InstructionsText />
       { isMeal && <YTVideo /> }
+      <Recommendations />
     </main>
   );
 }

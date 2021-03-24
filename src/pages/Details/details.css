@@ -7,3 +7,12 @@
   object-fit: cover;
   width: 100%;
 }
+
+.recipe-details .recommendations-details .carousel-details-scroll {
+  background-color: blue;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 150px;
+  overflow: hidden;
+  width: 265px;
+}

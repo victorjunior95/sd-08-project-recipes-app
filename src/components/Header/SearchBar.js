@@ -11,6 +11,7 @@ class SearchBar extends Component {
     this.state = {
       search: '',
       searchRadio: 'name',
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -94,20 +95,13 @@ class SearchBar extends Component {
   }
 }
 
-SearchBar.defaultProps = { listDrinks: [], listFoods: [] };
-
 SearchBar.propTypes = {
   getFood: PropTypes.func,
 }.isRequired;
 
-const mapStateToProps = (state) => ({
-  listFoods: state.foodsReducer.data.meals,
-  listDrinks: state.foodsReducer.data.drinks,
-
-});
 const mapDispatchToProps = (dispatch) => ({
   getFood: (value) => dispatch(fetchFood(value)),
   getDrink: (value) => dispatch(fetchDrink(value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);

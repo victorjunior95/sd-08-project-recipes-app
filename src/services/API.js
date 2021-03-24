@@ -29,7 +29,7 @@ export const getFoodFirstLetter = async (firstLetter) => (
 export const getDrinkIngredients = async (ingredient) => (
   fetch(`${endpointDrinkIngredient}${ingredient}`)
     .then((response) => response.json())
-    .then(({ drinks }) => drinks)
+    .then(({ drinks }) => { console.log(drinks); return drinks; })
 );
 
 export const getDrinkName = async (name) => (

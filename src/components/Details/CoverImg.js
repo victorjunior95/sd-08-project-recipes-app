@@ -5,7 +5,6 @@ import { useIsMeal } from '../../services/customHooks';
 export default function CoverImg() {
   const { actualRecipe } = useSelector((state) => state.detailsReducer);
   const isMeal = useIsMeal();
-  console.log(isMeal);
   if (isMeal) {
     const { strMeal, strMealThumb } = actualRecipe;
     return (

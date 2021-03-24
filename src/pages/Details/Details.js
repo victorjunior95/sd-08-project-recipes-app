@@ -7,6 +7,9 @@ import { saveActualRecipe, saveRecommendations } from '../../redux/actions/detai
 import Loading from '../../components/Details/Loading';
 import CoverImg from '../../components/Details/CoverImg';
 
+import './details.css';
+import Title from '../../components/Details/Title';
+
 async function getRecipe(dispatch, id, isMeal) {
   let api = '';
   let recommendations = '';
@@ -30,13 +33,13 @@ function Details() {
   useEffect(() => {
     getRecipe(dispatch, id, isMeal);
   }, []);
-  console.log(Object.keys(actualRecipe).length < 1);
   if (Object.keys(actualRecipe).length < 1) {
     return <Loading />;
   }
   return (
     <main className="recipe-details">
       <CoverImg />
+      <Title />
     </main>
   );
 }

@@ -11,6 +11,7 @@ import CardItens from './Card';
 const FETCH_ALL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 function Comidas() {
+// <<<<<<< main-group-20-Req-25-ao-32
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
@@ -86,18 +87,8 @@ function Comidas() {
       </>
     );
   }
-  return (
-    <>
-      <Header title="Comidas" />
-      <h2>Carregando...</h2>
-      <Footer />
-    </>
-  );
-}
-
-export default Comidas;
-
-// const estado = useSelector((state) => state.api);
+// =======
+//   const estado = useSelector((state) => state.api);
 //   console.log(estado);
 //   const history = useHistory();
 
@@ -112,3 +103,14 @@ export default Comidas;
 //       console.log('fazer map');
 //     }
 //   }, [estado, history]);
+// >>>>>>> main-group-20
+  return (
+    <>
+      <Header title="Comidas" />
+      <h2>Carregando...</h2>
+      <Footer />
+    </>
+  );
+}
+
+export default Comidas;

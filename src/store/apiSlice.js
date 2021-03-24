@@ -1,27 +1,49 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+const request = async (endPoint) => {
+  const data = await fetch(endPoint)
+    .then((response) => response.json());
+  return data;
+};
+
 export const fetchItem = createAsyncThunk(
   'api/fetchItem',
-  async (endPoint) => {
-    const data = await fetch(endPoint)
-      .then((response) => response.json());
-    return data;
-  },
+  async (endPoint) => request(endPoint),
 );
+
+const mainReducers = {
+  [fetchItem.pending]: (state) => ({ ...state, loading: 'pending' }),
+  [fetchItem.fulfilled]: (state, action) => ({
+    ...state, data: action.payload, loading: 'fulfilled',
+  }),
+  [fetchItem.rejected]: (state) => ({ ...state, loading: 'rejected' }),
+};
+
+export const fetchRecommend = createAsyncThunk(
+  'api/fetchRecommend',
+  async (endPoint) => request(endPoint),
+);
+
+const recommendReducers = {
+  [fetchRecommend.pending]: (state) => ({ ...state, recommendLoading: 'pending' }),
+  [fetchRecommend.fulfilled]: (state, action) => ({
+    ...state, recommendData: action.payload, recommendLoading: 'fulfilled',
+  }),
+  [fetchRecommend.rejected]: (state) => ({ ...state, recommendLoading: 'rejected' }),
+};
 
 const apiSlice = createSlice({
   name: 'api',
   initialState: {
-    data: [],
+    data: 'SN',
+    recommendData: [],
     loading: 'idle',
+    recommendLoading: 'idle',
   },
   reducers: {},
   extraReducers: {
-    [fetchItem.pending]: (state) => ({ ...state, loading: 'pending' }),
-    [fetchItem.fulfilled]: (state, action) => ({
-      data: action.payload, loading: 'fulfilled',
-    }),
-    [fetchItem.rejected]: (state) => ({ ...state, loading: 'rejected' }),
+    ...mainReducers,
+    ...recommendReducers,
   },
 });
 

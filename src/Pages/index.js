@@ -9,3 +9,4 @@ export { default as ExplorarComidas } from './ExplorarComidas';
 export { default as ExplorarBebidas } from './ExplorarBebidas';
 export { default as ExplorarIngredientes } from './ExplorarIngredientes';
 export { default as ExplorarOrigem } from './ExplorarOrigem';
+export { default as Details } from './Details/Details';

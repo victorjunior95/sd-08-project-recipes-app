@@ -30,9 +30,9 @@ function ReceitasFavoritas() {
   };
 
   return (
-    <div>
+    <>
       <Header explore="false">Receitas Favoritas</Header>
-      <div>
+      <section>
         <button
           type="button"
           data-testid="filter-by-all-btn"
@@ -54,10 +54,10 @@ function ReceitasFavoritas() {
         >
           Bebidas
         </button>
-      </div>
-      <div>
+      </section>
+      <section>
         {favoriteRecipes && favoriteRecipes.map((recipe, index) => (
-          <div key={ recipe.id }>
+          <section key={ recipe.id }>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 style={ { width: '100vw' } }
@@ -98,10 +98,10 @@ function ReceitasFavoritas() {
                 alt="Not Favorite Button"
               />
             </button>
-          </div>
+          </section>
         ))}
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
 

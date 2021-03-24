@@ -11,7 +11,7 @@ function CardsArea({ type }) {
   const TWELVE_CARDS = 12;
   if (type === 'foods') {
     return (
-      <Container>
+      <Container className="d-flex flex-column align-items-center m-0 p-0">
         { meals.length <= 1 ? <p> nada por aqui! </p>
           : meals.map(
             ({ strMeal, strMealThumb }, index) => (

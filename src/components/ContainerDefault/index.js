@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Footer from '../Footer';
 import Header from '../Header';
+import './styles.css';
 
 function ContainerDefault({ title, children }) {
   return (
@@ -10,9 +11,9 @@ function ContainerDefault({ title, children }) {
       <Row className="mb-5">
         <Header title={ title } />
       </Row>
-      <Row>
+      <Container className="d-flex flex-column main-content">
         { children }
-      </Row>
+      </Container>
       <Row>
         <Footer />
       </Row>

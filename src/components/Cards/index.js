@@ -6,7 +6,7 @@ import './style.css';
 function Cards(props) {
   const { name, thumbSrc, index } = props;
   return (
-    <Card className="card" data-testid={ `${index}-recipe-card` }>
+    <Card className="card mb-3" data-testid={ `${index}-recipe-card` }>
       <Card.Img
         variant="top"
         className="card-img"
@@ -14,7 +14,7 @@ function Cards(props) {
         data-testid={ `${index}-card-img` }
       />
       <Card.Body>
-        <Card.Title data-testid={ `${index}-card-name` }>
+        <Card.Title data-testid={ `${index}-card-name` } className="text-center">
           {name}
         </Card.Title>
       </Card.Body>
@@ -25,7 +25,7 @@ function Cards(props) {
 export default Cards;
 
 Cards.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   thumbSrc: PropTypes.string.isRequired,
 };

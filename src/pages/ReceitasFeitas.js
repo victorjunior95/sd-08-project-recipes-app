@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import copy from 'clipboard-copy';
 import HeaderLocation from '../components/Header';
+import shareIcon from '../images/shareIcon.svg';
 
 class ReceitasFeitas extends Component {
   constructor() {
@@ -66,20 +67,18 @@ class ReceitasFeitas extends Component {
       <div>
         { recipes.map((obj, index) => (
           <div className="card" key={ obj.id }>
-            <img data-testid={ `${index}-horizontal-image` } alt="card" />
-            <p data-testid={ `${index}-horizontal-top-text` } />
-            <p data-testid={ `${index}-horizontal-name` } />
-            <p data-testid={ `${index}-horizontal-done-date` } />
+            <img data-testid={ `${index}-horizontal-image` } alt="card" src={ `${obj.image}` } />
+            <p data-testid={ `${index}-horizontal-top-text` }>{`${obj.area} - ${obj.category}`}</p>
+            <p data-testid={ `${index}-horizontal-name` }>{obj.name}</p>
+            <p data-testid={ `${index}-horizontal-done-date` }>{obj.doneDate}</p>
             <button
               type="button"
               onClick={ () => this.share() }
-              data-testid={ `${index}-horizontal-share-btn` }
+              // data-testid={ `${index}-horizontal-share-btn` }
             >
-              {' '}
-              Compartilhar
+              <img data-testid={ `${index}-horizontal-share-btn` } src={ shareIcon } />
             </button>
             { obj.tags.map((tag) => (
-
               <p
                 key={ tag }
                 data-testid={ `${index}-${tag}-horizontal-tag` }

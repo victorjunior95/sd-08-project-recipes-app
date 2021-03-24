@@ -4,7 +4,6 @@ import { useIsMeal } from '../../services/customHooks';
 import DrinkCard from './DrinkCard';
 import MealCard from './MealCard';
 
-
 export default function Recommendations() {
   const recommendations = useSelector((state) => state.detailsReducer.recommendations);
   const maxRecommended = 6;

@@ -10,25 +10,26 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function favConstructor(actualRecipe, isMeal) {
+  console.log(actualRecipe);
   if (isMeal) {
     return {
       id: actualRecipe.idMeal,
-      type: 'Meal',
+      type: 'comida',
       area: actualRecipe.strArea,
       category: actualRecipe.strCategory,
       alcoholicOrNot: '',
-      name: actualRecipe.strDrink,
+      name: actualRecipe.strMeal,
       image: actualRecipe.strMealThumb,
     };
   }
   return {
     id: actualRecipe.idDrink,
-    type: 'Beverage',
+    type: 'bebida',
     area: '',
     category: actualRecipe.strCategory,
     alcoholicOrNot: actualRecipe.strAlcoholic,
-    name: actualRecipe.strMeal,
-    image: actualRecipe.strMealThumb,
+    name: actualRecipe.strDrink,
+    image: actualRecipe.strDrinkThumb,
   };
 }
 
@@ -92,7 +93,7 @@ export default function ShareFavBtn() {
   useEffect(() => {
     saveOnStorage('favoriteRecipes', favorites);
   }, [favorites]);
-
+  const isFavorite = isInFavorites(actualRecipe, favorites, isMeal);
   return (
     <div className="share-fav-btn">
       <button
@@ -106,14 +107,15 @@ export default function ShareFavBtn() {
         { copied && <span>Link copiado!</span> }
         <img src={ shareIcon } alt="Share Button" />
       </button>
-
       <button
+        name="favoriteButton"
         type="button"
         data-testid="favorite-btn"
         onClick={ () => favoriting(actualRecipe, favorites, isMeal, dispatch) }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       >
         {
-          isInFavorites(actualRecipe, favorites, isMeal) ? <img src={ blackHeartIcon } alt="Favorite Button" />
+          isFavorite ? <img src={ blackHeartIcon } alt="Favorite Button" />
             : <img src={ whiteHeartIcon } alt="Favorite Button" />
         }
       </button>

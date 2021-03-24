@@ -1,27 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import '../styles/Card.css';
 
 function Card({ index, card }) {
   const history = useHistory();
 
   const renderDrink = () => {
-    const { strDrink, strDrinkThumb } = card;
+    const { strDrink, strDrinkThumb, idDrink } = card;
     return (
-      <div>
-        <h1 data-testid={ `${index}-card-name` }>{strDrink}</h1>
-        <img data-testid={ `${index}-card-img` } src={ strDrinkThumb } alt={ strDrink } />
-      </div>
+      <Link to={ `/bebidas/${idDrink}` }>
+        <div>
+          <h1 className="food-title" data-testid={ `${index}-card-name` }>{strDrink}</h1>
+          <img
+            className="food-image"
+            data-testid={ `${index}-card-img` }
+            src={ strDrinkThumb }
+            alt={ strDrink }
+          />
+        </div>
+      </Link>
     );
   };
 
   const renderFood = () => {
-    const { strMeal, strMealThumb } = card;
+    const { strMeal, strMealThumb, idMeal } = card;
     return (
-      <div>
-        <h1 data-testid={ `${index}-card-name` }>{strMeal}</h1>
-        <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt={ strMeal } />
-      </div>
+      <Link to={ `/comidas/${idMeal}` }>
+        <div>
+          <h1 className="food-title" data-testid={ `${index}-card-name` }>{strMeal}</h1>
+          <img
+            className="food-image"
+            data-testid={ `${index}-card-img` }
+            src={ strMealThumb }
+            alt={ strMeal }
+          />
+        </div>
+      </Link>
     );
   };
 
@@ -49,6 +64,8 @@ Card.propTypes = {
     strDrinkThumb: PropTypes.string,
     strMeal: PropTypes.string,
     strMealThumb: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }).isRequired,
 };
 

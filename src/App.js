@@ -6,7 +6,8 @@ import Comidas from './pages/Comidas';
 import Perfil from './pages/Perfil';
 import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
-import Detalhes from './pages/Detalhes';
+import DetalhesComidas from './pages/DetalhesComidas';
+import DetalhesBebidas from './pages/DetalhesBebidas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -19,8 +20,8 @@ function App() {
       <Route exact path="/receitas-favoritas" component={ Perfil } />
       <Route exact path="/bebidas" component={ Bebidas } />
       <Route exact path="/explorar" component={ Explorar } />
-      <Route path="/comidas/:id" component={ Detalhes } />
-      <Route path="/bebidas/:id" component={ Detalhes } />
+      <Route path="/comidas/:id" component={ DetalhesComidas } />
+      <Route path="/bebidas/:id" component={ DetalhesBebidas } />
     </Switch>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
+import userAction from '../redux/actions/userAction';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ export default function Login() {
 
   const handleClick = () => {
     const user = { email, password };
-    dispatch({ type: 'LOGIN_USER', payload: user });
+    dispatch(userAction(user));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     const userEmail = { email };

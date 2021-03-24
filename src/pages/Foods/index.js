@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
+import CardsArea from '../../components/CardsArea';
 import ContainerDefault from '../../components/ContainerDefault';
 import Loading from '../../components/Loading';
 
@@ -11,7 +12,7 @@ function Foods() {
     <ContainerDefault title="Comidas">
       {
         isFetching ? <Loading />
-          : <p>Comidas</p>
+          : <CardsArea type="foods" />
       }
       { oneMeal && <Redirect to={ `/comidas/${oneMeal}` } /> }
     </ContainerDefault>

@@ -1,7 +1,7 @@
 import * as cocktailApi from '../../services/cocktailApi';
 
 export const Types = {
-  SET_FETCH: 'SET_FETCH',
+  SET_FETCH_COCKTAILS: 'SET_FETCH_COCKTAILS',
   SET_FETCH_CATEGORIES: 'SET_FETCH',
   FETCH_COCKTAILS_SUCCESS: 'FETCH_COCKTAILS_SUCCESS',
   FETCH_COCKTAILS_ERROR: 'FETCH_COCKTAILS_ERROR',
@@ -10,7 +10,7 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  isFetching: false,
+  isFetchingCocktails: false,
   isFetchingCategories: false,
   drinks: [],
   categories: [],
@@ -20,14 +20,14 @@ const INITIAL_STATE = {
 
 const cocktails = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case Types.SET_FETCH:
-    return { ...state, isFetching: true, notFound: false };
+  case Types.SET_FETCH_COCKTAILS:
+    return { ...state, isFetchingCocktails: true, notFound: false };
 
   case Types.FETCH_COCKTAILS_SUCCESS:
     return {
       ...state,
       drinks: action.payload,
-      isFetching: false,
+      isFetchingCocktails: false,
       error: '',
       notFound: action.payload.length === 0,
     };
@@ -37,7 +37,7 @@ const cocktails = (state = INITIAL_STATE, action) => {
       ...state,
       error: action.payload,
       drinks: [],
-      isFetching: false,
+      isFetchingCocktails: false,
       notFound: true,
     };
 
@@ -66,7 +66,7 @@ const cocktails = (state = INITIAL_STATE, action) => {
 
 export const Creators = {
   setFetch: () => ({
-    type: Types.SET_FETCH,
+    type: Types.SET_FETCH_COCKTAILS,
   }),
 
   fetchRecipeSuccess: (results) => ({

@@ -13,10 +13,12 @@ import Footer from '../components/Footer';
 import CardsContainer from '../components/CardsContainer';
 import Container from '../components/Container';
 import FilterList from '../components/FilterList';
+import LoadingScreen from '../components/LoadingScreen';
 
 const RESULTS_LIMIT = 12;
 
-const Cocktails = ({ fetchCocktails, fetchCategories, drinks, notFound, categories }) => {
+const Cocktails = ({ fetchCocktails, fetchCategories,
+  isFetchingCocktails, drinks, notFound, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
@@ -28,6 +30,20 @@ const Cocktails = ({ fetchCocktails, fetchCategories, drinks, notFound, categori
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
   if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
+
+  if (isFetchingCocktails) {
+    return (
+      <Container>
+        <Header
+          title="Bebidas"
+          showSearchButton
+          handleToggleSearchBar={ toggleSearchBar }
+        />
+        <LoadingScreen />
+        <Footer />
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -56,6 +72,7 @@ const Cocktails = ({ fetchCocktails, fetchCategories, drinks, notFound, categori
 Cocktails.propTypes = {
   fetchCocktails: PropTypes.func.isRequired,
   fetchCategories: PropTypes.func.isRequired,
+  isFetchingCocktails: PropTypes.bool.isRequired,
   drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   notFound: PropTypes.bool.isRequired,
@@ -63,6 +80,7 @@ Cocktails.propTypes = {
 
 const mapStateToProps = ({ cocktails }) => ({
   drinks: cocktails.drinks,
+  isFetchingCocktails: cocktails.isFetchingCocktails,
   notFound: cocktails.notFound,
   categories: cocktails.categories,
 });

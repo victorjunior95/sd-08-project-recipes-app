@@ -17,3 +17,7 @@ export const getByFirstLetter = (firstLetter) => (
 export const getCategories = () => (
   fetchEndpoint(`${BASE_URL}/list.php?c=list`)
 );
+
+export const getByCategory = (category) => (
+  fetchEndpoint(`${BASE_URL}/filter.php?c=${category}`)
+);

@@ -7,19 +7,31 @@ export const Types = {
   FETCH_MEALS_ERROR: 'FETCH_MEALS_ERROR',
   FETCH_CATEGORIES_SUCCESS: 'FETCH_CATEGORIES_SUCCESS',
   FETCH_CATEGORIES_ERROR: 'FETCH_CATEGORIES_ERROR',
+  SET_FETCH_CATEGORY: 'FETCH_CATEGORY',
+  FETCH_CATEGORY_SUCCESS: 'FETCH_CATEGORY',
+  FETCH_CATEGORY_ERROR: 'FETCH_CATEGORY',
+  ADD_FILTER: 'ADD_FILTER',
 };
 
 const INITIAL_MEALS_STATE = {
   isFetchingMeals: false,
   isFetchingCategories: false,
+  isFetchingByCategory: false,
   meals: [],
   categories: [],
   error: '',
   notFound: false,
+  filter: 'All',
 };
 
 const meals = (state = INITIAL_MEALS_STATE, action) => {
   switch (action.type) {
+  case Types.ADD_FILTER:
+    return {
+      ...state,
+      filter: action.filter,
+    };
+
   case Types.SET_FETCH_MEALS:
     return { ...state, isFetchingMeals: true, notFound: false };
 
@@ -59,12 +71,22 @@ const meals = (state = INITIAL_MEALS_STATE, action) => {
       categories: [],
       isFetchingCategories: false,
     };
+  
+  case Types.SET_FETCH_CATEGORY:
+    return { ...state, isFetchingByCategory: true };
+
+  case Types.FETCH_CATEGORIES_ERROR
 
   default: return state;
   }
 };
 
 export const Creators = {
+  addFilter: (filter) => ({
+    type: Types.ADD_FILTER,
+    filter,
+  }),
+
   setFetchMeals: () => ({
     type: Types.SET_FETCH_MEALS,
   }),

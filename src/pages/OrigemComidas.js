@@ -31,7 +31,6 @@ function OrigemComidas() {
   }, [activeArea]);
 
   useEffect(() => {
-    requestApiData('themealdb');
     getRecipes();
     getAreasApi();
   }, []);

@@ -8,6 +8,7 @@ const Provider = ({ children }) => {
 
   // estado responsável por guardar a lista de comidas da pagina inicial
   const [mealData, setMealData] = useState([]);
+  const [drinkData, setDrinkData] = useState([]);
   // const [food, setfood] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,6 +19,8 @@ const Provider = ({ children }) => {
     setUser: (email) => setUser(email),
     mealData,
     setMealData,
+    drinkData,
+    setDrinkData,
     isLoading,
     setIsLoading,
     // changeTitleByPathName,

@@ -26,7 +26,7 @@ function MainFoodsCard(props) {
   );
 }
 MainFoodsCard.propTypes = {
-  dataFoods: PropTypes.arrayOf(Object).isRequired,
+  dataFoods: PropTypes.objectOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
 };

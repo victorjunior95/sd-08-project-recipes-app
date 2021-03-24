@@ -8,6 +8,8 @@ import fetchCategoriesDrink from './drinkCategory';
 import fetchCategoriesFood from './foodCategory';
 import fetchFoodByCategory from './foodByCategory';
 import fetchDrinkByCategory from './drinkByCategory';
+import fetchByDrinkFilters from './drinkBySearchFilter';
+import fetchByFilters from './fetchByFilter';
 
 const api = {
   fetchDrinks,
@@ -18,6 +20,8 @@ const api = {
   fetchCategoriesFood,
   fetchFoodByCategory,
   fetchDrinkByCategory,
+  fetchByDrinkFilters,
+  fetchByFilters,
 };
 
 export default api;

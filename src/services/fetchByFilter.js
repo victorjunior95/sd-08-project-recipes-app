@@ -16,7 +16,6 @@ const fetchByFilters = async (inputs, setIsLoading, setMealData) => {
   setIsLoading(true);
   const data = await fetch(getUrlByFilter(radio, text));
   const json = await data.json();
-  console.log(json);
   setIsLoading(false);
   setMealData(json.meals);
 };

@@ -26,7 +26,7 @@ function MainDrinksCard(props) {
 }
 
 MainDrinksCard.propTypes = {
-  dataDrinks: PropTypes.arrayOf(Object).isRequired,
+  dataDrinks: PropTypes.objectOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
 

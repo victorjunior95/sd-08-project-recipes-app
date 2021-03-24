@@ -9,9 +9,9 @@ export const ingredientResult = (ingredient) => ({
 
 export function fetchIngredient(url) {
   return async (dispatch) => {
-    const { meals } = await fetch(url).then((response) => response.json());
+    const result = await fetch(url).then((response) => response.json());
     try {
-      dispatch(ingredientResult(meals));
+      dispatch(ingredientResult(result));
     } catch (e) {
       console.log(e);
     }

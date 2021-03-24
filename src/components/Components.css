@@ -1,0 +1,36 @@
+.header {
+  background: #c4c4c4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2px;
+  padding: 0;
+}
+
+.card-item a {
+  align-items: center;
+  border: 1px solid grey;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  height: 170px;
+  margin: 5px;
+  padding: 2px;
+  text-decoration: none;
+  width: 140px;
+
+}
+
+.card-item img {
+  height: 120px;
+  width: 100%;
+}
+
+.card-item h5 {
+  margin: 5px 0;
+}

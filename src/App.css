@@ -104,5 +104,6 @@
 
 .zTry {
   margin: 10px;
+  position: absolute;
   z-index: 1;
 }

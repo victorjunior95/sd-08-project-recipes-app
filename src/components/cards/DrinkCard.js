@@ -9,7 +9,7 @@ function Card({ data }) {
   const { strDrinkThumb, strDrink } = drink;
 
   if (cardSelected) {
-    return <Redirect to={ `/comidas/${drink.idDrink}` } />;
+    return <Redirect to={ `/bebidas/${drink.idDrink}` } />;
   }
 
   return (

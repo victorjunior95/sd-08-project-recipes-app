@@ -45,7 +45,6 @@ export const fetchMeal = async (value, type) => {
   if (url === '') return null;
   const response = await fetch(url);
   const { meals } = await response.json();
-  console.log(response);
   const empty = [];
   return meals || empty;
 };
@@ -83,7 +82,6 @@ export const fetchDrinks = async (value, type) => {
   }
   if (url === '') return null;
   const response = await fetch(url);
-  console.log(response);
   const { drinks } = await response.json();
   const empty = [];
   return drinks || empty;

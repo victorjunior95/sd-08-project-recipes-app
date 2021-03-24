@@ -26,7 +26,7 @@ function Categories() {
     setSelectedDrink(category);
     console.log(selectedDrink, 'e', category);
     if (selectedDrink === category || category === 'All') {
-      const ops = await fetchDrinks(' ', 'name');
+      const ops = await fetchDrinks('', 'name');
       console.log(ops);
       dispatch(requestDrinks(ops));
       setSelectedDrink('');

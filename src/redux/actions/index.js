@@ -45,7 +45,6 @@ export const getDrinks = () => async (dispatch) => {
 
 export const getMealsCategories = () => async (dispatch) => {
   const categoriesReceived = await fetchMeal('list', 'categoriesList');
-  console.log(categoriesReceived);
   dispatch(
     requestMealsCategories(categoriesReceived),
   );
@@ -53,7 +52,6 @@ export const getMealsCategories = () => async (dispatch) => {
 
 export const getDrinkCategories = () => async (dispatch) => {
   const categoriesReceived = await fetchDrinks('list', 'categoriesList');
-  console.log(categoriesReceived);
   dispatch(
     requestDrinkCategories(categoriesReceived),
   );

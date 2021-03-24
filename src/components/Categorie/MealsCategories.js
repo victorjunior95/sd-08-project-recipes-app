@@ -26,20 +26,14 @@ function Categories() {
     console.log(selected, 'e', category);
     if (selected === category || category === 'All') {
       const ops = await fetchMeal(' ', 'name');
-      console.log(ops);
+      // console.log(ops);
       dispatch(requestMeals(ops));
       setSelected('');
     } else {
       const ops = await fetchMeal(category, 'categories');
-      console.log(ops);
+      // console.log(ops);
       dispatch(requestMeals(ops));
     }
-    // if (category === 'All') {
-    //   const ops = await fetchMeal(' ', 'name');
-    //   console.log(ops);
-    //   dispatch(requestMeals(ops));
-    //   setSelected('');
-    // }
   }
 
   return (

@@ -12,7 +12,7 @@ const CategoriesContainer = ({ page }) => {
   const drinksCategories = useSelector(
     (state) => state.CategoriesRecipes.drinksCategories,
   );
-  
+
   const dispatch = useDispatch();
 
   const handleClick = (category) => {
@@ -21,7 +21,7 @@ const CategoriesContainer = ({ page }) => {
     } else if (page === 'Bebidas') {
       dispatch(actionThunkCategoryDrinks(category));
     }
-  }
+  };
 
   const showCategoriesButtons = () => {
     let buttons = [];
@@ -45,7 +45,7 @@ const CategoriesContainer = ({ page }) => {
         name={ button.strCategory }
         key={ button.strCategory }
         data-testid={ `${button.strCategory}-category-filter` }
-        onClick={ ()=>handleClick(button.strCategory) }
+        onClick={ () => handleClick(button.strCategory) }
       />
     ));
   };

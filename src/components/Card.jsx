@@ -10,11 +10,15 @@ const Card = ({ id, imagePath, title, category, index }) => (
   </section>
 );
 
+Card.defaultProps = {
+  category: '',
+};
+
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  category: PropTypes.string,
   index: PropTypes.number.isRequired,
 };
 

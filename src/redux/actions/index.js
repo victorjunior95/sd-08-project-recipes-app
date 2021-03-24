@@ -96,7 +96,6 @@ export const actionCategoriesDrinks = (drinks) => ({
   },
 });
 
-
 export const actionThunkMainFoods = () => async (dispatch) => {
   dispatch(actionIsLoading(true));
   const mainFoods = await requestMainFoods();
@@ -115,7 +114,7 @@ export const actionThunkMainDrinks = () => async (dispatch) => {
   dispatch(actionIsLoading(false));
 };
 
-// THUNK ACTIONS FILTER CATEGORIES 
+// THUNK ACTIONS FILTER CATEGORIES
 export const actionFilterCategoryDrinks = (drinks) => ({
   type: CATEGORIES_DRINKS_FILTER,
   payload: {

@@ -15,6 +15,9 @@ function Drinks() {
   const mainDrinks = useSelector((state) => state.MainRecipes.mainDrinks);
   const isLoading = useSelector((state) => state.Loading.isLoading);
   const dispatch = useDispatch();
+  const drinksFilterCategories = useSelector(
+    (state) => state.FilterByCategory.drinksFilterCategories,
+  );
 
   useEffect(() => {
     dispatch(actionThunkMainDrinks());
@@ -36,10 +39,12 @@ function Drinks() {
   );
   const showCards = () => {
     let drinksToMap = [];
-    if (drinks.length === 0) {
+    if (drinks.length === 0 && drinksFilterCategories.length === 0) {
       drinksToMap = [...mainDrinks];
-    } else {
+    } else if (drinksFilterCategories.length === 0) {
       drinksToMap = [...drinks];
+    } else {
+      drinksToMap = [...drinksFilterCategories];
     }
     if (drinksToMap.length === 1) {
       const id = drinksToMap[0].idDrink;

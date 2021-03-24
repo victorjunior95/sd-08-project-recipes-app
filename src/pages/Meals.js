@@ -4,7 +4,8 @@ import { Redirect, useParams } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as MealsActions } from '../store/ducks/meals';
+import { Creators as RecipesActions } from '../store/ducks/mealRecipes';
+import { Creators as CategoriesActions } from '../store/ducks/mealCategories';
 import useToggle from '../hooks/useToggle';
 
 import Header from '../components/Header';
@@ -18,35 +19,22 @@ import LoadingScreen from '../components/LoadingScreen';
 
 const RESULTS_LIMIT = 12;
 
-const Meals = ({ fetchMeals, fetchCategories,
-  isFetchingMeals, isFetchingCategories, meals, notFound, categories }) => {
+const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
+  isFetchingCategories, recipesNotFound, recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
   useEffect(() => {
-    const fetchingMeals = async () => {
-      await fetchMeals();
-      await fetchCategories();
-    };
-    fetchingMeals();
+    fetchCategories();
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
-  if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  if (meals.length === 1) return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
-  if (isFetchingMeals || isFetchingCategories) {
-    return (
-      <Container>
-        <Header
-          title="Comidas"
-          showSearchButton
-          handleToggleSearchBar={ toggleSearchBar }
-        />
-        <LoadingScreen />
-        <Footer />
-      </Container>
-    );
+  if (recipesNotFound) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
+  if (recipes.length === 1) return <Redirect to={ `/comidas/${recipes[0].idMeal}` } />;
+
+  if (!recipes.length) return <LoadingScreen />;
 
   return (
     <Container>
@@ -56,14 +44,14 @@ const Meals = ({ fetchMeals, fetchCategories,
         handleToggleSearchBar={ toggleSearchBar }
       />
       <FilterList categories={ categories } />
-      { showSearchBar && <SearchBar fetchFunction={ fetchMeals } /> }
-      { notFound && <p>Nenhuma comida encontrada</p> }
+      { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
+      { recipesNotFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
-        { meals.length > 1 && meals.slice(0, RESULTS_LIMIT).map((meal, index) => (
+        { recipes.length > 1 && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
           <Card
-            key={ meal.idMeal }
-            nome={ meal.strMeal }
-            thumbnail={ meal.strMealThumb }
+            key={ recipe.idMeal }
+            name={ recipe.strMeal }
+            thumbnail={ recipe.strMealThumb }
             index={ index }
           />)) }
       </CardsContainer>
@@ -73,24 +61,27 @@ const Meals = ({ fetchMeals, fetchCategories,
 };
 
 Meals.propTypes = {
-  fetchMeals: PropTypes.func.isRequired,
-  isFetchingMeals: PropTypes.bool.isRequired,
-  isFetchingCategories: PropTypes.bool.isRequired,
+  fetchRecipes: PropTypes.func.isRequired,
   fetchCategories: PropTypes.func.isRequired,
-  meals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  notFound: PropTypes.bool.isRequired,
+  isFetchingRecipes: PropTypes.bool.isRequired,
+  isFetchingCategories: PropTypes.bool.isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipesNotFound: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapStateToProps = ({ meals }) => ({
-  meals: meals.meals,
-  isFetchingMeals: meals.isFetchingMeals,
-  isFetchingCategories: meals.isFetchingCategories,
-  notFound: meals.notFound,
-  categories: meals.categories,
+const mapStateToProps = ({ meals: { recipes, categories } }) => ({
+  recipes: recipes.recipes,
+  categories: categories.categories,
+  isFetchingRecipes: recipes.isFetching,
+  isFetchingCategories: categories.isFetching,
+  recipesNotFound: recipes.notFound,
 });
 
 const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(MealsActions, dispatch));
+  bindActionCreators({
+    ...RecipesActions,
+    ...CategoriesActions,
+  }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(Meals);

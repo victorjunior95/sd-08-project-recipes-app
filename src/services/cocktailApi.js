@@ -30,6 +30,6 @@ export const getByCategory = (category) => (
   fetchEndpoint(`${BASE_URL}/filter.php?c=${category}`)
 );
 
-export const getRandomCocktail = () => (
+export const getRandom = () => (
   fetchEndpoint(`${BASE_URL}/random.php`)
 );

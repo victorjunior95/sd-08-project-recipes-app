@@ -11,7 +11,7 @@ const ExploreCocktails = () => {
   const history = useHistory();
 
   async function handleRandomCocktail() {
-    const { drinks } = await cocktailApi.getRandomCocktail();
+    const { drinks } = await cocktailApi.getRandom();
     const { idDrink } = drinks[0];
     history.push(`/bebidas/${idDrink}`);
   }

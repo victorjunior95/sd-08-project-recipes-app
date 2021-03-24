@@ -11,7 +11,7 @@ const ExploreMeals = () => {
   const history = useHistory();
 
   async function handleRandomMeal() {
-    const { meals } = await mealApi.getRandomMeal();
+    const { meals } = await mealApi.getRandom();
     const { idMeal } = meals[0];
     history.push(`/comidas/${idMeal}`);
   }

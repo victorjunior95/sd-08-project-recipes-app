@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, FormControl, Button, Row } from 'react-bootstrap';
+import { fetchMealsByFilter } from '../../redux/actions';
 
 export default function SeekBar() {
   const [onSeek, setOnSeek] = useState('');
-  console.log(onSeek);
+  const [onRadio, setOnRadio] = useState('');
+  const dispatch = useDispatch();
+  const fetchApiByFilters = (e) => {
+    e.preventDefault();
+    dispatch(fetchMealsByFilter(onRadio, onSeek));
+  };
+  const handleOnSeek = ({ target }) => {
+    const { value } = target;
+    if (onRadio === 'Primeira Letra') {
+      if (onSeek.length === 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      const firstWord = value.slice(0, 1);
+      setOnSeek(firstWord);
+    } else {
+      setOnSeek(value);
+    }
+  };
+
   return (
 
     <Form>
@@ -12,7 +32,8 @@ export default function SeekBar() {
           type="text"
           placeholder="Pesquisar"
           data-testid="search-input"
-          onChange={ (e) => setOnSeek(e.target.value) }
+          value={ onSeek }
+          onChange={ handleOnSeek }
         />
       </Form.Row>
       <Form.Group as={ Row } className="justify-content-around mx-0 flex-row">
@@ -22,6 +43,8 @@ export default function SeekBar() {
           label="Ingrediente"
           type="radio"
           name="SearchChoise"
+          value="Ingrediente"
+          onChange={ (e) => setOnRadio(e.target.value) }
         />
         <Form.Check
           sm={ 4 }
@@ -29,6 +52,8 @@ export default function SeekBar() {
           label="Nome"
           type="radio"
           name="SearchChoise"
+          value="Nome"
+          onChange={ (e) => setOnRadio(e.target.value) }
         />
         <Form.Check
           sm={ 4 }
@@ -36,13 +61,17 @@ export default function SeekBar() {
           label="Primeira Letra"
           type="radio"
           name="SearchChoise"
+          value="Primeira Letra"
+          onChange={ (e) => setOnRadio(e.target.value) }
         />
       </Form.Group>
       <Button
+        type="submit"
         data-testid="exec-search-btn"
         className="ml-3"
         size="sm"
         variant="outline-info"
+        onClick={ fetchApiByFilters }
       >
         Buscar
       </Button>

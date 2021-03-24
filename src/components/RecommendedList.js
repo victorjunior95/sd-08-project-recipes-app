@@ -9,7 +9,7 @@ function RecommendedList({ value }) {
       {value.map((elem, index) => {
         if (index < MAX_RECIPES) {
           return (<RecommendedCard
-            key={ elem.strMeal }
+            key={ index }
             card={ elem }
             index={ index }
           />);

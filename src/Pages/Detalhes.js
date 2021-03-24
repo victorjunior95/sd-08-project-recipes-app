@@ -37,13 +37,13 @@ function Detalhes() {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.drinks);
-      requestRecommendedDrink();
+      requestRecommendedFood();
     }
     if (value.includes('comidas')) {
       response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.meals);
-      requestRecommendedFood();
+      requestRecommendedDrink();
     }
 
     setTimeout(() => {
@@ -53,13 +53,20 @@ function Detalhes() {
 
   const getIngredients = () => {
     const ingredientes = Object.entries(objDetail[0]);
+
+    const measure = ingredientes.filter((elem) => (
+      elem[0].includes('strMeasure') && elem[1] !== null && elem[1] !== ''
+    ));
     const filtering = ingredientes.filter((element) => (
       element[0].includes('strIngredient') && element[1] !== null && element[1] !== ''));
+
     const results = filtering.map((elem, index) => (
       <li key={ elem[1] } data-testid={ `${index}-ingredient-name-and-measure` }>
         {elem[1]}
+        <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
       </li>));
 
+    console.log(ingredientes);
     return results;
   };
 
@@ -76,7 +83,11 @@ function Detalhes() {
 
   const renderDrink = () => (
     <div className="details">
-      <h1 data-testid="recipe-category">{objDetail[0].strCategory}</h1>
+      <h1
+        data-testid="recipe-category"
+      >
+        {`${objDetail[0].strCategory} (${objDetail[0].strAlcoholic})`}
+      </h1>
       <h2 data-testid="recipe-title">{objDetail[0].strDrink}</h2>
       <img
         data-testid="recipe-photo"
@@ -98,11 +109,11 @@ function Detalhes() {
           alt={ objDetail[0].strDrink }
         />
       </div>
-      <ol>
+      <ol className="ingredient-list">
         { getIngredients() }
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <RecommendedList value={ recommendedDrink } />
+      <RecommendedList value={ recommendedFood } />
       <button
         className="start-recipe-btn"
         type="button"
@@ -147,7 +158,7 @@ function Detalhes() {
         title="YouTube video player"
       />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <RecommendedList value={ recommendedFood } />
+      <RecommendedList value={ recommendedDrink } />
       <button
         className="start-recipe-btn"
         type="button"

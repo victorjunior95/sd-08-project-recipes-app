@@ -12,10 +12,10 @@ function RecommendedCard({ index, card }) {
     return (
       <Link to={ `/bebidas/${idDrink}` }>
         <div
-          className="recommended-card"
+          className="recommended-card carousel-item"
           data-testid={ `${index}-recomendation-card` }
         >
-          <h1 data-testid={ `${index}-card-name` }>{strDrink}</h1>
+          <h1 data-testid={ `${index}-recomendation-title` }>{strDrink}</h1>
           <img
             className="recommended-image"
             data-testid={ `${index}-card-img` }
@@ -35,7 +35,12 @@ function RecommendedCard({ index, card }) {
           className="recommended-card"
           data-testid={ `${index}-recomendation-card` }
         >
-          <h1 className="food-title" data-testid={ `${index}-card-name` }>{strMeal}</h1>
+          <h1
+            data-testid={ `${index}-recomendation-title` }
+            className="food-title"
+          >
+            {strMeal}
+          </h1>
           <img
             className="recommended-image"
             data-testid={ `${index}-card-img` }
@@ -50,10 +55,10 @@ function RecommendedCard({ index, card }) {
   const render = () => {
     const value = history.location.pathname;
     if (value.includes('comidas')) {
-      return renderFood();
+      return renderDrink();
     }
     if (value.includes('bebidas')) {
-      return renderDrink();
+      return renderFood();
     }
   };
 

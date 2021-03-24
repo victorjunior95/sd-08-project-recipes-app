@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import LariContext from '../context/Context';
+import LariContext from '../../context/Context';
 
 const SearchBar = (props) => {
   const { showInput, typeAPI } = props;
@@ -61,11 +61,3 @@ SearchBar.propTypes = {
   typeAPI: PropTypes.string.isRequired,
 };
 export default SearchBar;
-
-// 18 - Exiba um alert caso nenhuma receita seja encontrada
-// O alert deve contendo o texto "Sinto muito, não encontramos nenhuma receita para esses filtros."
-
-// O que será verificado:
-
-// - Caso nenhuma comida seja encontrada o alert deve ser exibido
-// - Caso nenhuma bebida seja encontrada o alert deve ser exibido

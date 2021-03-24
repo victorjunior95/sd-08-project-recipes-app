@@ -6,6 +6,7 @@ import {
   requestsForSearchHeaderFoods,
   requestsForSearchHeaderDrinks,
 } from '../common/requestsForSearchHeader';
+import '../styles/searchHeader.css';
 
 function SearchHeader({ page }) {
   const [searchText, setSearchText] = useState('');
@@ -49,43 +50,47 @@ function SearchHeader({ page }) {
   };
 
   return (
-    <form>
+    <form className="search-header-form">
       <input
         type="text"
         placeholder="Buscar Receita"
         data-testid="search-input"
         onChange={ handleChangeInput }
       />
-      <label htmlFor="ingredient">
-        Ingrediente
-        <input
-          type="radio"
-          name="search"
-          data-testid="ingredient-search-radio"
-          value="ingredient"
-          onChange={ handleChangeRadio }
-        />
-      </label>
-      <label htmlFor="name">
-        Nome
-        <input
-          type="radio"
-          name="search"
-          data-testid="name-search-radio"
-          value="name"
-          onChange={ handleChangeRadio }
-        />
-      </label>
-      <label htmlFor="first-letter">
-        Primeira letra
-        <input
-          type="radio"
-          name="search"
-          data-testid="first-letter-search-radio"
-          value="first-letter"
-          onChange={ handleChangeRadio }
-        />
-      </label>
+      <br />
+      <section>
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            name="search"
+            data-testid="ingredient-search-radio"
+            value="ingredient"
+            onChange={ handleChangeRadio }
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="name">
+          <input
+            type="radio"
+            name="search"
+            data-testid="name-search-radio"
+            value="name"
+            onChange={ handleChangeRadio }
+          />
+          Nome
+        </label>
+        <label htmlFor="first-letter">
+          <input
+            type="radio"
+            name="search"
+            data-testid="first-letter-search-radio"
+            value="first-letter"
+            onChange={ handleChangeRadio }
+          />
+          Primeira letra
+        </label>
+      </section>
+      <br />
       <button type="button" data-testid="exec-search-btn" onClick={ onClick }>
         Buscar
       </button>

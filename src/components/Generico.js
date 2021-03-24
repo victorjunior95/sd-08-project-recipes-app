@@ -12,7 +12,10 @@ class Generico extends Component {
   video() {
     const { detalhes } = this.props;
     let youtube;
-    if (detalhes.strYoutube === undefined) {
+    if (detalhes !== undefined && detalhes.strYoutube !== undefined) {
+      youtube = detalhes.strYoutube.replace('watch?v=', 'embed/');
+    }
+    if (!detalhes.strYoutube) {
       youtube = this.randonDrinkVideo();
     }
     if (detalhes !== undefined && detalhes.strYoutube !== undefined) {
@@ -48,7 +51,7 @@ Generico.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  detalhes: state.detalhes,
+  detalhes: state.routes.detalhes,
 });
 
 export default connect(mapStateToProps)(Generico);

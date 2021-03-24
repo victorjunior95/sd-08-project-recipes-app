@@ -1,14 +1,14 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import Expĺorar from './pages/Explorar';
-import Generico from './components/Generico';
+// import Generico from './components/Generico';
 import ComidasIngredientes from './pages/ComidasIngredientes';
 import BebidasIngredientes from './pages/BebidasIngredientes';
 import ExplorarPorArea from './pages/ExplorarPorArea';
@@ -24,7 +24,7 @@ import NotFound from './pages/NotFound';
 
 class App extends React.Component {
   render() {
-    const { rota } = this.props;
+    // const { rota } = this.props;
     return (
       <div className="App">
         <BrowserRouter>
@@ -64,9 +64,9 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  rota: PropTypes.string.isRequired,
-};
+// App.propTypes = {
+//   rota: PropTypes.string.isRequired,
+// };
 const mapStateToProps = (state) => ({
   rota: state.rota,
 });

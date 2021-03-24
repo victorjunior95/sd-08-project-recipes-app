@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import login from '../store/actions/user.actions';
 
 class Login extends Component {
   constructor() {
@@ -36,7 +37,7 @@ class Login extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, setEmail } = this.props;
     const { Email, senha, buttonDisabled } = this.state;
     const objUser = { email: Email };
     return (
@@ -61,28 +62,31 @@ class Login extends Component {
               data-testid="password-input"
               onChange={ (event) => this.change(event) }
             />
-            <div>
-              <button
-                className="login-btn"
-                type="button"
-                data-testid="login-submit-btn"
-                disabled={ buttonDisabled }
-                onClick={ () => {
-                  localStorage.setItem('mealsToken', 1);
-                  localStorage.setItem('cocktailsToken', 1);
-                  localStorage.setItem('user', JSON.stringify(objUser));
-                  history.push('/comidas');
-                } }
-              >
-                Entrar
-              </button>
-            </div>
+            <button
+              className="button"
+              type="button"
+              data-testid="login-submit-btn"
+              disabled={ buttonDisabled }
+              onClick={ () => {
+                localStorage.setItem('mealsToken', 1);
+                localStorage.setItem('cocktailsToken', 1);
+                localStorage.setItem('user', JSON.stringify(objUser));
+                setEmail(objUser.email);
+                history.push('/comidas');
+              } }
+            >
+              Entrar
+            </button>
           </div>
         </main>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setEmail: (email) => dispatch(login(email)),
+});
 
 // const mapStateToProps = (state) => ({
 //   email: state.email,
@@ -93,7 +97,7 @@ class Login extends Component {
 // });
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Login);
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
 // Foi imprencidivel na desenvoltura desse projeto o compartilhamento de informações e a
 //  constante ajúda mútua entre mim e meus colegas.
 //  Meus agradecimento á Arnaelcio Gomes, que fez com tal proeza os regex necessarios.
@@ -109,4 +113,5 @@ export default Login;
 
 Login.propTypes = {
   history: PropTypes.shape.isRequired,
+  setEmail: PropTypes.func.isRequired,
 };

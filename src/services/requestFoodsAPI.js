@@ -41,3 +41,10 @@ export const requestFoodById = async (id) => {
   const data = await response.json();
   return data.meals;
 };
+
+export const requestFoodByCategory = async (category) => {
+  const path = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals;
+};

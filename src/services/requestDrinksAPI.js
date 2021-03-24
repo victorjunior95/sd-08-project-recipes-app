@@ -45,3 +45,10 @@ export const requestDrinkById = async (id) => {
   const data = await response.json();
   return data.drinks;
 };
+
+export const requestDrinkByCategory = async (category) => {
+  const path = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.drinks;
+};

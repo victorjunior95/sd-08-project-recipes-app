@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Form, FormControl, Button, Row } from 'react-bootstrap';
 import { fetchDrinksByFilter, fetchMealsByFilter } from '../../redux/actions';
 
@@ -85,3 +86,7 @@ export default function SeekBar(props) {
     </Form>
   );
 }
+
+SeekBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};

@@ -2,31 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-const CardDetails = ({ title, object, isLoading }) => {
-  const renderIngredientList = () => {
-    const listKeys = Object.keys(object);
-    const ingredients = listKeys.filter((key) => key.includes('strIngredient'));
-
-    const listKeysMeasure = Object.keys(object);
-    const measures = listKeysMeasure.filter((key) => key.includes('strMeasure'));
-
-    return ingredients.map((ingredient, index) => {
-      if (object[ingredient]) {
-        return (
-          <ListGroup.Item
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {`${object[ingredient]} - ${object[measures[index]]}`}
-          </ListGroup.Item>);
-      }
-      return true;
-    });
-  };
-
+const CardDetails = ({ title, object, isLoading, children }) => {
+  
   // é preciso trocar watch por embed na url do youtube
   const renderVideo = () => {
     if (title === 'Comidas') {
@@ -89,10 +69,7 @@ const CardDetails = ({ title, object, isLoading }) => {
           <Card.Text data-testid="recipe-category">
             { (title === 'Comidas') ? object.strCategory : object.strAlcoholic}
           </Card.Text>
-          <ListGroup>
-            Ingredientes:
-            {renderIngredientList()}
-          </ListGroup>
+          {children}
           <Card.Text data-testid="instructions">
             { object.strInstructions }
           </Card.Text>
@@ -100,12 +77,6 @@ const CardDetails = ({ title, object, isLoading }) => {
           <Card.Text data-testid="0-recomendation-card">
             Aqui virá o card das recomendações
           </Card.Text>
-          <Button
-            variant="primary"
-            data-testid="start-recipe-btn"
-          >
-            Iniciar receita
-          </Button>
         </Card.Body>
       </Card>
     );

@@ -27,7 +27,6 @@ function Login() {
       <form>
         <div>
           <input
-            className="zTry"
             type="email"
             name="email"
             id="email"
@@ -37,7 +36,6 @@ function Login() {
           />
           {' '}
           <input
-            className="zTry"
             type="password"
             name="password"
             id="password"
@@ -47,7 +45,6 @@ function Login() {
 
           />
           <button
-            className="zTry"
             type="button"
             data-testid="login-submit-btn"
             disabled={ verificaEmailESenha(info.email, info.password.length) }

@@ -6,7 +6,7 @@ import resultadoApiBebidas from '../services/fetchBebidas';
 
 function ProviderReceitas({ children }) {
   const [logedIn, setLoged] = useState(0);
-  const [search, setSearch] = useState({});
+  const [search, setSearch] = useState({ type: 's' });
   const [apiResult, setApiResult] = useState([]);
   const [tituloDaPagina, enviarTituloDaPagina] = useState('Comidas');
   const [statusBotaoPesquisa, mudarStatusBotaoPesquisa] = useState(true);

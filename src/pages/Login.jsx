@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router';
 import ContextReceitas from '../context/ContextReceitas';
-// Da um auto fix com o eslint, n to conseguindo aqui, Att. Anti-Marcela thank you
-// Me ame menos por favor <3
-// Vou tentar o.o, Valeeeeu
+
 function Login() {
   const [info, setInfo] = useState({ email: '', password: '' });
   // const [redirect, setRedirect] = useState(false);

@@ -1,21 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-function ReceitasFeitas() {
+function Explorar() {
   const {
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
   } = useContext(ContextReceitas);
   useEffect(() => {
-    enviarTituloDaPagina('Receitas Feitas');
+    enviarTituloDaPagina('Explorar Comidas');
     mudarStatusBotaoPesquisa(false);
   }, []);
   return (
     <div>
       <Header />
+      <Footer />
     </div>
   );
 }
 
-export default ReceitasFeitas;
+export default Explorar;

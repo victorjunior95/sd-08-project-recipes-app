@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LariContext from './Context';
-import { headerSearch } from '../services';
+import { headerSearch, fetchFood, fetchDrink, fetchRecomendationsCard } from '../services';
 
 const Provider = ({ children }) => {
   const [food, setFood] = useState([]);
@@ -9,7 +9,11 @@ const Provider = ({ children }) => {
     const results = await headerSearch(search, type);
     setFood(results ? results.meals : []);
   };
-  const context = { handleHeaderSearch, food };
+  const context = { handleHeaderSearch,
+    food,
+    fetchFood,
+    fetchDrink,
+    fetchRecomendationsCard };
 
   return (
     <div>

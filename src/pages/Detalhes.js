@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
 import { useLocation } from 'react-router-dom';
+import Recomendacoes from '../components/RecomendantionCard';
+
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -83,7 +84,7 @@ const Detalhes = () => {
         data-testid="video"
       />}
 
-      <div data-testid="0-recomendation-card">Recomendado</div>
+      <Recomendacoes />
 
       <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </div>

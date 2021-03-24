@@ -4,7 +4,7 @@ import FoodContext from './FoodContext';
 import {
   requestMealRecipe,
   requestFoodCategory,
-  requestMealsByCategory
+  requestMealsByCategory,
 } from '../../services/API';
 
 function FoodProvider({ children }) {

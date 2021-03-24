@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Form, FormControl, Button, Row } from 'react-bootstrap';
-import { fetchMealsByFilter } from '../../redux/actions';
+import { fetchDrinksByFilter, fetchMealsByFilter } from '../../redux/actions';
 
-export default function SeekBar() {
+export default function SeekBar(props) {
   const [onSeek, setOnSeek] = useState('');
   const [onRadio, setOnRadio] = useState('');
   const dispatch = useDispatch();
+  const { title } = props;
   const fetchApiByFilters = (e) => {
     e.preventDefault();
-    dispatch(fetchMealsByFilter(onRadio, onSeek));
+    console.log(title);
+    if (title === 'Comidas') {
+      dispatch(fetchMealsByFilter(onRadio, onSeek));
+    }
+    if (title === 'Bebidas') {
+      dispatch(fetchDrinksByFilter(onRadio, onSeek));
+    }
   };
   const handleOnSeek = ({ target }) => {
     const { value } = target;
@@ -78,3 +86,7 @@ export default function SeekBar() {
     </Form>
   );
 }
+
+SeekBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};

@@ -1,0 +1,14 @@
+.carousel {
+  display: flex;
+  overflow-x: auto;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel .carousel-item {
+  height: 100px;
+  margin: 10px;
+  min-width: 150px;
+}

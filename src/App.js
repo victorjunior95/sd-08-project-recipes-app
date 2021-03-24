@@ -14,51 +14,6 @@ import GlobalProvider from './context/globalContext/GlobalProvider';
 
 function App() {
   return (
-<<<<<<< HEAD
-    <Switch>
-      <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
-      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route path="/perfil" component={ Perfil } />
-      <Route path="/explorar/comidas/area" component={ ComidaArea } />
-      <Route path="/explorar/comidas/ingredientes" component={ ComidaIngredientes } />
-      <Route path="/explorar/bebidas/ingredientes" component={ BebidaIngredientes } />
-      <Route path="/explorar/comidas" component={ ExplorarComida } />
-      <Route path="/explorar/bebidas" component={ ExplorarBebida } />
-      <Route path="/explorar" component={ Explorar } />
-      <Route path="/bebidas/:idDaReceita/in-progress" component={ BebidaProcesso } />
-      <Route path="/comidas/:idDaReceita/in-progress" component={ ComidaProcesso } />
-      <ContextRoute
-        exact
-        path="/bebidas/:idDaReceita"
-        contextComponent={ DrinkProvider }
-        component={ BebidaDetalhes }
-      />
-      <ContextRoute
-        exact
-        path="/comidas/:idDaReceita"
-        contextComponent={ FoodProvider }
-        component={ ComidaDetalhes }
-      />
-      <ContextRoute
-        exact
-        path="/bebidas"
-        contextComponent={ DrinkProvider }
-        component={ Bebida }
-      />
-      <ContextRoute
-        exact
-        path="/comidas"
-        contextComponent={ FoodProvider }
-        component={ Comida }
-      />
-      <ContextRoute
-        exact
-        path="/"
-        contextComponent={ UserProvider }
-        component={ Login }
-      />
-    </Switch>
-=======
     <GlobalProvider>
       <Switch>
         <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
@@ -72,8 +27,18 @@ function App() {
         <Route path="/explorar" component={ Explorar } />
         <Route path="/bebidas/:idDaReceita/in-progress" component={ BebidaProcesso } />
         <Route path="/comidas/:idDaReceita/in-progress" component={ ComidaProcesso } />
-        <Route path="/bebidas/:idDaReceita" component={ BebidaDetalhes } />
-        <Route path="/comidas/:idDaReceita" component={ ComidaDetalhes } />
+        <ContextRoute
+          exact
+          path="/bebidas/:idDaReceita"
+          contextComponent={ DrinkProvider }
+          component={ BebidaDetalhes }
+        />
+        <ContextRoute
+          exact
+          path="/comidas/:idDaReceita"
+          contextComponent={ FoodProvider }
+          component={ ComidaDetalhes }
+        />
         <ContextRoute
           exact
           path="/bebidas"
@@ -94,7 +59,6 @@ function App() {
         />
       </Switch>
     </GlobalProvider>
->>>>>>> a77c1015e2eef2926615f2cc0646ea69e1d2a397
   );
 }
 

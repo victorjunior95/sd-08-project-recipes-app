@@ -11,7 +11,6 @@ function FoodProvider({ children }) {
 
   const [foods, setFoods] = useState([]);
 
-  const [detailFoods, setDetailsFoods] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await requestMealRecipe();
@@ -20,18 +19,23 @@ function FoodProvider({ children }) {
     fetchData();
   }, []);
 
+  const [detailFoods, setDetailsFoods] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
+
   const provide = {
     values: {
       searchInput,
       searchType,
       foods,
       detailFoods,
+      recomendations,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
       setFoods,
       setDetailsFoods,
+      setRecomendations,
     },
   };
 

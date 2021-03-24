@@ -3,6 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Comidas from './pages/Comidas';
+import Bebidas from './pages/Bebidas';
+import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 import RecipesProvider from './context/RecipesProvider';
 import Login from './pages/Login';
@@ -13,12 +15,12 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/comidas" component={ Comidas } />
-          <Route exact path="/bebidas" />
+          <Route exact path="/bebidas" component={ Bebidas } />
           <Route exact path="/comidas/{id-da-receita}" />
           <Route exact path="/bebidas/{id-da-receita}" />
           <Route exact path="/comidas/{id-da-receita}/in-progress" />
           <Route exact path="/bebidas/{id-da-receita}/in-progress" />
-          <Route exact path="/explorar" />
+          <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" />
           <Route exact path="/explorar/bebidas" />
           <Route exact path="/explorar/comidas/ingredientes" />

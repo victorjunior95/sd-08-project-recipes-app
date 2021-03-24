@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LariContext from '../context/Context';
 import Card from '../components/Card';
-import { categoryDrink } from '../services';
+import { categoryDrink, seachDrinkByCategory } from '../services';
 
 const Drinks = () => {
   const MAX_RECIPES = 12;
@@ -13,6 +13,7 @@ const Drinks = () => {
   const [category, setCategory] = useState([]);
   const [mapCategorys, setMapCategorys] = useState();
   const [filteredDrinks, setFilteredDrinks] = useState([]);
+  const [lastCategory, setLastCategory] = useState('');
   useEffect(() => {
     setFilteredDrinks(drink);
   }, [drink]);
@@ -56,11 +57,20 @@ const Drinks = () => {
     mapDrinks();
   }, [filteredDrinks]);
   useEffect(() => {
-    const filterCategories = (cat) => {
-      console.log(cat);
-      // console.log(drink);
-      const result = drink.filter((beverage) => beverage.strCategory === cat);
-      setFilteredDrinks(result);
+    // const filterCategories = (cat) => {
+    //   console.log(cat);
+    //   // console.log(drink);
+    //   const result = drink.filter((beverage) => beverage.strCategory === cat);
+    //   setFilteredDrinks(result);
+    // };
+    const fetchDrinkByCategory = async (cat) => {
+      console.log(` ${lastCategory}  <=>  ${cat} `);
+      if (lastCategory === cat) {
+        setFilteredDrinks(drink);
+      } else {
+        const result = await seachDrinkByCategory(cat);
+        setFilteredDrinks(result);
+      }
     };
     // console.log(category);
     const mapCategory = () => (
@@ -72,7 +82,10 @@ const Drinks = () => {
                 key={ index }
                 type="button"
                 data-testid={ `${drinks.strCategory}-category-filter` }
-                onClick={ () => filterCategories(drinks.strCategory) }
+                onClick={ () => {
+                  fetchDrinkByCategory(drinks.strCategory);
+                  setLastCategory(drinks.strCategory);
+                } }
               >
                 {drinks.strCategory}
               </button>

@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LariContext from '../context/Context';
 import Card from '../components/Card';
-import { categoryFood } from '../services';
+import { categoryFood, seachFoodByCategory } from '../services';
 
 const Comidas = () => {
   const MAX_RECIPES = 12;
@@ -13,6 +13,7 @@ const Comidas = () => {
   const [category, setCategory] = useState([]);
   const [mapCategorys, setMapCategorys] = useState();
   const [filteredFoods, setFilteredFoods] = useState([]);
+  const [lastCategory, setLastCategory] = useState();
   useEffect(() => {
     setFilteredFoods(food);
   }, [food]);
@@ -55,10 +56,19 @@ const Comidas = () => {
     mapFoods();
   }, [filteredFoods]);
   useEffect(() => {
-    const filterCategories = (cat) => {
-      console.log(cat);
-      const result = food.filter((meal) => (meal.strCategory === cat));
-      setFilteredFoods(result);
+    // const filterCategories = (cat) => {
+    //   console.log(cat);
+    //   const result = food.filter((meal) => (meal.strCategory === cat));
+    //   setFilteredFoods(result);
+    // };
+    const fetchFoodByCategory = async (cat) => {
+      if (lastCategory === cat) {
+        setFilteredFoods(food);
+      } else {
+        const result = await seachFoodByCategory(cat);
+        setFilteredFoods(result);
+        setLastCategory(cat);
+      }
     };
     // console.log(category);
     const mapCategory = () => (
@@ -70,7 +80,7 @@ const Comidas = () => {
                 key={ index }
                 type="button"
                 data-testid={ `${meal.strCategory}-category-filter` }
-                onClick={ () => filterCategories(meal.strCategory) }
+                onClick={ () => fetchFoodByCategory(meal.strCategory) }
               >
                 {meal.strCategory}
               </button>

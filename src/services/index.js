@@ -42,3 +42,15 @@ export const categoryDrink = async () => {
   // console.log(result);
   return result.drinks;
 };
+export const seachFoodByCategory = async (search) => {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${search}`)
+    .then((response) => response.json());
+  console.log(result.meals);
+  return result.meals;
+};
+export const seachDrinkByCategory = async (search) => {
+  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`)
+    .then((response) => response.json());
+  // console.log(result);
+  return result.drinks;
+};

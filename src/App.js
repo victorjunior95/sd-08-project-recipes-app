@@ -13,13 +13,13 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <RecipesProvider>
-      <Router>
+    <Router>
+      <RecipesProvider>
         <Switch>
           <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
-          <Route exact path="/comidas/{id-da-receita}" />
-          <Route exact path="/bebidas/{id-da-receita}" />
+          <Route exact path="/comidas/:id" />
+          <Route exact path="/bebidas/:id" />
           <Route exact path="/comidas/{id-da-receita}/in-progress" />
           <Route exact path="/bebidas/{id-da-receita}/in-progress" />
           <Route exact path="/explorar" component={ Explorar } />
@@ -33,9 +33,8 @@ function App() {
           <Route exact path="/receitas-favoritas" />
           <Route exact path="/" component={ Login } />
         </Switch>
-      </Router>
-    </RecipesProvider>
-
+      </RecipesProvider>
+    </Router>
   );
 }
 

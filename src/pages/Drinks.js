@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Footer } from '../components';
-import searchBar from '../components/Header/SearchBar';
 // import { _ } from '../store/actions';
 
 class Drinks extends Component {
@@ -10,7 +9,7 @@ class Drinks extends Component {
     return (
       <div>
         <Header title="Bebidas" />
-        <searchBar />
+        Eu sou o pagína de Drinks
         <Footer />
       </div>
     );

@@ -1,15 +1,13 @@
 import { combineReducers } from 'redux';
 
 import loginReducer from './loginReducer';
-import foodsReducer from './foodsReducer';
+import searchReducer from './searchReducer';
 import headerReducer from './headerReducer';
-import drinksReducer from './drinksReducer';
 
 const reducer = combineReducers({
   loginReducer,
   headerReducer,
-  foodsReducer,
-  drinksReducer,
+  searchReducer,
 });
 
 export default reducer;

@@ -8,9 +8,8 @@ const END_POINTS = {
   },
   DRINKS: {
     category: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
-    ingredients: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
-    name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-    letter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
+    ingredients:
+    'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
   },
 };
 
@@ -20,16 +19,15 @@ const fetchAPI = (andPoint) => fetch(andPoint).then((response) => response
 
 export const fetchFoodsByCategories = () => fetchAPI(END_POINTS.FOODS.category);
 export const fetchFoodsByRegion = () => fetchAPI(END_POINTS.FOODS.region);
-export const fetchFoodsByIngredients = (value) => fetchAPI(`${END_POINTS.FOODS
-  .ingredients}${value}`);
+export const fetchFoodsByIngredients = (value) => {
+  fetchAPI(`${END_POINTS.FOODS.ingredients}${value}`);
+};
 export const fetchFoodsByName = (value) => fetchAPI(`${END_POINTS.FOODS.name}${value}`);
-export const fetchFoodsByLetter = (value) => fetchAPI(`${END_POINTS.FOODS
-  .letter}${value}`);
+export const fetchFoodsByLetter = (value) => {
+  fetchAPI(`${END_POINTS.FOODS.letter}${value}`);
+};
+
 export const fetchDrinksByCategories = () => fetchAPI(END_POINTS.DRINKS.category);
-export const fetchDrinksByIngredients = (value) => fetchAPI(`${END_POINTS.DRINKS
-  .ingredients}${value}`);
-export const fetchDrinksByName = (value) => fetchAPI(`${END_POINTS.DRINKS.name}${value}`);
-export const fetchDrinksByLetter = (value) => fetchAPI(`${END_POINTS.DRINKS
-  .letter}${value}`);
+export const fetchDrinksByIngredients = () => fetchAPI(END_POINTS.DRINKS.ingredients);
 
 export default fetchAPI;

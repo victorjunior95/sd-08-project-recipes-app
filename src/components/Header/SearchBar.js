@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchFood, fetchDrink } from '../../store/actions';
+import { fetchFood } from '../../store/actions/foodsActions';
 import { alertSearch } from '../../serviceWorker';
 
-const SEARCH_LENGTH = 1;
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -23,15 +22,19 @@ class SearchBar extends Component {
   }
 
   handleClick() {
+    const searchLength = 1;
     const { search, searchRadio } = this.state;
-    const { getFood, title, getDrink } = this.props;
-    if (searchRadio === 'firstLetter' && search.length > SEARCH_LENGTH) {
-      return alertSearch();
+    const { getFood } = this.props;
+    if (searchRadio === 'firstLetter') {
+      if (search.length === searchLength) {
+        return getFood({ search, searchRadio });
+      }
+      alertSearch();
     }
-    if (title === 'Comidas') {
-      return getFood({ search, searchRadio });
-    }
-    return getDrink({ search, searchRadio });
+    getFood({
+      search,
+      searchRadio,
+    });
   }
 
   render() {
@@ -96,7 +99,6 @@ class SearchBar extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getFood: (value) => dispatch(fetchFood(value)),
-  getDrink: (value) => dispatch(fetchDrink(value)),
 });
 
 SearchBar.propTypes = {

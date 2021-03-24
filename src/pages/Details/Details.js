@@ -10,6 +10,7 @@ import Loading from '../../components/Details/Loading';
 import CoverImg from '../../components/Details/CoverImg';
 import Title from '../../components/Details/Title';
 import ShareFavBtn from '../../components/Details/ShareFavBtn';
+import IngredientsList from '../../components/Details/IngredientsList';
 
 async function getRecipe(dispatch, id, isMeal) {
   let api = '';
@@ -44,6 +45,7 @@ function Details() {
         <Title />
         <ShareFavBtn />
       </div>
+      <IngredientsList />
     </main>
   );
 }

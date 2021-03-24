@@ -1,15 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import MyContext from '../context/MyContext';
 
-function Cards() {
+function Cards({ title }) {
   const {
-    apiResponse,
     type,
+    comidas,
+    bebidas,
+    setType,
   } = useContext(MyContext);
   const LIMIT = 11;
+  let array = [];
+  if (title === 'Comidas') {
+    array = comidas;
+  } else {
+    array = bebidas;
+  }
+
+  useEffect(() => {
+    if (title === 'Comidas') {
+      setType({
+        item: 'meals',
+        palavra: 'Meal',
+      });
+    } else {
+      setType({
+        item: 'drinks',
+        palavra: 'Drink',
+      });
+    }
+  }, []);
 
   return (
-    apiResponse[type.item].map((item, index) => {
+    array.map((item, index) => {
       if (index <= LIMIT) {
         return (
           <div

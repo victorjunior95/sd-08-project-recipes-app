@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './MyContext';
+import firstRequest from '../services/firstRequest';
+import categoryRequest from '../services/categoryRequest';
 
 function Provider({ children }) {
   const [userEmail, setEmail] = useState('');
@@ -10,7 +12,11 @@ function Provider({ children }) {
   const [inputSearch, setInputSearch] = useState('');
   const [createCards, setCreateCards] = useState(false);
   const [apiResponse, setApiResponse] = useState([]);
-  const [type, setType] = useState('');
+  const [type, setType] = useState({ item: 'item', palavra: 'palavra' });
+  const [comidas, setComidas] = useState([]);
+  const [bebidas, setBebidas] = useState([]);
+  const [categoryComidas, setCategoryComidas] = useState([]);
+  const [categoryBebidas, setCategoryBebidas] = useState([]);
   const contextValue = {
     userEmail,
     setEmail,
@@ -28,7 +34,25 @@ function Provider({ children }) {
     setApiResponse,
     type,
     setType,
+    comidas,
+    setComidas,
+    bebidas,
+    setBebidas,
+    categoryComidas,
+    setCategoryComidas,
+    categoryBebidas,
+    setCategoryBebidas,
   };
+
+  useEffect(async () => {
+    const { comidasApi, bebidasApi } = await firstRequest();
+    setComidas(comidasApi.meals);
+    setBebidas(bebidasApi.drinks);
+    setCreateCards(true);
+    const { categoryComidasApi, categoryBebidasApi } = await categoryRequest();
+    setCategoryComidas(categoryComidasApi.meals);
+    setCategoryBebidas(categoryBebidasApi.drinks);
+  }, []);
 
   return (
     <Context.Provider value={ contextValue }>

@@ -12,10 +12,11 @@ function ExploreButton({ title }) {
     setToggleExplore,
     setSearchFilter,
     setInputSearch,
-    setApiResponse,
     setCreateCards,
     searchFilter,
     inputSearch,
+    setComidas,
+    setBebidas,
   } = useContext(MyContext);
 
   function changeToggle() {
@@ -42,7 +43,11 @@ function ExploreButton({ title }) {
       terminatedRequest,
     } = await requestApi(url, searchFilter, inputSearch);
 
-    setApiResponse(terminatedRequest);
+    if (title === 'Comidas') {
+      setComidas(terminatedRequest.meals);
+    } else {
+      setBebidas(terminatedRequest.drinks);
+    }
 
     if (!tamanhoResposta || !terminatedRequest[url.type]) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

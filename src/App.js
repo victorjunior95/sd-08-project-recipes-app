@@ -47,7 +47,8 @@ class App extends React.Component {
               component={ ExplorarComidasIngredientes }
             />
             <Route exact path="/perfil" component={ Perfil } />
-            <Route path="/comidas/:foodId" component={ Generico } />
+            <Route path="/comidas/:id" component={ Generico } />
+            <Route path="/bebidas/:id" component={ Generico } />
           </Switch>
         </BrowserRouter>
 

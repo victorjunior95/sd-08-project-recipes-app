@@ -1,5 +1,12 @@
 import React from 'react';
 
-const BarraPesquisa = () => (<h1>Sou BarraPesquisa</h1>);
+function BarraPesquisa() {
+  return (
+    <div data-testid="search-input">
+      <h1>Barra de Pesquisa</h1>
+    </div>
+  );
+}
+// const [termoPesquisa, enviarTermoPesquisa] = useState();
 
 export default BarraPesquisa;

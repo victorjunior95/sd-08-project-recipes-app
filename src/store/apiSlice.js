@@ -35,7 +35,7 @@ const recommendReducers = {
 const apiSlice = createSlice({
   name: 'api',
   initialState: {
-    data: [],
+    data: 'SN',
     recommendData: [],
     loading: 'idle',
     recommendLoading: 'idle',

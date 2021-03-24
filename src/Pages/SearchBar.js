@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../Components';
@@ -9,7 +10,30 @@ function SearchBar() {
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState('ingredientes');
   const dispatch = useDispatch();
+
   const PRIMEIRA_LETRA = 'primeira-letra';
+  const history = useHistory();
+  const local = history.location.pathname;
+
+  function handelPesquisa() {
+    let site = '';
+    if (local.includes('comida')) {
+      site = 'themealdb';
+    } else if (local.includes('bebidas')) {
+      site = 'thecocktaildb';
+    }
+
+    if (searchType === 'ingredientes') {
+      dispatch(fetchItem(`https://www.${site}.com/api/json/v1/1/filter.php?i=${searchValue}`));
+    } else if (searchType === 'nome') {
+      dispatch(fetchItem(`https://www.${site}.com/api/json/v1/1/search.php?s=${searchValue}`));
+    } else if (searchType === PRIMEIRA_LETRA && searchValue.length === 1) {
+      dispatch(fetchItem(`https://www.${site}.com/api/json/v1/1/search.php?f=${searchValue}`));
+    } else if (searchType === PRIMEIRA_LETRA && searchValue.length > 1) {
+      // eslint-disable-next-line no-alert
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+  }
 
   if (isSearching) {
     return (
@@ -54,18 +78,7 @@ function SearchBar() {
         <Button
           variant="primary"
           data-testid="exec-search-btn"
-          onClick={ () => {
-            if (searchType === 'ingredientes') {
-              dispatch(fetchItem(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchValue}`));
-            } else if (searchType === 'nome') {
-              dispatch(fetchItem(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`));
-            } else if (searchType === PRIMEIRA_LETRA && searchValue.length === 1) {
-              dispatch(fetchItem(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchValue}`));
-            } else if (searchType === PRIMEIRA_LETRA && searchValue.length > 1) {
-              // eslint-disable-next-line no-alert
-              alert('Sua busca deve conter somente 1 (um) caracter');
-            }
-          } }
+          onClick={ () => handelPesquisa() }
         >
           Pesquisar
         </Button>

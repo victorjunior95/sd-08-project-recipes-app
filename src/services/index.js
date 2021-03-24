@@ -5,6 +5,8 @@ export {
   setDoneRecipes,
   setFavoriteRecipe,
   setInProgressRecipe,
+  getProfileEmailLocalStorage,
+  deleteKeyLocalStorage,
 } from './localStorage';
 
 export {

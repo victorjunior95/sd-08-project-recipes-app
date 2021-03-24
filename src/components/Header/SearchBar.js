@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchFood, fetchDrink } from '../../store/actions';
 import { alertSearch } from '../../serviceWorker';
+import '../../styles/components/Header/SearchBar.css';
 
 const SEARCH_LENGTH = 1;
 class SearchBar extends Component {
@@ -38,8 +39,8 @@ class SearchBar extends Component {
   render() {
     const { search, searchRadio } = this.state;
     return (
-      <div>
-        <label htmlFor="search">
+      <div className="searchBarContainer">
+        <div>
           <input
             name="search"
             type="search"
@@ -47,8 +48,8 @@ class SearchBar extends Component {
             value={ search }
             onChange={ this.handleChange }
           />
-        </label>
-        <div>
+        </div>
+        <div className="searchBarRadios">
           <label htmlFor="searchRadio">
             <input
               value="ingredient"

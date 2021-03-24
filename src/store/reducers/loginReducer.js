@@ -4,16 +4,16 @@ import {
 } from '../actions/loginActions';
 
 const INITIAL_STATE_USER = {
-  email: '',
+  email: null,
 };
 export default function loginReducer(state = INITIAL_STATE_USER, action) {
   switch (action.type) {
   case LOGIN_USER:
     return {
-      ...state, email: action.payload }; // não está feito
+      ...state, email: action.payload };
   case LOGOUT_USER:
     return {
-      ...state, email: '' }; // não está feito
+      ...state, email: null };
   default:
     return state;
   }

@@ -7,14 +7,14 @@ import SearchIcon from '../../images/searchIcon.svg';
 import { toggleButtonSearch } from '../../store/actions';
 import SearchBar from './SearchBar';
 
-import '../../styles/components/Header.css';
+import '../../styles/components/Header/index.css';
 
 class Header extends Component {
   render() {
     const { title, showButton, setToggle } = this.props;
     return (
-      <header>
-        <div className="headerContainer">
+      <header className="headerContainer">
+        <div>
           <div>
             <Link to="/perfil">
               <img

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import LariContext from './Context';
-import { headerSearch } from '../services';
+import { headerSearch, fetchFood, fetchDrink } from '../services';
 
 const Provider = ({ children }) => {
   const history = useHistory();
@@ -18,6 +18,18 @@ const Provider = ({ children }) => {
     } else {
       setFood(array ? array.meals : []);
     }
+  };
+
+  const recipesFetch = async (isMeal) => {
+    let results = {};
+    if (isMeal) {
+      results = await fetchFood();
+      setFood(results.meals);
+    } else {
+      results = await fetchDrink();
+      setDrink(results.drinks);
+    }
+    return results;
   };
 
   const setDrinks = async (array) => {
@@ -38,7 +50,7 @@ const Provider = ({ children }) => {
     }
   };
 
-  const context = { handleHeaderSearch, food, drink };
+  const context = { handleHeaderSearch, food, drink, recipesFetch };
   return (
     <div>
       <LariContext.Provider value={ context }>

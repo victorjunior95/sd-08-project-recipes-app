@@ -12,6 +12,7 @@ export const headerSearch = async (search, type, typeAPI) => {
       .then((response) => response.json());
   } else {
     if (search.length > 1) {
+      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
@@ -22,13 +23,38 @@ export const headerSearch = async (search, type, typeAPI) => {
 };
 
 export const fetchFood = async () => {
-  const result = await fetch(`${MEAL_API}json/v1/1/random.php`);
-  const json = await result.json();
-  return json;
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json());
+  return result;
 };
 
 export const fetchDrink = async () => {
-  const result = await fetch(`${COCKTAIL_API}json/v1/1/random.php`);
-  const json = await result.json();
-  return json;
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json());
+  // console.log(result);
+  return result;
+};
+export const categoryFood = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json());
+  console.log(result.meals);
+  return result.meals;
+};
+export const categoryDrink = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json());
+  // console.log(result);
+  return result.drinks;
+};
+export const seachFoodByCategory = async (search) => {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${search}`)
+    .then((response) => response.json());
+  console.log(result.meals);
+  return result.meals;
+};
+export const seachDrinkByCategory = async (search) => {
+  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`)
+    .then((response) => response.json());
+  // console.log(result);
+  return result.drinks;
 };

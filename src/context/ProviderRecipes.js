@@ -9,6 +9,8 @@ import {
   getBebidasByingredientes,
   getBebidasByPrimeiraLetra } from '../services/BuscaNasAPIs';
 
+const copy = require('clipboard-copy');
+
 function ProviderRecipes({ children }) {
   const headerInfoInitial = {
     pageTitle: 'Comidas',
@@ -19,10 +21,12 @@ function ProviderRecipes({ children }) {
     input: '',
     radio: '',
   };
+
   const [headerInfo, setHeaderInfo] = useState(headerInfoInitial);
   const [barraBuscar, setBarraBuscar] = useState(barraBuscarInitial);
   const [dataByBusca, setDataByBuscar] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const fetchDataComidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
@@ -64,6 +68,17 @@ function ProviderRecipes({ children }) {
     setIsFetching(false);
   }, [barraBuscar]);
 
+  // Logica para copiar a URL e fazer aparecer/desaparecer uma MSG
+  const [renderMSG, setRenderMSG] = useState(false);
+  const msgTime = 10000;
+  const copiarURL = (tipo, id) => {
+    copy(`http://localhost:3000/${tipo}/${id}`);
+    // Esse setRenderMSG faz a msg aparecer
+    setRenderMSG(true);
+    setTimeout(() => { setRenderMSG(false); }, msgTime);
+    // Esse último setRenderMSG faz a msg desaparecer após o tempo de msgTime
+  };
+
   useEffect(() => {
     if (barraBuscar.radio !== '' && headerInfo.pageTitle === 'Comidas') {
       fetchDataComidas();
@@ -83,7 +98,12 @@ function ProviderRecipes({ children }) {
           setBarraBuscar,
           dataByBusca,
           isFetching,
-          setIsFetching }
+          setIsFetching,
+          favoriteRecipes,
+          setFavoriteRecipes,
+          copiarURL,
+          renderMSG,
+          copy }
       }
     >
       {children}

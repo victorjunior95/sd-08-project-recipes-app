@@ -71,6 +71,30 @@ header {
   }
 }
 
+.receitas-favoritas {
+  align-items: center;
+  background-color: darkgray;
+  display: flex;
+  flex-direction: column;
+}
+
+.share-favorite {
+  display: flex;
+  justify-content: center;
+}
+
+.cardBackGround {
+  margin-top: 15px;
+}
+
+.cardBackGround .card {
+  background-color: rgb(131, 131, 131);
+}
+
+.cardBackGround .card .list-group-item {
+  background-color: rgb(131, 131, 131);
+}
+
 .footer {
   background-color: grey;
   bottom: 0;

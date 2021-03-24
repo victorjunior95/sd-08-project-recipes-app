@@ -9,6 +9,7 @@ const Footer = () => {
   const [redirectDrink, setRedirectDrink] = useState(false);
   const [redirectMeal, setRedirectMeal] = useState(false);
   const [redirectExplorer, setRedirectExplorer] = useState(false);
+
   return (
     <div className="footer" data-testid="footer">
       <div>

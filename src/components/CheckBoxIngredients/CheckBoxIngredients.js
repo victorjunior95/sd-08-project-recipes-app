@@ -21,11 +21,10 @@ const CheckBoxIngredients = ({ object }) => {
     return ingredients.map((ingredient, index) => {
       if (object[ingredient]) {
         return (
-          <div key={ingredient} className="mb-3">
-            <input 
+          <div key={ingredient} className="mb-3" data-testid={ `${index}-ingredient-step` }>
+            <input
+              type="checkbox"
               name={ingredient}
-              data-testid={ `${index}-ingredient-step` }
-              type='checkbox'
               id={ingredient}
               />
             <label

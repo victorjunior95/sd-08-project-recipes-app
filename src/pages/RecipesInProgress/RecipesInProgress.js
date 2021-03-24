@@ -5,19 +5,47 @@ import getDrink from '../../services/RequestDrinkForId';
 import CardDetails from '../../components/CardDetail/CardDetail';
 import Context from '../../contextApi/Context';
 import CheckBoxIngredients from '../../components/CheckBoxIngredients/CheckBoxIngredients';
+import Button from 'react-bootstrap/Button';
 
-const RecipesInProgress = ({ title }) => {
+const RecipesInProgress = ({ title, match }) => {
+  const { params: { id } } = match;
 
-  const {
-    productDetails
-  } = useContext(Context);
+  const [object, setObject] = useState({});
+  const [isLoading, setLoad] = useState(false);
 
-  const { object, isLoading } = productDetails
+  const getMealOrDrink = async () => {
+    if (title === 'Comidas') {
+      const meal = await getMeal(id);
+      console.log(meal);
+      return meal;
+    }
+    const drink = await getDrink(id);
+    console.log(drink);
+    return drink;
+  };
+
+  useEffect(() => {
+    (async () => {
+      setLoad(true);
+      const mealOrDrink = await getMealOrDrink();
+      setObject(mealOrDrink);
+      setLoad(false);
+    })();
+  }, []);
 
   return (
-    <CardDetails title={ title } object={ object } isLoading={ isLoading }>
-      <CheckBoxIngredients object={ object } />
-    </CardDetails>
+    <>
+      <CardDetails title={ title } object={ object } isLoading={ isLoading }>
+        <CheckBoxIngredients object={ object } />
+      </CardDetails>
+      <Button
+            variant="primary"
+            data-testid="finish-recipe-btn"
+          >
+            Iniciar receita
+      </Button>
+    </>
+    
     
   );
 };

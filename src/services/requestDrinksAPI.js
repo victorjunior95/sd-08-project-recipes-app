@@ -1,3 +1,5 @@
+const TAG_ARRAY_LENGTH = 5;
+
 export const requestDrinkByName = async (name) => {
   const path = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const response = await fetch(path);
@@ -28,4 +30,11 @@ export const requestMainDrinks = async () => {
   const response = await fetch(path);
   const data = await response.json();
   return data.drinks;
+};
+
+export const requestCategoriesDrinks = async () => {
+  const path = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.drinks.splice(0, TAG_ARRAY_LENGTH);
 };

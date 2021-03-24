@@ -7,6 +7,7 @@ import Card from '../components/Card';
 import '../styles/card.css';
 import Footer from '../components/Footer';
 import { actionThunkMainDrinks } from '../redux/actions';
+import CategoriesContainer from '../components/CategoriesContainer';
 
 function Drinks() {
   const MAX_ARRAY_SIZE = 12;
@@ -58,6 +59,7 @@ function Drinks() {
       ) : (
         <>
           <Header label="Bebidas" Search={ SearchButton } page="Bebidas" />
+          <CategoriesContainer page="Bebidas" />
           {showCards()}
           <Footer />
         </>

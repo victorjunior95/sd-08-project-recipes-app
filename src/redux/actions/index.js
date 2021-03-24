@@ -3,12 +3,14 @@ import {
   // requestDrinkByIngredient,
   // requestDrinkByFirstLetter,
   requestMainDrinks,
+  requestCategoriesDrinks,
 } from '../../services/requestDrinksAPI';
 import {
   // requestByName,
   // requestByIngredient,
   // requestByFirstLetter,
   requestMainFoods,
+  requestCategoriesMeals,
 } from '../../services/requestFoodsAPI';
 
 // ACTION DE LOGIN
@@ -69,11 +71,30 @@ export const actionMainDrinks = (drinks) => ({
   },
 });
 
-// THUNK ACTIONS
+// THUNK ACTIONS MAIN && CATEGORIES RECIPES
+
+export const CATEGORIES_FOODS = 'CATEGORIES_FOODS';
+export const CATEGORIES_DRINKS = 'CATEGORIES_DRINKS';
+
+export const actionCategoriesFoods = (foods) => ({
+  type: CATEGORIES_FOODS,
+  payload: {
+    foods,
+  },
+});
+
+export const actionCategoriesDrinks = (drinks) => ({
+  type: CATEGORIES_DRINKS,
+  payload: {
+    drinks,
+  },
+});
 
 export const actionThunkMainFoods = () => async (dispatch) => {
   dispatch(actionIsLoading(true));
   const mainFoods = await requestMainFoods();
+  const categoriesFoods = await requestCategoriesMeals();
+  dispatch(actionCategoriesFoods(categoriesFoods));
   dispatch(actionMainFoods(mainFoods));
   dispatch(actionIsLoading(false));
 };
@@ -81,6 +102,8 @@ export const actionThunkMainFoods = () => async (dispatch) => {
 export const actionThunkMainDrinks = () => async (dispatch) => {
   dispatch(actionIsLoading(true));
   const mainDrinks = await requestMainDrinks();
+  const categoriesDrinks = await requestCategoriesDrinks();
+  dispatch(actionCategoriesDrinks(categoriesDrinks));
   dispatch(actionMainDrinks(mainDrinks));
   dispatch(actionIsLoading(false));
 };

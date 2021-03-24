@@ -1,6 +1,11 @@
 import React from 'react';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const ProfilePage = () => (
-  <p> Perfil</p>
+  <div>
+    <Header title="Perfil" showSearchButton={ false } />
+    <Footer />
+  </div>
 );
 export default ProfilePage;

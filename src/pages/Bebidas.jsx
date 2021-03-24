@@ -9,11 +9,21 @@ import FoodCard from '../components/FoodCard';
 const Bebidas = () => {
   const [drinks, setDrinks] = useState([]);
   const [targetButton, setTargetButton] = useState('');
-  const { filter, drinksCategories } = useContext(contextRecipes);
+
+  const { filter, drinksCategories,
+    mainIngredient, setMain } = useContext(contextRecipes);
+  const BOOLEAN_FALSE = false;
 
   useEffect(() => {
     async function getDrinksFromAPI() {
-      const drinksAPI = await getResultFromAPI('/bebidas');
+      let drinksAPI = '';
+      if (mainIngredient === '') {
+        drinksAPI = await getResultFromAPI('/bebidas');
+      } else {
+        drinksAPI = await getResultFromAPI('/bebidas', 'Ingredients', mainIngredient);
+        setMain('');
+      }
+
       setDrinks(drinksAPI);
     }
     getDrinksFromAPI();
@@ -37,7 +47,7 @@ const Bebidas = () => {
 
   return (
     <>
-      <Header title="Bebidas" />
+      <Header title="Bebidas" searchBtn={ BOOLEAN_FALSE } />
       { drinksCategories.map(({ strCategory: category }, index) => (
         <Button
           datatestid={ `${category}-category-filter` }

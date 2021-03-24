@@ -1,14 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import getResultFromAPI from '../api/getResultFromAPI';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function ExplorarComidas() {
   const history = useHistory();
+  const BOOLEAN_TRUE = true;
+
+  async function getRandomRecipe() {
+    const result = await getResultFromAPI('/comidas', 'random');
+    const resultId = result[0].idMeal;
+    history.push(`../comidas/${resultId}`);
+  }
+
   return (
     <div>
-      <Header title="Explorar Comidas" />
+      <Header title="Explorar Comidas" searchBtn={ BOOLEAN_TRUE } />
       <Button
         type="button"
         label="Por Ingredientes"
@@ -25,7 +34,7 @@ function ExplorarComidas() {
         type="button"
         label="Me Surpreenda!"
         datatestid="explore-surprise"
-        onClick={ () => history.push('../comidas') }
+        onClick={ () => getRandomRecipe() }
       />
       <Footer />
     </div>

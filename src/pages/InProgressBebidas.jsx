@@ -1,7 +1,7 @@
 import React from 'react';
 
 const InProgressBebidas = () => (
-  <div>oi</div>
+  <div>suidauishd</div>
 );
 
 export default InProgressBebidas;

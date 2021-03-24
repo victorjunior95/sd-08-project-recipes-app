@@ -59,6 +59,17 @@ border-radius: 5px;
   position: fixed;
   bottom: 0px;
 }
+
+.notFound {
+  background-image: url('https://zlionbrasil.com.br/img/icons/404.png');
+  background-size: cover;
+  color: rgb(16, 135, 190);
+  font-size: 50px;
+  height: 100vh;
+  text-align: center;
+  width: 100vw;
+}
+
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;

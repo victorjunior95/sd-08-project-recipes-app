@@ -1,14 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchButton from '../components/SearchButton';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
+import { actionThunkMainFoods } from '../redux/actions';
 
 function Foods() {
   const MAX_ARRAY_SIZE = 12;
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.Loading.isLoading);
   const foods = useSelector((state) => state.FilteredRecipes.foods);
+  const mainFoods = useSelector((state) => state.MainRecipes.mainFoods);
+
+  // const requestMainFoods = () => {
+  //   dispatch(actionThunkMainFoods());
+  // };
+
+  useEffect(() => {
+    dispatch(actionThunkMainFoods());
+  }, []);
+
   const mapCards = (array) => (
     <section>
       {array.map((food, index) => (
@@ -23,24 +36,39 @@ function Foods() {
       ))}
     </section>
   );
+
+  console.log('entrou...', isLoading);
+
   const showCards = () => {
-    if (foods.length === 1) {
-      const id = foods[0].idMeal;
+    let foodsToMap = [];
+    if (foods.length === 0) {
+      foodsToMap = [...mainFoods];
+    } else {
+      foodsToMap = [...foods];
+    }
+    if (foodsToMap.length === 1) {
+      const id = foodsToMap[0].idMeal;
       const path = `/comidas/${id}`;
       return <Redirect to={ path } />;
     }
-    if (foods.length > MAX_ARRAY_SIZE) {
-      const subArray = foods.splice(0, MAX_ARRAY_SIZE);
+    if (foodsToMap.length > MAX_ARRAY_SIZE) {
+      const subArray = foodsToMap.splice(0, MAX_ARRAY_SIZE);
       return mapCards(subArray);
     }
-    return mapCards(foods);
+    return mapCards(foodsToMap);
   };
   return (
-    <>
-      <Header label="Comidas" Search={ SearchButton } page="Comidas" />
-      { showCards() }
-      <Footer />
-    </>
+    <div>
+      {isLoading ? (
+        <h1>LOADING...</h1>
+      ) : (
+        <>
+          <Header label="Comidas" Search={ SearchButton } page="Comidas" />
+          {showCards()}
+          <Footer />
+        </>
+      )}
+    </div>
   );
 }
 

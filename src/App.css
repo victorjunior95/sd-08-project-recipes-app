@@ -4,27 +4,12 @@
 
 .meals {
   align-items: center;
-<<<<<<< HEAD
-
-  /* background: #0fa36b; */
-  color: #464646;
-  column-gap: 2px;
-  display: grid;
-
-  /* flex-direction: column; */
-  font-family: sans-serif;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  height: 100vh;
-
-  /* justify-content: center; */
-=======
   color: #464646;
   column-gap: 2px;
   display: grid;
   font-family: sans-serif;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   height: 100vh;
->>>>>>> 8ab913cd27dc341807d7a591f6afae4d46266c14
   row-gap: 2px;
   width: 100%;
 }

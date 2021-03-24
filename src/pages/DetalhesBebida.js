@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Context from '../context/Context';
+import RecipeDetails from '../components/RecipeDetails';
 
-function DetalhesBebida() {
+function DetalhesBebida(recipeId) {
+  const { requestRecipeDetails } = useContext(Context);
+
+  useEffect(() => {
+    requestRecipeDetails('thecocktaildb', recipeId);
+  }, []);
+
   return (
-    <p>DetalhesBebida</p>
+    <main>
+      <RecipeDetails recipeType="Drink" />
+    </main>
   );
 }
 

@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Context from '../context/Context';
+import RecipeDetails from '../components/RecipeDetails';
 
 function DetalhesComida() {
+  const { requestRecipeDetails } = useContext(Context);
+
+  useEffect(() => {
+    requestRecipeDetails('themealdb', '52771');
+  }, []);
+
   return (
-    <p>DetalhesComida</p>
+    <main>
+      <RecipeDetails recipeType="Meal" />
+    </main>
   );
 }
 

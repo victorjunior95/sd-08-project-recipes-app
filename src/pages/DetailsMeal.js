@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DataDrinksContext } from '../context/ContextDrinks';
-import { getMealRecipesDetails, getDrinkByName } from '../services/getAPIs';
+import { getMealRecipesDetails } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';

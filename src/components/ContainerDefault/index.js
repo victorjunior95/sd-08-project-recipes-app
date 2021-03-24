@@ -11,7 +11,7 @@ function ContainerDefault({ title, children }) {
       <Row className="mb-5">
         <Header title={ title } />
       </Row>
-      <Container className="d-flex flex-column main-content">
+      <Container className="d-flex flex-column main-content" fluid>
         { children }
       </Container>
       <Row>

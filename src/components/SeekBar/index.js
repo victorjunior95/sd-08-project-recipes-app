@@ -9,9 +9,9 @@ export default function SeekBar(props) {
   const [onRadio, setOnRadio] = useState('');
   const dispatch = useDispatch();
   const { title } = props;
+
   const fetchApiByFilters = (e) => {
     e.preventDefault();
-    console.log(title);
     if (title === 'Comidas') {
       dispatch(fetchMealsByFilter(onRadio, onSeek));
     }
@@ -19,6 +19,7 @@ export default function SeekBar(props) {
       dispatch(fetchDrinksByFilter(onRadio, onSeek));
     }
   };
+
   const handleOnSeek = ({ target }) => {
     const { value } = target;
     if (onRadio === 'Primeira Letra') {

@@ -6,7 +6,7 @@ import ContainerWithoutFooter from '../../components/ContainerWithoutFooter';
 function RecipesMade() {
   return (
     <ContainerWithoutFooter title="Receitas Feitas">
-      <p>Receitas Favoritas</p>
+      <p>Receitas Feitas</p>
     </ContainerWithoutFooter>);
 }
 

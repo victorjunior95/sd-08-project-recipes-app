@@ -32,7 +32,7 @@ const Drinks = () => {
     fetchFetch();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [recipesFetch]);
   useEffect(() => {
     // console.log(food);
     const mapDrinks = () => (
@@ -55,7 +55,7 @@ const Drinks = () => {
       )
     );
     mapDrinks();
-  }, [filteredDrinks, recipesFetch]);
+  }, [filteredDrinks]);
   useEffect(() => {
     // const filterCategories = (cat) => {
     //   console.log(cat);

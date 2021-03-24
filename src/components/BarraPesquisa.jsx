@@ -15,14 +15,19 @@ function BarraPesquisa() {
   return (
     <form>
       <input
+        className="searchInput"
         type="text"
         name="search"
         data-testid="search-input"
         onChange={ changeHandle }
       />
-      <label htmlFor="i">
+      <label
+        className="search"
+        htmlFor="i"
+      >
         Ingrediente
         <input
+          className="search"
           id="i"
           type="radio"
           name="type"
@@ -31,9 +36,13 @@ function BarraPesquisa() {
           onChange={ changeHandle }
         />
       </label>
-      <label htmlFor="s">
+      <label
+        className="search"
+        htmlFor="s"
+      >
         Nome
         <input
+          className="search"
           id="s"
           type="radio"
           name="type"
@@ -42,9 +51,13 @@ function BarraPesquisa() {
           onChange={ changeHandle }
         />
       </label>
-      <label htmlFor="f">
+      <label
+        className="search"
+        htmlFor="f"
+      >
         Primeira Letra
         <input
+          className="search"
           id="f"
           type="radio"
           name="type"
@@ -54,6 +67,7 @@ function BarraPesquisa() {
         />
       </label>
       <button
+        className="searchInput"
         type="button"
         onClick={ handleClick }
         data-testid="exec-search-btn"

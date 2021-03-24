@@ -10,7 +10,6 @@ function ProviderReceitas({ children }) {
   const [apiResult, setApiResult] = useState([]);
   const [tituloDaPagina, enviarTituloDaPagina] = useState('Comidas');
   const [statusBotaoPesquisa, mudarStatusBotaoPesquisa] = useState(true);
-  // const [comidas, setComida] = useState();
 
   useEffect(() => {
     async function fetchComida() {

@@ -22,7 +22,8 @@ export const fetchRecipes = (token, type = 'meals',
     dispatch(addFilter(filter));
     dispatch(requestRecipes());
     const domains = { meals: 'themealdb', drinks: 'thecocktaildb' };
-    const url = `https://www.${domains[type]}.com/api/json/v1/${token}/${request}.php?${key}=${parameter}`;
+    let url = `https://www.${domains[type]}.com/api/json/v1/${token}/${request}.php?${key}=${parameter}`;
+    if (!key) url = `https://www.${domains[type]}.com/api/json/v1/${token}/${request}.php`;
     const data = await fetch(url);
     const { [type]: recipes } = await data.json();
     dispatch(addRecipes(recipes));

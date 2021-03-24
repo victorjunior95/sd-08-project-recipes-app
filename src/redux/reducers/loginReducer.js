@@ -1,4 +1,4 @@
-import { LOGIN_USER } from './index';
+import { LOGIN_USER } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -10,8 +10,8 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
   case LOGIN_USER:
     return {
       ...state,
-      email: action.payload.email,
-      password: action.payload.password,
+      email: action.payload.user.email,
+      password: action.payload.user.password,
     };
   default:
     return state;

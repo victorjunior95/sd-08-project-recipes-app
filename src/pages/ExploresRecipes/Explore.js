@@ -3,31 +3,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Footer, Header } from '../../components';
-// import { _ } from '../../store/actions';
+// import { _ } from '../../store/actions'
+import '../../styles/pages/Container.css';
 
 class Explore extends Component {
   render() {
     return (
       <div>
         <Header title="Explorar" />
+        <div className="container">
 
-        <Link to="/explorar/comidas">
-          <button
-            type="button"
-            data-testid="explore-food"
-          >
-            Explorar Comidas
-          </button>
-        </Link>
+          <Link to="/explorar/comidas">
+            <button
+              type="button"
+              data-testid="explore-food"
+            >
+              Explorar Comidas
+            </button>
+          </Link>
 
-        <Link to="/explorar/bebidas">
-          <button
-            type="button"
-            data-testid="explore-drinks"
-          >
-            Explorar Bebidas
-          </button>
-        </Link>
+          <Link to="/explorar/bebidas">
+            <button
+              type="button"
+              data-testid="explore-drinks"
+            >
+              Explorar Bebidas
+            </button>
+          </Link>
+        </div>
         <Footer />
 
       </div>

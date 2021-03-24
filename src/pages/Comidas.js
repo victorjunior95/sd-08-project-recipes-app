@@ -13,7 +13,7 @@ const Comidas = () => {
   const [category, setCategory] = useState([]);
   const [mapCategorys, setMapCategorys] = useState();
   const [filteredFoods, setFilteredFoods] = useState([]);
-  const [lastCategory, setLastCategory] = useState();
+  const [currentCategory, setCurrentCategory] = useState('All');
   useEffect(() => {
     setFilteredFoods(food);
   }, [food]);
@@ -62,12 +62,15 @@ const Comidas = () => {
     //   setFilteredFoods(result);
     // };
     const fetchFoodByCategory = async (cat) => {
-      if (lastCategory === cat) {
+      // console.log(` ${currentCategory}  <=>  ${cat} `);
+      if (currentCategory === cat) {
         setFilteredFoods(food);
+        setCurrentCategory('All');
+        // console.log(` ${currentCategory}`);
       } else {
         const result = await seachFoodByCategory(cat);
         setFilteredFoods(result);
-        setLastCategory(cat);
+        setCurrentCategory(cat);
       }
     };
     // console.log(category);
@@ -76,14 +79,16 @@ const Comidas = () => {
         category.map((meal, index) => {
           if (index < MAX_CATEGORY) {
             return (
-              <button
-                key={ index }
-                type="button"
-                data-testid={ `${meal.strCategory}-category-filter` }
-                onClick={ () => fetchFoodByCategory(meal.strCategory) }
-              >
+              <label htmlFor={ meal.strCategory }>
+                <input
+                  key={ index }
+                  type="radio"
+                  data-testid={ `${meal.strCategory}-category-filter` }
+                  onClick={ () => fetchFoodByCategory(meal.strCategory) }
+                  checked={ currentCategory === meal.strCategory }
+                />
                 {meal.strCategory}
-              </button>
+              </label>
             );
           }
           return '';
@@ -91,19 +96,21 @@ const Comidas = () => {
       )
     );
     mapCategory();
-  }, [category, food]);
+  }, [category, food, currentCategory]);
   return (
     <div>
       <Header />
       <p>Comidas</p>
       {mapCategorys}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => setFilteredFoods(food) }
-      >
+      <label htmlFor="All">
         All
-      </button>
+        <input
+          type="radio"
+          data-testid="All-category-filter"
+          onClick={ () => setFilteredFoods(food) }
+          checked={ currentCategory === 'All' }
+        />
+      </label>
       {mapCards}
       <Footer />
     </div>

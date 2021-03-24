@@ -13,7 +13,7 @@ const Drinks = () => {
   const [category, setCategory] = useState([]);
   const [mapCategorys, setMapCategorys] = useState();
   const [filteredDrinks, setFilteredDrinks] = useState([]);
-  const [lastCategory, setLastCategory] = useState('');
+  const [currentCategory, setCurrentCategory] = useState('All');
   useEffect(() => {
     setFilteredDrinks(drink);
   }, [drink]);
@@ -64,12 +64,15 @@ const Drinks = () => {
     //   setFilteredDrinks(result);
     // };
     const fetchDrinkByCategory = async (cat) => {
-      console.log(` ${lastCategory}  <=>  ${cat} `);
-      if (lastCategory === cat) {
+      // console.log(` ${currentCategory}  <=>  ${cat} `);
+      if (currentCategory === cat) {
         setFilteredDrinks(drink);
+        setCurrentCategory('All');
+        // console.log(` ${currentCategory}`);
       } else {
         const result = await seachDrinkByCategory(cat);
         setFilteredDrinks(result);
+        setCurrentCategory(cat);
       }
     };
     // console.log(category);
@@ -78,17 +81,16 @@ const Drinks = () => {
         category.map((drinks, index) => {
           if (index < MAX_CATEGORY) {
             return (
-              <button
-                key={ index }
-                type="button"
-                data-testid={ `${drinks.strCategory}-category-filter` }
-                onClick={ () => {
-                  fetchDrinkByCategory(drinks.strCategory);
-                  setLastCategory(drinks.strCategory);
-                } }
-              >
+              <label htmlFor={ drinks.strCategory }>
                 {drinks.strCategory}
-              </button>
+                <input
+                  key={ index }
+                  type="radio"
+                  data-testid={ `${drinks.strCategory}-category-filter` }
+                  onClick={ () => fetchDrinkByCategory(drinks.strCategory) }
+                  checked={ currentCategory === drinks.strCategory }
+                />
+              </label>
             );
           }
           return '';
@@ -96,19 +98,21 @@ const Drinks = () => {
       )
     );
     mapCategory();
-  }, [category, drink]);
+  }, [category, drink, currentCategory]);
   return (
     <div>
       <Header />
       <p>Bebidas</p>
       {mapCategorys}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => setFilteredDrinks(drink) }
-      >
+      <label htmlFor="All">
         All
-      </button>
+        <input
+          type="radio"
+          data-testid="All-category-filter"
+          onClick={ () => setFilteredDrinks(drink) }
+          checked={ currentCategory === 'All' }
+        />
+      </label>
       {mapCards}
       <Footer />
     </div>

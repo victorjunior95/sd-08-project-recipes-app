@@ -33,6 +33,9 @@ const Comidas = () => {
   }, []);
 
   useEffect(() => {
+    if (dataByBusca.meals === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     if (dataByBusca.meals !== undefined) {
       if (dataByBusca.meals.length > 1) {
         setDataComidas([...dataByBusca.meals]);
@@ -75,7 +78,7 @@ const Comidas = () => {
       </div>
       <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
         {
-          dataComidas && dataComidas.length && dataComidas.map((comida, index) => {
+          dataComidas && dataComidas.map((comida, index) => {
             if (index < MAX_CARDS) {
               return (
                 <Card

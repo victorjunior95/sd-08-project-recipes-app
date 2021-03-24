@@ -11,6 +11,7 @@ function Login({ children }) {
     {object: "",
     isLoading: false,
 })
+  const [all, setALL] = useState([]);
 
   const saveToLocalStorage = () => {
     const localOBJ = { email };
@@ -29,6 +30,8 @@ function Login({ children }) {
     setResults,
     productDetails,
     setProductDetails,
+    all,
+    setALL,
   };
   return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;
 }

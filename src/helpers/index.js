@@ -4,6 +4,12 @@ export async function fetchFoodApiByName(name) {
   return meals;
 }
 
+export async function fetchFoodApiByArea(area) {
+  const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json());
+  return meals;
+}
+
 export async function fetchFoodApiByLetter(letter) {
   const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
     .then((response) => response.json());

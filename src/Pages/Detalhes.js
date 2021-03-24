@@ -61,7 +61,10 @@ function Detalhes() {
       element[0].includes('strIngredient') && element[1] !== null && element[1] !== ''));
 
     const results = filtering.map((elem, index) => (
-      <li key={ elem[1] } data-testid={ `${index}-ingredient-name-and-measure` }>
+      <li
+        key={ elem[1] }
+        data-testid={ `${index}-ingredient-name-and-measure` }
+      >
         {elem[1]}
         <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
       </li>));
@@ -147,7 +150,7 @@ function Detalhes() {
           alt={ objDetail[0].strMeal }
         />
       </div>
-      <ol>
+      <ol className="ingredient-list">
         { getIngredients() }
       </ol>
       <iframe

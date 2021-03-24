@@ -13,9 +13,10 @@ import ToExploreFood from './pages/ToExploreFood';
 import ToExploreDrinks from './pages/ToExploreDrinks';
 import EatenByIngredients from './pages/EatenByIngredients';
 import DrinksByIngredients from './pages/DrinksByIngredients';
-import FoodsByOringLocation from './pages/FoodsByOringLocation';
+import FoodsByOriginLocation from './pages/FoodsByOriginLocation';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -42,7 +43,12 @@ function App() {
       <Route
         exact
         path="/explorar/comidas/area"
-        component={ FoodsByOringLocation }
+        component={ FoodsByOriginLocation }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/area"
+        component={ NotFound }
       />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />

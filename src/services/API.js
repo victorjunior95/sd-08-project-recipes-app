@@ -1,9 +1,13 @@
-const endpointIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-const endpointName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-const endpointFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+const endpointFoodIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const endpointFoodName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const endpointFoodFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+const endpointDrinkIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+const endPointDrinkName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+const endPointDrinkFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
 const getFoodIngredients = async (ingredient) => {
-  fetch(`${endpointIngredient}${ingredient}`)
+  fetch(`${endpointFoodIngredient}${ingredient}`)
     .then((response) => response.json())
     .then(({ meals }) => console.log(meals));
 };
@@ -11,13 +15,31 @@ const getFoodIngredients = async (ingredient) => {
 export default getFoodIngredients;
 
 export const getFoodName = async (name) => {
-  fetch(`${endpointName}${name}`)
+  fetch(`${endpointFoodName}${name}`)
     .then((response) => response.json())
     .then(({ meals }) => console.log(meals));
 };
 
 export const getFoodFirstLetter = async (firstLetter) => {
-  fetch(`${endpointFirstLetter}${firstLetter}`)
+  fetch(`${endpointFoodFirstLetter}${firstLetter}`)
     .then((response) => response.json())
     .then(({ meals }) => console.log(meals));
+};
+
+export const getDrinkIngredients = async (ingredient) => {
+  fetch(`${endpointDrinkIngredient}${ingredient}`)
+    .then((response) => response.json())
+    .then(({ drinks }) => console.log(drinks));
+};
+
+export const getDrinkName = async (name) => {
+  fetch(`${endPointDrinkName}${name}`)
+    .then((response) => response.json())
+    .then(({ drinks }) => console.log(drinks));
+};
+
+export const getDrinkFirstLetter = async (firstLetter) => {
+  fetch(`${endPointDrinkFirstLetter}${firstLetter}`)
+    .then((response) => response.json())
+    .then(({ drinks }) => console.log(drinks));
 };

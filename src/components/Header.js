@@ -27,7 +27,7 @@ const Header = ({ title, showSearchButton = true }) => {
       <h2 data-testid="page-title">{title}</h2>
       {showSearchButton && (
         <>
-          <SearchBar showInput={ showInput } typeAPI={ title === 'Bebidas' } />
+          <SearchBar showInput={ showInput } typeAPI={ title } />
           <button
             type="button"
             onClick={ () => setHidden(!showInput) }

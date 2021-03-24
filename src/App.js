@@ -1,14 +1,24 @@
 import React from 'react';
-import './App.css';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Explore from './pages/Explore';
+import ExploreMain from './pages/ExploreMain';
+import ExploreStuff from './pages/ExploreStuff';
+import ExploreOrigin from './pages/ExploreOrigin';
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <Switch>
+      <Route path="/explorar/comidas/ingredientes" component={ ExploreStuff } />
+      <Route path="/explorar/bebidas/ingredientes" component={ ExploreStuff } />
+      <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
+      <Route path="/explorar/comidas" component={ ExploreMain } />
+      <Route path="/explorar/bebidas" component={ ExploreMain } />
+      <Route path="/explorar" component={ Explore } />
       <Route path="/bebidas" component={ Main } />
       <Route path="/comidas" component={ Main } />
       <Route path="/" component={ Login } />

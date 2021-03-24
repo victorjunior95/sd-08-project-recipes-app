@@ -14,22 +14,25 @@
   animation: shake 1s infinite ease;
   max-height: 80vh;
 }
+
 .login {
   font-size: 10px;
+  margin-left: 20px;
   margin-top: 20px;
-  margin-left:20px;
 }
+
 .search {
   font-size: 12px;
+  margin-left: 10px;
   margin-top: 10px;
-  margin-left:10px;
 }
 .searchInput {
   display: block;
   font-size: 5px;
   margin-top: 10px;
-  margin-left:10px;
+  margin-left: 10px;
 }
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;

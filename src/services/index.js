@@ -58,3 +58,12 @@ export const seachDrinkByCategory = async (search) => {
   // console.log(result);
   return result.drinks;
 };
+
+export const fetchProductDetailsById = async (id, type) => {
+  const API_LINK = type === 'comidas'
+    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const result = await fetch(API_LINK);
+  const json = await result.json();
+  return json;
+};

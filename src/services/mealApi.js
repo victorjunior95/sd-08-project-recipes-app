@@ -6,7 +6,7 @@ export const getByIngredient = (ingredient) => (
   fetchEndpoint(`${BASE_URL}/filter.php?i=${ingredient}`)
 );
 
-export const getByName = (name) => (
+export const getByName = (name = '') => (
   fetchEndpoint(`${BASE_URL}/search.php?s=${name}`)
 );
 

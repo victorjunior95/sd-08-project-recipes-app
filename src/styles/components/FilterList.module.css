@@ -6,10 +6,15 @@
 }
 
 .filterButton {
+  align-items: center;
   background: #c4c4c4;
   border: none;
+  display: flex;
+  font-weight: 700;
   height: 28px;
+  justify-content: flex-start;
   margin: 5px;
+  padding: 10px;
   width: 105px;
 }
 

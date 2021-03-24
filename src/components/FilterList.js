@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Creators } from '../store/ducks/meals';
+import { bindActionCreators } from 'redux';
+import { Creators as MealsActions } from '../store/ducks/meals';
 import styles from '../styles/components/FilterList.module.css';
 
 const FILTER_LIMIT = 5;
 
-function FilterList({ categories, addNewFilter }) {
-  const handleFilter = ({ target }) => {
-    addNewFilter(target.innerText);
+function FilterList({ categories, fetchByCategory }) {
+  const [currentFilter, setCurrentFilter] = useState('All');
+
+  useEffect(() => {
+    fetchByCategory(currentFilter);
+  }, [currentFilter]);
+
+  const handleChangeFilter = ({ target }) => {
+    if (target.value !== currentFilter) {
+      setCurrentFilter(target.value);
+    }
   };
 
   return (
@@ -19,9 +28,9 @@ function FilterList({ categories, addNewFilter }) {
           className={ styles.filterButton }
           type="button"
           key={ filter }
-          onClick={ handleFilter }
+          onClick={ handleChangeFilter }
         >
-          <p>{filter}</p>
+          {filter}
         </button>))}
     </section>
   );
@@ -29,11 +38,9 @@ function FilterList({ categories, addNewFilter }) {
 
 FilterList.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  addNewFilter: PropTypes.func.isRequired,
+  fetchByCategory: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addNewFilter: (filter) => dispatch(Creators.addFilter(filter)),
-});
+const mapDispatchToProps = (dispatch) => bindActionCreators(MealsActions, dispatch);
 
 export default connect(null, mapDispatchToProps)(FilterList);

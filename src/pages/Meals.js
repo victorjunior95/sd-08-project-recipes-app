@@ -19,7 +19,7 @@ import LoadingScreen from '../components/LoadingScreen';
 const RESULTS_LIMIT = 12;
 
 const Meals = ({ fetchMeals, fetchCategories,
-  isFetchingMeals, isFetchingCategories, meals, notFound, categories, filter }) => {
+  isFetchingMeals, isFetchingCategories, meals, notFound, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
@@ -59,10 +59,7 @@ const Meals = ({ fetchMeals, fetchCategories,
       { showSearchBar && <SearchBar fetchFunction={ fetchMeals } /> }
       { notFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
-        { meals.length > 1 && meals.filter((meal) => {
-          if (filter === 'All') return meal;
-          return meal.strCategory === filter;
-        }).slice(0, RESULTS_LIMIT).map((meal, index) => (
+        { meals.length > 1 && meals.slice(0, RESULTS_LIMIT).map((meal, index) => (
           <Card
             key={ meal.idMeal }
             nome={ meal.strMeal }
@@ -83,7 +80,6 @@ Meals.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   notFound: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ meals }) => ({
@@ -92,7 +88,6 @@ const mapStateToProps = ({ meals }) => ({
   isFetchingCategories: meals.isFetchingCategories,
   notFound: meals.notFound,
   categories: meals.categories,
-  filter: meals.filter,
 });
 
 const mapDispatchToProps = (dispatch) => (

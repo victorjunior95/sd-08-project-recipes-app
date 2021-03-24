@@ -1,35 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-const ReceitasFavoritas = () => {
-  // Jogando o Array de Favoritos no State
-  const [favoritesArray, setFavoritesArray] = useState([]);
-  useEffect(() => {
-    setFavoritesArray([
-      ...favoriteRecipes,
-    ]);
-  }, []);
+import Header from '../components/Header';
+import ContextRecipes from '../context/ContextRecipes';
+import ShareIcon from '../images/shareIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
-  // Logica para copiar a URL
-  const [renderMSG, setRenderMSG] = useState(false);
-  const msgTime = 10000;
-  const copiarURL = (id) => {
-    copy(`http://localhost:3000/comidas/${id}`);
-    setRenderMSG(true);
-    setTimeout(() => { setRenderMSG(false); }, msgTime);
-  };
+const ReceitasFavoritas = () => {
+  const { favoriteRecipes,
+    renderMSG, copiarURL,
+    setFavoriteRecipes } = useContext(ContextRecipes);
+
+  useEffect(() => {
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  }, [setFavoriteRecipes]);
 
   // Logica para remover do LocalStorage
   const removerLocalStorage = (id) => {
-    console.log(favoritesArray.filter((fav) => fav.id !== id));
-    setFavoritesArray(favoritesArray.filter((fav) => fav.id !== id));
+    // console.log(favoriteRecipes.filter((fav) => fav.id !== id));
+    setFavoriteRecipes(favoriteRecipes.filter((fav) => fav.id !== id));
     localStorage.setItem(
-      'favoriteRecipes', JSON.stringify(favoritesArray.filter((fav) => fav.id !== id)),
+      'favoriteRecipes', JSON.stringify(favoriteRecipes.filter((fav) => fav.id !== id)),
     );
   };
 
   return /* favoritesArray === 0 ? <h1>Nenhum Favorito...</h1> : */ (
     <section className="receitas-favoritas">
+      <Header />
       <h1>Página Receitas Favoritas</h1>
       <div className="btn-group btn-group-toggle" data-toggle="buttons">
         <button
@@ -61,7 +58,7 @@ const ReceitasFavoritas = () => {
           Drinks
         </button>
       </div>
-      { favoritesArray.map((favoriteArray, index) => (
+      { favoriteRecipes.map((favoriteArray, index) => (
         <div key={ index } className="cardBackGround">
           <Card style={ { width: '18rem' } }>
             <Card.Img
@@ -76,24 +73,24 @@ const ReceitasFavoritas = () => {
               <div className="share-favorite">
                 <input
                   type="image"
-                  src={ shareIcon }
+                  src={ ShareIcon }
                   alt="Botão Compartilhar"
                   data-testid={ `${index}-horizontal-share-btn` }
                   className="share"
-                  onClick={ () => copiarURL(favoriteArray.id) }
+                  onClick={ () => copiarURL('comidas', favoriteArray.id) }
                 />
-                {
-                  renderMSG ? <span>Link copiado!</span>
-                    : <span hidden>Link copiado!</span>
-                }
                 <input
                   type="image"
-                  src={ blackHeartIcon }
+                  src={ BlackHeartIcon }
                   alt="Botão Favoritar"
                   data-testid={ `${index}-horizontal-favorite-btn` }
                   className="favorite"
                   onClick={ () => removerLocalStorage(favoriteArray.id) }
                 />
+                {
+                  renderMSG ? <span>Link copiado!</span>
+                    : <span hidden>Link copiado!</span>
+                }
               </div>
               <Card.Title
                 data-testid={ `${index}-horizontal-name` }

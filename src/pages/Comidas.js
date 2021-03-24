@@ -5,40 +5,36 @@ import ContextRecipes from '../context/ContextRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import {
-  getAllBebida,
-  getBebidaCategory,
-  getBebidaByCategory } from '../services/BuscaNasAPIs';
+  getAllComida,
+  getComidaCategory,
+  getComidaByCategory } from '../services/BuscaNasAPIs';
 
 const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
 
-const Bebidas = () => {
-  const { dataByBusca, setHeaderInfo } = useContext(ContextRecipes);
+const Comidas = () => {
+  const { dataByBusca } = useContext(ContextRecipes);
   const history = useHistory();
-  const [dataBebidas, setDataBebidas] = useState([]);
+  const [dataComidas, setDataComidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [actualCategory, setActualCategory] = useState('');
 
   useEffect(() => {
-    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
-  }, [setHeaderInfo]);
-
-  useEffect(() => {
     async function getCategorias() {
-      const categoriasResult = await getBebidaCategory();
-      setCategorias([{ strCategory: 'All' }, ...categoriasResult.drinks]);
+      const categoriasResult = await getComidaCategory();
+      setCategorias([{ strCategory: 'All' }, ...categoriasResult.meals]);
     }
     getCategorias();
-    if (dataByBusca.drinks !== undefined) {
-      if (dataByBusca.drinks.length > 1) {
-        setDataBebidas([...dataByBusca.drinks]);
-      } else if (dataByBusca.drinks.length === 1) {
-        history.push(`/bebidas/${dataByBusca.drinks[0].idDrink}`);
+    if (dataByBusca.meals !== undefined) {
+      if (dataByBusca.meals.length > 1) {
+        setDataComidas([...dataByBusca.meals]);
+      } else if (dataByBusca.meals.length === 1) {
+        history.push(`/comidas/${dataByBusca.meals[0].idMeal}`);
       }
     }
     async function getAll() {
-      const allDrink = await getAllBebida();
-      setDataBebidas(allDrink.drinks);
+      const allFood = await getAllComida();
+      setDataComidas(allFood.meals);
     }
     getAll();
   }, [dataByBusca, history]);
@@ -46,9 +42,9 @@ const Bebidas = () => {
   async function filterCategory(category) {
     const eatable = actualCategory === category ? 'All' : category;
     const allFood = eatable === 'All'
-      ? await getAllBebida()
-      : await getBebidaByCategory(category);
-    setDataBebidas(allFood.drinks);
+      ? await getAllComida()
+      : await getComidaByCategory(category);
+    setDataComidas(allFood.meals);
     setActualCategory(category);
   }
 
@@ -76,23 +72,23 @@ const Bebidas = () => {
       </div>
       <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
         {
-          dataBebidas && dataBebidas.length && dataBebidas.map((bebida, index) => {
+          dataComidas && dataComidas.length && dataComidas.map((comida, index) => {
             if (index < MAX_CARDS) {
               return (
                 <Card
-                  key={ bebida.idDrink }
+                  key={ comida.idMeal }
                   data-testid={ `${index}-recipe-card` }
                   className="col-5 m-2"
-                  onClick={ () => history.push(`/bebidas/${bebida.idDrink}`) }
+                  onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
                 >
                   <Card.Img
                     variant="top"
                     data-testid={ `${index}-card-img` }
-                    src={ bebida.strDrinkThumb }
+                    src={ comida.strMealThumb }
                   />
                   <Card.Body>
                     <Card.Title data-testid={ `${index}-card-name` }>
-                      { bebida.strDrink }
+                      { comida.strMeal }
                     </Card.Title>
                   </Card.Body>
                 </Card>
@@ -107,4 +103,4 @@ const Bebidas = () => {
   );
 };
 
-export default Bebidas;
+export default Comidas;

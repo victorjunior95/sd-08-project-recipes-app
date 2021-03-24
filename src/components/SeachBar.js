@@ -21,7 +21,6 @@ const SearchBar = (props) => {
           id="ingredients"
           type="radio"
           data-testid="ingredient-search-radio"
-          checked
           onChange={ () => setFilter('ingredients') }
         />
         Ingrediente
@@ -62,3 +61,11 @@ SearchBar.propTypes = {
   typeAPI: PropTypes.string.isRequired,
 };
 export default SearchBar;
+
+// 18 - Exiba um alert caso nenhuma receita seja encontrada
+// O alert deve contendo o texto "Sinto muito, não encontramos nenhuma receita para esses filtros."
+
+// O que será verificado:
+
+// - Caso nenhuma comida seja encontrada o alert deve ser exibido
+// - Caso nenhuma bebida seja encontrada o alert deve ser exibido

@@ -12,7 +12,10 @@ const Provider = ({ children }) => {
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
   const setMeals = async (array) => {
-    if (array.meals.length === 1) {
+    if (array.meals === null) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (array.meals.length === 1) {
       const { idMeal } = array.meals[0];
       redirectPages(`/comidas/${idMeal}`);
     } else {
@@ -33,11 +36,14 @@ const Provider = ({ children }) => {
   };
 
   const setDrinks = async (array) => {
-    if (array.drinks.length === 1) {
+    if (array.drinks === null) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (array.drinks.length === 1) {
       const { idDrink } = array.drinks[0];
       redirectPages(`/bebidas/${idDrink}`);
     } else {
-      setDrink(array ? array.drinks : []);
+      setFood(array ? array.drinks : []);
     }
   };
   const handleHeaderSearch = async (search, type, typeAPI) => {

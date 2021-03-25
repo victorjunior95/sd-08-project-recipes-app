@@ -18,21 +18,34 @@ const CategoryButtons = ({ label }) => {
     const checkFullList = () => {
       if (fullList.length > 0) {
         const mapping = fullList
-          .filter((element, index) => index <= STOP_ON_FIVE).map((element) => element);
+          .filter((element, index) => index < STOP_ON_FIVE).map((element) => element);
         setFirstFive(mapping);
       }
     }; checkFullList();
   }, [fullList]);
   const renderButtons = firstFive.map(({ strCategory }) => (
     <button
+      data-testid={ `${strCategory}-category-filter` }
       style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
-      key={ strCategory }
+      key={ `${strCategory} - key` }
       type="button"
     >
       {strCategory}
     </button>));
 
-  return (renderButtons);
+  return (
+    <div>
+      <button
+        data-testid="All-category-filter"
+        style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
+        key="All - key"
+        type="button"
+      >
+        All
+      </button>
+      {renderButtons}
+    </div>
+  );
 };
 
 CategoryButtons.propTypes = {

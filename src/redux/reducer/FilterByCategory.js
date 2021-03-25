@@ -1,4 +1,8 @@
-import { CATEGORIES_FOODS_FILTER, CATEGORIES_DRINKS_FILTER } from '../actions';
+import {
+  CATEGORIES_FOODS_FILTER,
+  CATEGORIES_DRINKS_FILTER,
+  RESET_STATE,
+} from '../actions';
 
 const INITIAL_STATE = {
   foodsFilterCategories: [],
@@ -16,6 +20,11 @@ const FilterByCategory = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       drinksFilterCategories: action.payload.drinks,
+    };
+  case RESET_STATE:
+    return {
+      foodsFilterCategories: [],
+      drinksFilterCategories: [],
     };
   default:
     return state;

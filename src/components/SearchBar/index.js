@@ -33,7 +33,7 @@ function SearchBar({ history }) {
 
   return (
     <form>
-      <div>
+      <div className="input-container">
         <input
           className="input"
           data-testid="search-input"
@@ -43,7 +43,7 @@ function SearchBar({ history }) {
           onChange={ (e) => setSearchInput(e.target.value) }
         />
       </div>
-      <div>
+      <div className="type-search-container">
         <label htmlFor="ingredient">
           <input
             data-testid="ingredient-search-radio"
@@ -79,6 +79,7 @@ function SearchBar({ history }) {
         </label>
       </div>
       <button
+        className="btn-search"
         data-testid="exec-search-btn"
         type="button"
         onClick={ getSearch }

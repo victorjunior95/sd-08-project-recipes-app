@@ -9,11 +9,6 @@ import RecipesInProgress from './pages/RecipesInProgress';
 import Explore from './pages/Explore';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
-import ExploreDrinks from './pages/ExploreDrinks';
-import ExploreMealArea from './pages/ExploreMealArea';
-import ExploreMealIngredients from './pages/ExploreMealIngredients';
-import ExploreMeals from './pages/ExploreMeals';
 
 import './App.css';
 
@@ -36,9 +31,9 @@ function App() {
       <Route path="/bebidas/:id" component={ Details } />
       <Route path="/comidas" component={ Comidas } />
       <Route path="/bebidas" component={ Bebidas } />
-    
+
       <Route path="/perfil" component={ Profile } />
-      <Route exact path="/" component={ LoginPage } /> 
+      <Route exact path="/" component={ LoginPage } />
     </Switch>
   );
 }

@@ -10,7 +10,10 @@ function RecipesFood() {
     <div>
       <Header title="Comidas" />
       <ul>
-        {/* {recipes.length > 0 ? Object.values(recipes).map((recipe, i) => <li key={ i }><img src={ recipe.meals.strMealThumb } alt="img" /></li>) : null} */}
+        {/* {recipes.length > 0
+          ? Object.values(recipes)
+            .map((recipe, i) => <li key={ i }><img src={ recipe.meals.strMealThumb } alt="img" /></li>)
+            : null} */}
       </ul>
     </div>
   );

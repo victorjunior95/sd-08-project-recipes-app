@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { DataDrinksContext } from '../context/ContextDrinks';
 import './DetailsDrink.css';
 
 function DetailsDrink() {
   const dataContext = useContext(DataDrinksContext);
   const { drinks } = dataContext;
+  const history = useHistory();
   const Params = useParams();
   const [drinkDetail, setDrinkDetail] = useState([]);
   useEffect(() => {
@@ -22,6 +23,12 @@ function DetailsDrink() {
           </div>
         ))}
       </div>
+      <button
+        type="button"
+        onClick={ () => history.push(`/bebidas/${Params.id}/in-progress`) }
+      >
+        Receita em progresso
+      </button>
     </div>
   );
 }

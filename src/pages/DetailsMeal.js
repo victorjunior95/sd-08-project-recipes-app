@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { LoginAndFoodContext } from '../context/ContextFood';
 import './DetailsMeal.css';
 
@@ -7,6 +7,7 @@ function DetailsMeal() {
   const dataContext = useContext(LoginAndFoodContext);
   const { meals } = dataContext;
   const Params = useParams();
+  const history = useHistory();
   const [mealDetail, setMealDetail] = useState([]);
   useEffect(() => {
     const result = meals.filter((meal) => meal.idMeal === Params.id);
@@ -22,6 +23,12 @@ function DetailsMeal() {
           </div>
         ))}
       </div>
+      <button
+        type="button"
+        onClick={ () => history.push(`/comidas/${Params.id}/in-progress`) }
+      >
+        Receita em progresso
+      </button>
     </div>
   );
 }

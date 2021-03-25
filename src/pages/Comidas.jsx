@@ -1,10 +1,14 @@
 import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CartaoReceitaComidas from '../components/CartaoReceitaComidas';
 
 function Comidas() {
   const {
+    apiResult,
+    tituloDaPagina,
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
     categoriasComidas,
@@ -28,6 +32,12 @@ function Comidas() {
           >
             {strCategory}
           </button>))}
+      {apiResult !== null
+      && apiResult.length === 1 && tituloDaPagina === 'Comidas'
+        ? <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> : false }
+      {apiResult !== null
+      && apiResult.length > 1
+      && <CartaoReceitaComidas />}
       <Footer />
     </div>
   );

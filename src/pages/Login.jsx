@@ -4,7 +4,6 @@ import ContextReceitas from '../context/ContextReceitas';
 
 function Login() {
   const [info, setInfo] = useState({ email: '', password: '' });
-  // const [redirect, setRedirect] = useState(false);
   const { logedIn, setLoged } = useContext(ContextReceitas);
   function verificaEmailESenha(email, password) {
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
@@ -21,7 +20,6 @@ function Login() {
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email: info.email }));
     setLoged(true);
-    // setRedirect(true);
   }
 
   return (

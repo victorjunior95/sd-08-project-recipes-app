@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-// import ContextReceitas from '../context/ContextReceitas';
-
-// const Bebidas = () => (<h1>Sou Bebidas</h1>);
+import CartaoReceitaBebidas from '../components/CartaoReceitaBebidas';
 
 function Bebidas() {
   const {
+    apiResult,
+    tituloDaPagina,
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
     categoriasBebidas,
@@ -21,7 +22,6 @@ function Bebidas() {
   return (
     <div>
       <Header />
-      <h1>Bebidas</h1>
       {!categoriasBebidas
         ? <h1>Carregando ...</h1>
         : categoriasBebidas.map(({ strCategory }) => (
@@ -32,6 +32,14 @@ function Bebidas() {
           >
             {strCategory}
           </button>))}
+
+      {apiResult !== null
+      && apiResult.length === 1
+      && tituloDaPagina === 'Bebidas'
+        ? <Redirect to={ `/bebidas/${apiResult[0].idDrink}` } /> : false }
+      {apiResult !== null
+      && apiResult.length > 1
+      && <CartaoReceitaBebidas />}
       <Footer />
     </div>
   );

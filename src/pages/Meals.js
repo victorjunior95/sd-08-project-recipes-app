@@ -59,7 +59,7 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
                 name={ recipe.strMeal }
                 thumbnail={ recipe.strMealThumb }
                 index={ index }
-                id
+                id={ recipe.idMeal }
               />)) }
       </CardsContainer>
       <Footer />

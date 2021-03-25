@@ -61,6 +61,7 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
                 name={ cocktail.strDrink }
                 thumbnail={ cocktail.strDrinkThumb }
                 index={ index }
+                id={ cocktail.idDrink }
               />)) }
       </CardsContainer>
       <Footer />

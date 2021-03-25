@@ -23,7 +23,7 @@ const Drinks = () => {
       recipesFetch(false);
     }
     async function fetchCategory() {
-      const result = await categoryDrink()
+      await categoryDrink()
         .then((response) => setCategory(response));
       // console.log(categoryFood());
       // console.log(result);

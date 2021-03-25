@@ -59,12 +59,14 @@ function Details() {
           <div>
             {ytVideo()}
           </div>
-          <Recomendations />
+
+          <p>scrollLateral Recomendadas</p>
           <Button
             datatestid="start-recipe-btn"
             label="Iniciar Receita"
             onClick={ historyPath }
           />
+          <Recomendations />
         </div>
       ))}
     </>

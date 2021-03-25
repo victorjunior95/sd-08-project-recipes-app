@@ -1,10 +1,9 @@
 import React from 'react';
+import RecipeInProgress from '../components/RecipeInProgress';
 
 const ReceitaEmProcesso = () => (
   <section className="w-100">
-    <h1>
-      Página Receita em Processo
-    </h1>
+    <RecipeInProgress />
   </section>
 );
 

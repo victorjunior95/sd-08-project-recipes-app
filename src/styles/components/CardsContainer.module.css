@@ -1,6 +1,9 @@
 .cardsContainer {
   display: grid;
+  flex: 1;
   grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
   padding: 10px;
+  position: relative;
+  z-index: -1;
 }

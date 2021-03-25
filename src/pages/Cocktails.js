@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as CocktailsActions } from '../store/ducks/cocktails';
+import { Creators as RecipesActions } from '../store/ducks/cocktailRecipes';
+import { Creators as CategoriesActions } from '../store/ducks/cocktailCategories';
 import useToggle from '../hooks/useToggle';
 
 import SearchBar from '../components/SearchBar';
@@ -12,16 +13,30 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import CardsContainer from '../components/CardsContainer';
 import Container from '../components/Container';
+import FilterList from '../components/FilterList';
+import LoadingScreen from '../components/LoadingScreen';
 
 const RESULTS_LIMIT = 12;
 
-const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
+const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
+  fetchRecipesByCategory, isFetchingCategories, recipesNotFound,
+  recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
+  useEffect(() => {
+    fetchCategories();
+    fetchRecipes();
+  }, []);
+
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
-  if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
+  if (isFetchingRecipes && isFetchingCategories) return <LoadingScreen />;
+  if (recipesNotFound) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+  if (recipes.length === 1) {
+    return <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />;
+  }
 
   return (
     <Container>
@@ -30,16 +45,24 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
-      { showSearchBar && <SearchBar fetchFunction={ fetchCocktails } /> }
-      { notFound && <p>Nenhuma bebida encontrada</p> }
+
+      <FilterList
+        categories={ categories }
+        fetchRecipesByCategory={ fetchRecipesByCategory }
+      />
+      { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
+      { recipesNotFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
-        { drinks.length > 1 && drinks.slice(0, RESULTS_LIMIT).map((drink, index) => (
-          <Card
-            key={ drink.idDrink }
-            nome={ drink.strDrink }
-            thumbnail={ drink.strDrinkThumb }
-            index={ index }
-          />)) }
+        { isFetchingRecipes
+          ? <LoadingScreen />
+          : recipes.length > 1
+            && recipes.slice(0, RESULTS_LIMIT).map((cocktail, index) => (
+              <Card
+                key={ cocktail.idDrink }
+                name={ cocktail.strDrink }
+                thumbnail={ cocktail.strDrinkThumb }
+                index={ index }
+              />)) }
       </CardsContainer>
       <Footer />
     </Container>
@@ -47,17 +70,28 @@ const Cocktails = ({ fetchCocktails, drinks, notFound }) => {
 };
 
 Cocktails.propTypes = {
-  fetchCocktails: PropTypes.func.isRequired,
-  drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  notFound: PropTypes.bool.isRequired,
+  fetchRecipes: PropTypes.func.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
+  isFetchingRecipes: PropTypes.bool.isRequired,
+  isFetchingCategories: PropTypes.bool.isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipesNotFound: PropTypes.bool.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchRecipesByCategory: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ cocktails }) => ({
-  drinks: cocktails.drinks,
-  notFound: cocktails.notFound,
+const mapStateToProps = ({ cocktails: { recipes, categories } }) => ({
+  recipes: recipes.recipes,
+  categories: categories.categories,
+  isFetchingRecipes: recipes.isFetching,
+  isFetchingCategories: categories.isFetching,
+  recipesNotFound: recipes.notFound,
 });
 
 const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(CocktailsActions, dispatch));
+  bindActionCreators({
+    ...RecipesActions,
+    ...CategoriesActions,
+  }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cocktails);

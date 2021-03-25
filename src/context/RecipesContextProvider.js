@@ -6,6 +6,7 @@ function RecipesContextProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [isShow, setIsShow] = useState(false);
+  const [shouldRenderAll, setShouldRenderAll] = useState(true);
 
   function setShow() {
     const invert = !isShow;
@@ -19,6 +20,8 @@ function RecipesContextProvider({ children }) {
     setDrinks,
     setShow,
     isShow,
+    shouldRenderAll,
+    setShouldRenderAll,
   };
 
   return (

@@ -6,7 +6,7 @@ import { getCocktails, getCocktailsList, getMeals, getMealsList } from '../servi
 import { SEARCH_BY_CATEGORY, SEARCH_BY_NAME } from '../common/defs';
 
 export default function CategoryBar({ type }) {
-  const { setMeals, setDrinks } = useContext(RecipesContext);
+  const { setMeals, setDrinks, shouldRenderAll } = useContext(RecipesContext);
 
   const [categoriesList, setCategoriesList] = useState([]);
   const [filteredBy, setFilteredBy] = useState('');
@@ -67,8 +67,10 @@ export default function CategoryBar({ type }) {
         setDrinks(drinks);
       }
     };
-    getInitialList();
-  }, [setDrinks, setMeals, type]);
+    if (shouldRenderAll) {
+      getInitialList();
+    }
+  }, [setDrinks, setMeals, type, shouldRenderAll]);
 
   return (
     <section>

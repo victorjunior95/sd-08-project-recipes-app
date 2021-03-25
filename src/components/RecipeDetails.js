@@ -60,7 +60,7 @@ function RecipeDetails({ recipeType, status }) {
           : null }
         <Recommended recipeType={ recipeType } />
         <button
-          id="last-btn"
+          className="last-btn"
           type="button"
           data-testid="start-recipe-btn"
         >

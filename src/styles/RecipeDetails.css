@@ -1,6 +1,6 @@
-#last-btn {
-  position: fixed;
+.last-btn {
   bottom: 0;
-  width: 330px;
   left: 4%;
+  position: fixed;
+  width: 330px;
 }

@@ -8,14 +8,15 @@ import RecipesContext from '../context/RecipesContext';
 export default function Comidas() {
   const { data } = useContext(RecipesContext);
   const { food } = data;
+  const LIMITER = 12;
 
   return (
     <div>
       <Header pageTitle="Comidas" />
       <section>
-        { food[0] && food.map((f, i) => {
+        { food && food.map((f, i) => {
           const { idMeal } = f;
-          return (i < 12) && (
+          return (i < LIMITER) && (
             <CardComida
               key={ idMeal }
               comida={ f }

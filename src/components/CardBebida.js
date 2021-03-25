@@ -5,14 +5,16 @@ function CardBebida(props) {
   const { bebida, id } = props;
   return (
     <section
-      data-testid={`${id}-recipe-card`}
+      data-testid={ `${id}-recipe-card` }
       className="g6-card-bebida"
     >
       <h3
-        data-testid={`${id}-card-name`}
-      >{ bebida.strDrink }</h3>
+        data-testid={ `${id}-card-name` }
+      >
+        { bebida.strDrink }
+      </h3>
       <img
-        data-testid={`${id}-card-img`}
+        data-testid={ `${id}-card-img` }
         src={ bebida.strDrinkThumb }
         alt={ bebida.strDrink }
       />

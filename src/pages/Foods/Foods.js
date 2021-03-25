@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import CategoryFilter from '../../component/CategoryFilter';
-import Header from '../../component/Header';
-import RecipeCards from '../../component/RecipesCard';
 import { Header, RecipeCards, Footer } from '../../component';
 import Context from '../../context/Context';
 
@@ -33,13 +32,19 @@ export default function Foods() {
       <CategoryFilter />
       <div>
         {recipesToRender.map((recipe, index) => (
-          <RecipeCards
+          <Link
+            to={ `${history.location.pathname}/${recipe.idMeal}` }
+            data-testid={ `${index}-recipe-card` }
             key={ index }
-            recipe={ recipe }
-            id={ recipe.idMeal }
-            type="Meal"
-            index={ index }
-          />
+          >
+            <RecipeCards
+              key={ index }
+              recipe={ recipe }
+              id={ recipe.idMeal }
+              type="Meal"
+              index={ index }
+            />
+          </Link>
         ))}
       </div>
 

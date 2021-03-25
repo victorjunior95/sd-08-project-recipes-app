@@ -22,9 +22,9 @@ function ReceitasFeitas() {
   };
 
   return (
-    <div>
+    <>
       <Header explore="false">Receitas Feitas</Header>
-      <div>
+      <section>
         <button
           type="button"
           data-testid="filter-by-all-btn"
@@ -46,10 +46,10 @@ function ReceitasFeitas() {
         >
           Bebidas
         </button>
-      </div>
-      <div>
+      </section>
+      <section>
         {doneReceipes && doneReceipes.map((recipe, index) => (
-          <div key={ recipe.id }>
+          <section key={ recipe.id }>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 style={ { width: '100vw' } }
@@ -88,10 +88,10 @@ function ReceitasFeitas() {
                 { tag }
               </span>
             ))}
-          </div>
+          </section>
         ))}
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
 

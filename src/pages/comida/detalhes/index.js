@@ -2,14 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router';
 import { requestDrinkRecipe, requestFoodId } from '../../../services/API';
 import FoodContext from '../../../context/comidaContext/FoodContext';
-import GlobalContext from '../../../context/globalContext/GlobalContext';
-import CardFoodDetails from '../../../components/Cards/CardFoodDetails';
+import CardFoodDetails from '../../../components/Card/CardFoodDetails';
 import './index.css';
 import DrinkRecomendation from '../../../components/Carousel/DrinkRecomendation';
-
-function startRecipe() {
-
-}
 
 function ComidaDetalhes() {
   const {
@@ -18,12 +13,6 @@ function ComidaDetalhes() {
       setRecomendations,
     },
   } = useContext(FoodContext);
-
-  const {
-    inProgressRecipes: {
-      meals,
-    },
-  } = useContext(GlobalContext);
 
   const { idDaReceita } = useParams();
   const [redirect, setRedirect] = useState(false);
@@ -47,20 +36,12 @@ function ComidaDetalhes() {
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const alreadyFavorited = favorites.some((obj) => obj.id === idDaReceita);
 
-  const recipeStarted = Object.keys(meals).some((id) => id === idDaReceita);
-
   if (redirect) return <Redirect to="/comidas/:idDaReceita/in-progress" />;
 
   return (
     <section>
       <CardFoodDetails alreadyFavorited={ alreadyFavorited } />
       <DrinkRecomendation />
-      <button
-        type="button"
-        onClick={ () => { setRedirect(true); } }
-      >
-        {(recipeStarted) ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
     </section>
   );
 }

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import FoodContext from '../context/comidaContext/FoodContext';
+import FoodContext from '../../context/comidaContext/FoodContext';
 import {
   SearchMealByIngredient,
   SearchMealByName,
   SearchMealByFirstLetter,
-} from '../services/API';
+} from '../../services/API';
+import { alertSearchRecipeNotFound, alertSearchACaracter } from '../../serviceWorker';
 
 function SearchBarFood() {
   const {
@@ -33,7 +34,7 @@ function SearchBarFood() {
 
   const requestAPI = async () => {
     if (searchType === 'first-letter-search' && searchInput.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      alertSearchACaracter();
       return '';
     }
     let response = '';
@@ -49,7 +50,7 @@ function SearchBarFood() {
     if (response.meals !== null && searchType !== '') {
       return setFoods(response.meals);
     }
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    alertSearchRecipeNotFound();
   };
 
   if (redirect) return <Redirect to={ path } />;

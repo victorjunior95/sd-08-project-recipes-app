@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../../components/Header';
-import CardFood from '../../components/Cards/CardFood';
-import SearchBarFood from '../../components/SearchBarFood';
+import CardFood from '../../components/Card/CardFood';
+import SearchBarFood from '../../components/SearchBar/SearchBarFood';
 import Footer from '../../components/footer';
-import FoodCategoryBar from '../../components/FoodCategoryBar';
+import FoodCategoryBar from '../../components/CategoryBar/FoodCategoryBar';
 
 function Comida() {
   return (

@@ -4,6 +4,7 @@ import GlobalContext from './GlobalContext';
 
 function GlobalProvider({ children }) {
   const [email, setEmail] = useState('');
+  const handleEmail = ({ target }) => setEmail(target.value);
 
   const [cocktails, setCocktails] = useState({});
   const [meals, setMeals] = useState({});
@@ -16,6 +17,7 @@ function GlobalProvider({ children }) {
     },
     functions: {
       setEmail,
+      handleEmail,
       setCocktails,
       setMeals,
       setDoneRecipes,

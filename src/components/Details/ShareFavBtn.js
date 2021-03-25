@@ -10,7 +10,6 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function favConstructor(actualRecipe, isMeal) {
-  console.log(actualRecipe);
   if (isMeal) {
     return {
       id: actualRecipe.idMeal,
@@ -37,24 +36,26 @@ function filterRemoveRecipe(actualRecipe, favorites, isMeal) {
   if (favorites === null) return [];
   const notMatches = favorites.filter((e) => {
     if (isMeal) {
-      return e.idMeal !== actualRecipe.id;
+      return e.id !== actualRecipe.idMeal;
     }
-    return e.idDrink !== actualRecipe.id;
+    return e.id !== actualRecipe.idDrink;
   });
   return notMatches;
 }
 
 function filterMatchRecipe(actualRecipe, favorites, isMeal) {
+  console.log(`filterMatch: ${favorites}`);
   if (favorites === null) return [];
   return favorites.filter((e) => {
     if (isMeal) {
-      return e.idMeal === actualRecipe.id;
+      return e.id === actualRecipe.idMeal;
     }
-    return e.idDrink === actualRecipe.id;
+    return e.id === actualRecipe.idDrink;
   });
 }
 
 function isInFavorites(actualRecipe, favorites, isMeal) {
+  console.log(`isInFavorites: ${favorites}`);
   const matches = filterMatchRecipe(actualRecipe, favorites, isMeal);
   if (matches.length < 1) {
     return false;
@@ -63,6 +64,7 @@ function isInFavorites(actualRecipe, favorites, isMeal) {
 }
 
 function favoriting(actualRecipe, favorites, isMeal, dispatch) {
+  console.log(`favoriting: ${favorites}`);
   if (favorites.length < 1) {
     const newFavorites = [];
     newFavorites.push(favConstructor(actualRecipe, isMeal));
@@ -71,8 +73,9 @@ function favoriting(actualRecipe, favorites, isMeal, dispatch) {
     const filteredFavorites = filterRemoveRecipe(actualRecipe, favorites, isMeal);
     dispatch(saveFavorites(filteredFavorites));
   } else {
-    favorites.push(favConstructor(actualRecipe, isMeal));
-    dispatch(saveFavorites(favorites));
+    const newFavorites = [...favorites];
+    newFavorites.push(favConstructor(actualRecipe, isMeal));
+    dispatch(saveFavorites(newFavorites));
   }
 }
 
@@ -93,6 +96,7 @@ export default function ShareFavBtn() {
   useEffect(() => {
     saveOnStorage('favoriteRecipes', favorites);
   }, [favorites]);
+
   const isFavorite = isInFavorites(actualRecipe, favorites, isMeal);
   return (
     <div className="share-fav-btn">

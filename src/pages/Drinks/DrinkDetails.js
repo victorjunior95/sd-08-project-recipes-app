@@ -37,8 +37,10 @@ function DrinkDetails(props) {
           { strCategory }
           <span>{ strAlcoholic }</span>
         </span>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <div className="icons">
+          <img src={ shareIcon } alt="Compartilhar" data-testid="share-btn" />
+          <img src={ favIcon } alt="Compartilhar" data-testid="favorite-btn" />
+        </div>
         <img
           className="detail-image"
           data-testid="recipe-photo"

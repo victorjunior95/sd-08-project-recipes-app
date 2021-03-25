@@ -34,8 +34,8 @@ function FoodDetails(props) {
         <h2 data-testid="recipe-title">{ strMeal }</h2>
         <span data-testid="recipe-category">{ strCategory }</span>
         <div className="icons">
-          <img src={ shareIcon } alt="Copartilhar" data-testid="share-btn" />
-          <img src={ favIcon } alt="Copartilhar" data-testid="favorite-btn" />
+          <img src={ shareIcon } alt="Compartilhar" data-testid="share-btn" />
+          <img src={ favIcon } alt="Compartilhar" data-testid="favorite-btn" />
         </div>
         <img
           className="detail-image"

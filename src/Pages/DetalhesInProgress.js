@@ -5,33 +5,16 @@ import '../styles/Detalhes.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
-import RecommendedList from '../components/RecommendedList';
-import ButtonIniciar from '../components/ButtonIniciar';
-import HandleYoutube from '../services/HandleYoutube';
 
 function Detalhes() {
   const history = useHistory();
   const urlText = history.location.pathname;
   const id = urlText.split('s/')[1];
 
-  const { setShouldRedirect, addStartedRecipes,
-    recommendedFood, recommendedDrink, setRecommendedFood,
-    setRecommendedDrink } = useContext(RecipeContext);
+  const { setShouldRedirect } = useContext(RecipeContext);
 
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const requestRecommendedFood = async () => {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    const result = await response.json();
-    setRecommendedFood(result.meals);
-  };
-
-  const requestRecommendedDrink = async () => {
-    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    const result = await response.json();
-    setRecommendedDrink(result.drinks);
-  };
 
   const requestByID = async () => {
     const TWO_SECONDS = 2000;
@@ -40,13 +23,11 @@ function Detalhes() {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.drinks);
-      requestRecommendedFood();
     }
     if (urlText.includes('comidas')) {
       response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const responseJson = await response.json();
       await setObjDetail(responseJson.meals);
-      requestRecommendedDrink();
     }
     setTimeout(() => {
       setLoading(false);
@@ -111,12 +92,6 @@ function Detalhes() {
         { getIngredients() }
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <RecommendedList value={ recommendedFood } />
-      <ButtonIniciar
-        onClick={ () => addStartedRecipes(id) }
-        id={ id }
-        objDetail={ objDetail }
-      />
     </div>
   );
 
@@ -146,20 +121,7 @@ function Detalhes() {
       <ol className="ingredient-list">
         { getIngredients() }
       </ol>
-      <iframe
-        data-testid="video"
-        width="300px"
-        height="200px"
-        src={ HandleYoutube(objDetail[0]) }
-        title="YouTube video player"
-      />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <RecommendedList value={ recommendedDrink } />
-      <ButtonIniciar
-        onClick={ () => addStartedRecipes(id) }
-        id={ id }
-        objDetail={ objDetail }
-      />
     </div>
   );
 

@@ -78,6 +78,15 @@ function ButtonIniciar({ id, objDetail }) {
     return newArray;
   };
 
+  const handleRedirect = () => {
+    if (value.includes('comidas')) {
+      history.push(`/comidas/${id}/in-progress`);
+    }
+    if (value.includes('bebidas')) {
+      history.push(`/bebidas/${id}/in-progress`);
+    }
+  };
+
   useEffect(() => {
     setButtonName(verifyId().some((elem) => elem === id)
       ? 'Continuar Receita' : iniciarReceita);
@@ -93,6 +102,7 @@ function ButtonIniciar({ id, objDetail }) {
           setLocalStoragesIngredients();
           setButtonName(verifyId().some((elem) => elem === id)
             ? 'Continuar Receita' : iniciarReceita);
+          handleRedirect();
         } }
       >
         {buttonName}

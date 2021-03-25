@@ -8,3 +8,7 @@ export function useIsMeal() {
 export function dummy() {
   console.log('dummy');
 }
+
+export function dummy2() {
+  console.log('dummy2');
+}

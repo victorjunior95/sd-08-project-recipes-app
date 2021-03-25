@@ -5,6 +5,7 @@ import Card from '../../components/Card';
 import Header from '../../components/Header';
 import { FoodCtx } from '../../context/ContextFood';
 import Footer from '../../components/Footer';
+import { CategoryButtons } from '../../components/Buttons';
 
 function Foods() {
   const STOP_INDEX = 11;
@@ -12,6 +13,7 @@ function Foods() {
   return (
     <div>
       <Header name="Comidas" icon="true" currentPage="Foods" />
+      <CategoryButtons label="Foods" />
       <div className="cards">
         {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)

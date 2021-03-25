@@ -16,11 +16,14 @@ export default function SearchBar() {
   }
 
   function handleClick() {
-    setSearchParam(inputChange);
+    setSearchParam({ ...searchParam, inputChange });
+    setInputChange({
+      inputSearch: '',
+      selectedParam: '',
+    });
   }
 
-  console.log(searchParam);
-  // console.log(inputChange);
+  console.log(inputChange);
 
   return (
     <span>

@@ -7,13 +7,17 @@ function RecipesFood() {
   const { recipes } = useContext(RecipesContext);
 
   const recipeMeals = recipes.meals;
+  const cardMaximun = 12;
 
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Comidas" search="" />
       {
         recipeMeals
-        && recipeMeals.map((recipe, i) => <FoodCard key={ i } recipes={ recipe } />)
+        && recipeMeals.map((recipe, i) => (
+          i < cardMaximun
+           && <FoodCard key={ i } recipes={ recipe } />
+        ))
       }
     </div>
   );

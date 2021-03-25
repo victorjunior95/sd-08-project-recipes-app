@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import FoodContext from '../../context/comidaContext/FoodContext';
+import GlobalContext from '../../context/globalContext/GlobalContext';
 
 function FoodCategoryBar() {
   const {
     values: { foodCategory },
     functions: { handleFilteredMeals },
-  } = useContext(FoodContext);
+  } = useContext(GlobalContext);
+
   const maxCategories = 5;
 
   return (

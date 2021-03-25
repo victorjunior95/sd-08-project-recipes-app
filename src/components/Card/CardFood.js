@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import FoodContext from '../../context/comidaContext/FoodContext';
+
+import GlobalContext from '../../context/globalContext/GlobalContext';
 import '../../index.css';
 
-function CardFood() {
+function CardFood({ foods }) {
   const {
     values: {
-      foods,
       filteredMeals,
     },
-  } = useContext(FoodContext);
+  } = useContext(GlobalContext);
 
   const maxCards = 12;
   const data = (filteredMeals.length === 0) ? foods : filteredMeals;
@@ -40,5 +41,9 @@ function CardFood() {
     </section>
   );
 }
+
+CardFood.propTypes = {
+  foods: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default CardFood;

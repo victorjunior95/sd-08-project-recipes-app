@@ -28,11 +28,14 @@
 .start-btn {
   background-color: rgb(21, 44, 177);
   border: none;
+  bottom: 0;
   color: white;
   font-weight: 900;
   opacity: 0.9;
   padding: 15px 0;
+  position: fixed;
   width: 300px;
+
 }
 
 .start-btn:hover {

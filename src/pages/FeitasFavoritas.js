@@ -5,16 +5,23 @@ import Card from '../components/Card';
 export default function FeitasFavoritas() {
   const history = useHistory();
   const path = history.location.pathname;
-  let listCart = [];
-  let listFavCart = [];
-  listCart = JSON.parse(localStorage.getItem('doneRecipes'));
-  listFavCart = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const [filteredDoneList, setDoneList] = useState(listCart);
-  const [FList, setFavList] = useState(listFavCart);
+  // let listCart = [];
+  // let listFavCart = [];
+  const listCart = JSON.parse(localStorage.getItem('doneRecipes'));
+  const listFavCart = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [filteredDoneList, setDoneList] = useState([]);
+  // const [FList, setFavList] = useState(listFavCart);
+  const [FList, setFavList] = useState([]);
+
   useEffect(() => {
     setDoneList(listCart);
-    setFavList(listFavCart);
+    // setFavList(listFavCart);
   }, []);
+
+  useEffect(() => {
+    setFavList(listFavCart);
+  }, [listFavCart]);
+
   if (path === '/receitas-feitas') {
     return (
       <div>

@@ -32,6 +32,15 @@ const Card = ({ id,
     }
     console.log(history);
   }
+  const unfavRecipe = (recipeId) => {
+    const updatedFavs = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((recipe) => recipe.id !== recipeId);
+    console.log(updatedFavs);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavs));
+    console.log(localStorage);
+    // updatedFavs.filter((recipe) => recipe.id !== recipeId);
+    // localStorage.favoriteRecipes = updatedFavs;
+  };
   let urlDetails = '';
   if (isFood) {
     urlDetails = `http://localhost:3000/comidas/${id}`;
@@ -118,8 +127,8 @@ const Card = ({ id,
           type="image"
           data-testid={ `${index}-horizontal-favorite-btn` }
           src={ blackHeartIcon }
-          alt="share"
-          onClick={ () => { } }
+          alt="favorite"
+          onClick={ () => unfavRecipe(id) }
         />
         <p hidden={ isClicked }>Link copiado!</p>
         {() => popTags()}

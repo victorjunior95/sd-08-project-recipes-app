@@ -1,6 +1,6 @@
 .card-recipe {
   align-items: center;
-  box-shadow: 5px 5px 5px rgb(169, 169, 169);
+  box-shadow: 5px 5px 5px darkgray;
   display: flex;
   height: 150px;
   margin: 8px;
@@ -21,8 +21,9 @@
 }
 
 .card-category {
-  color: rgb(169, 169, 169);
+  color: darkgray;
 }
+
 .card-name {
   font-weight: 600;
 }

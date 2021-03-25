@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useRouteMatch } from 'react-router';
 import {
@@ -9,23 +9,7 @@ import { fetchItem } from '../store/apiSlice';
 import DetailRecommend from './Details/DetailRecommend';
 import DetailIngredientsProgress from './ReceitasProgressCheckbox';
 
-// const isDoneRecipe = (id) => {
-//   const done = JSON.parse(localStorage.getItem('doneRecipes'));
-//   return done ? done.some((element) => element.id === id) : false;
-// };
-
-// const isInProgressRecipe = (id) => {
-//   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-//   if (!inProgress) return false;
-
-//   const cocktailCheck = inProgress.cocktails && id in inProgress.cocktails;
-//   const mealCheck = inProgress.meals && id in inProgress.meals;
-
-//   return Boolean(cocktailCheck || mealCheck);
-// };
-
-const setLocal = (isFood, id ,checkbox) => {
+const setLocal = (isFood, id, checkbox) => {
   if (!isFood) {
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       cocktails: {
@@ -48,6 +32,16 @@ const getRecipeInfo = (string, item) => Object.entries(item).reduce((array, entr
     ? [...array, entry[1]] : array
 ), []);
 
+const getLocalStorage = (id, isFood) => {
+  if (localStorage.getItem('inProgressRecipes')) {
+    const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (isFood) {
+      return progressRecipes.meals[id];
+    }
+    return progressRecipes.cocktails[id];
+  }
+};
+
 function DetailsProgress() {
   const dispatch = useDispatch();
   const { url } = useRouteMatch();
@@ -59,7 +53,7 @@ function DetailsProgress() {
     if (state.api.data.drinks) return state.api.data.drinks[0];
     return {};
   });
-  const [checkbox, setCheckBox] = useState([]);
+  const [checkbox, setCheckBox] = useState(getLocalStorage(id, isFood) || []);
   console.log(checkbox);
 
   const checkboxLocalStorage = (index, checked) => {
@@ -80,7 +74,7 @@ function DetailsProgress() {
 
   useEffect(() => {
     setLocal(isFood, id, checkbox);
-  });
+  }, [checkbox, isFood, id]);
 
   if (isLoading) return <Spinner animation="border" />;
 
@@ -92,7 +86,8 @@ function DetailsProgress() {
         cat={ item.strAlcoholic || item.strCategory }
       />
       <DetailIngredientsProgress
-        checkbox={ checkboxLocalStorage }
+        checkbox={ checkbox }
+        checkboxLocalStorage={ checkboxLocalStorage }
         ingredients={ getRecipeInfo('Ingredient', item) }
         measures={ getRecipeInfo('Measure', item) }
       />

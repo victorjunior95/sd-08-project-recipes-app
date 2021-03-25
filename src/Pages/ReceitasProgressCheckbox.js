@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
 
 import './ReceitasProgressCheckbox.css';
 
 function DetailIngredientsProgress(props) {
-  const { ingredients, measures, checkbox } = props;
+  const { ingredients, measures, checkboxLocalStorage, checkbox } = props;
+
   return (
     <section>
       <h1>Ingredientes</h1>
@@ -16,14 +17,15 @@ function DetailIngredientsProgress(props) {
               className="checkbox"
               type="checkbox"
               value=""
-              defaultChecked={ false }
+              defaultChecked={
+                checkbox.includes(index)
+              }
               onChange={ (e) => {
                 if (e.target.checked === true) {
-                  checkbox(index, true);
+                  checkboxLocalStorage(index, true);
                 } else if (e.target.checked === false) {
-                  checkbox(index, false);
-                }
-              } }
+                  checkboxLocalStorage(index, false);
+                }}}
               id="flexCheckChecked"
               label={ `${ingredient} - ${measures[index] || ''}` }
             />

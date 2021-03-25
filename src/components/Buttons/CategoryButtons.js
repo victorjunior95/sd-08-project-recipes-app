@@ -8,7 +8,7 @@ const CategoryButtons = ({ label }) => {
   useEffect(() => {
     async function getList() {
       const fetchList = await showCompleteList('categories', label);
-      setFullList(label === 'drinks' ? fetchList.drinks : fetchList.meals);
+      setFullList(label === 'Drinks' ? fetchList.drinks : fetchList.meals);
     }
     getList();
   }, [label]);

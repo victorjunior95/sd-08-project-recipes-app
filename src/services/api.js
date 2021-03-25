@@ -7,7 +7,7 @@ export const showCompleteList = async (query, currentPage) => {
   // lists = (c)ategory, (i)ngredients, (a)rea;
   const LIST_API = currentPage === 'Foods'
     ? 'https://www.themealdb.com/api/json/v1/1/list.php'
-    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php';
   const api = await fetch(`${LIST_API}?${query.charAt(0)}=list`);
   const result = await api.json();
   return result;

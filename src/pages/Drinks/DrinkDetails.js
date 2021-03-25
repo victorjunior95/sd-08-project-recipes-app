@@ -1,7 +1,70 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Context from '../../context/Context';
+import { Recommendations } from '../../component';
 
-export default function DrinkDetails() {
+export default function DrinkDetails({ match: { params: { id } } }) {
+  const { recipeDetail, setSearchParams } = useContext(Context);
+  const history = useHistory();
+  const [recipe, setRecipe] = useState();
+
+  useEffect(() => {
+    setSearchParams({
+      searchInput: id,
+      selectedParameter: 'recipe',
+      location: history.location.pathname,
+    });
+  }, [setSearchParams, history.location.pathname, id]);
+
+  useEffect(() => setRecipe(...recipeDetail), [recipeDetail, setRecipe]);
+  if (!recipe) return <div>Carregando...</div>;
+
+  const {
+    strDrinkThumb,
+    strDrink,
+    strCategory,
+    strInstructions,
+    strAlcoholic,
+  } = recipe;
+
+  const ingredients = Object.keys(recipe)
+    .filter((prop) => prop.includes('strIngredient'))
+    .map((ingredient) => recipe[ingredient])
+    .filter((ingredient) => ingredient);
+
+  const measures = Object.keys(recipe)
+    .filter((prop) => prop.includes('strMeasure'))
+    .map((measure) => recipe[measure])
+    .filter((measure) => measure);
+
   return (
-    <h1>Drinks Details</h1>
+    <>
+      <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Recipe Done" />
+      <h1 data-testid="recipe-title">{strDrink}</h1>
+      <button type="button" data-testid="share-btn">Share</button>
+      <button type="button" data-testid="favorite-btn">Favorites</button>
+      <h5 data-testid="recipe-category">{`${strCategory} ${strAlcoholic}`}</h5>
+      {ingredients.map((ingredient, index) => (
+        <p
+          key={ index }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
+          {`-${ingredient} - ${measures[index]}`}
+
+        </p>
+      ))}
+      <p data-testid="instructions">{strInstructions}</p>
+      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <Recommendations />
+    </>
   );
 }
+
+DrinkDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};

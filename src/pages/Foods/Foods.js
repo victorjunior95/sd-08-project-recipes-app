@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import CategoryFilter from '../../component/CategoryFilter';
-import Header from '../../component/Header';
-import RecipeCards from '../../component/RecipesCard';
 import { Header, RecipeCards, Footer } from '../../component';
 import Context from '../../context/Context';
 

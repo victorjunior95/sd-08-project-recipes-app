@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import FoodCard from '../../components/FoodCard';
+import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 import RecipesContext from '../../ContextApi/RecipesContext';
 
@@ -19,6 +20,7 @@ function RecipesFood() {
            && <FoodCard key={ i } recipes={ recipe } />
         ))
       }
+      <Footer />
     </div>
   );
 }

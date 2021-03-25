@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getComidasRandom, getBebidasRandom } from '../services/BuscaNasAPIs';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ContextRecipes from '../context/ContextRecipes';
 
 const ExplorarComidasEBebidadas = () => {
+  const { setHeaderInfo, setBarraBuscar } = useContext(ContextRecipes);
   const history = useHistory();
-  const wordLength = -7;
-  const Type = history.location.pathname.substr(wordLength);
+  const Type = history.location.pathname.includes('bebidas') ? 'bebidas' : 'comidas';
+  const typeTitle = history.location.pathname.includes('bebidas') ? 'Bebidas' : 'Comidas';
   const [randomId, setRandomId] = useState('');
 
   useEffect(() => {
@@ -19,12 +21,26 @@ const ExplorarComidasEBebidadas = () => {
     getRandomId();
   }, [setRandomId, Type]);
 
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: `Explorar ${typeTitle}`, showSearchIcon: false });
+  }, [typeTitle, setHeaderInfo]);
+
+  function handleClickIngredientsBtn() {
+    setBarraBuscar({ input: '', radio: '' });
+    return history.push(`${history.location.pathname}/ingredientes`);
+  }
+
+  function handleClickOriginBtn() {
+    setBarraBuscar({ input: '', radio: '' });
+    return history.push('/explorar/comidas/area');
+  }
+
   return (
     <section className="w-100">
       <Header />
       <button
         type="button"
-        onClick={ () => history.push(`${history.location.pathname}/ingredientes`) }
+        onClick={ () => handleClickIngredientsBtn() }
         data-testid="explore-by-ingredient"
       >
         Por Ingredientes
@@ -34,7 +50,7 @@ const ExplorarComidasEBebidadas = () => {
           ? (
             <button
               type="button"
-              onClick={ () => history.push('/explorar/comidas/area') }
+              onClick={ () => handleClickOriginBtn() }
               data-testid="explore-by-area"
             >
               Por Local de Origem

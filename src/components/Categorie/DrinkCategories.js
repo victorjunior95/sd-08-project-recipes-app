@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDrinkCategories, requestDrinks } from '../../redux/actions';
 import { fetchDrinks } from '../../services/API';
@@ -6,6 +6,7 @@ import { fetchDrinks } from '../../services/API';
 // import PropTypes from 'prop-types';
 
 function Categories() {
+  const [selectedDrink, setSelectedDrink] = useState('');
   const QUANTITY_OF_CATEGORIES = 5;
   let categoriesFiltred = [];
   const dispatch = useDispatch();
@@ -21,12 +22,28 @@ function Categories() {
   }
 
   async function handleClick(e) {
-    const ops = await fetchDrinks(e.target.value, 'categories');
-    dispatch(requestDrinks(ops));
+    const category = e.target.value;
+    setSelectedDrink(category);
+    if (selectedDrink === category || category === 'All') {
+      const arrayOFDrinks = await fetchDrinks('', 'name');
+      dispatch(requestDrinks(arrayOFDrinks));
+      setSelectedDrink('');
+    } else {
+      const arrayOFDrinks = await fetchDrinks(category, 'categories');
+      dispatch(requestDrinks(arrayOFDrinks));
+    }
   }
 
   return (
     <>
+      <button
+        value="All"
+        type="button"
+        onClick={ (e) => handleClick(e) }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {categoriesFiltred
         .map((categorie) => (
           <button

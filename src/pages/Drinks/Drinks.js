@@ -23,7 +23,10 @@ function Bebidas({ history }) {
       <Header history={ history } />
       <Categories />
       {drinksFiltred
-        .map((drink, index) => <Card key={ drink.idDrink } data={ { drink, index } } />)}
+        .map((drink, index) => (<Card
+          key={ drink.idDrink }
+          data={ { drink, index, recipeCard: '-recipe-card' } }
+        />))}
     </>
   );
 }

@@ -18,21 +18,23 @@ function App() {
     <Switch>
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+
       <Route path="/explorar/comidas/area" component={ Explore } />
       <Route path="/explorar/comidas/ingredientes" component={ Explore } />
       <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
       <Route path="/explorar/comidas" component={ Explore } />
       <Route path="/explorar/bebidas" component={ Explore } />
       <Route path="/explorar" component={ Explore } />
-      <Route path="/comidas/:id/in-progress" component={ ProgressMeals } />
-      <Route path="/comidas/:id" component={ Details } />
-      <Route path="/bebidas/:id/in-progress" component={ ProgressDrinks } />
-      <Route path="/bebidas/:id" component={ Details } />
-      <Route path="/perfil" component={ Profile } />
-      <Route exact path="/" component={ LoginPage } />
+
       <div className="meals">
-        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/comidas/:id/in-progress" component={ ProgressMeals } />
+        <Route path="/comidas/:id" component={ Details } />
         <Route path="/comidas" component={ Comidas } />
+        <Route path="/bebidas/:id/in-progress" component={ ProgressDrinks } />
+        <Route path="/bebidas/:id" component={ Details } />
+        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/perfil" component={ Profile } />
+        <Route exact path="/" component={ LoginPage } />
       </div>
     </Switch>
   );

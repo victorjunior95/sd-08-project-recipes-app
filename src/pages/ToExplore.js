@@ -12,7 +12,7 @@ function ToExplore() {
           Explorar Comidas
         </button>
         <button data-testid="explore-drinks" type="button">
-          Explorar bebidas
+          Explorar Bebidas
         </button>
       </div>
       <Footer />

@@ -9,23 +9,40 @@ import BlackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 const ReceitasFavoritas = () => {
-  const { favoriteRecipes,
-    setHeaderInfo,
-    setFavoriteRecipes } = useContext(ContextRecipes);
+  const { setHeaderInfo } = useContext(ContextRecipes);
 
+  const [renderFavoriteArray, setRenderFavoriteArray] = useState([]);
   const [renderMSG, setRenderMSG] = useState(false);
 
   useEffect(() => {
-    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setHeaderInfo({
       pageTitle: 'Receitas Favoritas',
     });
-  }, [setFavoriteRecipes, setHeaderInfo]);
+  }, [setHeaderInfo]);
+
+  const filterFood = () => {
+    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((fav) => fav.type === 'comida'));
+  };
+
+  const filterDrink = () => {
+    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((fav) => fav.type === 'bebida'));
+  };
+
+  const filterAll = () => {
+    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  };
 
   const removerLocalStorage = (id) => {
-    setFavoriteRecipes(favoriteRecipes.filter((fav) => fav.id !== id));
+    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((fav) => fav.id !== id));
     localStorage.setItem(
-      'favoriteRecipes', JSON.stringify(favoriteRecipes.filter((fav) => fav.id !== id)),
+      'favoriteRecipes', JSON.stringify(
+        JSON.parse(localStorage.getItem('favoriteRecipes'))
+          .filter((fav) => fav.id !== id),
+      ),
     );
   };
 
@@ -37,7 +54,7 @@ const ReceitasFavoritas = () => {
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
 
-  return favoriteRecipes.length === 0
+  return renderFavoriteArray.length === 0
     ? (
       <section className="receitas-favoritas">
         <Header />
@@ -55,6 +72,7 @@ const ReceitasFavoritas = () => {
             id="option1"
             checked
             data-testid="filter-by-all-btn"
+            onClick={ filterAll }
           >
             All
           </button>
@@ -64,6 +82,7 @@ const ReceitasFavoritas = () => {
             id="option2"
             className="btn btn-secondary"
             data-testid="filter-by-food-btn"
+            onClick={ filterFood }
           >
             Food
           </button>
@@ -73,15 +92,16 @@ const ReceitasFavoritas = () => {
             id="option3"
             className="btn btn-secondary"
             data-testid="filter-by-drink-btn"
+            onClick={ filterDrink }
           >
             Drinks
           </button>
         </div>
         {
-          renderMSG ? <span>Link copiado!</span>
-            : <span hidden>Link copiado!</span>
+          renderMSG ? <h2>Link copiado!</h2>
+            : <h2 hidden>Link copiado!</h2>
         }
-        { favoriteRecipes.map((favoriteArray, index) => (
+        { renderFavoriteArray.map((favoriteArray, index) => (
           <div key={ index }>
             <div>
               <img

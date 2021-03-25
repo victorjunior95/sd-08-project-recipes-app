@@ -10,24 +10,26 @@ function RecomendationCard(props) {
   const shortPath = pathname.slice(0, PATHSIZE);
 
   return (
-    <button
-      type="button"
-      onClick={ () => history.push(`${shortPath}/${food.idDrink || food.idMeal}`) }
-      data-testid={ `${index}-recipe-card` }
-    >
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ food.strDrinkThumb || food.strMealThumb }
-        alt="Food"
-        width="100%"
-      />
+    <div className="carousel">
+      <button
+        type="button"
+        onClick={ () => history.push(`${shortPath}/${food.idDrink || food.idMeal}`) }
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ food.strDrinkThumb || food.strMealThumb }
+          alt="Food"
+          width="100%"
+        />
+      </button>
       <p
-        data-testid={ `${index}-recomendation-title"` }
+        data-testid={ `${index}-recomendation-title` }
       >
         { food.strDrink || food.strMeal }
 
       </p>
-    </button>
+    </div>
   );
 }
 RecomendationCard.propTypes = {

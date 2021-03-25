@@ -5,14 +5,19 @@ import getResultFromAPI from '../api/getResultFromAPI';
 import RecomendationCard from './RecomendationCard';
 
 function Recomendations() {
-  const PATHSIZE = 8;
   const SIX_RECOMMENDATIONS = 6;
   const { pathname } = useLocation();
   const [recomended, setRecomended] = useState([]);
 
   useEffect(() => {
     async function getFood() {
-      const foods = await getResultFromAPI(pathname.slice(0, PATHSIZE));
+      let drinkOrFood = '';
+      if (pathname.includes('/comidas')) {
+        drinkOrFood = '/bebidas';
+      } else {
+        drinkOrFood = '/comidas';
+      }
+      const foods = await getResultFromAPI(drinkOrFood);
       setRecomended(foods.slice(0, SIX_RECOMMENDATIONS));
     }
     getFood();

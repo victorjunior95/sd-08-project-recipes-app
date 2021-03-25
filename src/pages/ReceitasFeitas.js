@@ -32,31 +32,18 @@ class ReceitasFeitas extends Component {
           tags: [],
         },
       ],
-      newRecipes: [],
-      filtered: false,
+      filter: 'all',
 
     };
     this.share = this.share.bind(this);
-    this.filters = this.filters.bind(this);
+    this.changeFilter = this.changeFilter.bind(this);
   //   this.APIbebidas = this.APIbebidas.bind(this);
   //   this.twelveCards = this.twelveCards.bind(this);
   // }
   }
 
-  filters(foodType) {
-    const { recipes } = this.state;
-    let newRecipes = [];
-    if (foodType === 'all' || foodType === undefined) {
-      this.setState({ filtered: false });
-    }
-    if (foodType === 'food') {
-      newRecipes = recipes.filter((obj) => obj.type === 'comida');
-      this.setState({ newRecipes, filtered: true });
-    }
-    if (foodType === 'drink') {
-      newRecipes = recipes.filter((obj) => obj.type === 'bebida');
-      this.setState({ newRecipes, filtered: true });
-    }
+  changeFilter(type) {
+    return this.setState({ filter: type });
   }
 
   share(obj) {
@@ -71,23 +58,21 @@ class ReceitasFeitas extends Component {
   }
 
   render() {
-    const { displayShareMesage, newRecipes, recipes, filtered } = this.state;
+    const { displayShareMesage, recipes, filter } = this.state;
     console.log('displayShareMesage', displayShareMesage,
-      'newRecipes', newRecipes,
       'recipes', recipes,
-      'filtered', filtered);
+      'filter', filter);
     return (
       <div>
         <HeaderLocation />
         <br />
         <br />
         <br />
-        <FilterButtons filters={ this.filters } />
+        <FilterButtons changeFilter={ this.changeFilter } />
         { displayShareMesage ? <p className="alert">Link copiado!</p> : <div />}
         <DoneAndFavoriteCards
-          newRecipes={ newRecipes }
           recipes={ recipes }
-          filtered={ filtered }
+          filter={ filter }
           share={ this.share }
         />
       </div>

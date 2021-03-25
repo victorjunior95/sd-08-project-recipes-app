@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 
 export default class FilterButtons extends Component {
   render() {
-    const { filters } = this.props;
+    const { changeFilter } = this.props;
     return (
-      <div className="filters">
+      <div className="changeFilter">
         <center>
           <button
             type="button"
-            onClick={ () => filters('all') }
+            onClick={ () => changeFilter('all') }
             data-testid="filter-by-all-btn"
           >
             All
           </button>
           <button
             type="button"
-            onClick={ () => filters('food') }
+            onClick={ () => changeFilter('comida') }
             data-testid="filter-by-food-btn"
           >
             Food
           </button>
           <button
             type="button"
-            onClick={ () => filters('drink') }
+            onClick={ () => changeFilter('bebida') }
             data-testid="filter-by-drink-btn"
           >
             Drinks
@@ -35,5 +35,5 @@ export default class FilterButtons extends Component {
 }
 
 FilterButtons.propTypes = {
-  filters: PropTypes.func.isRequired,
+  changeFilter: PropTypes.func.isRequired,
 };

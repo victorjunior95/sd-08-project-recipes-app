@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DoneAndFavoriteCards from '../components/DoneAndFavoriteCards';
 import HeaderLocation from '../components/Header';
 
 class ReceitasFavoritas extends Component {
@@ -9,6 +10,7 @@ class ReceitasFavoritas extends Component {
         <br />
         <br />
         <br />
+        <DoneAndFavoriteCards />
       </div>
     );
   }

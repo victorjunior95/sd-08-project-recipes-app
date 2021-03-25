@@ -9,6 +9,10 @@ const Provider = ({ children }) => {
   // estado responsável por guardar a lista de comidas da pagina inicial
   const [mealData, setMealData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
+  const [ingredientsData, setIngredientsData] = useState([]);
+  const [drinkIngredientsData, setDrinksIngredientsData] = useState([]);
+  const [byIngredient, setByIngredient] = useState(false);
+  const [ingredientName, setIngredientName] = useState();
   // const [food, setfood] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,6 +27,14 @@ const Provider = ({ children }) => {
     setDrinkData,
     isLoading,
     setIsLoading,
+    ingredientsData,
+    setIngredientsData,
+    drinkIngredientsData,
+    setDrinksIngredientsData,
+    byIngredient,
+    setByIngredient,
+    ingredientName,
+    setIngredientName,
     // changeTitleByPathName,
   };
 

@@ -7,7 +7,12 @@ import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
 import RecipesContext from '../core/RecipesContext';
 
 function Drinks() {
-  const { isLoading, drinkData } = useContext(RecipesContext);
+  const {
+    isLoading,
+    drinkData,
+    byIngredient,
+    ingredientName } = useContext(RecipesContext);
+
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataDrinksCategories, setDataDrinksCategories] = useState([]);
   const [drinkCategorySelected, setDrinkCategorySelected] = useState([]);
@@ -30,12 +35,18 @@ function Drinks() {
       api.fetchDrinkByCategory(drinkCategorySelected)
         .then((response) => response.json())
         .then((result) => setDataDrinks(result.drinks));
+    } else if (byIngredient && ingredientName) {
+      api.searchByDrinkIngredient(ingredientName)
+        .then((response) => response.json())
+        .then((result) => setDataDrinks(result.drinks));
     } else {
       api.fetchDrinks()
         .then((response) => response.json())
         .then((result) => setDataDrinks(result.drinks));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [drinkCategorySelected, selectedDrink]);
+
   return (
     <div>
       <components.Header title="Bebidas" />

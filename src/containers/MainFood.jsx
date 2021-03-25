@@ -10,7 +10,8 @@ import MainFoodsCard from '../components/MainFoodsCard';
 // <img className="loading-img" src={ loading } alt="loading icon" />
 
 function Home() {
-  const { isLoading, mealData } = useContext(RecipesContext);
+  const { isLoading, mealData, byIngredient,
+    ingredientName } = useContext(RecipesContext);
   const [dataFoods, setDataFoods] = useState([]);
   const [dataFoodsCategories, setDataFoodCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
@@ -31,6 +32,10 @@ function Home() {
       .then((result) => setDataFoodCategories(result.meals));
     if (categorySelected.length && selected) {
       api.fetchFoodByCategory(categorySelected)
+        .then((response) => response.json())
+        .then((result) => setDataFoods(result.meals));
+    } else if (byIngredient && ingredientName) {
+      api.searchByFoodIngredient(ingredientName)
         .then((response) => response.json())
         .then((result) => setDataFoods(result.meals));
     } else {
@@ -80,7 +85,7 @@ function Home() {
               key={ index }
               dataFoods={ curr }
               index={ index }
-              id={ curr.idMeal }
+              id={ curr }
             />
           ))
           : dataFoods.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((food, index) => (

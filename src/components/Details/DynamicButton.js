@@ -35,11 +35,25 @@ function startRecipe(id, isMeal) {
   }
 }
 
+function continueRecipe(id, isMeal) {
+  const inProgressRecipes = loadFromStorage('inProgressRecipes');
+  let mealsCocktails = '';
+  if (isMeal) {
+    mealsCocktails = 'meals';
+  } else {
+    mealsCocktails = 'cocktails';
+  }
+  if (inProgressRecipes !== null && inProgressRecipes[mealsCocktails][id] !== undefined) {
+    return true;
+  }
+  return false;
+}
+
 export default function DynamicButton() {
   const { id } = useParams();
   const isMeal = useIsMeal();
 
-  if (true) {
+  if (continueRecipe(id, isMeal)) {
     return (
       <Link to={ `/comidas/${id}/in-progress` }>
         <button
@@ -48,9 +62,21 @@ export default function DynamicButton() {
           className="start-recipe"
           onClick={ () => startRecipe(id, isMeal) }
         >
-          INICIAR RECEITA
+          CONTINUAR RECEITA
         </button>
       </Link>
     );
   }
+  return (
+    <Link to={ `/comidas/${id}/in-progress` }>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe"
+        onClick={ () => startRecipe(id, isMeal) }
+      >
+        INICIAR RECEITA
+      </button>
+    </Link>
+  );
 }

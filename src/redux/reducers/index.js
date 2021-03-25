@@ -4,6 +4,7 @@ import loginReducer from './loginReducer';
 import drinkReducer from './drinksReducer';
 import mealsCategoriesReducer from './mealsCategoriesReducer';
 import drinkCategoriesReducer from './drinkCategoriesReducer';
+import detailsReducer from './detailsReducer';
 
 const rootReducer = combineReducers({
   mealsReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   drinkReducer,
   mealsCategoriesReducer,
   drinkCategoriesReducer,
+  detailsReducer,
 });
 
 export default rootReducer;

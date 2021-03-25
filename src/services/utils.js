@@ -13,3 +13,22 @@ export function validateLogin(email, passLength) {
   const minPassLength = 7;
   return !(passLength >= minPassLength && email.match(regexEmail));
 }
+
+export function makeListWithObj(objParam, keyBase) {
+  const keyList = [];
+  const response = [];
+  Object.keys(objParam).forEach((e) => e.includes(keyBase) && keyList.push(e));
+  keyList.forEach((e) => {
+    const actualValue = objParam[e];
+    if (actualValue !== null && actualValue !== '') {
+      response.push(actualValue);
+    }
+  });
+  return response;
+}
+
+export function embedLink(watchLink) {
+  const cuttedLink = watchLink.split('watch?v=');
+  const [base, id] = cuttedLink;
+  return `${base}embed/${id}`;
+}

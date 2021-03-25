@@ -99,3 +99,13 @@ export async function getRandomFood() {
   const food = await (await fetch('https://www.themealdb.com/api/json/v1/1/random.php')).json();
   return food;
 }
+
+export async function getListAllAreaOfTheFood() {
+  const listAreaFood = await (await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')).json();
+  return listAreaFood;
+}
+
+export async function getFoodByArea(area) {
+  const foodArea = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)).json();
+  return foodArea;
+}

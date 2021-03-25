@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { requestDrinksList } from '../services/apiRequests';
+import React, { useContext, useEffect, useState } from 'react';
 import DrinksCard from './DrinksCard';
+import {
+  requestDrinksList,
+  requestDrinksByIngredient,
+  requestDrinksByNameOrFirstLetter,
+} from '../services/apiRequests';
+import Context from '../context/Context';
 
 function DrinksList() {
   const { searchParams, inputValue } = useContext(Context);

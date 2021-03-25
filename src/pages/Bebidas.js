@@ -14,7 +14,7 @@ function Bebidas() {
     <div>
       <Header title="Bebidas" explore />
       <Categorys title="Bebidas" />
-      {createCards ? <Cards /> : null}
+      {createCards ? <Cards title="Bebidas" /> : null}
       <Footer />
     </div>
   );

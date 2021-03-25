@@ -8,6 +8,7 @@ function Provider({ children }) {
   const [userEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [toggleExplore, setToggleExplore] = useState(false);
+  const [toggleCategoryFilter, setToggleCategoryFilter] = useState(false);
   const [searchFilter, setSearchFilter] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [createCards, setCreateCards] = useState(false);
@@ -42,6 +43,8 @@ function Provider({ children }) {
     setCategoryComidas,
     categoryBebidas,
     setCategoryBebidas,
+    toggleCategoryFilter,
+    setToggleCategoryFilter,
   };
 
   useEffect(async () => {

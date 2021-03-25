@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { Card } from 'react-bootstrap';
 
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
 import ShareIcon from '../images/shareIcon.svg';

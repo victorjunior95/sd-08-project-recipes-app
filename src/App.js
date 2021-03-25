@@ -23,6 +23,7 @@ function App() {
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/explorar/comidas/area" component={ ExplorarOrigem } />
         <Route path="/bebidas/:id" component={ Details } />
+        <Route path="/bebidas/:id/in-progress" />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ ReceitasFeitas } />

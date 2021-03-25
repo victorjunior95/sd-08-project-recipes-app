@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useRouteMatch } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
   DetailImage, DetailIngredients, DetailInstructions, DetailTitle, DetailVideo,
 } from '.';
@@ -64,6 +65,8 @@ function Details() {
       { isFood && <DetailVideo vidSrc={ item.strYoutube } />}
       <DetailRecommend isFood={ isFood } />
       <Button
+        as={ Link }
+        to={ `${url}/in-progress` }
         variant="primary"
         data-testid="start-recipe-btn"
         style={ {

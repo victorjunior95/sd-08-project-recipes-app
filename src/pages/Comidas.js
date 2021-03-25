@@ -13,11 +13,15 @@ const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
 
 const Comidas = () => {
-  const { dataByBusca } = useContext(ContextRecipes);
+  const { dataByBusca, setHeaderInfo } = useContext(ContextRecipes);
   const history = useHistory();
   const [dataComidas, setDataComidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [actualCategory, setActualCategory] = useState('');
+
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Comidas', showSearchIcon: true });
+  }, [setHeaderInfo]);
 
   useEffect(() => {
     async function getCategorias() {

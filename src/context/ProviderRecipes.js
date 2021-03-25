@@ -11,7 +11,7 @@ import {
 
 function ProviderRecipes({ children }) {
   const headerInfoInitial = {
-    pageTitle: 'Comidas',
+    pageTitle: '',
     showSearchIcon: true,
   };
 

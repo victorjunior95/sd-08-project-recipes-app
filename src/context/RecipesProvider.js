@@ -54,19 +54,25 @@ export default function RecipesProvider({ children }) {
 
   useEffect(() => {
     if (pathname === '/comidas'
-      && (data.food.length > 0)) {
-      return data.food.length > 1
-        ? history.push('/comidas')
-        : history.push(`/comidas/${data.food[0].idMeal}`);
+      && (data.food !== null)) {
+      const l = data.food.length;
+      if (l > 0) {
+        return l > 1
+          ? history.push('/comidas')
+          : history.push(`/comidas/${data.food[0].idMeal}`);
+      }
     } if (pathname === '/bebidas'
-    && (data.drink.length > 0)) {
-      return data.drink.length > 1
-        ? history.push('/bebidas/')
-        : history.push(`/bebidas/${data.drink[0].idDrink}`);
+    && (data.drink !== null)) {
+      const l = data.drink.length;
+      if (l > 0) {
+        return l > 1
+          ? history.push('/bebidas/')
+          : history.push(`/bebidas/${data.drink[0].idDrink}`);
+      }
     }
   }, [data]);
 
-  const context = { getAPI };
+  const context = { getAPI, data };
 
   return (
     <RecipesContext.Provider value={ context }>

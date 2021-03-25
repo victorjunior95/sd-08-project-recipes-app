@@ -6,10 +6,15 @@ const endPointDrinkName = 'https://www.thecocktaildb.com/api/json/v1/1/search.ph
 
 const endPointDrinkFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
+const returnAlert = () => {
+  alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  return null;
+};
+
 export const getFoodIngredients = async (ingredient) => (
   fetch(`${endpointFoodIngredient}${ingredient}`)
     .then((response) => response.json())
-    .then(({ meals }) => { console.log(meals); return meals; })
+    .then(({ meals }) => (meals || returnAlert()))
 );
 
 // export default getFoodIngredients;
@@ -17,7 +22,7 @@ export const getFoodIngredients = async (ingredient) => (
 export const getFoodName = async (name) => (
   fetch(`${endpointFoodName}${name}`)
     .then((response) => response.json())
-    .then(({ meals }) => meals)
+    .then(({ meals }) => (meals || returnAlert()))
 );
 
 export const getFoodFirstLetter = async (firstLetter) => (
@@ -29,13 +34,13 @@ export const getFoodFirstLetter = async (firstLetter) => (
 export const getDrinkIngredients = async (ingredient) => (
   fetch(`${endpointDrinkIngredient}${ingredient}`)
     .then((response) => response.json())
-    .then(({ drinks }) => drinks)
+    .then(({ drinks }) => (drinks || returnAlert()))
 );
 
 export const getDrinkName = async (name) => (
   fetch(`${endPointDrinkName}${name}`)
     .then((response) => response.json())
-    .then(({ drinks }) => drinks)
+    .then(({ drinks }) => (drinks || returnAlert()))
 );
 
 export const getDrinkFirstLetter = async (firstLetter) => (

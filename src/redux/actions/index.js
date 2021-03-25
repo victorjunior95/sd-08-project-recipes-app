@@ -115,36 +115,41 @@ export const actionThunkMainDrinks = () => async (dispatch) => {
 };
 
 // THUNK ACTIONS FILTER CATEGORIES
-export const actionFilterCategoryDrinks = (drinks) => ({
+export const actionFilterCategoryDrinks = (drinks, category) => ({
   type: CATEGORIES_DRINKS_FILTER,
   payload: {
     drinks,
+    category,
   },
 });
 
 export const actionThunkCategoryDrinks = (category) => async (dispatch) => {
   dispatch(actionIsLoading(true));
   const drinksByCategory = await requestDrinkByCategory(category);
-  dispatch(actionFilterCategoryDrinks(drinksByCategory));
+  dispatch(actionFilterCategoryDrinks(drinksByCategory, category));
   dispatch(actionIsLoading(false));
 };
 
-export const actionFilterCategoryFoods = (foods) => ({
+export const actionFilterCategoryFoods = (foods, category) => ({
   type: CATEGORIES_FOODS_FILTER,
   payload: {
     foods,
+    category,
   },
 });
 
 export const actionThunkCategoryFoods = (category) => async (dispatch) => {
   dispatch(actionIsLoading(true));
   const foodsByCategory = await requestFoodByCategory(category);
-  dispatch(actionFilterCategoryFoods(foodsByCategory));
+  dispatch(actionFilterCategoryFoods(foodsByCategory, category));
   dispatch(actionIsLoading(false));
 };
 
 export const RESET_STATE = 'RESET_STATE';
 
-export const actionResetFilteredByCategory = () => ({
+export const actionResetFilteredByCategory = (category) => ({
   type: RESET_STATE,
+  payload: {
+    category,
+  },
 });

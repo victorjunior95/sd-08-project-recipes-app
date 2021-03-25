@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionThunkCategoryDrinks, actionThunkCategoryFoods } from '../redux/actions';
+import { actionThunkCategoryDrinks, actionThunkCategoryFoods, actionResetFilteredByCategory } from '../redux/actions';
 
 import Button from './Button';
 
@@ -13,10 +13,14 @@ const CategoriesContainer = ({ page }) => {
     (state) => state.CategoriesRecipes.drinksCategories,
   );
 
+  const previousCategory = useSelector((state) => state.FilterByCategory.category);
+
   const dispatch = useDispatch();
 
   const handleClick = (category) => {
-    if (page === 'Comidas') {
+    if (previousCategory === category) {
+      dispatch(actionResetFilteredByCategory(''));
+    } else if (page === 'Comidas') {
       dispatch(actionThunkCategoryFoods(category));
     } else if (page === 'Bebidas') {
       dispatch(actionThunkCategoryDrinks(category));

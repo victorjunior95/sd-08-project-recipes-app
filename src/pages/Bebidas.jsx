@@ -4,9 +4,6 @@ import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CartaoReceitaBebidas from '../components/CartaoReceitaBebidas';
-// import ContextReceitas from '../context/ContextReceitas';
-
-// const Bebidas = () => (<h1>Sou Bebidas</h1>);
 
 function Bebidas() {
   const {
@@ -14,16 +11,28 @@ function Bebidas() {
     tituloDaPagina,
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
+    categoriasBebidas,
   } = useContext(ContextReceitas);
+
   useEffect(() => {
     enviarTituloDaPagina('Bebidas');
     mudarStatusBotaoPesquisa(true);
   }, []);
+
   return (
     <div>
       <Header />
-      {apiResult === null
-      && window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')}
+      {!categoriasBebidas
+        ? <h1>Carregando ...</h1>
+        : categoriasBebidas.map(({ strCategory }) => (
+          <button
+            type="button"
+            key={ strCategory }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            {strCategory}
+          </button>))}
+
       {apiResult !== null
       && apiResult.length === 1
       && tituloDaPagina === 'Bebidas'
@@ -31,7 +40,6 @@ function Bebidas() {
       {apiResult !== null
       && apiResult.length > 1
       && <CartaoReceitaBebidas />}
-
       <Footer />
     </div>
   );

@@ -11,20 +11,30 @@ function Comidas() {
     tituloDaPagina,
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
+    categoriasComidas,
   } = useContext(ContextReceitas);
+
   useEffect(() => {
     enviarTituloDaPagina('Comidas');
     mudarStatusBotaoPesquisa(true);
   }, []);
+
   return (
     <div>
       <Header />
-      {apiResult === null
-      && window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')}
+      {!categoriasComidas
+        ? <h1>Carregando ...</h1>
+        : categoriasComidas.map(({ strCategory }) => (
+          <button
+            type="button"
+            key={ strCategory }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            {strCategory}
+          </button>))}
       {apiResult !== null
       && apiResult.length === 1 && tituloDaPagina === 'Comidas'
         ? <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> : false }
-      {console.log(apiResult)}
       {apiResult !== null
       && apiResult.length > 1
       && <CartaoReceitaComidas />}

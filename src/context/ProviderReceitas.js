@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ContextReceitas from './ContextReceitas';
+import buscarCategoriaBebida from '../services/buscarCategoriasBebidas';
+import buscarCategoriaComida from '../services/buscarCategoriasComidas';
 import resultadoApiComidas from '../services/fetchComidas';
 import resultadoApiBebidas from '../services/fetchBebidas';
 
 function ProviderReceitas({ children }) {
   const [logedIn, setLoged] = useState(0);
-  const [search, setSearch] = useState({ type: 's' });
+  const [search, setSearch] = useState({ type: 's', value: '' });
   const [apiResult, setApiResult] = useState([]);
   const [tituloDaPagina, enviarTituloDaPagina] = useState('Comidas');
   const [statusBotaoPesquisa, mudarStatusBotaoPesquisa] = useState(true);
-
+  const [categoriasComidas, setCategoriasComidas] = useState([]);
+  const [categoriasBebidas, setCategoriasBebidas] = useState([]);
+  const mensagem = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   useEffect(() => {
     async function fetchComida() {
       if (search.type === 'f' && search.search.length > 1) {
@@ -20,10 +24,13 @@ function ProviderReceitas({ children }) {
         ? await resultadoApiComidas(search.type, search.search)
         : await resultadoApiBebidas(search.type, search.search);
 
+      if (comidasResultado === null && search.value !== '') return window.alert(mensagem);
+
       setApiResult(comidasResultado);
     }
     fetchComida();
   }, [search]);
+
   const dados = {
     search,
     setSearch,
@@ -35,7 +42,26 @@ function ProviderReceitas({ children }) {
     enviarTituloDaPagina,
     statusBotaoPesquisa,
     mudarStatusBotaoPesquisa,
+    categoriasBebidas,
+    categoriasComidas,
   };
+
+  useEffect(() => {
+    async function funcBuscarCategoriaComida() {
+      const categoriaComida = await buscarCategoriaComida();
+      setCategoriasComidas(categoriaComida);
+    }
+    funcBuscarCategoriaComida();
+  }, []);
+
+  useEffect(() => {
+    async function funcBuscarCategoriaBebida() {
+      const categoriaBebida = await buscarCategoriaBebida();
+      setCategoriasBebidas(categoriaBebida);
+    }
+    funcBuscarCategoriaBebida();
+  }, []);
+
   return (
     <ContextReceitas.Provider value={ dados }>
       { children }

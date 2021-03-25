@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import fetchFood from '../services/Api';
+import fetchFood from '../services/FoodApi';
 
 const searchParams = {
   selectedParam: '',

@@ -32,7 +32,9 @@ export const requestCategoriesMeals = async () => {
   const path = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const response = await fetch(path);
   const data = await response.json();
-  return data.meals.splice(0, TAG_ARRAY_LENGTH);
+  const firstsMeals = data.meals.splice(0, TAG_ARRAY_LENGTH);
+  console.log(firstsMeals);
+  return firstsMeals;
 };
 
 export const requestFoodById = async (id) => {
@@ -47,4 +49,11 @@ export const requestFoodByCategory = async (category) => {
   const response = await fetch(path);
   const data = await response.json();
   return data.meals;
+};
+
+export const requestRandomMeal = async () => {
+  const path = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals[0].idMeal;
 };

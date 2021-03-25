@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
+// import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -12,7 +13,8 @@ const Detalhes = () => {
   const [isMeal, setIsMeal] = useState(true);
   const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
-  const [buttonRecipe, setButtonRecipe] = useState(true);
+  // const [buttonRecipe, setButtonRecipe] = useState(true);
+  // const [spanHidden, setSpanHidden] = useState;
 
   const location = useLocation();
 
@@ -37,6 +39,13 @@ const Detalhes = () => {
     fetchData();
   }, [location.pathname]);
 
+  // const copyToClipBoard = (text) => {
+  //   const urlToShare = text.split('/in-progress');
+  //   const finalUrlToShare = urlToShare.join('');
+  //   navigator.clipboard.writeText(finalUrlToShare);
+  //   setSpanHidden(true);
+  // };
+
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
   return (
@@ -53,7 +62,7 @@ const Detalhes = () => {
       <h3 data-testid="recipe-category">
         { isMeal ? foodDetails.strCategory : foodDetails.strAlcoholic}
       </h3>
-      <button type="button" data-testid="share-btn">
+      <button type="button" onClick={ copyToClipBoard } data-testid="share-btn">
         <img src={ shareIcon } alt="Share" />
       </button>
       <button

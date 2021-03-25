@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { fetchRecomendationsCard } from '../services';
 
 const RecomandationCard = ({ type }) => {
@@ -62,3 +63,7 @@ const RecomandationCard = ({ type }) => {
   );
 };
 export default RecomandationCard;
+
+RecomandationCard.propTypes = {
+  type: PropTypes.elementType.isRequired,
+};

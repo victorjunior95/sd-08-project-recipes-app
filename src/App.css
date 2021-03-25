@@ -66,6 +66,8 @@
     transform: rotate(-10deg);
   }
 }
-.btnStyle { position: fixed; 
+
+.btnStyle { 
   bottom: 0;
- };
+  position: fixed; 
+ }

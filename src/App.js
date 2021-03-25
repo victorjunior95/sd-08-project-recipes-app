@@ -26,15 +26,15 @@ function App() {
       <Route path="/explorar/bebidas" component={ Explore } />
       <Route path="/explorar" component={ Explore } />
 
+      <Route path="/comidas/:id/in-progress" component={ ProgressMeals } />
+      <Route path="/bebidas/:id/in-progress" component={ ProgressDrinks } />
+      <Route path="/comidas/:id" component={ Details } />
+      <Route path="/bebidas/:id" component={ Details } />
+      <Route path="/perfil" component={ Profile } />
+      <Route exact path="/" component={ LoginPage } />
       <div className="meals">
-        <Route path="/comidas/:id/in-progress" component={ ProgressMeals } />
-        <Route path="/comidas/:id" component={ Details } />
         <Route path="/comidas" component={ Comidas } />
-        <Route path="/bebidas/:id/in-progress" component={ ProgressDrinks } />
-        <Route path="/bebidas/:id" component={ Details } />
         <Route path="/bebidas" component={ Bebidas } />
-        <Route path="/perfil" component={ Profile } />
-        <Route exact path="/" component={ LoginPage } />
       </div>
     </Switch>
   );

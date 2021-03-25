@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Footer from '../components/Footer';
 
 import Header from '../components/Header';
 import ListCard from '../components/ListCard';
@@ -31,6 +32,7 @@ export default class Food extends Component {
         <Header params={ values } />
         <ListCard infos={ food } />
         <ListCard infos={ drinks } />
+        <Footer />
       </div>
     );
   }

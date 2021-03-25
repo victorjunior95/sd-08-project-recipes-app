@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
 import ListCard from '../components/ListCard';
+import Footer from '../components/Footer';
 
 export default class Food extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Food extends Component {
         byName: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
         byFirstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
       },
+      defaultSearch: 'chicken',
     };
     const food = {
       id: 'idMeal',
@@ -26,6 +28,7 @@ export default class Food extends Component {
       <div>
         <Header params={ values } />
         <ListCard infos={ food } />
+        <Footer />
       </div>
     );
   }

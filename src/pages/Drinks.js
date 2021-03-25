@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
 import ListCard from '../components/ListCard';
+import Footer from '../components/Footer';
 
 export default class Drinks extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Drinks extends Component {
         byName: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
         byFirstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
       },
+      defaultSearch: 'vodka',
     };
     const drinks = {
       id: 'idDrink',
@@ -26,6 +28,7 @@ export default class Drinks extends Component {
       <div>
         <Header params={ values } />
         <ListCard infos={ drinks } />
+        <Footer />
       </div>
     );
   }

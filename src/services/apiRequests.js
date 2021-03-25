@@ -22,6 +22,18 @@ export async function requestDrinksList() {
   return drinks;
 }
 
+export async function requestMealRecipe(id) {
+  const response = await ((await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)).json());
+  const { meals } = response;
+  return meals;
+}
+
+export async function requestDrinkRecipe(id) {
+  const response = await ((await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)).json());
+  const { drinks } = response;
+  return drinks;
+}
+
 export async function requestDrinksByIngredient(ingredient) {
   const response = await ((await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)).json());
   const { drinks } = response;

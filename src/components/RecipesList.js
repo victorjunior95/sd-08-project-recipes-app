@@ -35,7 +35,14 @@ function RecipesList() {
         allMeals !== null || undefined
           ? allMeals.map((meal, index) => {
             if (index <= MAX_INDEX) {
-              return <RecipesCard key={ meal.idMeal } meal={ meal } index={ index } />;
+              return (
+                <RecipesCard
+                  key={ meal.idMeal }
+                  meal={ meal }
+                  index={ index }
+                  id={ meal.idMeal }
+                />
+              );
             }
             return '';
           })

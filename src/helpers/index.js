@@ -105,6 +105,14 @@ export function addFoodToFavorite(recipe, foodOrDrink) {
   return true;
 }
 
+export function removeFromFavorite(id) {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const alreadyOnFavorite = favoriteRecipes.some((e) => e.id === id);
+  const removed = favoriteRecipes.filter((e) => e.id !== id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(removed));
+  return alreadyOnFavorite;
+}
+
 export function getIngredientList(recipe) {
   return Object.keys(recipe).reduce((acc, currentKey) => {
     if (recipe[currentKey] && currentKey.includes('strIngredient')) {

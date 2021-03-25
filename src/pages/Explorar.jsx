@@ -9,7 +9,7 @@ function Explorar() {
   const BOOLEAN_TRUE = true;
   return (
     <div>
-      <Header title="Explorar" searchBtn={ BOOLEAN_TRUE } />
+      <Header title="Explorar" disableBtn={ BOOLEAN_TRUE } />
       <Button
         type="button"
         label="Explorar Comidas"

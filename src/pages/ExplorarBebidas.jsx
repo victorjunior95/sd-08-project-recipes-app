@@ -17,7 +17,7 @@ function ExplorarBebidas() {
 
   return (
     <div>
-      <Header title="Explorar Bebidas" searchBtn={ BOOLEAN_TRUE } />
+      <Header title="Explorar Bebidas" disableBtn={ BOOLEAN_TRUE } />
       <Button
         type="button"
         label="Por Ingredientes"

@@ -13,6 +13,8 @@ import ExplorarOrigem from './ExplorarOrigem';
 import NotFound from './NotFound';
 import InProgressBebidas from './InProgressBebidas';
 import inProgressComida from './InProgressComida';
+import ReceitasFeitas from './ReceitasFeitas';
+import ReceitasFavoritas from './ReceitasFavoritas';
 
 export { Comidas };
 export { Bebidas };
@@ -29,3 +31,5 @@ export { ExplorarOrigem };
 export { NotFound };
 export { InProgressBebidas };
 export { inProgressComida };
+export { ReceitasFeitas };
+export { ReceitasFavoritas };

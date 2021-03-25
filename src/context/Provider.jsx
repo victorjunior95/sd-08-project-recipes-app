@@ -17,14 +17,14 @@ function RecipesProvider() {
   const [currentFoodIngredients, setCurrentFoodIngredients] = useState([]);
   const [mainIngredient, setMain] = useState('');
 
-  useEffect(() => {
-    function saveLocalStorage() {
-      localStorage.setItem('mealsToken', mealsToken);
-      localStorage.setItem('cocktailsToken', cocktailsToken);
-      localStorage.setItem('user', JSON.stringify(user));
-    }
-    saveLocalStorage();
-  }, [user, mealsToken, cocktailsToken]);
+  // useEffect(() => {
+  //   function saveLocalStorage() {
+  //     localStorage.setItem('mealsToken', mealsToken);
+  //     localStorage.setItem('cocktailsToken', cocktailsToken);
+  //     localStorage.setItem('user', JSON.stringify(user));
+  //   }
+  //   saveLocalStorage();
+  // }, [user, mealsToken, cocktailsToken]);
 
   useEffect(() => {
     async function fetchData() {
@@ -58,6 +58,5 @@ function RecipesProvider() {
     </contextRecipes.Provider>
   );
 }
-// .propTypes = {};
 
 export default RecipesProvider;

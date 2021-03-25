@@ -47,7 +47,7 @@ const Bebidas = () => {
 
   return (
     <>
-      <Header title="Bebidas" searchBtn={ BOOLEAN_FALSE } />
+      <Header title="Bebidas" disableBtn={ BOOLEAN_FALSE } />
       { drinksCategories.map(({ strCategory: category }, index) => (
         <Button
           datatestid={ `${category}-category-filter` }

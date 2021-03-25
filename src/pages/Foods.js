@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Header, Footer, Cards } from '../components';
-import { fetchFoodsRandom } from '../store/actions';
+import { fetchFoodsRandom, fetchFoodCategory } from '../store/actions';
 import '../styles/pages/Container.css';
 
 const MAX_NUMBER_CARDS = 11;
 
 class Foods extends Component {
   componentDidMount() {
-    const { getFood } = this.props;
+    const { getFood, getFoodCategory } = this.props;
     getFood();
+    getFoodCategory();
   }
 
   render() {
@@ -49,6 +50,7 @@ class Foods extends Component {
 Foods.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.objectOf),
   getFood: PropTypes.func.isRequired,
+  getFoodCategory: PropTypes.func.isRequired,
 };
 
 Foods.defaultProps = {
@@ -62,6 +64,8 @@ const mapStateToProps = ({ foodsReducer: { data: { meals } } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getFood: (value) => dispatch(fetchFoodsRandom(value)),
+  getFoodCategory: () => dispatch(fetchFoodCategory()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foods);

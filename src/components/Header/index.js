@@ -6,12 +6,15 @@ import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 import { toggleButtonSearch } from '../../store/actions';
 import SearchBar from './SearchBar';
+import { CardsButtonsCategories } from '..';
 
 import '../../styles/components/Header/index.css';
 
+const MAX_LENGTH_NAMES_CATEGORIES = 5;
+
 class Header extends Component {
   render() {
-    const { title, showButton, setToggle } = this.props;
+    const { title, showButtonSearch, setToggle, filterButtons } = this.props;
     return (
       <header className="headerContainer">
         <div>
@@ -50,22 +53,39 @@ class Header extends Component {
             </div>
           )}
         </div>
-        {showButton && <SearchBar title={ title } />}
+        {showButtonSearch && <SearchBar title={ title } />}
 
+        {!showButtonSearch
+         && filterButtons
+          && filterButtons.map((button, index) => {
+            if (index < MAX_LENGTH_NAMES_CATEGORIES) {
+              return (
+                <CardsButtonsCategories
+                  key={ index }
+                  strCategory={ button.strCategory }
+                />
+              );
+            }
+            return false;
+          }) }
       </header>
     );
   }
 }
 
+// defaultProps
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   setToggle: PropTypes.func.isRequired,
-  showButton: PropTypes.bool.isRequired,
-
+  showButtonSearch: PropTypes.bool.isRequired,
+  filterButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  showButton: state.headerReducer.showButtonSearch,
+  showButtonSearch: state.headerReducer.showButtonSearch,
+  filterButtons: state.headerReducer.filterButtons,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

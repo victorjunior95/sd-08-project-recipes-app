@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
@@ -11,7 +10,7 @@ import CategoryBar from '../../components/CategoryBar';
 import { LIMIT_OF_CARDS } from '../../common/defs';
 import Footer from '../../components/Footer';
 
-export default function Meals({ history }) {
+export default function Meals() {
   const { meals, isShow, setShouldRenderAll } = useContext(RecipesContext);
 
   useEffect(() => (
@@ -31,7 +30,7 @@ export default function Meals({ history }) {
         }
         if (index < LIMIT_OF_CARDS) {
           return (
-            <MealCard key={ index } meal={ meal } index={ index } history={ history } />
+            <MealCard key={ index } meal={ meal } index={ index } />
           );
         }
         return null;
@@ -40,5 +39,3 @@ export default function Meals({ history }) {
     </div>
   );
 }
-
-Meals.propTypes = ({ history: PropTypes.objectOf(PropTypes.string).isRequired });

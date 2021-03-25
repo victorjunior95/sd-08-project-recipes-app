@@ -15,6 +15,7 @@ import MealsOrigin from './pages/MealsOrigin';
 import MealRecipeDetails from './pages/MealRecipeDetails';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
+import NotFound from './pages/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -47,8 +48,7 @@ function App() {
         component={ CocktailsIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
-
-      {/* <Route exact path="/explorar/bebidas/area" component={ () => notFount() } /> */}
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
     </Switch>
   );
 }

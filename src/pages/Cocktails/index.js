@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
@@ -11,7 +10,7 @@ import DrinkCard from '../../components/DrinkCard';
 import CategoryBar from '../../components/CategoryBar';
 import { LIMIT_OF_CARDS } from '../../common/defs';
 
-export default function Cocktails({ history }) {
+export default function Cocktails() {
   const { drinks, isShow, setShouldRenderAll } = useContext(RecipesContext);
 
   useEffect(() => (
@@ -35,7 +34,6 @@ export default function Cocktails({ history }) {
               key={ index }
               drink={ drink }
               index={ index }
-              history={ history }
             />
           );
         }
@@ -45,5 +43,3 @@ export default function Cocktails({ history }) {
     </div>
   );
 }
-
-Cocktails.propTypes = ({ history: PropTypes.objectOf(PropTypes.string).isRequired });

@@ -20,21 +20,22 @@ import LoadingScreen from '../components/LoadingScreen';
 const RESULTS_LIMIT = 12;
 
 const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
-  isFetchingCategories, recipesNotFound, recipes, categories }) => {
+  fetchRecipesByCategory, isFetchingCategories, recipesNotFound,
+  recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
   useEffect(() => {
     fetchCategories();
+    fetchRecipes();
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
+  if (isFetchingRecipes && isFetchingCategories) return <LoadingScreen />;
   if (recipesNotFound) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   if (recipes.length === 1) return <Redirect to={ `/comidas/${recipes[0].idMeal}` } />;
-
-  if (!recipes.length) return <LoadingScreen />;
 
   return (
     <Container>
@@ -43,17 +44,23 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
-      <FilterList categories={ categories } />
+      <FilterList
+        categories={ categories }
+        fetchRecipesByCategory={ fetchRecipesByCategory }
+      />
       { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
       { recipesNotFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
-        { recipes.length > 1 && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
-          <Card
-            key={ recipe.idMeal }
-            name={ recipe.strMeal }
-            thumbnail={ recipe.strMealThumb }
-            index={ index }
-          />)) }
+        { isFetchingRecipes
+          ? <LoadingScreen />
+          : recipes.length > 1
+            && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
+              <Card
+                key={ recipe.idMeal }
+                name={ recipe.strMeal }
+                thumbnail={ recipe.strMealThumb }
+                index={ index }
+              />)) }
       </CardsContainer>
       <Footer />
     </Container>
@@ -68,6 +75,7 @@ Meals.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   recipesNotFound: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchRecipesByCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ meals: { recipes, categories } }) => ({

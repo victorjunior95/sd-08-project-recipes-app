@@ -2,23 +2,23 @@ import fetchEndpoint from './utils';
 
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 
-export const getIngredients = (ingredient) => (
-  fetchEndpoint(`${BASE_URL}/filter.php?i=${ingredient}`)
+export const getIngredients = () => (
+  fetchEndpoint(`${BASE_URL}/list.php?i=list`)
 );
 
-export const getCategories = (ingredient) => (
-  fetchEndpoint(`${BASE_URL}/filter.php?c=${ingredient}`)
+export const getCategories = () => (
+  fetchEndpoint(`${BASE_URL}/list.php?c=list`)
 );
 
-export const getAreas = (ingredient) => (
-  fetchEndpoint(`${BASE_URL}/filter.php?a=${ingredient}`)
+export const getAreas = () => (
+  fetchEndpoint(`${BASE_URL}/list.php?a=list`)
 );
 
 export const getByIngredient = (ingredient) => (
   fetchEndpoint(`${BASE_URL}/filter.php?i=${ingredient}`)
 );
 
-export const getByName = (name) => (
+export const getByName = (name = '') => (
   fetchEndpoint(`${BASE_URL}/search.php?s=${name}`)
 );
 

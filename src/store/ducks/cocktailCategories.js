@@ -23,7 +23,7 @@ const categories = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       notFound: action.payload.length === 0,
-      drinks: action.payload,
+      categories: action.payload,
       error: '',
     };
 
@@ -32,7 +32,7 @@ const categories = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       notFound: true,
-      drinks: [],
+      categories: [],
       error: action.payload,
     };
 
@@ -41,7 +41,7 @@ const categories = (state = INITIAL_STATE, action) => {
 };
 
 export const Creators = {
-  setFetch: () => ({
+  fetch: () => ({
     type: Types.FETCH,
   }),
 
@@ -56,14 +56,14 @@ export const Creators = {
   }),
 
   fetchCategories: () => async (dispatch) => {
-    dispatch(Creators.setFetchCategories());
+    dispatch(Creators.fetch());
     try {
       const { drinks: results = [] } = await cocktailApi.getCategories();
-      dispatch(Creators.fetchCategoriesSuccess(
+      dispatch(Creators.fetchSuccess(
         results.map(({ strCategory }) => strCategory),
       ));
     } catch (error) {
-      dispatch(Creators.fetchCategoriesError(error.message));
+      dispatch(Creators.fetchError(error.message));
     }
   },
 };

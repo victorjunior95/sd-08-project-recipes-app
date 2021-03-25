@@ -39,7 +39,7 @@ const areas = (state = INITIAL_STATE, action) => {
 };
 
 export const Creators = {
-  setFetch: () => ({
+  fetch: () => ({
     type: Types.FETCH,
   }),
 

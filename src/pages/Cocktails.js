@@ -18,34 +18,24 @@ import LoadingScreen from '../components/LoadingScreen';
 
 const RESULTS_LIMIT = 12;
 
-const Cocktails = ({ fetchRecipes, fetchCategories,
-  isFetching, cocktails, notFound, categories }) => {
+const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
+  fetchRecipesByCategory, isFetchingCategories, recipesNotFound,
+  recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
   useEffect(() => {
-    fetchRecipes();
     fetchCategories();
+    fetchRecipes();
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
-  if (notFound) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  if (cocktails.length === 1) {
-    return <Redirect to={ `/bebidas/${cocktails[0].idDrink}` } />;
+  if (isFetchingRecipes && isFetchingCategories) return <LoadingScreen />;
+  if (recipesNotFound) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
-
-  if (isFetching) {
-    return (
-      <Container>
-        <Header
-          title="Bebidas"
-          showSearchButton
-          handleToggleSearchBar={ toggleSearchBar }
-        />
-        <LoadingScreen />
-        <Footer />
-      </Container>
-    );
+  if (recipes.length === 1) {
+    return <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />;
   }
 
   return (
@@ -55,18 +45,24 @@ const Cocktails = ({ fetchRecipes, fetchCategories,
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
-      <FilterList categories={ categories } />
+
+      <FilterList
+        categories={ categories }
+        fetchRecipesByCategory={ fetchRecipesByCategory }
+      />
       { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
-      { notFound && <p>Nenhuma bebida encontrada</p> }
+      { recipesNotFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
-        { cocktails.length > 1
-          && cocktails.slice(0, RESULTS_LIMIT).map((cocktail, index) => (
-            <Card
-              key={ cocktail.idDrink }
-              name={ cocktail.strDrink }
-              thumbnail={ cocktail.strDrinkThumb }
-              index={ index }
-            />)) }
+        { isFetchingRecipes
+          ? <LoadingScreen />
+          : recipes.length > 1
+            && recipes.slice(0, RESULTS_LIMIT).map((cocktail, index) => (
+              <Card
+                key={ cocktail.idDrink }
+                name={ cocktail.strDrink }
+                thumbnail={ cocktail.strDrinkThumb }
+                index={ index }
+              />)) }
       </CardsContainer>
       <Footer />
     </Container>
@@ -76,17 +72,20 @@ const Cocktails = ({ fetchRecipes, fetchCategories,
 Cocktails.propTypes = {
   fetchRecipes: PropTypes.func.isRequired,
   fetchCategories: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  cocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isFetchingRecipes: PropTypes.bool.isRequired,
+  isFetchingCategories: PropTypes.bool.isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipesNotFound: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  notFound: PropTypes.bool.isRequired,
+  fetchRecipesByCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ cocktails: { recipes, categories } }) => ({
-  cocktails: recipes.recipes,
-  isFetching: recipes.isFetching,
-  notFound: recipes.notFound,
+  recipes: recipes.recipes,
   categories: categories.categories,
+  isFetchingRecipes: recipes.isFetching,
+  isFetchingCategories: categories.isFetching,
+  recipesNotFound: recipes.notFound,
 });
 
 const mapDispatchToProps = (dispatch) => (

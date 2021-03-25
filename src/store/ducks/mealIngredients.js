@@ -8,7 +8,7 @@ export const Types = {
 
 const INITIAL_STATE = {
   isFetching: false,
-  igredients: [],
+  ingredients: [],
   error: '',
 };
 
@@ -19,7 +19,7 @@ const fetch = (state) => ({
 const fetchSuccess = (state, action) => ({
   ...state,
   isFetching: false,
-  igredients: action.payload,
+  ingredients: action.payload,
   error: '',
 });
 
@@ -27,11 +27,11 @@ const fetchError = (state, action) => ({
   ...state,
   isFetching: false,
   error: action.payload,
-  igredients: [],
+  ingredients: [],
 });
 
 const mealIngredients = (state = INITIAL_STATE, action) => {
-  switch (action.types) {
+  switch (action.type) {
   case Types.FETCH: return fetch(state);
   case Types.FETCH_SUCCESS: return fetchSuccess(state, action);
   case Types.FETCH_ERROR: return fetchError(state, action);
@@ -55,9 +55,11 @@ export const Creators = {
   }),
 
   fetchIngredients: () => async (dispatch) => {
+    console.log('whatsup');
     dispatch(Creators.fetch());
     try {
       const { meals: ingredients } = await mealApi.getIngredients();
+      console.log(ingredients);
       dispatch(Creators.fetchSuccess(ingredients));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));

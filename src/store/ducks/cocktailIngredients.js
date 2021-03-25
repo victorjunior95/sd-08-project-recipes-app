@@ -1,3 +1,5 @@
+import * as cocktailApi from '../../services/cocktailApi';
+
 export const Types = {
   FETCH: 'cocktailIngredients/FETCH',
   FETCH_SUCCESS: 'cocktailIngredients/FETCH_SUCCESS',
@@ -21,7 +23,7 @@ const ingredients = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       notFound: action.payload.length === 0,
-      drinks: action.payload,
+      ingredients: action.payload,
       error: '',
     };
 
@@ -30,7 +32,7 @@ const ingredients = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       notFound: true,
-      drinks: [],
+      ingredients: [],
       error: action.payload,
     };
 
@@ -39,7 +41,7 @@ const ingredients = (state = INITIAL_STATE, action) => {
 };
 
 export const Creators = {
-  setFetch: () => ({
+  fetch: () => ({
     type: Types.FETCH,
   }),
 
@@ -52,6 +54,17 @@ export const Creators = {
     type: Types.FETCH_ERROR,
     payload: error,
   }),
+
+  fetchIngredients: () => async (dispatch) => {
+    dispatch(Creators.fetch());
+    try {
+      const { drinks: results } = await cocktailApi.getIngredients();
+      console.log(results);
+      dispatch(Creators.fetchSuccess(results));
+    } catch (error) {
+      dispatch(Creators.fetchError(error.message));
+    }
+  },
 };
 
 export default ingredients;

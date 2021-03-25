@@ -15,7 +15,10 @@ const INGREDIENTS_LIMIT = 12;
 const ExploreMealsByIngredient = ({ fetchIngredients, ingredients }) => {
   useEffect(() => {
     fetchIngredients();
+    console.log('whats?');
   }, []);
+
+  console.log(ingredients, fetchIngredients);
 
   return (
     <Container>
@@ -24,7 +27,7 @@ const ExploreMealsByIngredient = ({ fetchIngredients, ingredients }) => {
         { ingredients.length > 0 && ingredients.map(({
           strIngredient,
           idIngredient,
-          thumbnail = 'https://www.themealdb.com/images/ingredients/Lime.png',
+          thumbnail = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`,
         }, index) => (
           <IngredientCard
             name={ strIngredient }
@@ -43,8 +46,8 @@ ExploreMealsByIngredient.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapStateToProps = ({ meals }) => ({
-  ingredients: meals.ingredients.slice(0, INGREDIENTS_LIMIT),
+const mapStateToProps = ({ meals: { ingredients } }) => ({
+  ingredients: ingredients.ingredients.slice(0, INGREDIENTS_LIMIT),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(IngredientsActions, dispatch);

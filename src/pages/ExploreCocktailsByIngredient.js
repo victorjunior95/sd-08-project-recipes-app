@@ -17,19 +17,20 @@ const ExploreCocktailsByIngredient = ({ fetchIngredients, ingredients }) => {
     fetchIngredients();
   }, []);
 
+  console.log(ingredients);
+
   return (
     <Container>
       <Header title="Explorar Ingredientes" />
       <CardsContainer>
         { ingredients.length > 0 && ingredients.map(({
-          strCocktail,
-          idCocktail,
-          thumbnail = 'https://www.themealdb.com/images/ingredients/Lime.png',
+          strIngredient1,
+          thumbnail = `https://www.themealdb.com/images/ingredients/${strIngredient1}-Small.png`,
         }, index) => (
           <IngredientCard
-            name={ strCocktail }
+            name={ strIngredient1 }
             thumbnail={ thumbnail }
-            key={ idCocktail }
+            key={ index }
             index={ index }
           />)) }
       </CardsContainer>
@@ -43,8 +44,8 @@ ExploreCocktailsByIngredient.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapStateToProps = ({ meals }) => ({
-  cocktails: meals.ingredients.slice(0, COCKTAILS_LIMIT),
+const mapStateToProps = ({ cocktails: { ingredients } }) => ({
+  ingredients: ingredients.ingredients.slice(0, COCKTAILS_LIMIT),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(IngredientActions, dispatch);

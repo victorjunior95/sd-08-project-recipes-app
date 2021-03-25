@@ -1,9 +1,16 @@
 .container {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+/* .container {
   align-items: center;
   display: flex;
   justify-content: center;
   min-height: 100vh;
-}
+} */
 
 .cLoader {
   animation: is-rotating 1s infinite;

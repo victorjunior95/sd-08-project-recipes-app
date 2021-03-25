@@ -41,7 +41,7 @@ const recipes = (state = INITIAL_STATE, action) => {
 };
 
 export const Creators = {
-  setFetch: () => ({
+  fetch: () => ({
     type: Types.FETCH,
   }),
 
@@ -56,7 +56,7 @@ export const Creators = {
   }),
 
   fetchRecipes: (searchType = '', searchValue = '') => async (dispatch) => {
-    dispatch(Creators.setFetch());
+    dispatch(Creators.fetch());
     try {
       let results = null;
       if (searchType === 'ingredient') {
@@ -66,9 +66,24 @@ export const Creators = {
       } else {
         results = await cocktailApi.getByName(searchValue);
       }
-      dispatch(Creators.fetchRecipeSuccess(results.drinks || []));
+      dispatch(Creators.fetchSuccess(results.drinks || []));
     } catch (error) {
-      dispatch(Creators.fetchRecipeError(error.message));
+      dispatch(Creators.fetchError(error.message));
+    }
+  },
+
+  fetchRecipesByCategory: (category = 'All') => async (dispatch) => {
+    dispatch(Creators.fetch());
+    try {
+      let results = null;
+      if (category === 'All') {
+        results = (await cocktailApi.getByName()).drinks || [];
+      } else {
+        results = (await cocktailApi.getByCategory(category)).drinks || [];
+      }
+      dispatch(Creators.fetchSuccess(results));
+    } catch (error) {
+      dispatch(Creators.fetchError(error.message));
     }
   },
 };

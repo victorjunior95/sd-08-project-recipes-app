@@ -8,3 +8,11 @@ body, input, button {
   font-family: Roboto , sans-serif;
   scrollbar-width: none;
 }
+
+body, body > div {
+  min-height: 100vh;
+}
+
+body > div {
+  position: relative;
+}

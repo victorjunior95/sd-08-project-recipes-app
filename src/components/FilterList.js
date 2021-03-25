@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { Creators as RecipesActions } from '../store/ducks/mealRecipes';
 import styles from '../styles/components/FilterList.module.css';
 
 const FILTER_LIMIT = 5;
@@ -10,15 +7,13 @@ const FILTER_LIMIT = 5;
 function FilterList({ categories, fetchRecipesByCategory }) {
   const [currentFilter, setCurrentFilter] = useState('All');
 
-  useEffect(() => {
-    fetchRecipesByCategory(currentFilter);
-  }, [currentFilter]);
-
   const handleChangeFilter = ({ target }) => {
     if (target.innerText !== currentFilter) {
       setCurrentFilter(target.innerText);
+      fetchRecipesByCategory(target.innerText);
     } else {
       setCurrentFilter('All');
+      fetchRecipesByCategory('All');
     }
   };
 
@@ -43,6 +38,4 @@ FilterList.propTypes = {
   fetchRecipesByCategory: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(RecipesActions, dispatch);
-
-export default connect(null, mapDispatchToProps)(FilterList);
+export default FilterList;

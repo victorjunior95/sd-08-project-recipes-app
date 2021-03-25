@@ -27,7 +27,7 @@ const Bebidas = () => {
       setDrinks(drinksAPI);
     }
     getDrinksFromAPI();
-  }, []);
+  }, [mainIngredient, setMain]);
 
   useEffect(() => {
     setDrinks(filter);

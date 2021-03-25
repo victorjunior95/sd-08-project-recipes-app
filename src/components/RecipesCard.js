@@ -1,18 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 function RecipesCard(props) {
-  const { index, meal } = props;
+  const history = useHistory();
+  const { index, meal, id } = props;
+  console.log(id);
   return (
     <div data-testid={ `${index}-recipe-card` }>
+      <input
+        type="image"
+        data-testid={ `${index}-card-image` }
+        src={ meal.strMealThumb }
+        alt="comida"
+        onClick={ () => history.push(`/comidas/${id}`) }
+      />
       <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-      <img src={ meal.strMealThumb } data-testid={ `${index}-card-img` } alt="teste" />
     </div>
   );
 }
 
 RecipesCard.propTypes = {
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   meal: PropTypes.shape({
     strMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,

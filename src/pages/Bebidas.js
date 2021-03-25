@@ -13,15 +13,11 @@ const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
 
 const Bebidas = () => {
-  const { dataByBusca, setHeaderInfo } = useContext(ContextRecipes);
+  const { dataByBusca, setHeaderInfo, barraBuscar } = useContext(ContextRecipes);
   const history = useHistory();
   const [dataBebidas, setDataBebidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [actualCategory, setActualCategory] = useState('');
-
-  useEffect(() => {
-    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
-  }, [setHeaderInfo]);
 
   useEffect(() => {
     async function getCategorias() {
@@ -32,9 +28,15 @@ const Bebidas = () => {
       const allDrink = await getAllBebida();
       setDataBebidas(allDrink.drinks);
     }
-    getAll();
+    if (barraBuscar.input === '') {
+      getAll();
+    }
     getCategorias();
-  }, []);
+  }, [barraBuscar.input]);
+
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
+  }, [setHeaderInfo]);
 
   useEffect(() => {
     if (dataByBusca.drinks === null) {

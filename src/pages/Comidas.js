@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
 import LariContext from '../context/Context';
 import Card from '../components/Card';
 import { categoryFood, seachFoodByCategory } from '../services';

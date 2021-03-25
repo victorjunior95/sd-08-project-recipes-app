@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import LariContext from '../context/Context';
+import LariContext from '../../context/Context';
 
 const SearchBar = (props) => {
   const { showInput, typeAPI } = props;
@@ -21,7 +21,6 @@ const SearchBar = (props) => {
           id="ingredients"
           type="radio"
           data-testid="ingredient-search-radio"
-          checked
           onChange={ () => setFilter('ingredients') }
         />
         Ingrediente

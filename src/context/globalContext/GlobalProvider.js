@@ -5,13 +5,26 @@ import GlobalContext from './GlobalContext';
 function GlobalProvider({ children }) {
   const [email, setEmail] = useState('');
 
+  const [cocktails, setCocktails] = useState({});
+  const [meals, setMeals] = useState({});
+
+  const [doneRecipes, setDoneRecipes] = useState([]);
+
   const provide = {
     values: {
       email,
     },
     functions: {
       setEmail,
+      setCocktails,
+      setMeals,
+      setDoneRecipes,
     },
+    inProgressRecipes: {
+      cocktails,
+      meals,
+    },
+    doneRecipes,
   };
   return (
     <GlobalContext.Provider value={ provide }>

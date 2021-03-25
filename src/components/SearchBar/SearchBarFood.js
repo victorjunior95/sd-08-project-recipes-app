@@ -1,36 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import DrinkContext from '../context/bebidaContext/DrinkContext';
+import FoodContext from '../../context/comidaContext/FoodContext';
 import {
-  SearchCocktailByIngredient,
-  SearchCocktailByName,
-  SearchCocktailByFirstLetter,
-} from '../services/API';
-import { alertSearchRecipeNotFound, alertSearchACaracter } from '../serviceWorker';
+  SearchMealByIngredient,
+  SearchMealByName,
+  SearchMealByFirstLetter,
+} from '../../services/API';
+import { alertSearchRecipeNotFound, alertSearchACaracter } from '../../serviceWorker';
 
 function SearchBarFood() {
   const {
     values: {
       searchInput,
       searchType,
-      drinks,
+      foods,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
-      setDrinks,
+      setFoods,
     },
-  } = useContext(DrinkContext);
+  } = useContext(FoodContext);
 
   const [redirect, setRedirect] = useState(false);
   const [path, setPath] = useState(false);
 
   useEffect(() => {
-    if (drinks.length === 1) {
+    if (foods.length === 1) {
       setRedirect(true);
-      setPath(`/bebidas/${drinks[0].idDrink}`);
+      setPath(`/comidas/${foods[0].idMeal}`);
     }
-  }, [drinks]);
+  }, [foods]);
 
   const requestAPI = async () => {
     if (searchType === 'first-letter-search' && searchInput.length > 1) {
@@ -39,16 +39,16 @@ function SearchBarFood() {
     }
     let response = '';
     if (searchType === 'ingredient-search') {
-      response = await SearchCocktailByIngredient(searchInput);
+      response = await SearchMealByIngredient(searchInput);
     }
     if (searchType === 'name-search') {
-      response = await SearchCocktailByName(searchInput);
+      response = await SearchMealByName(searchInput);
     }
     if (searchType === 'first-letter-search') {
-      response = await SearchCocktailByFirstLetter(searchInput);
+      response = await SearchMealByFirstLetter(searchInput);
     }
-    if (response.drinks !== null && searchType !== '') {
-      return setDrinks(response.drinks);
+    if (response.meals !== null && searchType !== '') {
+      return setFoods(response.meals);
     }
     alertSearchRecipeNotFound();
   };
@@ -56,13 +56,12 @@ function SearchBarFood() {
   if (redirect) return <Redirect to={ path } />;
 
   return (
-    <section className="search-bar-container">
+    <section>
       <input
         type="text"
         data-testid="search-input"
         value={ searchInput }
         onChange={ handleSearchInput }
-        className="search-bar-text-input"
       />
       <label htmlFor="ingredient-search">
         <input
@@ -72,7 +71,6 @@ function SearchBarFood() {
           data-testid="ingredient-search-radio"
           onChange={ handleSearchType }
           value="ingredient-search"
-          className="search-bar-radio-input"
         />
         Buscar por ingrediente
       </label>
@@ -84,7 +82,6 @@ function SearchBarFood() {
           data-testid="name-search-radio"
           onChange={ handleSearchType }
           value="name-search"
-          className="search-bar-radio-input"
         />
         Buscar por nome
       </label>
@@ -96,7 +93,6 @@ function SearchBarFood() {
           data-testid="first-letter-search-radio"
           onChange={ handleSearchType }
           value="first-letter-search"
-          className="search-bar-radio-input"
         />
         Buscar pela primeira letra
       </label>
@@ -104,7 +100,6 @@ function SearchBarFood() {
         data-testid="exec-search-btn"
         type="button"
         onClick={ requestAPI }
-        className="search-bar-button"
       >
         Procurar
       </button>

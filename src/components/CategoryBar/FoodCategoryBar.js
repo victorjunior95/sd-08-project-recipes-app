@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import FoodContext from '../context/comidaContext/FoodContext';
+import FoodContext from '../../context/comidaContext/FoodContext';
 
 function FoodCategoryBar() {
   const {

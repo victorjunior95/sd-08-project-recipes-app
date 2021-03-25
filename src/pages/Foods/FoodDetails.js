@@ -7,8 +7,9 @@ function FoodDetails(props) {
   const { match: { params: { id } } } = props;
 
   function createIngredientList(receita) {
+    const ING_INDEX = 20;
     let ingredientList = [];
-    for (let i = 1; i < 20; i++) {
+    for (let i = 1; i < ING_INDEX; i += 1) {
       ingredientList = ingredientList.concat(receita[`strIngredient${i}`]);
     }
     return setIngredients(ingredientList);
@@ -38,11 +39,23 @@ function FoodDetails(props) {
         src={ strYoutube }
         title="YouTube video player"
         frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media;"
+        allow="accelerometer;
+          autoplay; clipboard-write;
+          encrypted-media;
+          gyroscope; picture-in-picture"
         allowFullScreen
       />
       <ul>
-        { ingredients.map((ing, index) => <li key={ index } data-testid={`${index}-ingredient-name-and-measure`}>{ing}</li>) }
+        { ingredients
+          .map(
+            (ing, index) => (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {ing}
+              </li>),
+          ) }
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
       <button type="button" data-testid="share-btn">Compartilhar</button>

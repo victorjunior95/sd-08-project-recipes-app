@@ -54,9 +54,9 @@ function CardDrinkDetails({ alreadyFavorited, idDaReceita }) {
 
   const ingredients = [];
   const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const recipeStarted = Object.keys(recipes.meals).some((id) => id === idDaReceita);
+  const recipeStarted = Object.keys(recipes.cocktails).some((id) => id === idDaReceita);
   function startRecipe() {
-    const newMeals = { ...recipes, meals: { [idDaReceita]: ingredients } };
+    const newMeals = { ...recipes, cocktails: { [idDaReceita]: ingredients } };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newMeals));
     setRedirect(true);
   }

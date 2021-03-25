@@ -19,7 +19,6 @@ function Bebidas() {
   const loadingAPI = useSelector((state) => state.api.loading);
   const loadingCategoriesAPI = useSelector((state) => state.categoriesButton.loading);
   const drinksArray = useSelector((state) => state.api.data.drinks);
-  console.log(drinksArray);
   const drinkCategories = useSelector((state) => (
     state.categoriesButton.categories.drinks
   ));

@@ -1,5 +1,5 @@
 // import { fetchMeals } from "../../services/fetchAPI";
-import { fetchMeal, fetchDrinks } from '../../services/API';
+import { fetchMeal, fetchDrinks, fetchApi } from '../../services/API';
 
 export const REDIRECT_LOGIN = 'REDIRECT_LOGIN';
 export const RECEIVED_MEALS = 'RECEIVED_MEALS';
@@ -31,6 +31,18 @@ export const requestDrinks = (drinksReceived) => ({
   payload: { drinks: drinksReceived },
 });
 
+export const getBySearch = (value, type, api) => async (dispatch) => {
+  if (api === 'meal') {
+    console.log(value, type, api);
+    const resultsMeals = await fetchApi(value, type, api);
+    console.log(resultsMeals);
+    dispatch(requestMeals(resultsMeals));
+  } else {
+    const resultsDrinks = await fetchApi(value, type, api);
+    dispatch(requestDrinks(resultsDrinks));
+  }
+};
+
 export const requestDrinkCategories = (categoriesReceived) => ({
   type: RECEIVED_DRINK_CATEGORIES,
   payload: { categories: categoriesReceived },
@@ -45,7 +57,6 @@ export const getDrinks = () => async (dispatch) => {
 
 export const getMealsCategories = () => async (dispatch) => {
   const categoriesReceived = await fetchMeal('list', 'categoriesList');
-  console.log(categoriesReceived);
   dispatch(
     requestMealsCategories(categoriesReceived),
   );
@@ -53,7 +64,6 @@ export const getMealsCategories = () => async (dispatch) => {
 
 export const getDrinkCategories = () => async (dispatch) => {
   const categoriesReceived = await fetchDrinks('list', 'categoriesList');
-  console.log(categoriesReceived);
   dispatch(
     requestDrinkCategories(categoriesReceived),
   );

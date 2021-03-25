@@ -2,18 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 
-function Profile({ history }) {
+function FavoriteRecipes({ history }) {
   return (
     <>
       <Header history={ history } />
-      <br />
-      <h1>Profile</h1>
+      <h1>Receitas Favoritas</h1>
     </>
   );
 }
 
-Profile.propTypes = {
+FavoriteRecipes.propTypes = {
   history: PropTypes.string.isRequired,
 };
 
-export default Profile;
+export default FavoriteRecipes;

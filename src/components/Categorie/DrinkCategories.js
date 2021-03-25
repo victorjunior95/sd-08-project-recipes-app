@@ -10,7 +10,6 @@ function Categories() {
   let categoriesFiltred = [];
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.drinkCategoriesReducer.categories);
-  console.log(categories);
 
   useEffect(() => {
     dispatch(getDrinkCategories());
@@ -23,7 +22,6 @@ function Categories() {
 
   async function handleClick(e) {
     const ops = await fetchDrinks(e.target.value, 'categories');
-    console.log(ops);
     dispatch(requestDrinks(ops));
   }
 

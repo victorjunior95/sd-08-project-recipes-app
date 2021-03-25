@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeals } from '../../redux/actions';
 import Card from '../../components/cards/MealCard';
 import Categories from '../../components/Categorie/MealsCategories';
+import Header from '../../components/Header';
 
-function Comidas() {
+function Comidas({ history }) {
   const QUANTITY_OF_CARDS = 12;
   let mealsFiltred = [];
   const dispatch = useDispatch();
@@ -18,11 +20,16 @@ function Comidas() {
 
   return (
     <>
+      <Header history={ history } />
       <Categories />
       {mealsFiltred
         .map((meal, index) => <Card key={ meal.idMeal } data={ { meal, index } } />)}
     </>
   );
 }
+
+Comidas.propTypes = {
+  history: PropTypes.string.isRequired,
+};
 
 export default Comidas;

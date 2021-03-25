@@ -30,7 +30,7 @@ function DrinkDetails(props) {
 
   return (
     <>
-      { shouldRedirect && <Redirect to={ `/comidas/${id}/in-progress` } /> }
+      { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
       <div className="recipe-container">
         <h2 data-testid="recipe-title">{ strDrink }</h2>
         <span data-testid="recipe-category">

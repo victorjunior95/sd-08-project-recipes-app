@@ -46,7 +46,7 @@ function Drinks() {
     } else {
       drinksToMap = [...drinksFilterCategories];
     }
-    if (drinksToMap.length === 1) {
+    if (drinksToMap.length === 1 && drinks.length !== 0) {
       const id = drinksToMap[0].idDrink;
       const path = `/bebidas/${id}`;
       return <Redirect to={ path } />;

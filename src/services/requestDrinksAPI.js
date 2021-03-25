@@ -36,8 +36,7 @@ export const requestCategoriesDrinks = async () => {
   const path = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const response = await fetch(path);
   const data = await response.json();
-  const firstsDrinks = data.drinks.splice(0, TAG_ARRAY_LENGTH);
-  return firstsDrinks;
+  return data.drinks.slice(0, TAG_ARRAY_LENGTH);
 };
 
 export const requestDrinkById = async (id) => {

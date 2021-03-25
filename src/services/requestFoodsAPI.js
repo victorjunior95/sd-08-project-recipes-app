@@ -32,9 +32,7 @@ export const requestCategoriesMeals = async () => {
   const path = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const response = await fetch(path);
   const data = await response.json();
-  const firstsMeals = data.meals.splice(0, TAG_ARRAY_LENGTH);
-  console.log(firstsMeals);
-  return firstsMeals;
+  return data.meals.slice(0, TAG_ARRAY_LENGTH);
 };
 
 export const requestFoodById = async (id) => {

@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import fetchDrinkThunk from '../redux/actions/fetchDrinkAction';
 import clearRecipesAction from '../redux/actions/clearRecipesAction';
 import clearSearchAction from '../redux/actions/clearSearchAction';
+import DrinkCatsButtons from '../components/DrinkCatsButtons';
 
 function DrinksRecipes() {
   const dispatch = useDispatch();
@@ -20,12 +21,13 @@ function DrinksRecipes() {
   useEffect(() => () => {
     dispatch(clearRecipesAction());
     dispatch(clearSearchAction());
-  }, []);
+  }, [dispatch]);
   return (
     <main>
       { drinks && drinks.length === 1
         && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Header />
+      <DrinkCatsButtons />
       { drinks && drinks.map((elem, index) => (
         <button
           key={ elem.idDrink }

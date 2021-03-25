@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import fetchMealThunk from '../redux/actions/fetchMealAction';
 import clearRecipesAction from '../redux/actions/clearRecipesAction';
 import clearSearchAction from '../redux/actions/clearSearchAction';
+import MealCatsButtons from '../components/MealCatsButton';
 
 function MealsRecipes() {
   const dispatch = useDispatch();
@@ -21,12 +22,13 @@ function MealsRecipes() {
   useEffect(() => () => {
     dispatch(clearRecipesAction());
     dispatch(clearSearchAction());
-  }, []);
+  }, [dispatch]);
 
   return (
     <main>
       {meals && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
+      <MealCatsButtons />
       { meals && meals.map((elem, index) => (
         <button
           key={ elem.idMeal }

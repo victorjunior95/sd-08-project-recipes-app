@@ -3,12 +3,8 @@ import { Redirect } from 'react-router';
 import ContextReceitas from '../context/ContextReceitas';
 import '../styles/login.css';
 
-// Da um auto fix com o eslint, n to conseguindo aqui, Att. Anti-Marcela thank you
-// Me ame menos por favor <3
-// Vou tentar o.o, Valeeeeu
 function Login() {
   const [info, setInfo] = useState({ email: '', password: '' });
-  // const [redirect, setRedirect] = useState(false);
   const { logedIn, setLoged } = useContext(ContextReceitas);
   function verificaEmailESenha(email, password) {
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
@@ -25,7 +21,6 @@ function Login() {
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email: info.email }));
     setLoged(true);
-    // setRedirect(true);
   }
 
   const url = 'https://image.flaticon.com/icons/png/512/1969/1969225.png';

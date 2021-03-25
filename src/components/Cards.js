@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
 function Cards({ title }) {
+  const history = useHistory();
   const {
     type,
     comidas,
@@ -30,6 +32,10 @@ function Cards({ title }) {
     }
   }, []);
 
+  function redirectToDetails(id) {
+    history.push(`/${title.toLowerCase()}/${id}`);
+  }
+
   return (
     array.map((item, index) => {
       if (index <= LIMIT) {
@@ -37,6 +43,10 @@ function Cards({ title }) {
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
+            onClick={ () => redirectToDetails(item[`id${type.palavra}`]) }
+            onKeyPress={ () => console.log('clicou') }
+            role="button"
+            tabIndex={ index }
           >
             <h3 data-testid={ `${index}-card-name` }>
               { item[`str${type.palavra}`] }

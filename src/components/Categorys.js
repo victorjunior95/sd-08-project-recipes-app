@@ -40,29 +40,38 @@ function Categorys({ title }) {
 
     const { foodRequest, drinkRequest } = await filterCategoryRequest(target.name);
     console.log(foodRequest, drinkRequest);
-    if (foodRequest) {
-      setComidas(foodRequest);
-    } else {
+    if (drinkRequest) {
       setBebidas(drinkRequest);
+    } else {
+      setComidas(foodRequest);
     }
   }
 
   return (
-    arrayCategory.map((item, index) => {
-      if (index <= LIMIT) {
-        return (
-          <button
-            type="button"
-            data-testid={ `${item.strCategory}-category-filter` }
-            onClick={ toggleCategoryFilter ? firstContent : categoryFilter }
-            name={ item.strCategory }
-          >
-            {item.strCategory}
-          </button>
-        );
-      }
-      return null;
-    })
+    <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ firstContent }
+      >
+        All
+      </button>
+      { arrayCategory.map((item, index) => {
+        if (index <= LIMIT) {
+          return (
+            <button
+              type="button"
+              data-testid={ `${item.strCategory}-category-filter` }
+              onClick={ toggleCategoryFilter ? firstContent : categoryFilter }
+              name={ item.strCategory }
+            >
+              {item.strCategory}
+            </button>
+          );
+        }
+        return null;
+      }) }
+    </div>
   );
 }
 

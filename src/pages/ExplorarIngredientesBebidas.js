@@ -6,12 +6,12 @@ import { buscarIngredientesBebidas } from '../services/buscarIngredientes';
 
 function ExplorarIngredientesBebidas() {
   const [ingredientes, setIngredientes] = useState([]);
-  const { enviarTituloDaPagina, mudarStatusBotaoPesquisa, tituloDaPagina } = useContext(
+  const { enviarTituloDaPagina, mudarStatusBotaoPesquisa } = useContext(
     ContextReceitas,
   );
   useEffect(() => {
     async function listaIngredientesAPI() {
-      const ingredientesAPI = await buscarIngredientesBebidas() ;
+      const ingredientesAPI = await buscarIngredientesBebidas();
       setIngredientes(ingredientesAPI);
     }
     listaIngredientesAPI();

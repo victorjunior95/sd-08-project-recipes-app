@@ -2,25 +2,19 @@ import React, { useState, useContext, useEffect } from 'react';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { buscarIngredientesComidas,
-  buscarIngredientesBebidas } from '../services/buscarIngredientes';
+import { buscarIngredientesComidas } from '../services/buscarIngredientes';
 
 function ExplorarIngredientes() {
   const [ingredientes, setIngredientes] = useState([]);
-  const { enviarTituloDaPagina, mudarStatusBotaoPesquisa, tituloDaPagina } = useContext(
+  const { enviarTituloDaPagina, mudarStatusBotaoPesquisa } = useContext(
     ContextReceitas,
   );
-  const [tituloAtual, setTituloAtual] = useState('Comidas');
   useEffect(() => {
     async function listaIngredientesAPI() {
-      const ingredientesAPI = tituloDaPagina === 'Comidas'
-        ? await buscarIngredientesComidas() : await buscarIngredientesBebidas();
-      setTituloAtual(tituloDaPagina);
+      const ingredientesAPI = await buscarIngredientesComidas();
       setIngredientes(ingredientesAPI);
-      console.log(ingredientesAPI);
     }
     listaIngredientesAPI();
-    console.log(ingredientes);
     enviarTituloDaPagina('Explorar Ingredientes');
     mudarStatusBotaoPesquisa(false);
   }, []);
@@ -37,13 +31,11 @@ function ExplorarIngredientes() {
               data-testid={ `${index}-ingredient-card` }
             >
               <img
-                src={ `https://www.${tituloAtual === 'Comidas' ? 'themealdb' : 'thecocktaildb'}.com/images/ingredients/${tituloAtual === 'Comidas' ? element.strIngredient : element.strIngredient1}.png` }
-                // alt={ element.strIngredient1 }
+                src={ `https://www.'themealdb'.com/images/ingredients/${element.strIngredient}-Small.png` }
                 data-testid={ `${index}-card-img` }
+                alt="imagem ingrediente"
               />
-              <div data-testid={ `${index}-card-name` }>
-                {/* { element.strIngredient1 } */}
-              </div>
+              <div data-testid={ `${index}-card-name` } />
             </button>
           ))
         }

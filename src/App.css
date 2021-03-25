@@ -73,14 +73,23 @@ header {
 
 .receitas-favoritas {
   align-items: center;
-  background-color: darkgray;
+  background-color: #121212;
   display: flex;
   flex-direction: column;
 }
 
+.receitas-favoritas h1 {
+  color: #0fa36b;
+}
+
 .share-favorite {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.favorite {
+  height: 32px;
+  width: 32px;
 }
 
 .cardBackGround {
@@ -88,11 +97,12 @@ header {
 }
 
 .cardBackGround .card {
-  background-color: rgb(131, 131, 131);
+  background-color: #333;
+  color: #ccc;
 }
 
 .cardBackGround .card .list-group-item {
-  background-color: rgb(131, 131, 131);
+  background-color: #333;
 }
 
 .footer {

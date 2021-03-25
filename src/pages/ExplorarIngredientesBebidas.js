@@ -2,25 +2,19 @@ import React, { useState, useContext, useEffect } from 'react';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { buscarIngredientesComidas,
-  buscarIngredientesBebidas } from '../services/buscarIngredientes';
+import { buscarIngredientesBebidas } from '../services/buscarIngredientes';
 
-function ExplorarIngredientes() {
+function ExplorarIngredientesBebidas() {
   const [ingredientes, setIngredientes] = useState([]);
   const { enviarTituloDaPagina, mudarStatusBotaoPesquisa, tituloDaPagina } = useContext(
     ContextReceitas,
   );
-  const [tituloAtual, setTituloAtual] = useState('Comidas');
   useEffect(() => {
     async function listaIngredientesAPI() {
-      const ingredientesAPI = tituloDaPagina === 'Comidas'
-        ? await buscarIngredientesComidas() : await buscarIngredientesBebidas();
-      setTituloAtual(tituloDaPagina);
+      const ingredientesAPI = await buscarIngredientesBebidas() ;
       setIngredientes(ingredientesAPI);
-      console.log(ingredientesAPI);
     }
     listaIngredientesAPI();
-    console.log(ingredientes);
     enviarTituloDaPagina('Explorar Ingredientes');
     mudarStatusBotaoPesquisa(false);
   }, []);
@@ -30,26 +24,6 @@ function ExplorarIngredientes() {
       <Header />
       <div>
         {
-          ingredientes.map((element, index) => (
-            <button
-              type="button"
-              key={ index }
-              data-testid={ `${index}-ingredient-card` }
-            >
-              <img
-                src={ `https://www.${tituloAtual === 'Comidas' ? 'themealdb' : 'thecocktaildb'}.com/images/ingredients/${tituloAtual === 'Comidas' ? element.strIngredient : element.strIngredient1}.png` }
-                // alt={ element.strIngredient1 }
-                data-testid={ `${index}-card-img` }
-              />
-              <div data-testid={ `${index}-card-name` }>
-                {/* { element.strIngredient1 } */}
-              </div>
-            </button>
-          ))
-        }
-
-        {/* ///explorar/comidas/ingredientes */}
-        {/* {
           ingredientes.map(({ strIngredient1 }, index) => (
             <button
               type="button"
@@ -66,7 +40,7 @@ function ExplorarIngredientes() {
               </div>
             </button>
           ))
-        } */}
+        }
         ;
       </div>
       <Footer />
@@ -74,4 +48,4 @@ function ExplorarIngredientes() {
   );
 }
 
-export default ExplorarIngredientes;
+export default ExplorarIngredientesBebidas;

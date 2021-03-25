@@ -25,6 +25,7 @@ function ProviderRecipes({ children }) {
   const [dataByBusca, setDataByBuscar] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [userEmail, setUserEmail] = useState('');
 
   const fetchDataComidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
@@ -89,7 +90,9 @@ function ProviderRecipes({ children }) {
           isFetching,
           setIsFetching,
           favoriteRecipes,
-          setFavoriteRecipes }
+          setFavoriteRecipes,
+          userEmail,
+          setUserEmail }
       }
     >
       {children}

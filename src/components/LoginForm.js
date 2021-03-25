@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import ContextRecipes from '../context/ContextRecipes';
 
 function LoginForm() {
+  const { setUserEmail } = useContext(ContextRecipes);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();

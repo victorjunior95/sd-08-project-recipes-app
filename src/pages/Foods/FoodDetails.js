@@ -6,17 +6,28 @@ function FoodDetails(props) {
   const [ingredients, setIngredients] = useState([]);
   const { match: { params: { id } } } = props;
 
+  function createIngredientList(receita) {
+    let ingredientList = [];
+    for (let i = 1; i < 20; i++) {
+      ingredientList = ingredientList.concat(receita[`strIngredient${i}`]);
+    }
+    return setIngredients(ingredientList);
+  }
+
   useEffect(() => {
     async function fetchRecipe(idNum) {
       const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idNum}`)
         .then((res) => res.json());
-      setRecipe(meals[0]);
+      const currRecipe = meals[0];
+      setRecipe(currRecipe);
+      createIngredientList(currRecipe);
     }
     fetchRecipe(id);
   }, [id]);
 
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = recipe;
   console.log(strYoutube);
+  console.log(ingredients);
   return (
     <div>
       <h2 data-testid="recipe-title">{ strMeal }</h2>
@@ -31,6 +42,9 @@ function FoodDetails(props) {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media;"
         allowFullScreen
       />
+      <ul>
+        { ingredients.map((ing, index) => <li key={ index } data-testid={`${index}-ingredient-name-and-measure`}>{ing}</li>) }
+      </ul>
       <p data-testid="instructions">{ strInstructions }</p>
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>

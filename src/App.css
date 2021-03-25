@@ -1,3 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+.alert {
+  background-color: rgba(57, 62, 65, 0.9);
+  border-radius: 10px;
+  color: whitesmoke;
+  float: right;
+  left: 50%;
+  position: fixed;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.linkImage {
+  width: 100%;
+}
+
+.card {
+  border: 3px solid black;
+  margin: 10px;
+}
+
 .btn-login {
   margin-left: 140px;
   margin-top: 10px;
@@ -17,6 +42,13 @@
 
 .rocksGlass {
   animation: shake 1s infinite ease;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
 .login {

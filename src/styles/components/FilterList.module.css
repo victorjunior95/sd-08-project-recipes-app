@@ -1,8 +1,17 @@
-.filterContainer {
+/* .filterContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: 10px 0;
+} */
+
+.filterContainer {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  padding: 10px;
 }
 
 .filterButton {
@@ -13,9 +22,8 @@
   font-weight: 700;
   height: 28px;
   justify-content: flex-start;
-  margin: 5px;
   padding: 10px;
-  width: 105px;
+  width: 100%;
 }
 
 p {

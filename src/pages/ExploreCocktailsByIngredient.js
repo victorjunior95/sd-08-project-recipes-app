@@ -25,7 +25,7 @@ const ExploreCocktailsByIngredient = ({ fetchIngredients, ingredients }) => {
       <CardsContainer>
         { ingredients.length > 0 && ingredients.map(({
           strIngredient1,
-          thumbnail = `https://www.themealdb.com/images/ingredients/${strIngredient1}-Small.png`,
+          thumbnail = `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`,
         }, index) => (
           <IngredientCard
             name={ strIngredient1 }

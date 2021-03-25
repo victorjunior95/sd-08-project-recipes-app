@@ -1,4 +1,5 @@
-import { AREA_SELECT, CLEAR_SEARCH, FETCH_AREA_API, SEARCH_INPUT } from '../actions';
+import { AREA_SELECT, CLEAR_SEARCH, FILTER_DRINK_CAT, FETCH_AREA_API,
+  SEARCH_INPUT } from '../actions';
 
 const INITIAL_STATE = {
   inputValue: '',
@@ -22,6 +23,11 @@ export default function searchBar(state = INITIAL_STATE, action) {
       ...state,
       inputValue: '',
       inputType: '',
+    };
+  case FILTER_DRINK_CAT:
+    return {
+      ...state,
+      filter: payload.filter,
     };
   case FETCH_AREA_API:
     return {

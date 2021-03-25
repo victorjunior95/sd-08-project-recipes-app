@@ -10,7 +10,7 @@ function RecipeSearchByArea() {
   useEffect(() => {
     const fetchData = () => dispatch(fetchAreaThunk());
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setArea(e.target.value);

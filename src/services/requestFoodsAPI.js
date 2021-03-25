@@ -1,4 +1,5 @@
 const TAG_ARRAY_LENGTH = 5;
+const TAG_ARRAY_LENGTH_SIX = 6;
 
 export const requestByName = async (name) => {
   const path = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
@@ -54,4 +55,11 @@ export const requestRandomMeal = async () => {
   const response = await fetch(path);
   const data = await response.json();
   return data.meals[0].idMeal;
+};
+
+export const requestSixMeals = async () => {
+  const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals.slice(0, TAG_ARRAY_LENGTH_SIX);
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import HeaderRecipeDetails from './HeaderRecipeDetails';
 import IngredientsRecipeDetails from './IngredientsRecipeDetails';
@@ -6,8 +6,13 @@ import InstructionsRecipeDetails from './InstructionsRecipeDetails';
 import VideoRecipeDetails from './VideoRecipeDetails';
 import RecommendedRecipeDetails from './RecommendedRecipeDetails';
 import Button from './Button';
+import { requestSixDrinks } from '../services/requestDrinksAPI';
+import { requestSixMeals } from '../services/requestFoodsAPI';
 
 const ContainerRecipeDetails = ({ recipe, page }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [recommended, setRecommended] = useState([]);
+  const [recipeInfo, setRecipeInfo] = useState({});
   const getIngredientsMeasure = (ingredientsSize) => {
     const arrayIngredients = [];
     for (let i = 1; i <= ingredientsSize; i += 1) {
@@ -34,7 +39,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     } = recipe;
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
-    return {
+    setRecipeInfo({
       name,
       category,
       image,
@@ -42,7 +47,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       video,
       aternateRecipe,
       arrayIngredients,
-    };
+    });
   };
 
   const drinkInfo = () => {
@@ -56,7 +61,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     } = recipe;
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
-    return {
+    setRecipeInfo({
       name,
       category,
       image,
@@ -64,17 +69,25 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       video,
       aternateRecipe,
       arrayIngredients,
-    };
+    });
   };
 
-  const recipeInfo = () => {
-    if (page === 'Comidas') {
-      return foodInfo();
+  useEffect(() => {
+    async function getRecommendeds() {
+      setIsLoading(true);
+      if (page === 'Comidas') {
+        const foodsRecommended = await requestSixDrinks();
+        setRecommended(foodsRecommended);
+        foodInfo();
+      } else if (page === 'Bebidas') {
+        const drinksRecommended = await requestSixMeals();
+        setRecommended(drinksRecommended);
+        drinkInfo();
+      }
+      setIsLoading(false);
     }
-    if (page === 'Bebidas') {
-      return drinkInfo();
-    }
-  };
+    getRecommendeds();
+  }, []);
 
   const {
     name,
@@ -82,19 +95,31 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     image,
     instructions,
     video,
-    // aternateRecipe,
     arrayIngredients,
-  } = recipeInfo();
+  } = recipeInfo;
 
   return (
-    <main>
-      <HeaderRecipeDetails title={ name } category={ category } imgPath={ image } />
-      <IngredientsRecipeDetails ingredients={ arrayIngredients } />
-      <InstructionsRecipeDetails instruction={ instructions } />
-      {video ? <VideoRecipeDetails videoPath={ video } /> : ''}
-      <RecommendedRecipeDetails />
-      <Button name="Iniciar Receita" data-testid="start-recipe-btn" />
-    </main>
+    <div>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <main>
+          <HeaderRecipeDetails
+            title={ name }
+            category={ category }
+            imgPath={ image }
+          />
+          <IngredientsRecipeDetails ingredients={ arrayIngredients } />
+          <InstructionsRecipeDetails instruction={ instructions } />
+          {video ? <VideoRecipeDetails videoPath={ video } /> : ''}
+          <RecommendedRecipeDetails
+            recommendedRecipes={ recommended }
+            page={ page }
+          />
+          <Button name="Iniciar Receita" data-testid="start-recipe-btn" />
+        </main>
+      )}
+    </div>
   );
 };
 

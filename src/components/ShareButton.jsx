@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import share from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareButton() {
+export default function ShareButton({ dataTestId }) {
   const { pathname } = useLocation();
   const [message, setMessage] = useState('');
 
@@ -24,8 +25,16 @@ export default function ShareButton() {
       <img
         alt="share-icon"
         src={ share }
-        data-testid="share-btn"
+        data-testid={ dataTestId }
       />
     </button>
   );
 }
+
+ShareButton.propTypes = {
+  dataTestId: PropTypes.string,
+};
+
+ShareButton.defaultProps = {
+  dataTestId: 'share-btn',
+};

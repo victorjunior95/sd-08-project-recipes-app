@@ -7,6 +7,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 import RecommendedList from '../components/RecommendedList';
 import ButtonIniciar from '../components/ButtonIniciar';
+import HandleYoutube from '../services/HandleYoutube';
 
 function Detalhes() {
   const history = useHistory();
@@ -71,14 +72,7 @@ function Detalhes() {
         <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
       </li>));
 
-    console.log(ingredientes);
     return results;
-  };
-
-  const handleYoutube = () => {
-    const https = objDetail[0].strYoutube.split('https://www.youtube.com/watch?v=');
-    const newHttps = `https://www.youtube.com/embed/${https[1]}`;
-    return newHttps;
   };
 
   useEffect(() => {
@@ -119,7 +113,11 @@ function Detalhes() {
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <RecommendedList value={ recommendedFood } />
-      <ButtonIniciar onClick={ () => addStartedRecipes(id) } id={ id } />
+      <ButtonIniciar
+        onClick={ () => addStartedRecipes(id) }
+        id={ id }
+        objDetail={ objDetail }
+      />
     </div>
   );
 
@@ -153,12 +151,16 @@ function Detalhes() {
         data-testid="video"
         width="300px"
         height="200px"
-        src={ handleYoutube() }
+        src={ HandleYoutube(objDetail[0]) }
         title="YouTube video player"
       />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <RecommendedList value={ recommendedDrink } />
-      <ButtonIniciar onClick={ () => addStartedRecipes(id) } id={ id } />
+      <ButtonIniciar
+        onClick={ () => addStartedRecipes(id) }
+        id={ id }
+        objDetail={ objDetail }
+      />
     </div>
   );
 

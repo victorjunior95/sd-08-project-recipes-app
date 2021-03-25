@@ -12,20 +12,20 @@ function Provider({ children }) {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [recommendedFood, setRecommendedFood] = useState([]);
   const [recommendedDrink, setRecommendedDrink] = useState([]);
-  const [startedRecipes, setStartedRecipes] = useState([]);
+  // const [startedRecipes, setStartedRecipes] = useState([]);
 
-  const addStartedRecipes = (newId) => {
-    if (startedRecipes.some((e) => e === newId)) {
-      setStartedRecipes(startedRecipes);
-    } else {
-      setStartedRecipes([...startedRecipes, newId]);
-    }
-  };
+  // const addStartedRecipes = (newId) => {
+  //   if (startedRecipes.some((e) => e === newId)) {
+  //     setStartedRecipes(startedRecipes);
+  //   } else {
+  //     setStartedRecipes([...startedRecipes, newId]);
+  //   }
+  // };
 
-  const removeStartedRecipes = (newId) => {
-    const newArray = startedRecipes.filter((elem) => elem !== newId);
-    setStartedRecipes(newArray);
-  };
+  // const removeStartedRecipes = (newId) => {
+  //   const newArray = startedRecipes.filter((elem) => elem !== newId);
+  //   setStartedRecipes(newArray);
+  // };
 
   const searchBarRequestFood = async (type, inputvalue) => {
     try {
@@ -119,9 +119,6 @@ function Provider({ children }) {
   }, []);
 
   const context = {
-    startedRecipes,
-    addStartedRecipes,
-    removeStartedRecipes,
     recommendedFood,
     recommendedDrink,
     setRecommendedFood,

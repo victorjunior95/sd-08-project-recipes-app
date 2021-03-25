@@ -29,3 +29,11 @@ export function fetchRandomDrinks() {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchFistDrinkCats() {
+  const drinkCatsURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
+  return fetch(drinkCatsURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

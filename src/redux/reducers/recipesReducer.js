@@ -1,7 +1,8 @@
-import { CLEAR_API, FETCH_API } from '../actions';
+import { CLEAR_API, FETCH_API, FETCH_CATEGORIES } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
+  categories: [],
 };
 
 export default function recipesReducer(state = INITIAL_STATE, action) {
@@ -17,6 +18,11 @@ export default function recipesReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       recipes: [],
+    };
+  case FETCH_CATEGORIES:
+    return {
+      ...state,
+      categories: payload.categories,
     };
   default:
     return state;

@@ -24,6 +24,13 @@ class Header extends Component {
     this.submitSearch = this.submitSearch.bind(this);
   }
 
+  componentDidMount() {
+    const { searchIngredient,
+      params: { url: { byName }, defaultSearch } } = this.props;
+    const url = byName + defaultSearch;
+    searchIngredient(url);
+  }
+
   handleChange({ target }) {
     if (target.type === 'radio') this.setState({ searchBy: target.value });
     if (target.type === 'text') this.setState({ text: target.value });
@@ -59,6 +66,7 @@ class Header extends Component {
       <>
         <label htmlFor="search-input">
           <input
+            className="teste"
             data-testid="search-input"
             type="text"
             name="search-input"
@@ -67,47 +75,49 @@ class Header extends Component {
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="ingrediente">
-          <input
-            type="radio"
-            name="radio-search"
-            id="ingredient"
-            onChange={ this.handleChange }
-            value="ingredient"
-            data-testid="ingredient-search-radio"
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="name">
-          <input
-            type="radio"
-            name="radio-search"
-            id="name"
-            onChange={ this.handleChange }
-            value="name"
-            data-testid="name-search-radio"
-          />
-          Nome
-        </label>
-        <label htmlFor="first-letter">
-          <input
-            type="radio"
-            name="radio-search"
-            id="first-letter"
-            onChange={ this.handleChange }
-            value="first-letter"
-            data-testid="first-letter-search-radio"
-          />
-          Primeira Letra
-        </label>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ () => this.submitSearch(searchIngredient) }
-        >
-          {' '}
-          Buscar
-        </button>
+        <div className="radios">
+          <label htmlFor="ingrediente">
+            <input
+              type="radio"
+              name="radio-search"
+              id="ingredient"
+              onChange={ this.handleChange }
+              value="ingredient"
+              data-testid="ingredient-search-radio"
+            />
+            Ingrediente
+          </label>
+          <label htmlFor="name">
+            <input
+              type="radio"
+              name="radio-search"
+              id="name"
+              onChange={ this.handleChange }
+              value="name"
+              data-testid="name-search-radio"
+            />
+            Nome
+          </label>
+          <label htmlFor="first-letter">
+            <input
+              type="radio"
+              name="radio-search"
+              id="first-letter"
+              onChange={ this.handleChange }
+              value="first-letter"
+              data-testid="first-letter-search-radio"
+            />
+            Primeira Letra
+          </label>
+          <button
+            type="button"
+            data-testid="exec-search-btn"
+            onClick={ () => this.submitSearch(searchIngredient) }
+          >
+            {' '}
+            Buscar
+          </button>
+        </div>
       </>
     );
   }

@@ -14,17 +14,17 @@ export const isLoading = () => ({
 export function fetchIngredient(url) {
   return async (dispatch) => {
     dispatch(isLoading());
-    const result = await fetch(url).then((response) => response.json());
-    console.log(result);
-    if (result.meals === null || result.length === 0) {
-      dispatch(isLoading());
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
     try {
+      const req = await fetch(url);
+      const result = await req.json();
+      if (result.meals === null || result.drinks === null) {
+        dispatch(isLoading());
+        return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
       dispatch(ingredientResult(result));
       dispatch(isLoading());
     } catch (e) {
-      return console.log('sdasd');
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   };
 }

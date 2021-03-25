@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import RecipesContext from '../core/RecipesContext';
 import components from '../components/index';
 
@@ -48,10 +49,24 @@ function Home() {
     <div>
       <components.Header title="Comidas" />
       {isLoading ? 'Loading...' : null}
-      <div>
+      <div className="main-foods-buttons-container">
+        <button
+          className="btn btn-primary"
+          style={ { marginTop: 5, marginBottom: 5, width: 106 } }
+          onClick={ () => {
+            setCategorySelected([]);
+            setSelected(false);
+          } }
+          type="button"
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
         {dataFoodsCategories.slice(0, CATEGORIES_LENGTH_5).map(
           ({ strCategory }, index) => (
             <button
+              className="btn btn-primary"
+              style={ { marginTop: 5, marginBottom: 5, width: 106 } }
               onClick={ handleClick }
               value={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
@@ -62,19 +77,9 @@ function Home() {
             </button>
           ),
         )}
-        <button
-          onClick={ () => {
-            setCategorySelected([]);
-            setSelected(false);
-          } }
-          type="button"
-          data-testid="All-category-filter"
-        >
-          All
-        </button>
       </div>
       <div className="home-container">
-        {mealData.length && !selected
+        {mealData.length && !selected && mealData.length !== 1
           ? mealData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
             <MainFoodsCard
               key={ index }
@@ -91,6 +96,8 @@ function Home() {
               id={ food.idMeal }
             />
           ))}
+        { mealData.length && !selected && mealData.length === 1
+          ? <Redirect to={ `/comidas/${mealData[0].idMeal}` } /> : null }
         <components.Footer />
       </div>
     </div>

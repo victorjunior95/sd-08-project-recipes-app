@@ -11,13 +11,20 @@ const getUrlByFilter = (filter, text) => {
   }
 };
 
-const fetchByDrinkFilters = async (inputs, setIsLoading, setDrinkData) => {
+const fetchByDrinkFilters = async (inputs, setIsLoading, setDrinkData, location) => {
   const { text, radio } = inputs;
   setIsLoading(true);
   const data = await fetch(getUrlByFilter(radio, text));
   const json = await data.json();
   setIsLoading(false);
-  setDrinkData(json.drinks);
+  if (location.pathname === '/bebidas') {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+  if (json.drinks === null) {
+    setDrinkData([]);
+  } else {
+    setDrinkData(json.drinks);
+  }
 };
 
 export default fetchByDrinkFilters;

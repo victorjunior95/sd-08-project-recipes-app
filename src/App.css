@@ -207,3 +207,18 @@
   justify-content: space-around;
 }
 
+.main-foods-buttons-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 5px;
+}
+
+.drinks-buttons-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 5px;
+}

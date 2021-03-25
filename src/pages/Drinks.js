@@ -2,40 +2,29 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Header, Footer, Loading, Cards } from '../components';
-import { fetchDrink } from '../store/actions';
+import { Header, Footer, Cards } from '../components';
+import { fetchDrinksRandom } from '../store/actions';
 import '../styles/pages/Container.css';
 
 const MAX_NUMBER_CARDS = 11;
 class Drinks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: '',
-      searchRadio: 'name',
-
-    };
-  }
-
   componentDidMount() {
     const { getDrink } = this.props;
-    const { search, searchRadio } = this.state;
-    getDrink({ search, searchRadio });
+    getDrink();
   }
 
   render() {
-    const { listDrinks, isFetching } = this.props;
+    const { drinks } = this.props;
 
-    if (isFetching) return <Loading />;
-    if (listDrinks && listDrinks.length === 1) {
-      return <Redirect to={ `/bebidas/${listDrinks[0].idDrink}` } />;
+    if (drinks && drinks.length === 1) {
+      return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     }
     return (
       <div>
         <Header title="Bebidas" />
         <div className="container">
 
-          {listDrinks && listDrinks.reduce((acc, cur, index) => {
+          {drinks && drinks.reduce((acc, cur, index) => {
             if (index <= MAX_NUMBER_CARDS) {
               acc.push(cur);
             }
@@ -57,21 +46,21 @@ class Drinks extends Component {
 }
 
 Drinks.propTypes = {
-  listDrinks: PropTypes.arrayOf(PropTypes.objectOf)
-    .isRequired,
+  drinks: PropTypes.arrayOf(PropTypes.objectOf),
   getDrink: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
 
 };
 
-const mapStateToProps = (state) => ({
-  listDrinks: state.drinksReducer.data.drinks,
-  isFetching: state.cloneFoodsReducer.isFetching,
+Drinks.defaultProps = {
+  drinks: [],
+};
 
+const mapStateToProps = ({ drinksReducer: { data: { drinks } } }) => ({
+  drinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getDrink: (value) => dispatch(fetchDrink(value)),
+  getDrink: (value) => dispatch(fetchDrinksRandom(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drinks);

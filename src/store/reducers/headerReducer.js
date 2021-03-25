@@ -3,7 +3,6 @@ import {
 } from '../actions/headerAction';
 
 const INITIAL_STATE_USER = {
-  titleHeader: 'Title',
   showButtonSearch: false,
 };
 export default function headerReducer(state = INITIAL_STATE_USER, action) {

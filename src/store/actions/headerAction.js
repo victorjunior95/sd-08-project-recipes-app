@@ -6,4 +6,3 @@ export const toggleButtonSearch = (payload) => ({
 
 export const toggleHeaderTitle = (payload) => ({
   type: TOGGLE_HEADER_TITLE, payload });
-// No final do projeto verificar se isso aqui ainda faz sentido.

@@ -2,32 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Header, Footer, Loading, Cards } from '../components';
-import { fetchFood } from '../store/actions';
+import { Header, Footer, Cards } from '../components';
+import { fetchFoodsRandom } from '../store/actions';
 import '../styles/pages/Container.css';
 
 const MAX_NUMBER_CARDS = 11;
 
 class Foods extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: '',
-      searchRadio: 'name',
-    };
-  }
-
   componentDidMount() {
-    const { search, searchRadio } = this.state;
     const { getFood } = this.props;
-    getFood({ search, searchRadio });
+    getFood();
   }
 
   render() {
-    const { listFoods, isFetching } = this.props;
-    if (isFetching) return <Loading />;
-    if (listFoods && listFoods.length === 1) {
-      return <Redirect to={ `/comidas/${listFoods[0].idMeal}` } />;
+    const { meals } = this.props;
+    if (meals && meals.length === 1) {
+      return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
 
     return (
@@ -35,7 +25,7 @@ class Foods extends Component {
         <Header title="Comidas" />
         <div className="container">
 
-          { listFoods && listFoods.reduce((acc, cur, index) => {
+          { meals && meals.reduce((acc, cur, index) => {
             if (index <= MAX_NUMBER_CARDS) {
               acc.push(cur);
             }
@@ -57,19 +47,21 @@ class Foods extends Component {
 }
 
 Foods.propTypes = {
-  listFoods: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  meals: PropTypes.arrayOf(PropTypes.objectOf),
   getFood: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  listFoods: state.cloneFoodsReducer.recipes.meals,
-  isFetching: state.cloneFoodsReducer.isFetching,
+Foods.defaultProps = {
+  meals: [],
+};
+
+const mapStateToProps = ({ foodsReducer: { data: { meals } } }) => ({
+  meals,
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFood: (value) => dispatch(fetchFood(value)),
+  getFood: (value) => dispatch(fetchFoodsRandom(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foods);

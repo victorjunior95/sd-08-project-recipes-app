@@ -10,11 +10,13 @@ export {
 } from './localStorage';
 
 export {
+  fetchFoodsByRandom,
   fetchFoodsByCategories,
   fetchFoodsByRegion,
   fetchFoodsByIngredients,
   fetchFoodsByName,
   fetchFoodsByLetter,
+  fetchDrinksByRandom,
   fetchDrinksByCategories,
   fetchDrinksByIngredients,
   fetchDrinksByName,

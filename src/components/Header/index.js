@@ -41,7 +41,11 @@ class Header extends Component {
                 type="button"
                 onClick={ () => setToggle() }
               >
-                <img data-testid="search-top-btn" src={ SearchIcon } alt="search" />
+                <img
+                  data-testid="search-top-btn"
+                  src={ SearchIcon }
+                  alt="search"
+                />
               </button>
             </div>
           )}

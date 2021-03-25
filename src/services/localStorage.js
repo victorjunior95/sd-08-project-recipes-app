@@ -5,7 +5,7 @@ const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify
 const getLocalStorage = (key) => {
   const keyLocalStorage = localStorage.getItem(key);
   return {
-    [key]: JSON.parse(keyLocalStorage),
+    [key]: JSON.parse(keyLocalStorage) || '',
   };
 };
 

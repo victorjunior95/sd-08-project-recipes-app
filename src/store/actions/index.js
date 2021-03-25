@@ -1,4 +1,4 @@
 export { loginUserAction, logoutUserAction } from './loginActions';
 export { toggleButtonSearch, toggleHeaderTitle } from './headerAction';
-export { fetchFood } from './cloneFoodsActions';
-export { fetchDrink } from './drinksActions';
+export { fetchDrinksRandom, fetchDrink } from './drinksActions';
+export { fetchFoodsRandom, fetchFood } from './foodsActions';

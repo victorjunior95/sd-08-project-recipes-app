@@ -9,13 +9,14 @@ import { getProfileEmailLocalStorage as emailLocalStorage } from '../../services
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.emailUser = emailLocalStorage();
+    this.state = {
+      userEmail: emailLocalStorage(),
+    };
   }
 
   render() {
-    const { user: { email } } = this.emailUser;
+    const { userEmail: { user: { email } } } = this.state;
     const { logoutUser } = this.props;
-
     return (
       <div>
         <Header title="Perfil" />

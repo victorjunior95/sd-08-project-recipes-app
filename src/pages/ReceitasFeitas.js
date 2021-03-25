@@ -46,7 +46,6 @@ class ReceitasFeitas extends Component {
   filters(par) {
     const { recipes } = this.state;
     let newRecipes = [];
-    console.log(par);
     if (par === 'all' || par === undefined) {
       this.setState({ filtered: false });
     }

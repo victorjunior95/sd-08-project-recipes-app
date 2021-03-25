@@ -5,6 +5,7 @@ import { getMeals } from '../../redux/actions';
 import Card from '../../components/cards/MealCard';
 import Categories from '../../components/Categorie/MealsCategories';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function Comidas({ history }) {
   const QUANTITY_OF_CARDS = 12;
@@ -27,6 +28,7 @@ function Comidas({ history }) {
           key={ meal.idMeal }
           data={ { meal, index, recipeCard: '-recipe-card' } }
         />))}
+      <Footer />
     </>
   );
 }

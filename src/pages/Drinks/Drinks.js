@@ -5,6 +5,7 @@ import { getDrinks } from '../../redux/actions';
 import Card from '../../components/cards/DrinkCard';
 import Categories from '../../components/Categorie/DrinkCategories';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function Bebidas({ history }) {
   const QUANTITY_OF_CARDS = 12;
@@ -27,6 +28,7 @@ function Bebidas({ history }) {
           key={ drink.idDrink }
           data={ { drink, index, recipeCard: '-recipe-card' } }
         />))}
+      <Footer />
     </>
   );
 }

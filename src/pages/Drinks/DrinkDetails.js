@@ -4,6 +4,8 @@ import { Redirect } from 'react-router';
 import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
 import { FoodCtx } from '../../context/ContextFood';
 import CarouselCard from '../../components/Card/CarouselCard';
+import shareIcon from '../../images/shareIcon.svg';
+import favIcon from '../../images/whiteHeartIcon.svg';
 
 function DrinkDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);

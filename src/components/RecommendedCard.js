@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
-import '../styles/Card.css';
 
-function Card({ index, card }) {
+import '../styles/RecommendedCard.css';
+
+function RecommendedCard({ index, card }) {
   const history = useHistory();
 
   const renderDrink = () => {
     const { strDrink, strDrinkThumb, idDrink } = card;
     return (
       <Link to={ `/bebidas/${idDrink}` }>
-        <div className="card">
-          <h1 className="food-title" data-testid={ `${index}-card-name` }>{strDrink}</h1>
+        <div
+          className="recommended-card"
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <h1 data-testid={ `${index}-recomendation-title` }>{strDrink}</h1>
           <img
-            className="food-image"
+            className="recommended-image"
             data-testid={ `${index}-card-img` }
             src={ strDrinkThumb }
             alt={ strDrink }
@@ -27,10 +31,18 @@ function Card({ index, card }) {
     const { strMeal, strMealThumb, idMeal } = card;
     return (
       <Link to={ `/comidas/${idMeal}` }>
-        <div className="card">
-          <h1 className="food-title" data-testid={ `${index}-card-name` }>{strMeal}</h1>
+        <div
+          className="recommended-card"
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <h1
+            data-testid={ `${index}-recomendation-title` }
+            className="food-title"
+          >
+            {strMeal}
+          </h1>
           <img
-            className="food-image"
+            className="recommended-image"
             data-testid={ `${index}-card-img` }
             src={ strMealThumb }
             alt={ strMeal }
@@ -43,10 +55,10 @@ function Card({ index, card }) {
   const render = () => {
     const value = history.location.pathname;
     if (value.includes('comidas')) {
-      return renderFood();
+      return renderDrink();
     }
     if (value.includes('bebidas')) {
-      return renderDrink();
+      return renderFood();
     }
   };
 
@@ -57,7 +69,7 @@ function Card({ index, card }) {
   );
 }
 
-Card.propTypes = {
+RecommendedCard.propTypes = {
   index: PropTypes.number.isRequired,
   card: PropTypes.shape({
     strDrink: PropTypes.string,
@@ -69,4 +81,4 @@ Card.propTypes = {
   }).isRequired,
 };
 
-export default Card;
+export default RecommendedCard;

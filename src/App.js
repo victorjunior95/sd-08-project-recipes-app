@@ -9,6 +9,7 @@ import Detalhes from './Pages/Detalhes';
 import Explorar from './Pages/Explorar';
 import Login from './Pages/Login';
 import Perfil from './Pages/Perfil';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import RecipeContext from '../context/RecipeContext';
 
+import '../styles/Categorias.css';
+
 function CategoriasFood() {
   const { drinkCategory, setMeals,
     setIsDrinkLoading, directRequestDrink } = useContext(RecipeContext);
@@ -15,7 +17,7 @@ function CategoriasFood() {
   };
 
   return (
-    <div>
+    <div className="categorias">
       <button
         type="button"
         onClick={ () => directRequestDrink() }
@@ -27,6 +29,7 @@ function CategoriasFood() {
         if (index < MIN_ELEMN) {
           return (
             <button
+              className=".drink-btn"
               data-testid={ `${elem.strCategory}-category-filter` }
               type="button"
               value={ elem.strCategory }

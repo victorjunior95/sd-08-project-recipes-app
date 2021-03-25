@@ -7,6 +7,7 @@ const ComponentExplorar = () => {
   return (
     <section className="buttons-explorar">
       <button
+        className="btn btn-primary"
         type="button"
         data-testid="explore-food"
         onClick={ () => history.push('/explorar/comidas') }
@@ -14,6 +15,7 @@ const ComponentExplorar = () => {
         Explorar Comidas
       </button>
       <button
+        className="btn btn-primary"
         type="button"
         data-testid="explore-drinks"
         onClick={ () => history.push('/explorar/bebidas') }

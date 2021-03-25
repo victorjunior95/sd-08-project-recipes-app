@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
+import { FoodCtx } from '../../context/ContextFood';
+import CarouselCard from '../../components/Card/CarouselCard';
 
 function DrinkDetails(props) {
   const { match: { params: { id } } } = props;
+  const { foodApi: { meals } } = useContext(FoodCtx);
+  const STOP_INDEX = 5;
   const [
     setId,
     strDrinkThumb,
@@ -11,19 +15,26 @@ function DrinkDetails(props) {
     strCategory,
     strInstructions,
     ingredientsAndMeasuresList,
+    strAlcoholic,
   ] = useDrinkDetailsHook();
+
+  useEffect(() => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }, []);
 
   useEffect(() => {
     setId(id);
   }, [id, setId]);
 
   return (
-    <div className="card-container">
+    <div className="recipe-container">
       <h2 data-testid="recipe-title">{ strDrink }</h2>
-      <span data-testid="recipe-category">{ strCategory }</span>
+      <span data-testid="recipe-category">
+        { strCategory }
+        <span>{ strAlcoholic }</span>
+      </span>
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
       <img
         className="detail-image"
         data-testid="recipe-photo"
@@ -44,6 +55,25 @@ function DrinkDetails(props) {
           ) }
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
+      {meals && meals
+        .filter((meal, index) => index <= STOP_INDEX)
+        .map((item, index) => (
+          <CarouselCard
+            key={ item.idMeal }
+            id={ item.idMeal }
+            name={ item.strMeal }
+            img={ item.strMealThumb }
+            index={ index }
+          />
+
+        ))}
+      <button
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar
+      </button>
     </div>
   );
 }

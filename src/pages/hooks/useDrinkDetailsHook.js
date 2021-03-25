@@ -36,7 +36,7 @@ function useDrinkDetailsHook() {
   }, [id]);
   console.log(recipe);
 
-  const { strDrinkThumb, strDrink, strCategory, strInstructions } = recipe;
+  const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
 
   return [
     setId,
@@ -45,6 +45,7 @@ function useDrinkDetailsHook() {
     strCategory,
     strInstructions,
     ingredientsAndMeasuresList,
+    strAlcoholic,
   ];
 }
 

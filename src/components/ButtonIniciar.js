@@ -67,13 +67,16 @@ function ButtonIniciar({ id, objDetail }) {
     let newArray = [];
     console.log(localStorage.getItem('inProgressRecipes'));
     if (localStorage.getItem('inProgressRecipes') !== null) {
-      console.log(localStorage.getItem('inProgressRecipes'));
-
       const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      newArray = [
-        ...Object.keys(inProgress.meals),
-        ...Object.keys(inProgress.cocktails),
-      ];
+      if (value.includes('comidas')) {
+        const novaVariavelFood = Object.keys(inProgress.meals);
+        newArray = [...novaVariavelFood];
+      }
+      if (value.includes('bebidas')) {
+        const novaVariavelFood = Object.keys(inProgress.cocktails);
+        newArray = [...novaVariavelFood];
+        console.log(newArray);
+      }
     }
     return newArray;
   };

@@ -6,8 +6,9 @@ import { fetchRecipes, fetchRecommendations } from '../actions/recipes';
 import Loading from '../components/Loading';
 import RecipeCard from '../components/RecipeCard';
 import IngredientsList from '../components/IngredientsList';
+import ProgressButton from '../components/ProgressButton';
+import FavButton from '../components/FavButton';
 import ShareIcon from '../images/shareIcon.svg';
-import FavIcon from '../images/whiteHeartIcon.svg';
 
 import './RecipeDetails.css';
 
@@ -55,13 +56,15 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
       <button type="button" data-testid="share-btn">
         <img src={ ShareIcon } alt="share" />
       </button>
-      <button type="button" data-testid="favorite-btn">
-        <img src={ FavIcon } alt="favorite" />
-      </button>
+      <FavButton type={ formatedType } recipe={ recipe } />
       <h2 data-testid="recipe-category">
         { `${recipe.strAlcoholic || ''} ${recipe.strCategory}` }
       </h2>
-      <IngredientsList ingredients={ IngredientsAndMeasures } inProgress={ inProgress } />
+      <IngredientsList
+        id={ params.id }
+        type={ formatedType }
+        ingredients={ IngredientsAndMeasures }
+      />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
       { recipe.strYoutube
         && <iframe
@@ -81,13 +84,11 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
               />
             </div>)) }
         </div>)}
-      <button
-        className="start"
-        data-testid={ inProgress ? 'finish-recipe-btn' : 'start-recipe-btn' }
-        type="button"
-      >
-        { inProgress ? 'Finalizar Receita' : 'Iniciar Receita' }
-      </button>
+      <ProgressButton
+        id={ params.id }
+        type={ formatedType }
+        ingredientsLength={ IngredientsAndMeasures.length }
+      />
     </section>
   );
 }

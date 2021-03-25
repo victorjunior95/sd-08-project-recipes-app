@@ -1,5 +1,6 @@
-import { ADD_CATEGORIES, ADD_FILTER, ADD_RECIPES,
-  ADD_RECOMMENDATIONS, REQUEST_RECIPES, ADD_BYINGREDIENT } from './index';
+import { ADD_CATEGORIES, ADD_FAVORITE, ADD_FILTER, ADD_RECIPES,
+  ADD_RECOMMENDATIONS, END_RECIPE, REQUEST_RECIPES, RM_FAVORITE,
+  START_RECIPE, ADD_BYINGREDIENT } from './index';
 
 const addRecipes = (payload) => ({
   type: ADD_RECIPES,
@@ -74,6 +75,27 @@ export const fetchRecommendations = (token, type = 'meals') => (
     dispatch(addRecommendations(recipes));
   }
 );
+
+export const startRecipe = (selectedType, payload) => ({
+  selectedType,
+  type: START_RECIPE,
+  payload,
+});
+
+export const endRecipe = (payload) => ({
+  type: END_RECIPE,
+  payload,
+});
+
+export const addFavorite = (payload) => ({
+  type: ADD_FAVORITE,
+  payload,
+});
+
+export const removeFavorite = (payload) => ({
+  type: RM_FAVORITE,
+  payload,
+});
 
 export const byAddIngredient = (payload) => ({
   type: ADD_BYINGREDIENT,

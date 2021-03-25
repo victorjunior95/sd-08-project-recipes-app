@@ -7,11 +7,16 @@ import './Components.css';
 export default class Card extends Component {
   render() {
     const { value, index, infos } = this.props;
+
     return (
       <section className="card-item" data-testid={ `${index}-recipe-card` }>
         <Link to={ `${infos.linkRedirect}${value[infos.id]}` }>
-          <img src={ value[infos.thumb] } alt={ value[infos.name] } />
-          <h5>{value[infos.name]}</h5>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ value[infos.thumb] }
+            alt={ value[infos.name] }
+          />
+          <h5 data-testid={ `${index}-card-name` }>{value[infos.name]}</h5>
 
         </Link>
       </section>

@@ -7,7 +7,7 @@ import Card from './Card';
 class ListCard extends Component {
   render() {
     const { result, infos } = this.props;
-    console.log(result);
+    const { history } = infos;
     return (
       <section>
         <ul className="card-list">
@@ -15,6 +15,10 @@ class ListCard extends Component {
             const TOTAL_ITEMS = 12;
             if (index >= TOTAL_ITEMS) {
               return;
+            }
+            if (result.length === 1) {
+              const redirect = `${infos.linkRedirect}${item[infos.id]}`;
+              return history(redirect);
             }
             return (<Card
               infos={ infos }
@@ -29,8 +33,9 @@ class ListCard extends Component {
   }
 }
 
-const mapStateToProps = (({ search: { result } }) => ({
+const mapStateToProps = (({ search: { result, isFetching } }) => ({
   result: result.meals || result.drinks,
+  isFetching,
 }));
 
 export default connect(mapStateToProps)(ListCard);
@@ -42,6 +47,7 @@ ListCard.propTypes = {
     name: PropTypes.string,
     thumb: PropTypes.string,
     linkRedirect: PropTypes.string,
+    history: PropTypes.func.isRequired,
   }),
 };
 

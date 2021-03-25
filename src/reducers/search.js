@@ -2,10 +2,13 @@ import { SEARCH_BY_INGREDIENT } from '../action';
 
 const INITIAL_STATE = {
   result: [],
+  isFetching: false,
 };
 
 export const search = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case 'IS_FETCHING':
+    return { ...state, isFetching: !state.isFetching };
   case SEARCH_BY_INGREDIENT:
     return { ...state, result: action.payload.ingredient };
   default:

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import { Card } from 'react-bootstrap';
 
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
 import ShareIcon from '../images/shareIcon.svg';
@@ -104,14 +105,16 @@ const ReceitasFavoritas = () => {
         { renderFavoriteArray.map((favoriteArray, index) => (
           <div key={ index }>
             <div>
-              <img
-                variant="top"
-                src={ favoriteArray.image }
-                alt="Foto do Cocktail"
-                width="130"
-                height="130"
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <a href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }>
+                <img
+                  variant="top"
+                  src={ favoriteArray.image }
+                  alt="Foto do Cocktail"
+                  width="130"
+                  height="130"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </a>
               <div>
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
@@ -124,11 +127,12 @@ const ReceitasFavoritas = () => {
                       )
                   }
                 </p>
-                <p
+                <a
+                  href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
                   data-testid={ `${index}-horizontal-name` }
                 >
                   { favoriteArray.name }
-                </p>
+                </a>
                 <input
                   type="image"
                   src={ ShareIcon }

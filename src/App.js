@@ -14,7 +14,7 @@ function App() {
     <div className="meals">
       <Switch>
         <Route path="/comidas/:id/in-progress" component={ InProgress } />
-        <Route path="/bebidas/:id/in-progress" component={ InProgress } /> // In Progress
+        <Route path="/bebidas/:id/in-progress" component={ InProgress } />
         <Route path="/comidas/:id" component={ Details } />
         <Route path="/bebidas/:id" component={ Details } />
         <Route path="/comidas" component={ Comidas } />
@@ -32,6 +32,7 @@ function App() {
         <Route exact path="/explorar/comidas" component={ Explore } />
         <Route exact path="/explorar" component={ Explore } />
         <Route path="/perfil" component={ Profile } />
+        <Route exact path="/" component={ LoginPage } /> 
       </Switch>
     </div>
   );

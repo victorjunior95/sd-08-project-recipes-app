@@ -20,9 +20,13 @@ body {
   height: 640px;
   margin: auto;
   overflow: scroll;
-  width: 360px;
+  width: 360px;  
 }
 
 .root {
   width: 100%;
+}
+
+.detail-image {
+  max-width: 80%;
 }

@@ -1,3 +1,43 @@
 * {
   margin: 0;
 }
+
+.carousel {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.recipe-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-image {
+  border-radius: 10px;
+}
+
+.start-btn {
+  background-color: rgb(21, 44, 177);
+  border: none;
+  bottom: 0;
+  color: white;
+  font-weight: 900;
+  opacity: 0.9;
+  padding: 15px 0;
+  position: fixed;
+  width: 300px;
+
+}
+
+.start-btn:hover {
+  opacity: 1;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import RecipeContext from '../context/RecipeContext';
 import '../styles/Detalhes.css';
 import shareIcon from '../images/shareIcon.svg';
@@ -8,15 +9,17 @@ import Loading from '../components/Loading';
 import RecommendedList from '../components/RecommendedList';
 import ButtonIniciar from '../components/ButtonIniciar';
 import HandleYoutube from '../services/HandleYoutube';
+import LinkCopiado from '../components/LinkCopiado';
 
 function Detalhes() {
   const history = useHistory();
   const urlText = history.location.pathname;
   const id = urlText.split('s/')[1];
+  const TWO_SECONDS = 2000;
 
   const { setShouldRedirect, addStartedRecipes,
     recommendedFood, recommendedDrink, setRecommendedFood,
-    setRecommendedDrink } = useContext(RecipeContext);
+    setRecommendedDrink, setCopied } = useContext(RecipeContext);
 
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +37,6 @@ function Detalhes() {
   };
 
   const requestByID = async () => {
-    const TWO_SECONDS = 2000;
     let response = [];
     if (urlText.includes('bebidas')) {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -50,6 +52,13 @@ function Detalhes() {
     }
     setTimeout(() => {
       setLoading(false);
+    }, TWO_SECONDS);
+  };
+
+  const handleCopied = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
     }, TWO_SECONDS);
   };
 
@@ -94,12 +103,18 @@ function Detalhes() {
         alt={ objDetail[0].strDrink }
       />
       <div>
-        <input
-          type="image"
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt={ objDetail[0].strDrink }
-        />
+        <CopyToClipboard
+          text={ `http://localhost:3000${urlText}` }
+          onCopy={ handleCopied }
+        >
+          <input
+            type="image"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt={ objDetail[0].strDrink }
+          />
+        </CopyToClipboard>
+        <LinkCopiado />
         <input
           type="image"
           data-testid="favorite-btn"
@@ -130,12 +145,20 @@ function Detalhes() {
         alt={ objDetail[0].strMeal }
       />
       <div>
-        <input
-          type="image"
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt={ objDetail[0].strMeal }
-        />
+        <CopyToClipboard
+          text={ `http://localhost:3000${urlText}` }
+          onCopy={ () => {
+            handleCopied();
+          } }
+        >
+          <input
+            type="image"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt={ objDetail[0].strMeal }
+          />
+        </CopyToClipboard>
+        <LinkCopiado />
         <input
           type="image"
           data-testid="favorite-btn"

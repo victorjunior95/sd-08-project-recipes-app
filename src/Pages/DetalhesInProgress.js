@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/Detalhes.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
+import RecipeContext from '../context/RecipeContext';
+import LinkCopiado from '../components/LinkCopiado';
 
 function DetalhesInProgress() {
+  const TWO_SECONDS = 2000;
   const history = useHistory();
   const urlText = history.location.pathname;
   const id = urlText.split('/')[2];
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { setCopied } = useContext(RecipeContext);
+
   const requestByID = async () => {
-    const TWO_SECONDS = 2000;
     let response = [];
     if (urlText.includes('bebidas')) {
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -55,6 +59,13 @@ function DetalhesInProgress() {
     return results;
   };
 
+  const handleCopied = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, TWO_SECONDS);
+  };
+
   useEffect(() => {
     requestByID();
   }, []);
@@ -74,12 +85,20 @@ function DetalhesInProgress() {
         alt={ objDetail[0].strDrink }
       />
       <div>
-        <input
-          type="image"
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt={ objDetail[0].strDrink }
-        />
+        <CopyToClipboard
+          text={ `http://localhost:3000${urlText}` }
+          onCopy={ () => {
+            handleCopied();
+          } }
+        >
+          <input
+            type="image"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt={ objDetail[0].strDrink }
+          />
+        </CopyToClipboard>
+        <LinkCopiado />
         <input
           type="image"
           data-testid="favorite-btn"
@@ -104,12 +123,20 @@ function DetalhesInProgress() {
         alt={ objDetail[0].strMeal }
       />
       <div>
-        <input
-          type="image"
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt={ objDetail[0].strMeal }
-        />
+        <CopyToClipboard
+          text={ `http://localhost:3000${urlText}` }
+          onCopy={ () => {
+            handleCopied();
+          } }
+        >
+          <input
+            type="image"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt={ objDetail[0].strMeal }
+          />
+        </CopyToClipboard>
+        <LinkCopiado />
         <input
           type="image"
           data-testid="favorite-btn"

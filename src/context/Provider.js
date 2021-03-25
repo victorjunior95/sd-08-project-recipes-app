@@ -12,6 +12,8 @@ function Provider({ children }) {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [recommendedFood, setRecommendedFood] = useState([]);
   const [recommendedDrink, setRecommendedDrink] = useState([]);
+  const [copied, setCopied] = useState(false);
+
   // const [startedRecipes, setStartedRecipes] = useState([]);
 
   // const addStartedRecipes = (newId) => {
@@ -119,6 +121,8 @@ function Provider({ children }) {
   }, []);
 
   const context = {
+    copied,
+    setCopied,
     recommendedFood,
     recommendedDrink,
     setRecommendedFood,

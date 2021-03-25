@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Redirect } from 'react-router';
 import components from '../components/index';
 import MainDrinksCard from '../components/MainDrinksCard';
 import api from '../services';
@@ -39,10 +40,24 @@ function Drinks() {
     <div>
       <components.Header title="Bebidas" />
       {isLoading ? 'Loading...' : null}
-      <div>
+      <div className="drinks-buttons-container">
+        <button
+          className="btn btn-primary"
+          style={ { marginTop: 5, marginBottom: 5, width: 163 } }
+          onClick={ () => {
+            setDrinkCategorySelected([]);
+            setSelectedDrink(false);
+          } }
+          type="button"
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
         {dataDrinksCategories.slice(0, CATEGORIES_LENGTH_5).map(
           ({ strCategory }, index) => (
             <button
+              className="btn btn-primary"
+              style={ { marginTop: 5, marginBottom: 5, width: 163 } }
               onClick={ handleClick }
               data-testid={ `${strCategory}-category-filter` }
               type="button"
@@ -53,16 +68,6 @@ function Drinks() {
             </button>
           ),
         )}
-        <button
-          onClick={ () => {
-            setDrinkCategorySelected([]);
-            setSelectedDrink(false);
-          } }
-          type="button"
-          data-testid="All-category-filter"
-        >
-          All
-        </button>
       </div>
       <div className="home-container">
         {drinkData.length && !selectedDrink
@@ -83,6 +88,8 @@ function Drinks() {
               id={ drink.idDrink }
             />
           ))}
+        { drinkData.length && !selectedDrink && drinkData.length === 1
+          ? <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } /> : null }
         <components.Footer />
       </div>
     </div>

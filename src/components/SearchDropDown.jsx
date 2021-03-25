@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import RecipesContext from '../core/RecipesContext';
 import api from '../services';
 
 function SearchDropDown({ setDropSearch }) {
   const { setIsLoading, setMealData, setDrinkData } = useContext(RecipesContext);
+  const location = useLocation();
   const [inputs, setInputs] = useState({
     text: '',
     radio: null,
@@ -15,9 +17,13 @@ function SearchDropDown({ setDropSearch }) {
     setInputs({ ...inputs, [name]: value });
   };
   const handleClick = () => {
-    api.fetchByFilters(inputs, setIsLoading, setMealData);
-    api.fetchByDrinkFilters(inputs, setIsLoading, setDrinkData);
-    setDropSearch(false);
+    if (inputs.radio === 'firstletter' && inputs.text.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      api.fetchByFilters(inputs, setIsLoading, setMealData, location);
+      api.fetchByDrinkFilters(inputs, setIsLoading, setDrinkData, location);
+      setDropSearch(false);
+    }
   };
   return (
     <div className="search-container">
@@ -72,6 +78,7 @@ function SearchDropDown({ setDropSearch }) {
         </label>
       </div>
       <button
+        disabled={ !inputs.radio }
         data-testid="exec-search-btn"
         type="button"
         className="btnz btn btn-primary"

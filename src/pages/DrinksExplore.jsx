@@ -21,9 +21,13 @@ function DrinksExplore() {
     <>
       <Header label="Explorar Bebidas" Search={ () => '' } />
       <Link to="/explorar/bebidas/ingredientes">
-        <Button name="Por Ingredientes" />
+        <Button name="Por Ingredientes" data-testid="explore-by-ingredient" />
       </Link>
-      <Button name="Me Surpreenda!" onClick={ handleClick } />
+      <Button
+        name="Me Surpreenda!"
+        onClick={ handleClick }
+        data-testid="explore-surprise"
+      />
       <Footer />
     </>
   );

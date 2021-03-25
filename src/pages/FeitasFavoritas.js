@@ -13,14 +13,26 @@ export default function FeitasFavoritas() {
   // const [FList, setFavList] = useState(listFavCart);
   const [FList, setFavList] = useState([]);
 
-  useEffect(() => {
-    setDoneList(listCart);
-    // setFavList(listFavCart);
-  }, []);
+  const unfavRecipe = (recipeId) => {
+    const updatedFavs = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((recipe) => recipe.id !== recipeId);
+    console.log(updatedFavs);
+    setFavList(updatedFavs);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavs));
+    console.log(localStorage);
+    // updatedFavs.filter((recipe) => recipe.id !== recipeId);
+    // localStorage.favoriteRecipes = updatedFavs;
+  };
 
   useEffect(() => {
+    setDoneList(listCart);
     setFavList(listFavCart);
-  }, [listFavCart]);
+    console.log('ff');
+  }, []);
+
+  // useEffect(() => {
+  //   setFavList(listFavCart);
+  // }, [listFavCart]);
 
   if (path === '/receitas-feitas') {
     return (
@@ -126,6 +138,7 @@ export default function FeitasFavoritas() {
             name={ card.name }
             thumbnail={ card.image }
             isFood={ card.type === 'comida' }
+            unfavRecipe={ unfavRecipe }
           />
         ))}
 

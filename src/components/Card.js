@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const Card = ({ id,
-  index, name, thumbnail, isFood, cat, doneDate, tags, area, alcoholic }) => {
+const Card = ({ id, index, name, thumbnail, isFood, cat,
+  doneDate, tags, area, alcoholic, unfavRecipe }) => {
   const history = useHistory();
   const path = history.location.pathname;
   let isClicked = false;
@@ -32,15 +32,6 @@ const Card = ({ id,
     }
     console.log(history);
   }
-  const unfavRecipe = (recipeId) => {
-    const updatedFavs = JSON.parse(localStorage.getItem('favoriteRecipes'))
-      .filter((recipe) => recipe.id !== recipeId);
-    console.log(updatedFavs);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavs));
-    console.log(localStorage);
-    // updatedFavs.filter((recipe) => recipe.id !== recipeId);
-    // localStorage.favoriteRecipes = updatedFavs;
-  };
   let urlDetails = '';
   if (isFood) {
     urlDetails = `http://localhost:3000/comidas/${id}`;
@@ -142,6 +133,7 @@ Card.defaultProps = {
   tags: [],
   area: '',
   alcoholic: '',
+  unfavRecipe: () => {},
 };
 
 Card.propTypes = {
@@ -155,6 +147,7 @@ Card.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   area: PropTypes.string,
   alcoholic: PropTypes.string,
+  unfavRecipe: PropTypes.func,
 };
 
 export default Card;

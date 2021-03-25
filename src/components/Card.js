@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const Card = ({ id,
-  index, name, thumbnail, isFood, cat, doneDate, tags, area, alcoholic }) => {
+const Card = ({ id, index, name, thumbnail, isFood, cat,
+  doneDate, tags, area, alcoholic, unfavRecipe }) => {
   const history = useHistory();
   const path = history.location.pathname;
   let isClicked = false;
@@ -118,8 +118,8 @@ const Card = ({ id,
           type="image"
           data-testid={ `${index}-horizontal-favorite-btn` }
           src={ blackHeartIcon }
-          alt="share"
-          onClick={ () => { } }
+          alt="favorite"
+          onClick={ () => unfavRecipe(id) }
         />
         <p hidden={ isClicked }>Link copiado!</p>
         {() => popTags()}
@@ -133,6 +133,7 @@ Card.defaultProps = {
   tags: [],
   area: '',
   alcoholic: '',
+  unfavRecipe: () => {},
 };
 
 Card.propTypes = {
@@ -146,6 +147,7 @@ Card.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   area: PropTypes.string,
   alcoholic: PropTypes.string,
+  unfavRecipe: PropTypes.func,
 };
 
 export default Card;

@@ -8,21 +8,23 @@ import Explore from '../pages/Explorar';
 import Detalhes from '../pages/Detalhes';
 import Ingredientes from '../pages/Ingredientes';
 import FeitasFavoritas from '../pages/FeitasFavoritas';
-import ExplorarTudo from '../pages/ExplorarTudo';
+import ExplorarComidas from '../pages/ExplorarComidas';
+import ExplorarBebidas from '../pages/ExplorarBebidas';
 import ExplorarArea from '../pages/ExplorarArea';
+import ReceitasInProgress from '../pages/ReceitasEmProgress';
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={ Login } />
     <Route exact path="/comidas" component={ Comidas } />
-    <Route exact path="/comidas/:id/in-progress" component={ Detalhes } />
+    <Route exact path="/comidas/:id/in-progress" component={ ReceitasInProgress } />
     <Route exact path="/comidas/:id" component={ Detalhes } />
     <Route exact path="/bebidas" component={ Bebidas } />
-    <Route exact path="/bebidas/:id/in-progress" component={ Detalhes } />
+    <Route exact path="/bebidas/:id/in-progress" component={ ReceitasInProgress } />
     <Route exact path="/bebidas/:id" component={ Detalhes } />
     <Route exact path="/explorar" component={ Explore } />
-    <Route exact path="/explorar/comidas" component={ ExplorarTudo } />
-    <Route exact path="/explorar/bebidas" component={ ExplorarTudo } />
+    <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+    <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
     <Route exact path="/explorar/comidas/ingredientes" component={ Ingredientes } />
     <Route exact path="/explorar/comidas/area" component={ ExplorarArea } />
     <Route exact path="/explorar/bebidas/ingredientes" component={ Ingredientes } />

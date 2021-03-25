@@ -67,3 +67,20 @@ export const fetchProductDetailsById = async (id, type) => {
   const json = await result.json();
   return json;
 };
+
+export const fetchRecomendationsCard = async (type) => {
+  const API_LINK = type === 'comidas'
+    ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
+    : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const result = await fetch(API_LINK);
+  const json = await result.json();
+  const arrays = Object.values(json)[0];
+  const recommendationLimit = 6;
+  const x = [];
+
+  for (let i = 0; i < recommendationLimit; i += 1) {
+    x.push(arrays[i]);
+  }
+  console.log(x);
+  return x;
+};

@@ -16,12 +16,13 @@ function CardsArea({ type }) {
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : meals.map(
             ({ strMeal, strMealThumb }, index) => (
-              <Cards
-                key={ strMeal }
-                name={ strMeal }
-                thumbSrc={ strMealThumb }
-                index={ index }
-              />),
+              index < TWELVE_CARDS && (
+                <Cards
+                  key={ strMeal }
+                  name={ strMeal }
+                  thumbSrc={ strMealThumb }
+                  index={ index }
+                />)),
           )}
       </Container>
     );

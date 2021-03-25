@@ -1,5 +1,5 @@
-import FecthDrinks from '../../services/theCocTailDB';
-import FecthMeals from '../../services/theMeadlDB';
+import { FecthDrinks, FetchDrinksOnMount } from '../../services/theCocTailDB';
+import { FecthMeals, FetchFoodsOnMount } from '../../services/theMeadlDB';
 import {
   GET_API_FOOD,
   FETCH_API_FOODS,
@@ -54,5 +54,25 @@ export const fetchDrinksByFilter = (radio, inputName) => async (dispatch) => {
     dispatch(setDrinks(apiData));
   } catch (error) {
     dispatch(errorFetchingDrinks(error));
+  }
+};
+
+export const drinksOnMount = () => async (dispatch) => {
+  dispatch(isFetchingDrinks());
+  try {
+    const apiData = await FetchDrinksOnMount();
+    dispatch(setDrinks(apiData));
+  } catch (error) {
+    dispatch(errorFetchingDrinks(error));
+  }
+};
+
+export const foodsOnMount = () => async (dispatch) => {
+  dispatch(isFetchingFoods());
+  try {
+    const apiData = await FetchFoodsOnMount();
+    dispatch(setFood(apiData));
+  } catch (error) {
+    dispatch(errorFetchingFoods(error));
   }
 };

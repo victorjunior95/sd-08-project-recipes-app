@@ -46,7 +46,7 @@ class ReceitasFeitas extends Component {
   filters(foodType) {
     const { recipes } = this.state;
     let newRecipes = [];
-    if (foodType === 'all' || par === undefined) {
+    if (foodType === 'all' || foodType === undefined) {
       this.setState({ filtered: false });
     }
     if (foodType === 'food') {
@@ -72,7 +72,10 @@ class ReceitasFeitas extends Component {
 
   render() {
     const { displayShareMesage, newRecipes, recipes, filtered } = this.state;
-
+    console.log('displayShareMesage', displayShareMesage,
+      'newRecipes', newRecipes,
+      'recipes', recipes,
+      'filtered', filtered);
     return (
       <div>
         <HeaderLocation />

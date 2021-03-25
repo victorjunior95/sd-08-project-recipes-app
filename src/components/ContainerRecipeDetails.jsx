@@ -53,7 +53,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
   const drinkInfo = () => {
     const {
       strDrink: name,
-      strCategory: category,
+      strAlcoholic: category,
       strDrinkThumb: image,
       strInstructions: instructions,
       strVideo: video,
@@ -135,6 +135,7 @@ ContainerRecipeDetails.propTypes = {
     strDrink: PropTypes.string.isRequired,
     strDrinkThumb: PropTypes.string.isRequired,
     strVideo: PropTypes.string.isRequired,
+    strAlcoholic: PropTypes.string.isRequired,
   }).isRequired,
 };
 

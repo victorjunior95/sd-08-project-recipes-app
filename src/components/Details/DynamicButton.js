@@ -49,33 +49,27 @@ function continueRecipe(id, isMeal) {
   return false;
 }
 
+function redirectTo(isMeal) {
+  if (isMeal) {
+    return 'comidas';
+  }
+  return 'bebidas';
+}
+
 export default function DynamicButton() {
   const { id } = useParams();
   const isMeal = useIsMeal();
-
-  if (continueRecipe(id, isMeal)) {
-    return (
-      <Link to={ `/comidas/${id}/in-progress` }>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-          onClick={ () => startRecipe(id, isMeal) }
-        >
-          CONTINUAR RECEITA
-        </button>
-      </Link>
-    );
-  }
   return (
-    <Link to={ `/comidas/${id}/in-progress` }>
+    <Link to={ `/${redirectTo(isMeal)}/${id}/in-progress` }>
       <button
         type="button"
         data-testid="start-recipe-btn"
         className="start-recipe"
         onClick={ () => startRecipe(id, isMeal) }
       >
-        INICIAR RECEITA
+        {
+          continueRecipe(id, isMeal) ? 'Continuar Receita' : 'Iniciar Receita'
+        }
       </button>
     </Link>
   );

@@ -11,7 +11,7 @@ import {
 
 function ProviderRecipes({ children }) {
   const headerInfoInitial = {
-    pageTitle: 'Comidas',
+    pageTitle: '',
     showSearchIcon: true,
   };
 
@@ -28,6 +28,7 @@ function ProviderRecipes({ children }) {
 
   const fetchDataComidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
+    console.log(input, radio);
     if (radio === 'nome') {
       const { meals } = await getComidasByName(input);
       return setDataByBuscar({ meals });
@@ -48,6 +49,7 @@ function ProviderRecipes({ children }) {
 
   const fetchDataBebidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
+    console.log(input, radio);
     if (radio === 'nome') {
       const { drinks } = await getBebidasByName(input);
       return setDataByBuscar({ drinks });

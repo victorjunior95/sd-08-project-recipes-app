@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CardDeck, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import Header from '../components/Header';
@@ -6,15 +6,15 @@ import Footer from '../components/Footer';
 import {
   getIngredientsFoodList,
   getIngredientsDrinkList } from '../services/BuscaNasAPIs';
+import ContextRecipes from '../context/ContextRecipes';
 
 const MAX_CARDS = 12;
 
 const ExplorarIngredientes = () => {
+  const { setBarraBuscar, setHeaderInfo } = useContext(ContextRecipes);
   const [ingredientsList, setIngredientsList] = useState();
   const history = useHistory();
-  const wordLength = 7;
-  const startFrom = -20;
-  const type = history.location.pathname.substr(startFrom, wordLength);
+  const type = history.location.pathname.includes('bebidas') ? 'bebidas' : 'comidas';
 
   useEffect(() => {
     async function getIngredients() {
@@ -32,6 +32,15 @@ const ExplorarIngredientes = () => {
   const url = type === 'bebidas' ? 'thecocktaildb' : 'themealdb';
   const one = type === 'bebidas' ? 1 : '';
 
+  function onClickHandler(food) {
+    setBarraBuscar(food);
+    history.push(`/${type}`);
+  }
+
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Explorar Ingredientes', showSearchIcon: false });
+  }, [setHeaderInfo]);
+
   return (
     <section className="w-100">
       <Header />
@@ -40,21 +49,26 @@ const ExplorarIngredientes = () => {
           ingredientsList && ingredientsList.map((ingredient, index) => {
             if (index < MAX_CARDS) {
               const call = `strIngredient${one}`;
+              const ingredientName = ingredient[call];
+              const buscarIngredient = {
+                input: ingredientName,
+                radio: 'ingredientes',
+              };
               return (
                 <Card
                   key={ index }
                   data-testid={ `${index}-ingredient-card` }
                   className="col-5 m-2"
-                // onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
+                  onClick={ () => onClickHandler(buscarIngredient) }
                 >
                   <Card.Img
                     variant="top"
                     data-testid={ `${index}-card-img` }
-                    src={ `https://www.${url}.com/images/ingredients/${ingredient[call]}-Small.png` }
+                    src={ `https://www.${url}.com/images/ingredients/${ingredientName}-Small.png` }
                   />
                   <Card.Body>
                     <Card.Title data-testid={ `${index}-card-name` }>
-                      { ingredient[call] }
+                      { ingredientName }
                     </Card.Title>
                   </Card.Body>
                 </Card>

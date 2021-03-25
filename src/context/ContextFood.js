@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -39,7 +39,7 @@ function FoodContext(props) {
     const myAlert = window.alert;
     myAlert(text);
   };
-  const handleClickSearch = async () => {
+  const handleClickSearch = useCallback(async () => {
     if (nameSearchRadio) {
       const res = await getMealByName(searchInputMeal);
       if (res === null) {
@@ -65,7 +65,13 @@ function FoodContext(props) {
       const res = await getMealByIngredients(searchInputMeal);
       setMeals(res);
     }
-  };
+  }, [
+    firstLetterSearchRadio,
+    history,
+    ingredientSearchRadio,
+    nameSearchRadio,
+    searchInputMeal,
+  ]);
 
   useEffect(() => {
     if (
@@ -77,6 +83,7 @@ function FoodContext(props) {
     }
   }, [
     firstLetterSearchRadio,
+    handleClickSearch,
     ingredientSearchRadio,
     nameSearchRadio,
   ]);

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -31,7 +31,7 @@ function DrinksContext(props) {
     myAlert(text);
   };
 
-  const handleClickSearchDrink = async () => {
+  const handleClickSearchDrink = useCallback(async () => {
     if (nameSearchRadioDrink) {
       const res = await getDrinkByName(searchInputDrink);
       // console.log(res);
@@ -58,7 +58,13 @@ function DrinksContext(props) {
       const res = await getDrinkByIngredients(searchInputDrink);
       setDrinks(res);
     }
-  };
+  }, [
+    nameSearchRadioDrink,
+    firstLetterSearchRadioDrink,
+    searchInputDrink,
+    ingredientSearchRadioDrink,
+    history,
+  ]);
 
   useEffect(() => {
     async function fetchDataDrinks() {
@@ -92,6 +98,7 @@ function DrinksContext(props) {
     }
   }, [
     firstLetterSearchRadioDrink,
+    handleClickSearchDrink,
     ingredientSearchRadioDrink,
     nameSearchRadioDrink,
   ]);

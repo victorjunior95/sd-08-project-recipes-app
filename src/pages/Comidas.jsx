@@ -1,5 +1,3 @@
-import React from 'react';
-import styles from '../styles/comidas.module.css';
 import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import ContextReceitas from '../context/ContextReceitas';

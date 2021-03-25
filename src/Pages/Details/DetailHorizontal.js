@@ -33,42 +33,41 @@ function DetailHorizontal() {
   return (
     <Container>
       {feitas.length > 0 ? feitas.map((recep, i) => (
-        <Card key={ i } style={ { width: '18rem', display: 'flex' } }>
+        <Row key={ i }>
           <Card.Img
             variant="top"
             src={ recep.image }
             data-testid={ `${i}-horizontal-image` }
+            style={ { width: '10rem' } }
           />
-          <Card.Body>
-            <h3 data-testid={ `${i}-horizontal-top-text` }>{ recep.category }</h3>
-            <h2 data-testid={ `${i}-horizontal-name` }>{ recep.name }</h2>
-            <h2 data-testid={ `${i}-horizontal-done-date` }>
-              Feita em:
-              { recep.doneDate }
-            </h2>
-            <Button
-              variant="link"
-              onClick={ () => {
-                setShow(true);
-                navigator.clipboard.writeText(`http://localhost:3000${url}`);
-              } }
-            >
-              <img
-                alt="share"
-                data-testid={ `${i}-horizontal-share-btn` }
-                src={ shareIcon }
-              />
-            </Button>
-            {recep.tags.length > 0 ? recep.tags.map((tag) => (
-              <h3 key={ tag } data-testid={ `${i}-${tag}-horizontal-tag` }>{ tag }</h3>
-            )) : <div />}
-            {show && (
-              <Alert variant="success" onClose={ () => setShow(false) } dismissible>
-                <Alert.Heading>Link copiado!</Alert.Heading>
-              </Alert>
-            )}
-          </Card.Body>
-        </Card>
+          <h3 data-testid={ `${i}-horizontal-top-text` }>{ recep.category }</h3>
+          <h2 data-testid={ `${i}-horizontal-name` }>{ recep.name }</h2>
+          <h2 data-testid={ `${i}-horizontal-done-date` }>
+            Feita em:
+            { recep.doneDate }
+          </h2>
+          <Button
+            variant="link"
+            onClick={ () => {
+              setShow(true);
+              navigator.clipboard.writeText(`http://localhost:3000${url}`);
+            } }
+          >
+            <img
+              alt="share"
+              data-testid={ `${i}-horizontal-share-btn` }
+              src={ shareIcon }
+            />
+          </Button>
+          {recep.tags.length > 0 ? recep.tags.map((tag) => (
+            <h3 key={ tag } data-testid={ `${i}-${tag}-horizontal-tag` }>{ tag }</h3>
+          )) : <div />}
+          {show && (
+            <Alert variant="success" onClose={ () => setShow(false) } dismissible>
+              <Alert.Heading>Link copiado!</Alert.Heading>
+            </Alert>
+          )}
+        </Row>
       )) : <div />}
       <Card style={ { width: '18rem' } }>
         <Card.Img variant="top" src="holder.js/100px180" />

@@ -16,14 +16,20 @@ export default function SearchBar() {
   }
 
   function handleClick() {
-    setSearchParam({ ...searchParam, inputChange });
+    setSearchParam(inputChange);
+    const maxCaracter = 1;
+    const paramType = inputChange.selectedParam;
+    const inputLength = inputChange.inputSearch.length;
+    if (paramType === 'first-letter' && inputLength > maxCaracter) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
     setInputChange({
+      ...inputChange,
       inputSearch: '',
-      selectedParam: '',
     });
   }
 
-  console.log(inputChange);
+  console.log(searchParam);
 
   return (
     <span>

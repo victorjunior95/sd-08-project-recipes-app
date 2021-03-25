@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { Card } from 'react-bootstrap';
 
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
@@ -9,9 +8,9 @@ import BlackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 const ReceitasFavoritas = () => {
-  const { favoriteRecipes,
-    setHeaderInfo,
-    setFavoriteRecipes } = useContext(ContextRecipes);
+  const { setHeaderInfo,
+    favoriteRecipes, setFavoriteRecipes,
+  } = useContext(ContextRecipes);
 
   const [renderMSG, setRenderMSG] = useState(false);
 
@@ -20,19 +19,36 @@ const ReceitasFavoritas = () => {
     setHeaderInfo({
       pageTitle: 'Receitas Favoritas',
     });
-  }, [setFavoriteRecipes, setHeaderInfo]);
+  }, [setHeaderInfo, setFavoriteRecipes]);
+
+  const filterFood = () => {
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((fav) => fav.type === 'comida'));
+  };
+
+  const filterDrink = () => {
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((fav) => fav.type === 'bebida'));
+  };
+
+  const filterAll = () => {
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  };
 
   const removerLocalStorage = (id) => {
-    setFavoriteRecipes(favoriteRecipes.filter((fav) => fav.id !== id));
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((fav) => fav.id !== id));
     localStorage.setItem(
-      'favoriteRecipes', JSON.stringify(favoriteRecipes.filter((fav) => fav.id !== id)),
+      'favoriteRecipes', JSON.stringify(
+        JSON.parse(localStorage.getItem('favoriteRecipes'))
+          .filter((fav) => fav.id !== id),
+      ),
     );
   };
 
   const msgTime = 5000;
   const copiarURL = (tipo, id) => {
     copy(`http://localhost:3000/${tipo}/${id}`);
-    // alert('Link copiado!');
     setRenderMSG(true);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
@@ -55,6 +71,7 @@ const ReceitasFavoritas = () => {
             id="option1"
             checked
             data-testid="filter-by-all-btn"
+            onClick={ filterAll }
           >
             All
           </button>
@@ -64,6 +81,7 @@ const ReceitasFavoritas = () => {
             id="option2"
             className="btn btn-secondary"
             data-testid="filter-by-food-btn"
+            onClick={ filterFood }
           >
             Food
           </button>
@@ -73,25 +91,28 @@ const ReceitasFavoritas = () => {
             id="option3"
             className="btn btn-secondary"
             data-testid="filter-by-drink-btn"
+            onClick={ filterDrink }
           >
             Drinks
           </button>
         </div>
         {
-          renderMSG ? <span>Link copiado!</span>
-            : <span hidden>Link copiado!</span>
+          renderMSG ? <h2>Link copiado!</h2>
+            : <h2 hidden>Link copiado!</h2>
         }
         { favoriteRecipes.map((favoriteArray, index) => (
           <div key={ index }>
             <div>
-              <img
-                variant="top"
-                src={ favoriteArray.image }
-                alt="Foto do Cocktail"
-                width="130"
-                height="130"
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <a href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }>
+                <img
+                  variant="top"
+                  src={ favoriteArray.image }
+                  alt="Foto do Cocktail"
+                  width="130"
+                  height="130"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </a>
               <div>
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
@@ -104,11 +125,12 @@ const ReceitasFavoritas = () => {
                       )
                   }
                 </p>
-                <p
+                <a
+                  href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
                   data-testid={ `${index}-horizontal-name` }
                 >
                   { favoriteArray.name }
-                </p>
+                </a>
                 <input
                   type="image"
                   src={ ShareIcon }

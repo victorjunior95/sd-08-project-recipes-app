@@ -1,33 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import useFoodDetailsHook from '../hooks/useFoodDetailsHook';
 
 function FoodDetails(props) {
-  const [recipe, setRecipe] = useState({});
-  const [ingredients, setIngredients] = useState([]);
   const { match: { params: { id } } } = props;
-
-  function createIngredientList(receita) {
-    const ING_INDEX = 20;
-    let ingredientList = [];
-    for (let i = 1; i < ING_INDEX; i += 1) {
-      ingredientList = ingredientList.concat(receita[`strIngredient${i}`]);
-    }
-    return setIngredients(ingredientList);
-  }
+  console.log('id na fooddetails ', id);
+  const [
+    setId,
+    strMealThumb,
+    strMeal,
+    strCategory,
+    strInstructions,
+    strYoutube,
+    ingredientsAndMeasuresList,
+  ] = useFoodDetailsHook();
 
   useEffect(() => {
-    async function fetchRecipe(idNum) {
-      const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idNum}`)
-        .then((res) => res.json());
-      const currRecipe = meals[0];
-      setRecipe(currRecipe);
-      createIngredientList(currRecipe);
-    }
-    fetchRecipe(id);
-  }, [id]);
+    setId(id);
+  }, []);
 
-  const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = recipe;
-  console.log(ingredients);
   return (
     <div>
       <h2 data-testid="recipe-title">{ strMeal }</h2>
@@ -40,13 +31,14 @@ function FoodDetails(props) {
         title="YouTube video player"
         frameBorder="0"
         allow="accelerometer;
-          autoplay; clipboard-write;
-          encrypted-media;
-          gyroscope; picture-in-picture"
+            autoplay; clipboard-write;
+            encrypted-media;
+            gyroscope; picture-in-picture"
         allowFullScreen
       />
       <ul>
-        { ingredients
+        { ingredientsAndMeasuresList
+          .filter((ingr) => ingr !== '' && ingr !== null)
           .map(
             (ing, index) => (
               <li

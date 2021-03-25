@@ -6,3 +6,4 @@ export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const FETCH_AREA_API = 'FETCH_AREA_API';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const DONE_RECIPE = 'DONE_RECIPE';
+export const AREA_SELECT = 'AREA_SELECT';

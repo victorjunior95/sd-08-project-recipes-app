@@ -25,7 +25,7 @@ function ButtonSearch({ type }) {
         />
       </button>
       { (type !== 'origem' && search) && <RecipeSearchBar /> }
-      { (type === 'origem' && search) && <RecipeSearchByArea /> }
+      { (type === 'origem' && !search) && <RecipeSearchByArea /> }
     </>
   );
 }

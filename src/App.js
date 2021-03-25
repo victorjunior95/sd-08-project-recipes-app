@@ -13,6 +13,7 @@ import DrinksRecipes from './pages/DrinksRecipes';
 import FoodDetail from './pages/FoodDetail';
 import FinishedRecipes from './pages/FinishedRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/explorar/comidas/ingredientes" component={ FoodIngredient } />
           <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredient } />
           <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
+          <Route path="/explorar/bebidas/area" component={ NotFound } />
           <Route exact path="/comidas" component={ MealsRecipes } />
           <Route exact path="/bebidas" component={ DrinksRecipes } />
           <Route path="/comidas/:idMeal?" component={ FoodDetail } />

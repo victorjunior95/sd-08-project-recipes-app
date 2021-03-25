@@ -1,4 +1,4 @@
-import { fetchMealByFirstLetter,
+import { fetchAreaMeal, fetchMealByFirstLetter,
   fetchMealByIngredients, fetchMealByName } from '../../services/MealAPI';
 import { FETCH_API } from './index';
 
@@ -47,6 +47,12 @@ const fetchMealThunk = (input, type) => async (dispatch) => {
   }
   if (type === 'first-letter') {
     const { meals } = await fetchMealByFirstLetter(input);
+    const verifiedMeal = alertIfNull(meals);
+    const result = filterToTwelve(verifiedMeal);
+    dispatch(fetchMealAction(result));
+  }
+  if (type === 'area') {
+    const { meals } = await fetchAreaMeal(input);
     const verifiedMeal = alertIfNull(meals);
     const result = filterToTwelve(verifiedMeal);
     dispatch(fetchMealAction(result));

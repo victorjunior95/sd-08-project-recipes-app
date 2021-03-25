@@ -21,7 +21,7 @@ const filterToTwelve = (list) => {
 const alertIfNull = (list) => {
   let verify;
   if (!list) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros');
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     verify = [];
   } else { verify = list; }
   return verify;

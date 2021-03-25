@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import fetchAreaThunk from '../redux/actions/fetchAreaAction';
 
-function RecipeSearchByArea(meals) {
+function RecipeSearchByArea() {
   const [area, setArea] = useState('');
-  useEffect(() => {}, []);
+  const areas = useSelector((state) => state.search.areas);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = () => dispatch(fetchAreaThunk());
+    fetchData();
+  }, []);
   return (
     <select
       data-testid="explore-by-area-dropdown"
       value={ area }
-      onChange={ setArea(e.target.value) }
+      onChange={ (e) => setArea(e.target.value) }
     >
-      {meals.map((meal, i) => (
+      {areas && areas.map((meal, i) => (
         <option
           key={ i }
           data-testid={ `${meal.strArea}-option` }

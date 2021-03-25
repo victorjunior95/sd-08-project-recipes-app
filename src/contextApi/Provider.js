@@ -8,6 +8,7 @@ function Login({ children }) {
   const [searchBar, setSearchBar] = useState(false);
   const [results, setResults] = useState([]);
   const [all, setALL] = useState([]);
+  const [receitaAtu, setReceita] = useState([]);
 
   const saveToLocalStorage = () => {
     const localOBJ = { email };
@@ -26,6 +27,8 @@ function Login({ children }) {
     setResults,
     all,
     setALL,
+    receitaAtu,
+    setReceita,
 
   };
   return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;

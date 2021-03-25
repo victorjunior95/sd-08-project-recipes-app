@@ -4,7 +4,7 @@ import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
 import CardDetails from '../../components/CardDetail/CardDetail';
 
-const Details = ({ title, match }) => {
+const Details = ({ location, title, match }) => {
   const { params: { id } } = match;
 
   const [object, setObject] = useState({});
@@ -31,7 +31,7 @@ const Details = ({ title, match }) => {
   }, []);
 
   return (
-    <CardDetails title={ title } object={ object } isLoading={ isLoading } />
+    <CardDetails title={ title } object={ object } isLoading={ isLoading } location={ location } />
   );
 };
 

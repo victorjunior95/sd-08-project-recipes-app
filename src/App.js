@@ -6,6 +6,10 @@ import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
+import DetalhesComida from './pages/DetalhesComida';
+import DetalhesBebida from './pages/DetalhesBebida';
+import ProgressoComida from './pages/ProgressoComida';
+import ProgressoBebida from './pages/ProgressoBebida';
 import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 import RecipesProvider from './context/RecipesProvider';
@@ -18,10 +22,6 @@ function App() {
         <Switch>
           <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
-          <Route exact path="/comidas/:id" />
-          <Route exact path="/bebidas/:id" />
-          <Route exact path="/comidas/{id-da-receita}/in-progress" />
-          <Route exact path="/bebidas/{id-da-receita}/in-progress" />
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
@@ -32,6 +32,10 @@ function App() {
           <Route exact path="/receitas-feitas" />
           <Route exact path="/receitas-favoritas" />
           <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas/:id/in-progress" component={ ProgressoComida } />
+          <Route exact path="/bebidas/:id/in-progress" component={ ProgressoBebida } />
+          <Route path="/comidas/:id" component={ DetalhesComida } />
+          <Route path="/bebidas/:id" component={ DetalhesBebida } />
         </Switch>
       </RecipesProvider>
     </Router>

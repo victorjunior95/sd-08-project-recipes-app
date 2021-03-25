@@ -1,50 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getFoodById } from '../services/API';
+import { getDrinkById } from '../services/API';
 
-function DetalhesComida() {
+function DetalhesBebida() {
   const history = useHistory();
   const { location } = history;
   const POS_IN_PATHNAME = 3;
   const ARR_POS = 2;
   const id = location.pathname.split('/', POS_IN_PATHNAME)[ARR_POS];
-  const [meal, setMeal] = useState({});
+  const [drink, setDrink] = useState({});
   const [toRender, setToRender] = useState(false);
   const ingredients = [];
   const measure = [];
 
   useEffect(() => {
-    getFoodById(id).then(({ meals }) => {
-      setMeal(meals[0]);
+    getDrinkById(id).then(({ drinks }) => {
+      setDrink(drinks[0]);
       setToRender(true);
     });
   }, []);
 
-  const PROPS_LIMITER = 20;
+  const PROP_LIMITER = 20;
 
   if (toRender) {
-    for (let i = 1; i <= PROPS_LIMITER; i += 1) {
-      if (meal[`strIngredient${i}`] !== null
-        && meal[`strIngredient${i}`] !== undefined
-        && meal[`strIngredient${i}`] !== '') {
-        ingredients.push(meal[`strIngredient${i}`]);
-        measure.push(meal[`strMeasure${i}`]);
+    for (let i = 1; i <= PROP_LIMITER; i += 1) {
+      if (drink[`strIngredient${i}`] !== null
+      && drink[`strIngredient${i}`] !== undefined
+      && drink[`strIngredient${i}`] !== '') {
+        ingredients.push(drink[`strIngredient${i}`]);
+        measure.push(drink[`strMeasure${i}`]);
       }
     }
   }
 
   const handleClick = () => {
-    history.push(`/comidas/${id}/in-progress`);
+    history.push(`/bebidas/${id}/in-progress`);
   };
 
   return toRender && (
     <div>
-      <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
-      <p data-testid="recipe-category">{ meal.strCategory }</p>
+      <h1 data-testid="recipe-title">{ drink.strDrink }</h1>
+      <p data-testid="recipe-category">{ drink.strAlcoholic }</p>
       <img
-        src={ meal.strMealThumb }
+        src={ drink.strDrinkThumb }
         data-testid="recipe-photo"
-        alt={ meal.strMeal }
+        alt={ drink.strdrink }
       />
       <div className="g6-group-buttons">
         <button type="button" data-testid="share-btn">Compartilhar</button>
@@ -59,9 +59,7 @@ function DetalhesComida() {
         )) }
       </ul>
       <h3>Instruções</h3>
-      <p data-testid="instructions">{ meal.strInstructions }</p>
-      <h3>Vídeo</h3>
-      <a data-testid="video" href={ meal.strYoutube }>Link aqui</a>
+      <p data-testid="instructions">{ drink.strInstructions }</p>
       <button
         type="button"
         onClick={ () => handleClick() }
@@ -83,4 +81,4 @@ function DetalhesComida() {
   );
 }
 
-export default DetalhesComida;
+export default DetalhesBebida;

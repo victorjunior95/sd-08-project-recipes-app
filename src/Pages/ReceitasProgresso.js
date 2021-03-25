@@ -1,36 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Spinner, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useRouteMatch } from 'react-router';
+import { useHistory, useParams, useRouteMatch } from 'react-router';
 import {
   DetailImage, DetailInstructions, DetailTitle, DetailVideo,
 } from './Details';
 import { fetchItem } from '../store/apiSlice';
 import DetailRecommend from './Details/DetailRecommend';
 import DetailIngredientsProgress from './ReceitasProgressCheckbox';
-
-const isFavoriteRecipe = (id) => {
-  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-  if (!favorite) return false;
-
-  return favorite.some((item) => item.id === id);
-};
-
-const toggleFavoriteRecipe = (recipeObject) => {
-  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  // const today = new Date();
-  // recipeObject.doneDate = `${today.getDate()}/${today.getMonth()}/${today.getYear()}`;
-
-  if (!favorite) {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([recipeObject]));
-  } else if (favorite.some((item) => item.id === recipeObject.id)) {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([...favorite]
-      .filter((item) => item.id !== recipeObject.id)));
-  } else {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([...favorite, recipeObject]));
-  }
-};
 
 const setLocal = (isFood, id, checkbox) => {
   if (!isFood) {
@@ -65,6 +42,14 @@ const getLocalStorage = (id, isFood) => {
   }
 };
 
+const checkboxAllMarked = (getRecipe, checkbox, item) => {
+  const arrayIngredients = getRecipe('Ingredient', item);
+  if (arrayIngredients.length === checkbox.length) {
+    return false;
+  }
+  return true;
+};
+
 function DetailsProgress() {
   const dispatch = useDispatch();
   const { url } = useRouteMatch();
@@ -77,7 +62,11 @@ function DetailsProgress() {
     return {};
   });
   const [checkbox, setCheckBox] = useState(getLocalStorage(id, isFood) || []);
-  const [favorite, setFavorite] = useState(isFavoriteRecipe(id));
+  const history = useHistory();
+
+  const handelClick = () => {
+    history.push('/receitas-feitas');
+  };
 
   const checkboxLocalStorage = (index, checked) => {
     if (checked === true) {
@@ -108,28 +97,6 @@ function DetailsProgress() {
         title={ item.strMeal || item.strDrink }
         cat={ item.strAlcoholic || item.strCategory }
       />
-      <Button
-        variant="link"
-        onClick={ () => {
-          setShow(true);
-          navigator.clipboard.writeText(`http://localhost:3000${url}`);
-        } }
-      >
-        <img alt="share" data-testid="share-btn" src={ shareIcon } />
-      </Button>
-      <Button
-        variant="link"
-        onClick={ () => {
-          setFavorite(!favorite);
-          return toggleFavoriteRecipe(recipeObject);
-        } }
-      >
-        <img
-          alt="share"
-          data-testid="favorite-btn"
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
-        />
-      </Button>
       <DetailIngredientsProgress
         checkbox={ checkbox }
         checkboxLocalStorage={ checkboxLocalStorage }
@@ -139,7 +106,13 @@ function DetailsProgress() {
       <DetailInstructions instructions={ item.strInstructions } />
       { isFood && <DetailVideo vidSrc={ item.strYoutube } />}
       <DetailRecommend isFood={ isFood } />
-      {/* <Button data-testid="finish-recipe-btn" disabled={ checkboxAllMarked() }>Finalizar Receita</Button> */}
+      <Button
+        data-testid="finish-recipe-btn"
+        disabled={ checkboxAllMarked(getRecipeInfo, checkbox, item) }
+        onClick={ () => handelClick() }
+      >
+        Finalizar Receita
+      </Button>
     </main>
   );
 }

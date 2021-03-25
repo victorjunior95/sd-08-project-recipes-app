@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
 import ListCard from '../components/ListCard';
 
 export default class Food extends Component {
   render() {
+    const { history: { push } } = this.props;
     const values = {
       name: 'Comidas',
       url: {
@@ -18,6 +20,7 @@ export default class Food extends Component {
       name: 'strMeal',
       thumb: 'strMealThumb',
       linkRedirect: '/comidas/',
+      history: push,
     };
     return (
       <div>
@@ -27,3 +30,9 @@ export default class Food extends Component {
     );
   }
 }
+
+Food.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

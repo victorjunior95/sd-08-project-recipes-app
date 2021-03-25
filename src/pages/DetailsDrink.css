@@ -4,9 +4,9 @@
   flex-direction: row;
   height: 80%;
   justify-content: space-around;
-  margin-top: 2%;
+  margin: 2% auto;
   overflow: scroll;
-  width: 100%;
+  width: 90%;
 }
 
 .card-drink-details {
@@ -32,3 +32,34 @@
   font-size: 25px;
   margin-top: 2%;
 }
+
+.carousel-class-drinks {
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+  overflow-x: auto;
+
+  /* width: 315%; */
+}
+
+.share-favorite-btn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 70px;
+  width: 100%;
+}
+
+.recomendation-img {
+  flex: none;
+  height: 200px;
+  width: 50%;
+}
+
+.paragraph-cards {
+  font-size: 10px;
+}
+
+/* .img-cards {
+  flex: none;
+  width: 100%;
+} */

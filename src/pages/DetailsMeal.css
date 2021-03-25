@@ -32,3 +32,38 @@
   font-size: 25px;
   margin-top: 2%;
 }
+
+.start-recipe-btn {
+  align-self: center;
+  bottom: 0;
+  height: 9%;
+  position: fixed;
+  width: 100%;
+}
+
+.share-favorite-btn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 70px;
+  width: 100%;
+}
+
+.carousel-class {
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+  overflow-x: auto;
+
+  /* width: 315%; */
+}
+
+.recomendation-img-food {
+  flex: none;
+  height: 200px;
+  width: 55%;
+}
+
+.paragraph-cards {
+  font-size: 10px;
+}
+

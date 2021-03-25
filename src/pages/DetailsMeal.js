@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { DataDrinksContext } from '../context/ContextDrinks';
 import { getMealRecipesDetails } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
@@ -13,7 +14,6 @@ function DetailsMeal() {
   const Params = useParams();
   const history = useHistory();
   const [mealDetail, setMealDetail] = useState([]);
-
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getMealRecipesDetails(Params.id);
@@ -22,9 +22,9 @@ function DetailsMeal() {
     fetchDetails();
   }, [Params.id]);
 
-  const sizeOfLength = 3;
+  const sizeOfLength = 2;
   const startOfSlice = 0;
-  const endOfSlice = 2;
+  const endOfSlice = 6;
 
   const measure = Object.entries(mealDetail).reduce(
     (acc, [key, value]) => {
@@ -79,36 +79,48 @@ function DetailsMeal() {
             />
           </video>
           <h4>Recomendadas</h4>
-          {drinks.length > sizeOfLength
+          <div className="carousel-class">
+            {drinks.length > sizeOfLength
             && drinks
               .slice(startOfSlice, endOfSlice)
               .map((drink, index) => (
-                <img
-                  key={ drink.idDrink }
-                  data-testid={ `${index}-recomendation-card` }
-                  src={ drink.strDrinkThumb }
-                  alt="recomendations"
-                />
+                <figure className="recomendation-img-food" key={ index }>
+                  <img
+                    key={ drink.idDrink }
+                    data-testid={ `${index}-recomendation-card` }
+                    src={ drink.strDrinkThumb }
+                    alt="recomendations"
+                  />
+                  <figcaption>{drink.strCategory}</figcaption>
+                  <figcaption
+                    data-testid={ `${index}-recomendation-title` }
+                  >
+                    { drink.strDrink }
+                  </figcaption>
+                </figure>
               ))}
-          <button
+          </div>
+          <Button
             onClick={ () => history.push(`/comidas/${Params.id}/in-progress`) }
+            className="start-recipe-btn"
             data-testid="start-recipe-btn"
-            type="button"
           >
             Iniciar Receita
-          </button>
+          </Button>
         </div>
       </div>
-      <button type="button">
-        <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
-      </button>
-      <button type="button">
-        <img
-          data-testid="favorite-btn"
-          src={ whiteHeartIcon }
-          alt="favorite-icon"
-        />
-      </button>
+      <div className="share-favorite-btn">
+        <Button variant="warning">
+          <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
+        </Button>
+        <Button variant="danger">
+          <img
+            data-testid="favorite-btn"
+            src={ whiteHeartIcon }
+            alt="favorite-icon"
+          />
+        </Button>
+      </div>
     </div>
   );
 }

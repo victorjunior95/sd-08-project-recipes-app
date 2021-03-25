@@ -9,20 +9,38 @@ import { fetchItem } from '../store/apiSlice';
 import DetailRecommend from './Details/DetailRecommend';
 import DetailIngredientsProgress from './ReceitasProgressCheckbox';
 
-const isDoneRecipe = (id) => {
-  const done = JSON.parse(localStorage.getItem('doneRecipes'));
-  return done ? done.some((element) => element.id === id) : false;
-};
+// const isDoneRecipe = (id) => {
+//   const done = JSON.parse(localStorage.getItem('doneRecipes'));
+//   return done ? done.some((element) => element.id === id) : false;
+// };
 
-const isInProgressRecipe = (id) => {
-  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+// const isInProgressRecipe = (id) => {
+//   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-  if (!inProgress) return false;
+//   if (!inProgress) return false;
 
-  const cocktailCheck = inProgress.cocktails && id in inProgress.cocktails;
-  const mealCheck = inProgress.meals && id in inProgress.meals;
+//   const cocktailCheck = inProgress.cocktails && id in inProgress.cocktails;
+//   const mealCheck = inProgress.meals && id in inProgress.meals;
 
-  return Boolean(cocktailCheck || mealCheck);
+//   return Boolean(cocktailCheck || mealCheck);
+// };
+
+const setLocal = (isFood, id ,checkbox) => {
+  if (!isFood) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {
+        [id]: checkbox,
+      },
+      meals: {},
+    }));
+  } else {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {},
+      meals: {
+        [id]: checkbox,
+      },
+    }));
+  }
 };
 
 const getRecipeInfo = (string, item) => Object.entries(item).reduce((array, entry) => (
@@ -31,10 +49,10 @@ const getRecipeInfo = (string, item) => Object.entries(item).reduce((array, entr
 ), []);
 
 function DetailsProgress() {
+  const dispatch = useDispatch();
   const { url } = useRouteMatch();
   const isFood = url.includes('comidas');
   const { id } = useParams();
-  const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.api.loading === 'pending');
   const item = useSelector((state) => {
     if (state.api.data.meals) return state.api.data.meals[0];
@@ -44,18 +62,15 @@ function DetailsProgress() {
   const [checkbox, setCheckBox] = useState([]);
   console.log(checkbox);
 
-  const localStorage = {
-    cocktails: {},
-    meals: {},
+  const checkboxLocalStorage = (index, checked) => {
+    if (checked === true) {
+      setCheckBox([...checkbox, index]);
+    } else if (checked === false) {
+      const checkboxClone = [...checkbox];
+      checkboxClone.splice(checkbox.indexOf(index), 1);
+      setCheckBox(checkboxClone);
+    }
   };
-
-  const objeto = JSON.stringify(localStorage);
-  console.log(objeto);
-
-  localStorage.setItem('inProgressRecipes', objeto);
-
-  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(inProgress);
 
   useEffect(() => {
     const database = isFood ? 'themealdb' : 'thecocktaildb';
@@ -63,28 +78,11 @@ function DetailsProgress() {
     dispatch(fetchItem(endpoint));
   }, [isFood, id, dispatch]);
 
+  useEffect(() => {
+    setLocal(isFood, id, checkbox);
+  });
+
   if (isLoading) return <Spinner animation="border" />;
-
-  // const checkboxAllMarked = () => {
-  //   const array = getRecipeInfo('Ingredient', item);
-  //   let disabled = true;
-  //   if (checkbox === array.length) {
-  //     disabled = false;
-  //   }
-
-  //   return disabled;
-  // };
-
-  //  const localStorage = {
-  //     cocktails: {
-  //         item.idDrink: [lista-de-ingredientes-utilizados],
-  //         ...
-  //     },
-  //     meals: {
-  //         id-da-comida: [lista-de-ingredientes-utilizados],
-  //         ...
-  //     }
-  // }
 
   return (
     <main>
@@ -94,8 +92,7 @@ function DetailsProgress() {
         cat={ item.strAlcoholic || item.strCategory }
       />
       <DetailIngredientsProgress
-        setCheckBox={ setCheckBox }
-        checkbox={ checkbox }
+        checkbox={ checkboxLocalStorage }
         ingredients={ getRecipeInfo('Ingredient', item) }
         measures={ getRecipeInfo('Measure', item) }
       />

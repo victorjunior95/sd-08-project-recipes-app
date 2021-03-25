@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap';
 import './ReceitasProgressCheckbox.css';
 
 function DetailIngredientsProgress(props) {
-  const { ingredients, measures, setCheckBox, checkbox } = props;
+  const { ingredients, measures, checkbox } = props;
   return (
     <section>
       <h1>Ingredientes</h1>
@@ -16,12 +16,12 @@ function DetailIngredientsProgress(props) {
               className="checkbox"
               type="checkbox"
               value=""
-              defaultChecked={ true }
+              defaultChecked={ false }
               onChange={ (e) => {
                 if (e.target.checked === true) {
-                  setCheckBox(index);
+                  checkbox(index, true);
                 } else if (e.target.checked === false) {
-                  setCheckBox(checkbox - 1);
+                  checkbox(index, false);
                 }
               } }
               id="flexCheckChecked"

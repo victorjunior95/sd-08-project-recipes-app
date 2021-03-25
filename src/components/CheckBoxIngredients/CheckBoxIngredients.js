@@ -3,53 +3,63 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import './checkBoxIngredient.css';
 import Context from '../../contextApi/Context';
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 const CheckBoxIngredients = ({ object, title }) => {
 
-  const { setProgressRecipes, inProgressRecipes } = useContext(Context);
+  const [ inProgressRecipes, setProgressRecipes ] = useState({
+    cocktails: {},
+    meals: {}
+  });
+  const [ isClicked, setClicked] = useState(false);
 
   const mealId = object.idMeal;
   const drinkId = object.idDrink
 
-  // const isInProgressRecipe = () => {
-  //   if (JSON.parse(localStorage.getItem("inProgressRecipes"))) {
-  //     return true
-  //   }
-  // }
+  const updateInProgressRecipes = () => {
+    const objectSaved = JSON.parse(localStorage.getItem("inProgressRecipes"))
+    const idsMealList = objectSaved && Object.keys(objectSaved.meals)
+    const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
+    console.log(objectSaved, existSpecificId , 'Antes de entrar nas condições')
 
-  // Gerando a key ID
-  useEffect(() => {
-    const recipesToStorage =(JSON.parse(localStorage.getItem("inProgressRecipes")))
-    if (recipesToStorage && recipesToStorage.meals !== {}){
-      if (mealId && title === "Comidas") {
-        setProgressRecipes({
-            ... inProgressRecipes, meals: {
-              ...inProgressRecipes.meals, [mealId] : [],
-            }
-          }
-        )
-      } 
-      else if (drinkId && title === "Bebidas") {
-        setProgressRecipes( (estado) => {
-          return( {
-            ... estado, cocktails: {
-              ...estado.cocktails, [drinkId] : [],
-            }
-          })
-        })
-      }
+    if (objectSaved === null || !existSpecificId) {
+      console.log('Entra na primeira condição')
+      setProgressRecipes({
+        ... inProgressRecipes, meals: {
+          ...inProgressRecipes.meals, [mealId] : [],
+        }
+      })
+      // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
+    } else {
+      console.log('entra na segunda condição')
+      console.log(inProgressRecipes, objectSaved )
+      setProgressRecipes(objectSaved);
+      // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
     }
-  }, [])
+  }
 
-// Salvando no localStorage
-  useEffect(() => {
-    const ingredientsFromLocalStorage = JSON.parse(localStorage.getItem("inProgressRecipes"))
-    const updatedIngredients = inProgressRecipes
+  const saveOnLocalStorage = () => {
 
-    localStorage.setItem('inProgressRecipes', JSON.stringify({...ingredientsFromLocalStorage, ...updatedIngredients}))
-  }, [inProgressRecipes])
+    const idsMealList = inProgressRecipes && Object.keys(inProgressRecipes.meals)
+    const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
+    console.log(inProgressRecipes, existSpecificId , 'Antes de entrar nas condições')
 
+    if (existSpecificId) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
+    }
+  }
 
+  useEffect (() => {
+    saveOnLocalStorage()
+  },[isClicked])
+
+  useEffect (() => {
+    if (mealId) {
+      setClicked(!isClicked)
+      updateInProgressRecipes()
+    }
+    // return () => saveOnLocalStorage
+  },[])
 
 
 
@@ -81,6 +91,7 @@ const CheckBoxIngredients = ({ object, title }) => {
 
 // adicionando ingredientes no array da respectiva Key id
   const handleClick = (event) => {
+    setClicked(!isClicked)
     if (title === "Comidas") {
       adOrRemoveIngredient(event, mealId, "meals");
       }
@@ -88,6 +99,7 @@ const CheckBoxIngredients = ({ object, title }) => {
       adOrRemoveIngredient(event, drinkId, "cocktails")
     }
   }
+
   
   const renderIngredientList = () => {
     const listKeys = Object.keys(object);
@@ -117,7 +129,6 @@ const CheckBoxIngredients = ({ object, title }) => {
           </div>
         )
       }
-      return true;
     });
   };
 

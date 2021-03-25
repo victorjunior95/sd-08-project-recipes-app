@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import getResultFromAPI from '../api/getResultFromAPI';
 import contextRecipes from '../context/Context';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import FoodCard from '../components/FoodCard';
 
 const Comidas = () => {
   const [meals, setMeals] = useState([]);
   const [targetButton, setTargetButton] = useState('');
-  const history = useHistory();
   const BOOLEAN_FALSE = false;
   const { filter, mealsCategories, mainIngredient, setMain } = useContext(contextRecipes);
 
@@ -65,17 +64,7 @@ const Comidas = () => {
         />
       ))}
       { meals.map((meal, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ meal.strMeal }>
-          <input
-            type="image"
-            data-testid={ `${index}-card-img` }
-            src={ meal.strMealThumb }
-            alt="comida"
-            width="100%"
-            onClick={ () => history.push(`/comidas/${meal.idMeal}`) }
-          />
-          <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
-        </div>
+        <FoodCard index={ index } food={ meal } key={ index } />
       ))}
       <Footer />
     </>

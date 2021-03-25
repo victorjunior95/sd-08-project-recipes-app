@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import getResultFromAPI from '../api/getResultFromAPI';
 import contextRecipes from '../context/Context';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import FoodCard from '../components/FoodCard';
 
 const Bebidas = () => {
   const [drinks, setDrinks] = useState([]);
   const [targetButton, setTargetButton] = useState('');
+
   const { filter, drinksCategories,
     mainIngredient, setMain } = useContext(contextRecipes);
-  const history = useHistory();
   const BOOLEAN_FALSE = false;
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const Bebidas = () => {
         drinksAPI = await getResultFromAPI('/bebidas', 'Ingredients', mainIngredient);
         setMain('');
       }
+
       setDrinks(drinksAPI);
     }
     getDrinksFromAPI();
@@ -56,18 +57,8 @@ const Bebidas = () => {
         />
       ))}
       { drinks.map((drink, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
-          <input
-            type="image"
-            data-testid={ `${index}-card-img` }
-            src={ drink.strDrinkThumb }
-            alt="bebida"
-            width="100%"
-            onClick={ () => history.push(`/bebidas/${drink.idDrink}`) }
-          />
-          <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
-        </div>
-      ))}
+        <FoodCard index={ index } food={ drink } key={ index } />
+      )) }
       <Footer />
     </>
   );

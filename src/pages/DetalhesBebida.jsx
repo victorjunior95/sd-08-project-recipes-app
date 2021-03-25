@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import getResultFromAPI from '../api/getResultFromAPI';
+import Details from '../components/Details';
 import contextRecipes from '../context/Context';
 import createIngredientsArray from '../services/createIngredientsArray';
 
@@ -17,12 +18,9 @@ function DetalhesBebida() {
     getDrink();
   }, []);
 
-  console.log(context.currentFoodIngredients);
-
   return (
     <div>
-      { id }
-      <footer>footer</footer>
+      <Details />
     </div>
   );
 }

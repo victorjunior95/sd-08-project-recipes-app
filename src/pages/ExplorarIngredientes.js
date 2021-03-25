@@ -7,9 +7,7 @@ export default function Ingredientes() {
   return (
     <div>
       <Header title="Ingredientes" showSearchButton={ false } />
-      <ExploreIngredients
-        type={  }
-      />
+      <ExploreIngredients />
       <Footer />
     </div>
   );

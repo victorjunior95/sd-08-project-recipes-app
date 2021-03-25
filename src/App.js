@@ -16,6 +16,8 @@ import DrinksByIngredients from './pages/DrinksByIngredients';
 import FoodsByOriginLocation from './pages/FoodsByOriginLocation';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeInProgress from './pages/RecipeInProgress';
+import MealDrinkProgress from './components/MealDrinkProgress';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -52,6 +54,18 @@ function App() {
       />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <RecipeInProgress
+        exact
+        path="/comidas/:id/in-progress"
+        type="meal"
+        component={ MealDrinkProgress }
+      />
+      <RecipeInProgress
+        exact
+        path="/bebidas/:id/in-progress"
+        type="drink"
+        component={ MealDrinkProgress }
+      />
     </Switch>
   );
 }

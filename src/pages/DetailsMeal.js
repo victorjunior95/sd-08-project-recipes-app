@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { DataDrinksContext } from '../context/ContextDrinks';
 import { getMealRecipesDetails } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
@@ -11,14 +11,16 @@ function DetailsMeal() {
   const dataDrinks = useContext(DataDrinksContext);
   const { drinks } = dataDrinks;
   const Params = useParams();
+  const history = useHistory();
   const [mealDetail, setMealDetail] = useState([]);
+
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getMealRecipesDetails(Params.id);
       setMealDetail(saveDetail);
     }
     fetchDetails();
-  }, []);
+  }, [Params.id]);
 
   const sizeOfLength = 3;
   const startOfSlice = 0;
@@ -88,7 +90,11 @@ function DetailsMeal() {
                   alt="recomendations"
                 />
               ))}
-          <button data-testid="start-recipe-btn" type="button">
+          <button
+            onClick={ () => history.push(`/comidas/${Params.id}/in-progress`) }
+            data-testid="start-recipe-btn"
+            type="button"
+          >
             Iniciar Receita
           </button>
         </div>

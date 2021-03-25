@@ -28,6 +28,13 @@ function MealCatsButtons() {
           </button>
         ) : ''
       ))}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => dispatch(filterMealCatsAction('')) }
+      >
+        All
+      </button>
     </div>
   );
 }

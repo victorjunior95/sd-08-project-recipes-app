@@ -39,7 +39,8 @@ export function fetchFistDrinkCats() {
 }
 
 export function fetchRecipesDrinkCats(filter) {
-  const recipesFilteredURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
+  const recipesFilteredURL = filter === '' ? `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${''}`
+    : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
 
   return fetch(recipesFilteredURL)
     .then((r) => r.json())

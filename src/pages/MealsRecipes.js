@@ -33,7 +33,8 @@ function MealsRecipes() {
 
   return (
     <main>
-      {meals && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+      {(meals && meals.length === 1 && filter === '')
+      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />
       { meals && meals.map((elem, index) => (

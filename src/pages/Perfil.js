@@ -13,7 +13,11 @@ function Perfil() {
         type="text"
         data-testid="profile-email"
       >
-        { user.email }
+        {
+          user !== null || undefined
+            ? user.email
+            : ''
+        }
       </p>
     );
   }

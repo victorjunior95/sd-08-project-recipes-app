@@ -1,5 +1,6 @@
 const END_POINTS = {
   FOODS: {
+    random: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     category: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
     region: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
     ingredients: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
@@ -7,6 +8,7 @@ const END_POINTS = {
     letter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
   },
   DRINKS: {
+    random: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     category: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     ingredients: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
@@ -18,6 +20,8 @@ const fetchAPI = (andPoint) => fetch(andPoint).then((response) => response
   .json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
+export const fetchFoodsByRandom = () => fetchAPI(END_POINTS.FOODS.random);
+
 export const fetchFoodsByCategories = () => fetchAPI(END_POINTS.FOODS.category);
 export const fetchFoodsByRegion = () => fetchAPI(END_POINTS.FOODS.region);
 export const fetchFoodsByIngredients = (value) => fetchAPI(`${END_POINTS.FOODS
@@ -25,6 +29,9 @@ export const fetchFoodsByIngredients = (value) => fetchAPI(`${END_POINTS.FOODS
 export const fetchFoodsByName = (value) => fetchAPI(`${END_POINTS.FOODS.name}${value}`);
 export const fetchFoodsByLetter = (value) => fetchAPI(`${END_POINTS.FOODS
   .letter}${value}`);
+
+export const fetchDrinksByRandom = () => fetchAPI(END_POINTS.DRINKS.random);
+
 export const fetchDrinksByCategories = () => fetchAPI(END_POINTS.DRINKS.category);
 export const fetchDrinksByIngredients = (value) => fetchAPI(`${END_POINTS.DRINKS
   .ingredients}${value}`);

@@ -13,7 +13,8 @@ export default function drinksReducer(state = INITIAL_STATE, action) {
       return { ...state };
     }
     return {
-      ...state, data: action.data,
+      ...state,
+      data: action.data,
     };
   default:
     return state;

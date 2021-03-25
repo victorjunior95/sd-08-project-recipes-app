@@ -2,6 +2,7 @@ import {
   fetchDrinksByIngredients,
   fetchDrinksByName,
   fetchDrinksByLetter,
+  fetchDrinksByRandom,
 } from '../../services';
 
 export const GET_SEARCH_DRINK = 'GET_SEARCH_DRINK';
@@ -19,4 +20,7 @@ function getSearchDrink(data) {
 export const fetchDrink = ({ search, searchRadio }) => (dispatch) => {
   const fetch = createDrink(search);
   fetch[searchRadio].then((data) => dispatch(getSearchDrink(data)));
+};
+export const fetchDrinksRandom = () => (dispatch) => {
+  fetchDrinksByRandom().then((data) => dispatch(getSearchDrink(data)));
 };

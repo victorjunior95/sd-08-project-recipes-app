@@ -7,14 +7,14 @@ import CardsArea from '../../components/CardsArea';
 
 function Drinks() {
   const { isFetching, drinks } = useSelector((state) => state.drinks);
-  const oneDrink = drinks.length === 1 ? drinks[0].idDrink : false;
+  const oneDrink = drinks ? drinks.length : false;
   return (
     <ContainerDefault title="Bebidas">
       {
         isFetching ? <Loading />
           : <CardsArea type="drinks" />
       }
-      { oneDrink && <Redirect to={ `/bebidas/${oneDrink}` } /> }
+      { oneDrink === 1 && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } /> }
     </ContainerDefault>
   );
 }

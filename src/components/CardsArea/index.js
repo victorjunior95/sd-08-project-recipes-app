@@ -12,7 +12,8 @@ function CardsArea({ type }) {
   if (type === 'foods') {
     return (
       <Container className="d-flex flex-column align-items-center m-0 p-0">
-        { meals.length <= 1 ? <p> nada por aqui! </p>
+        { !meals ? <p> nada por aqui! </p>
+        && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : meals.map(
             ({ strMeal, strMealThumb }, index) => (
               <Cards
@@ -28,7 +29,8 @@ function CardsArea({ type }) {
   if (type === 'drinks') {
     return (
       <Container>
-        { drinks.length <= 1 ? <p> nada por aqui! </p>
+        { !drinks ? <p> nada por aqui! </p>
+        && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : drinks.map(
             ({ strDrink, strDrinkThumb }, index) => (
               index < TWELVE_CARDS && (

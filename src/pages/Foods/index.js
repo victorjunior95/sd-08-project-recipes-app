@@ -7,14 +7,14 @@ import Loading from '../../components/Loading';
 
 function Foods() {
   const { isFetching, meals } = useSelector((state) => state.foods);
-  const oneMeal = meals.length === 1 ? meals[0].idMeal : false;
+  const oneMeal = meals ? meals.length : false;
   return (
     <ContainerDefault title="Comidas">
       {
         isFetching ? <Loading />
           : <CardsArea type="foods" />
       }
-      { oneMeal && <Redirect to={ `/comidas/${oneMeal}` } /> }
+      { oneMeal === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } /> }
     </ContainerDefault>
   );
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import copy from 'clipboard-copy';
-import { Link } from 'react-router-dom';
 import HeaderLocation from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import FilterButtons from '../components/FilterButtons';
+import DoneAndFavoriteCards from '../components/DoneAndFavoriteCards';
 
 class ReceitasFeitas extends Component {
   constructor() {
@@ -36,46 +36,11 @@ class ReceitasFeitas extends Component {
       filtered: false,
 
     };
-    this.filtersButtons = this.filtersButtons.bind(this);
-    this.inputCard = this.inputCard.bind(this);
     this.share = this.share.bind(this);
     this.filters = this.filters.bind(this);
   //   this.APIbebidas = this.APIbebidas.bind(this);
   //   this.twelveCards = this.twelveCards.bind(this);
   // }
-  }
-
-  filtersButtons() {
-    return (
-      <div className="filters">
-        <center>
-          <button
-            type="button"
-            onClick={ () => this.filters('all') }
-            data-testid="filter-by-all-btn"
-          >
-            All
-
-          </button>
-          <button
-            type="button"
-            onClick={ () => this.filters('food') }
-            data-testid="filter-by-food-btn"
-          >
-            Food
-
-          </button>
-          <button
-            type="button"
-            onClick={ () => this.filters('drink') }
-            data-testid="filter-by-drink-btn"
-          >
-            Drinks
-
-          </button>
-        </center>
-      </div>
-    );
   }
 
   filters(par) {
@@ -106,74 +71,8 @@ class ReceitasFeitas extends Component {
     });
   }
 
-  inputCard() {
-    const { newRecipes, recipes, filtered } = this.state;
-    let arr = [];
-    if (filtered === false) {
-      arr = recipes;
-    }
-    if (filtered === true) {
-      arr = newRecipes;
-    }
-    return (
-      <div>
-        { arr.map((obj, index) => (
-          <div className="card" key={ obj.id }>
-            <center>
-              <div className="a">
-                <Link to={ `${obj.type}s/${obj.id}` }>
-                  <img
-                    data-testid={ `${index}-horizontal-image` }
-                    alt="card"
-                    src={ `${obj.image}` }
-                    className="linkImage"
-                  />
-                </Link>
-
-              </div>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {`${obj.alcoholicOrNot} ${obj.area} - ${obj.category}`}
-
-              </p>
-              <Link to={ `${obj.type}s/${obj.id}` }>
-                <p data-testid={ `${index}-horizontal-name` }>{obj.name}</p>
-              </Link>
-              <p data-testid={ `${index}-horizontal-done-date` }>{obj.doneDate}</p>
-
-            </center>
-            <button
-              type="button"
-              onClick={ () => this.share(obj) }
-            >
-              <img
-                alt="card"
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-              />
-              {' '}
-            </button>
-            <div className="tags">
-              tags:
-              { obj.tags.map((tag) => (
-                <p
-                  key={ tag }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                >
-                  {tag}
-                </p>
-              ))}
-
-            </div>
-
-          </div>))}
-      </div>
-    );
-  }
-
   render() {
-    const { displayShareMesage } = this.state;
+    const { displayShareMesage, newRecipes, recipes, filtered } = this.state;
 
     return (
       <div>
@@ -181,9 +80,14 @@ class ReceitasFeitas extends Component {
         <br />
         <br />
         <br />
-        {this.filtersButtons()}
+        <FilterButtons filters={ this.filters } />
         { displayShareMesage ? <p className="alert">Link copiado!</p> : <div />}
-        {this.inputCard()}
+        <DoneAndFavoriteCards
+          newRecipes={ newRecipes }
+          recipes={ recipes }
+          filtered={ filtered }
+          share={ this.share }
+        />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionThunkCategoryDrinks, actionThunkCategoryFoods } from '../redux/actions';
 
 import Button from './Button';
 
@@ -11,6 +12,17 @@ const CategoriesContainer = ({ page }) => {
   const drinksCategories = useSelector(
     (state) => state.CategoriesRecipes.drinksCategories,
   );
+
+  const dispatch = useDispatch();
+
+  const handleClick = (category) => {
+    if (page === 'Comidas') {
+      dispatch(actionThunkCategoryFoods(category));
+    } else if (page === 'Bebidas') {
+      dispatch(actionThunkCategoryDrinks(category));
+    }
+  };
+
   const showCategoriesButtons = () => {
     let buttons = [];
     if (page === 'Comidas') {
@@ -33,6 +45,7 @@ const CategoriesContainer = ({ page }) => {
         name={ button.strCategory }
         key={ button.strCategory }
         data-testid={ `${button.strCategory}-category-filter` }
+        onClick={ () => handleClick(button.strCategory) }
       />
     ));
   };

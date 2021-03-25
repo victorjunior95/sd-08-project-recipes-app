@@ -4,6 +4,7 @@ import {
   // requestDrinkByFirstLetter,
   requestMainDrinks,
   requestCategoriesDrinks,
+  requestDrinkByCategory,
 } from '../../services/requestDrinksAPI';
 import {
   // requestByName,
@@ -11,12 +12,17 @@ import {
   // requestByFirstLetter,
   requestMainFoods,
   requestCategoriesMeals,
+  requestFoodByCategory,
 } from '../../services/requestFoodsAPI';
 
 // ACTION DE LOGIN
 export const IS_LOADING = 'IS_LOADING';
 
 export const FINISHED_LOADING = 'FINISHED_LOADING';
+
+export const CATEGORIES_DRINKS_FILTER = 'CATEGORIES_DRINKS_FILTER';
+
+export const CATEGORIES_FOODS_FILTER = 'CATEGORIES_FOODS_FILTER';
 
 export const actionIsLoading = (isLoading) => ({
   type: IS_LOADING,
@@ -105,5 +111,34 @@ export const actionThunkMainDrinks = () => async (dispatch) => {
   const categoriesDrinks = await requestCategoriesDrinks();
   dispatch(actionCategoriesDrinks(categoriesDrinks));
   dispatch(actionMainDrinks(mainDrinks));
+  dispatch(actionIsLoading(false));
+};
+
+// THUNK ACTIONS FILTER CATEGORIES
+export const actionFilterCategoryDrinks = (drinks) => ({
+  type: CATEGORIES_DRINKS_FILTER,
+  payload: {
+    drinks,
+  },
+});
+
+export const actionThunkCategoryDrinks = (category) => async (dispatch) => {
+  dispatch(actionIsLoading(true));
+  const drinksByCategory = await requestDrinkByCategory(category);
+  dispatch(actionFilterCategoryDrinks(drinksByCategory));
+  dispatch(actionIsLoading(false));
+};
+
+export const actionFilterCategoryFoods = (foods) => ({
+  type: CATEGORIES_FOODS_FILTER,
+  payload: {
+    foods,
+  },
+});
+
+export const actionThunkCategoryFoods = (category) => async (dispatch) => {
+  dispatch(actionIsLoading(true));
+  const foodsByCategory = await requestFoodByCategory(category);
+  dispatch(actionFilterCategoryFoods(foodsByCategory));
   dispatch(actionIsLoading(false));
 };

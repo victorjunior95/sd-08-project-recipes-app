@@ -14,6 +14,9 @@ function Foods() {
   const isLoading = useSelector((state) => state.Loading.isLoading);
   const foods = useSelector((state) => state.FilteredRecipes.foods);
   const mainFoods = useSelector((state) => state.MainRecipes.mainFoods);
+  const foodsFilterCategories = useSelector(
+    (state) => state.FilterByCategory.foodsFilterCategories,
+  );
 
   // const requestMainFoods = () => {
   //   dispatch(actionThunkMainFoods());
@@ -42,10 +45,12 @@ function Foods() {
 
   const showCards = () => {
     let foodsToMap = [];
-    if (foods.length === 0) {
+    if (foods.length === 0 && foodsFilterCategories.length === 0) {
       foodsToMap = [...mainFoods];
-    } else {
+    } else if (foodsFilterCategories.length === 0) {
       foodsToMap = [...foods];
+    } else {
+      foodsToMap = [...foodsFilterCategories];
     }
     if (foodsToMap.length === 1) {
       const id = foodsToMap[0].idMeal;

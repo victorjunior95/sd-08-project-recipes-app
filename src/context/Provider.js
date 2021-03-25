@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
-import { fetchRecipes, fetchRecipeDetails } from '../services/RequisicaoApi';
+import {
+  fetchRecipes,
+  fetchRecipeDetails,
+  fetchRecommendations,
+} from '../services/RequisicaoApi';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -11,6 +15,7 @@ function Provider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
   const [apiReturn, setApiReturn] = useState(null);
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
 
   async function requestApiData(endpoint) {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -19,9 +24,10 @@ function Provider({ children }) {
     setIsFetching(false);
   }
 
-  async function requestRecipeDetails(endpoint, recipeId) {
+  async function requestRecipeDetails(endpoint, recipeId, secondEndpoint) {
     setIsFetching(true);
     setRecipeDetails([await fetchRecipeDetails(endpoint, recipeId)]);
+    setRecommendations([await fetchRecommendations(secondEndpoint)]);
     setIsFetching(false);
   }
 
@@ -40,6 +46,8 @@ function Provider({ children }) {
     recipeDetails,
     setRecipeDetails,
     requestRecipeDetails,
+    recommendations,
+    setRecommendations,
   };
 
   return (

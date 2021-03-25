@@ -1,23 +1,25 @@
 import React, { useContext } from 'react';
+// import { Redirect } from 'react-router';
 import Context from '../context/Context';
+import Recommended from './Recommended';
+import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/RecipeDetails.css';
 
-function RecipeDetails({ recipeType }) {
+function RecipeDetails({ recipeType, status }) {
   const { isFetching, recipeDetails } = useContext(Context);
 
   function renderDetailsHeader() {
-    const details = Object.values(recipeDetails[0])[0];
+    const recipe = Object.values(recipeDetails[0])[0][0];
+    // let shouldRedirect = false;
 
-    console.log(Object.entries(details[0]));
-    const NINE = 9;
-    const TWENTY_NINE = 29;
-    const FOURTY_NINE = 49;
-    const ingredientsArray = Object.values(details[0]).slice(NINE, TWENTY_NINE);
-    const measureArray = Object.values(details[0]).slice(TWENTY_NINE, FOURTY_NINE);
+    /* if (shouldRedirect === true) {
+      return <Redirect to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` } />;
+    } */
 
-    return details.map((recipe) => (
+    return (
       <section key={ recipe[`id${recipeType}`] }>
         <img
           alt="Recipe thumbnail"
@@ -39,28 +41,9 @@ function RecipeDetails({ recipeType }) {
         </button>
         <h5 data-testid="recipe-category">
           { recipe.strCategory }
+          {recipeType === 'Drink' ? recipe.strAlcoholic : null}
         </h5>
-        <h5>Ingredients</h5>
-        <ul>
-          {
-            ingredientsArray.map((item, index) => (
-              item !== '' && item
-                ? (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    { `${item} - ${measureArray[index]}` }
-                  </li>
-                )
-                : null
-            ))
-          }
-        </ul>
-        <h5>Instructions</h5>
-        <p data-testid="instructions">
-          { recipe.strInstructions }
-        </p>
+        <Ingredients status={ status } />
         { recipeType === 'Meal'
           ? (
             <div>
@@ -75,17 +58,16 @@ function RecipeDetails({ recipeType }) {
             </div>
           )
           : null }
-        <section>
-          <h5>Recomendadas</h5>
-        </section>
+        <Recommended recipeType={ recipeType } />
         <button
+          id="last-btn"
           type="button"
           data-testid="start-recipe-btn"
         >
           Start Recipe
         </button>
       </section>
-    ));
+    );
   }
 
   return (

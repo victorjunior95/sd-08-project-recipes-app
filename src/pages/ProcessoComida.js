@@ -1,8 +1,12 @@
 import React from 'react';
+import RecipeDetails from '../components/RecipeDetails';
 
 function ProcessoComida() {
+  console.log('cheguei aqui');
   return (
-    <p>ProcessoComida</p>
+    <main>
+      <RecipeDetails recipeType="Meal" status="ongoing" />
+    </main>
   );
 }
 

@@ -1,8 +1,11 @@
 import React from 'react';
+import RecipeDetails from '../components/RecipeDetails';
 
 function ProcessoBebida() {
   return (
-    <p>ProcessoBebida</p>
+    <main>
+      <RecipeDetails recipeType="Drink" status="ongoing" />
+    </main>
   );
 }
 

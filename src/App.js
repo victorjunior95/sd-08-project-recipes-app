@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Food from './pages/Food';
 import Drinks from './pages/Drinks';
 import Item from './components/Item';
+import Perfil from './pages/Perfil';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/bebidas/:id" render={ (props) => <Item { ...props } /> } />
         <Route path="/comidas" component={ Food } />
         <Route path="/bebidas" component={ Drinks } />
+        <Route path="/perfil" component={ Perfil } />
         { /* <Route path="/comidas/{id-da-receita}/in-progress" />
         <Route path="/bebidas/{id-da-receita}/in-progress" />
         <Route path="/explorar" />
@@ -24,7 +26,6 @@ function App() {
         <Route path="/explorar/comidas/ingredientes" />
         <Route path="/explorar/bebidas/ingredientes" />
         <Route path="/explorar/comidas/area" />
-        <Route path="/perfil" />
         <Route path="/receitas-feitas" />
         <Route path="/receitas-favoritas" /> */}
       </Switch>

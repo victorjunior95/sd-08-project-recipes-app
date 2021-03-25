@@ -1,4 +1,9 @@
-import { GET_API_DRINKS, FETCH_API_DRINKS } from '../actions/types';
+import
+{
+  GET_API_DRINKS,
+  FETCH_API_DRINKS,
+  ERROR_REQUEST_API_DRINKS,
+} from '../actions/types';
 
 const INITIALSTATE = {
   drinks: [],
@@ -15,6 +20,11 @@ const drinks = (state = INITIALSTATE, action) => {
   case GET_API_DRINKS:
     return { ...state,
       drinks: action.payload.drinks,
+      isFetching: false,
+    };
+  case ERROR_REQUEST_API_DRINKS:
+    return { ...state,
+      drinks: ['error'],
       isFetching: false,
     };
   default:

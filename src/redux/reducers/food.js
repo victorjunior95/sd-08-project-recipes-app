@@ -1,4 +1,4 @@
-import { GET_API_FOOD, FETCH_API_FOODS } from '../actions/types';
+import { GET_API_FOOD, FETCH_API_FOODS, ERROR_REQUEST_API_FOODS } from '../actions/types';
 
 const INITIALSTATE = {
   meals: [],
@@ -15,6 +15,11 @@ const food = (state = INITIALSTATE, action) => {
   case GET_API_FOOD:
     return { ...state,
       meals: action.payload.meals,
+      isFetching: false,
+    };
+  case ERROR_REQUEST_API_FOODS:
+    return { ...state,
+      meals: ['error'],
       isFetching: false,
     };
   default:

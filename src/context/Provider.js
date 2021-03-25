@@ -22,6 +22,17 @@ const Provider = ({ children }) => {
       setFood(array ? array.meals : []);
     }
   };
+  const setDrinks = async (array) => {
+    if (array.drinks === null) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (array.drinks.length === 1) {
+      const { idDrink } = array.drinks[0];
+      redirectPages(`/bebidas/${idDrink}`);
+    } else {
+      setDrink(array ? array.drinks : []);
+    }
+  };
 
   const recipesFetch = async (isMeal) => {
     let results = {};
@@ -35,24 +46,14 @@ const Provider = ({ children }) => {
     return results;
   };
 
-  const setDrinks = async (array) => {
-    if (array.drinks === null) {
-      // eslint-disable-next-line no-alert
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else if (array.drinks.length === 1) {
-      const { idDrink } = array.drinks[0];
-      redirectPages(`/bebidas/${idDrink}`);
-    } else {
-      setFood(array ? array.drinks : []);
-    }
-  };
   const handleHeaderSearch = async (search, type, typeAPI) => {
     const isDrinkApi = typeAPI === 'Bebidas';
     const results = await headerSearch(search, type, isDrinkApi);
     if (isDrinkApi) {
-      await setDrinks(results);
+      setDrinks(results);
+      // console.log(results);
     } else {
-      await setMeals(results);
+      setMeals(results);
     }
   };
 

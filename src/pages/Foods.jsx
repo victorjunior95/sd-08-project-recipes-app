@@ -52,7 +52,7 @@ function Foods() {
     } else {
       foodsToMap = [...foodsFilterCategories];
     }
-    if (foodsToMap.length === 1) {
+    if (foodsToMap.length === 1 && foods.length !== 0) {
       const id = foodsToMap[0].idMeal;
       const path = `/comidas/${id}`;
       return <Redirect to={ path } />;

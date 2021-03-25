@@ -53,6 +53,16 @@ function DetailTitle(props) {
     // tags: item.strTags ? item.strTags.split(',') : [],
   };
 
+
+  const link = (urlCopy) => {
+    if (urlCopy.includes('/in-progress')) {
+      const newUrl = `http://localhost:3000${url.replace('/in-progress', '')}`;
+      return newUrl;
+    }
+
+    return `http://localhost:3000${urlCopy}`;
+  };
+
   return (
     <Container fluid>
       <Row>
@@ -65,7 +75,7 @@ function DetailTitle(props) {
             variant="link"
             onClick={ () => {
               setShow(true);
-              navigator.clipboard.writeText(`http://localhost:3000${url}`);
+              navigator.clipboard.writeText(link(url));
             } }
           >
             <img alt="share" data-testid="share-btn" src={ shareIcon } />

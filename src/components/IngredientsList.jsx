@@ -25,7 +25,9 @@ function IngredientsList({ type, id, ingredients }) {
   }, [start]);
 
   useEffect(() => {
-    dispatch(startRecipe(type, { [id]: usedIngredients }));
+    if (inProgress) {
+      dispatch(startRecipe(type, { [id]: usedIngredients }));
+    }
   }, [usedIngredients]);
 
   if (inProgress) {

@@ -43,7 +43,7 @@ function ProgressButton({ type, id, ingredientsLength }) {
               type="button"
               onClick={ handleClick }
               disabled={ inProgress
-                && (start[type][id] || []).length !== ingredientsLength }
+               && (start[type][id] || []).length !== ingredientsLength }
             >
               { inProgress && 'Finalizar Receita' }
               { !inProgress && (Object.keys(start[type])

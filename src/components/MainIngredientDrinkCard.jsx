@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import RecipesContext from '../core/RecipesContext';
 
 function MainIngredientDrinkCard({ ingredientsDrinksData, index }) {
+  const {
+    setByIngredient,
+    setIngredientName,
+  } = useContext(RecipesContext);
   const { strIngredient1 } = ingredientsDrinksData;
-  console.log(strIngredient1);
   return (
     <div
       data-testid={ `${index}-ingredient-card` }
       className="MainCard"
     >
-      <Link to="/bebidas/">
+      <Link
+        onClick={ () => {
+          setByIngredient(true);
+          setIngredientName(strIngredient1);
+        } }
+        to="/bebidas/"
+      >
         <img
           data-testid={ `${index}-card-img` }
           className="img"
@@ -18,7 +28,13 @@ function MainIngredientDrinkCard({ ingredientsDrinksData, index }) {
           alt={ strIngredient1 }
         />
       </Link>
-      <Link to="/bebidas/">
+      <Link
+        to="/bebidas/"
+        onClick={ () => {
+          setByIngredient(true);
+          setIngredientName(strIngredient1);
+        } }
+      >
         <p data-testid={ `${index}-card-name` }>{strIngredient1}</p>
       </Link>
     </div>

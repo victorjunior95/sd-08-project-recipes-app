@@ -7,6 +7,7 @@ import rockGlass from '../images/rockGlass.svg';
 import searchIcon from '../images/searchIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import infinity from '../images/infinity.svg';
 
 export {
   blackHeartIcon,
@@ -18,4 +19,5 @@ export {
   searchIcon,
   shareIcon,
   whiteHeartIcon,
+  infinity,
 };

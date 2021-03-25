@@ -8,6 +8,9 @@ import Footer from '../components/Footer';
 import { actionThunkMainFoods } from '../redux/actions';
 import CategoriesContainer from '../components/CategoriesContainer';
 
+import { infinity } from '../common/svgStore';
+import '../styles/loading.css';
+
 function Foods() {
   const MAX_ARRAY_SIZE = 12;
   const dispatch = useDispatch();
@@ -66,7 +69,9 @@ function Foods() {
   return (
     <div>
       {isLoading ? (
-        <h1>LOADING...</h1>
+        <section className="loading-section">
+          <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+        </section>
       ) : (
         <>
           <Header label="Comidas" Search={ SearchButton } page="Comidas" />

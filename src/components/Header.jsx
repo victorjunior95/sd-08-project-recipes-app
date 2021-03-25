@@ -1,51 +1,38 @@
-import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
-import RecipeSearchBar from './RecipeSearchBar';
-
-// Fazer com que o H1 seja dinâmico de acordo com o endpoint
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import ButtonSearch from './ButtonSearch';
+import HeaderTitle from './HeaderTitle';
+import PerfilLink from './PerfilLink';
 
 export default function Header() {
   const history = useHistory();
   const title = history.location.pathname;
-  const [search, setSearchBar] = useState(false);
-  const handleClick = () => {
-    if (!search) {
-      setSearchBar(true);
-    } else if (search) {
-      setSearchBar(false);
-    }
-  };
+  const aTitle = title.split('/');
+  if (aTitle[3] === 'area') aTitle.splice(aTitle.length - 1, 1, 'origem');
 
+  if (!title.includes('explorar') && !title.includes('perfil')
+    && !title.includes('receitas')) {
+    return (
+      <header>
+        <PerfilLink />
+        <HeaderTitle title={ title } />
+        <ButtonSearch type="search" />
+      </header>
+    );
+  }
+  if (aTitle[3] === 'origem') {
+    return (
+      <header>
+        <PerfilLink />
+        <HeaderTitle title={ title } />
+        <ButtonSearch type="origem" />
+      </header>
+    );
+  }
   return (
     <header>
-      <Link to="/perfil">
-        <img
-          alt="profile-icon"
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1
-        data-testid="page-title"
-      >
-        { title.charAt(1).toUpperCase() + title.slice(2) }
-      </h1>
-      <button
-        type="button"
-        onClick={ handleClick }
-      >
-        <img
-          data-testid="search-top-btn"
-          src={ searchIcon }
-          alt="search-icon"
-        />
-      </button>
-      { search ? <RecipeSearchBar /> : ''}
-
+      <PerfilLink />
+      <HeaderTitle title={ title } />
     </header>
-    // - Tem os data-testids `profile-top-btn`, `page-title` e `search-top-btn`
   );
 }

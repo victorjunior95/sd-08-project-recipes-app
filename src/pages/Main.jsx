@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Main({ location: { pathname } }) {
-  const { list, isFetching, categories } = useSelector((state) => state.recipes);
+  const { list, isFetching, categories, byIngredient } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const selectType = { '/comidas': 'meals', '/bebidas': 'drinks' };
   const type = selectType[pathname];
@@ -19,6 +19,10 @@ function Main({ location: { pathname } }) {
   useEffect(() => {
     dispatch(fetchCategories(token, type));
     dispatch(fetchRecipes(token, type));
+    if (byIngredient) {
+      dispatch(fetchRecipes(token, type, { request: 'filter', key: 'i', parameter: byIngredient }));
+      dispatch(byAddIngredient(''));
+    }
   }, []);
 
   return (

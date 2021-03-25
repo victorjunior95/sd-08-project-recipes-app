@@ -1,5 +1,5 @@
 import { ADD_CATEGORIES, ADD_FILTER, ADD_RECIPES,
-  ADD_RECOMMENDATIONS, REQUEST_RECIPES } from './index';
+  ADD_RECOMMENDATIONS, REQUEST_RECIPES, ADD_BYINGREDIENT } from './index';
 
 const addRecipes = (payload) => ({
   type: ADD_RECIPES,
@@ -29,6 +29,18 @@ export const fetchRecipes = (token, type = 'meals',
     dispatch(addRecipes(recipes));
   }
 );
+
+// if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+// return Promise.resolve(mealIngredients);
+
+// if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?i=Chicken')
+// return Promise.resolve(mealsByIngredient);
+
+// if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+// return Promise.resolve(drinkIngredients);
+
+// if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Light rum')
+// return Promise.resolve(drinksByIngredient);
 
 const addCategories = (payload) => ({
   type: ADD_CATEGORIES,
@@ -62,3 +74,8 @@ export const fetchRecommendations = (token, type = 'meals') => (
     dispatch(addRecommendations(recipes));
   }
 );
+
+export const byAddIngredient = (payload) => ({
+  type: ADD_BYINGREDIENT,
+  payload,
+});

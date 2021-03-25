@@ -1,5 +1,5 @@
 import { ADD_CATEGORIES, ADD_FILTER, ADD_RECIPES,
-  ADD_RECOMMENDATIONS, REQUEST_RECIPES } from '../actions';
+  ADD_RECOMMENDATIONS, REQUEST_RECIPES, ADD_BYINGREDIENT } from '../actions';
 
 const INITIAL_STATE = {
   list: [],
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   categories: [],
   filter: '',
   recommendations: [],
+  byIngredient: '',
 };
 
 const MAX_RECIPES = 12;
@@ -24,6 +25,8 @@ const recipes = (state = INITIAL_STATE, action) => {
     return { ...state, filter: action.payload };
   case ADD_RECOMMENDATIONS:
     return { ...state, recommendations: action.payload.slice(0, MAX_RECOMMENDATIONS) };
+  case ADD_BYINGREDIENT:
+    return { ...state, byIngredient: action.payload };
   default:
     return state;
   }

@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Main from './pages/Main';
 import Explore from './pages/Explore';
 import ExploreMain from './pages/ExploreMain';
-import ExploreStuff from './pages/ExploreStuff';
+import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreOrigin from './pages/ExploreOrigin';
 import RecipeDetails from './pages/RecipeDetails';
 import Profile from './pages/Profile';
@@ -25,8 +25,8 @@ function App() {
       />
       <Route path="/bebidas/:id" render={ (props) => <RecipeDetails { ...props } /> } />
       <Route path="/comidas/:id" render={ (props) => <RecipeDetails { ...props } /> } />
-      <Route path="/explorar/comidas/ingredientes" component={ ExploreStuff } />
-      <Route path="/explorar/bebidas/ingredientes" component={ ExploreStuff } />
+      <Route path="/explorar/comidas/ingredientes" component={ ExploreIngredients } />
+      <Route path="/explorar/bebidas/ingredientes" component={ ExploreIngredients } />
       <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
       <Route path="/explorar/comidas" component={ ExploreMain } />
       <Route path="/explorar/bebidas" component={ ExploreMain } />

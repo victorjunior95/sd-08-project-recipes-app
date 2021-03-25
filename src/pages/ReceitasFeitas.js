@@ -43,17 +43,17 @@ class ReceitasFeitas extends Component {
   // }
   }
 
-  filters(par) {
+  filters(foodType) {
     const { recipes } = this.state;
     let newRecipes = [];
-    if (par === 'all' || par === undefined) {
+    if (foodType === 'all' || par === undefined) {
       this.setState({ filtered: false });
     }
-    if (par === 'food') {
+    if (foodType === 'food') {
       newRecipes = recipes.filter((obj) => obj.type === 'comida');
       this.setState({ newRecipes, filtered: true });
     }
-    if (par === 'drink') {
+    if (foodType === 'drink') {
       newRecipes = recipes.filter((obj) => obj.type === 'bebida');
       this.setState({ newRecipes, filtered: true });
     }

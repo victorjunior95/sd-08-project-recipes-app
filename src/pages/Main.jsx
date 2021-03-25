@@ -10,7 +10,9 @@ import Footer from '../components/Footer';
 import { byAddIngredient, fetchCategories, fetchRecipes } from '../actions/recipes';
 
 function Main({ location: { pathname } }) {
-  const { list, isFetching, categories, byIngredient } = useSelector((state) => state.recipes);
+  const {
+    list, isFetching, categories, byIngredient,
+  } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const selectType = { '/comidas': 'meals', '/bebidas': 'drinks' };
   const type = selectType[pathname];
@@ -19,7 +21,8 @@ function Main({ location: { pathname } }) {
   useEffect(() => {
     dispatch(fetchCategories(token, type));
     if (byIngredient) {
-      dispatch(fetchRecipes(token, type, { request: 'filter', key: 'i', parameter: byIngredient }));
+      dispatch(fetchRecipes(token, type,
+        { request: 'filter', key: 'i', parameter: byIngredient }));
       dispatch(byAddIngredient(''));
     } else {
       dispatch(fetchRecipes(token, type));

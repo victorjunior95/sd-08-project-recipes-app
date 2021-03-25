@@ -15,10 +15,7 @@ const INGREDIENTS_LIMIT = 12;
 const ExploreMealsByIngredient = ({ fetchIngredients, ingredients }) => {
   useEffect(() => {
     fetchIngredients();
-    console.log('whats?');
   }, []);
-
-  console.log(ingredients, fetchIngredients);
 
   return (
     <Container>

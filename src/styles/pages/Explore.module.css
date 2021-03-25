@@ -1,15 +1,15 @@
-.exploreContainer {
-  display: grid;
-  grid-gap: 15px;
-  grid-template-columns: 1fr 1fr;
-  padding: 15px;
+.div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px 10px;
 }
 
-.exploreContainer a {
+a {
   text-decoration: none;
 }
 
-.exploreContainer a, .exploreContainer button {
+.buttons {
   align-items: center;
   background-color: #fefefe;
   border: none;
@@ -21,6 +21,10 @@
   font-size: 1.4rem;
   height: 100px;
   justify-content: center;
-  padding: 10px;
+  padding: 0 60px;
   text-align: center;
+}
+
+.buttons:not( :last-child ) {
+  margin-bottom: 15px;
 }

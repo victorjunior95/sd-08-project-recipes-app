@@ -55,11 +55,9 @@ export const Creators = {
   }),
 
   fetchIngredients: () => async (dispatch) => {
-    console.log('whatsup');
     dispatch(Creators.fetch());
     try {
       const { meals: ingredients } = await mealApi.getIngredients();
-      console.log(ingredients);
       dispatch(Creators.fetchSuccess(ingredients));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));

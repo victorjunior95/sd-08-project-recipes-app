@@ -18,8 +18,10 @@ const Comidas = () => {
     setFilteredFoods(food);
   }, [food]);
   useEffect(() => {
+    // comṕonetDidMount
     async function fetchFetch() {
-      recipesFetch(true);
+      const result = await recipesFetch(true);
+      return result;
     }
     async function fetchCategory() {
       const result = await categoryFood()
@@ -30,8 +32,7 @@ const Comidas = () => {
     fetchCategory();
     // console.log(category);
     fetchFetch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipesFetch]);
+  }, []);
   useEffect(() => {
     // console.log(food);
     const mapFoods = () => (
@@ -106,7 +107,10 @@ const Comidas = () => {
         <input
           type="radio"
           data-testid="All-category-filter"
-          onClick={ () => setFilteredFoods(food) }
+          onClick={ () => {
+            setCurrentCategory('All');
+            setFilteredFoods(food);
+          } }
           checked={ currentCategory === 'All' }
         />
       </label>

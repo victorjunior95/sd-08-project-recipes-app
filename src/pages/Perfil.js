@@ -19,7 +19,9 @@ function Perfil() {
 
   return (
     <div>
-      <HeaderWithoutSearch />
+      <div>
+        <HeaderWithoutSearch />
+      </div>
       { getEmail() }
       <button
         type="button"

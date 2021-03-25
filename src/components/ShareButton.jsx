@@ -5,12 +5,14 @@ import share from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareButton({ dataTestId }) {
+export default function ShareButton({ dataTestId, recipeId, recipeType }) {
   const { pathname } = useLocation();
   const [message, setMessage] = useState('');
 
   function handleClick() {
-    copy(`http://localhost:3000${pathname}`)
+    const path = (recipeId && recipeType) ? `/${recipeType}s/${recipeId}` : pathname;
+    console.log(path);
+    copy(`http://localhost:3000${path}`)
       .then(() => setMessage('Link copiado!'))
       .catch(() => setMessage('Não copiou!'));
   }
@@ -33,8 +35,12 @@ export default function ShareButton({ dataTestId }) {
 
 ShareButton.propTypes = {
   dataTestId: PropTypes.string,
+  recipeId: PropTypes.string,
+  recipeType: PropTypes.string,
 };
 
 ShareButton.defaultProps = {
   dataTestId: 'share-btn',
+  recipeId: '',
+  recipeType: '',
 };

@@ -35,7 +35,6 @@ function CardInProgress({ recipe, type }) {
   };
 
   useEffect(() => {
-    console.log(thisSave);
     if (thisSave) {
       setFavorite(true);
     }

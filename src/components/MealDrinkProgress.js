@@ -22,8 +22,6 @@ function MealDrinkProgress({ type }) {
     getRecipe();
   }, [getRecipe]);
 
-  console.log(recipe);
-
   return (
     <main>
       <CardInProgress recipe={ recipe } type={ type } />

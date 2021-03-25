@@ -20,7 +20,6 @@ import RecipeInProgress from './pages/RecipeInProgress';
 import MealDrinkProgress from './components/MealDrinkProgress';
 import NotFound from './pages/NotFound';
 
-
 function App() {
   return (
     <Switch>

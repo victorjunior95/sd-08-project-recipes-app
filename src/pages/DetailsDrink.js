@@ -20,7 +20,7 @@ function DetailsDrink() {
     }
     getMealByName('');
     fetchDetails();
-  }, []);
+  }, [Params.id]);
 
   const sizeOfLength = 3;
   const startOfSlice = 0;

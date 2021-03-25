@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import ContextProgress from '../context/ContextProgress';
 
 function RecipeInProgress({ component: Component, type, ...rest }) {
-  console.log(rest);
   return (
     <Route
       { ...rest }

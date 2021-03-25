@@ -30,7 +30,6 @@ function setDrinkChecked(cocktails, id, acc) {
   if (cocktails[id]) {
     const drink = cocktails[id];
     const result = drink.includes((acc.length).toString());
-    console.log(result);
     return acc.concat(result);
   }
   return acc.concat(false);

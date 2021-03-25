@@ -13,13 +13,14 @@ function DetailsMeal() {
   const Params = useParams();
   const history = useHistory();
   const [mealDetail, setMealDetail] = useState([]);
+
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getMealRecipesDetails(Params.id);
       setMealDetail(saveDetail);
     }
     fetchDetails();
-  }, []);
+  }, [Params.id]);
 
   const sizeOfLength = 3;
   const startOfSlice = 0;

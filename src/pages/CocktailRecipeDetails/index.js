@@ -21,7 +21,13 @@ function CocktailRecipeDetails({ match }) {
     <div>
       <DrinkDetails drink={ drink } />
       <Recomendations recipeType="drink" />
-      <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      <button
+        type="button"
+        className="start-recipe-btn"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

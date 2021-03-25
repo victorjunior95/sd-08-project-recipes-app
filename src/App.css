@@ -86,3 +86,9 @@
   height: 95%;
   width: 95%;
 }
+
+.start-recipe-btn {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+}

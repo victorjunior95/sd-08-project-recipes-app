@@ -15,7 +15,9 @@
 }
 
 .linkImage {
-  width: 100%;
+  border: 3px solid rgb(18, 53, 41);
+  margin-top: 10px;
+  width: 90%;
 }
 
 .card {

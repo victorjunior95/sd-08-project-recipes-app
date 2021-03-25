@@ -119,18 +119,18 @@ class ReceitasFeitas extends Component {
       <div>
         { arr.map((obj, index) => (
           <div className="card" key={ obj.id }>
-            <div className="a">
-              <Link to={ `${obj.type}s/${obj.id}` }>
-                <img
-                  data-testid={ `${index}-horizontal-image` }
-                  alt="card"
-                  src={ `${obj.image}` }
-                  className="linkImage"
-                />
-              </Link>
-
-            </div>
             <center>
+              <div className="a">
+                <Link to={ `${obj.type}s/${obj.id}` }>
+                  <img
+                    data-testid={ `${index}-horizontal-image` }
+                    alt="card"
+                    src={ `${obj.image}` }
+                    className="linkImage"
+                  />
+                </Link>
+
+              </div>
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >

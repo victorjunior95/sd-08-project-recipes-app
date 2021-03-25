@@ -3,18 +3,38 @@
 }
 
 .carousel {
-  display: flex;
-  flex-flow: row nowrap;
-  max-width: none;
-  overflow-x: scroll;
-}
-
-.recipe-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
 }
 
+.icons {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.recipe-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-image {
+  border-radius: 10px;
+}
+
 .start-btn {
-  bottom: 0;
-  position: fixed;
+  background-color: rgb(21, 44, 177);
+  border: none;
+  color: white;
+  font-weight: 900;
+  opacity: 0.9;
+  padding: 15px 0;
+  width: 300px;
+}
+
+.start-btn:hover {
+  opacity: 1;
 }

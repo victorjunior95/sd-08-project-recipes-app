@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import useFoodDetailsHook from '../hooks/useFoodDetailsHook';
 import { DrinkCtx } from '../../context/ContextDrink';
 import CarouselCard from '../../components/Card/CarouselCard';
+import './FoodDetail.css';
+import shareIcon from '../../images/shareIcon.svg';
+import favIcon from '../../images/whiteHeartIcon.svg';
 
 function FoodDetails(props) {
   const { match: { params: { id } } } = props;
@@ -20,15 +23,17 @@ function FoodDetails(props) {
 
   useEffect(() => {
     setId(id);
-  }, []);
+  }, [id, setId]);
 
   return (
     <>
       <div className="recipe-container">
         <h2 data-testid="recipe-title">{ strMeal }</h2>
         <span data-testid="recipe-category">{ strCategory }</span>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <div className="icons">
+          <img src={ shareIcon } alt="Copartilhar" data-testid="share-btn" />
+          <img src={ favIcon } alt="Copartilhar" data-testid="favorite-btn" />
+        </div>
         <img
           className="detail-image"
           data-testid="recipe-photo"
@@ -76,7 +81,6 @@ function FoodDetails(props) {
               img={ item.strDrinkThumb }
               index={ index }
             />
-
           ))}
         <button
           className="start-btn"

@@ -2,14 +2,21 @@ import React, { useContext, useState } from 'react';
 import ContextReceitas from '../context/ContextReceitas';
 
 function BarraPesquisa() {
-  const { setSearch } = useContext(ContextReceitas);
+  const {
+    setSearch,
+    setComidas,
+    setBebidas,
+    tituloDaPagina,
+  } = useContext(ContextReceitas);
   const [pesquisaLocal, setPesquisaLocal] = useState({});
   function changeHandle({ target: { name, value } }) {
     setPesquisaLocal({ ...pesquisaLocal, [name]: value });
   }
   function handleClick() {
     setSearch(pesquisaLocal);
-    // setPesquisaLocal({});
+    if (tituloDaPagina === 'Comidas') {
+      setComidas(false);
+    }setBebidas(false);
   }
 
   return (

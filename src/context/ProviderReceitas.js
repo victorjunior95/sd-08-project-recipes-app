@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import ContextReceitas from './ContextReceitas';
 import buscarCategoriaBebida from '../services/buscarCategoriasBebidas';
 import buscarCategoriaComida from '../services/buscarCategoriasComidas';
-import resultadoApiComidas from '../services/fetchComidas';
-import resultadoApiBebidas from '../services/fetchBebidas';
+import { resultadoApiComidas } from '../services/fetchComidas';
+import { resultadoApiBebidas } from '../services/fetchBebidas';
 
 function ProviderReceitas({ children }) {
   const [logedIn, setLoged] = useState(0);
+  const [bebidas, setBebidas] = useState([]);
+  const [comidas, setComidas] = useState();
   const [search, setSearch] = useState({ type: 's', value: '' });
   const [apiResult, setApiResult] = useState([]);
   const [tituloDaPagina, enviarTituloDaPagina] = useState('Comidas');
@@ -44,6 +46,10 @@ function ProviderReceitas({ children }) {
     mudarStatusBotaoPesquisa,
     categoriasBebidas,
     categoriasComidas,
+    bebidas,
+    setBebidas,
+    comidas,
+    setComidas,
   };
 
   useEffect(() => {

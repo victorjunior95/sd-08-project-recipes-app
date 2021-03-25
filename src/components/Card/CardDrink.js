@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import DrinkContext from '../context/bebidaContext/DrinkContext';
-import '../App.css';
+import DrinkContext from '../../context/bebidaContext/DrinkContext';
+import '../../App.css';
 
 function CardDrink() {
   const {

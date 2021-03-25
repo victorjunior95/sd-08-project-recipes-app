@@ -12,7 +12,6 @@ const ReceitasFavoritas = () => {
     favoriteRecipes, setFavoriteRecipes,
   } = useContext(ContextRecipes);
 
-  // const [renderFavoriteArray, setRenderFavoriteArray] = useState([]);
   const [renderMSG, setRenderMSG] = useState(false);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ const ReceitasFavoritas = () => {
   const msgTime = 5000;
   const copiarURL = (tipo, id) => {
     copy(`http://localhost:3000/${tipo}/${id}`);
-    // alert('Link copiado!');
     setRenderMSG(true);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };

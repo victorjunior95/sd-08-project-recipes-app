@@ -33,7 +33,7 @@
   padding-right: 30px;
 }
 
-.ingredient-list li label{
+.ingredient-list li label {
   align-items: center;
   display: flex;
   justify-content: space-between;

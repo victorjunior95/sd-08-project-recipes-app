@@ -33,7 +33,7 @@ class ReceitasFeitas extends Component {
         },
       ],
       filter: 'all',
-
+      displayShareMesage: false,
     };
     this.share = this.share.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
@@ -59,9 +59,6 @@ class ReceitasFeitas extends Component {
 
   render() {
     const { displayShareMesage, recipes, filter } = this.state;
-    console.log('displayShareMesage', displayShareMesage,
-      'recipes', recipes,
-      'filter', filter);
     return (
       <div>
         <HeaderLocation />

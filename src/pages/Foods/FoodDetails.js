@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import useFoodDetailsHook from '../hooks/useFoodDetailsHook';
 import { DrinkCtx } from '../../context/ContextDrink';
 import CarouselCard from '../../components/Card/CarouselCard';
@@ -8,6 +9,7 @@ import shareIcon from '../../images/shareIcon.svg';
 import favIcon from '../../images/whiteHeartIcon.svg';
 
 function FoodDetails(props) {
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   const STOP_INDEX = 5;
@@ -27,6 +29,7 @@ function FoodDetails(props) {
 
   return (
     <>
+      { shouldRedirect && <Redirect to={ `/comidas/${id}/in-progress` } /> }
       <div className="recipe-container">
         <h2 data-testid="recipe-title">{ strMeal }</h2>
         <span data-testid="recipe-category">{ strCategory }</span>
@@ -86,6 +89,7 @@ function FoodDetails(props) {
           className="start-btn"
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ () => setShouldRedirect(true) }
         >
           Iniciar
         </button>

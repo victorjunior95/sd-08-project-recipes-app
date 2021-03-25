@@ -1,4 +1,4 @@
-.start-recipe{
+.start-recipe {
   background-color: green;
   bottom: 0;
   color: white;
@@ -6,4 +6,8 @@
   position: fixed;
   text-align: center;
   width: 100%;
+}
+
+.share-button-icon {
+  background: url(/src/images/shareIcon.svg) no-repeat;
 }

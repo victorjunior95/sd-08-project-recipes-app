@@ -2,13 +2,12 @@ import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import Expĺorar from './pages/Explorar';
-import Generico from './components/Generico';
 import ComidasIngredientes from './pages/ComidasIngredientes';
 import BebidasIngredientes from './pages/BebidasIngredientes';
 import ExplorarPorArea from './pages/ExplorarPorArea';
@@ -20,11 +19,14 @@ import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import NotFound from './pages/NotFound';
+import ReceitaEmProgresso from './pages/ReceitaEmProgresso';
+import GenericoComidas from './components/GenericoComidas';
+import GenericoBebidas from './components/GenericoBebidas';
 // import rockGlass from './images/rockGlass.svg';
 
 class App extends React.Component {
   render() {
-    const { rota } = this.props;
+    // const { rota } = this.props;
     return (
       <div className="App">
         <BrowserRouter>
@@ -53,9 +55,13 @@ class App extends React.Component {
               component={ ExplorarComidasIngredientes }
             />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route path="/comidas/:id/in-progress" component={ ReceitaEmProgresso } />
+            <Route path="/bebidas/:id/in-progress" component={ ReceitaEmProgresso } />
+            <Route path="/comidas/:id" component={ GenericoComidas } />
+            <Route path="/bebidas/:id" component={ GenericoBebidas } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
             <Route exact path="/receitas-favoritadas" component={ ReceitasFavoritas } />
-            <Route exact path={ rota } component={ Generico } />
+            {/* <Route exact path={ rota } component={ Generico } /> */}
             <Route component={ NotFound } />
           </Switch>
         </BrowserRouter>
@@ -65,11 +71,12 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  rota: PropTypes.string.isRequired,
-};
-const mapStateToProps = (state) => ({
-  rota: state.rota,
-});
+// App.propTypes = {
+//   rota: PropTypes.string.isRequired,
+// };
+// const mapStateToProps = (state) => ({
+//   rota: state.rota,
+// });
 
-export default connect(mapStateToProps)(App);
+// export default connect(mapStateToProps)(App);
+export default App;

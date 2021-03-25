@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as UserActions } from '../store/ducks/user';
 import * as storage from '../services/storage';
 
 import styles from '../styles/pages/Login.module.css';
 
 const MIN_PASSWORD_LENGTH = 6;
 
-const Login = () => {
+const Login = ({ login }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -17,6 +21,7 @@ const Login = () => {
   }
 
   function handleLogin() {
+    login(email);
     storage.setMealsToken('1');
     storage.setCocktailsToken('1');
     storage.updateUser({ email });
@@ -54,4 +59,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(UserActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Login);

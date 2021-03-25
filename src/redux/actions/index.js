@@ -142,3 +142,9 @@ export const actionThunkCategoryFoods = (category) => async (dispatch) => {
   dispatch(actionFilterCategoryFoods(foodsByCategory));
   dispatch(actionIsLoading(false));
 };
+
+export const RESET_STATE = 'RESET_STATE';
+
+export const actionResetFilteredByCategory = () => ({
+  type: RESET_STATE,
+});

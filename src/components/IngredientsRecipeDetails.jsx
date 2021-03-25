@@ -15,7 +15,7 @@ const IngredientsRecipeDetails = ({ ingredients }) => (
 );
 
 IngredientsRecipeDetails.propTypes = {
-  ingredients: PropTypes.shape([]).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 export default IngredientsRecipeDetails;

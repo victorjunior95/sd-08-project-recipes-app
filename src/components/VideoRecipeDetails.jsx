@@ -8,7 +8,7 @@ const VideoRecipeDetails = ({ videoPath }) => (
       data-testid="video"
       width="320"
       height="240"
-      src={ videoPath }
+      src={ videoPath.replace('watch?v=', 'embed/') }
       title="recipe video"
     />
   </section>

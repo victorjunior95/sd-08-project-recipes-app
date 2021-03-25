@@ -21,25 +21,12 @@ function FoodDetails({
     requestApi();
   }, []);
 
-  // if (meal.length !== 0) {
-  //   const { strMeal, strMealThumb, Side, strInstructions, strYoutube } = meal[0] || [];
-
-  //   const vinte = 20;
-  //   const arrayIngredients = [];
-  //   for (let i = 1; i <= vinte; i += 1) {
-  //     const ingredient = meal[0][`strIngredient${i}`];
-  //     const measure = meal[0][`strMeasure${i}`];
-  //     arrayIngredients.push(`${ingredient} - ${measure}`);
-  //   }
-  //   console.log(arrayIngredients);
-  // }
-
   return (
     <section>
       {isLoading ? (
         <h1>LOADING...</h1>
       ) : (
-        <ContainerRecipeDetails recipe={ meal[0] } />
+        <ContainerRecipeDetails recipe={ meal[0] } page="Comidas" />
       )}
     </section>
   );

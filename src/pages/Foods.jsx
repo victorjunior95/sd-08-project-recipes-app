@@ -41,8 +41,6 @@ function Foods() {
     </section>
   );
 
-  console.log('entrou...', isLoading);
-
   const showCards = () => {
     let foodsToMap = [];
     if (foods.length === 0 && foodsFilterCategories.length === 0) {

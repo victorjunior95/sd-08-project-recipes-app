@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import RecipeContext from '../context/RecipeContext';
 import '../styles/Detalhes.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 
-function Detalhes() {
+function DetalhesInProgress() {
   const history = useHistory();
   const urlText = history.location.pathname;
-  const id = urlText.split('s/')[1];
-
-  const { setShouldRedirect } = useContext(RecipeContext);
-
+  const id = urlText.split('/')[2];
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,8 +44,11 @@ function Detalhes() {
         key={ elem[1] }
         data-testid={ `${index}-ingredient-name-and-measure` }
       >
-        {elem[1]}
-        <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
+        <label htmlFor={ elem[1] }>
+          <input type="checkbox" id={ elem[1] } />
+          {elem[1]}
+          <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
+        </label>
       </li>));
 
     return results;
@@ -57,8 +56,7 @@ function Detalhes() {
 
   useEffect(() => {
     requestByID();
-    setShouldRedirect(false);
-  }, [history.location.pathname]);
+  }, []);
 
   const renderDrink = () => (
     <div className="details">
@@ -142,4 +140,4 @@ function Detalhes() {
   );
 }
 
-export default Detalhes;
+export default DetalhesInProgress;

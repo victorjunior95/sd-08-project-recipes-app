@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -35,6 +35,58 @@ function FoodContext(props) {
     }
     fetchCategoriesMeal();
   }, []);
+  const myCustomAlert = (text) => {
+    const myAlert = window.alert;
+    myAlert(text);
+  };
+  const handleClickSearch = useCallback(async () => {
+    if (nameSearchRadio) {
+      const res = await getMealByName(searchInputMeal);
+      if (res === null) {
+        myCustomAlert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+        return null;
+      }
+      if (res.length === 1) {
+        const onlyMeal = [res[0]];
+        onlyMeal.map((item) => history.push(`/comidas/${item.idMeal}`));
+      }
+      setMeals(res);
+    }
+    if (!!firstLetterSearchRadio && searchInputMeal.length === 1) {
+      const res = await getMealByFirstLetter(searchInputMeal);
+      setMeals(res);
+    }
+    if (!!firstLetterSearchRadio && searchInputMeal.length !== 1) {
+      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    if (ingredientSearchRadio) {
+      const res = await getMealByIngredients(searchInputMeal);
+      setMeals(res);
+    }
+  }, [
+    firstLetterSearchRadio,
+    history,
+    ingredientSearchRadio,
+    nameSearchRadio,
+    searchInputMeal,
+  ]);
+
+  useEffect(() => {
+    if (
+      [ingredientSearchRadio, nameSearchRadio, firstLetterSearchRadio].includes(
+        true,
+      )
+    ) {
+      handleClickSearch();
+    }
+  }, [
+    firstLetterSearchRadio,
+    handleClickSearch,
+    ingredientSearchRadio,
+    nameSearchRadio,
+  ]);
 
   const handleChangeEmail = (e) => {
     setData({ ...data, email: e });
@@ -80,35 +132,6 @@ function FoodContext(props) {
   const handleChangeSearch = (e) => {
     setSearchInputMeal(e);
   };
-  const myCustomAlert = (text) => {
-    const myAlert = window.alert;
-    myAlert(text);
-  };
-  const handleClickSearch = async () => {
-    if (nameSearchRadio) {
-      const res = await getMealByName(searchInputMeal);
-      if (res === null) {
-        myCustomAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-        return null;
-      }
-      if (res.length === 1) {
-        const onlyMeal = [res[0]];
-        onlyMeal.map((item) => history.push(`/comidas/${item.idMeal}`));
-      }
-      setMeals(res);
-    }
-    if (!!firstLetterSearchRadio && searchInputMeal.length === 1) {
-      const res = await getMealByFirstLetter(searchInputMeal);
-      setMeals(res);
-    }
-    if (!!firstLetterSearchRadio && searchInputMeal.length !== 1) {
-      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    if (ingredientSearchRadio) {
-      const res = await getMealByIngredients(searchInputMeal);
-      setMeals(res);
-    }
-  };
 
   const handleByCategoryMeal = async (category) => {
     if (category === categoryMeals) {
@@ -151,6 +174,7 @@ function FoodContext(props) {
           handleSearchByName,
           handleClickSearch,
           handleByCategoryMeal,
+          setSearchInputMeal,
           nameSearchRadio,
           ingredientSearchRadio,
           firstLetterSearchRadio,

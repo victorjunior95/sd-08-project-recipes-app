@@ -17,7 +17,6 @@ function Comidas() {
     mudarStatusBotaoPesquisa,
     categoriasComidas,
   } = useContext(ContextReceitas);
-  console.log(comidas)
 
   useEffect(() => {
     async function listaComidasAPI() {

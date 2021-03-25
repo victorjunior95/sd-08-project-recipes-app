@@ -48,7 +48,7 @@ function SearchBar() {
         data-testid="exec-search-btn"
         onClick={ () => {
           if (optionSelected === 'primeira-letra' && inputValue.length > 1) {
-            return ''; // alert('Sua busca deve conter somente 1 (um) caracter');
+            return alert('Sua busca deve conter somente 1 (um) caracter');
           }
           setSearchParams(optionSelected);
         } }

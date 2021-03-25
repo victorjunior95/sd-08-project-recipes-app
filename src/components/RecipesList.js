@@ -46,7 +46,7 @@ function RecipesList() {
             }
             return '';
           })
-          : '' // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+          : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       }
     </main>
   );

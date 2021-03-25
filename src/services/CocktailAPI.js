@@ -37,3 +37,11 @@ export function fetchFistDrinkCats() {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchRecipesDrinkCats(filter) {
+  const recipesFilteredURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
+
+  return fetch(recipesFilteredURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

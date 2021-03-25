@@ -1,4 +1,4 @@
-import { CLEAR_SEARCH, SEARCH_INPUT } from '../actions';
+import { CLEAR_SEARCH, FILTER_DRINK_CAT, SEARCH_INPUT } from '../actions';
 
 const INITIAL_STATE = {
   inputValue: '',
@@ -20,6 +20,11 @@ export default function searchBar(state = INITIAL_STATE, action) {
       ...state,
       inputValue: '',
       inputType: '',
+    };
+  case FILTER_DRINK_CAT:
+    return {
+      ...state,
+      filter: payload.filter,
     };
   default:
     return state;

@@ -4,3 +4,6 @@ export const FETCH_API = 'FETCH_API';
 export const CLEAR_API = 'CLEAR_API';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const FILTER_DRINK_CAT = 'FILTER_DRINK_CAT';
+export const FILTER_MEAL_CAT = 'FILTER_MEAL_CAT';
+export const FETCH_CAT_RECIPES = 'FETCH_CAT_RECIPES';

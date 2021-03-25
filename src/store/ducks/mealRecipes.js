@@ -68,7 +68,7 @@ export const Creators = {
       } else {
         results = await mealApi.getByName(searchValue);
       }
-      console.log(results);
+      // console.log(results);
       dispatch(Creators.fetchSuccess(results.meals || []));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));

@@ -8,34 +8,36 @@ import BlackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 const ReceitasFavoritas = () => {
-  const { setHeaderInfo } = useContext(ContextRecipes);
+  const { setHeaderInfo,
+    favoriteRecipes, setFavoriteRecipes,
+  } = useContext(ContextRecipes);
 
-  const [renderFavoriteArray, setRenderFavoriteArray] = useState([]);
+  // const [renderFavoriteArray, setRenderFavoriteArray] = useState([]);
   const [renderMSG, setRenderMSG] = useState(false);
 
   useEffect(() => {
-    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setHeaderInfo({
       pageTitle: 'Receitas Favoritas',
     });
-  }, [setHeaderInfo]);
+  }, [setHeaderInfo, setFavoriteRecipes]);
 
   const filterFood = () => {
-    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes'))
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes'))
       .filter((fav) => fav.type === 'comida'));
   };
 
   const filterDrink = () => {
-    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes'))
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes'))
       .filter((fav) => fav.type === 'bebida'));
   };
 
   const filterAll = () => {
-    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
   };
 
   const removerLocalStorage = (id) => {
-    setRenderFavoriteArray(JSON.parse(localStorage.getItem('favoriteRecipes'))
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes'))
       .filter((fav) => fav.id !== id));
     localStorage.setItem(
       'favoriteRecipes', JSON.stringify(
@@ -53,7 +55,7 @@ const ReceitasFavoritas = () => {
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
 
-  return renderFavoriteArray.length === 0
+  return favoriteRecipes.length === 0
     ? (
       <section className="receitas-favoritas">
         <Header />
@@ -100,7 +102,7 @@ const ReceitasFavoritas = () => {
           renderMSG ? <h2>Link copiado!</h2>
             : <h2 hidden>Link copiado!</h2>
         }
-        { renderFavoriteArray.map((favoriteArray, index) => (
+        { favoriteRecipes.map((favoriteArray, index) => (
           <div key={ index }>
             <div>
               <a href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }>

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRecipes } from '../actions/recipes';
 import Footer from '../components/Footer';
+import { fetchRecipes } from '../actions/recipes';
 
 function ExploreMain({ location: { pathname } }) {
   const prevPath = pathname.split('/')[2];

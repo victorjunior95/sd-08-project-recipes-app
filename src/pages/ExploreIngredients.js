@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { byAddIngredient, fetchRecipes } from '../actions/recipes';
 
@@ -37,7 +37,6 @@ function ExploreIngredients({ location: { pathname } }) {
               data-testid={ `${index}-ingredient-card` }
               key={ idIngredient }
               onClick={ () => handleClick(strIngredient) }
-              // to={ `../../${select}` }
               type="button"
             >
               <img
@@ -49,22 +48,21 @@ function ExploreIngredients({ location: { pathname } }) {
             </button>
           );
         })
-        : list.map(({ strIngredient1 }) => {
+        : list.map(({ strIngredient1 }, index) => {
           const url = `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`;
           return (
             <button
-              data-testid={ `${strIngredient1}-ingredient-card` }
+              data-testid={ `${index}-ingredient-card` }
               key={ strIngredient1 }
               onClick={ () => handleClick(strIngredient1) }
-              // to={ `../../${select}` }
               type="button"
             >
               <img
                 alt={ `ingredient ${strIngredient1}` }
-                data-testid={ `${strIngredient1}-card-img` }
+                data-testid={ `${index}-card-img` }
                 src={ url }
               />
-              <p data-testid={ `${strIngredient1}-card-name` }>{ strIngredient1 }</p>
+              <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
             </button>
           );
         }) }

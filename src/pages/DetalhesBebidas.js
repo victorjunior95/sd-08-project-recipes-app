@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import RecommendedMeals from '../components/RecommendedMeals';
 import { requestDrinkRecipe } from '../services/apiRequests';
 
 function DetalhesBebidas() {
@@ -69,10 +70,11 @@ function DetalhesBebidas() {
       <video src={ drink.strYoutube } data-testid="video" controls>
         <track kind="captions" />
       </video>
-      <div>
+      {/* <div>
         <p data-testid="0-recomendation-card">Recomendação</p>
-      </div>
-      <button type="button" data-testid="start-recipe-btn">
+      </div> */}
+      <RecommendedMeals />
+      <button type="button" data-testid="start-recipe-btn" className="start">
         Iniciar Receita
       </button>
     </div>

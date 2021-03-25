@@ -29,3 +29,19 @@ export function fetchRandomMeal() {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchMealId(id) {
+  const fetchMealURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+
+  return fetch(fetchMealURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}
+
+export function fetchDrinkId(id) {
+  const fetchMealURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+
+  return fetch(fetchMealURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { SEARCH_INPUT } from '../redux/actions';
+import searchAction from '../redux/actions/searchAction';
 
 export default function RecipeSearchBar() {
   const [inputValue, setInputValue] = useState('');
@@ -14,10 +14,7 @@ export default function RecipeSearchBar() {
       alert('Sua busca deve conter somente 1 (um) caracter');
       setInputValue('');
     } else {
-      dispatch({
-        type: SEARCH_INPUT,
-        payload: search,
-      });
+      dispatch(searchAction(search));
     }
   };
 
@@ -34,37 +31,40 @@ export default function RecipeSearchBar() {
         />
       </label>
       <label htmlFor="ingredient">
-        Ingrediente
         <input
           data-testid="ingredient-search-radio"
           type="radio"
           id="ingredient"
           value="ingredient"
           name="inputType"
+          checked={ inputType === 'ingredient' }
           onChange={ ({ target }) => setInputType(target.value) }
         />
+        Ingrediente
       </label>
       <label htmlFor="name">
-        Nome
         <input
           data-testid="name-search-radio"
           type="radio"
           id="name"
           value="name"
           name="inputType"
+          checked={ inputType === 'name' }
           onChange={ ({ target }) => setInputType(target.value) }
         />
+        Nome
       </label>
       <label htmlFor="first-letter">
-        Primeira Letra
         <input
           data-testid="first-letter-search-radio"
           type="radio"
           id="first-letter"
           value="first-letter"
           name="inputType"
+          checked={ inputType === 'first-letter' }
           onChange={ ({ target }) => setInputType(target.value) }
         />
+        Primeira Letra
       </label>
       <button
         type="button"

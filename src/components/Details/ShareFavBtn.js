@@ -44,7 +44,6 @@ function filterRemoveRecipe(actualRecipe, favorites, isMeal) {
 }
 
 function filterMatchRecipe(actualRecipe, favorites, isMeal) {
-  console.log(`filterMatch: ${favorites}`);
   if (favorites === null) return [];
   return favorites.filter((e) => {
     if (isMeal) {
@@ -55,7 +54,6 @@ function filterMatchRecipe(actualRecipe, favorites, isMeal) {
 }
 
 function isInFavorites(actualRecipe, favorites, isMeal) {
-  console.log(`isInFavorites: ${favorites}`);
   const matches = filterMatchRecipe(actualRecipe, favorites, isMeal);
   if (matches.length < 1) {
     return false;
@@ -64,7 +62,6 @@ function isInFavorites(actualRecipe, favorites, isMeal) {
 }
 
 function favoriting(actualRecipe, favorites, isMeal, dispatch) {
-  console.log(`favoriting: ${favorites}`);
   if (favorites.length < 1) {
     const newFavorites = [];
     newFavorites.push(favConstructor(actualRecipe, isMeal));

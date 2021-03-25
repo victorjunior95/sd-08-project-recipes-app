@@ -7,7 +7,7 @@ import { fetchIngredient as fetchIngredientAction } from '../action';
 
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
-import './Header.css';
+import './Components.css';
 
 class Header extends Component {
   constructor() {
@@ -35,18 +35,20 @@ class Header extends Component {
   }
 
   submitSearch(searchIngredient) {
+    const { params: { url: { byIngredient, byName, byFirstLetter } } } = this.props;
     const { text, searchBy } = this.state;
+    if (text === '') return;
     if (searchBy === 'ingredient') {
-      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
+      const url = byIngredient + text;
       return searchIngredient(url);
     } if (searchBy === 'name') {
-      const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${text}`;
+      const url = byName + text;
       return searchIngredient(url);
     }
     if (text.length > 1) {
-      return alert('Não é permitido mais de uma letra');
+      return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
+    const url = byFirstLetter + text;
     return searchIngredient(url);
   }
 
@@ -111,7 +113,7 @@ class Header extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { params: { name } } = this.props;
     const { isHidden } = this.state;
 
     return (
@@ -141,6 +143,13 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(Header);
 
 Header.propTypes = {
-  name: PropTypes.string.isRequired,
+  params: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    url: PropTypes.shape({
+      byIngredient: PropTypes.string.isRequired,
+      byName: PropTypes.string.isRequired,
+      byFirstLetter: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   searchIngredient: PropTypes.func.isRequired,
 };

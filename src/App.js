@@ -60,7 +60,6 @@ class App extends React.Component {
             <Route path="/comidas/:id" component={ GenericoComidas } />
             <Route path="/bebidas/:id" component={ GenericoBebidas } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-            <Route exact path="/receitas-favoritadas" component={ ReceitasFavoritas } />
             {/* <Route exact path={ rota } component={ Generico } /> */}
             <Route component={ NotFound } />
           </Switch>

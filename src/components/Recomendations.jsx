@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import getResultFromAPI from '../api/getResultFromAPI';
-import FoodCard from './FoodCard';
+// import FoodCard from './FoodCard';
+import RecomendationCard from './RecomendationCard';
 
 function Recomendations() {
   const PATHSIZE = 8;
@@ -24,7 +25,7 @@ function Recomendations() {
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
-          <FoodCard index={ index } food={ food } />
+          <RecomendationCard index={ index } food={ food } />
         </li>
       ))}
     </ul>

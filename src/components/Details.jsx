@@ -40,8 +40,11 @@ function Details() {
           </h1>
           <p data-testid="share-btn">btnCompartilhar</p>
           <p data-testid="favorite-btn">btnFavorito</p>
-          <h6 data-testid="recipe-category">{ food.strCategory }</h6>
-          { food.strAlcoholic ? <h6>{ food.strAlcoholic }</h6> : null }
+          <h6
+            data-testid="recipe-category"
+          >
+            { food.strAlcoholic ? food.strAlcoholic : food.strCategory }
+          </h6>
           <h2>Ingredientes</h2>
           <ul>
             { currentFoodIngredients.map((curr, index) => (
@@ -59,14 +62,12 @@ function Details() {
           <div>
             {ytVideo()}
           </div>
-
-          <p>scrollLateral Recomendadas</p>
+          <Recomendations />
           <Button
             datatestid="start-recipe-btn"
             label="Iniciar Receita"
             onClick={ historyPath }
           />
-          <Recomendations />
         </div>
       ))}
     </>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 
-function FoodCard(props) {
+function RecomendationCard(props) {
   const { index, food } = props;
   const history = useHistory();
   const { pathname } = useLocation();
@@ -21,13 +21,18 @@ function FoodCard(props) {
         alt="Food"
         width="100%"
       />
-      <p data-testid={ `${index}-card-title` }>{ food.strDrink || food.strMeal }</p>
+      <p
+        data-testid={ `${index}-recomendation-title"` }
+      >
+        { food.strDrink || food.strMeal }
+
+      </p>
     </button>
   );
 }
-FoodCard.propTypes = {
+RecomendationCard.propTypes = {
   index: PropTypes.number.isRequired,
   food: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default FoodCard;
+export default RecomendationCard;

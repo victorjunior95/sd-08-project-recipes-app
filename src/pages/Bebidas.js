@@ -5,19 +5,19 @@ import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import Categorys from '../components/Categorys';
 
-function Comidas() {
+function Bebidas() {
   const {
     createCards,
   } = useContext(MyContext);
 
   return (
     <div>
-      <Header title="Comidas" explore />
-      <Categorys title="Comidas" />
-      {createCards ? <Cards title="Comidas" /> : null}
+      <Header title="Bebidas" explore />
+      <Categorys title="Bebidas" />
+      {createCards ? <Cards title="Bebidas" /> : null}
       <Footer />
     </div>
   );
 }
 
-export default Comidas;
+export default Bebidas;

@@ -1,5 +1,10 @@
-import { ADD_CATEGORIES, ADD_FILTER, ADD_RECIPES,
-  ADD_RECOMMENDATIONS, REQUEST_RECIPES } from '../actions';
+import { ADD_CATEGORIES, ADD_FAVORITE, ADD_FILTER, ADD_RECIPES,
+  ADD_RECOMMENDATIONS, END_RECIPE,
+  REQUEST_RECIPES, RM_FAVORITE, START_RECIPE } from '../actions';
+
+const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
 const INITIAL_STATE = {
   list: [],
@@ -7,6 +12,10 @@ const INITIAL_STATE = {
   categories: [],
   filter: '',
   recommendations: [],
+  start: { Meal: inProgressRecipes.meals || {},
+    Drink: inProgressRecipes.cocktails || {} },
+  done: doneRecipes,
+  favorite: favoriteRecipes,
 };
 
 const MAX_RECIPES = 12;
@@ -24,6 +33,20 @@ const recipes = (state = INITIAL_STATE, action) => {
     return { ...state, filter: action.payload };
   case ADD_RECOMMENDATIONS:
     return { ...state, recommendations: action.payload.slice(0, MAX_RECOMMENDATIONS) };
+  case START_RECIPE:
+    return { ...state,
+      start: { ...state.start,
+        [action.selectedType]:
+          { ...state.start[action.selectedType], ...action.payload } } };
+  case END_RECIPE:
+    return { ...state, done: [...state.done, action.payload] };
+  case ADD_FAVORITE:
+    return { ...state, favorite: [...state.favorite, action.payload] };
+  case RM_FAVORITE:
+    return { ...state,
+      favorite: [...state.favorite
+        .filter(({ id, type }) => id !== action.payload.id
+          || type !== action.payload.type)] };
   default:
     return state;
   }

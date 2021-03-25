@@ -22,11 +22,6 @@ const Cocktails = ({ fetchCocktails, fetchCategories,
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
 
-  // useEffect(() => {
-  //   fetchCocktails();
-  //   fetchCategories();
-  // }, []);
-
   useEffect(() => {
     const fetchingCocktails = async () => {
       await fetchCocktails();

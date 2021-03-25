@@ -11,9 +11,9 @@ function Perfil() {
   const userEmail = JSON.parse(localStorage.getItem('user')) || '';
 
   return (
-    <div>
+    <>
       <Header explore="false">Perfil</Header>
-      <div>
+      <section>
         <p
           data-testid="profile-email"
         >
@@ -44,9 +44,9 @@ function Perfil() {
             Sair
           </Link>
         </button>
-      </div>
+      </section>
       <Footer />
-    </div>
+    </>
   );
 }
 

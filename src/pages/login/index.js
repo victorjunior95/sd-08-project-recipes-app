@@ -48,7 +48,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <section>
       {redirect && <Redirect to="/comidas" />}
       <label htmlFor="email-input">
         Email:
@@ -78,7 +78,7 @@ function Login() {
       >
         Entrar
       </button>
-    </div>
+    </section>
   );
 }
 

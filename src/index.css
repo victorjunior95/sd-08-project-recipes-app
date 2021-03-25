@@ -45,3 +45,8 @@ code {
   background-color: gray;
   border: none;
 }
+
+.g6-start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+}

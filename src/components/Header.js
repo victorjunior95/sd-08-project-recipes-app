@@ -119,7 +119,7 @@ class Header extends Component {
     return (
       <>
         <nav className="header">
-          <Link to="/profile">
+          <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ ProfileIcon } alt="Profile icon" />
           </Link>
           <h1 data-testid="page-title">{name}</h1>

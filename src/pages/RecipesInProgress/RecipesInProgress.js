@@ -35,7 +35,7 @@ const RecipesInProgress = ({ title, match }) => {
   return (
     <>
       <CardDetails title={ title } object={ object } isLoading={ isLoading }>
-        <CheckBoxIngredients object={ object } />
+        <CheckBoxIngredients object={ object } title={ title } />
       </CardDetails>
       <Button
             variant="primary"

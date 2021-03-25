@@ -4,7 +4,6 @@ import useFoodDetailsHook from '../hooks/useFoodDetailsHook';
 
 function FoodDetails(props) {
   const { match: { params: { id } } } = props;
-  console.log('id na fooddetails ', id);
   const [
     setId,
     strMealThumb,
@@ -20,22 +19,33 @@ function FoodDetails(props) {
   }, []);
 
   return (
-    <div>
+    <div className="card-container">
       <h2 data-testid="recipe-title">{ strMeal }</h2>
       <span data-testid="recipe-category">{ strCategory }</span>
-      <img data-testid="recipe-photo" src={ strMealThumb } alt="Recipe pic" />
-      <iframe
-        width="560"
-        height="315"
-        src={ strYoutube }
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer;
-            autoplay; clipboard-write;
-            encrypted-media;
-            gyroscope; picture-in-picture"
-        allowFullScreen
+      <button type="button" data-testid="share-btn">Compartilhar</button>
+      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
+      <img
+        className="detail-image"
+        data-testid="recipe-photo"
+        src={ strMealThumb }
+        alt="Recipe pic"
       />
+      <div>
+        <iframe
+          data-testid="video"
+          width="280"
+          height="157"
+          src={ strYoutube }
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer;
+              autoplay; clipboard-write;
+              encrypted-media;
+              gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
       <ul>
         { ingredientsAndMeasuresList
           .filter((ingr) => ingr !== '' && ingr !== null)
@@ -50,9 +60,6 @@ function FoodDetails(props) {
           ) }
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
     </div>
   );
 }

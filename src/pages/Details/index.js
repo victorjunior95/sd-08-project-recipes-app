@@ -2,7 +2,7 @@ import React from 'react';
 
 function Details() {
   return (
-    <h1>Detalhes</h1>
+    <h1>Detalhes da Receita</h1>
   );
 }
 

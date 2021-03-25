@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import CardCarousel from './CardCarousel';
 
 const RecommendedRecipeDetails = ({ recommendedRecipes, page }) => {
+  console.log(recommendedRecipes);
   const showCards = () => {
     if (page === 'Comidas') {
       return recommendedRecipes.map((recommended, index) => (
         <CardCarousel
           id={ recommended.idMeal }
-          imagePath={ recommended.strMealThumb }
-          title={ recommended.strMeal }
-          category={ recommended.strCategory }
+          imagePath={ recommended.strDrinkThumb }
+          title={ recommended.strDrink }
+          category={ recommended.strAlcoholic }
           index={ index }
           key={ index }
         />
@@ -20,8 +21,8 @@ const RecommendedRecipeDetails = ({ recommendedRecipes, page }) => {
       return recommendedRecipes.map((recommended, index) => (
         <CardCarousel
           id={ recommended.idDrink }
-          imagePath={ recommended.strDrinkThumb }
-          title={ recommended.strDrink }
+          imagePath={ recommended.strMealThumb }
+          title={ recommended.strMeal }
           category={ recommended.strCategory }
           index={ index }
           key={ index }

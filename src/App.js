@@ -28,7 +28,6 @@ function App() {
       <Provider>
         <Switch>
           <Route path="/explorar/comidas/area" component={ ExploreByOrigin } />
-          <Route path="/explorar/comidas/area/:id" component={ FoodDetails } />
           <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
           <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
           <Route path="/comidas/:id" component={ FoodDetails } />

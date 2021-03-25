@@ -20,7 +20,7 @@ export default function Drinks() {
     if (recipes === 'NF') {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (recipes.length === 1 && selectedParameter !== 'category') {
-      return history.push(`/bebidas/${recipes[0].idMeal}`);
+      return history.push(`/bebidas/${recipes[0].idDrink}`);
     } else if (recipes.length >= 1) {
       return setRecipesToRender([...recipes].slice(0, SHOW_TWELVE_RECIPES));
     }

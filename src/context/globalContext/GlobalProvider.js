@@ -6,11 +6,6 @@ function GlobalProvider({ children }) {
   const [email, setEmail] = useState('');
   const handleEmail = ({ target }) => setEmail(target.value);
 
-  const [cocktails, setCocktails] = useState({});
-  const [meals, setMeals] = useState({});
-
-  const [doneRecipes, setDoneRecipes] = useState([]);
-
   const provide = {
     values: {
       email,
@@ -18,15 +13,7 @@ function GlobalProvider({ children }) {
     functions: {
       setEmail,
       handleEmail,
-      setCocktails,
-      setMeals,
-      setDoneRecipes,
     },
-    inProgressRecipes: {
-      cocktails,
-      meals,
-    },
-    doneRecipes,
   };
   return (
     <GlobalContext.Provider value={ provide }>

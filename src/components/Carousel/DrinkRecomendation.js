@@ -16,13 +16,19 @@ function DrinkRecomendation() {
       {recomendations.map((item, index) => {
         if (index >= LAST_CARD_CAROUSEL) return '';
         return (
-          <div key={ item.strDrink } className="recommendation-item">
+          <div
+            key={ item.strDrink }
+            className="recommendation-item"
+            data-testid={ `${index}-recomendation-card` }
+          >
             <img
               src={ item.strDrinkThumb }
               alt={ item.strDrink }
               data-testid={ `${index}-card-img` }
             />
-            <p data-testid={ `${index}-card-name` }>{item.strDrink}</p>
+            <p data-testid={ `${index}-recomendation-title` }>
+              {item.strDrink}
+            </p>
           </div>
         );
       })}

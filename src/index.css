@@ -134,3 +134,8 @@ code {
   background-color: white;
   box-shadow: 1px 1px 8px rgb(209, 206, 198);
 }
+
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}

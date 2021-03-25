@@ -37,6 +37,9 @@ function DrinkProvider({ children }) {
     fetchData();
   }, []);
 
+  const [detailDrinks, setDetailsDrinks] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await requestDrinksCategory();
@@ -52,12 +55,16 @@ function DrinkProvider({ children }) {
       drinks,
       drinksCategory,
       filteredDrinks,
+      detailDrinks,
+      recomendations,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
       handleFilteredDrinks,
       setDrinks,
+      setDetailsDrinks,
+      setRecomendations,
     },
   };
 

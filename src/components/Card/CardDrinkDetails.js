@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
-import FoodContext from '../../context/comidaContext/FoodContext';
+import DrinkContext from '../../context/bebidaContext/DrinkContext';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import '../../index.css';
 
 function copyToClipboard(id, callback) {
-  navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
+  navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
   callback(true);
 }
 
@@ -16,32 +16,32 @@ function favorite(isFavorited, callback, item) {
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (isFavorited) {
     const newFavorites = favorites
-      .filter((foodOrDrink) => foodOrDrink.id !== item.idMeal);
+      .filter((foodOrDrink) => foodOrDrink.id !== item.idDrink);
     callback(false);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
   } else {
     const newFavorites = [...favorites, {
-      id: item.idMeal,
-      type: 'comida',
-      area: item.strArea,
+      id: item.idDrink,
+      type: 'bebida',
+      area: '',
       category: item.strCategory,
-      alcoholicOrNot: '',
-      name: item.strMeal,
-      image: item.strMealThumb,
+      alcoholicOrNot: item.strAlcoholic,
+      name: item.strDrink,
+      image: item.strDrinkThumb,
     }];
     callback(true);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
   }
 }
 
-function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
+function CardDrinkDetails({ alreadyFavorited, idDaReceita }) {
   const {
     values: {
-      detailFoods,
+      detailDrinks,
     },
-  } = useContext(FoodContext);
+  } = useContext(DrinkContext);
 
-  const LAST_INGREDIENT = 20;
+  const LAST_INGREDIENT = 15;
   const ingredientIndex = [];
   for (let index = 0; index < LAST_INGREDIENT; index += 1) {
     ingredientIndex.push(index);
@@ -61,18 +61,18 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
     setRedirect(true);
   }
 
-  if (redirect) return <Redirect to={ `/comidas/${idDaReceita}/in-progress` } />;
+  if (redirect) return <Redirect to={ `/bebidas/${idDaReceita}/in-progress` } />;
 
   return (
     <section>
-      {detailFoods.map((item) => (
-        <div key={ item.strMeal } className="imageDetails">
+      {detailDrinks.map((item) => (
+        <div key={ item.strDrink } className="imageDetails">
           <img
-            src={ item.strMealThumb }
-            alt={ item.strMeal }
+            src={ item.strDrinkThumb }
+            alt={ item.strDrink }
             data-testid="recipe-photo"
           />
-          <h3 data-testid="recipe-title">{item.strMeal}</h3>
+          <h3 data-testid="recipe-title">{item.strDrink}</h3>
           <input
             type="image"
             data-testid="share-btn"
@@ -88,7 +88,7 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
             src={ (favorited) ? blackHeartIcon : whiteHeartIcon }
             alt="share"
           />
-          <p data-testid="recipe-category">{item.strCategory}</p>
+          <p data-testid="recipe-category">{item.strAlcoholic}</p>
           <ul>
             {ingredientIndex.map((index) => {
               const srt = `${item[`strMeasure${index + 1}`]}`;
@@ -102,7 +102,6 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
             })}
           </ul>
           <p data-testid="instructions">{item.strInstructions}</p>
-          <p data-testid="video">{item.strYoutube}</p>
         </div>
       ))}
       <button
@@ -117,9 +116,9 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
   );
 }
 
-CardFoodDetails.propTypes = {
+CardDrinkDetails.propTypes = {
   alreadyFavorited: PropTypes.bool.isRequired,
   idDaReceita: PropTypes.string.isRequired,
 };
 
-export default CardFoodDetails;
+export default CardDrinkDetails;

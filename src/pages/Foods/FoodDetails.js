@@ -26,7 +26,6 @@ function FoodDetails(props) {
   }, [id]);
 
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = recipe;
-  console.log(strYoutube);
   console.log(ingredients);
   return (
     <div>

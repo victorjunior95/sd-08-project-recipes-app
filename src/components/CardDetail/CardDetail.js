@@ -16,7 +16,7 @@ const CardDetails = ({ title, object, isLoading, location: { pathname } }) => {
   const [localUrl, setLocalUrl] = useState('');
   const [favorite, setFavorite] = useState(false);
   const [save, setSave] = useState(false);
-  console.log(object);
+
   useEffect(() => {
     const saveURL = () => {
       setLocalUrl(`http://localhost:3000${pathname}`);
@@ -29,14 +29,19 @@ const CardDetails = ({ title, object, isLoading, location: { pathname } }) => {
     setSave(true);
   };
 
-  /*  useEffect(() => {
+  useEffect(() => {
     const setFavoriteButton = () => {
       const bla = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      console.log(bla);
+      if (bla) {
+        const bla1 = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const { id } = bla1[0];
+        const url = `http://localhost:3000/${title.toLowerCase()}/${id}`;
+        setIsFavorite(url);
+      }
     };
     setFavoriteButton();
-  }, []); */
-  console.log(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  }, []);
+
   const savetoFavoritest = () => {
     favorite === false ? setFavorite(true) : setFavorite(false);
 
@@ -50,11 +55,32 @@ const CardDetails = ({ title, object, isLoading, location: { pathname } }) => {
       const Objectid = { id: idDrink, type: 'bebida', area: '', category: strCategory, alcoholicOrNot: strAlcoholic, name: strDrink, image: strDrinkThumb };
       localStorage.setItem('favoriteRecipes', JSON.stringify([Objectid]));
     }
-    // console.log(arrayInicial, 'bla');
-    // favorite === true && localStorage.setItem('favoriteRecipes', JSON.stringify(arrayInicial))
+    const objetoAtual = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const filter = objetoAtual.filter((elemento) => elemento.id !== objetoAtual[0].id);
+    favorite === true && localStorage.setItem('favoriteRecipes', JSON.stringify(filter));
   };
+  const renderOrNot = () => {
+    if (favorite === false || localUrl === isFavorite) {
+      console.log('branco');
+      console.log(isFavorite);
+      return (
+        <img
+          src={ whiteHeartIcon }
+          alt="Profile icon"
+        />
+      );
+    } if (favorite || localUrl === isFavorite) {
+      console.log('preto');
+      console.log(isFavorite);
+      return (
+        <img
+          src={ blackHeartIcon }
+          alt="Profile icon"
+        />
 
-  console.log(object);
+      );
+    }
+  };
   const renderIngredientList = () => {
     const listKeys = Object.keys(object);
     const ingredients = listKeys.filter((key) => key.includes('strIngredient'));
@@ -133,14 +159,7 @@ const CardDetails = ({ title, object, isLoading, location: { pathname } }) => {
             data-testid="favorite-btn"
             onClick={ () => savetoFavoritest() }
           >
-            { favorite || localUrl === isFavorite
-              ? <img
-                  src={ blackHeartIcon }
-                  alt="Profile icon"
-              /> : <img
-                src={ whiteHeartIcon }
-                alt="Profile icon"
-              />}
+            { renderOrNot()}
           </Button>
           {' '}
           <Card.Text data-testid="recipe-category">

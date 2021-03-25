@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import DrinksCard from './DrinksCard';
 import { requestDrinksList } from '../services/apiRequests';
+import DrinksCard from './DrinksCard';
 
 function DrinksList() {
   const [allDrinks, setAllDrinks] = useState([]);

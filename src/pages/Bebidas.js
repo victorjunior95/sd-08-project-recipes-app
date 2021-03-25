@@ -24,7 +24,7 @@ const Bebidas = () => {
         history.push(`/bebidas/${dataByBusca.drinks[0].idDrink}`);
       }
     }
-  }, [dataByBusca]);
+  }, [dataByBusca, history]);
 
   return (
     <section className="w-100">

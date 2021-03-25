@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ContextRecipes from './ContextRecipes';
-import getComidasByName,
-{
+import {
+  getComidasByName,
   getComidasByIngredientes,
   getComidasByPrimeiraLetra,
   getBebidasByName,
@@ -19,10 +19,12 @@ function ProviderRecipes({ children }) {
     input: '',
     radio: '',
   };
+
   const [headerInfo, setHeaderInfo] = useState(headerInfoInitial);
   const [barraBuscar, setBarraBuscar] = useState(barraBuscarInitial);
   const [dataByBusca, setDataByBuscar] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const fetchDataComidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
@@ -83,7 +85,9 @@ function ProviderRecipes({ children }) {
           setBarraBuscar,
           dataByBusca,
           isFetching,
-          setIsFetching }
+          setIsFetching,
+          favoriteRecipes,
+          setFavoriteRecipes }
       }
     >
       {children}

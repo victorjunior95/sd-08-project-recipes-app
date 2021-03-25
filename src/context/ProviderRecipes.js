@@ -9,8 +9,6 @@ import {
   getBebidasByingredientes,
   getBebidasByPrimeiraLetra } from '../services/BuscaNasAPIs';
 
-const copy = require('clipboard-copy');
-
 function ProviderRecipes({ children }) {
   const headerInfoInitial = {
     pageTitle: 'Comidas',
@@ -68,17 +66,6 @@ function ProviderRecipes({ children }) {
     setIsFetching(false);
   }, [barraBuscar]);
 
-  // Logica para copiar a URL e fazer aparecer/desaparecer uma MSG
-  const [renderMSG, setRenderMSG] = useState(false);
-  const msgTime = 10000;
-  const copiarURL = (tipo, id) => {
-    copy(`http://localhost:3000/${tipo}/${id}`);
-    // Esse setRenderMSG faz a msg aparecer
-    setRenderMSG(true);
-    setTimeout(() => { setRenderMSG(false); }, msgTime);
-    // Esse último setRenderMSG faz a msg desaparecer após o tempo de msgTime
-  };
-
   useEffect(() => {
     if (barraBuscar.radio !== '' && headerInfo.pageTitle === 'Comidas') {
       fetchDataComidas();
@@ -100,10 +87,7 @@ function ProviderRecipes({ children }) {
           isFetching,
           setIsFetching,
           favoriteRecipes,
-          setFavoriteRecipes,
-          copiarURL,
-          renderMSG,
-          copy }
+          setFavoriteRecipes }
       }
     >
       {children}

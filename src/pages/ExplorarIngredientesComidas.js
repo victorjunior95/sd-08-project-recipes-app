@@ -30,6 +30,7 @@ function ExplorarIngredientesComidas() {
               key={ index }
               data-testid={ `${index}-ingredient-card` }
             >
+
               <img
                 src={ `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png` }
                 data-testid={ `${index}-card-img` }

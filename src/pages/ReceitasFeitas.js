@@ -1,92 +1,171 @@
 import React, { Component } from 'react';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import HeaderLocation from '../components/Header';
+import shareIcon from '../images/shareIcon.svg';
 
 class ReceitasFeitas extends Component {
   constructor() {
     super();
     this.state = {
+      recipes: [
+        {
+          id: '52771',
+          type: 'comida',
+          area: 'Italian',
+          category: 'Vegetarian',
+          alcoholicOrNot: '',
+          name: 'Spicy Arrabiata Penne',
+          image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+          doneDate: '23/06/2020',
+          tags: ['Pasta', 'Curry'],
+        },
+        {
+          id: '178319',
+          type: 'bebida',
+          area: '',
+          category: 'Cocktail',
+          alcoholicOrNot: 'Alcoholic',
+          name: 'Aquamarine',
+          image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+          doneDate: '23/06/2020',
+          tags: [],
+        },
+      ],
+      newRecipes: [],
+      filtered: false,
 
     };
-    this.filters = this.filters.bind(this);
+    this.filtersButtons = this.filtersButtons.bind(this);
     this.inputCard = this.inputCard.bind(this);
     this.share = this.share.bind(this);
-
-  //   this.change = this.change.bind(this);
-  //   this.APIcomidas = this.APIcomidas.bind(this);
+    this.filters = this.filters.bind(this);
   //   this.APIbebidas = this.APIbebidas.bind(this);
   //   this.twelveCards = this.twelveCards.bind(this);
   // }
   }
 
-  filters() {
+  filtersButtons() {
     return (
       <div className="filters">
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <center>
+          <button
+            type="button"
+            onClick={ () => this.filters('all') }
+            data-testid="filter-by-all-btn"
+          >
+            All
+
+          </button>
+          <button
+            type="button"
+            onClick={ () => this.filters('food') }
+            data-testid="filter-by-food-btn"
+          >
+            Food
+
+          </button>
+          <button
+            type="button"
+            onClick={ () => this.filters('drink') }
+            data-testid="filter-by-drink-btn"
+          >
+            Drinks
+
+          </button>
+        </center>
       </div>
     );
   }
 
-  share() {
-    copy(window.location);
-    // const SHOW_TIME = 3000;
-    // this.setState({ displayShareMesage: true }, () => {
-    //   setTimeout(() => this.setState({ displayShareMesage: false }), SHOW_TIME);
-    // });
+  filters(par) {
+    const { recipes } = this.state;
+    let newRecipes = [];
+    console.log(par);
+    if (par === 'all' || par === undefined) {
+      this.setState({ filtered: false });
+    }
+    if (par === 'food') {
+      newRecipes = recipes.filter((obj) => obj.type === 'comida');
+      this.setState({ newRecipes, filtered: true });
+    }
+    if (par === 'drink') {
+      newRecipes = recipes.filter((obj) => obj.type === 'bebida');
+      this.setState({ newRecipes, filtered: true });
+    }
+  }
+
+  share(obj) {
+    const location = `http://localhost:3000/${obj.type}s/${obj.id}`;
+    copy(location);
+    const SHOW_TIME_MILISECONDS = 3000;
+    this.setState({ displayShareMesage: true }, () => {
+      setTimeout(() => this.setState(
+        { displayShareMesage: false },
+      ), SHOW_TIME_MILISECONDS);
+    });
   }
 
   inputCard() {
-    const recipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: '23/06/2020',
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: '23/06/2020',
-        tags: [],
-      },
-    ];
+    const { newRecipes, recipes, filtered } = this.state;
+    let arr = [];
+    if (filtered === false) {
+      arr = recipes;
+    }
+    if (filtered === true) {
+      arr = newRecipes;
+    }
     return (
       <div>
-        { recipes.map((obj, index) => (
+        { arr.map((obj, index) => (
           <div className="card" key={ obj.id }>
-            <img data-testid={ `${index}-horizontal-image` } alt="card" />
-            <p data-testid={ `${index}-horizontal-top-text` } />
-            <p data-testid={ `${index}-horizontal-name` } />
-            <p data-testid={ `${index}-horizontal-done-date` } />
+            <center>
+              <div className="a">
+                <Link to={ `${obj.type}s/${obj.id}` }>
+                  <img
+                    data-testid={ `${index}-horizontal-image` }
+                    alt="card"
+                    src={ `${obj.image}` }
+                    className="linkImage"
+                  />
+                </Link>
+
+              </div>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${obj.alcoholicOrNot} ${obj.area} - ${obj.category}`}
+
+              </p>
+              <Link to={ `${obj.type}s/${obj.id}` }>
+                <p data-testid={ `${index}-horizontal-name` }>{obj.name}</p>
+              </Link>
+              <p data-testid={ `${index}-horizontal-done-date` }>{obj.doneDate}</p>
+
+            </center>
             <button
               type="button"
-              onClick={ () => this.share() }
-              data-testid={ `${index}-horizontal-share-btn` }
+              onClick={ () => this.share(obj) }
             >
+              <img
+                alt="card"
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareIcon }
+              />
               {' '}
-              Compartilhar
             </button>
-            { obj.tags.map((tag) => (
+            <div className="tags">
+              tags:
+              { obj.tags.map((tag) => (
+                <p
+                  key={ tag }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                >
+                  {tag}
+                </p>
+              ))}
 
-              <p
-                key={ tag }
-                data-testid={ `${index}-${tag}-horizontal-tag` }
-              >
-                {tag}
-              </p>
-            ))}
+            </div>
 
           </div>))}
       </div>
@@ -94,13 +173,16 @@ class ReceitasFeitas extends Component {
   }
 
   render() {
+    const { displayShareMesage } = this.state;
+
     return (
       <div>
         <HeaderLocation />
         <br />
         <br />
         <br />
-        {this.filters()}
+        {this.filtersButtons()}
+        { displayShareMesage ? <p className="alert">Link copiado!</p> : <div />}
         {this.inputCard()}
       </div>
     );
@@ -108,23 +190,3 @@ class ReceitasFeitas extends Component {
 }
 
 export default ReceitasFeitas;
-
-// describe('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
-//   it('Todos os data-testids estão disponíveis', () => {
-//     cy.get('[data-testid="filter-by-all-btn"]');
-//     cy.get('[data-testid="filter-by-food-btn"]');
-//     cy.get('[data-testid="filter-by-drink-btn"]');
-//     cy.get('[data-testid="0-horizontal-image"]');
-//     cy.get('[data-testid="0-horizontal-top-text"]');
-//     cy.get('[data-testid="0-horizontal-name"]');
-//     cy.get('[data-testid="0-horizontal-done-date"]');
-//     cy.get('[data-testid="0-horizontal-share-btn"]');
-//     cy.get('[data-testid="0-Pasta-horizontal-tag"]');
-//     cy.get('[data-testid="0-Curry-horizontal-tag"]');
-//     cy.get('[data-testid="1-horizontal-image"]');
-//     cy.get('[data-testid="1-horizontal-top-text"]');
-//     cy.get('[data-testid="1-horizontal-name"]');
-//     cy.get('[data-testid="1-horizontal-share-btn"]');
-//     cy.get('[data-testid="1-horizontal-done-date"]');
-//   });
-// });

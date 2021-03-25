@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Copy from 'clipboard-copy';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import { PageProgress } from '../context/ContextProgress';
 
 import {
@@ -54,11 +55,13 @@ function CardInProgress({ recipe, type }) {
         <h1 data-testid="recipe-title">{ recipe.strMeal || recipe.strDrink }</h1>
       </div>
       <div>
-        <input
+        <button
           onClick={ () => onClickCopyLink() }
           data-testid="share-btn"
           type="button"
-        />
+        >
+          <img typ="image/svg+xml" src={ shareIcon } alt="share-icon" />
+        </button>
       </div>
       <div>
         <button

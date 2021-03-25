@@ -6,7 +6,7 @@ function NotFound() {
   const BOOLEAN_TRUE = true;
   return (
     <div>
-      <Header title="Explorar Origem" searchBtn={ BOOLEAN_TRUE } />
+      <Header title="Explorar Origem" disableBtn={ BOOLEAN_TRUE } />
       Not Found
       <Footer />
     </div>

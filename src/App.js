@@ -3,9 +3,8 @@ import { Route } from 'react-router-dom';
 import { Comidas, Bebidas, Login, Perfil, DetalhesComida,
   DetalhesBebida, Explorar, ExplorarComidas, ExplorarBebidas,
   IngredientesComidas, IngredientesBebidas, ExplorarOrigem,
-  NotFound,
-  inProgressComida,
-  InProgressBebidas } from './pages/index';
+  NotFound, inProgressComida, InProgressBebidas,
+  ReceitasFeitas, ReceitasFavoritas } from './pages/index';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,8 +26,8 @@ function App() {
       <Route exact path="/comidas" component={ Comidas } />
       <Route exact path="/bebidas" component={ Bebidas } />
       <Route path="/perfil" component={ Perfil } />
-      {/* // <Route path="/receitas-feitas;" component={ Receitas } />
-      // <Route path="/receitas-favoritas" component={ Receitas } /> */}
+      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
 
       <Route exact path="/" component={ Login } />
     </>

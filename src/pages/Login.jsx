@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import contextRecipes from '../context/Context';
+
 import Button from '../components/Button';
 import Input from '../components/Inputs';
 
@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
 
-  const { setUser } = useContext(contextRecipes);
+  const userEmail = { email };
 
   useEffect(() => {
     function buttonAble() {
@@ -47,12 +47,13 @@ const Login = () => {
         datatestid="login-submit-btn"
         disabled={ disabled }
         onClick={ () => {
-          setUser({ email });
+          localStorage.setItem('mealsToken', 1);
+          localStorage.setItem('cocktailsToken', 1);
+          localStorage.setItem('user', JSON.stringify(userEmail));
           history.push('/comidas');
         } }
       />
     </fieldset>
-
   );
 };
 

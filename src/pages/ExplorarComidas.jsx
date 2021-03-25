@@ -17,7 +17,7 @@ function ExplorarComidas() {
 
   return (
     <div>
-      <Header title="Explorar Comidas" searchBtn={ BOOLEAN_TRUE } />
+      <Header title="Explorar Comidas" disableBtn={ BOOLEAN_TRUE } />
       <Button
         type="button"
         label="Por Ingredientes"

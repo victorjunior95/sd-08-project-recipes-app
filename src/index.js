@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import RecipesProvider from './context/Provider';
 
 ReactDOM.render(
-  <BrowserRouter forceRefresh>
+  <BrowserRouter>
     <RecipesProvider />
   </BrowserRouter>, document.getElementById('root'),
 );

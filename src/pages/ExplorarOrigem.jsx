@@ -35,7 +35,7 @@ function ExplorarOrigem() {
 
   return (
     <div>
-      <Header title="Explorar Origem" searchBtn={ BOOLEAN_FALSE } />
+      <Header title="Explorar Origem" disableBtn={ BOOLEAN_FALSE } />
       <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
         <option data-testid="All-option" value="all">All</option>
         { areas.map((data, index) => (

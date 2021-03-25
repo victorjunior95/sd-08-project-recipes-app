@@ -13,6 +13,7 @@ const Comidas = () => {
   const { filter, mealsCategories, mainIngredient, setMain } = useContext(contextRecipes);
 
   useEffect(() => {
+    console.log(mainIngredient);
     async function getMealsFromAPI() {
       let mealsAPI = '';
       if (mainIngredient === '') {
@@ -49,7 +50,7 @@ const Comidas = () => {
 
   return (
     <>
-      <Header title="Comidas" searchBtn={ BOOLEAN_FALSE } />
+      <Header title="Comidas" disableBtn={ BOOLEAN_FALSE } />
       <Button
         datatestid="All-category-filter"
         label="All"

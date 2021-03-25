@@ -21,7 +21,7 @@ function IngredientesBebidas() {
 
   return (
     <div>
-      <Header title="Explorar Ingredientes" searchBtn={ BOOLEAN_TRUE } />
+      <Header title="Explorar Ingredientes" disableBtn={ BOOLEAN_TRUE } />
       { ingredients.map((dat, index) => (
         <div data-testid={ `${index}-ingredient-card` } key={ index }>
           <input

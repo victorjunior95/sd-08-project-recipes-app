@@ -9,7 +9,7 @@ import getResultFromAPI from '../api/getResultFromAPI';
 import contextRecipes from '../context/Context';
 
 const Header = (props) => {
-  const { title, searchBtn } = props;
+  const { title, disableBtn } = props;
   const [showSearchBar, setShow] = useState(false);
   const [userButton, setUserButton] = useState('');
   const [userInput, setUserInput] = useState('');
@@ -112,7 +112,7 @@ const Header = (props) => {
           <input type="image" src={ profile } alt="prof" data-testid="profile-top-btn" />
         </Link>
         <h3 data-testid="page-title">{ title }</h3>
-        { !searchBtn && renderSearchBtn() }
+        { !disableBtn && renderSearchBtn() }
       </section>
       { showSearchBar && renderSearchBar() }
     </header>
@@ -121,7 +121,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  searchBtn: PropTypes.bool.isRequired,
+  disableBtn: PropTypes.bool.isRequired,
 };
 
 export default Header;

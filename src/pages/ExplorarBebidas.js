@@ -35,7 +35,7 @@ function ExplorarBebidas() {
           history.push(`/bebidas/${drinkId}`);
         } }
       >
-        Me surpreenda!
+        Me Surpreenda!
       </button>
       <Footer />
     </div>

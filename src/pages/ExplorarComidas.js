@@ -46,7 +46,7 @@ function ExplorarComidas() {
           history.push(`/comidas/${mealsId}`);
         } }
       >
-        Me surpreenda!
+        Me Surpreenda!
       </button>
       <Footer />
     </div>

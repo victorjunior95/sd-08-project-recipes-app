@@ -10,7 +10,7 @@ function Explorar() {
       <HeaderWithoutSearch />
       <button
         type="button"
-        data-testid="explore-food "
+        data-testid="explore-food"
         onClick={ () => {
           history.push('/explorar/comidas');
         } }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, useParams } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -54,13 +54,14 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
           ? <LoadingScreen />
           : recipes.length > 1
             && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
-              <Card
-                key={ recipe.idMeal }
-                name={ recipe.strMeal }
-                thumbnail={ recipe.strMealThumb }
-                index={ index }
-                id={ recipe.idMeal }
-              />)) }
+              <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
+                <Card
+                  name={ recipe.strMeal }
+                  thumbnail={ recipe.strMealThumb }
+                  index={ index }
+                />
+              </Link>
+            ))}
       </CardsContainer>
       <Footer />
     </Container>

@@ -13,6 +13,7 @@ import ExploreCocktailsByIngredient from './pages/ExploreCocktailsByIngredient';
 import ExploreMealsByArea from './pages/ExploreMealsByArea';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreCocktails from './pages/ExploreCocktails';
+import RecipeDetails from './pages/RecipeDetails';
 
 export default function Routes() {
   return (
@@ -20,7 +21,7 @@ export default function Routes() {
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/perfil" component={ Profile } />
-      <Route path="/comidas/:id" component={ Meals } />
+      <Route path="/comidas/:id" component={ RecipeDetails } />
       <Route path="/bebidas/:id" component={ Cocktails } />
       <Route path="/comidas" component={ Meals } />
       <Route path="/bebidas" component={ Cocktails } />

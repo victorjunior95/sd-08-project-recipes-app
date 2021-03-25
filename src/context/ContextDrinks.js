@@ -26,6 +26,39 @@ function DrinksContext(props) {
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
 
   const [searchInputDrink, setSearchInputDrink] = useState([]);
+  const myCustomAlert = (text) => {
+    const myAlert = window.alert;
+    myAlert(text);
+  };
+
+  const handleClickSearchDrink = async () => {
+    if (nameSearchRadioDrink) {
+      const res = await getDrinkByName(searchInputDrink);
+      // console.log(res);
+      if (res === null) {
+        myCustomAlert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+        return null;
+      }
+      if (res.length === 1) {
+        const onlyDrink = [res[0]];
+        onlyDrink.map((item) => history.push(`/bebidas/${item.idDrink}`));
+      }
+      setDrinks(res);
+    }
+    if (!!firstLetterSearchRadioDrink && searchInputDrink.length === 1) {
+      const res = await getDrinkByFirstLetter(searchInputDrink);
+      setDrinks(res);
+    }
+    if (!!firstLetterSearchRadioDrink && searchInputDrink.length !== 1) {
+      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    if (ingredientSearchRadioDrink) {
+      const res = await getDrinkByIngredients(searchInputDrink);
+      setDrinks(res);
+    }
+  };
 
   useEffect(() => {
     async function fetchDataDrinks() {
@@ -47,7 +80,21 @@ function DrinksContext(props) {
       setFirstLetterSearchRadioDrink(!firstLetterSearchRadioDrink);
     }
   };
-
+  useEffect(() => {
+    if (
+      [
+        ingredientSearchRadioDrink,
+        nameSearchRadioDrink,
+        firstLetterSearchRadioDrink,
+      ].includes(true)
+    ) {
+      handleClickSearchDrink();
+    }
+  }, [
+    firstLetterSearchRadioDrink,
+    ingredientSearchRadioDrink,
+    nameSearchRadioDrink,
+  ]);
   const handleSearchByNameDrink = () => {
     setNameSearchRadioDrink(!nameSearchRadioDrink);
     if (ingredientSearchRadioDrink) {
@@ -67,38 +114,6 @@ function DrinksContext(props) {
 
   const handleChangeSearchDrink = (e) => {
     setSearchInputDrink(e);
-  };
-
-  const myCustomAlert = (text) => {
-    const myAlert = window.alert;
-    myAlert(text);
-  };
-
-  const handleClickSearchDrink = async () => {
-    if (nameSearchRadioDrink) {
-      const res = await getDrinkByName(searchInputDrink);
-      // console.log(res);
-      if (res === null) {
-        myCustomAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-        return null;
-      }
-      if (res.length === 1) {
-        const onlyDrink = [res[0]];
-        onlyDrink.map((item) => history.push(`/bebidas/${item.idDrink}`));
-      }
-      setDrinks(res);
-    }
-    if (!!firstLetterSearchRadioDrink && searchInputDrink.length === 1) {
-      const res = await getDrinkByFirstLetter(searchInputDrink);
-      setDrinks(res);
-    }
-    if (!!firstLetterSearchRadioDrink && searchInputDrink.length !== 1) {
-      myCustomAlert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    if (ingredientSearchRadioDrink) {
-      const res = await getDrinkByIngredients(searchInputDrink);
-      setDrinks(res);
-    }
   };
 
   // const handleByCategoryDrinkAll = async () => {
@@ -134,6 +149,7 @@ function DrinksContext(props) {
       <DataDrinksContext.Provider
         value={ {
           handleChangeSearchDrink,
+          setSearchInputDrink,
           handleSearchByIngredientsDrink,
           handleSearchByFirstLetterDrink,
           handleSearchByNameDrink,

@@ -24,7 +24,6 @@ async function getResultFromAPI(path, filter = 'busca por nome', text = '') {
   const b = path;
   const TWELVE_FILTER = 12;
   const fetchURL = `${urlString[b]}${filterString[a]}${text}`;
-  console.log(fetchURL);
   const apiResultJSON = await fetch(fetchURL);
   const apiResult = await apiResultJSON.json();
   if (apiResult.meals === null || apiResult.drinks === null) {

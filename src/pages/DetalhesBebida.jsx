@@ -12,7 +12,6 @@ function DetalhesBebida() {
   useEffect(() => {
     async function getDrink() {
       const food = await getResultFromAPI('/bebidas', 'lookup', id);
-      console.log(food);
       context.setCurrentFood(food);
       context.setCurrentFoodIngredients(createIngredientsArray(food));
     }

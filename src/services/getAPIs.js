@@ -28,6 +28,12 @@ export const getMealByFirstLetter = async (FirstLetter) => {
   return meals;
 };
 
+export const getMealRecipesDetails = async (idRecipe) => {
+  const Url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`;
+  const { meals } = await fetch(Url).then((response) => response.json());
+  return meals[0];
+};
+
 export const getDrinksCategories = async () => {
   const Url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const { drinks } = await fetch(Url).then((response) => response.json());
@@ -68,4 +74,9 @@ export const getDrinksDetails = async (byId) => {
   const Url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${byId}`;
   const { drinks } = await fetch(Url).then((response) => response.json());
   return drinks;
+
+export const getDrinkRecipesDetails = async (idRecipe) => {
+  const Url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`;
+  const { drinks } = await fetch(Url).then((response) => response.json());
+  return drinks[0];
 };

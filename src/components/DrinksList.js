@@ -3,24 +3,45 @@ import { requestDrinksList } from '../services/apiRequests';
 import DrinksCard from './DrinksCard';
 
 function DrinksList() {
+  const { searchParams, inputValue } = useContext(Context);
   const [allDrinks, setAllDrinks] = useState([]);
   const MAX_INDEX = 11;
   useEffect(() => {
-    async function requestDrinks() {
-      const drinks = await requestDrinksList();
-      setAllDrinks(drinks);
+    async function requestDrinks(searchFilter, value) {
+      if (searchFilter === '') {
+        const drinks = await requestDrinksList();
+        setAllDrinks(drinks);
+      } else if (searchFilter === 'ingrediente') {
+        const drinks = await requestDrinksByIngredient(value);
+        setAllDrinks(drinks);
+      } else if (searchFilter === 'primeira-letra') {
+        const drinks = await requestDrinksByNameOrFirstLetter('f', value);
+        setAllDrinks(drinks);
+      } else {
+        const drinks = await requestDrinksByNameOrFirstLetter('s', value);
+        setAllDrinks(drinks);
+      }
     }
-    requestDrinks();
-  }, []);
+    requestDrinks(searchParams, inputValue);
+  }, [searchParams, inputValue]);
   return (
     <main>
       {
-        allDrinks.map((drink, index) => {
-          if (index <= MAX_INDEX) {
-            return <DrinksCard key={ drink.idDrink } drink={ drink } index={ index } />;
-          }
-          return '';
-        })
+        allDrinks !== null || undefined
+          ? allDrinks.map((drink, index) => {
+            if (index <= MAX_INDEX) {
+              return (
+                <DrinksCard
+                  key={ drink.idDrink }
+                  drink={ drink }
+                  index={ index }
+                  id={ drink.idDrink }
+                />
+              );
+            }
+            return '';
+          })
+          : '' // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       }
     </main>
   );

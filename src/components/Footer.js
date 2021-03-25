@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
 import Context from '../context/Context';
 
 function Footer() {
@@ -17,14 +20,14 @@ function Footer() {
         } }
       >
         <img
-          src="../images/drinkIcon.svg"
+          src={ drinkIcon }
           data-testid="drinks-bottom-btn"
           alt="icone drinks"
         />
       </button>
       <button type="button" onClick={ () => history.push('/explorar') }>
         <img
-          src="../images/exploreIcon.svg"
+          src={ exploreIcon }
           data-testid="explore-bottom-btn"
           alt="icone explore"
         />
@@ -38,7 +41,7 @@ function Footer() {
         } }
       >
         <img
-          src="../images/mealIcon.svg"
+          src={ mealIcon }
           data-testid="food-bottom-btn"
           alt="icone food"
         />

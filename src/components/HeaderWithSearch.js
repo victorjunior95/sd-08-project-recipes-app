@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 function HeaderWithSearch() {
   const { pathname } = useLocation();
@@ -14,7 +16,7 @@ function HeaderWithSearch() {
       <div data-testid="header" className="header">
         <button type="button" onClick={ () => history.push('./perfil') }>
           <img
-            src="../images/profileIcon.svg"
+            src={ profileIcon }
             data-testid="profile-top-btn"
             alt="profile page"
           />
@@ -22,7 +24,7 @@ function HeaderWithSearch() {
         <h1 data-testid="page-title">{title}</h1>
         <button type="button" onClick={ () => setSearchBar(!searchBar) }>
           <img
-            src="../images/searchIcon.svg"
+            src={ searchIcon }
             data-testid="search-top-btn"
             alt="search button"
           />

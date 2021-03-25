@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
 
 function HeaderWithoutSearch() {
   const history = useHistory();
@@ -12,7 +13,7 @@ function HeaderWithoutSearch() {
       <div data-testid="header" className="header">
         <button type="button" onClick={ () => history.push('/perfil') }>
           <img
-            src="../images/profileIcon.svg"
+            src={ profileIcon }
             data-testid="profile-top-btn"
             alt="profile page"
           />

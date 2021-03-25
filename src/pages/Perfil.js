@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Footer from '../components/Footer';
 
 function Perfil() {
   const history = useHistory();
@@ -19,7 +20,9 @@ function Perfil() {
 
   return (
     <div>
-      <HeaderWithoutSearch />
+      <div>
+        <HeaderWithoutSearch />
+      </div>
       { getEmail() }
       <button
         type="button"
@@ -49,6 +52,7 @@ function Perfil() {
       >
         Sair
       </button>
+      <Footer />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import {
   ExplorarIngredientes, ExplorarOrigem, Perfil, ReceitasFeitas, ReceitasFavoritas,
   Details,
 } from './Pages';
-import ReceitasProgresso from './Pages/ReceitasProgresso';
+import ReceitasProgresso from './Pages/RecipesProgress/ReceitasProgresso';
 
 function App() {
   return (

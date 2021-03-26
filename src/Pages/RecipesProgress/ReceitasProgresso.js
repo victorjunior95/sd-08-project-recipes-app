@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, useRouteMatch } from 'react-router';
 import {
   DetailImage, DetailInstructions, DetailTitle, DetailVideo,
-} from './Details';
-import { fetchItem } from '../store/apiSlice';
-import DetailRecommend from './Details/DetailRecommend';
+} from '../Details';
+import { fetchItem } from '../../store/apiSlice';
+import DetailRecommend from '../Details/DetailRecommend';
 import DetailIngredientsProgress from './ReceitasProgressCheckbox';
 
 const setLocal = (isFood, id, checkbox) => {

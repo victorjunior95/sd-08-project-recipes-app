@@ -53,7 +53,6 @@ function DetailTitle(props) {
     // tags: item.strTags ? item.strTags.split(',') : [],
   };
 
-
   const link = (urlCopy) => {
     if (urlCopy.includes('/in-progress')) {
       const newUrl = `http://localhost:3000${url.replace('/in-progress', '')}`;

@@ -25,7 +25,8 @@ function DetailIngredientsProgress(props) {
                   checkboxLocalStorage(index, true);
                 } else if (e.target.checked === false) {
                   checkboxLocalStorage(index, false);
-                }}}
+                }
+              } }
               id="flexCheckChecked"
               label={ `${ingredient} - ${measures[index] || ''}` }
             />
@@ -39,11 +40,14 @@ function DetailIngredientsProgress(props) {
 DetailIngredientsProgress.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string),
   measures: PropTypes.arrayOf(PropTypes.string),
+  checkboxLocalStorage: PropTypes.func.isRequired,
+  checkbox: PropTypes.arrayOf(PropTypes.number),
 };
 
 DetailIngredientsProgress.defaultProps = {
   ingredients: [],
   measures: [],
+  checkbox: [],
 };
 
 export default DetailIngredientsProgress;

@@ -3,6 +3,27 @@ const DRINK_API = 'https://www.thecocktaildb.com/api.php';
 const FOOD_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+export const showCompleteLists = async (query, currentPage) => {
+  // lists:
+  // FoodApi: (c)ategories, (i)ngredients, (a)rea;
+  // DrinkApi: (c)ategories, (g)lasses, (i)ngredients or (a)lcoholic filters;
+  const LIST_API = currentPage === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/list.php'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php';
+  const api = await fetch(`${LIST_API}?${query.charAt(0)}=list`);
+  const result = await api.json();
+  return result;
+};
+
+export const filterCategory = async (query, currentPage) => {
+  const CATEGORY_API = currentPage === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/filter.php'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+  const api = await fetch(`${CATEGORY_API}?c=${query}`);
+  const result = await api.json();
+  console.log(result);
+  return result;
+};
 export const filterIngredient = async (query, currentPage) => {
   const INGREDIENT_API = currentPage === 'Foods'
     ? 'https://www.themealdb.com/api/json/v1/1/filter.php'

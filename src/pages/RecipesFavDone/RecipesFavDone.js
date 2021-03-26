@@ -7,6 +7,9 @@ import CardRecipe from '../../components/CardRecipe/CardRecipe';
 const RecipesFavDone = ({ title, visible }) => {
   const [doneRecipes, setDoneRecipes] = useState([]);
   useEffect(() => {
+    if (localStorage.getItem('doneRecipes') === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
     const localRecipes = localStorage.getItem('doneRecipes');
     setDoneRecipes(JSON.parse(localRecipes));
   }, []);

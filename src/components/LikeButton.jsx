@@ -5,11 +5,11 @@ import likeBtn from '../images/whiteHeartIcon.svg';
 import likedBtn from '../images/blackHeartIcon.svg';
 import dislikeRecipeAction from '../redux/actions/dislikeRecipeAction';
 
-export default function LikeButton({ likedProp, recipeIndex }) {
+export default function LikeButton({ likedProp, recipeId, dataTestId }) {
   const dispatch = useDispatch();
 
   function handleClick() {
-    dispatch(dislikeRecipeAction(recipeIndex));
+    dispatch(dislikeRecipeAction(recipeId));
   }
 
   return (
@@ -20,7 +20,7 @@ export default function LikeButton({ likedProp, recipeIndex }) {
       <img
         alt="like-icon"
         src={ (likedProp) ? likedBtn : likeBtn }
-        data-testid="favorite-btn"
+        data-testid={ dataTestId }
 
       />
     </button>
@@ -29,9 +29,11 @@ export default function LikeButton({ likedProp, recipeIndex }) {
 
 LikeButton.propTypes = {
   likedProp: PropTypes.bool,
-  recipeIndex: PropTypes.number.isRequired,
+  recipeId: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string,
 };
 
 LikeButton.defaultProps = {
   likedProp: false,
+  dataTestId: 'favorite-btn',
 };

@@ -15,25 +15,6 @@ function FavoriteRecipes() {
     setFilterSelector(value);
   }
 
-  // function getTags(recipe, index) {
-  //   const tag = recipe.tags;
-  //   if (!tag) return null;
-  //   if (tag) {
-  //     return (
-  //       <>
-  //         { tag.map((e) => (
-  //           <span
-  //             key={ `${index}${e}` }
-  //             data-testid={ `${index}-${e}-horizontal-tag` }
-  //           >
-  //             { e }
-  //           </span>
-  //         ))}
-  //       </>
-  //     );
-  //   }
-  // }
-
   function generateCard(recipe, index) {
     return (
       <div key={ recipe.id }>
@@ -62,8 +43,11 @@ function FavoriteRecipes() {
           recipeId={ recipe.id }
           recipeType={ recipe.type }
         />
-        <LikeButton likedProp={ recipe.liked } recipeIndex={ index } />
-        {/* { getTags(recipe, index) } */}
+        <LikeButton
+          dataTestId={ `${index}-horizontal-favorite-btn` }
+          likedProp={ recipe.liked }
+          recipeId={ recipe.id }
+        />
       </div>
     );
   }

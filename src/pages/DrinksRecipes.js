@@ -16,6 +16,7 @@ function DrinksRecipes() {
   const type = useSelector((state) => state.search.inputType);
   const drinks = useSelector((state) => state.recipes.recipes);
   const filter = useSelector((state) => state.recipes.drinkFilter);
+
   useEffect(() => {
     const fetchData = (inputf, typef) => dispatch(fetchDrinkThunk(inputf, typef));
     fetchData(input, type);
@@ -28,6 +29,7 @@ function DrinksRecipes() {
     const fetchData = (filterf) => dispatch(fetchRecipesDrinkCatsThunk(filterf));
     fetchData(filter);
   }, [dispatch, filter]);
+
   return (
     <main>
       { drinks && drinks.length === 1

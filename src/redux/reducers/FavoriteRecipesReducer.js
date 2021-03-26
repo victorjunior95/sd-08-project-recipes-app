@@ -24,9 +24,7 @@ export default function FavoriteRecipesReducer(state = INITIAL_STATE, action) {
     };
   case DISLIKE_RECIPE:
     return {
-      recipes: [
-        ...state.recipes,
-        Object.assign(state.recipes[payload], { liked: false })],
+      recipes: state.recipes.filter((e) => e.id !== payload),
     };
   default:
     return state;

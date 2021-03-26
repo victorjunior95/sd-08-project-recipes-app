@@ -45,7 +45,7 @@ function Drinks() {
               name={ item.strDrink }
               img={ item.strDrinkThumb }
               index={ index }
-              onClick={ () => history.push(`bebidas/${item.idDrink}`) }
+              onClick={ () => history.push(`/bebidas/${item.idDrink}`) }
             />
           ))}
         { drinks && drinks.length === 1

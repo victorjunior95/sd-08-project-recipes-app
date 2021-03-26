@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
-import RecipeCard from './RecipeCard';
+import RecipeCard from '../components/RecipeCard';
 
 const MAX_CATEGORIES = 5;
 const MAX_CARDS = 12;

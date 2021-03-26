@@ -10,7 +10,6 @@ const CheckBoxIngredients = ({ object, title }) => {
     meals: {}
   });
 
-
   const objectSaved = JSON.parse(localStorage.getItem("inProgressRecipes"))
 
   if (!objectSaved) {

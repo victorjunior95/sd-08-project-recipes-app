@@ -44,9 +44,8 @@ class Login extends Component {
       <div className="login">
         <main className="main">
           <div className="form">
-            <h1>Faça login usando sua conta</h1>
             <input
-              className="input text"
+              className="input-text"
               type="text"
               name="Email"
               value={ Email }
@@ -55,7 +54,7 @@ class Login extends Component {
               onChange={ (event) => this.change(event) }
             />
             <input
-              className="input text"
+              className="input-text"
               type="text"
               name="senha"
               value={ senha }
@@ -64,7 +63,7 @@ class Login extends Component {
               onChange={ (event) => this.change(event) }
             />
             <button
-              className="button"
+              className="btn-login"
               type="button"
               data-testid="login-submit-btn"
               disabled={ buttonDisabled }
@@ -89,28 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
   setEmail: (email) => dispatch(login(email)),
 });
 
-// const mapStateToProps = (state) => ({
-//   email: state.email,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   email: (email) => dispatch({ type: 'CHANGE_EMAIL', email }),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
 export default connect(null, mapDispatchToProps)(Login);
-// Foi imprencidivel na desenvoltura desse projeto o compartilhamento de informações e a
-//  constante ajúda mútua entre mim e meus colegas.
-//  Meus agradecimento á Arnaelcio Gomes, que fez com tal proeza os regex necessarios.
-//  Meus agradecimento á Ana Karine que mostrou a beleza das arrows no lugar dos binds e
-//  encontrou sozinha os elses que faltavam,
-//  Meus agradecimento á Lucas Ribeiro  que  nos deu no momento inicial uma incrível explanação
-//  que esclareceu muito sobre o funcionamento do Redux.
-//  Tenho crescido muito com voces e estou muito feliz e orgulhoso de fazer parte deste crescimento.
-//  Mal posso esperar pra encontrar cada um de voces, fisicamente ou nao, em nosso futuro
-// proximo e próspero.
-// Estes são só alguns pequenos exemplos de tudo que conversamos,
-// e essa só uma pequena demonstração de minha enorme gratidão. VQV
 
 Login.propTypes = {
   history: PropTypes.shape.isRequired,

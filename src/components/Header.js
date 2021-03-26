@@ -113,8 +113,12 @@ const HeaderLocation = withRouter(Header);
 export default HeaderLocation;
 
 Header.propTypes = {
-  location: PropTypes.shape.isRequired,
-  history: PropTypes.shape.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 // a solução para generalização do Header foi inspirada e adaptada a partir da resolução

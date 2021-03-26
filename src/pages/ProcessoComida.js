@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
+import Context from '../context/Context';
 import RecipeDetails from '../components/RecipeDetails';
 
-function ProcessoComida() {
-  console.log('cheguei aqui');
+function ProcessoComida(props) {
+  const { requestRecipeDetails } = useContext(Context);
+
+  useEffect(() => {
+    requestRecipeDetails('themealdb', props.match.params.id, 'thecocktaildb');
+  }, []);
+
   return (
     <main>
-      <RecipeDetails recipeType="Meal" status="ongoing" />
+      <RecipeDetails recipeType="Meal" route="comidas" status="ongoing" />
     </main>
   );
 }
+
+ProcessoComida.propTypes = {
+  match: PropTypes.object,
+  params: PropTypes.object,
+  id: PropTypes.string,
+}.isRequired;
 
 export default ProcessoComida;

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
+import '../styles/Ingredients.css';
 
 function Ingredients({ status }) {
   const { recipeDetails } = useContext(Context);
@@ -19,23 +20,22 @@ function Ingredients({ status }) {
                 recipe[`strIngredient${index + 1}`] !== ''
               && recipe[`strIngredient${index + 1}`]
                   ? (
-                    <div>
-                      <label htmlFor={ index }>
-                        { `${recipe[`strIngredient${index + 1}`]} - 
-                    ${recipe[`strMeasure${index + 1}`]}` }
-                      </label>
+                    <div key={ index }>
                       <input
                         type="checkbox"
                         key={ index }
                         id={ index }
                         data-testid={ `${index}-ingredient-name-and-measure` }
                       />
+                      <label htmlFor={ index }>
+                        { `${recipe[`strIngredient${index + 1}`]} - 
+                        ${recipe[`strMeasure${index + 1}`]}` }
+                      </label>
                     </div>
                   )
                   : null
               ))
             }
-            : null
           </fieldset>
         ) : (
           <ul>

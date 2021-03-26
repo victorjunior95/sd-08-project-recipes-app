@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-// import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import Context from '../context/Context';
 import Recommended from './Recommended';
 import Ingredients from './Ingredients';
@@ -8,16 +8,22 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
-function RecipeDetails({ recipeType, status }) {
+function RecipeDetails({ recipeType, status, route }) {
   const { isFetching, recipeDetails } = useContext(Context);
 
-  function renderDetailsHeader() {
-    const recipe = Object.values(recipeDetails[0])[0][0];
-    // let shouldRedirect = false;
+  function shareLink() {
+    const share = document.body.appendChild(document.createElement('input'));
+    share.value = window.location.href;
+    share.select();
+    document.execCommand('copy');
+    share.parentNode.removeChild(share);
+    const shareMessage = document.querySelector('.share');
+    shareMessage.innerHTML = 'Link copiado!';
+    // https://orclqa.com/copy-url-clipboard/
+  }
 
-    /* if (shouldRedirect === true) {
-      return <Redirect to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` } />;
-    } */
+  function renderDetails() {
+    const recipe = Object.values(recipeDetails[0])[0][0];
 
     return (
       <section key={ recipe[`id${recipeType}`] }>
@@ -30,15 +36,22 @@ function RecipeDetails({ recipeType, status }) {
         <h1 data-testid="recipe-title">
           { recipe[`str${recipeType}`] }
         </h1>
-        <button type="button" data-testid="share-btn">
+        <button
+          type="button"
+          data-testid="share-btn"
+          className="share-btn"
+          id="share-btn"
+          onClick={ () => shareLink() }
+        >
           <img alt="Share" src={ shareIcon } />
         </button>
-        <button type="button" data-testid="favorite-btn">
+        <button type="button" data-testid="favorite-btn" className="favorite-btn">
           <img
             alt="Favorite"
             src={ /* favorite ? blackHeartIcon : whiteHeartIcon */ whiteHeartIcon }
           />
         </button>
+        <p className="share" />
         <h5 data-testid="recipe-category">
           { recipe.strCategory }
           {recipeType === 'Drink' ? recipe.strAlcoholic : null}
@@ -59,13 +72,26 @@ function RecipeDetails({ recipeType, status }) {
           )
           : null }
         <Recommended recipeType={ recipeType } />
-        <button
-          className="last-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Start Recipe
-        </button>
+        {
+          !status ? (
+            <Link
+              to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
+              className="last-btn"
+              data-testid="start-recipe-btn"
+            >
+              Start Recipe
+            </Link>
+          ) : (
+            <Link
+              to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
+              className="last-btn"
+              data-testid="start-recipe-btn"
+            >
+              Finalizar Receita
+            </Link>
+          )
+        }
+
       </section>
     );
   }
@@ -73,7 +99,7 @@ function RecipeDetails({ recipeType, status }) {
   return (
     recipeDetails && (isFetching
       ? <p>Loading...</p>
-      : renderDetailsHeader())
+      : renderDetails())
   );
 }
 

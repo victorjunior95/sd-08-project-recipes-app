@@ -1,4 +1,4 @@
-.card-container {
+.ingredient-card-container {
   align-items: center;
   background-color: white;
   border-radius: 10px;
@@ -8,10 +8,11 @@
   float: left;
   margin-bottom: 30px;
   padding: 10px 0 15px;
-  width: 80%;
+  text-align: center;
+  width: 35%;
 }
 
-.card-container img {
+.ingredient-card-container img {
   border-radius: 10px;
-  width: 80%;
+  width: 40%;
 }

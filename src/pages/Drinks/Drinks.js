@@ -35,7 +35,7 @@ function Drinks() {
         onClickAll={ onClickAll }
         onClickCategory={ onClickCategory }
       />
-      <div className="cards">
+      <div className="cards ingredient-card">
         {drinks && drinks
           .filter((drink, index) => index <= STOP_INDEX)
           .map((item, index) => (

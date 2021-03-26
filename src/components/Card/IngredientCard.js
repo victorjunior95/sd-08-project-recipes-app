@@ -1,5 +1,5 @@
 import React from 'react';
-import './Card.css';
+import './IngredientCard.css';
 import PropTypes from 'prop-types';
 
 function IngredientCard(props) {
@@ -7,7 +7,7 @@ function IngredientCard(props) {
   return (
     <div
       name={ id }
-      className="card-container"
+      className="ingredient-card-container"
       data-testid={ `${index}-ingredient-card` }
       onClick={ onClick }
       role="button"

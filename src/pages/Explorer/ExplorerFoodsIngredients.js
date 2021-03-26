@@ -3,6 +3,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { showCompleteLists } from '../../services/api';
 import IngredientCard from '../../components/Card/IngredientCard';
+import './ExplorerIngredients.css';
 
 function ExplorerFoodsIngredients() {
   const STOP_INDEX = 11;
@@ -18,7 +19,7 @@ function ExplorerFoodsIngredients() {
   return (
     <div>
       <Header name="Explorar Ingredientes" icon="true" currentPage="Foods" />
-      <div className="cards">
+      <div className="ingredient-card-complete-container">
         {ingredientsList && ingredientsList
           .filter((ingredient, index) => index <= STOP_INDEX)
           .map((item, index) => (

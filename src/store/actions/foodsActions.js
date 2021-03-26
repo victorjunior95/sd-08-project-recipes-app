@@ -3,6 +3,7 @@ import {
   fetchFoodsByName,
   fetchFoodsByIngredients,
   fetchFoodsByRandom,
+  fetchFoodsByCategories,
 } from '../../services';
 
 export const GET_SEARCH_FOOD = 'GET_SEARCH_FOOD';
@@ -23,5 +24,15 @@ export const fetchFood = ({ search, searchRadio }) => (dispatch) => {
 };
 
 export const fetchFoodsRandom = () => (dispatch) => {
-  fetchFoodsByRandom().then((data) => dispatch(getSearchFood(data)));
+  Promise.all(
+    [fetchFoodsByRandom(),
+      fetchFoodsByCategories()],
+  )
+    .then((data) => {
+      const meals = data[0];
+      const categories = data[1];
+      dispatch(getSearchFood({
+        ...meals, categories,
+      }));
+    });
 };

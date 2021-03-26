@@ -2,7 +2,9 @@ import { GET_SEARCH_FOOD } from '../actions/foodsActions';
 import { alertSearch } from '../../serviceWorker';
 
 const INITIAL_STATE = {
-  data: [],
+  meals: [],
+  categories: [],
+
 };
 
 export default function foodsReducer(state = INITIAL_STATE, action) {
@@ -12,7 +14,11 @@ export default function foodsReducer(state = INITIAL_STATE, action) {
       alertSearch();
       return { ...state };
     }
-    return { ...state, data: action.data };
+    return {
+      ...state,
+      meals: action.data.meals,
+      categories: action.data.categories.meals,
+    };
   default:
     return state;
   }

@@ -15,14 +15,14 @@ class Foods extends Component {
   }
 
   render() {
-    const { meals } = this.props;
+    const { meals, categories } = this.props;
     if (meals && meals.length === 1) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
 
     return (
       <div>
-        <Header title="Comidas" />
+        <Header title="Comidas" categories={ categories } />
         <div className="container">
 
           { meals && meals.reduce((acc, cur, index) => {
@@ -48,15 +48,18 @@ class Foods extends Component {
 
 Foods.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.objectOf),
+  categories: PropTypes.arrayOf(PropTypes.objectOf),
   getFood: PropTypes.func.isRequired,
 };
 
 Foods.defaultProps = {
   meals: [],
+  categories: [],
 };
 
-const mapStateToProps = ({ foodsReducer: { data: { meals } } }) => ({
+const mapStateToProps = ({ foodsReducer: { meals, categories } }) => ({
   meals,
+  categories,
 
 });
 

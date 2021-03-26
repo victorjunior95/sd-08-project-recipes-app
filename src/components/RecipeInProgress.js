@@ -180,12 +180,18 @@ function RecipeInProgress() {
 
       <h5 hidden={ exibirMensagem }>Link copiado!</h5>
       <h4 width="90%" data-testid="recipe-category">
-        Categoria da Receita
+        {
+          tipoReceita === 'meals'
+            ? detalhesDaReceita.strCategory
+            : detalhesDaReceita.strAlcoholic
+        }
       </h4>
 
       { loadListaDeIngredientes() }
 
       <p width="90%" data-testid="instructions">Instruções</p>
+
+      <p width="90%" data-testid="instructions">{detalhesDaReceita.strInstructions}</p>
 
       <button
         type="button"

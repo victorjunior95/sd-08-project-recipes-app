@@ -143,7 +143,7 @@ export const salvarReceitaFeita = (
     if (!listaReceitasFeitas
       .find((item) => item.id === receitaItemId)) {
       listaReceitasFeitas.push(data);
-      localStorage.setItem('doneRecipes', listaReceitasFeitas);
+      localStorage.setItem('doneRecipes', JSON.stringify(listaReceitasFeitas));
     }
   } else {
     localStorage.setItem('doneRecipes', JSON.stringify([data]));

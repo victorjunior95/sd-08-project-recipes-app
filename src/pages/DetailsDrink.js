@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 // import { Button } from 'react-bootstrap';
 import { getDrinkRecipesDetails, getMealByName } from '../services/getAPIs';
 import { LoginAndFoodContext } from '../context/ContextFood';
@@ -11,7 +11,6 @@ function DetailsDrink() {
   const dataFood = useContext(LoginAndFoodContext);
   const { meals } = dataFood;
   const Params = useParams();
-  const history = useHistory();
   const [drinkDetail, setDrinkDetail] = useState([]);
   useEffect(() => {
     async function fetchDetails() {

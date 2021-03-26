@@ -1,7 +1,6 @@
 .container-card-drink-details {
   display: flex;
-  flex-direction: row;
-  flex-flow: wrap;
+  flex-flow: row wrap;
   height: 80%;
   justify-content: space-around;
   margin: 2% auto;

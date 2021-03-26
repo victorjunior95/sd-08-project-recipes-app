@@ -26,7 +26,7 @@ function Login() {
         <label className="label-login-form" htmlFor="password-input">
           Senha
           <input
-            type="password"
+            className="password-input"
             onChange={ (e) => handleChangePassword(e.target.value) }
             id="password-input"
             data-testid="password-input"

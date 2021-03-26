@@ -124,7 +124,6 @@ function ExploreButton({ title }) {
 
 ExploreButton.propTypes = {
   title: PropTypes.string.isRequired,
-  toLowerCase: PropTypes.func.isRequired,
 };
 
 export default ExploreButton;

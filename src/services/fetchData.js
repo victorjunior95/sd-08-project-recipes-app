@@ -7,6 +7,7 @@ const END_POINTS = {
     name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     letter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
+    details: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
   },
   DRINKS: {
     random: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
@@ -15,6 +16,7 @@ const END_POINTS = {
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     letter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
+    details: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
   },
 };
 
@@ -35,6 +37,9 @@ export const fetchFoodsByName = (value) => fetchAPI(`${END_POINTS.FOODS.name}${v
 export const fetchFoodsByLetter = (value) => fetchAPI(`${END_POINTS.FOODS
   .letter}${value}`);
 
+export const fetchFoodDetails = (id) => fetchAPI(`${END_POINTS.FOODS
+  .details}${id}`);
+
 export const fetchFilterDrinksByCategories = (value) => fetchAPI(`${END_POINTS
   .DRINKS
   .filterCategory}${value}`);
@@ -50,5 +55,8 @@ export const fetchDrinksByLetter = (value) => fetchAPI(`${END_POINTS.DRINKS
 export const fetchFilterFoodsByCategories = (value) => fetchAPI(`${END_POINTS
   .FOODS
   .filterCategory}${value}`);
+
+export const fetchDrinkDetails = (id) => fetchAPI(`${END_POINTS.DRINKS
+  .details}${id}`);
 
 export default fetchAPI;

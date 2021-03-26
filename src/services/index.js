@@ -16,6 +16,7 @@ export {
   fetchFoodsByIngredients,
   fetchFoodsByName,
   fetchFoodsByLetter,
+  fetchFoodDetails,
   fetchDrinksByRandom,
   fetchDrinksByCategories,
   fetchDrinksByIngredients,
@@ -23,5 +24,6 @@ export {
   fetchDrinksByLetter,
   fetchFilterDrinksByCategories,
   fetchFilterFoodsByCategories,
+  fetchDrinkDetails,
   default as fetchAPI,
 } from './fetchData';

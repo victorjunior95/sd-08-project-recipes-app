@@ -6,14 +6,10 @@ import { Link } from 'react-router-dom';
 
 class Cards extends Component {
   render() {
-    const { strThumb, str, index, id, title } = this.props;
+    const { strThumb, str, index, route } = this.props;
     return (
       <Link
-        to={
-          title === 'Comidas'
-            ? `/comidas/${id}`
-            : `/bebidas/${id}`
-        }
+        to={ route }
       >
         <div data-testid={ `${index}-recipe-card` }>
           <h1 data-testid={ `${index}-card-name` }>{str}</h1>
@@ -28,8 +24,7 @@ Cards.propTypes = {
   strThumb: PropTypes.string.isRequired,
   str: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 export default Cards;

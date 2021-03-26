@@ -55,7 +55,6 @@ export const seachFoodByCategory = async (search) => {
 export const seachDrinkByCategory = async (search) => {
   const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`)
     .then((response) => response.json());
-  // console.log(result);
   return result.drinks;
 };
 
@@ -81,6 +80,20 @@ export const fetchRecomendationsCard = async (type) => {
   for (let i = 0; i < recommendationLimit; i += 1) {
     x.push(arrays[i]);
   }
-  console.log(x);
   return x;
+};
+
+export const fetchSurprised = async (type) => {
+  const API_LINK = type === 'comidas'
+    ? 'https://www.themealdb.com/api/json/v1/1/random.php'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const result = await fetch(API_LINK);
+  const json = await result.json();
+  return json;
+};
+
+export const ingredients = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json());
+  return result.meals;
 };

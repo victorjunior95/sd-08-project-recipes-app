@@ -7,7 +7,7 @@ export default function ExplorarComidas() {
   return (
     <div>
       <Header title="Explorar Comidas" showSearchButton={ false } />
-      <ExplorerType />
+      <ExplorerType type="comidas" />
       <Footer />
     </div>
   );

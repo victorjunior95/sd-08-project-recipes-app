@@ -65,7 +65,10 @@ function DetailHorizontal({ feitas }) {
                     navigator.clipboard.writeText(`http://localhost:3000/${condi}`);
                   } }
                 >
-                  <Card.Img data-testid={ `${i}-horizontal-share-btn` } src={ shareIcon } />
+                  <Card.Img
+                    data-testid={ `${i}-horizontal-share-btn` }
+                    src={ shareIcon }
+                  />
                 </Button>
               </Col>
             </Row>
@@ -75,7 +78,8 @@ function DetailHorizontal({ feitas }) {
               </Alert>
             )}
           </Card>
-        )}) : <div />}
+        );
+      }) : <div />}
     </Container>
   );
 }

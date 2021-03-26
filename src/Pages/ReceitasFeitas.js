@@ -4,6 +4,7 @@ import Header from './Header';
 import Detail from './Details/DetailHorizontal';
 
 function ReceitasFeitas() {
+  const data = '23/06/2020';
   const [feitas, setFeitas] = useState([
     {
       id: '52771',
@@ -13,7 +14,7 @@ function ReceitasFeitas() {
       alcoholicOrNot: '',
       name: 'Spicy Arrabiata Penne',
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
+      doneDate: data,
       tags: ['Pasta', 'Curry'],
     },
     {
@@ -24,7 +25,7 @@ function ReceitasFeitas() {
       alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
+      doneDate: data,
       tags: [],
     },
   ]);
@@ -38,7 +39,7 @@ function ReceitasFeitas() {
       alcoholicOrNot: '',
       name: 'Spicy Arrabiata Penne',
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
+      doneDate: data,
       tags: ['Pasta', 'Curry'],
     },
     {
@@ -49,7 +50,7 @@ function ReceitasFeitas() {
       alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
+      doneDate: data,
       tags: [],
     },
   ];

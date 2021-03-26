@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import FilterTypeBtn from '../components/FilterTypeBtn';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
 import '../CSS/Cards.css';
@@ -93,55 +94,12 @@ function FinishedRecipes() {
   }
 
   return (
-    <main>
+    <section>
       <Header />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        value="all"
-        onClick={ (e) => handleSelector(e) }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        value="food"
-        onClick={ (e) => handleSelector(e) }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        value="drinks"
-        onClick={ (e) => handleSelector(e) }
-      >
-        Drinks
-      </button>
+      <FilterTypeBtn handleSelector={ handleSelector } />
       { generateListOfCards() }
-    </main>
+    </section>
   );
 }
 
 export default FinishedRecipes;
-
-// return (
-//     <div key={ food.idMeal }>
-//       <img
-//         className="card"
-//         src={ food.strMealThumb }
-//         alt={ food.strMeal }
-//         data-testid={ `${index}-horizontal-image` }
-//       />
-//       <span data-testid={ `${index}-horizontal-top-text` }>{ food.strCategory }</span>
-//       <h4 data-testid={ `${index}-horizontal-name` }>{ food.strMeal }</h4>
-//       <span
-//         data-testid={ `${index}-horizontal-done-date` }
-//       >
-//         { `Feita em: ${data} ` }
-//       </span>
-//       <ShareButton data-testid={ `${index}-horizontal-share-btn` } />
-//       { getTags(food, index) }
-//     </div>
-//   );

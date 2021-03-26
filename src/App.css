@@ -18,7 +18,7 @@
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat, sans-serif;
+  font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
@@ -40,7 +40,7 @@
 }
 
 @keyframes clink {
-  
+
   0% {
     transform: rotate(-10deg);
   }
@@ -51,5 +51,5 @@
 
   100% {
     transform: rotate(-10deg);
-  }  
+  } 
 }

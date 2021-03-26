@@ -8,6 +8,7 @@ import Loading from '../components/Loading';
 import RecipeContext from '../context/RecipeContext';
 import LinkCopiado from '../components/LinkCopiado';
 import ButtonFinish from '../components/ButtonFinish';
+import IngredientsCheckbox from '../components/IngredientsCheckbox';
 
 function DetalhesInProgress() {
   const TWO_SECONDS = 2000;
@@ -34,30 +35,6 @@ function DetalhesInProgress() {
     setTimeout(() => {
       setLoading(false);
     }, TWO_SECONDS);
-  };
-
-  const getIngredients = () => {
-    const ingredientes = Object.entries(objDetail[0]);
-
-    const measure = ingredientes.filter((elem) => (
-      elem[0].includes('strMeasure') && elem[1] !== null && elem[1] !== ''
-    ));
-    const filtering = ingredientes.filter((element) => (
-      element[0].includes('strIngredient') && element[1] !== null && element[1] !== ''));
-
-    const results = filtering.map((elem, index) => (
-      <li
-        key={ elem[1] }
-        data-testid={ `${index}-ingredient-step` }
-      >
-        <label htmlFor={ elem[1] }>
-          <input type="checkbox" id={ elem[1] } />
-          {elem[1]}
-          <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
-        </label>
-      </li>));
-
-    return results;
   };
 
   const handleCopied = () => {
@@ -107,9 +84,7 @@ function DetalhesInProgress() {
           alt={ objDetail[0].strDrink }
         />
       </div>
-      <ol className="ingredient-list">
-        { getIngredients() }
-      </ol>
+      <IngredientsCheckbox objDetail={ objDetail } id={ id } url={ urlText } />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <ButtonFinish />
     </div>
@@ -147,9 +122,7 @@ function DetalhesInProgress() {
           alt={ objDetail[0].strMeal }
         />
       </div>
-      <ol className="ingredient-list">
-        { getIngredients() }
-      </ol>
+      <IngredientsCheckbox objDetail={ objDetail } id={ id } url={ urlText } />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
       <ButtonFinish />
     </div>

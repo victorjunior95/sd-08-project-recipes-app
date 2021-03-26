@@ -43,7 +43,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
         key="All - key"
         type="button"
         onClick={ onClickAll }
-        value="All"
+        value=""
       >
         All
       </button>

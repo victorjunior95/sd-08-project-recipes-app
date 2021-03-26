@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import './Foods.css';
 import Card from '../../components/Card';
@@ -10,9 +10,39 @@ import { CategoryButtons } from '../../components/Buttons';
 function Foods() {
   const STOP_INDEX = 11;
   const { foodApi: { meals } } = useContext(FoodCtx);
+  const [category, setCategory] = useState('');
   const history = useHistory();
-  const onClickAll = ({ target }) => console.log(`Clicou em ${target.value}`);
-  const onClickCategory = ({ target }) => console.log(`Clicou em ${target.value}`);
+  const onClickAll = ({ target }) => setCategory(target.value);
+  const onClickCategory = ({ target }) => setCategory(target.value);
+  const renderingCondition = (categoryState) => {
+    const exist = (meals && meals
+      .filter((meal, index) => index <= STOP_INDEX));
+    let result = exist || [];
+    if (categoryState !== '') {
+      result = (meals && meals
+        .filter((meal, index) => index <= STOP_INDEX && meal.strCategory
+          .match(categoryState)));
+      // .map((item, index) => (
+      //   <Card
+      //     key={ item.idMeal }
+      //     id={ item.idMeal }
+      //     name={ item.strMeal }
+      //     img={ item.strMealThumb }
+      //     index={ index }
+      //     onClick={ () => history.push(`comidas/${item.idMeal}`) }
+      //   />));
+    }
+    return result.map((item, index) => (
+      <Card
+        key={ item.idMeal }
+        id={ item.idMeal }
+        name={ item.strMeal }
+        img={ item.strMealThumb }
+        index={ index }
+        onClick={ () => history.push(`comidas/${item.idMeal}`) }
+      />));
+  };
+
   return (
     <div>
       <Header name="Comidas" icon="true" currentPage="Foods" />
@@ -22,7 +52,8 @@ function Foods() {
         onClickCategory={ onClickCategory }
       />
       <div className="cards">
-        {meals && meals
+        {(renderingCondition(category))}
+        {/* {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)
           .map((item, index) => (
             <Card
@@ -33,7 +64,7 @@ function Foods() {
               index={ index }
               onClick={ () => history.push(`comidas/${item.idMeal}`) }
             />
-          ))}
+          ))} */}
 
         { meals && meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }

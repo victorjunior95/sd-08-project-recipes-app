@@ -14,6 +14,16 @@ export const showCompleteLists = async (query, currentPage) => {
   const result = await api.json();
   return result;
 };
+
+export const filterCategory = async (query, currentPage) => {
+  const CATEGORY_API = currentPage === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/filter.php'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+  const api = await fetch(`${CATEGORY_API}?c=${query}`);
+  const result = await api.json();
+  console.log(result);
+  return result;
+};
 export const filterIngredient = async (query, currentPage) => {
   const INGREDIENT_API = currentPage === 'Foods'
     ? 'https://www.themealdb.com/api/json/v1/1/filter.php'

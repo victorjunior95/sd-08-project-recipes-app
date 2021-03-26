@@ -1,13 +1,13 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { filterFirstLetter, filterIngredient, filterName } from '../services/api';
+import { filterFirstLetter, filterIngredient, filterName, filterCategory } from '../services/api';
 
 export const FoodCtx = createContext();
 
 function ContextFood(props) {
   const { children } = props;
   const [foodApi, setFoodApi] = useState([]);
-  const [filterFood, setFilterFood] = useState({ key: 'name', value: 'be' });
+  const [filterFood, setFilterFood] = useState({ key: 'name', value: '' });
   const { key, value } = filterFood;
 
   useEffect(() => {
@@ -29,6 +29,10 @@ function ContextFood(props) {
         }
         const f = await filterFirstLetter(value, 'Foods');
         return setFoodApi(f);
+      }
+      if (key === 'category') {
+        const c = await filterCategory(value, 'Foods');
+        return setFoodApi(c);
       }
     }
     connect();

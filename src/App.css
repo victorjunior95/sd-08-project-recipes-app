@@ -15,9 +15,9 @@
   padding: 0;
   box-sizing: border-box;
 } */
+/* animation: shake 1.5s infinite ease; */
 
 .meals > .logo {
-/* animation: shake 1.5s infinite ease; */
   color: aliceblue;
   font-family: Montserrat , sans-serif;
   font-size: 3em;

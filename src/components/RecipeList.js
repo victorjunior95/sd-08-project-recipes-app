@@ -49,6 +49,7 @@ function RecipeList({ route, recipeType, endpoint }) {
                 src={ recipe[`str${recipeType}Thumb`] }
                 alt="recipe thumbnail"
               />
+              <hr />
             </div>
           ))}
       </section>

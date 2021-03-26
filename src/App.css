@@ -16,8 +16,6 @@
   box-sizing: border-box;
 } */
 
-
-
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
@@ -63,5 +61,4 @@
 
 body .Login{
   background-image: url('./images/legumesefrutas.jpg');
-  
 }

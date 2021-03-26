@@ -14,6 +14,8 @@ import fetchIngredients from './ingredientsAPI';
 import fetchDrinkIngredients from './ingredientDrinkAPI';
 import searchByDrinkIngredient from './searchDrinkByIngredient';
 import searchByFoodIngredient from './searchByMealIngredient';
+import fetchAreaList from './listAreas';
+import fetchFilterMealByArea from './filterMealByArea';
 
 const api = {
   fetchDrinks,
@@ -30,6 +32,8 @@ const api = {
   fetchDrinkIngredients,
   searchByDrinkIngredient,
   searchByFoodIngredient,
+  fetchAreaList,
+  fetchFilterMealByArea,
 };
 
 export default api;

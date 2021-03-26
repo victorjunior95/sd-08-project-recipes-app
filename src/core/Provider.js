@@ -11,6 +11,7 @@ const Provider = ({ children }) => {
   const [drinkData, setDrinkData] = useState([]);
   const [ingredientsData, setIngredientsData] = useState([]);
   const [drinkIngredientsData, setDrinksIngredientsData] = useState([]);
+  const [mealArea, setMealArea] = useState([{ strArea: 'All' }]);
   const [byIngredient, setByIngredient] = useState(false);
   const [ingredientName, setIngredientName] = useState();
   // const [food, setfood] = useState(initialState);
@@ -35,6 +36,8 @@ const Provider = ({ children }) => {
     setByIngredient,
     ingredientName,
     setIngredientName,
+    setMealArea,
+    mealArea,
     // changeTitleByPathName,
   };
 

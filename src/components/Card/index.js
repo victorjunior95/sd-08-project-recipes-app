@@ -25,6 +25,7 @@ Card.propTypes = {
   name: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Card;

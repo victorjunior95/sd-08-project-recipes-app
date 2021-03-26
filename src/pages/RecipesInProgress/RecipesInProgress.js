@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
@@ -6,8 +6,10 @@ import CardDetails from '../../components/CardDetail/CardDetail';
 import CheckBoxIngredients from '../../components/CheckBoxIngredients/CheckBoxIngredients';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
+import Context from '../../contextApi/Context';
 
 const RecipesInProgress = ({ title, match }) => {
+  const {checkbox} = useContext(Context)
   const history = useHistory();
   const {
     params: { id },
@@ -48,6 +50,8 @@ const RecipesInProgress = ({ title, match }) => {
       <Button
         className="btn btn-primary w-100"
         data-testid="finish-recipe-btn"
+        disabled = {checkbox ? false : true
+        }
         onClick={() => finishRecipe()}
       >
         Finalizar Receita

@@ -52,9 +52,10 @@ function ComidaDetalhes() {
   }
 
   return (
-    <section>
+    <>
       <Header explore="false">Detalhes</Header>
-      {!loading
+      <section>
+        {!loading
       && (
         <>
           <CardFoodDetails
@@ -63,8 +64,9 @@ function ComidaDetalhes() {
           />
           <DrinkRecomendation />
         </>)}
+      </section>
       <Footer />
-    </section>
+    </>
   );
 }
 

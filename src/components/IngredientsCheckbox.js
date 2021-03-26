@@ -51,30 +51,33 @@ function IngredientsCheckbox({ objDetail, id, url }) {
     const filtering = ingredientes.filter((element) => (
       element[0].includes('strIngredient') && element[1] !== null && element[1] !== ''));
 
-    const results = filtering.map((elem, index) => (
-      <li
-        name="li-ingredients"
-        key={ elem[1] }
-        data-testid={ `${index}-ingredient-step` }
-      >
-        <label htmlFor={ elem[1] }>
-          <input
-            checked={  }
-            onChange={ handleChange }
-            type="checkbox"
-            id={ elem[1] }
-          />
-          {elem[1]}
-          <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
-        </label>
-      </li>));
+    const results = filtering.map((elem, index) => {
+      const isChecked = verifyIngredientsChecked().some((e) => e === elem[1]);
+
+      return (
+        <li
+          name="li-ingredients"
+          key={ elem[1] }
+          data-testid={ `${index}-ingredient-step` }
+        >
+          <label htmlFor={ elem[1] }>
+            <input
+              checked={ isChecked }
+              onChange={ handleChange }
+              type="checkbox"
+              id={ elem[1] }
+            />
+            {elem[1]}
+            <span>{measure[index] === undefined ? '' : measure[index][1]}</span>
+          </label>
+        </li>);
+    });
 
     return results;
   };
 
   return (
     <ol className="ingredient-list">
-      {verifyIngredientsChecked()}
       {getIngredients()}
     </ol>
   );

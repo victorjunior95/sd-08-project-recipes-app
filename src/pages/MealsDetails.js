@@ -27,9 +27,9 @@ const MealsDetails = () => {
       .filter((item) => item.includes('Ingredient'));
     const measureKeys = Object.keys(meal).filter((item) => item.includes('Measure'));
     const measureList = measureKeys.map((measure) => meal[measure])
-      .filter((item) => item !== '');
+      .filter((item) => item !== '' && item !== null);
     const ingredientList = ingredientKeys.map((key) => meal[key])
-      .filter((item) => item !== '');
+      .filter((item) => item !== '' && item !== null);
     setIngredients(ingredientList);
     setMeasures(measureList);
   }, [meal]);
@@ -38,7 +38,7 @@ const MealsDetails = () => {
   console.log(ingredients);
   return (
     <div>
-      <img src={ meal.strMealThumb } alt="Thumbnail" />
+      <img src={ meal.strMealThumb } alt="Thumbnail" data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <button type="button" data-testid="share-btn">
         <img src={ shareIcon } alt="Share Icon" />
@@ -59,7 +59,7 @@ const MealsDetails = () => {
             </p>))}
       </section>
       <h3>Instructions</h3>
-      <p>
+      <p data-testid="instructions">
         { meal.strInstructions }
       </p>
       <video width="320" height="240" controls data-testid="video">

@@ -13,6 +13,7 @@ import ExploreCocktailsByIngredient from './pages/ExploreCocktailsByIngredient';
 import ExploreMealsByArea from './pages/ExploreMealsByArea';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreCocktails from './pages/ExploreCocktails';
+import NotFound from './pages/NotFound';
 import MealsDetails from './pages/MealsDetails';
 
 export default function Routes() {
@@ -21,23 +22,28 @@ export default function Routes() {
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/perfil" component={ Profile } />
+
       <Route path="/comidas/:id" component={ MealsDetails } />
-      <Route path="/bebidas/:id" component={ Cocktails } />
       <Route path="/comidas" component={ Meals } />
+
+      <Route path="/bebidas/:id" component={ Cocktails } />
       <Route path="/bebidas" component={ Cocktails } />
+
+      <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExploreMealsByIngredient }
       />
+      <Route path="/explorar/comidas" component={ ExploreMeals } />
+      <Route path="/explorar/bebidas/area" component={ NotFound } />
       <Route
         path="/explorar/bebidas/ingredientes"
         component={ ExploreCocktailsByIngredient }
       />
-      <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
-      <Route path="/explorar/comidas" component={ ExploreMeals } />
       <Route path="/explorar/bebidas" component={ ExploreCocktails } />
       <Route path="/explorar" component={ Explore } />
-      <Route path="/" component={ Login } />
+      <Route exact path="/" component={ Login } />
+      <Route path="/" component={ NotFound } />
     </Switch>
   );
 }

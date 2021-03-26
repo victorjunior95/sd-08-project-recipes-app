@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams, useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -24,17 +24,28 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
   recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
+  const history = useHistory();
+
   useEffect(() => {
     fetchCategories();
-    fetchRecipes();
+    if (recipes.length === 0 && !isFetchingRecipes) {
+      fetchRecipes();
+    }
   }, []);
 
+  console.log(recipes);
+
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
+
   if (isFetchingRecipes && isFetchingCategories) return <LoadingScreen />;
+
   if (recipesNotFound) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
-  if (recipes.length === 1) return <Redirect to={ `/comidas/${recipes[0].idMeal}` } />;
+
+  if (recipes.length === 1 && showSearchBar) {
+    return <Redirect to={ `/comidas/${recipes[0].idMeal}` } />;
+  }
 
   return (
     <Container>
@@ -43,26 +54,32 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
-      <FilterList
+
+      { !showSearchBar && <FilterList
         categories={ categories }
         fetchRecipesByCategory={ fetchRecipesByCategory }
-      />
+      /> }
+
       { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
+
       { recipesNotFound && <p>Nenhuma comida encontrada</p> }
+
+      { console.log('inside', recipes) }
+
       <CardsContainer>
         { isFetchingRecipes
           ? <LoadingScreen />
-          : recipes.length > 1
+          : recipes.length >= 1
             && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
-              <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
-                <Card
-                  name={ recipe.strMeal }
-                  thumbnail={ recipe.strMealThumb }
-                  index={ index }
-                />
-              </Link>
-            ))}
+              <Card
+                key={ recipe.idMeal }
+                name={ recipe.strMeal }
+                thumbnail={ recipe.strMealThumb }
+                index={ index }
+                onClick={ () => history.push(`/comidas/${recipe.idMeal}`) }
+              />)) }
       </CardsContainer>
+
       <Footer />
     </Container>
   );

@@ -59,7 +59,6 @@ export const Creators = {
     dispatch(Creators.fetch());
     try {
       const { drinks: results } = await cocktailApi.getIngredients();
-      console.log(results);
       dispatch(Creators.fetchSuccess(results));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));

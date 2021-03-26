@@ -26,8 +26,6 @@ class Bebidas extends Component {
       { drinks, ordinaryDrink,
         cocktail, milkFloatShake, otherUnknown, cocoa } } = this.props;
     const { categoryName } = this.state;
-    console.log(category);
-    console.log(categoryName);
     if (category !== categoryName && category !== 'All') {
       this.setState({ categoryName: category });
       switch (category) {

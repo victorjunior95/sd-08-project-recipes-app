@@ -36,7 +36,7 @@ function Header({ pageTitle }) {
         </button>
       </div>
       <div className="g6-header-row" />
-      <SearchBar />
+      {search && <SearchBar />}
     </header>
   );
 }

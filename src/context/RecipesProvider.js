@@ -9,7 +9,8 @@ import
   getDrinkIngredients,
   getDrinkName,
   getDrinkFirstLetter,
-  getFoodRandom } from '../services/API';
+  getFoodRandom,
+  getDrinkRandom } from '../services/API';
 
 export default function RecipesProvider({ children }) {
   const [data, setData] = useState({ food: [], drink: [] });
@@ -18,6 +19,10 @@ export default function RecipesProvider({ children }) {
 
   const foodRandom = async () => {
     setData({ ...data, food: await getFoodRandom() });
+  };
+
+  const drinkRandom = async () => {
+    setData({ ...data, drink: await getDrinkRandom() });
   };
 
   const getAPI = async (radio, textInput, path) => {
@@ -71,13 +76,13 @@ export default function RecipesProvider({ children }) {
       const l = data.drink.length;
       if (l > 0) {
         return l > 1
-          ? history.push('/bebidas/')
+          ? history.push('/bebidas')
           : history.push(`/bebidas/${data.drink[0].idDrink}`);
       }
     }
   }, [data]);
 
-  const context = { getAPI, data, setData, foodRandom };
+  const context = { getAPI, data, setData, foodRandom, drinkRandom };
 
   return (
     <RecipesContext.Provider value={ context }>

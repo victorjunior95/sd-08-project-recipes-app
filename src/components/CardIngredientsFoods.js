@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import getIngredients from '../helpers/ingredientsApi';
+import getMeals from '../helpers/ingredientsApi';
 
 export default function CardIngredientsFoods({ index, name, isMeal }) {
   const [setControl] = useState(false);
@@ -9,9 +9,9 @@ export default function CardIngredientsFoods({ index, name, isMeal }) {
   const [setFilteredRecipes] = useState([]);
   const history = useHistory();
   const src = `https://www.themealdb.com/images/ingredients/${name}-Small.png`;
-
+  const path = '/comidas';
   const fetchMeals = async (type, value, controlVar) => {
-    const result = await getIngredients(type, value);
+    const result = await getMeals(type, value);
     setRecipes(result);
     if (controlVar) setFilteredRecipes(result);
     if (!controlVar) {
@@ -32,14 +32,12 @@ export default function CardIngredientsFoods({ index, name, isMeal }) {
     setControl(true);
     return resultReturn;
   };
-
   const searchRecipes = async () => {
     if (isMeal) {
       await fetchMeals('ingredient', name, true);
     }
-    history.push('/comidas');
+    history.push(path);
   };
-
   return (
     <div
       className="recipe-card"
@@ -66,7 +64,6 @@ export default function CardIngredientsFoods({ index, name, isMeal }) {
     </div>
   );
 }
-
 CardIngredientsFoods.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,

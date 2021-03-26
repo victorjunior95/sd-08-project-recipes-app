@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import getIngredients from '../helpers/ingredientsApi';
 import CardIngredientsFoods from '../components/CardIngredientsFoods';
+import getMeals from '../helpers/ingredientsApi';
 
 export default function FoodIngredientes() {
   const [ingredients, setIngrediets] = useState('');
@@ -11,7 +11,7 @@ export default function FoodIngredientes() {
 
   useEffect(() => {
     async function fetchIngredients() {
-      const response = await getIngredients('listIngredient', '');
+      const response = await getMeals('listIngredient', '');
       setIngrediets(response.meals);
     }
     fetchIngredients();
@@ -28,6 +28,7 @@ export default function FoodIngredientes() {
                 index={ index }
                 name={ ingredient.strIngredient }
                 key={ index }
+                isMeal
               />
             );
           }

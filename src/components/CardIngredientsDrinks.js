@@ -3,13 +3,13 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import getDrinks from '../helpers/drinkApi';
 
-export default function CardIngredientsDrinks({ index, name, isMeal }) {
+export default function CardIngredientsDrinks({ index, name }) {
   const [setControl] = useState(false);
   const [setRecipes] = useState([]);
   const [setFilteredRecipes] = useState([]);
   const history = useHistory();
-  const src = `https://www.themealdb.com/images/ingredients/${name}-Small.png`;
-
+  const src = `https://www.thecocktaildb.com/images/ingredients/${name}-Small.png`;
+  const path = '/bebidas';
   const fetchDrinks = async (type, value, controlVar) => {
     const result = await getDrinks(type, value);
     setRecipes(result);
@@ -32,14 +32,10 @@ export default function CardIngredientsDrinks({ index, name, isMeal }) {
     setControl(true);
     return resultReturn;
   };
-
   const searchRecipes = async () => {
-    if (isMeal) {
-      await fetchDrinks('ingredient', name, true);
-    }
-    history.push('/bebidas');
+    await fetchDrinks('ingredient', name, true);
+    history.push(path);
   };
-
   return (
     <div
       className="recipe-card"
@@ -66,9 +62,7 @@ export default function CardIngredientsDrinks({ index, name, isMeal }) {
     </div>
   );
 }
-
 CardIngredientsDrinks.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  isMeal: PropTypes.bool.isRequired,
 };

@@ -31,7 +31,7 @@ function Foods() {
               name={ item.strMeal }
               img={ item.strMealThumb }
               index={ index }
-              onClick={ () => history.push(item.idMeal) }
+              onClick={ () => history.push(`comidas/${item.idMeal}`) }
             />
           ))}
 

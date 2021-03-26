@@ -27,7 +27,7 @@ const Bebidas = () => {
       setDrinks(drinksAPI);
     }
     getDrinksFromAPI();
-  }, [mainIngredient, setMain]);
+  }, []);
 
   useEffect(() => {
     setDrinks(filter);
@@ -45,9 +45,19 @@ const Bebidas = () => {
     setDrinks(filterdBtn);
   };
 
+  async function filterAll() {
+    const filterAllApi = await getResultFromAPI('/bebidas');
+    setDrinks(filterAllApi);
+  }
+
   return (
     <>
       <Header title="Bebidas" disableBtn={ BOOLEAN_FALSE } />
+      <Button
+        datatestid="All-category-filter"
+        label="All"
+        onClick={ filterAll }
+      />
       { drinksCategories.map(({ strCategory: category }, index) => (
         <Button
           datatestid={ `${category}-category-filter` }

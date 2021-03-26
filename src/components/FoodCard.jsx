@@ -21,7 +21,7 @@ function FoodCard(props) {
         alt="Food"
         width="100%"
       />
-      <p data-testid={ `${index}-card-title` }>{ food.strDrink || food.strMeal }</p>
+      <p data-testid={ `${index}-card-name` }>{ food.strDrink || food.strMeal }</p>
     </button>
   );
 }

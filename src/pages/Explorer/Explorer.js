@@ -5,8 +5,9 @@ import Header from '../../components/Header';
 
 function Explorer() {
   const history = useHistory();
-  const renderExplorerButtons = (foodOrDrink) => (
+  const renderExplorerButtons = (foodOrDrink, dataTestId) => (
     <button
+      data-testid={ `explore-${dataTestId}` }
       style={ { padding: '5px', margin: '5px' } }
       type="button"
       onClick={ () => history.push(`explorar/${foodOrDrink}`) }
@@ -18,9 +19,9 @@ function Explorer() {
   return (
     <div>
       <Header name="Explorar" icon="true" />
-      {renderExplorerButtons('comidas')}
+      {renderExplorerButtons('comidas', 'food')}
       <br />
-      {renderExplorerButtons('bebidas')}
+      {renderExplorerButtons('bebidas', 'drinks')}
       <Footer />
     </div>
   );

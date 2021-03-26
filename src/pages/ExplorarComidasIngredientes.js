@@ -1,19 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
-import HeaderLocation from '../components/Header';
+import getIngredients from '../helpers/ingredientsApi';
+import CardIngredientsFoods from '../components/CardIngredientsFoods';
 
-class ExplorarComidasIngredientes extends Component {
-  render() {
-    return (
-      <div>
-        <HeaderLocation />
-        <br />
-        <br />
-        <br />
-        <Footer />
-      </div>
-    );
-  }
+export default function FoodIngredientes() {
+  const [ingredients, setIngrediets] = useState('');
+  const zero = 0;
+  const twelve = 12;
+
+  useEffect(() => {
+    async function fetchIngredients() {
+      const response = await getIngredients('listIngredient', '');
+      setIngrediets(response.meals);
+    }
+    fetchIngredients();
+  }, [setIngrediets]);
+
+  return (
+    <div>
+      <Header title="Explorar Ingredientes" />
+      { (ingredients.length > zero)
+        && ingredients.map((ingredient, index) => {
+          if (index < twelve) {
+            return (
+              <CardIngredientsFoods
+                index={ index }
+                name={ ingredient.strIngredient }
+                key={ index }
+              />
+            );
+          }
+          return null;
+        })}
+      <Footer />
+    </div>
+  );
 }
-
-export default ExplorarComidasIngredientes;

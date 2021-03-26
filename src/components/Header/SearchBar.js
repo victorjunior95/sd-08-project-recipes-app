@@ -27,13 +27,14 @@ class SearchBar extends Component {
   handleClick() {
     const { search, searchRadio } = this.state;
     const { getFood, title, getDrink } = this.props;
+    const ARGUMENT_REQUEST = { search, searchRadio };
     if (searchRadio === 'firstLetter' && search.length > SEARCH_LENGTH) {
       return alertSearch('14');
     }
     if (title === 'Comidas') {
-      return getFood({ search, searchRadio });
+      return getFood(ARGUMENT_REQUEST);
     }
-    return getDrink({ search, searchRadio });
+    return getDrink(ARGUMENT_REQUEST);
   }
 
   render() {

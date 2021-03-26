@@ -3,6 +3,7 @@ import {
   fetchDrinksByName,
   fetchDrinksByLetter,
   fetchDrinksByRandom,
+  fetchFilterDrinksByCategories,
 } from '../../services';
 
 export const GET_SEARCH_DRINK = 'GET_SEARCH_DRINK';
@@ -11,6 +12,7 @@ const createDrink = (value) => ({
   ingredient: fetchDrinksByIngredients(value),
   name: fetchDrinksByName(value),
   firstLetter: fetchDrinksByLetter(value),
+  filterCategory: fetchFilterDrinksByCategories(value),
 });
 
 function getSearchDrink(data) {

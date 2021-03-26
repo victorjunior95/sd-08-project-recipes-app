@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Header, Footer, Cards } from '../components';
-import { fetchFoodsRandom } from '../store/actions';
+import { fetchFoodsRandom, fetchFoodCategory } from '../store/actions';
 import '../styles/pages/Container.css';
 
 const MAX_NUMBER_CARDS = 11;
 
 class Foods extends Component {
   componentDidMount() {
-    const { getFood } = this.props;
+    const { getFood, getFoodCategory } = this.props;
     getFood();
+    getFoodCategory();
   }
 
   render() {
-    const { meals } = this.props;
-    if (meals && meals.length === 1) {
+    const { meals, renderOnlyCardByFilter } = this.props;
+    console.log(meals);
+    if (meals && meals.length === 1 && renderOnlyCardByFilter) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
-
     return (
       <div>
         <Header title="Comidas" />
@@ -27,7 +28,7 @@ class Foods extends Component {
 
           { meals && meals.reduce((acc, cur, index) => {
             if (index <= MAX_NUMBER_CARDS) {
-              acc.push(cur);
+              acc = [...acc, cur];
             }
             return acc;
           }, [])
@@ -37,6 +38,8 @@ class Foods extends Component {
                 strThumb={ food.strMealThumb }
                 str={ food.strMeal }
                 index={ index }
+                id={ food.idMeal }
+                title="Comidas"
               />
             ))}
         </div>
@@ -49,19 +52,23 @@ class Foods extends Component {
 Foods.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.objectOf),
   getFood: PropTypes.func.isRequired,
+  getFoodCategory: PropTypes.func.isRequired,
+  renderOnlyCardByFilter: PropTypes.bool.isRequired,
 };
 
 Foods.defaultProps = {
   meals: [],
 };
 
-const mapStateToProps = ({ foodsReducer: { data: { meals } } }) => ({
-  meals,
-
+const mapStateToProps = (state) => ({
+  meals: state.foodsReducer.data.meals,
+  renderOnlyCardByFilter: state.headerReducer.showButtonSearch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getFood: (value) => dispatch(fetchFoodsRandom(value)),
+  getFoodCategory: () => dispatch(fetchFoodCategory()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foods);

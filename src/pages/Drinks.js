@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Header, Footer, Cards } from '../components';
-import { fetchDrinksRandom } from '../store/actions';
+import { fetchDrinksRandom, fetchDrinkCategory } from '../store/actions';
 import '../styles/pages/Container.css';
 
 const MAX_NUMBER_CARDS = 11;
 class Drinks extends Component {
   componentDidMount() {
-    const { getDrink } = this.props;
+    const { getDrink, getDrinkCategory } = this.props;
+    getDrinkCategory();
     getDrink();
   }
 
   render() {
     const { drinks } = this.props;
-
+    console.log(drinks);
     if (drinks && drinks.length === 1) {
       return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     }
@@ -26,7 +27,7 @@ class Drinks extends Component {
 
           {drinks && drinks.reduce((acc, cur, index) => {
             if (index <= MAX_NUMBER_CARDS) {
-              acc.push(cur);
+              acc = [...acc, cur];
             }
             return acc;
           }, []).map((drink, index) => (
@@ -36,6 +37,7 @@ class Drinks extends Component {
               strThumb={ drink.strDrinkThumb }
               str={ drink.strDrink }
               index={ index }
+              id={ drink.idDrink }
             />
           ))}
         </div>
@@ -48,6 +50,7 @@ class Drinks extends Component {
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.objectOf),
   getDrink: PropTypes.func.isRequired,
+  getDrinkCategory: PropTypes.func.isRequired,
 
 };
 
@@ -61,6 +64,8 @@ const mapStateToProps = ({ drinksReducer: { data: { drinks } } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getDrink: (value) => dispatch(fetchDrinksRandom(value)),
+  getDrinkCategory: () => dispatch(fetchDrinkCategory()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drinks);

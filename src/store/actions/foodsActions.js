@@ -3,6 +3,7 @@ import {
   fetchFoodsByName,
   fetchFoodsByIngredients,
   fetchFoodsByRandom,
+  fetchFilterFoodsByCategories,
 } from '../../services';
 
 export const GET_SEARCH_FOOD = 'GET_SEARCH_FOOD';
@@ -11,6 +12,7 @@ const createFood = (value) => ({
   ingredient: fetchFoodsByIngredients(value),
   name: fetchFoodsByName(value),
   firstLetter: fetchFoodsByLetter(value),
+  filterCategory: fetchFilterFoodsByCategories(value),
 });
 
 function getSearchFood(data) {

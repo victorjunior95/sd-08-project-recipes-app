@@ -14,14 +14,14 @@ class Drinks extends Component {
   }
 
   render() {
-    const { drinks } = this.props;
+    const { drinks, categories } = this.props;
 
     if (drinks && drinks.length === 1) {
       return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     }
     return (
       <div>
-        <Header title="Bebidas" />
+        <Header title="Bebidas" categories={ categories } />
         <div className="container">
 
           {drinks && drinks.reduce((acc, cur, index) => {
@@ -48,15 +48,17 @@ class Drinks extends Component {
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.objectOf),
   getDrink: PropTypes.func.isRequired,
-
+  categories: PropTypes.arrayOf(PropTypes.objectOf),
 };
 
 Drinks.defaultProps = {
   drinks: [],
+  categories: [],
 };
 
-const mapStateToProps = ({ drinksReducer: { data: { drinks } } }) => ({
+const mapStateToProps = ({ drinksReducer: { drinks, categories } }) => ({
   drinks,
+  categories,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -33,6 +33,7 @@ class Foods extends Component {
           }, [])
             .map((food, index) => (
               <Cards
+                route={ `/comidas/${food.idMeal}` }
                 key={ index }
                 strThumb={ food.strMealThumb }
                 str={ food.strMeal }

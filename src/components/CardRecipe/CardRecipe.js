@@ -16,7 +16,9 @@ const CardRecipe = ({
 }) => {
   const [saveClipBoard, setSaveClipBoard] = useState(false);
   const savetoClipboard = (id, type) => {
-    window.navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    window.navigator.clipboard.writeText(
+      `http://localhost:3000/${type}s/${id}`,
+    );
     setSaveClipBoard(true);
   };
   return (
@@ -30,6 +32,7 @@ const CardRecipe = ({
         />
       </div>
       <div className="right">
+        {saveClipBoard && 'Link copiado!'}
         <span
           className="card-category"
           data-testid={`${index}-horizontal-top-text`}
@@ -45,6 +48,7 @@ const CardRecipe = ({
         >
           Feita em: {doneDate}
         </span>
+
         <div className="card-tag">
           {tags.length > 0 &&
             tags.map((tag, key) => (
@@ -58,16 +62,12 @@ const CardRecipe = ({
             ))}
         </div>
       </div>
-      {saveClipBoard === true ? (
-        'Link copiado!'
-      ) : (
-        <img
-          className="card-icon-share"
-          src={ShareIcon}
-          data-testid={`${index}-horizontal-share-btn`}
-          onClick={() => savetoClipboard(id, type)}
-        />
-      )}
+      <img
+        className="card-icon-share"
+        src={ShareIcon}
+        data-testid={`${index}-horizontal-share-btn`}
+        onClick={() => savetoClipboard(id, type)}
+      />
     </div>
   );
 };

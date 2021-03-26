@@ -38,6 +38,7 @@ function GlobalProvider({ children }) {
       filteredMeals,
     },
     functions: {
+      setEmail,
       handleEmail,
       handleFilteredMeals,
     },

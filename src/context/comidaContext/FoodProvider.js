@@ -37,6 +37,9 @@ function FoodProvider({ children }) {
     fetchData();
   }, []);
 
+  const [detailFoods, setDetailsFoods] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await requestFoodCategory();
@@ -51,6 +54,8 @@ function FoodProvider({ children }) {
       searchType,
       filteredMeals,
       foods,
+      detailFoods,
+      recomendations,
       foodCategory,
     },
     functions: {
@@ -58,6 +63,8 @@ function FoodProvider({ children }) {
       handleSearchInput,
       handleSearchType,
       setFoods,
+      setDetailsFoods,
+      setRecomendations,
     },
   };
 

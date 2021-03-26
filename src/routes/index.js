@@ -30,8 +30,18 @@ function Routes() {
       <Route path="/explorar" component={ Explorar } />
       <Route path="/bebidas/:idDaReceita/in-progress" component={ BebidaProcesso } />
       <Route path="/comidas/:idDaReceita/in-progress" component={ ComidaProcesso } />
-      <Route path="/bebidas/:idDaReceita" component={ BebidaDetalhes } />
-      <Route path="/comidas/:idDaReceita" component={ ComidaDetalhes } />
+      <ContextRoute
+        exact
+        path="/bebidas/:idDaReceita"
+        contextComponent={ DrinkProvider }
+        component={ BebidaDetalhes }
+      />
+      <ContextRoute
+        exact
+        path="/comidas/:idDaReceita"
+        contextComponent={ FoodProvider }
+        component={ ComidaDetalhes }
+      />
       <ContextRoute
         exact
         path="/bebidas"

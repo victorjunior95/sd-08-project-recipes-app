@@ -1,14 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import './checkBoxIngredient.css';
+import Context from '../../contextApi/Context';
 
 const CheckBoxIngredients = ({ object, title }) => {
+  const {checkbox, setCheckbox} = useContext(Context)
+  const [click ,onclickss] = useState()
   const [inProgressRecipes, setProgressRecipes] = useState({
     cocktails: {},
     meals: {},
   });
 
+ useEffect(()=>{
+const getElements = ()=>{
+
+const check = Array.from(document.querySelectorAll(".checkClass"))
+
+ const isTrue = check.every(({checked})=>checked=== true)
+ setCheckbox(isTrue)
+
+}
+getElements()
+ },[click])
+ console.log(checkbox)
   const objectSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   if (!objectSaved) {
@@ -98,6 +113,7 @@ const CheckBoxIngredients = ({ object, title }) => {
 
   // adicionando ingredientes no array da respectiva Key id
   const handleClick = (event) => {
+    onclickss(!click)
     setClicked(!isClicked);
     if (title === 'Comidas') {
       adOrRemoveIngredient(event, mealId, 'meals');
@@ -140,7 +156,7 @@ const CheckBoxIngredients = ({ object, title }) => {
               id={ingredient}
               onClick={handleClick}
               // ref={ createRef }
-              checked={(title === 'Comidas') ? isChecked(ingredient, mealId, 'meals') : isChecked(ingredient, drinkId, 'cocktails')}
+              checked={/*  (title === 'Comidas') ? isChecked(ingredient, mealId, 'meals') : isChecked(ingredient, drinkId, 'cocktails')  */ true}
             />
             <label
               htmlFor={ingredient}
@@ -148,6 +164,26 @@ const CheckBoxIngredients = ({ object, title }) => {
             >
               {`${object[ingredient]} - ${object[measures[index]]}`}
             </label>
+
+            <input
+             className="checkClass"
+              type="checkbox"
+              onClick={handleClick}
+              checked={ click }
+            />
+             <input
+              className="checkClass"
+              type="checkbox"
+              onClick={handleClick}
+              checked={ click }
+            />
+             <input
+              className="checkClass"
+              type="checkbox"
+              onClick={handleClick}
+              checked={  click}
+            />
+            
           </div>
         );
       }

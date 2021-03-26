@@ -17,9 +17,23 @@ const CardDetails = ({ title, object, isLoading, children }) => {
   const { id } = useParams();
   const { pathname } = useLocation();
   const savetoClipboard = () => {
+
+   const {idDrink,idMeal} = object
+  if(pathname.includes('/in-progress') && title === 'Bebidas'){
+  
+  window.navigator.clipboard.writeText(`http://localhost:3000/${title.toLowerCase()}/${idDrink}`);
+  }else if(pathname.includes('/in-progress') && title === 'Comidas'){
+    window.navigator.clipboard.writeText(`http://localhost:3000/${title.toLowerCase()}/${idMeal}`);
+  }else{
+
     window.navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+
+  }
+ 
     setSaveClipBoard(true);
   };
+  console.log(object)
+  console.log(pathname)
   useEffect(() => {
     recomendedRecipes(title).then((response) => setRecomended(response));
     if (localStorage.getItem('favoriteRecipes') === null) {

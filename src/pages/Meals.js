@@ -46,10 +46,10 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
         showSearchButton
         handleToggleSearchBar={ toggleSearchBar }
       />
-      <FilterList
+      { !showSearchBar && <FilterList
         categories={ categories }
         fetchRecipesByCategory={ fetchRecipesByCategory }
-      />
+      /> }
       { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
       { recipesNotFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>

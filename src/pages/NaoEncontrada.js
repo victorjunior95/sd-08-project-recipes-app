@@ -2,7 +2,7 @@ import React from 'react';
 
 function NaoEncontrada() {
   return (
-    <p>NaoEncontrada</p>
+    <p>Not Found</p>
   );
 }
 

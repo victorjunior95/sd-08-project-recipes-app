@@ -16,7 +16,7 @@ function ComponentPerfil() {
     if (JSON.parse(localStorage.getItem('user')) !== null) {
       setUserEmail(JSON.parse(localStorage.getItem('user')).email);
     } else {
-      setUserEmail('name@email.com')
+      setUserEmail('name@email.com');
     }
   }, [setHeaderInfo, setUserEmail]);
 

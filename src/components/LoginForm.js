@@ -3,7 +3,6 @@ import { Button, Card, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -27,7 +26,11 @@ function LoginForm() {
   return (
     <Card className="border-0 w-100 bg-dark cardHeigth">
       <Card.Body className="loginHeader" />
-      <Card.Title className="m-2 text-center text-warning fw-bold">Descubra as melhores receitas do mundo</Card.Title>
+      <Card.Title
+        className="m-2 text-center text-warning fw-bold"
+      >
+        Descubra as melhores receitas do mundo
+      </Card.Title>
       <Card.Body className="d-flex flex-column align-items-center w-100">
         <Form.Group controlId="formBasicEmail" className="w-75">
           <Form.Control
@@ -62,10 +65,14 @@ function LoginForm() {
         >
           Entrar
         </Button>
-        <Card.Text className="m-2 text-center text-white fw-light">Esqueceu a Senha?</Card.Text>
+        <Card.Text
+          className="m-2 text-center text-white fw-light"
+        >
+          Esqueceu a Senha?
+        </Card.Text>
       </Card.Body>
     </Card>
-    
+
   );
 }
 

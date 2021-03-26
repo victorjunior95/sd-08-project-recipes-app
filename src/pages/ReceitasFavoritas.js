@@ -15,7 +15,8 @@ const ReceitasFavoritas = () => {
   const [renderMSG, setRenderMSG] = useState(false);
 
   useEffect(() => {
-    const favoriteRecipesFromLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteRecipesFromLocalStorage = JSON
+      .parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipesFromLocalStorage !== null) {
       setFavoriteRecipes(favoriteRecipesFromLocalStorage);
     }

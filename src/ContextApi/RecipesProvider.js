@@ -22,8 +22,6 @@ function RecipesProvider({ children }) {
     setPassword(value);
   };
 
-  console.log(recipes);
-
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
 

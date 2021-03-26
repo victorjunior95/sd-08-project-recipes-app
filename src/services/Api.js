@@ -5,7 +5,9 @@ export default async function fetchFood(searchParam) {
     .then((response) => response.json());
 }
 
-// export async function fetchDrink(searchParam) {
-//   return fetch(`https://www.themealdb.com/api/json/v1/1/${searchParam}`)
-//     .then((response) => response.json());
-// }
+export async function foodOrDrinkApi(selectedParam) {
+  const api = await fetch(`https://www.the${selectedParam}db.com/api/json/v1/1/random.php`)
+    .then((response) => response.json())
+    .then((data) => Object.values(data));
+  return api;
+}

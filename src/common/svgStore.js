@@ -8,6 +8,7 @@ import searchIcon from '../images/searchIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import infinity from '../images/infinity.svg';
+import magnifyngIcon from '../images/magnifyingIcon.svg';
 
 export {
   blackHeartIcon,
@@ -20,4 +21,5 @@ export {
   shareIcon,
   whiteHeartIcon,
   infinity,
+  magnifyngIcon,
 };

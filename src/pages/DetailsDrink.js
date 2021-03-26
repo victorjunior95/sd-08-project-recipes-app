@@ -68,15 +68,6 @@ function DetailsDrink() {
           </ul>
           <h4>Instructions</h4>
           <p data-testid="instructions">{drinkDetail.strInstructions}</p>
-          <h4>Video</h4>
-          <video data-testid="video" src={ drinkDetail.strYoutube }>
-            <track
-              default
-              kind="captions"
-              srcLang="pt-br"
-              src={ drinkDetail.strYoutube }
-            />
-          </video>
           <h4>Recomendadas</h4>
           <div>
             <div className="carousel-class-drinks">

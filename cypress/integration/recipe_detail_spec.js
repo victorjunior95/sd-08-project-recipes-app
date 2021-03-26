@@ -30,7 +30,6 @@ describe('33 - Implemente os elementos da tela de detalhes de uma receita respei
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
-        console.log(win.fetch);
       },
     });
     cy.get('[data-testid="recipe-photo"]');

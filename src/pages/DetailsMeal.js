@@ -62,7 +62,6 @@ function DetailsMeal() {
               return acc;
             }, [])}
           </ul>
-
           <h4>Instructions</h4>
           <p data-testid="instructions">{mealDetail.strInstructions}</p>
           <h4>Video</h4>

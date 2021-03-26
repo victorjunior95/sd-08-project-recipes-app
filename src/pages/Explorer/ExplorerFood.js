@@ -8,9 +8,7 @@ import { getRandomRecipe } from '../../services/api';
 function ExplorerFood() {
   const [randomRecipeNumber, setRandomRecipeNumber] = useState('');
   const history = useHistory();
-  const onClickSurprise = () => history.push(
-    `/comidas/${randomRecipeNumber}/in-progress`,
-  );
+  const onClickSurprise = () => history.push(`/comidas/${randomRecipeNumber}`);
 
   useEffect(() => {
     async function setTheRandom() {

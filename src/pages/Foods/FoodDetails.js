@@ -95,26 +95,28 @@ function FoodDetails(props) {
         </ul>
         <p data-testid="instructions">{ strInstructions }</p>
       </div>
-      <div className="carousel">
-        {drinks && drinks
-          .filter((drink, index) => index <= STOP_INDEX)
-          .map((item, index) => (
-            <CarouselCard
-              key={ item.idDrink }
-              id={ item.idDrink }
-              name={ item.strDrink }
-              img={ item.strDrinkThumb }
-              index={ index }
-            />
-          ))}
-        <button
-          className="start-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => setShouldRedirect(true) }
-        >
-          Iniciar
-        </button>
+      <div className="carousel-wraper">
+        <div className="carousel">
+          {drinks && drinks
+            .filter((drink, index) => index <= STOP_INDEX)
+            .map((item, index) => (
+              <CarouselCard
+                key={ item.idDrink }
+                id={ item.idDrink }
+                name={ item.strDrink }
+                img={ item.strDrinkThumb }
+                index={ index }
+              />
+            ))}
+          <button
+            className="start-btn"
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => setShouldRedirect(true) }
+          >
+            Iniciar
+          </button>
+        </div>
       </div>
     </>
   );

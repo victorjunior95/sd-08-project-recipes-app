@@ -5,9 +5,16 @@
 .carousel {
   align-items: center;
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   overflow-x: scroll;
-  width: 600%;
+  width: 300%;
+}
+
+.carousel-wraper {
+  margin: auto;
+  margin-bottom: 200px;
+  overflow-x: scroll;
+  width: 350px;
 }
 
 .icons {

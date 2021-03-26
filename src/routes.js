@@ -20,20 +20,23 @@ export default function Routes() {
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/perfil" component={ Profile } />
+
       <Route path="/comidas/:id" component={ Meals } />
-      <Route path="/bebidas/:id" component={ Cocktails } />
       <Route path="/comidas" component={ Meals } />
+
+      <Route path="/bebidas/:id" component={ Cocktails } />
       <Route path="/bebidas" component={ Cocktails } />
+
+      <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExploreMealsByIngredient }
       />
+      <Route path="/explorar/comidas" component={ ExploreMeals } />
       <Route
         path="/explorar/bebidas/ingredientes"
         component={ ExploreCocktailsByIngredient }
       />
-      <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
-      <Route path="/explorar/comidas" component={ ExploreMeals } />
       <Route path="/explorar/bebidas" component={ ExploreCocktails } />
       <Route path="/explorar" component={ Explore } />
       <Route path="/" component={ Login } />

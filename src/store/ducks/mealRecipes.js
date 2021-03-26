@@ -58,6 +58,7 @@ export const Creators = {
   }),
 
   fetchRecipes: (searchType = '', searchValue = '') => async (dispatch) => {
+    console.log('fetching recipes');
     dispatch(Creators.fetch());
     try {
       let results = null;
@@ -68,7 +69,6 @@ export const Creators = {
       } else {
         results = await mealApi.getByName(searchValue);
       }
-      console.log(results);
       dispatch(Creators.fetchSuccess(results.meals || []));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));
@@ -84,6 +84,16 @@ export const Creators = {
       } else {
         results = (await mealApi.getByCategory(category)).meals || [];
       }
+      dispatch(Creators.fetchSuccess(results));
+    } catch (error) {
+      dispatch(Creators.fetchError(error.message));
+    }
+  },
+
+  fetchRecipesByIngredient: (ingredient = '') => async (dispatch) => {
+    dispatch(Creators.fetch());
+    try {
+      const results = (await mealApi.getByIngredient(ingredient)).meals || [];
       dispatch(Creators.fetchSuccess(results));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as IngredientsActions } from '../store/ducks/mealIngredients';
+import { Creators as RecipesActions } from '../store/ducks/mealRecipes';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,10 +14,18 @@ import CardsContainer from '../components/CardsContainer';
 
 const INGREDIENTS_LIMIT = 12;
 
-const ExploreMealsByIngredient = ({ fetchIngredients, ingredients }) => {
+const ExploreMealsByIngredient = ({ fetchIngredients,
+  fetchRecipesByIngredient, ingredients }) => {
+  const history = useHistory();
+
   useEffect(() => {
     fetchIngredients();
   }, []);
+
+  function handleRedirect(category) {
+    fetchRecipesByIngredient(category);
+    history.push('/comidas');
+  }
 
   return (
     <Container>
@@ -27,11 +37,13 @@ const ExploreMealsByIngredient = ({ fetchIngredients, ingredients }) => {
           thumbnail = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`,
         }, index) => (
           <IngredientCard
+            key={ idIngredient }
             name={ strIngredient }
             thumbnail={ thumbnail }
-            key={ idIngredient }
             index={ index }
-          />)) }
+            onClick={ () => handleRedirect(strIngredient) }
+          />
+        )) }
       </CardsContainer>
       <Footer />
     </Container>
@@ -40,6 +52,7 @@ const ExploreMealsByIngredient = ({ fetchIngredients, ingredients }) => {
 
 ExploreMealsByIngredient.propTypes = {
   fetchIngredients: PropTypes.func.isRequired,
+  fetchRecipesByIngredient: PropTypes.func.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
@@ -47,6 +60,9 @@ const mapStateToProps = ({ meals: { ingredients } }) => ({
   ingredients: ingredients.ingredients.slice(0, INGREDIENTS_LIMIT),
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(IngredientsActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  ...IngredientsActions,
+  ...RecipesActions,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExploreMealsByIngredient);

@@ -26,7 +26,9 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
 
   useEffect(() => {
     fetchCategories();
-    fetchRecipes();
+    if (recipes.length === 0 && !isFetchingRecipes) {
+      fetchRecipes();
+    }
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;

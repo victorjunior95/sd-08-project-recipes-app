@@ -86,6 +86,16 @@ export const Creators = {
       dispatch(Creators.fetchError(error.message));
     }
   },
+
+  fetchRecipesByIngredient: (ingredient = '') => async (dispatch) => {
+    dispatch(Creators.fetch());
+    try {
+      const results = (await cocktailApi.getByIngredient(ingredient)).drinks || [];
+      dispatch(Creators.fetchSuccess(results));
+    } catch (error) {
+      dispatch(Creators.fetchError(error.message));
+    }
+  },
 };
 
 export default recipes;

@@ -158,7 +158,6 @@ class SearchBar extends Component {
             data-testid={ `${index}-recipe-card` }
             className="cards"
           >
-            <div data-testid={ `${index}-card-name` }>{food.strMeal}</div>
             <button
               type="button"
               onClick={ () => {
@@ -166,16 +165,34 @@ class SearchBar extends Component {
               } }
             >
               <img
+                className="linkImage"
                 src={ food.strMealThumb }
                 data-testid={ `${index}-card-img` }
                 alt="Imagem Do Elemento"
               />
             </button>
+            <center>
+              <div
+                data-testid={ `${index}-card-name` }
+                className="cardNameSearchBar"
+              >
+                {food.strMeal}
+
+              </div>
+            </center>
           </div>)))
           : <div />}
         {rotaBebida ? (newArr.map((drink, index) => (
           <div key="drink" data-testid={ `${index}-recipe-card` } className="cards">
-            <div data-testid={ `${index}-card-name` }>{drink.strDrink}</div>
+            <center>
+              <div
+                data-testid={ `${index}-card-name` }
+                className="cardNameSearchBar"
+              >
+                {drink.strDrink}
+
+              </div>
+            </center>
             <button
               type="button"
               onClick={ () => {
@@ -203,5 +220,3 @@ SearchBar.propTypes = {
 const SearchBarLocation = withRouter(SearchBar);
 
 export default SearchBarLocation;
-
-// export default SearchBarLocation;

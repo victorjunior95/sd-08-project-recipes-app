@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
-import { Recommendations } from '../../component';
+import Recommendations from '../../component/Recommendations';
 
 export default function FoodDetails({ match: { params: { id } } }) {
   const { recipeDetail, setSearchParams } = useContext(Context);

@@ -12,6 +12,7 @@ export default function RecipeCategory({ recipeType }) {
     requestApiCategory,
     onClickCategoryFetch,
     setToggle,
+    toggle,
   } = useContext(Context);
 
   useEffect(() => {
@@ -22,20 +23,31 @@ export default function RecipeCategory({ recipeType }) {
     const [{ meals }, { drinks }] = apiReturnCategory;
     const typeCategory = type === 'meals' ? meals : drinks;
     const endpoint = type === 'meals' ? 'themealdb' : 'thecocktaildb';
+
+    function toggleFunc(serviceEndpoint, category) {
+      onClickCategoryFetch(serviceEndpoint, category);
+      setToggle((prevToggle) => !prevToggle);
+    }
+
     return Object.values(typeCategory)
       .slice(0, FIRST_FIVE_CATEGORY)
       .map((category) => (
-        <button
-          type="button"
-          key={ `${category.strCategory}` }
-          data-testid={ `${category.strCategory}-category-filter` }
-          onClick={ () => {
-            onClickCategoryFetch(endpoint, category.strCategory);
-            setToggle((prevToggle) => !prevToggle);
-          } }
-        >
-          {category.strCategory}
-        </button>
+        <>
+          <button
+            type="button"
+            key={ `${category.strCategory}` }
+            data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ () => toggleFunc(endpoint, category.strCategory) }
+          >
+            {category.strCategory}
+          </button>
+          <button
+            type="button"
+            onClick={ () => setToggle(false) }
+          >
+            All
+          </button>
+        </>
       ));
   }
 

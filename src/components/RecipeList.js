@@ -44,12 +44,9 @@ function RecipeList({ route, recipeType, endpoint }) {
   }
 
   function renderRecipeList() {
-    // const recipes = Object.values(apiReturn[0])[0];
     const recipes = toggle
       ? Object.values(filteredRecipes[0])[0]
       : Object.values(apiReturn[0])[0];
-    // console.log(recipes);
-    // console.log(Object.values(filteredRecipes[0])[0]);
     if (recipes !== null && recipes.length === 1) {
       return <Redirect to={ `/${route}/${recipes[0][`id${recipeType}`]}` } />;
     }

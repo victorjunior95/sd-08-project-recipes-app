@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveInProgress } from '../../redux/actions/details';
 import { useIsMeal } from '../../services/customHooks';
 import { loadFromStorage, makeListWithObj, saveOnStorage } from '../../services/utils';
+
+import './StepList.css';
 
 function matchChecked(id, params) {
   const { isMeal, actualRecipe, progress } = params;
@@ -16,6 +18,7 @@ function matchChecked(id, params) {
     actualId = actualRecipe.idDrink;
   }
   if (progress[mealCocktail][actualId] !== undefined) {
+    console.log(progress[mealCocktail][actualId].includes(id));
     return progress[mealCocktail][actualId].includes(id);
   }
   return false;
@@ -60,9 +63,7 @@ function definedID(correctId, actualId, mealCocktail, params) {
   }
 }
 
-function addRecipeStep({ id }, params) {
-  const stringId = id.replace(/stepRecipeCheckbox/i, '');
-  const correctId = parseInt(stringId, 10);
+function addRecipeStep(correctId, params) {
   const { progress, actualRecipe, isMeal } = params;
   let mealCocktail = '';
   let actualId = 0;
@@ -82,6 +83,7 @@ function addRecipeStep({ id }, params) {
 }
 
 export default function StepList() {
+  // const [checks, setChecks] = useState([]);
   const isMeal = useIsMeal();
   const actualRecipe = useSelector((state) => state.detailsReducer.actualRecipe);
   const progress = useSelector((state) => state.detailsReducer.progress);
@@ -121,8 +123,7 @@ export default function StepList() {
           >
             <input
               type="checkbox"
-              id={ `stepRecipeCheckbox${i}` }
-              onChange={ ({ target }) => addRecipeStep(target, addParams) }
+              onChange={ () => addRecipeStep(i, addParams) }
               checked={ matchChecked(i, addParams) }
             />
             -

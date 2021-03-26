@@ -20,21 +20,21 @@ function Foods() {
   }, [category, setFilterFood]);
   // const renderingCondition = (categoryState) => {
   //   const exist = (meals && meals
-  //     .filter((meal, index) => index <= STOP_INDEX));
-  //   const result = exist || [];
+  //     .filter((meal, index) => index <= STOP_INDEX && meal.strCategory.includes()));
+  //   let result = exist || [];
   //   console.log(result);
   //   if (categoryState !== '') {
   //     result = (meals && meals
-  //       .filter((meal, index) => index <= STOP_INDEX));
-  //     .map((item, index) => (
-  //       <Card
-  //         key={ item.idMeal }
-  //         id={ item.idMeal }
-  //         name={ item.strMeal }
-  //         img={ item.strMealThumb }
-  //         index={ index }
-  //         onClick={ () => history.push(`comidas/${item.idMeal}`) }
-  //       />));
+  //       .filter((meal, index) => index <= STOP_INDEX))
+  //       .map((item, index) => (
+  //         <Card
+  //           key={ item.idMeal }
+  //           id={ item.idMeal }
+  //           name={ item.strMeal }
+  //           img={ item.strMealThumb }
+  //           index={ index }
+  //           onClick={ () => history.push(`comidas/${item.idMeal}`) }
+  //         />));
   //   }
   //   return result.map((item, index) => (
   //     <Card
@@ -58,7 +58,7 @@ function Foods() {
       <div className="cards">
         {/* {(renderingCondition(category))} */}
         {meals && meals
-          .filter((meal, index) => index <= STOP_INDEX)
+          .filter((meal, index) => index <= STOP_INDEX && meal.strMeal.includes(''))
           .map((item, index) => (
             <Card
               key={ item.idMeal }

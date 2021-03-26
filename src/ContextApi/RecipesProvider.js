@@ -41,7 +41,7 @@ function RecipesProvider({ children }) {
         .then((response) => setRecipes(response));
       break;
     default:
-      fetchFood('search.php?f=f')
+      fetchFood('search.php?s=')
         .then((response) => setRecipes(response));
       break;
     }
@@ -64,7 +64,7 @@ function RecipesProvider({ children }) {
         .then((response) => setCocktails(response));
       break;
     default:
-      fetchDrink('search.php?f=j')
+      fetchDrink('search.php?s=')
         .then((response) => setCocktails(response));
       break;
     }

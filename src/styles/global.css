@@ -9,10 +9,11 @@ body, input, button {
   scrollbar-width: none;
 }
 
-body, body > div {
+/* body, body > div {
   min-height: 100vh;
+  z-index: -1;
 }
 
 body > div {
   position: relative;
-}
+} */

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as RecipesActions } from '../store/ducks/cocktailRecipes';
@@ -23,10 +23,13 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
   recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
+  const history = useHistory();
 
   useEffect(() => {
     fetchCategories();
-    fetchRecipes();
+    if (recipes.length === 0 && !isFetchingRecipes) {
+      fetchRecipes();
+    }
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
@@ -46,10 +49,10 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
         handleToggleSearchBar={ toggleSearchBar }
       />
 
-      <FilterList
+      { !showSearchBar && <FilterList
         categories={ categories }
         fetchRecipesByCategory={ fetchRecipesByCategory }
-      />
+      /> }
       { showSearchBar && <SearchBar fetchFunction={ fetchRecipes } /> }
       { recipesNotFound && <p>Nenhuma comida encontrada</p> }
       <CardsContainer>
@@ -62,6 +65,7 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
                 name={ cocktail.strDrink }
                 thumbnail={ cocktail.strDrinkThumb }
                 index={ index }
+                onClick={ () => history.push(`/bebidas/${cocktail.idDrink}`) }
               />)) }
       </CardsContainer>
       <Footer />

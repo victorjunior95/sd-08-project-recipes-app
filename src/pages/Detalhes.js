@@ -60,25 +60,23 @@ const Detalhes = () => {
     fetchInProgress();
   }, [location.pathname, isMeal]);
 
+  console.log(isFavorite);
   const handleIsFavorite = (favorite) => {
-    console.log(!favorite, 'oi');
-    localStorage.setItem('isFavorite', !favorite);
-    setIsFavorite(!favorite);
+    // const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    // const [,, id] = location.pathname.split('/');
+    localStorage.setItem('isFavorite', favorite);
+    setIsFavorite(favorite);
   };
   useEffect(() => {
-    const getIsFavorite = () => {
-      const getFavorite = localStorage.getItem('isFavorite');
-      console.log(getFavorite, 'oi');
-      return getFavorite;
-    };
-    console.log(isFavorite, 'faroti');
-    const results = getIsFavorite();
-    setIsFavorite(results);
-    console.log(results);
-    console.log(getIsFavorite());
-    // setTimeout(() => {
-    console.log(isFavorite, 'faroti');
-    // }, 500);
+    // const getIsFavorite = () => {
+    //   const getFavorite = (localStorage.getItem('isFavorite') === 'true');
+    //   return getFavorite;
+    // };
+    // const results = getIsFavorite();
+    // setIsFavorite(results);
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const [,, id] = location.pathname.split('/');
+    setIsFavorite(fav.some((result) => result.id === id));
   }, []);
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
@@ -97,25 +95,26 @@ const Detalhes = () => {
       <h3 data-testid="recipe-category">
         { isMeal ? foodDetails.strCategory : foodDetails.strAlcoholic}
       </h3>
-      <button
-        type="button"
+      <input
+        type="image"
         onClick={ () => {
           const one = 1000;
           copy(window.location); setHidden(true);
           setTimeout(() => setHidden(false), one);
         } }
         data-testid="share-btn"
-      >
-        <span hidden={ !hidden }>Link copiado!</span>
-        <img src={ shareIcon } alt="Share" />
-      </button>
-      <button
-        type="button"
+        src={ shareIcon }
+        alt="Share"
+      />
+
+      <span hidden={ !hidden }>Link copiado!</span>
+      <input
+        type="image"
         data-testid="favorite-btn"
-        onClick={ () => handleIsFavorite(isFavorite) }
-      >
-        <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
-      </button>
+        onClick={ () => handleIsFavorite(!isFavorite) }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        alt="Favorite"
+      />
       {
         ingredients.map((ingredient, index) => {
           const ingredientName = foodDetails[ingredient];

@@ -30,6 +30,7 @@ function SearchDropDown({ setDropSearch }) {
       <input
         data-testid="search-input"
         className="form-control"
+        placeholder="Digite um termo, ex: Beef"
         onChange={ (event) => handleChange(event) }
         name="text"
         type="text"

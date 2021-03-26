@@ -34,6 +34,12 @@
 }
 
 .start-recipe-btn {
+  font-size: x-large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: blue;
   align-self: center;
   bottom: 0;
   height: 9%;

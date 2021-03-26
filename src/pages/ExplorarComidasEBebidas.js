@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { getComidasRandom, getBebidasRandom } from '../services/BuscaNasAPIs';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -38,33 +39,38 @@ const ExplorarComidasEBebidadas = () => {
   return (
     <section className="w-100">
       <Header />
-      <button
-        type="button"
-        onClick={ () => handleClickIngredientsBtn() }
-        data-testid="explore-by-ingredient"
-      >
-        Por Ingredientes
-      </button>
-      {
-        history.location.pathname.includes('comidas')
-          ? (
-            <button
-              type="button"
-              onClick={ () => handleClickOriginBtn() }
-              data-testid="explore-by-area"
-            >
-              Por Local de Origem
-            </button>
-          )
-          : ''
-      }
-      <button
-        type="button"
-        onClick={ () => history.push(`/${Type}/${randomId}`) }
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </button>
+      <section className="w-100 bg-dark cardHeigth cardBody">
+        <Button
+          className="btn btn-primary mt-5"
+          type="button"
+          onClick={ () => handleClickIngredientsBtn() }
+          data-testid="explore-by-ingredient"
+        >
+          Por Ingredientes
+        </Button>
+        {
+          history.location.pathname.includes('comidas')
+            ? (
+              <Button
+                className="btn btn-primary"
+                type="button"
+                onClick={ () => handleClickOriginBtn() }
+                data-testid="explore-by-area"
+              >
+                Por Local de Origem
+              </Button>
+            )
+            : ''
+        }
+        <Button
+          className="btn btn-primary"
+          type="button"
+          onClick={ () => history.push(`/${Type}/${randomId}`) }
+          data-testid="explore-surprise"
+        >
+          Me Surpreenda!
+        </Button>
+      </section>
       <Footer />
     </section>
   );

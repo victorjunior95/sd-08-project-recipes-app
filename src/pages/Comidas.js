@@ -65,7 +65,7 @@ const Comidas = () => {
   }
 
   return (
-    <section className="w-100">
+    <section className="w-100 bg-dark cardHeigth2">
       <Header />
       <div className="buttonsList">
         {categorias.map((categoria, index) => {
@@ -86,6 +86,7 @@ const Comidas = () => {
           return false;
         })}
       </div>
+
       <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
         {
           dataComidas && dataComidas.map((comida, index) => {
@@ -94,7 +95,7 @@ const Comidas = () => {
                 <Card
                   key={ comida.idMeal }
                   data-testid={ `${index}-recipe-card` }
-                  className="col-5 m-2"
+                  className="col-5 m-2 border-dark"
                   onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
                 >
                   <Card.Img

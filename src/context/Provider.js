@@ -16,13 +16,11 @@ function Provider({ children }) {
 
   async function requestApiData(endpoint) {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
-    setIsFetching(true);
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
     setIsFetching(false);
   }
 
   async function requestApiCategory() {
-    setIsFetching(true);
     const meals = await fetchRecipes('themealdb', 'list', 'c', 'list');
     const drinks = await fetchRecipes('thecocktaildb', 'list', 'c', 'list');
     setApiReturnCategory([meals, drinks]);
@@ -30,7 +28,6 @@ function Provider({ children }) {
   }
 
   async function onClickCategoryFetch(endpoint, categoria) {
-    setIsFetching(true);
     const recipesByCategory = await fetchRecipes(endpoint, 'filter', 'c', categoria);
     setfilteredRecipes(recipesByCategory);
     setIsFetching(false);

@@ -19,41 +19,40 @@ export default function RecipeCategory({ recipeType }) {
   }, []);
 
   function setType(type) {
-    const [{ meals }, { drinks }] = apiReturnCategory;
-    const typeCategory = type === 'meals' ? meals : drinks;
+    const typeCategory = type === 'meals'
+      ? apiReturnCategory.length && apiReturnCategory[0]
+      : apiReturnCategory.length && apiReturnCategory[1];
     const endpoint = type === 'meals' ? 'themealdb' : 'thecocktaildb';
-
+    const typeCategoryPopulated = typeCategory[type];
     function toggleFunc(serviceEndpoint, category) {
       onClickCategoryFetch(serviceEndpoint, category);
       setToggle((prevToggle) => !prevToggle);
     }
 
-    return Object.values(typeCategory)
-      .slice(0, FIRST_FIVE_CATEGORY)
-      .map((category) => (
-        <>
-          <button
-            type="button"
-            key={ `${category.strCategory}` }
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ () => toggleFunc(endpoint, category.strCategory) }
-          >
-            {category.strCategory}
-          </button>
-          <button
-            type="button"
-            onClick={ () => setToggle(false) }
-          >
-            All
-          </button>
-        </>
-      ));
+    return (
+      <div>
+        { typeCategoryPopulated && typeCategoryPopulated.length && typeCategoryPopulated
+          .slice(0, FIRST_FIVE_CATEGORY)
+          .map((category) => (
+            <button
+              type="button"
+              key={ `${category.strCategory}` }
+              data-testid={ `${category.strCategory}-category-filter` }
+              onClick={ () => toggleFunc(endpoint, category.strCategory) }
+            >
+              {category.strCategory}
+            </button>
+          ))}
+        <button type="button" onClick={ () => setToggle(false) }>
+          All
+        </button>
+      </div>
+    );
   }
 
   function renderCategory() {
     return <section>{setType(recipeType)}</section>;
   }
-
   return isFetching ? <p>Loading...</p> : renderCategory();
 }
 

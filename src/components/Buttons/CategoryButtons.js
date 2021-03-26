@@ -30,7 +30,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
       key={ `${strCategory} - key` }
       type="button"
       onClick={ onClickCategory }
-      value={strCategory}
+      value={ strCategory }
     >
       {strCategory}
     </button>));
@@ -42,8 +42,8 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
         style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
         key="All - key"
         type="button"
-        onClick={ onClickAll}
-        value='All'
+        onClick={ onClickAll }
+        value="All"
       >
         All
       </button>
@@ -55,7 +55,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
 CategoryButtons.propTypes = {
   label: PropTypes.string.isRequired,
   onClickAll: PropTypes.func.isRequired,
-  onClickAll: PropTypes.func.isRequired,
+  onClickCategory: PropTypes.func.isRequired,
 };
 
 export default CategoryButtons;

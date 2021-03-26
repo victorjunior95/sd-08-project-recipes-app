@@ -7,7 +7,6 @@ import './profile.css';
 
 function Profile({ history }) {
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
   return (
     <>
       <Header history={ history } />

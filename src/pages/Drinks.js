@@ -32,6 +32,7 @@ class Drinks extends Component {
             return acc;
           }, []).map((drink, index) => (
             <Cards
+              route={ `/bebidas/${drink.idDrink}` }
               data-testid={ `${index}-recipe-card` }
               key={ index }
               strThumb={ drink.strDrinkThumb }

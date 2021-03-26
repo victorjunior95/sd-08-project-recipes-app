@@ -7,64 +7,82 @@ class Filtro extends Component {
   constructor() {
     super();
     this.state = {
-      searchBy: 'Filter',
-      valor: '',
+      results: [],
     };
-    this.handleChange = this.handleChange.bind(this);
+
+    this.fetchList = this.fetchList.bind(this);
   }
 
-  handleChange({ target }) {
-    const { valor } = this.state;
-    if (target.type === 'button') this.setState({ valor: target.value });
-    console.log(valor);
+  componentDidMount() {
+    this.fetchList();
   }
 
-  submitSearch(searchIngredient) {
-    const { params: { url: { byFilter } } } = this.props;
-    const { valor } = this.state;
-    const url = byFilter + valor;
-    return searchIngredient(url);
+  async fetchList() {
+    const { pathname } = this.props;
+    if (pathname === '/comidas') {
+      const req = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+      const results = await req.json();
+      this.setState({ results });
+    }
+    if (pathname === '/bebidas') {
+      const req = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+      const results = await req.json();
+      this.setState({ results });
+    }
+  }
+
+  filterAll(pathname, searchIngredient) {
+    const mealUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    if (pathname === '/comidas') {
+      return searchIngredient(mealUrl);
+    }
+    if (pathname === '/bebidas') {
+      return searchIngredient(drinkUrl);
+    }
+  }
+
+  submitSearch(category) {
+    const { pathname, searchIngredient } = this.props;
+    const mealUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+    const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+    if (pathname === '/comidas') {
+      return searchIngredient(mealUrl);
+    }
+    if (pathname === '/bebidas') {
+      return searchIngredient(drinkUrl);
+    }
   }
 
   render() {
+    const { results } = this.state;
+    const { pathname, searchIngredient } = this.props;
+    const result = results.meals || results.drinks;
+    const TOTAL_ITEMS = 4;
     return (
       <nav>
-        <button type="button">All</button>
         <button
+          data-testid="All-category-filter"
           type="button"
-          value="Beef"
-          onClick={ this.handleChange }
+          onClick={ () => this.filterAll(pathname, searchIngredient) }
         >
-          Beef
+          All
         </button>
-        <button
-          type="button"
-          value="Lamb"
-          onClick={ this.handleChange }
-        >
-          Lamb
-        </button>
-        <button
-          type="button"
-          value="Chicken"
-          onClick={ this.handleChange }
-        >
-          Chicken
-        </button>
-        <button
-          type="button"
-          value="Breakfast"
-          onClick={ this.handleChange }
-        >
-          Breakfast
-        </button>
-        <button
-          type="button"
-          value="Dessert"
-          onClick={ this.handleChange }
-        >
-          Dessert
-        </button>
+        {results.length !== 0 && result.map((category, index) => {
+          if (index > TOTAL_ITEMS) {
+            return;
+          }
+          return (
+            <button
+              data-testid={ `${category.strCategory}-category-filter` }
+              key={ category.strCategory }
+              type="button"
+              onClick={ () => this.submitSearch(category.strCategory) }
+            >
+              {category.strCategory}
+            </button>
+          );
+        })}
       </nav>
     );
   }

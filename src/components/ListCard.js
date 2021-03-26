@@ -22,7 +22,7 @@ class ListCard extends Component {
             }
             return (<Card
               infos={ infos }
-              key={ item[infos.id] }
+              key={ item[infos.name] }
               value={ item }
               index={ index }
             />);

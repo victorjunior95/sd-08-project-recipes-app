@@ -62,7 +62,7 @@ function HeaderSearchBar() {
       {isVisible && (
         <div className="search">
           <input
-            onChange={
+            onBlur={
               location.pathname === '/comidas'
                 ? (e) => handleChangeSearch(e.target.value)
                 : (e) => handleChangeSearchDrink(e.target.value)

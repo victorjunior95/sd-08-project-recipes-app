@@ -1,22 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './ToExploreFood.css';
 import Footer from '../components/Footer';
 import HeaderSimple from '../components/HeaderSimple';
+import { getRandomMeal } from '../services/getAPIs';
 
 function ToExploreFood() {
+  const [randomMeal, setRandomMeal] = useState('');
+  useEffect(() => {
+    async function fetchRandomMeal() {
+      const gettingRandomMeal = await getRandomMeal();
+      setRandomMeal(gettingRandomMeal);
+    }
+    fetchRandomMeal();
+  }, []);
+
   return (
     <div className="container">
       <HeaderSimple />
       <div className="main">
-        <button data-testid="explore-by-ingredient" type="button">
+        <Link
+          data-testid="explore-by-ingredient"
+          to="/explorar/comidas/ingredientes"
+        >
           Por Ingredientes
-        </button>
-        <button data-testid="explore-by-area" type="button">
+        </Link>
+        <Link data-testid="explore-by-area" to="/explorar/comidas/area">
           Por Local de Origem
-        </button>
-        <button data-testid="explore-surprise" type="button">
+        </Link>
+
+        <Link
+          data-testid="explore-surprise"
+          to={ `/comidas/${randomMeal.idMeal}` }
+        >
           Me Surpreenda!
-        </button>
+        </Link>
       </div>
       <Footer />
     </div>

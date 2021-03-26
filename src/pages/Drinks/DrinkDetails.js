@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
+import copy from 'clipboard-copy';
 import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
 import { FoodCtx } from '../../context/ContextFood';
 import CarouselCard from '../../components/Card/CarouselCard';
@@ -9,6 +10,7 @@ import favIcon from '../../images/whiteHeartIcon.svg';
 
 function DrinkDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { match: { params: { id } } } = props;
   const { foodApi: { meals } } = useContext(FoodCtx);
   const STOP_INDEX = 5;
@@ -30,6 +32,11 @@ function DrinkDetails(props) {
     setId(id);
   }, [id, setId]);
 
+  function handleClick() {
+    copy(window.location.href);
+    setCopied(true);
+  }
+
   return (
     <>
       { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
@@ -40,7 +47,10 @@ function DrinkDetails(props) {
           <span>{ strAlcoholic }</span>
         </span>
         <div className="icons">
-          <img src={ shareIcon } alt="Compartilhar" data-testid="share-btn" />
+          <button type="button" data-testid="share-btn" onClick={ handleClick }>
+            <img src={ shareIcon } alt="Compartilhar" />
+            {copied && 'Link copiado!'}
+          </button>
           <img src={ favIcon } alt="Compartilhar" data-testid="favorite-btn" />
         </div>
         <img

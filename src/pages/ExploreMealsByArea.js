@@ -53,6 +53,7 @@ const ExploreMealsByArea = ({ areas, fetchAreas, isFetchingAreas,
           : recipes.length >= 1
             && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
               <Card
+                data-testid={ `${index}-recipe-card` }
                 key={ recipe.idMeal }
                 name={ recipe.strMeal }
                 thumbnail={ recipe.strMealThumb }
@@ -66,7 +67,7 @@ const ExploreMealsByArea = ({ areas, fetchAreas, isFetchingAreas,
 };
 
 ExploreMealsByArea.propTypes = {
-  areas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  areas: PropTypes.arrayOf(PropTypes.string).isRequired,
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchAreas: PropTypes.func.isRequired,
   fetchRecipesByArea: PropTypes.func.isRequired,

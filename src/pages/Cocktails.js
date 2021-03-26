@@ -61,6 +61,7 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
           : recipes.length > 1
             && recipes.slice(0, RESULTS_LIMIT).map((cocktail, index) => (
               <Card
+                data-testid={ `${index}-recipe-card` }
                 key={ cocktail.idDrink }
                 name={ cocktail.strDrink }
                 thumbnail={ cocktail.strDrinkThumb }

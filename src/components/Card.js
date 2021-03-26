@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles/components/Card.module.css';
 
-const Card = ({ name, thumbnail, index, ...rest }) => (
+const Card = ({ name, thumbnail, index, category, ...rest }) => (
   <div
-    data-testid={ `${index}-recipe-card` }
+    // data-testid={ `${index}-recipe-card` }
     className={ styles.card }
     { ...rest }
   >
@@ -14,14 +14,22 @@ const Card = ({ name, thumbnail, index, ...rest }) => (
       src={ `${thumbnail}` }
       alt={ name }
     />
-    <p data-testid={ `${index}-card-name` } className={ styles.header }>{ name }</p>
+    <div className={ styles.cardBody }>
+      { category && <p className={ styles.category }>{ category }</p> }
+      <p data-testid={ `${index}-card-name` } className={ styles.header }>{ name }</p>
+    </div>
   </div>
 );
+
+Card.defaultProps = {
+  category: '',
+};
 
 Card.propTypes = {
   name: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  category: PropTypes.string,
 };
 
 export default Card;

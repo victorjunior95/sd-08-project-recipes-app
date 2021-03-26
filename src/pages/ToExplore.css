@@ -34,14 +34,17 @@
   width: 100%;
 }
 
-.main button {
+.main a {
   border-radius: 8px;
   box-shadow: 0 0 16px black;
+  color: black;
   font-size: xx-large;
   height: 20%;
+  margin-bottom: 2%;
+  text-align: center;
   width: 90%;
 }
 
-.main button:focus {
+.main a:focus {
   outline: none;
 }

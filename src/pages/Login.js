@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Button } from 'react-bootstrap';
 import './Login.css';
 import { LoginAndFoodContext } from '../context/ContextFood';
 
@@ -12,7 +13,7 @@ function Login() {
     checkValidity,
   } = dataContext;
   return (
-    <div className="container-fomr-login">
+    <div className="container-form-login">
       <form onSubmit={ (e) => handleSubmit(e) }>
         <label className="label-login-form" htmlFor="email-input">
           Email
@@ -25,19 +26,20 @@ function Login() {
         <label className="label-login-form" htmlFor="password-input">
           Senha
           <input
+            className="password-input"
             onChange={ (e) => handleChangePassword(e.target.value) }
             id="password-input"
             data-testid="password-input"
           />
         </label>
-        <button
+        <Button
           disabled={ checkValidity() }
           id="login-submit-btn"
           type="submit"
           data-testid="login-submit-btn"
         >
           Entrar
-        </button>
+        </Button>
       </form>
     </div>
   );

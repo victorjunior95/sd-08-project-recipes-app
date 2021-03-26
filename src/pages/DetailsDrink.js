@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { useParams, Link } from 'react-router-dom';
+// import { Button } from 'react-bootstrap';
 import { getDrinkRecipesDetails, getMealByName } from '../services/getAPIs';
 import { LoginAndFoodContext } from '../context/ContextFood';
 import shareIcon from '../images/shareIcon.svg';
@@ -11,12 +11,10 @@ function DetailsDrink() {
   const dataFood = useContext(LoginAndFoodContext);
   const { meals } = dataFood;
   const Params = useParams();
-  const history = useHistory();
   const [drinkDetail, setDrinkDetail] = useState([]);
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getDrinkRecipesDetails(Params.id);
-      console.log(saveDetail);
       setDrinkDetail(saveDetail);
     }
     getMealByName('');
@@ -26,15 +24,12 @@ function DetailsDrink() {
   const sizeOfLength = 2;
   const startOfSlice = 0;
   const endOfSlice = 6;
-  const measure = Object.entries(drinkDetail).reduce(
-    (acc, [key, value]) => {
-      if (key.includes('strMeasure') && value) {
-        return acc.concat(value);
-      }
-      return acc;
-    },
-    [],
-  );
+  const measure = Object.entries(drinkDetail).reduce((acc, [key, value]) => {
+    if (key.includes('strMeasure') && value) {
+      return acc.concat(value);
+    }
+    return acc;
+  }, []);
 
   return (
     <div>
@@ -86,53 +81,43 @@ function DetailsDrink() {
           <div>
             <div className="carousel-class-drinks">
               {meals.length > sizeOfLength
-            && meals
-              .slice(startOfSlice, endOfSlice)
-              .map((meal, index) => (
-                <figure className="recomendation-img" key={ index }>
-                  <img
-                    className="img-cards"
-                    key={ meal.idMeal }
-                    data-testid={ `${index}-recomendation-card` }
-                    src={ meal.strMealThumb }
-                    alt="recomendations"
-                  />
-                  <figcaption>{meal.strCategory}</figcaption>
-                  <figcaption
-                    data-testid={ `${index}-recomendation-title` }
-                  >
-                    { meal.strMeal }
-                  </figcaption>
-                </figure>
-              ))}
+                && meals.slice(startOfSlice, endOfSlice).map((meal, index) => (
+                  <figure className="recomendation-img" key={ index }>
+                    <img
+                      className="img-cards"
+                      key={ meal.idMeal }
+                      data-testid={ `${index}-recomendation-card` }
+                      src={ meal.strMealThumb }
+                      alt="recomendations"
+                    />
+                    <figcaption>{meal.strCategory}</figcaption>
+                    <figcaption data-testid={ `${index}-recomendation-title` }>
+                      {meal.strMeal}
+                    </figcaption>
+                  </figure>
+                ))}
             </div>
           </div>
-          {/*
-          <img
-            // data-testid={ `${index}-recomendation-card` }
-            src=""
-            alt="recomendations"
-          /> */}
-          <Button
-            onClick={ () => history.push(`/bebidas/${Params.id}/in-progress`) }
+          <Link
+            to={ `/bebidas/${Params.id}/in-progress` }
             className="start-recipe-btn"
             data-testid="start-recipe-btn"
           >
             Iniciar Receita
-          </Button>
+          </Link>
         </div>
       </div>
       <div className="share-favorite-btn">
-        <Button variant="warning">
+        <button type="button" variant="warning">
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
-        </Button>
-        <Button variant="danger">
+        </button>
+        <button type="button" variant="danger">
           <img
             data-testid="favorite-btn"
             src={ whiteHeartIcon }
             alt="favorite-icon"
           />
-        </Button>
+        </button>
       </div>
     </div>
   );

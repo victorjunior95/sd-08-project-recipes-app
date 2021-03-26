@@ -2,7 +2,7 @@ import { fetchAreaMeal, fetchMealByFirstLetter,
   fetchMealByIngredients, fetchMealByName } from '../../services/MealAPI';
 import { FETCH_API } from './index';
 
-const fetchMealAction = (recipes) => ({
+export const fetchMealAction = (recipes) => ({
   type: FETCH_API,
   payload: {
     recipes,

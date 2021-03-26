@@ -15,11 +15,11 @@ function ExploreOrigin() {
   useEffect(() => {
     const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
     fetchData(area, type);
-  }, [dispatch, area, type]);
+  }, [area, type]);
 
   useEffect(() => () => {
     dispatch(clearRecipesAction());
-  }, [dispatch]);
+  }, []);
 
   return (
     <main>

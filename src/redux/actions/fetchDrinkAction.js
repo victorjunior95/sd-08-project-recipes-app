@@ -2,7 +2,7 @@ import { fetchCocktailByFirstLetter,
   fetchCocktailByIngredients, fetchCocktailByName } from '../../services/CocktailAPI';
 import { FETCH_API } from './index';
 
-const fetchDrinkAction = (recipes) => ({
+export const fetchDrinkAction = (recipes) => ({
   type: FETCH_API,
   payload: {
     recipes,

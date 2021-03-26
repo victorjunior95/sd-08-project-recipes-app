@@ -83,39 +83,42 @@ class GenericoBebidas extends Component {
     }
 
     return (
-      <div>
-        <img
-          src={ currentRecipe.strDrinkThumb }
-          alt=""
-          data-testid="recipe-photo"
-        />
-        <h1 data-testid="recipe-title">
-          {currentRecipe.strDrink}
-        </h1>
-        {currentRecipe.strDrink && <h2>{}</h2>}
-        <span data-testid="recipe-category">
-          {currentRecipe.strAlcoholic}
-        </span>
-        <button
-          type="button"
-          onClick={ () => this.share() }
-        >
+      <div className="cards">
+        <center>
           <img
-            src={ share }
-            alt="share"
-            data-testid="share-btn"
+            src={ currentRecipe.strDrinkThumb }
+            alt=""
+            data-testid="recipe-photo"
+            className="linkImage"
           />
-        </button>
-        <button
-          type="button"
-          onClick={ this.favoriteThisItem }
-        >
-          <img
-            src={ favoriteRecipe ? fav : notFav }
-            alt="share"
-            data-testid="favorite-btn"
-          />
-        </button>
+          <h1 data-testid="recipe-title">
+            {currentRecipe.strDrink}
+          </h1>
+          {currentRecipe.strDrink && <h2>{}</h2>}
+          <span data-testid="recipe-category">
+            {currentRecipe.strAlcoholic}
+          </span>
+          <button
+            type="button"
+            onClick={ () => this.share() }
+          >
+            <img
+              src={ share }
+              alt="share"
+              data-testid="share-btn"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={ this.favoriteThisItem }
+          >
+            <img
+              src={ favoriteRecipe ? fav : notFav }
+              alt="share"
+              data-testid="favorite-btn"
+            />
+          </button>
+        </center>
         {displayShareMesage && <span>Link copiado!</span>}
         <h2>Ingredientes</h2>
         {ingredientList && <IngredientList ingredientList={ ingredientList } />}

@@ -89,46 +89,50 @@ class GenericoComidas extends Component {
     }
 
     return (
-      <div>
-        <img
-          src={ currentRecipe.strMealThumb }
-          alt=""
-          data-testid="recipe-photo"
-        />
-        <h1 data-testid="recipe-title">
-          {currentRecipe.strMeal}
-        </h1>
-        {currentRecipe.strDrink && <h2>{}</h2>}
-        <span data-testid="recipe-category">
-          {currentRecipe.strCategory}
-        </span>
-        <button
-          type="button"
-          onClick={ () => this.share() }
-        >
+      <div className="cards">
+        <center>
           <img
-            src={ share }
-            alt="share"
-            data-testid="share-btn"
+            src={ currentRecipe.strMealThumb }
+            alt=""
+            className="linkImage"
+            data-testid="recipe-photo"
           />
-        </button>
-        <button
-          type="button"
-          onClick={ this.favoriteThisItem }
-        >
-          <img
-            src={ favoriteRecipe ? fav : notFav }
-            alt="share"
-            data-testid="favorite-btn"
-          />
-        </button>
+          <h1 data-testid="recipe-title">
+            {currentRecipe.strMeal}
+          </h1>
+          {currentRecipe.strDrink && <h2>{}</h2>}
+          <span data-testid="recipe-category">
+            {currentRecipe.strCategory}
+          </span>
+          <button
+            type="button"
+            onClick={ () => this.share() }
+          >
+            <img
+              src={ share }
+              alt="share"
+              data-testid="share-btn"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={ this.favoriteThisItem }
+          >
+            <img
+              src={ favoriteRecipe ? fav : notFav }
+              alt="share"
+              data-testid="favorite-btn"
+            />
+          </button>
+
+        </center>
         {displayShareMesage && <span>Link copiado!</span>}
         <h2>Ingredientes</h2>
         {ingredientList && <IngredientList ingredientList={ ingredientList } />}
         <div data-testid="instructions">{currentRecipe.strInstructions}</div>
         {window.location.href.includes('comidas') && <iframe
-          width="683"
-          height="384"
+          width="360"
+          height="240"
           title="video"
           src={ currentVideo }
           data-testid="video"

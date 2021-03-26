@@ -183,7 +183,20 @@ class SearchBar extends Component {
           </div>)))
           : <div />}
         {rotaBebida ? (newArr.map((drink, index) => (
-          <div key="drink" data-testid={ `${index}-recipe-card` } className="cards">
+          <div key={ drink } data-testid={ `${index}-recipe-card` } className="cards">
+            <button
+              type="button"
+              onClick={ () => {
+                history.push(`/bebidas/${drink.idDrink}`);
+              } }
+            >
+              <img
+                src={ drink.strDrinkThumb }
+                className="linkImage"
+                alt="Imagem Do Elemento"
+                data-testid={ `${index}-card-img` }
+              />
+            </button>
             <center>
               <div
                 data-testid={ `${index}-card-name` }
@@ -193,18 +206,6 @@ class SearchBar extends Component {
 
               </div>
             </center>
-            <button
-              type="button"
-              onClick={ () => {
-                history.push(`/bebidas/${drink.idDrink}`);
-              } }
-            >
-              <img
-                src={ drink.strDrinkThumb }
-                alt="Imagem Do Elemento"
-                data-testid={ `${index}-card-img` }
-              />
-            </button>
           </div>))) : <div />}
       </div>
 

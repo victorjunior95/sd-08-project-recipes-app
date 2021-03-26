@@ -48,7 +48,11 @@ function FoodDetails(props) {
             <img src={ shareIcon } alt="Compartilhar" />
             {copied && 'Link copiado!'}
           </button>
-          <button type="button" data-testid="favorite-btn" onClick={() => setIsFavorite(!isFavorite)}>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => setIsFavorite(!isFavorite) }
+          >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Compartilhar"

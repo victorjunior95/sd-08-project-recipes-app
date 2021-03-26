@@ -8,6 +8,7 @@ import CarouselCard from '../../components/Card/CarouselCard';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+
 function DrinkDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -52,7 +53,11 @@ function DrinkDetails(props) {
             <img src={ shareIcon } alt="Compartilhar" />
             {copied && 'Link copiado!'}
           </button>
-          <button type="button" data-testid="favorite-btn" onClick={() => setIsFavorite(!isFavorite)}>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => setIsFavorite(!isFavorite) }
+          >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Compartilhar"

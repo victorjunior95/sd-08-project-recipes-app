@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { buscarIngredientesComidas } from '../services/buscarIngredientes';
 
-function ExplorarIngredientes() {
+function ExplorarIngredientesComidas() {
   const [ingredientes, setIngredientes] = useState([]);
   const { enviarTituloDaPagina, mudarStatusBotaoPesquisa } = useContext(
     ContextReceitas,
@@ -30,35 +30,16 @@ function ExplorarIngredientes() {
               key={ index }
               data-testid={ `${index}-ingredient-card` }
             >
+
               <img
-                src={ `https://www.'themealdb'.com/images/ingredients/${element.strIngredient}-Small.png` }
+                src={ `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png` }
                 data-testid={ `${index}-card-img` }
-                alt="imagem ingrediente"
+                alt="item comida"
               />
-              <div data-testid={ `${index}-card-name` } />
+              <div data-testid={ `${index}-card-name` }>{ element.strIngredient }</div>
             </button>
           ))
         }
-
-        {/* ///explorar/comidas/ingredientes */}
-        {/* {
-          ingredientes.map(({ strIngredient1 }, index) => (
-            <button
-              type="button"
-              key={ strIngredient1 }
-              data-testid={ `${index}-ingredient-card` }
-            >
-              <img
-                src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-                alt={ strIngredient1 }
-                data-testid={ `${index}-card-img` }
-              />
-              <div data-testid={ `${index}-card-name` }>
-                { strIngredient1 }
-              </div>
-            </button>
-          ))
-        } */}
         ;
       </div>
       <Footer />
@@ -66,4 +47,4 @@ function ExplorarIngredientes() {
   );
 }
 
-export default ExplorarIngredientes;
+export default ExplorarIngredientesComidas;

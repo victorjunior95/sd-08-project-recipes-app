@@ -13,39 +13,19 @@ function Foods() {
   const [category, setCategory] = useState('');
   const history = useHistory();
   const onClickAll = ({ target }) => setCategory(target.value);
-  const onClickCategory = ({ target }) => setCategory(target.value);
+  const onClickCategory = ({ target }) => (category !== target.value ? setCategory(target.value) : setCategory(''));
 
   useEffect(() => {
     setFilterFood({ key: 'category', value: category });
   }, [category, setFilterFood]);
-  // const renderingCondition = (categoryState) => {
-  //   const exist = (meals && meals
-  //     .filter((meal, index) => index <= STOP_INDEX && meal.strCategory.includes()));
-  //   let result = exist || [];
-  //   console.log(result);
-  //   if (categoryState !== '') {
-  //     result = (meals && meals
-  //       .filter((meal, index) => index <= STOP_INDEX))
-  //       .map((item, index) => (
-  //         <Card
-  //           key={ item.idMeal }
-  //           id={ item.idMeal }
-  //           name={ item.strMeal }
-  //           img={ item.strMealThumb }
-  //           index={ index }
-  //           onClick={ () => history.push(`comidas/${item.idMeal}`) }
-  //         />));
-  //   }
-  //   return result.map((item, index) => (
-  //     <Card
-  //       key={ item.idMeal }
-  //       id={ item.idMeal }
-  //       name={ item.strMeal }
-  //       img={ item.strMealThumb }
-  //       index={ index }
-  //       onClick={ () => history.push(`comidas/${item.idMeal}`) }
-  //     />));
-  // };
+
+  useEffect(() => {
+    const renderingCondition = (categoryState) => {
+      if (categoryState === '') {
+        setFilterFood({ key: 'name', value: categoryState });
+      }
+    }; renderingCondition(category);
+  }, [category]);
 
   return (
     <div>
@@ -56,7 +36,6 @@ function Foods() {
         onClickCategory={ onClickCategory }
       />
       <div className="cards">
-        {/* {(renderingCondition(category))} */}
         {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)
           .map((item, index) => (

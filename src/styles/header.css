@@ -4,8 +4,12 @@
   height: 60px;
   justify-content: space-between;
   margin-bottom: 10px;
+  overflow: hidden;
   padding: 3px;
+  position: fixed;
+  top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .header input {

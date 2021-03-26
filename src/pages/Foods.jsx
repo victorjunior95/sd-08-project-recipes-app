@@ -71,14 +71,20 @@ function Foods() {
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
         </section>
       ) : (
-        <>
-          <Header label="Comidas" Search={ SearchButton } page="Comidas" />
-          <CategoriesContainer page="Comidas" />
-          <div className="card-food">
-            {showCards()}
-          </div>
+        <div>
+          <Header
+            label="Comidas"
+            Search={ SearchButton }
+            page="Comidas"
+          />
+          <main className="main-container">
+            <CategoriesContainer page="Comidas" />
+            <div className="card-food">
+              {showCards()}
+            </div>
+          </main>
           <Footer />
-        </>
+        </div>
       )}
     </div>
   );

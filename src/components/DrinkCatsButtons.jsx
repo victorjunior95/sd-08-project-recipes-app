@@ -11,7 +11,7 @@ function DrinkCatsButtons() {
   useEffect(() => {
     const fetchData = () => dispatch(fetchDrinkCatsThunk());
     fetchData();
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>

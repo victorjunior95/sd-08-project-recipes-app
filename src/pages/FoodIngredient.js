@@ -12,7 +12,7 @@ function FoodIngredient() {
   useEffect(() => {
     const dataDispatch = () => dispatch(fetchIngredientThunk());
     dataDispatch();
-  }, [dispatch]);
+  }, []);
   return (
     <main>
       <Header />

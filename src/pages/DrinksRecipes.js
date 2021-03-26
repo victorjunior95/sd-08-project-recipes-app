@@ -25,11 +25,12 @@ function DrinksRecipes() {
     if (!ifilter && !filter) fetchData(input, type);
     if (filter) fetchDataCat(filter);
     if (ifilter && !filter) ingredientFilter(ifilter);
-  }, [dispatch, input, type, filter, ifilter]);
+  }, [input, type, filter, ifilter]);
+
   useEffect(() => () => {
     dispatch(clearRecipesAction());
     dispatch(clearSearchAction());
-  }, [dispatch]);
+  }, []);
 
   return (
     <main>

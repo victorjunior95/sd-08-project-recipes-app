@@ -11,7 +11,7 @@ function MealCatsButtons() {
   useEffect(() => {
     const fetchData = () => dispatch(fetchMealCatsThunk());
     fetchData();
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>

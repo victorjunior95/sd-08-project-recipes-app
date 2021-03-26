@@ -12,7 +12,7 @@ function DrinkIngredient() {
   useEffect(() => {
     const dataDispatch = () => dispatch(fetchDrinkIngredientThunk());
     dataDispatch();
-  }, [dispatch]);
+  }, []);
   return (
     <main>
       <Header />

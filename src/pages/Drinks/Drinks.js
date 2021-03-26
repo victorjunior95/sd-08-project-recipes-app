@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import { DrinkCtx } from '../../context/ContextDrink';
@@ -9,6 +9,7 @@ import { CategoryButtons } from '../../components/Buttons';
 function Drinks() {
   const STOP_INDEX = 11;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
+  const history = useHistory();
   const onClickAll = () => console.log('Clicou em All');
   const onClickCategory = () => console.log('Clicou em category');
 
@@ -30,6 +31,7 @@ function Drinks() {
               name={ item.strDrink }
               img={ item.strDrinkThumb }
               index={ index }
+              onClick={ () => history.push(item.idDrink) }
             />
           ))}
         { drinks && drinks.length === 1

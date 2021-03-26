@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import './Foods.css';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
@@ -10,6 +10,7 @@ import { CategoryButtons } from '../../components/Buttons';
 function Foods() {
   const STOP_INDEX = 11;
   const { foodApi: { meals } } = useContext(FoodCtx);
+  const history = useHistory();
   const onClickAll = ({ target }) => console.log(`Clicou em ${target.value}`);
   const onClickCategory = ({ target }) => console.log(`Clicou em ${target.value}`);
   return (
@@ -30,6 +31,7 @@ function Foods() {
               name={ item.strMeal }
               img={ item.strMealThumb }
               index={ index }
+              onClick={ () => history.push(item.idMeal) }
             />
           ))}
 

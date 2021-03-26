@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import contextRecipes from '../context/Context';
 import Button from './Button';
 import Recomendations from './Recomendations';
+import '../css/Details.css';
 
 function Details() {
   const history = useHistory();
@@ -24,7 +25,7 @@ function Details() {
   );
 
   return (
-    <div>
+    <div className="detailsDiv">
       <img
         src={ currentFood.strMealThumb || currentFood.strDrinkThumb }
         data-testid="recipe-photo"
@@ -54,10 +55,7 @@ function Details() {
       </ul>
       <h2>Instruções</h2>
       <p data-testid="instructions">{ currentFood.strInstructions }</p>
-
-      <div>
-        { ytVideo() }
-      </div>
+      { ytVideo() }
       <Recomendations />
       <Button
         datatestid="start-recipe-btn"

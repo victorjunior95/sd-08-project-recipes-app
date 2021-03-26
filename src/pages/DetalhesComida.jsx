@@ -19,9 +19,7 @@ function DetalhesComida() {
   }, []);
 
   return (
-    <div>
-      <Details />
-    </div>
+    <Details />
   );
 }
 

@@ -13,7 +13,7 @@ function RecomendationCard(props) {
   }
 
   return (
-    <div className="carousel">
+    <>
       <button
         type="button"
         onClick={ () => handlePush() }
@@ -23,7 +23,7 @@ function RecomendationCard(props) {
           data-testid={ `${index}-card-img` }
           src={ food.strDrinkThumb || food.strMealThumb }
           alt="Food"
-          width="100%"
+          className="carouselImage"
         />
       </button>
       <p
@@ -32,7 +32,7 @@ function RecomendationCard(props) {
         { food.strDrink || food.strMeal }
 
       </p>
-    </div>
+    </>
   );
 }
 RecomendationCard.propTypes = {

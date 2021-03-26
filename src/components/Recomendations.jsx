@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import getResultFromAPI from '../api/getResultFromAPI';
-// import FoodCard from './FoodCard';
 import RecomendationCard from './RecomendationCard';
 import alternatePath from '../services/alternatePath';
+import '../css/Recomendations.css';
 
 function Recomendations() {
   const SIX_RECOMMENDATIONS = 6;

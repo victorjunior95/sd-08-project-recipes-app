@@ -19,9 +19,7 @@ function DetalhesBebida() {
   }, []);
 
   return (
-    <div>
-      <Details />
-    </div>
+    <Details />
   );
 }
 

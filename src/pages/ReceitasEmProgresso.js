@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { addFoodToFavorite, fetchDrinkApiById, fetchFoodApiById,
   getIngredientList, isFavoriteRecipe } from '../helpers';
 import fav from '../images/blackHeartIcon.svg';
@@ -71,17 +70,11 @@ class ReceitasEmProgresso extends Component {
       return acc;
     }, {});
 
-    // const recomendation = await fetchFoodRecomendation();
-    // const finishedRechipe = recipeIsDone(drinkId);
-    // const alreadyStartedThisRecipe = continueRecipe(drinkId, 'bebidas');
     const isFavorite = isFavoriteRecipe(drinkId);
     this.setState({
       isDone,
       ingredientList: arrIngredientes,
-      // recomendations: recomendation,
       currentRecipe: recipe,
-      // isThisRecipeDone: finishedRechipe,
-      // continueThisRecipe: alreadyStartedThisRecipe,
       favoriteRecipe: isFavorite,
     });
   }
@@ -96,28 +89,15 @@ class ReceitasEmProgresso extends Component {
       return acc;
     }, {});
 
-    // const recomendation = await fetchDrinkRecomendation();
-    // const youtubeVideo = recipe.strYoutube.replace('watch?v=', 'embed/');
-    // const finishedRechipe = recipeIsDone(foodId);
-    // const alreadyStartedThisRecipe = continueRecipe(foodId, 'comidas');
     const isFavorite = isFavoriteRecipe(foodId);
     this.setState({
       isDone,
       ingredientList: arrIngredientes,
-      // recomendations: recomendation,
-      // currentVideo: youtubeVideo,
       currentRecipe: recipe,
-      // displayShareMesage: false,
-      // isThisRecipeDone: finishedRechipe,
-      // continueThisRecipe: alreadyStartedThisRecipe,
       favoriteRecipe: isFavorite,
     });
   }
 
-  // getSotrage() {
-  //   const storage = JSON.parse(localStorage.getItem('isDone'));
-  //   if (storage) this.setState({ isDone: storage });
-  // }
   favoriteThisItem() {
     let variavel = '';
     const { currentRecipe } = this.state;

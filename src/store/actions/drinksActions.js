@@ -28,10 +28,10 @@ export const fetchDrinksRandom = () => (dispatch) => {
       fetchDrinksByCategories()],
   )
     .then((data) => {
-      const meals = data[0];
+      const drinks = data[0];
       const categories = data[1];
       dispatch(getSearchDrink({
-        ...meals, categories,
+        ...drinks, categories,
       }));
     });
 };

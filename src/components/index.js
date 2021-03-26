@@ -14,6 +14,8 @@ import LogoutButton from './buttons/LogoutButton';
 import SearchDropDown from './SearchDropDown';
 import MainIngredientCard from './MainIngredientCard';
 import MainIngredientDrinkCard from './MainIngredientDrinkCard';
+import FoodInProgressCard from './FoodInProgressCard';
+import DrinkInProgressCard from './DrinkInProgressCard';
 
 const components = {
   Header,
@@ -32,6 +34,8 @@ const components = {
   SearchDropDown,
   MainIngredientCard,
   MainIngredientDrinkCard,
+  FoodInProgressCard,
+  DrinkInProgressCard,
 };
 
 export default components;

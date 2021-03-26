@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import components from '../components';
+import api from '../services';
 
 const FoodDetailsInProgress = () => {
-  // const [redirect, setRedirect] = useState(false);
+  const [data, setData] = useState([]);
   const history = useHistory();
   const id = history.location.pathname;
   const res = id.replace(/\D/g, ''); // https://stackoverflow.com/questions/30607419/return-only-numbers-from-string/30607466
 
-  // useEffect(() => {
-  //   setRedirect(true);
-  //   return () => {
-  //     setRedirect(false);
-  //   };
-  // }, [redirect]);
-
-  console.log(res);
+  useEffect(() => {
+    api.fetchMealById(res)
+      .then((response) => response.json())
+      .then((result) => setData(result.meals));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log(data);
   return (
 
     <div>
-      Food Recipe In Progress
+      {data && data.map((
+        { strMeal, strMealThumb, strCategory, strInstructions }, index, object,
+      ) => (
+        <div className="home-container" key={ index }>
+          <components.FoodInProgressCard
+            data={ object }
+            img={ strMealThumb }
+            meal={ strMeal }
+            category={ strCategory }
+            instructions={ strInstructions }
+          />
+        </div>
+      ))}
     </div>
   );
 };

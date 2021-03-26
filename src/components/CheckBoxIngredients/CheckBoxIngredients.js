@@ -25,8 +25,8 @@ const CheckBoxIngredients = ({ object, title }) => {
     if (objectSaved === null || !existSpecificId) {
       console.log('Entra na primeira condição')
       setProgressRecipes({
-        ... inProgressRecipes, meals: {
-          ...inProgressRecipes.meals, [mealId] : [],
+        ... inProgressRecipes, ...objectSaved, meals: {
+          ...inProgressRecipes.meals, ...objectSaved.meals, [mealId] : [],
         }
       })
       // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
@@ -42,7 +42,6 @@ const CheckBoxIngredients = ({ object, title }) => {
 
     const idsMealList = inProgressRecipes && Object.keys(inProgressRecipes.meals)
     const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
-    console.log(inProgressRecipes, existSpecificId , 'Antes de entrar nas condições')
 
     if (existSpecificId) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
@@ -100,6 +99,20 @@ const CheckBoxIngredients = ({ object, title }) => {
     }
   }
 
+  const isChecked = (ingredient) => {
+    const idsMealList = inProgressRecipes && Object.keys(inProgressRecipes.meals)
+    const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
+
+    const specificIingredient = object[ingredient]
+
+    if (existSpecificId && title === "Comidas") {
+      const ingredientList = inProgressRecipes.meals[mealId]
+      return ingredientList.some(el => el === specificIingredient);
+    } else if (existSpecificId) {
+      const ingredientList = inProgressRecipes.cocktails[drinkId]
+      return ingredientList.some(el => el === specificIingredient);
+    }
+  }
   
   const renderIngredientList = () => {
     const listKeys = Object.keys(object);
@@ -119,6 +132,7 @@ const CheckBoxIngredients = ({ object, title }) => {
               id={ingredient}
               onClick={handleClick}
               // ref={ createRef }
+              checked={isChecked(ingredient)}
               />
             <label
               htmlFor={ingredient}

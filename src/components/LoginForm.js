@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, Card, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
@@ -23,34 +24,55 @@ function LoginForm() {
   };
 
   return (
-    <form>
-      <input
-        data-testid="email-input"
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Digite seu e-mail"
-        onChange={ (e) => setEmail(e.target.value) }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Senha"
-        onChange={ (e) => setPassword(e.target.value) }
-      />
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        name="login-button"
-        id="login-button"
-        disabled={ validation() }
-        onClick={ () => handleClick() }
+    <Card className="border-0 w-100 bg-dark cardHeigth">
+      <Card.Body className="loginHeader" />
+      <Card.Title
+        className="m-2 text-center text-warning fw-bold"
       >
-        Entrar
-      </button>
-    </form>
+        Descubra as melhores receitas do mundo
+      </Card.Title>
+      <Card.Body className="d-flex flex-column align-items-center w-100">
+        <Form.Group controlId="formBasicEmail" className="w-75">
+          <Form.Control
+            data-testid="email-input"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Digite seu e-mail"
+            className="mb-2"
+            onChange={ (e) => setEmail(e.target.value) }
+          />
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword" className="w-75">
+          <Form.Control
+            data-testid="password-input"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Senha"
+            className="mb-3"
+            onChange={ (e) => setPassword(e.target.value) }
+          />
+        </Form.Group>
+        <Button
+          data-testid="login-submit-btn"
+          type="button"
+          name="login-button"
+          id="login-button"
+          className="w-75"
+          disabled={ validation() }
+          onClick={ () => handleClick() }
+        >
+          Entrar
+        </Button>
+        <Card.Text
+          className="m-2 text-center text-white fw-light"
+        >
+          Esqueceu a Senha?
+        </Card.Text>
+      </Card.Body>
+    </Card>
+
   );
 }
 

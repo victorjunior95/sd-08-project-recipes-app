@@ -20,6 +20,10 @@ const Comidas = () => {
   const [actualCategory, setActualCategory] = useState('');
 
   useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Comidas', showSearchIcon: true });
+  }, [setHeaderInfo]);
+
+  useEffect(() => {
     async function getCategorias() {
       const categoriasResult = await getComidaCategory();
       setCategorias([{ strCategory: 'All' }, ...categoriasResult.meals]);

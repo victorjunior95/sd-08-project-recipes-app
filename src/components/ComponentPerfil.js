@@ -11,8 +11,13 @@ function ComponentPerfil() {
   useEffect(() => {
     setHeaderInfo({
       pageTitle: 'Perfil',
+      showSearchIcon: false,
     });
-    setUserEmail(JSON.parse(localStorage.getItem('user')).email);
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      setUserEmail(JSON.parse(localStorage.getItem('user')).email);
+    } else {
+      setUserEmail('name@email.com');
+    }
   }, [setHeaderInfo, setUserEmail]);
 
   return (

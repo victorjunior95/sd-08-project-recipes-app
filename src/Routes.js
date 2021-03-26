@@ -16,6 +16,7 @@ import FoodProcess from './pages/FoodProcess';
 import DrinkProcess from './pages/DrinkProcess';
 import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import TESTE from './pages/TESTE';
 
 const Routes = () => (
   <Switch>
@@ -43,6 +44,7 @@ const Routes = () => (
     <Route exact path="/perfil" component={ ProfilePage } />
     <Route exact path="/receitas-feitas" component={ ReadyMadeRecipes } />
     <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
+    <Route exact path="/teste" component={ TESTE } />
   </Switch>
 );
 

@@ -6,7 +6,7 @@ import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
 import { FoodCtx } from '../../context/ContextFood';
 import CarouselCard from '../../components/Card/CarouselCard';
 import shareIcon from '../../images/shareIcon.svg';
-import favIcon from '../../images/whiteHeartIcon.svg';
+import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 function DrinkDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -51,7 +51,7 @@ function DrinkDetails(props) {
             <img src={ shareIcon } alt="Compartilhar" />
             {copied && 'Link copiado!'}
           </button>
-          <img src={ favIcon } alt="Compartilhar" data-testid="favorite-btn" />
+          <img src={ WhiteHeartIcon } alt="Compartilhar" data-testid="favorite-btn" />
         </div>
         <img
           className="detail-image"

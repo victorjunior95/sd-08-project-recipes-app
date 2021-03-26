@@ -5,7 +5,7 @@ class Loading extends Component {
   render() {
     return (
       <div>
-        Homens Trabalhando....
+        Homens Trabalhando Muito.......
       </div>
     );
   }

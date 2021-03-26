@@ -6,9 +6,16 @@ class RecipeCard extends React.Component {
     const { idRecipeCard, idImg, srcImg, idCardName, mealName } = this.props;
 
     return (
-      <div data-testid={ idRecipeCard }>
-        <img data-testid={ idImg } src={ srcImg } alt="recipe pic" />
-        <p data-testid={ idCardName }>{mealName}</p>
+      <div data-testid={ idRecipeCard } className="card">
+        <center>
+          <img
+            data-testid={ idImg }
+            src={ srcImg }
+            alt="recipe pic"
+            className="linkImage"
+          />
+          <p data-testid={ idCardName }>{mealName}</p>
+        </center>
       </div>
     );
   }

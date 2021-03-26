@@ -43,6 +43,7 @@ function RecipesProvider({ children }) {
         .then((response) => setRecipes(response));
       break;
     default:
+      fetchFood('search.php?s=').then((response) => setRecipes(response));
       break;
     }
   }, [searchParam]);
@@ -64,6 +65,7 @@ function RecipesProvider({ children }) {
         .then((response) => setCocktails(response));
       break;
     default:
+      fetchDrink('search.php?s=').then((response) => setCocktails(response));
       break;
     }
   }, [searchParam]);

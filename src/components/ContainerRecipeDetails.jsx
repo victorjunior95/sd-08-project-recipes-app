@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import HeaderRecipeDetails from './HeaderRecipeDetails';
 import IngredientsRecipeDetails from './IngredientsRecipeDetails';
 import InstructionsRecipeDetails from './InstructionsRecipeDetails';
@@ -30,6 +31,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
 
   const foodInfo = () => {
     const {
+      idMeal: id,
       strMeal: name,
       strCategory: category,
       strMealThumb: image,
@@ -47,11 +49,13 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       video,
       aternateRecipe,
       arrayIngredients,
+      route: `/comidas/${id}/in-progress`,
     });
   };
 
   const drinkInfo = () => {
     const {
+      idDrink: id,
       strDrink: name,
       strAlcoholic: category,
       strDrinkThumb: image,
@@ -69,6 +73,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       video,
       aternateRecipe,
       arrayIngredients,
+      route: `/bebidas/${id}/in-progress`,
     });
   };
 
@@ -96,6 +101,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     instructions,
     video,
     arrayIngredients,
+    route,
   } = recipeInfo;
 
   return (
@@ -116,7 +122,13 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             recommendedRecipes={ recommended }
             page={ page }
           />
-          <Button name="Iniciar Receita" data-testid="start-recipe-btn" />
+          <Link to={ route }>
+            <Button
+              name="Iniciar Receita"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+            />
+          </Link>
         </main>
       )}
     </div>
@@ -136,6 +148,8 @@ ContainerRecipeDetails.propTypes = {
     strDrinkThumb: PropTypes.string.isRequired,
     strVideo: PropTypes.string.isRequired,
     strAlcoholic: PropTypes.string.isRequired,
+    idMeal: PropTypes.string.isRequired,
+    idDrink: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -1,3 +1,10 @@
 .card {
-  width: 35%;
+  margin-right: 5px;
+  min-width: 50%;
+  width: 170px;
+}
+
+.card > img {
+  object-fit: cover;
+  width: 100%;
 }

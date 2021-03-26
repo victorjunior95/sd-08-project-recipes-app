@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../styles/card.css';
 
 const CardCarousel = ({ id, imagePath, title, category, index }) => (
-  <section
+  <div
     key={ id }
     className="card"
     data-testid={ `${index}-recomendation-card` }
@@ -11,7 +11,7 @@ const CardCarousel = ({ id, imagePath, title, category, index }) => (
     <img src={ imagePath } alt={ title } data-testid={ `${index}-card-img` } />
     <p>{category}</p>
     <p data-testid={ `${index}-recomendation-title` }>{title}</p>
-  </section>
+  </div>
 );
 
 CardCarousel.defaultProps = {

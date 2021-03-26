@@ -1,80 +1,87 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Alert, Card, Button, Container, Row, Col } from 'react-bootstrap';
-import Detail from './DetailHorizontalII';
+import PropTypes from 'prop-types';
+import shareIcon from '../../images/shareIcon.svg';
 
-function DetailHorizontal() {
+function DetailHorizontal({ feitas }) {
   const [show, setShow] = useState(false);
-
-  const feitas = [{
-    id: '52771', // idMeal
-    type: 'comida', // comida ou bebida
-    area: 'Italian', // strArea
-    category: 'Vegetarian', // strCategory
-    alcoholicOrNot: '', // alcoholic-ou-non-alcoholic-ou-texto-vazio
-    name: 'Spicy Arrabiata Penne', // strMeal
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg', // strMealThumb
-    doneDate: '24/03/2021', // quando-a-receita-foi-concluida
-    tags: ['Pasta', 'Curry'], // tag ou vazio
-  },
-  {
-    id: '52772', // idMeal
-    type: 'bebida', // comida ou bebida
-    area: 'Brazil', // strArea
-    category: 'Churrasco', // strCategory
-    alcoholicOrNot: '', // alcoholic-ou-non-alcoholic-ou-texto-vazio
-    name: 'Spicy Arrabiata', // strMeal
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg', // strMealThumb
-    doneDate: '23/03/2021', // quando-a-receita-foi-concluida
-    tags: ['Pasta'], // tag ou vazio
-  }];
 
   return (
     <Container>
-      {feitas.length > 0 ? feitas.map((recep, i) => (
-        <Card key={ i }>
-          <Row>
-            <Col>
-              <Card.Img
-                src={ recep.image }
-                style={ { width: '9rem' } }
-                data-testid={ `${i}-horizontal-image` }
-              />
-            </Col>
-            <Col>
-              <Card.Body>
-                <Detail index={ i } click={ setShow } recepe={ recep } />
-                <Card.Subtitle
-                  data-testid={ `${i}-horizontal-name` }
-                >
-                  { recep.name }
-                </Card.Subtitle>
-                <Card.Text
-                  data-testid={ `${i}-horizontal-done-date` }
-                >
-                  Feita em:
-                  { recep.doneDate }
-                </Card.Text>
-                {recep.tags.length > 0 ? recep.tags.map((tag) => (
-                  <Button
-                    variant="secondary"
-                    key={ tag }
-                    data-testid={ `${i}-${tag}-horizontal-tag` }
+      {feitas.length > 0 ? feitas.map((recep, i) => {
+        const condi = `${recep.type === 'comida' ? 'comidas/' : 'bebidas/'}${recep.id}`;
+        return (
+          <Card key={ i }>
+            <Row>
+              <Col>
+                <Link to={ condi }>
+                  <Card.Img
+                    src={ recep.image }
+                    style={ { width: '10rem' } }
+                    data-testid={ `${i}-horizontal-image` }
+                  />
+                </Link>
+              </Col>
+              <Col>
+                <Card.Body>
+                  <Card.Title
+                    data-testid={ `${i}-horizontal-top-text` }
                   >
-                    { tag }
-                  </Button>
-                )) : <div />}
-              </Card.Body>
-            </Col>
-          </Row>
-          {show && (
-            <Alert variant="success" onClose={ () => setShow(false) } dismissible>
-              <Alert.Heading>Link copiado!</Alert.Heading>
-            </Alert>
-          )}
-        </Card>
-      )) : <div />}
+                    { `${recep.type === 'comida' ? recep.area
+                      : recep.alcoholicOrNot} - ${recep.category}` }
+                  </Card.Title>
+                  <Card.Subtitle
+                    as={ Link }
+                    to={ condi }
+                    data-testid={ `${i}-horizontal-name` }
+                  >
+                    { recep.name }
+                  </Card.Subtitle>
+                  <Card.Text
+                    data-testid={ `${i}-horizontal-done-date` }
+                  >
+                    Feita em:
+                    { recep.doneDate }
+                  </Card.Text>
+                  {recep.tags.length > 0 ? recep.tags.map((tag) => (
+                    <Col key={ tag }>
+                      <Button
+                        variant="secondary"
+                        data-testid={ `${i}-${tag}-horizontal-tag` }
+                      >
+                        { tag }
+                      </Button>
+                    </Col>
+                  )) : <div />}
+                </Card.Body>
+              </Col>
+              <Col>
+                <Button
+                  variant="link"
+                  style={ { width: '3rem' } }
+                  onClick={ () => {
+                    setShow(true);
+                    navigator.clipboard.writeText(`http://localhost:3000/${condi}`);
+                  } }
+                >
+                  <Card.Img data-testid={ `${i}-horizontal-share-btn` } src={ shareIcon } />
+                </Button>
+              </Col>
+            </Row>
+            {show && (
+              <Alert variant="success" onClose={ () => setShow(false) } dismissible>
+                <Alert.Heading>Link copiado!</Alert.Heading>
+              </Alert>
+            )}
+          </Card>
+        )}) : <div />}
     </Container>
   );
 }
+
+DetailHorizontal.propTypes = {
+  feitas: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};
 
 export default DetailHorizontal;

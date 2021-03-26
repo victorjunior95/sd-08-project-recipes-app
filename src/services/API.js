@@ -10,6 +10,7 @@ const endPointFoodById = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i='
 const endPointDrinkById = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 const endPointFoodRandom = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+
 const endPointDrinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
 const returnAlert = () => {
@@ -76,5 +77,15 @@ export const getFoodRandom = async () => {
 export const getDrinkRandom = async () => {
   const results = await fetch(endPointDrinkRandom).then((res) => res.json());
   const { drinks } = results;
+  return drinks;
+};
+
+export const getCategoryFoods = async () => {
+  const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list').then((result) => result.json());
+  return meals;
+};
+
+export const getCategoryDrinks = async () => {
+  const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((result) => result.json());
   return drinks;
 };

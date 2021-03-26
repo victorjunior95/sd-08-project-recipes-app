@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FiMail, FiLock } from 'react-icons/fi';
+
+import '../styles/Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -36,28 +39,38 @@ const Login = () => {
   };
 
   return (
-    <div className="Login">
+    <div className="pageContainer">
+      <div className="pageOpacity" />
 
-      <input
-        type="email"
-        data-testid="email-input"
-        placeholder="E-mail"
-        onChange={ ({ target: { value } }) => setEmail(value) }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        placeholder="Senha"
-        onChange={ ({ target: { value } }) => setPassword(value) }
-      />
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        disabled={ isDisabled }
-        onClick={ localStorages }
-      >
-        Entrar
-      </button>
+      <div className="formContainer">
+        <div className="inputContainer">
+          <FiMail size={ 25 } />
+          <input
+            type="email"
+            data-testid="email-input"
+            placeholder="E-mail"
+            onChange={ ({ target: { value } }) => setEmail(value) }
+          />
+        </div>
+        <div className="inputContainer">
+          <FiLock size={ 25 } />
+          <input
+            data-testid="password-input"
+            type="password"
+            placeholder="Senha"
+            onChange={ ({ target: { value } }) => setPassword(value) }
+          />
+        </div>
+        <button
+          type="submit"
+          className="loginBtn"
+          data-testid="login-submit-btn"
+          disabled={ isDisabled }
+          onClick={ localStorages }
+        >
+          Entrar
+        </button>
+      </div>
     </div>
 
   );

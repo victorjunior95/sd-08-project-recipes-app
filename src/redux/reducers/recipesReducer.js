@@ -1,11 +1,14 @@
 import { CLEAR_API, FETCH_API, FETCH_CATEGORIES,
-  FETCH_CAT_RECIPES, FILTER_DRINK_CAT, FILTER_MEAL_CAT } from '../actions';
+  FETCH_CAT_RECIPES, FETCH_INGREDIENTS, FILTER_DRINK_CAT,
+  FILTER_INGREDIENT, FILTER_MEAL_CAT } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
   categories: [],
   drinkFilter: '',
   mealFilter: '',
+  ingredients: [],
+  ingredientFilter: '',
 };
 
 export default function recipesReducer(state = INITIAL_STATE, action) {
@@ -21,6 +24,7 @@ export default function recipesReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       recipes: [],
+      ingredientFilter: '',
     };
   case FETCH_CATEGORIES:
     return {
@@ -41,6 +45,16 @@ export default function recipesReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       recipes: payload.filteredRecipes,
+    };
+  case FETCH_INGREDIENTS:
+    return {
+      ...state,
+      ingredients: payload.ingredients,
+    };
+  case FILTER_INGREDIENT:
+    return {
+      ...state,
+      ingredientFilter: payload.ingredient,
     };
   default:
     return state;

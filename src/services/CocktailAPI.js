@@ -46,3 +46,19 @@ export function fetchRecipesDrinkCats(filter) {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchDrinkIngridients() {
+  const fetchURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+
+  return fetch(fetchURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}
+
+export function fetchDrinkIngridientsFilter(ingredient) {
+  const recipesFilteredURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+
+  return fetch(recipesFilteredURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

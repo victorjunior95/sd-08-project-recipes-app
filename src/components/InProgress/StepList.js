@@ -4,6 +4,23 @@ import { saveInProgress } from '../../redux/actions/details';
 import { useIsMeal } from '../../services/customHooks';
 import { loadFromStorage, makeListWithObj, saveOnStorage } from '../../services/utils';
 
+function matchChecked(id, params) {
+  const { isMeal, actualRecipe, progress } = params;
+  let mealCocktail = '';
+  let actualId = 0;
+  if (isMeal) {
+    mealCocktail = 'meals';
+    actualId = actualRecipe.idMeal;
+  } else {
+    mealCocktail = 'cocktails';
+    actualId = actualRecipe.idDrink;
+  }
+  if (progress[mealCocktail][actualId] !== undefined) {
+    return progress[mealCocktail][actualId].includes(id);
+  }
+  return false;
+}
+
 function undefinedID(correctId, actualId, mealCocktail, params) {
   const { progress, dispatch } = params;
   const newProgress = {
@@ -55,10 +72,8 @@ function addRecipeStep({ id }, params) {
     actualId = actualRecipe.idMeal;
   } else {
     mealCocktail = 'cocktails';
-    actualId = actualRecipe.idBeverage;
+    actualId = actualRecipe.idDrink;
   }
-  console.log(progress[mealCocktail][actualId]);
-  console.log('undefined?: ', progress[mealCocktail][actualId] === undefined);
   if (progress[mealCocktail][actualId] === undefined) {
     undefinedID(correctId, actualId, mealCocktail, params);
   } else {
@@ -108,6 +123,7 @@ export default function StepList() {
               type="checkbox"
               id={ `stepRecipeCheckbox${i}` }
               onChange={ ({ target }) => addRecipeStep(target, addParams) }
+              checked={ matchChecked(i, addParams) }
             />
             -
             {e}

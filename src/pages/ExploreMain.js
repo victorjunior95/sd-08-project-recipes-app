@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRecipes } from '../actions/recipes';
 import Footer from '../components/Footer';
+import { fetchRecipes } from '../actions/recipes';
 
 function ExploreMain({ location: { pathname } }) {
-  const prevPath = pathname.split('/')[2]; console.log(prevPath);
+  const prevPath = pathname.split('/')[2];
   const selectType = {
     comidas: { 0: 'meals', 1: 'idMeal' },
     bebidas: { 0: 'drinks', 1: 'idDrink' },
   };
-  const type = selectType[prevPath][0]; console.log(type);
-  const idType = selectType[prevPath][1]; console.log(idType);
+  const type = selectType[prevPath][0];
+  const idType = selectType[prevPath][1];
   const token = 1;
 
   const { list } = useSelector((state) => state.recipes);

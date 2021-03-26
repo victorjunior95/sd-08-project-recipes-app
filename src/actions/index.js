@@ -6,6 +6,7 @@ export const ADD_RECOMMENDATIONS = 'ADD_RECOMMENDATIONS';
 export const ADD_TOKEN_MEAL = 'ADD_TOKEN_MEAL';
 export const ADD_TOKEN_DRINK = 'ADD_TOKEN_DRINK';
 export const ADD_USER = 'ADD_USER';
+export const ADD_BYINGREDIENT = 'ADD_BYINGREDIENT';
 export const START_RECIPE = 'START_RECIPE';
 export const END_RECIPE = 'END_RECIPE';
 export const ADD_FAVORITE = 'ADD_FAVORITE';

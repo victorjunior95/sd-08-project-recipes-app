@@ -1,6 +1,6 @@
 import { ADD_CATEGORIES, ADD_FAVORITE, ADD_FILTER, ADD_RECIPES,
-  ADD_RECOMMENDATIONS, END_RECIPE,
-  REQUEST_RECIPES, RM_FAVORITE, START_RECIPE } from '../actions';
+  ADD_RECOMMENDATIONS, END_RECIPE, REQUEST_RECIPES, RM_FAVORITE,
+  START_RECIPE, ADD_BYINGREDIENT } from '../actions';
 
 const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
 const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
@@ -16,6 +16,7 @@ const INITIAL_STATE = {
     Drink: inProgressRecipes.cocktails || {} },
   done: doneRecipes,
   favorite: favoriteRecipes,
+  byIngredient: '',
 };
 
 const MAX_RECIPES = 12;
@@ -47,6 +48,8 @@ const recipes = (state = INITIAL_STATE, action) => {
       favorite: [...state.favorite
         .filter(({ id, type }) => id !== action.payload.id
           || type !== action.payload.type)] };
+  case ADD_BYINGREDIENT:
+    return { ...state, byIngredient: action.payload };
   default:
     return state;
   }

@@ -8,7 +8,7 @@ import RecipeCard from '../components/RecipeCard';
 import IngredientsList from '../components/IngredientsList';
 import ProgressButton from '../components/ProgressButton';
 import FavButton from '../components/FavButton';
-import ShareIcon from '../images/shareIcon.svg';
+import ShareButton from '../components/ShareButton';
 
 import './RecipeDetails.css';
 
@@ -53,9 +53,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         alt={ recipe[`str${formatedType}`] }
       />
       <h1 data-testid="recipe-title">{ recipe[`str${formatedType}`] }</h1>
-      <button type="button" data-testid="share-btn">
-        <img src={ ShareIcon } alt="share" />
-      </button>
+      <ShareButton type={ pathname.split('/')[1] } id={ params.id } />
       <FavButton type={ formatedType } recipe={ recipe } />
       <h2 data-testid="recipe-category">
         { `${recipe.strAlcoholic || ''} ${recipe.strCategory}` }

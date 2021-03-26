@@ -50,7 +50,7 @@ const RecomandationCard = ({ type }) => {
               alt={ item2.strCategory }
             />
             <h3 data-testid={ `${(index * 2) + 1}-recomendation-title` }>
-              {isMeal ? item1.strDrink : item1.strMeal}
+              {isMeal ? item2.strDrink : item2.strMeal}
 
             </h3>
 

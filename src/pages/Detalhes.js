@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation, useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -16,6 +17,8 @@ const Detalhes = () => {
   const [ingredients, setIngredients] = useState([]);
   const [buttonRecipe, setButtonRecipe] = useState(true);
   const [inProgress, setProgress] = useState(false);
+  const [hidden, setHidden] = useState(false);
+
   const location = useLocation();
   const history = useHistory();
 
@@ -57,6 +60,27 @@ const Detalhes = () => {
     fetchInProgress();
   }, [location.pathname, isMeal]);
 
+  const handleIsFavorite = (favorite) => {
+    console.log(!favorite, 'oi');
+    localStorage.setItem('isFavorite', !favorite);
+    setIsFavorite(!favorite);
+  };
+  useEffect(() => {
+    const getIsFavorite = () => {
+      const getFavorite = localStorage.getItem('isFavorite');
+      console.log(getFavorite, 'oi');
+      return getFavorite;
+    };
+    console.log(isFavorite, 'faroti');
+    const results = getIsFavorite();
+    setIsFavorite(results);
+    console.log(results);
+    console.log(getIsFavorite());
+    // setTimeout(() => {
+    console.log(isFavorite, 'faroti');
+    // }, 500);
+  }, []);
+
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
   return (
@@ -73,13 +97,22 @@ const Detalhes = () => {
       <h3 data-testid="recipe-category">
         { isMeal ? foodDetails.strCategory : foodDetails.strAlcoholic}
       </h3>
-      <button type="button" data-testid="share-btn">
+      <button
+        type="button"
+        onClick={ () => {
+          const one = 1000;
+          copy(window.location); setHidden(true);
+          setTimeout(() => setHidden(false), one);
+        } }
+        data-testid="share-btn"
+      >
+        <span hidden={ !hidden }>Link copiado!</span>
         <img src={ shareIcon } alt="Share" />
       </button>
       <button
         type="button"
         data-testid="favorite-btn"
-        onClick={ () => setIsFavorite(!isFavorite) }
+        onClick={ () => handleIsFavorite(isFavorite) }
       >
         <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
       </button>

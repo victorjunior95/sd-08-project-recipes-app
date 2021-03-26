@@ -36,7 +36,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="Login">
+
       <input
         type="email"
         data-testid="email-input"
@@ -58,6 +59,7 @@ const Login = () => {
         Entrar
       </button>
     </div>
+
   );
 };
 

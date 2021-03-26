@@ -28,18 +28,26 @@ export default function Recommendations() {
   return (
     <>
       <span>Recomendadas</span>
-      {recommendations.map((recipe, index) => (
-        <div data-testid={ `${index}-recomendation-card` } key={ index }>
-          <RecipeCards
-            recommendation
+      <div style={ { overflowX: 'auto', whiteSpace: 'nowrap' } }>
+        {recommendations.map((recipe, index) => (
+
+          <div
+            data-testid={ `${index}-recomendation-card` }
             key={ index }
-            recipe={ recipe }
-            id={ recipe[`id${type}`] }
-            type={ type }
-            index={ index }
-          />
-        </div>
-      ))}
+            style={ { display: 'inline-block', float: 'none' } }
+          >
+            <RecipeCards
+              recommendation
+              key={ index }
+              recipe={ recipe }
+              id={ recipe[`id${type}`] }
+              type={ type }
+              index={ index }
+            />
+          </div>
+
+        ))}
+      </div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
@@ -8,6 +8,11 @@ export default function DrinkDetails({ match: { params: { id } } }) {
   const { recipeDetail, setSearchParams } = useContext(Context);
   const history = useHistory();
   const [recipe, setRecipe] = useState();
+
+  const recipesInProgressLS = JSON.parse(localStorage.getItem('RecipesInProgress')) || [];
+
+  const recipeInProgress = recipesInProgressLS
+    .find((idRecipe) => idRecipe === id);
 
   useEffect(() => {
     setSearchParams({
@@ -55,7 +60,20 @@ export default function DrinkDetails({ match: { params: { id } } }) {
         </p>
       ))}
       <p data-testid="instructions">{strInstructions}</p>
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <Link
+        to={ `/bebidas/${id}/in-progress` }
+        data-testid="start-recipe-btn"
+        style={ { position: 'fixed', bottom: '0px' } }
+        onClick={ () => {
+          if (!recipeInProgress) {
+            localStorage.setItem('RecipesInProgress',
+              JSON.stringify([...recipesInProgressLS, id]));
+          }
+        } }
+      >
+        {recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+
+      </Link>
       <Recommendations />
     </>
   );

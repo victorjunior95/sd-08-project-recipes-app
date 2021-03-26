@@ -1,13 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
 
 export default function FoodDetails({ match: { params: { id } } }) {
-  const { recipeDetail, setSearchParams } = useContext(Context);
+  const { recipeDetail,
+    setSearchParams } = useContext(Context);
   const history = useHistory();
   const [recipe, setRecipe] = useState();
+
+  const recipesInProgressLS = JSON.parse(localStorage.getItem('RecipesInProgress')) || [];
+
+  const recipeInProgress = recipesInProgressLS
+    .find((idRecipe) => idRecipe === id);
 
   useEffect(() => setSearchParams({
     searchInput: id,
@@ -58,7 +64,21 @@ export default function FoodDetails({ match: { params: { id } } }) {
         title="Recipe"
         src={ strYoutube.replace('watch?v=', 'embed/') }
       />
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+
+      <Link
+        to={ `/comidas/${id}/in-progress` }
+        data-testid="start-recipe-btn"
+        style={ { position: 'fixed', bottom: '0px' } }
+        onClick={ () => {
+          if (!recipeInProgress) {
+            localStorage.setItem('RecipesInProgress',
+              JSON.stringify([...recipesInProgressLS, id]));
+          }
+        } }
+      >
+        {recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+
+      </Link>
       <Recommendations />
     </>
   );

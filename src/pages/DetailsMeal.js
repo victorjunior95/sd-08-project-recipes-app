@@ -65,14 +65,12 @@ function DetailsMeal() {
           <h4>Instructions</h4>
           <p data-testid="instructions">{mealDetail.strInstructions}</p>
           <h4>Video</h4>
-          <video data-testid="video" src={ mealDetail.strYoutube }>
-            <track
-              default
-              kind="captions"
-              srcLang="pt-br"
-              src={ mealDetail.strYoutube }
-            />
-          </video>
+          <iframe
+            data-testid="video"
+            src={ `${mealDetail.strYoutube}`.replace('watch?v=', 'embed/') }
+            allow="autoplay; encrypted-media"
+            title="video"
+          />
           <h4>Recomendadas</h4>
           <div className="carousel-class">
             {drinks.length > sizeOfLength

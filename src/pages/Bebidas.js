@@ -54,7 +54,7 @@ class Bebidas extends Component {
   }
 
   render() {
-    const { categories: { drinksCategories }, drinks: { drinks } } = this.props;
+    const { categories: { drinksCategories }, drinks: { drinks }, bool } = this.props;
     const { selectedCategory } = this.state;
     if (!selectedCategory) {
       return (
@@ -87,7 +87,7 @@ class Bebidas extends Component {
           {
 
             drinks.map((drink, index) => {
-              if (index < MAX_CARDS) {
+              if (index < MAX_CARDS && bool === false) {
                 return (
                   <Link
                     to={ `/bebidas/${drink.idDrink}` }
@@ -166,6 +166,7 @@ class Bebidas extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  bool: state.user.bool,
   categories: state.categories,
   drinks: state.drinks,
   selectedCategory: state.selectedCategory,
@@ -174,6 +175,7 @@ const mapStateToProps = (state) => ({
 Bebidas.propTypes = {
   drinks: PropTypes.arrayOf(Array).isRequired,
   categories: PropTypes.arrayOf(Array).isRequired,
+  bool: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(Bebidas);

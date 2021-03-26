@@ -52,7 +52,7 @@ class Comidas extends Component {
   }
 
   render() {
-    const { categories: { recipesCategories }, meals: { meals } } = this.props;
+    const { categories: { recipesCategories }, meals: { meals }, bool } = this.props;
     const { selectedCategory } = this.state;
     if (selectedCategory.length === 0) {
       return (
@@ -86,7 +86,7 @@ class Comidas extends Component {
           {
 
             meals.map((meal, index) => {
-              if (index < MAX_CARDS) {
+              if (index < MAX_CARDS && bool === false) {
                 return (
                   <Link
                     key={ index }
@@ -167,6 +167,7 @@ class Comidas extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  bool: state.user.bool,
   categories: state.categories,
   meals: state.meals,
 });
@@ -174,6 +175,7 @@ const mapStateToProps = (state) => ({
 Comidas.propTypes = {
   meals: PropTypes.objectOf(Object).isRequired,
   categories: PropTypes.objectOf(Object).isRequired,
+  bool: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(Comidas);

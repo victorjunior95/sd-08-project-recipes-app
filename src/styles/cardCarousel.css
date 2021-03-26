@@ -1,3 +1,5 @@
-.card-caroussel {
-  width: 35%;
+.div-carousel {
+  background-color: lightblue;
+  display: flex;
+  overflow-x: scroll;
 }

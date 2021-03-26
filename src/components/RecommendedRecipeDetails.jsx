@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CardCarousel from './CardCarousel';
+import '../styles/cardCarousel.css';
 
 const RecommendedRecipeDetails = ({ recommendedRecipes, page }) => {
   console.log(recommendedRecipes);
@@ -33,7 +34,7 @@ const RecommendedRecipeDetails = ({ recommendedRecipes, page }) => {
   return (
     <section>
       <h3>Recomendados</h3>
-      {showCards()}
+      <div className="div-carousel">{showCards()}</div>
     </section>
   );
 };

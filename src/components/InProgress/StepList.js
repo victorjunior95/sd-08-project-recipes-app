@@ -1,11 +1,69 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveInProgress } from '../../redux/actions/details';
 import { useIsMeal } from '../../services/customHooks';
 import { loadFromStorage, makeListWithObj, saveOnStorage } from '../../services/utils';
 
-function addRecipeStep({ id }, isMeal, actualRecipe) {
-  console.log(id);
+function undefinedID(correctId, actualId, mealCocktail, params) {
+  const { progress, dispatch } = params;
+  const newProgress = {
+    ...progress,
+    [mealCocktail]: {
+      ...progress[mealCocktail],
+      [actualId]: [correctId * 1],
+    },
+  };
+  dispatch(saveInProgress(newProgress));
+}
+
+function definedID(correctId, actualId, mealCocktail, params) {
+  const { progress, dispatch } = params;
+  if (progress[mealCocktail][actualId].includes(correctId)) {
+    const newArray = progress[mealCocktail][actualId].filter((e) => e !== correctId);
+    const newProgress = {
+      ...progress,
+      [mealCocktail]: {
+        ...progress[mealCocktail],
+        [actualId]: newArray,
+      },
+    };
+    dispatch(saveInProgress(newProgress));
+  } else {
+    const newProgress = {
+      ...progress,
+      [mealCocktail]: {
+        ...progress[mealCocktail],
+        [actualId]: [
+          ...progress[mealCocktail][actualId],
+          correctId,
+        ],
+      },
+    };
+    dispatch(saveInProgress(newProgress));
+  }
+}
+
+function addRecipeStep({ id }, params) {
+  const stringId = id.replace(/stepRecipeCheckbox/i, '');
+  const correctId = parseInt(stringId, 10);
+  const { progress, actualRecipe, isMeal } = params;
+  let mealCocktail = '';
+  let actualId = 0;
+
+  if (isMeal) {
+    mealCocktail = 'meals';
+    actualId = actualRecipe.idMeal;
+  } else {
+    mealCocktail = 'cocktails';
+    actualId = actualRecipe.idBeverage;
+  }
+  console.log(progress[mealCocktail][actualId]);
+  console.log('undefined?: ', progress[mealCocktail][actualId] === undefined);
+  if (progress[mealCocktail][actualId] === undefined) {
+    undefinedID(correctId, actualId, mealCocktail, params);
+  } else {
+    definedID(correctId, actualId, mealCocktail, params);
+  }
 }
 
 export default function StepList() {
@@ -21,12 +79,21 @@ export default function StepList() {
 
   useEffect(() => {
     const inProgressRecipes = loadFromStorage('inProgressRecipes');
-    if (inProgressRecipes === null) {
-      saveOnStorage('inProgressRecipes', progress);
-    } else {
+    if (inProgressRecipes != null) {
       dispatch(saveInProgress(inProgressRecipes));
     }
   }, []);
+
+  useEffect(() => {
+    saveOnStorage('inProgressRecipes', progress);
+  }, [progress]);
+
+  const addParams = {
+    isMeal,
+    actualRecipe,
+    progress,
+    dispatch,
+  };
 
   return (
     <div>
@@ -40,7 +107,7 @@ export default function StepList() {
             <input
               type="checkbox"
               id={ `stepRecipeCheckbox${i}` }
-              onChange={ ({ target }) => addRecipeStep(target, isMeal, actualRecipe) }
+              onChange={ ({ target }) => addRecipeStep(target, addParams) }
             />
             -
             {e}

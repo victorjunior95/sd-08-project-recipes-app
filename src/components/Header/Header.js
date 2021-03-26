@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
-import { toggleButtonSearch } from '../../store/actions';
+import { toggleButtonSearch, fetchFood, fetchDrink } from '../../store/actions';
 import SearchBar from './SearchBar';
-import { CardsButtonsCategories } from '..';
+import CardsButtonsCategories from './CardsButtonsCategories';
 
 import '../../styles/components/Header/index.css';
 
@@ -14,7 +14,26 @@ const MAX_LENGTH_NAMES_CATEGORIES = 5;
 
 class Header extends Component {
   render() {
-    const { title, showButtonSearch, setToggle, filterButtons } = this.props;
+    const {
+      title,
+      showButtonSearch,
+      setToggle,
+      foodButtons,
+      drinkButtons,
+      getDrink,
+      getFood,
+    } = this.props;
+    let buttons = [];
+    let callback = () => {};
+    if (title === 'Comidas') {
+      buttons = [...foodButtons];
+      console.log(buttons);
+      callback = getFood;
+    } else {
+      buttons = [...drinkButtons];
+      console.log(buttons);
+      callback = getDrink;
+    }
     return (
       <header className="headerContainer">
         <div>
@@ -55,14 +74,15 @@ class Header extends Component {
         </div>
         {showButtonSearch && <SearchBar title={ title } />}
 
-        {!showButtonSearch
-         && filterButtons
-          && filterButtons.map((button, index) => {
+        {!showButtonSearch && buttons
+          && buttons.map((button, index) => {
             if (index < MAX_LENGTH_NAMES_CATEGORIES) {
               return (
                 <CardsButtonsCategories
                   key={ index }
                   strCategory={ button.strCategory }
+                  title={ title }
+                  callback={ callback }
                 />
               );
             }
@@ -73,23 +93,29 @@ class Header extends Component {
   }
 }
 
-// defaultProps
-
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   setToggle: PropTypes.func.isRequired,
   showButtonSearch: PropTypes.bool.isRequired,
-  filterButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  foodButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  drinkButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  getFood: PropTypes.func.isRequired,
+  getDrink: PropTypes.func.isRequired,
+
 };
 
 const mapStateToProps = (state) => ({
   showButtonSearch: state.headerReducer.showButtonSearch,
-  filterButtons: state.headerReducer.filterButtons,
+  foodButtons: state.headerReducer.foodsButtonsFilter,
+  drinkButtons: state.headerReducer.drinksButtonsFilter,
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setToggle: () => dispatch(toggleButtonSearch()),
+  getFood: (value) => dispatch(fetchFood(value)),
+  getDrink: (value) => dispatch(fetchDrink(value)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -103,10 +103,12 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   setLoginState: PropTypes.func.isRequired,
+
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setLoginState: (email) => dispatch(loginUserAction(email)),
+
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);

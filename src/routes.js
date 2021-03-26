@@ -13,6 +13,7 @@ import ExploreCocktailsByIngredient from './pages/ExploreCocktailsByIngredient';
 import ExploreMealsByArea from './pages/ExploreMealsByArea';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreCocktails from './pages/ExploreCocktails';
+import NotFound from './pages/NotFound';
 
 export default function Routes() {
   return (
@@ -33,13 +34,15 @@ export default function Routes() {
         component={ ExploreMealsByIngredient }
       />
       <Route path="/explorar/comidas" component={ ExploreMeals } />
+      <Route path="/explorar/bebidas/area" component={ NotFound } />
       <Route
         path="/explorar/bebidas/ingredientes"
         component={ ExploreCocktailsByIngredient }
       />
       <Route path="/explorar/bebidas" component={ ExploreCocktails } />
       <Route path="/explorar" component={ Explore } />
-      <Route path="/" component={ Login } />
+      <Route exact path="/" component={ Login } />
+      <Route path="/" component={ NotFound } />
     </Switch>
   );
 }

@@ -30,6 +30,10 @@ export const getByCategory = (category) => (
   fetchEndpoint(`${BASE_URL}/filter.php?c=${category}`)
 );
 
+export const getByArea = (area) => (
+  fetchEndpoint(`${BASE_URL}/filter.php?a=${area}`)
+);
+
 export const getById = (id) => (
   fetchEndpoint(`${BASE_URL}/lookup.php?i=${id}`)
 );

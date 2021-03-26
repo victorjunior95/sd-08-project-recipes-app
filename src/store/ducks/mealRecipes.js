@@ -99,6 +99,21 @@ export const Creators = {
       dispatch(Creators.fetchError(error.message));
     }
   },
+
+  fetchRecipesByArea: (area = 'All') => async (dispatch) => {
+    dispatch(Creators.fetch());
+    try {
+      let results = null;
+      if (area === 'All') {
+        results = (await mealApi.getByName()).meals || [];
+      } else {
+        results = (await mealApi.getByArea(area)).meals || [];
+      }
+      dispatch(Creators.fetchSuccess(results));
+    } catch (error) {
+      dispatch(Creators.fetchError(error.message));
+    }
+  },
 };
 
 export default recipes;

@@ -31,7 +31,7 @@ const fetchError = (state, action) => ({
 });
 
 const mealAreas = (state = INITIAL_STATE, action) => {
-  switch (action.types) {
+  switch (action.type) {
   case Types.FETCH: return fetch(state);
   case Types.FETCH_SUCCESS: return fetchSuccess(state, action);
   case Types.FETCH_ERROR: return fetchError(state, action);
@@ -58,7 +58,7 @@ export const Creators = {
     dispatch(Creators.fetch());
     try {
       const { meals: results = [] } = await mealApi.getAreas();
-      dispatch(Creators.fetchSuccess(results));
+      dispatch(Creators.fetchSuccess(results.map(({ strArea }) => strArea)));
     } catch (error) {
       dispatch(Creators.fetchError(error.message));
     }

@@ -116,14 +116,23 @@ class ReceitasEmProgresso extends Component {
 
   inputCards() {
     const { ingredientList, isDone, displayShareMesage,
-      favoriteRecipe, disable } = this.state;
+      favoriteRecipe, disable, currentRecipe } = this.state;
     const { history } = this.props;
+    let thumb = '';
+    let h1 = '';
+    if (history.location.pathname.includes('bebida')) {
+      thumb = currentRecipe.strDrinkThumb;
+      h1 = currentRecipe.strDrink;
+    } else {
+      thumb = currentRecipe.strMealThumb;
+      h1 = currentRecipe.strMeal;
+    }
     return (
-      <div>
-        <h1 data-testid="recipe-title">
-          Em progressso
-        </h1>
-        <img data-testid="recipe-photo" alt="receita-em-progresso" />
+      <div className="card">
+        <center>
+          <h1 data-testid="recipe-title">{h1}</h1>
+          <img data-testid="recipe-photo" alt="receita-em-progresso" src={ thumb } className="linkImage" />
+        </center>
         <button
           type="button"
           onClick={ () => this.share() }

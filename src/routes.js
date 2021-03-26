@@ -14,6 +14,7 @@ import ExploreMealsByArea from './pages/ExploreMealsByArea';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreCocktails from './pages/ExploreCocktails';
 import NotFound from './pages/NotFound';
+import MealsDetails from './pages/MealsDetails';
 
 export default function Routes() {
   return (
@@ -22,7 +23,7 @@ export default function Routes() {
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/perfil" component={ Profile } />
 
-      <Route path="/comidas/:id" component={ Meals } />
+      <Route path="/comidas/:id" component={ MealsDetails } />
       <Route path="/comidas" component={ Meals } />
 
       <Route path="/bebidas/:id" component={ Cocktails } />

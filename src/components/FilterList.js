@@ -25,6 +25,7 @@ function FilterList({ categories, fetchRecipesByCategory }) {
           className={ styles.filterButton }
           type="button"
           key={ filter }
+          value={ filter }
           onClick={ handleChangeFilter }
         >
           {filter}

@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { Creators as RecipesActions } from '../store/ducks/cocktailRecipes';
 import { Creators as CategoriesActions } from '../store/ducks/cocktailCategories';
 import useToggle from '../hooks/useToggle';
-
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Card from '../components/Card';

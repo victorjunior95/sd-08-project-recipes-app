@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import styles from '../styles/components/Card.module.css';
 
 const Card = ({ name, thumbnail, index, category, ...rest }) => (

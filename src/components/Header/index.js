@@ -9,9 +9,12 @@ import SearchBar from './SearchBar';
 
 import '../../styles/components/Header/index.css';
 
+const FIVE_CATEGORY_BUTTONS = 5;
+
 class Header extends Component {
   render() {
-    const { title, showButton, setToggle } = this.props;
+    const { title, showButton, setToggle, categories } = this.props;
+    const buttonsCategories = categories.slice(0, FIVE_CATEGORY_BUTTONS);
     return (
       <header className="headerContainer">
         <div>
@@ -26,31 +29,38 @@ class Header extends Component {
             </Link>
           </div>
           <div>
-            <h1 data-testid="page-title">
-              { title }
-            </h1>
+            <h1 data-testid="page-title">{title}</h1>
           </div>
-          {(
-            title === 'Comidas'
+          {(title === 'Comidas'
             || title === 'Bebidas'
-            || title.includes('Origem')
-          ) && (
-            <div>
-              <button
-                className="headerButton"
-                type="button"
-                onClick={ () => setToggle() }
-              >
-                <img
-                  data-testid="search-top-btn"
-                  src={ SearchIcon }
-                  alt="search"
-                />
-              </button>
-            </div>
-          )}
+            || title.includes('Origem'))
+            && (
+              <div>
+                <button
+                  className="headerButton"
+                  type="button"
+                  onClick={ () => setToggle() }
+                >
+                  <img
+                    data-testid="search-top-btn"
+                    src={ SearchIcon }
+                    alt="search"
+                  />
+                </button>
+              </div>
+            )}
         </div>
-        {showButton && <SearchBar title={ title } />}
+        {showButton ? <SearchBar
+          title={ title }
+        /> : buttonsCategories.map(({ strCategory }) => (
+          <button
+            type="button"
+            data-testid={ `${strCategory}-category-filter` }
+            key={ strCategory }
+          >
+            {strCategory}
+          </button>
+        ))}
 
       </header>
     );
@@ -61,7 +71,11 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
   setToggle: PropTypes.func.isRequired,
   showButton: PropTypes.bool.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.objectOf),
+};
 
+Header.defaultProps = {
+  categories: [],
 };
 
 const mapStateToProps = (state) => ({

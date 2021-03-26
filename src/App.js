@@ -19,10 +19,22 @@ import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
 import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import { fetchCategories as fetchCategoriesAction }
+  from './store/actions/categories.actions';
+import { fetchMeals as fetchMealsAction }
+  from './store/actions/meals.action';
+import { fetchDrinks as fetchDrinksAction } from './store/actions/drinks.actions';
 
 // import rockGlass from './images/rockGlass.svg';
 
 class App extends React.Component {
+  componentDidMount() {
+    const { fetchCategories, fetchMeals, fetchDrinks } = this.props;
+    fetchCategories();
+    fetchMeals();
+    fetchDrinks();
+  }
+
   render() {
     const { rota } = this.props;
     return (
@@ -71,4 +83,16 @@ const mapStateToProps = (state) => ({
   rota: state.rota,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCategories: () => dispatch(fetchCategoriesAction()),
+  fetchMeals: () => dispatch(fetchMealsAction()),
+  fetchDrinks: () => dispatch(fetchDrinksAction()),
+});
+
+App.propTypes = {
+  fetchCategories: PropTypes.func.isRequired,
+  fetchDrinks: PropTypes.func.isRequired,
+  fetchMeals: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

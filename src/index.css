@@ -40,9 +40,9 @@ code {
 }
 
 .imageDetails img {
-  height: 100px;
   margin: 10px;
-  min-width: 150px;
+  margin-left: 10%;
+  width: 200px;
   object-fit: contain;
 }
 .recipe-card {

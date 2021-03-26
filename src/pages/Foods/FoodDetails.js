@@ -7,11 +7,13 @@ import { DrinkCtx } from '../../context/ContextDrink';
 import CarouselCard from '../../components/Card/CarouselCard';
 import './FoodDetail.css';
 import shareIcon from '../../images/shareIcon.svg';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FoodDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   // const location = useLocation();
@@ -46,7 +48,12 @@ function FoodDetails(props) {
             <img src={ shareIcon } alt="Compartilhar" />
             {copied && 'Link copiado!'}
           </button>
-          <img src={ WhiteHeartIcon } alt="Compartilhar" data-testid="favorite-btn" />
+          <button type="button" data-testid="favorite-btn" onClick={() => setIsFavorite(!isFavorite)}>
+            <img
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="Compartilhar"
+            />
+          </button>
         </div>
         <img
           className="detail-image"

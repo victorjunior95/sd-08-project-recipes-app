@@ -5,9 +5,13 @@ import getDrink from '../../services/RequestDrinkForId';
 import CardDetails from '../../components/CardDetail/CardDetail';
 import CheckBoxIngredients from '../../components/CheckBoxIngredients/CheckBoxIngredients';
 import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router-dom';
 
 const RecipesInProgress = ({ title, match }) => {
-  const { params: { id } } = match;
+  const history = useHistory();
+  const {
+    params: { id },
+  } = match;
 
   const [object, setObject] = useState({});
   const [isLoading, setLoad] = useState(false);
@@ -32,16 +36,21 @@ const RecipesInProgress = ({ title, match }) => {
     })();
   }, []);
 
+  const finishRecipe = () => {
+    history.push('/receitas-feitas');
+  };
+
   return (
     <>
       <CardDetails title={ title } object={ object } isLoading={ isLoading }>
         <CheckBoxIngredients object={ object } title={ title } />
       </CardDetails>
       <Button
-            variant="primary"
-            data-testid="finish-recipe-btn"
-          >
-            Iniciar receita
+        className="btn btn-primary w-100"
+        data-testid="finish-recipe-btn"
+        onClick={() => finishRecipe()}
+      >
+        Finalizar Receita
       </Button>
     </>
   );
@@ -49,7 +58,7 @@ const RecipesInProgress = ({ title, match }) => {
 
 RecipesInProgress.propTypes = {
   title: PropTypes.string.isRequired,
-  object: PropTypes.shape({ }).isRequired,
+  object: PropTypes.shape({}).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,

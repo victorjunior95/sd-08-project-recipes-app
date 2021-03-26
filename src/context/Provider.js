@@ -14,21 +14,6 @@ function Provider({ children }) {
   const [recommendedDrink, setRecommendedDrink] = useState([]);
   const [copied, setCopied] = useState(false);
 
-  // const [startedRecipes, setStartedRecipes] = useState([]);
-
-  // const addStartedRecipes = (newId) => {
-  //   if (startedRecipes.some((e) => e === newId)) {
-  //     setStartedRecipes(startedRecipes);
-  //   } else {
-  //     setStartedRecipes([...startedRecipes, newId]);
-  //   }
-  // };
-
-  // const removeStartedRecipes = (newId) => {
-  //   const newArray = startedRecipes.filter((elem) => elem !== newId);
-  //   setStartedRecipes(newArray);
-  // };
-
   const searchBarRequestFood = async (type, inputvalue) => {
     try {
       let response = '';

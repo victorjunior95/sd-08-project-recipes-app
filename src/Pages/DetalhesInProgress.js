@@ -7,6 +7,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 import RecipeContext from '../context/RecipeContext';
 import LinkCopiado from '../components/LinkCopiado';
+import ButtonFinish from '../components/ButtonFinish';
 
 function DetalhesInProgress() {
   const TWO_SECONDS = 2000;
@@ -47,7 +48,7 @@ function DetalhesInProgress() {
     const results = filtering.map((elem, index) => (
       <li
         key={ elem[1] }
-        data-testid={ `${index}-ingredient-name-and-measure` }
+        data-testid={ `${index}-ingredient-step` }
       >
         <label htmlFor={ elem[1] }>
           <input type="checkbox" id={ elem[1] } />
@@ -110,7 +111,9 @@ function DetalhesInProgress() {
         { getIngredients() }
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
+      <ButtonFinish />
     </div>
+
   );
 
   const renderFood = () => (
@@ -148,7 +151,9 @@ function DetalhesInProgress() {
         { getIngredients() }
       </ol>
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
+      <ButtonFinish />
     </div>
+
   );
 
   const render = () => {

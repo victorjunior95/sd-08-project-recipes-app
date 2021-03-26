@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/Card';
+import Header from '../components/header/Header';
 
 export default function FeitasFavoritas() {
   const history = useHistory();
@@ -25,9 +26,8 @@ export default function FeitasFavoritas() {
   };
 
   useEffect(() => {
-    setDoneList(listCart);
-    setFavList(listFavCart);
-    console.log('ff');
+    if (listCart) { setDoneList(listCart); }
+    if (listFavCart) { setFavList(listFavCart); }
   }, []);
 
   // useEffect(() => {
@@ -37,6 +37,7 @@ export default function FeitasFavoritas() {
   if (path === '/receitas-feitas') {
     return (
       <div>
+        <Header title="Receitas Feitas" showSearchButton={ false } />
         <label htmlFor="All">
           <input
             type="radio"
@@ -91,6 +92,7 @@ export default function FeitasFavoritas() {
   } if (path === '/receitas-favoritas') {
     return (
       <div>
+        <Header title="Receitas Favoritas" showSearchButton={ false } />
         <label htmlFor="All">
           <input
             type="radio"

@@ -10,7 +10,6 @@ class ShareButton extends Component {
     };
     this.share = this.share.bind(this);
     this.favoriteThisItem = this.favoriteThisItem.bind(this);
-
   }
 
   share() {
@@ -20,7 +19,7 @@ class ShareButton extends Component {
       setTimeout(() => this.setState({ displayShareMesage: false }), SHOW_TIME);
     });
   }
-favoriteRecipe
+
   render() {
     const { displayShareMesage } = this.state;
     return (

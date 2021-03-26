@@ -1,7 +1,7 @@
 body {
+  background-color: darkcyan;
   display: flex;
   justify-content: center;
-  background-color: darkcyan;
 }
 
 form {
@@ -32,6 +32,6 @@ label {
 }
 
 button {
-  margin-top: 10%;
   background-color: aliceblue;
+  margin-top: 10%;
 }

@@ -1,7 +1,7 @@
 .container-card-meal-details {
   display: flex;
-  flex-flow: wrap;
   flex-direction: row;
+  flex-flow: wrap;
   height: 80%;
   justify-content: space-around;
   margin-top: 2%;
@@ -34,15 +34,15 @@
 }
 
 .start-recipe-btn {
-  font-size: x-large;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: blue;
   align-self: center;
+  background-color: blue;
   bottom: 0;
+  color: white;
+  display: flex;
+  font-size: x-large;
   height: 9%;
+  justify-content: center;
   position: fixed;
   width: 100%;
 }
@@ -59,8 +59,6 @@
   flex-wrap: nowrap;
   list-style: none;
   overflow-x: auto;
-
-  /* width: 315%; */
 }
 
 .recomendation-img-food {

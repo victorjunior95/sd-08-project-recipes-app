@@ -1,7 +1,7 @@
 .container-card-drink-details {
   display: flex;
-  flex-flow: wrap;
   flex-direction: row;
+  flex-flow: wrap;
   height: 80%;
   justify-content: space-around;
   margin: 2% auto;
@@ -50,15 +50,15 @@
 }
 
 .start-recipe-btn {
-  font-size: x-large;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: blue;
   align-self: center;
+  background-color: blue;
   bottom: 0;
+  color: white;
+  display: flex;
+  font-size: x-large;
   height: 9%;
+  justify-content: center;
   position: fixed;
   width: 100%;
 }
@@ -72,8 +72,3 @@
 .paragraph-cards {
   font-size: 10px;
 }
-
-/* .img-cards {
-  flex: none;
-  width: 100%;
-} */

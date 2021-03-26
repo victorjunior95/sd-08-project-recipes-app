@@ -16,11 +16,10 @@ class Foods extends Component {
   }
 
   render() {
-    const { meals } = this.props;
-    if (meals && meals.length === 1) {
+    const { meals, renderOnlyCardByFilter } = this.props;
+    if (meals && meals.length === 1 && renderOnlyCardByFilter) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
-
     return (
       <div>
         <Header title="Comidas" />
@@ -51,15 +50,17 @@ Foods.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.objectOf),
   getFood: PropTypes.func.isRequired,
   getFoodCategory: PropTypes.func.isRequired,
+  renderOnlyCardByFilter: PropTypes.bool.isRequired,
+
 };
 
 Foods.defaultProps = {
   meals: [],
 };
 
-const mapStateToProps = ({ foodsReducer: { data: { meals } } }) => ({
-  meals,
-
+const mapStateToProps = (state) => ({
+  meals: state.foodsReducer.data.meals,
+  renderOnlyCardByFilter: state.headerReducer.showButtonSearch,
 });
 
 const mapDispatchToProps = (dispatch) => ({

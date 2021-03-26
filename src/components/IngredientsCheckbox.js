@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function IngredientsCheckbox({ objDetail, id, url }) {
+  const verifyIngredientsChecked = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (url.includes('comida')) {
+      return inProgressRecipes.meals[id];
+    }
+  };
+
   const handleChange = ({ target }) => {
     const ol = target.parentNode.parentNode.parentNode;
     const lista = ol.childNodes;
@@ -52,6 +59,7 @@ function IngredientsCheckbox({ objDetail, id, url }) {
       >
         <label htmlFor={ elem[1] }>
           <input
+            checked={  }
             onChange={ handleChange }
             type="checkbox"
             id={ elem[1] }
@@ -66,6 +74,7 @@ function IngredientsCheckbox({ objDetail, id, url }) {
 
   return (
     <ol className="ingredient-list">
+      {verifyIngredientsChecked()}
       {getIngredients()}
     </ol>
   );

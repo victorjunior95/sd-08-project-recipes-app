@@ -3,6 +3,15 @@ const DRINK_API = 'https://www.thecocktaildb.com/api.php';
 const FOOD_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+export const showCompleteLists = async (query, currentPage) => {
+  // lists: (c)ategories, (i)ngredients, (a)rea;
+  const LIST_API = currentPage === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/list.php'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php';
+  const api = await fetch(`${LIST_API}?${query.charAt(0)}=list`);
+  const result = await api.json();
+  return result;
+};
 export const filterIngredient = async (query, currentPage) => {
   const INGREDIENT_API = currentPage === 'Foods'
     ? 'https://www.themealdb.com/api/json/v1/1/filter.php'

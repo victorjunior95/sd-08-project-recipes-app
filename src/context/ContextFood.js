@@ -28,7 +28,6 @@ function ContextFood(props) {
           return;
         }
         const f = await filterFirstLetter(value, 'Foods');
-        console.log(value);
         return setFoodApi(f);
       }
     }

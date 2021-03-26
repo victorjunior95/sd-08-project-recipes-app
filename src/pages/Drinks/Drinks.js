@@ -4,14 +4,22 @@ import Header from '../../components/Header';
 import Card from '../../components/Card';
 import { DrinkCtx } from '../../context/ContextDrink';
 import Footer from '../../components/Footer';
+import { CategoryButtons } from '../../components/Buttons';
 
 function Drinks() {
   const STOP_INDEX = 11;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
-  console.log(drinks);
+  const onClickAll = () => console.log('Clicou em All');
+  const onClickCategory = () => console.log('Clicou em category');
+
   return (
     <div>
       <Header name="Bebidas" icon="true" currentPage="Drinks" />
+      <CategoryButtons
+        label="Drinks"
+        onClickAll={ onClickAll }
+        onClickCategory={ onClickCategory }
+      />
       <div className="cards">
         {drinks && drinks
           .filter((drink, index) => index <= STOP_INDEX)

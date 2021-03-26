@@ -30,7 +30,6 @@ class ReceitasEmProgresso extends Component {
 
   componentDidMount() {
     this.fetchApi();
-    this.isDisable();
   }
 
   handleChangeChecked(event) {
@@ -80,6 +79,7 @@ class ReceitasEmProgresso extends Component {
       currentRecipe: recipe,
       favoriteRecipe: isFavorite,
     });
+    this.isDisable();
   }
 
   async fetchFoodRecipe(foodId) {
@@ -99,6 +99,7 @@ class ReceitasEmProgresso extends Component {
       currentRecipe: recipe,
       favoriteRecipe: isFavorite,
     });
+    this.isDisable();
   }
 
   favoriteThisItem() {
@@ -215,8 +216,9 @@ class ReceitasEmProgresso extends Component {
 
   isDisable() {
     const { isDone } = this.state;
+    console.log('oi');
+    if (isDone === '') return;
     const str = JSON.stringify(isDone);
-    console.log(str);
     if (str.includes('false')) {
       this.setState({ disable: true });
     } else {

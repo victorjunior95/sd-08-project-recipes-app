@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// import PropTypes from 'prop-types';
-
 const ARGUMENT_REQUEST_ALL = { search: '', searchRadio: 'name' };
 
 class CardsButtonsCategories extends Component {

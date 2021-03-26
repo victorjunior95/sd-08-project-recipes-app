@@ -17,6 +17,7 @@ class Foods extends Component {
 
   render() {
     const { meals, renderOnlyCardByFilter } = this.props;
+    console.log(meals);
     if (meals && meals.length === 1 && renderOnlyCardByFilter) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
@@ -37,6 +38,8 @@ class Foods extends Component {
                 strThumb={ food.strMealThumb }
                 str={ food.strMeal }
                 index={ index }
+                id={ food.idMeal }
+                title="Comidas"
               />
             ))}
         </div>
@@ -51,7 +54,6 @@ Foods.propTypes = {
   getFood: PropTypes.func.isRequired,
   getFoodCategory: PropTypes.func.isRequired,
   renderOnlyCardByFilter: PropTypes.bool.isRequired,
-
 };
 
 Foods.defaultProps = {

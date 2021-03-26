@@ -62,9 +62,9 @@ const Detalhes = () => {
       <h3 data-testid="recipe-category">
         { isMeal ? foodDetails.strCategory : foodDetails.strAlcoholic}
       </h3>
-      <button type="button" onClick={ copyToClipBoard } data-testid="share-btn">
+      {/* <button type="button" onClick={ copyToClipBoard } data-testid="share-btn">
         <img src={ shareIcon } alt="Share" />
-      </button>
+      </button> */}
       <button
         type="button"
         data-testid="favorite-btn"

@@ -25,9 +25,11 @@ function ProviderRecipes({ children }) {
   const [dataByBusca, setDataByBuscar] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [userEmail, setUserEmail] = useState('');
 
   const fetchDataComidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
+    console.log(input, radio);
     if (radio === 'nome') {
       const { meals } = await getComidasByName(input);
       return setDataByBuscar({ meals });
@@ -48,6 +50,7 @@ function ProviderRecipes({ children }) {
 
   const fetchDataBebidas = useCallback(async () => {
     const { input, radio } = barraBuscar;
+    console.log(input, radio);
     if (radio === 'nome') {
       const { drinks } = await getBebidasByName(input);
       return setDataByBuscar({ drinks });
@@ -87,7 +90,9 @@ function ProviderRecipes({ children }) {
           isFetching,
           setIsFetching,
           favoriteRecipes,
-          setFavoriteRecipes }
+          setFavoriteRecipes,
+          userEmail,
+          setUserEmail }
       }
     >
       {children}

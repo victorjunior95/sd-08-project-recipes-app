@@ -135,6 +135,20 @@ header {
 }
 
 .buttons-explorar button {
+  font-size: 30px;
+  margin-top: 30px;
+  padding: 30px;
+}
+
+.buttons-perfil {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.buttons-perfil button {
+  font-size: 25px;
   margin-top: 30px;
   padding: 30px;
 }
@@ -142,11 +156,11 @@ header {
 .loginHeader {
   background-image: url('./images/foto-capa.jpg');
   height: 20%!important;
-  color: #ccc;
+  background-size: cover;
 }
 
 .cardHeigth {
-  height: 600px;
+  height: 640px;
 }
 
 ::-webkit-input-placeholder {

@@ -15,7 +15,10 @@ const ReceitasFavoritas = () => {
   const [renderMSG, setRenderMSG] = useState(false);
 
   useEffect(() => {
-    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    const favoriteRecipesFromLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipesFromLocalStorage !== null) {
+      setFavoriteRecipes(favoriteRecipesFromLocalStorage);
+    }
     setHeaderInfo({
       pageTitle: 'Receitas Favoritas',
     });
@@ -65,7 +68,7 @@ const ReceitasFavoritas = () => {
         <Header />
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
           <button
-            className="btn btn-secondary active"
+            className="categoryButton btn btn-success"
             type="button"
             name="options"
             id="option1"
@@ -79,7 +82,7 @@ const ReceitasFavoritas = () => {
             type="button"
             name="options"
             id="option2"
-            className="btn btn-secondary"
+            className="categoryButton btn btn-success"
             data-testid="filter-by-food-btn"
             onClick={ filterFood }
           >
@@ -89,7 +92,7 @@ const ReceitasFavoritas = () => {
             type="button"
             name="options"
             id="option3"
-            className="btn btn-secondary"
+            className="categoryButton btn btn-success"
             data-testid="filter-by-drink-btn"
             onClick={ filterDrink }
           >

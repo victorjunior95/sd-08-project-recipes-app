@@ -3,6 +3,7 @@ import { Button, Card, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -35,7 +36,7 @@ function LoginForm() {
             name="email"
             id="email"
             placeholder="Digite seu e-mail"
-            className="border-top-0 border-start-0 border-end-0 mb-2 bg-dark text-white rounded-0 inputText"
+            className="mb-2"
             onChange={ (e) => setEmail(e.target.value) }
           />
         </Form.Group>
@@ -46,7 +47,7 @@ function LoginForm() {
             name="password"
             id="password"
             placeholder="Senha"
-            className="border-top-0 border-start-0 border-end-0 mb-3 bg-dark text-white rounded-0"
+            className="mb-3"
             onChange={ (e) => setPassword(e.target.value) }
           />
         </Form.Group>
@@ -61,7 +62,7 @@ function LoginForm() {
         >
           Entrar
         </Button>
-        <Card.Text className="m-2 text-center text-primary fw-light">Esqueceu a Senha?</Card.Text>
+        <Card.Text className="m-2 text-center text-white fw-light">Esqueceu a Senha?</Card.Text>
       </Card.Body>
     </Card>
     

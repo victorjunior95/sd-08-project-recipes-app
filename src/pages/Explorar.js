@@ -8,7 +8,7 @@ const Explorar = () => {
   const { setHeaderInfo } = useContext(ContextRecipes);
 
   useEffect(() => {
-    setHeaderInfo({ pageTitle: 'Explorar', showSearchIcon: true });
+    setHeaderInfo({ pageTitle: 'Explorar', showSearchIcon: false });
   }, [setHeaderInfo]);
 
   return (

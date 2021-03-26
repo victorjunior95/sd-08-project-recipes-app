@@ -1,14 +1,13 @@
 import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import ComponentPerfil from '../components/ComponentPerfil';
 
 function Perfil() {
   return (
     <section className="w-100">
       <Header />
-      <h1>
-        Página Perfil
-      </h1>
+      <ComponentPerfil />
       <Footer />
     </section>
   );

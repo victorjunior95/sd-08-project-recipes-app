@@ -4,12 +4,16 @@ import * as mealApi from '../services/mealApi';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import LoadingScreen from '../components/LoadingScreen';
+import Card from '../components/Card';
+import CardsContainer from '../components/CardsContainer';
 
 const MealsDetails = () => {
   const { id } = useParams();
   const [meal, setMeal] = useState({});
   const [isFetching, setIsFetching] = useState(true);
   const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
 
   useEffect(() => {
     mealApi.getById(id).then((response) => {
@@ -21,9 +25,13 @@ const MealsDetails = () => {
   useEffect(() => {
     const ingredientKeys = Object.keys(meal)
       .filter((item) => item.includes('Ingredient'));
+    const measureKeys = Object.keys(meal).filter((item) => item.includes('Measure'));
+    const measureList = measureKeys.map((measure) => meal[measure])
+      .filter((item) => item !== '');
     const ingredientList = ingredientKeys.map((key) => meal[key])
       .filter((item) => item !== '');
     setIngredients(ingredientList);
+    setMeasures(measureList);
   }, [meal]);
 
   if (isFetching) return <LoadingScreen />;
@@ -47,17 +55,29 @@ const MealsDetails = () => {
               key={ index }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              {ingredient}
+              {`${ingredient}: ${measures[index]}`}
             </p>))}
       </section>
       <h3>Instructions</h3>
       <p>
         { meal.strInstructions }
       </p>
-      <video width="320" height="240" controls>
+      <video width="320" height="240" controls data-testid="video">
         <track kind="captions" />
         <source src="..Videos/video1.mp4" type="video/mp4" />
       </video>
+      <CardsContainer>
+        {recomendations
+          .map((cocktail, index) => (
+            <Card
+              key={ index }
+              name={ cocktail.strCocktail }
+              thumbnail={ cocktail.strMealThumb }
+              index={ index }
+              data-testid={ `${index}-recomendation-card` }
+            />))}
+      </CardsContainer>
+      <button type="button" data-testid="start-recipe-btn">Iniciar Recita</button>
     </div>
   );
 };

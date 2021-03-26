@@ -115,13 +115,7 @@ function Detalhes() {
           />
         </CopyToClipboard>
         <LinkCopiado />
-        {/* <input
-          onClick={ () => setFavoritos(objDetail[0], urlText) }
-          type="image"
-          data-testid="favorite-btn"
-          src={ whiteHeartIcon }
-          alt={ objDetail[0].strDrink }
-        /> */}
+        <FavoriteBtn urlText={ urlText } objDetail={ objDetail } id={ id } />
       </div>
       <ol className="ingredient-list">
         { getIngredients() }

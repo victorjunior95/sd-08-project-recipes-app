@@ -31,9 +31,17 @@ function FavoriteBtn({ objDetail, urlText, id }) {
       type="image"
       data-testid="favorite-btn"
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-      alt={ objDetail[0].strMeal }
+      alt="foto do item"
     />
   );
 }
+
+FavoriteBtn.propTypes = {
+  objDetail: PropTypes.shape(
+    PropTypes.any,
+  ).isRequired,
+  urlText: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
 
 export default FavoriteBtn;

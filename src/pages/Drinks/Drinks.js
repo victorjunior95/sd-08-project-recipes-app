@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
@@ -8,10 +8,24 @@ import { CategoryButtons } from '../../components/Buttons';
 
 function Drinks() {
   const STOP_INDEX = 11;
-  const { drinkApi: { drinks } } = useContext(DrinkCtx);
+  const { drinkApi: { drinks }, setFilterDrink } = useContext(DrinkCtx);
+  const [category, setCategory] = useState('');
   const history = useHistory();
-  const onClickAll = () => console.log('Clicou em All');
-  const onClickCategory = () => console.log('Clicou em category');
+  const onClickAll = ({ target }) => setCategory(target.value);
+  const onClickCategory = ({ target }) => (category !== target.value
+    ? setCategory(target.value) : setCategory(''));
+
+  useEffect(() => {
+    setFilterDrink({ key: 'category', value: category });
+  }, [category, setFilterDrink]);
+
+  useEffect(() => {
+    const renderingCondition = (categoryState) => {
+      if (categoryState === '') {
+        setFilterDrink({ key: 'name', value: categoryState });
+      }
+    }; renderingCondition(category);
+  }, [category]);
 
   return (
     <div>

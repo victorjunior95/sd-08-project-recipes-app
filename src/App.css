@@ -14,19 +14,7 @@
   animation: shake 1s infinite ease;
   max-height: 80vh;
 }
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
@@ -39,22 +27,28 @@
   0% {
     transform: rotate(5deg);
   }
+
   50% {
     transform: rotate(-5deg);
   }
+
   100% {
     transform: rotate(5deg);
   }
+
 }
 
 @keyframes clink {
   0% {
     transform: rotate(-10deg);
   }
+
   50% {
     transform: rotate(20deg);
   }
+
   100% {
     transform: rotate(-10deg);
   }
+  
 }

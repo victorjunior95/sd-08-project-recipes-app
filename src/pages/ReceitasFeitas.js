@@ -44,12 +44,14 @@ const ReceitasFeitas = () => {
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
 
+  const classCardHeigth = doneRecipes.length === 0 ? 'cardHeigth' : 'cardHeigth2';
+
   return (
-    <section className="w-100">
+    <section className={ `w-100 bg-dark ${classCardHeigth}` }>
       <Header />
       { doneRecipes.length === 0
         ? (
-          <div>
+          <div className="cardBody">
             <h1>Nenhum Receita Feita...</h1>
             <h1>:-(</h1>
           </div>
@@ -87,14 +89,13 @@ const ReceitasFeitas = () => {
             </div>
             <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
               { doneRecipes.map((doneRecipe, index) => (
-                <Card key={ index } className="col-8 m-2 p-0">
+                <Card key={ index } className="col-8 m-2 p-0 border-dark">
                   <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="p-0">
                     <Card.Img
                       variant="top"
                       src={ doneRecipe.image }
-                      alt="Foto do Cocktail"
+                      alt="Foto da receita"
                       width="130"
-                      height="130"
                       data-testid={ `${index}-horizontal-image` }
                     />
                   </Nav.Link>

@@ -61,7 +61,7 @@ const Bebidas = () => {
   }
 
   return (
-    <section className="w-100">
+    <section className="w-100 bg-dark cardHeigth2">
       <Header />
       <div className="buttonsList">
         {categorias.map((categoria, index) => {
@@ -90,7 +90,7 @@ const Bebidas = () => {
                 <Card
                   key={ bebida.idDrink }
                   data-testid={ `${index}-recipe-card` }
-                  className="col-5 m-2"
+                  className="col-5 m-2 border-dark"
                   onClick={ () => history.push(`/bebidas/${bebida.idDrink}`) }
                 >
                   <Card.Img

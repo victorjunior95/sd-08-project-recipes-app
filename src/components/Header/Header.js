@@ -102,11 +102,9 @@ class Header extends Component {
             </div>
           )}
         </div>
-        {showButtonSearch
-        && (title === 'Comidas' || title === 'Bebidas')
+        {showButtonSearch && (title === 'Comidas' || title === 'Bebidas')
          && <SearchBar title={ title } />}
-        {!showButtonSearch
-        && (title === 'Comidas' || title === 'Bebidas')
+        {!showButtonSearch && (title === 'Comidas' || title === 'Bebidas')
          && this.renderButton(buttons, getRecipes)}
       </header>
     );

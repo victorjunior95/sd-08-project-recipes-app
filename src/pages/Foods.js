@@ -28,7 +28,7 @@ class Foods extends Component {
 
           { meals && meals.reduce((acc, cur, index) => {
             if (index <= MAX_NUMBER_CARDS) {
-              acc.push(cur);
+              acc = [...acc, cur];
             }
             return acc;
           }, [])

@@ -156,9 +156,8 @@ class SearchBar extends Component {
           <div
             key={ food.idMeal }
             data-testid={ `${index}-recipe-card` }
-            className="cards"
+            className="card"
           >
-            <div data-testid={ `${index}-card-name` }>{food.strMeal}</div>
             <button
               type="button"
               onClick={ () => {
@@ -166,16 +165,25 @@ class SearchBar extends Component {
               } }
             >
               <img
+                className="linkImage"
                 src={ food.strMealThumb }
                 data-testid={ `${index}-card-img` }
                 alt="Imagem Do Elemento"
               />
             </button>
+            <center>
+              <div
+                data-testid={ `${index}-card-name` }
+                className="cardNameSearchBar"
+              >
+                {food.strMeal}
+
+              </div>
+            </center>
           </div>)))
           : <div />}
         {rotaBebida ? (newArr.map((drink, index) => (
-          <div key="drink" data-testid={ `${index}-recipe-card` } className="cards">
-            <div data-testid={ `${index}-card-name` }>{drink.strDrink}</div>
+          <div key={ drink } data-testid={ `${index}-recipe-card` } className="card">
             <button
               type="button"
               onClick={ () => {
@@ -184,10 +192,20 @@ class SearchBar extends Component {
             >
               <img
                 src={ drink.strDrinkThumb }
+                className="linkImage"
                 alt="Imagem Do Elemento"
                 data-testid={ `${index}-card-img` }
               />
             </button>
+            <center>
+              <div
+                data-testid={ `${index}-card-name` }
+                className="cardNameSearchBar"
+              >
+                {drink.strDrink}
+
+              </div>
+            </center>
           </div>))) : <div />}
       </div>
 
@@ -203,5 +221,3 @@ SearchBar.propTypes = {
 const SearchBarLocation = withRouter(SearchBar);
 
 export default SearchBarLocation;
-
-// export default SearchBarLocation;

@@ -14,13 +14,33 @@
   z-index: 1;
 }
 
+.cardNameSearchBar {
+  background-color: rgba(53, 49, 49, 0.3);
+}
+
+.checkboxInProgress {
+  margin-left: 10px;
+}
+
+.checkboxInProgressChecked {
+  text-decoration: line-through solid black;
+}
+
 .linkImage {
   border: 3px solid rgb(18, 53, 41);
+  justify-content: center;
   margin-top: 10px;
   width: 90%;
 }
 
+.linkVideo {
+  border: 3px solid rgb(18, 53, 41);
+  margin-top: 10px;
+  width: 98%;
+}
+
 .card {
+  background-color: rgba(101, 138, 65, 0.3);
   border: 3px solid black;
   margin: 10px;
 }

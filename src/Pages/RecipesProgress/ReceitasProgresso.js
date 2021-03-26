@@ -50,6 +50,27 @@ const checkboxAllMarked = (getRecipe, checkbox, item) => {
   return true;
 };
 
+const doneRecipes = (id, item, redirect) => {
+  const data = new Date();
+  const dia = data.getDate();
+  const mes = data.getMonth();
+  const ano = data.getFullYear();
+  const recipeObject = [{
+    id,
+    type: item.strMeal ? 'comida' : 'bebida',
+    area: item.strArea || '',
+    category: item.strCategory || '',
+    alcoholicOrNot: item.strAlcoholic || '',
+    name: item.strMeal,
+    image: item.strMealThumb || item.strDrinkThumb,
+    doneDate: `${dia}/0${mes + 1}/${ano}`,
+    tags: item.strTags ? item.strTags.split(',') : [],
+  }];
+
+  localStorage.setItem('doneRecipes', JSON.stringify(recipeObject));
+  redirect();
+};
+
 function DetailsProgress() {
   const dispatch = useDispatch();
   const { url } = useRouteMatch();
@@ -109,7 +130,7 @@ function DetailsProgress() {
       <Button
         data-testid="finish-recipe-btn"
         disabled={ checkboxAllMarked(getRecipeInfo, checkbox, item) }
-        onClick={ () => handelClick() }
+        onClick={ () => doneRecipes(id, item, handelClick) }
       >
         Finalizar Receita
       </Button>

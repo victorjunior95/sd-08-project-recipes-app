@@ -16,6 +16,7 @@ class ReceitasEmProgresso extends Component {
       favoriteRecipe: false,
       disable: true,
       currentRecipe: '',
+      isDone: '',
     };
     this.fetchDrinkRecipe = this.fetchDrinkRecipe.bind(this);
     this.fetchFoodRecipe = this.fetchFoodRecipe.bind(this);
@@ -24,10 +25,12 @@ class ReceitasEmProgresso extends Component {
     this.updateStorage = this.updateStorage.bind(this);
     this.share = this.share.bind(this);
     this.favoriteThisItem = this.favoriteThisItem.bind(this);
+    this.isDisable = this.isDisable.bind(this);
   }
 
   componentDidMount() {
     this.fetchApi();
+    this.isDisable();
   }
 
   handleChangeChecked(event) {
@@ -131,7 +134,12 @@ class ReceitasEmProgresso extends Component {
       <div className="card">
         <center>
           <h1 data-testid="recipe-title">{h1}</h1>
-          <img data-testid="recipe-photo" alt="receita-em-progresso" src={ thumb } className="linkImage" />
+          <img
+            data-testid="recipe-photo"
+            alt="receita-em-progresso"
+            src={ thumb }
+            className="linkImage"
+          />
         </center>
         <button
           type="button"

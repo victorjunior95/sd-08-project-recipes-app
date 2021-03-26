@@ -11,7 +11,7 @@ import CardsButtonsCategories from './CardsButtonsCategories';
 import '../../styles/components/Header/index.css';
 
 const MAX_LENGTH_NAMES_CATEGORIES = 5;
-
+const ARGUMENT_REQUEST = { search: '', searchRadio: 'name' };
 class Header extends Component {
   render() {
     const {
@@ -27,11 +27,9 @@ class Header extends Component {
     let callback = () => {};
     if (title === 'Comidas') {
       buttons = [...foodButtons];
-      console.log(buttons);
       callback = getFood;
     } else {
       buttons = [...drinkButtons];
-      console.log(buttons);
       callback = getDrink;
     }
     return (
@@ -73,6 +71,16 @@ class Header extends Component {
           )}
         </div>
         {showButtonSearch && <SearchBar title={ title } />}
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ () => (title === 'Comidas'
+            ? getFood(ARGUMENT_REQUEST)
+            : getDrink(ARGUMENT_REQUEST)
+          ) }
+        >
+          All
+        </button>
 
         {!showButtonSearch && buttons
           && buttons.map((button, index) => {
@@ -101,7 +109,6 @@ Header.propTypes = {
   drinkButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
   getFood: PropTypes.func.isRequired,
   getDrink: PropTypes.func.isRequired,
-
 };
 
 const mapStateToProps = (state) => ({

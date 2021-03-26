@@ -7,7 +7,6 @@ const END_POINTS = {
     name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     letter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
-
   },
   DRINKS: {
     random: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
@@ -16,7 +15,6 @@ const END_POINTS = {
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     letter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
-
   },
 };
 

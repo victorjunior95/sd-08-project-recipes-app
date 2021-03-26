@@ -9,7 +9,6 @@ const INITIAL_STATE_USER = {
   showButtonSearch: false,
   foodsButtonsFilter: [],
   drinksButtonsFilter: [],
-
 };
 export default function headerReducer(state = INITIAL_STATE_USER, action) {
   switch (action.type) {
@@ -27,12 +26,12 @@ export default function headerReducer(state = INITIAL_STATE_USER, action) {
   case SET_FILTERS_FOODS_BUTTONS:
     return {
       ...state,
-      foodsButtonsFilter: action.payload.meals,
+      foodsButtonsFilter: [...action.payload.meals],
     };
   case SET_FILTERS_DRINKS_BUTTONS:
     return {
       ...state,
-      drinksButtonsFilter: action.payload.drinks,
+      drinksButtonsFilter: [...action.payload.drinks],
     };
   default:
     return state;

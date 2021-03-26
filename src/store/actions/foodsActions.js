@@ -20,9 +20,8 @@ function getSearchFood(data) {
 }
 
 export const fetchFood = ({ search, searchRadio }) => (dispatch) => {
-  console.log(search, searchRadio);
   const fetch = createFood(search);
-  fetch[searchRadio].then((data) => console.log(data) || dispatch(getSearchFood(data)));
+  fetch[searchRadio].then((data) => dispatch(getSearchFood(data)));
 };
 
 export const fetchFoodsRandom = () => (dispatch) => {

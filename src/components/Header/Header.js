@@ -13,6 +13,38 @@ import '../../styles/components/Header/index.css';
 const MAX_LENGTH_NAMES_CATEGORIES = 5;
 const ARGUMENT_REQUEST_ALL = { search: '', searchRadio: 'name' };
 class Header extends Component {
+  renderButton(buttons, getRecipes) {
+    const { title, getFood, getDrink } = this.props;
+    return (
+      <>
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ () => (title === 'Comidas'
+            ? getFood(ARGUMENT_REQUEST_ALL)
+            : getDrink(ARGUMENT_REQUEST_ALL)
+          ) }
+        >
+          All
+        </button>
+        {buttons.map((button, index) => {
+          if (index < MAX_LENGTH_NAMES_CATEGORIES) {
+            return (
+              <CardsButtonsCategories
+                key={ index }
+                strCategory={ button.strCategory }
+                title={ title }
+                getRecipes={ getRecipes }
+                buttons={ buttons }
+              />
+            );
+          }
+          return false;
+        })}
+      </>
+    );
+  }
+
   render() {
     const {
       title,
@@ -70,33 +102,12 @@ class Header extends Component {
             </div>
           )}
         </div>
-        {showButtonSearch && <SearchBar title={ title } />}
-        <button
-          data-testid="All-category-filter"
-          type="button"
-          onClick={ () => (title === 'Comidas'
-            ? getFood(ARGUMENT_REQUEST_ALL)
-            : getDrink(ARGUMENT_REQUEST_ALL)
-          ) }
-        >
-          All
-        </button>
-
-        {!showButtonSearch && buttons
-          && buttons.map((button, index) => {
-            if (index < MAX_LENGTH_NAMES_CATEGORIES) {
-              return (
-                <CardsButtonsCategories
-                  key={ index }
-                  strCategory={ button.strCategory }
-                  title={ title }
-                  getRecipes={ getRecipes }
-                  buttons={ buttons }
-                />
-              );
-            }
-            return false;
-          }) }
+        {showButtonSearch
+        && (title === 'Comidas' || title === 'Bebidas')
+         && <SearchBar title={ title } />}
+        {!showButtonSearch
+        && (title === 'Comidas' || title === 'Bebidas')
+         && this.renderButton(buttons, getRecipes)}
       </header>
     );
   }

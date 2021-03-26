@@ -10,8 +10,8 @@ import { CategoryButtons } from '../../components/Buttons';
 function Foods() {
   const STOP_INDEX = 11;
   const { foodApi: { meals } } = useContext(FoodCtx);
-  const onClickAll = () => console.log('Clicou em All');
-  const onClickCategory = () => console.log('Clicou em category');
+  const onClickAll = ({ target }) => console.log(`Clicou em ${target.value}`);
+  const onClickCategory = ({ target }) => console.log(`Clicou em ${target.value}`);
   return (
     <div>
       <Header name="Comidas" icon="true" currentPage="Foods" />

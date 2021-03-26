@@ -241,10 +241,11 @@ describe('38 - Desenvolva um botão de nome "Iniciar Receita" que deve ficar fix
   });
 });
 
-describe('39 - Implemente a solução de forma que caso a receita já tenha sido feita, o botão "Iniciar Receita" deve sumir', () => {
+describe.only('39 - Implemente a solução de forma que caso a receita já tenha sido feita, o botão "Iniciar Receita" deve sumir', () => {
   it('Verifica se botão de iniciar receita não é visível na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
+        console.log('antes');
         const doneRecipes = [{
           "id": "52771",
           "type": "comida",
@@ -260,7 +261,7 @@ describe('39 - Implemente a solução de forma que caso a receita já tenha sido
         win.fetch = fetchMock;
       },
     });
-
+    console.log(JSON.parse(localStorage.getItem('doneRecipes')));
     cy.get('[data-testid="start-recipe-btn"]').should('not.be.visible');
   });
 

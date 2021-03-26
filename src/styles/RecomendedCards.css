@@ -1,0 +1,12 @@
+.cartao {
+  display: inline-block;
+  padding: 0 30px 10px;
+  width: 200px;
+}
+
+.recomended-cards {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+

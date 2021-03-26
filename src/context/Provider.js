@@ -21,6 +21,7 @@ function Provider({ children }) {
   const [recipe, setRecipe] = useState({});
   const [recomendados, setRecomendados] = useState([]);
   const [renderRec, setRenderRec] = useState(false);
+  const [renderButtonComparison, setRenderButtonComparison] = useState(false);
   const contextValue = {
     userEmail,
     setEmail,
@@ -54,6 +55,8 @@ function Provider({ children }) {
     setRecomendados,
     renderRec,
     setRenderRec,
+    renderButtonComparison,
+    setRenderButtonComparison,
   };
 
   useEffect(async () => {

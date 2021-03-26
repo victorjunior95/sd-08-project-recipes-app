@@ -1,0 +1,8 @@
+body {
+  padding-bottom: 28px;
+}
+
+.iniciar-receita-btn {
+  bottom: 0;
+  position: fixed;
+}

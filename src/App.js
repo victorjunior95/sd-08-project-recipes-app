@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
@@ -18,6 +18,11 @@ import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
 import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import { fetchCategories as fetchCategoriesAction }
+  from './store/actions/categories.actions';
+import { fetchMeals as fetchMealsAction }
+  from './store/actions/meals.action';
+import { fetchDrinks as fetchDrinksAction } from './store/actions/drinks.actions';
 import NotFound from './pages/NotFound';
 import ReceitaEmProgresso from './pages/ReceitaEmProgresso';
 import GenericoComidas from './components/GenericoComidas';
@@ -25,6 +30,13 @@ import GenericoBebidas from './components/GenericoBebidas';
 // import rockGlass from './images/rockGlass.svg';
 
 class App extends React.Component {
+  componentDidMount() {
+    const { fetchCategories, fetchMeals, fetchDrinks } = this.props;
+    fetchCategories();
+    fetchMeals();
+    fetchDrinks();
+  }
+
   render() {
     // const { rota } = this.props;
     return (
@@ -73,9 +85,21 @@ class App extends React.Component {
 // App.propTypes = {
 //   rota: PropTypes.string.isRequired,
 // };
-// const mapStateToProps = (state) => ({
-//   rota: state.rota,
-// });
+const mapStateToProps = (state) => ({
+  rota: state.rota,
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchCategories: () => dispatch(fetchCategoriesAction()),
+  fetchMeals: () => dispatch(fetchMealsAction()),
+  fetchDrinks: () => dispatch(fetchDrinksAction()),
+});
+
+App.propTypes = {
+  fetchCategories: PropTypes.func.isRequired,
+  fetchDrinks: PropTypes.func.isRequired,
+  fetchMeals: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 // export default connect(mapStateToProps)(App);
-export default App;

@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import ContextReceitas from '../context/ContextReceitas';
 
 const DOZE = 12;
 const CINQUENTA = 50;
-const CartaoReceitaComidas = () => {
-  const {
-    apiResult,
-  } = useContext(ContextReceitas);
-
+const CartaoReceitaComidas = ({ resultadoApi }) => {
+  // const { deveriaRedirecionar } = useContext(ContextReceitas);
   return (
     <>
-      { apiResult.slice(0, DOZE).map((element, i) => (
+      { resultadoApi.slice(0, DOZE).map((element, i) => (
+        <Link to={ `/comidas/${element.idMeal}` } >
         <div
           key={ i }
+          id={ element.idMeal }
           data-testid={ `${i}-recipe-card` }
+          // onClick={ click }
         >
           <img
             width={ `${CINQUENTA}vh` }
@@ -23,7 +24,7 @@ const CartaoReceitaComidas = () => {
           />
           <h1 data-testid={ `${i}-card-name` }>{element.strMeal}</h1>
         </div>
-
+        </Link>
       ))}
     </>
   );

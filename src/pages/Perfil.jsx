@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,8 +6,8 @@ import Button from '../components/Button';
 
 function Perfil() {
   const BOOLEAN_TRUE = true;
+  const [user] = useState(JSON.parse(localStorage.getItem('user')) || '{}');
   const history = useHistory();
-  const user = JSON.parse(localStorage.getItem('user'));
   return (
     <>
       <Header title="Perfil" disableBtn={ BOOLEAN_TRUE } />

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import contextRecipes from './Context';
 import App from '../App';
 import fetchCategories from '../api/fetchCategories';
-// import PropTypes from 'prop-types';
 
 function RecipesProvider() {
   const [filter, setFilter] = useState([]);

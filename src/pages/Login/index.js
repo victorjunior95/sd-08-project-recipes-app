@@ -31,7 +31,7 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('user', JSON.stringify(user.email));
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     setRedirect(true);

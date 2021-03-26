@@ -10,7 +10,7 @@ function Profile() {
     localStorage.clear();
     history.push('/');
   }
-  const email = localStorage.getItem('user');
+  const { email } = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       <Header name="Perfil" icon="true" currentPage="Profile" />

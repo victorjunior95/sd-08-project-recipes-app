@@ -19,8 +19,8 @@ import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import NotFound from './pages/NotFound';
-import ReceitasBebidasEmProgresso from './pages/ReceitasBebidasEmProgresso';
-import ReceitasComidasEmProgresso from './pages/ReceitasComidasEmProgresso';
+// import ReceitasBebidasEmProgresso from './pages/ReceitasBebidasEmProgresso';
+import ReceitasEmProgresso from './pages/ReceitasEmProgresso';
 import GenericoComidas from './components/GenericoComidas';
 import GenericoBebidas from './components/GenericoBebidas';
 // import rockGlass from './images/rockGlass.svg';
@@ -56,8 +56,14 @@ class App extends React.Component {
               component={ ExplorarComidasIngredientes }
             />
             <Route exact path="/perfil" component={ Perfil } />
-            <Route path="/comidas/:id/in-progress" component={ ReceitasComidasEmProgresso } />
-            <Route path="/bebidas/:id/in-progress" component={ ReceitasBebidasEmProgresso } />
+            <Route
+              path="/comidas/:id/in-progress"
+              component={ ReceitasEmProgresso }
+            />
+            <Route
+              path="/bebidas/:id/in-progress"
+              component={ ReceitasEmProgresso }
+            />
             <Route path="/comidas/:id" component={ GenericoComidas } />
             <Route path="/bebidas/:id" component={ GenericoBebidas } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />

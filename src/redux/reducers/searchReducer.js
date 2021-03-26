@@ -1,9 +1,11 @@
-import { CLEAR_SEARCH, FETCH_AREA_API, SEARCH_INPUT } from '../actions';
+import { AREA_SELECT, CLEAR_SEARCH, FILTER_DRINK_CAT, FETCH_AREA_API,
+  SEARCH_INPUT } from '../actions';
 
 const INITIAL_STATE = {
   inputValue: '',
   inputType: '',
-  areas: '',
+  areaChoosen: '',
+  areas: [{ strArea: 'All' }],
 };
 
 export default function searchBar(state = INITIAL_STATE, action) {
@@ -22,10 +24,20 @@ export default function searchBar(state = INITIAL_STATE, action) {
       inputValue: '',
       inputType: '',
     };
+  case FILTER_DRINK_CAT:
+    return {
+      ...state,
+      filter: payload.filter,
+    };
   case FETCH_AREA_API:
     return {
       ...state,
-      areas: payload.area,
+      areas: state.areas.concat(payload.area),
+    };
+  case AREA_SELECT:
+    return {
+      ...state,
+      areaChoosen: payload.area,
     };
   default:
     return state;

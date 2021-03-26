@@ -7,6 +7,7 @@ import fetchMealThunk from '../redux/actions/fetchMealAction';
 import clearRecipesAction from '../redux/actions/clearRecipesAction';
 import clearSearchAction from '../redux/actions/clearSearchAction';
 import MealCatsButtons from '../components/MealCatsButton';
+import fetchRecipesMealCatsThunk from '../redux/actions/fetchMealCatRecipesAction';
 
 function MealsRecipes() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function MealsRecipes() {
   const input = useSelector((state) => state.search.inputValue);
   const type = useSelector((state) => state.search.inputType);
   const meals = useSelector((state) => state.recipes.recipes);
+  const filter = useSelector((state) => state.recipes.mealFilter);
   useEffect(() => {
     const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
     fetchData(input, type);
@@ -24,9 +26,15 @@ function MealsRecipes() {
     dispatch(clearSearchAction());
   }, [dispatch]);
 
+  useEffect(() => {
+    const fetchData = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
+    fetchData(filter);
+  }, [dispatch, filter]);
+
   return (
     <main>
-      {meals && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+      {(meals && meals.length === 1 && filter === '')
+      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />
       { meals && meals.map((elem, index) => (

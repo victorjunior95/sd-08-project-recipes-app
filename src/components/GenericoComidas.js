@@ -89,7 +89,7 @@ class GenericoComidas extends Component {
     }
 
     return (
-      <div className="cards">
+      <div className="card">
         <center>
           <img
             src={ currentRecipe.strMealThumb }

@@ -156,7 +156,7 @@ class SearchBar extends Component {
           <div
             key={ food.idMeal }
             data-testid={ `${index}-recipe-card` }
-            className="cards"
+            className="card"
           >
             <button
               type="button"
@@ -183,7 +183,7 @@ class SearchBar extends Component {
           </div>)))
           : <div />}
         {rotaBebida ? (newArr.map((drink, index) => (
-          <div key={ drink } data-testid={ `${index}-recipe-card` } className="cards">
+          <div key={ drink } data-testid={ `${index}-recipe-card` } className="card">
             <button
               type="button"
               onClick={ () => {

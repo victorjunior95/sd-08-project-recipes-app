@@ -33,6 +33,7 @@
 }
 
 .card {
+  background-color: rgba(101, 138, 65, 0.3);
   border: 3px solid black;
   margin: 10px;
 }

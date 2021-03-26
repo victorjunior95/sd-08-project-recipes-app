@@ -28,7 +28,7 @@ function ExplorerFood() {
         onClick={ () => history.push('/explorar/comidas/area') }
       />
       <ExploreByWhat
-        dataTestId="ingredients"
+        dataTestId="ingredient"
         ptBr="Ingredientes"
         onClick={ () => history.push('/explorar/comidas/ingredientes') }
       />

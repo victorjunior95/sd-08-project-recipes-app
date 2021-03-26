@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../../components/Header';
 import Footer from '../../../../components/footer';
 import { requestIngredientsMeal } from '../../../../services/API';
+import GlobalContext from '../../../../context/globalContext/GlobalContext';
 
 function ComidaIngredientes() {
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsImages, setIngredientsImages] = useState([]);
+  const { functions: { handleExploreIngredients } } = useContext(GlobalContext);
 
   const mountImage = (array) => {
     const path = 'https://www.themealdb.com/images/ingredients/';
@@ -37,8 +39,9 @@ function ComidaIngredientes() {
         <button
           key={ ingredient }
           type="button"
+          onClick={ handleExploreIngredients }
         >
-          <Link to="/comidas">
+          <Link to="/comidas" type="button">
             <div data-testid={ `${index}-ingredient-card` }>
               <img
                 src={ ingredientsImages[index] }

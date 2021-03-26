@@ -9,7 +9,17 @@ function GlobalProvider({ children }) {
   const [currentCategory, setCurrentCategory] = useState('');
   const [filteredMeals, setFilteredMeals] = useState([]);
 
+  const [fetchExploreIngredients, setFetchExploreIngredients] = useState(false);
+  const [exploreIngredients, setExploreIngredients] = useState('');
+
   const handleEmail = ({ target }) => setEmail(target.value);
+  const handleFetchExploreIngredients = () => setFetchExploreIngredients(true);
+
+  const handleExploreIngredients = ({ target }) => {
+    const value = target.alt ? target.alt : target.innerText;
+    setExploreIngredients(value);
+    handleFetchExploreIngredients();
+  };
 
   const handleFilteredMeals = async ({ target }) => {
     const categoryName = target.innerText;
@@ -36,11 +46,14 @@ function GlobalProvider({ children }) {
       email,
       foodCategory,
       filteredMeals,
+      fetchExploreIngredients,
+      exploreIngredients,
     },
     functions: {
       setEmail,
       handleEmail,
       handleFilteredMeals,
+      handleExploreIngredients,
     },
   };
   return (

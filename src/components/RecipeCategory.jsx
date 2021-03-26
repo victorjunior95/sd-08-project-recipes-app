@@ -12,7 +12,6 @@ export default function RecipeCategory({ recipeType }) {
     requestApiCategory,
     onClickCategoryFetch,
     setToggle,
-    toggle,
   } = useContext(Context);
 
   useEffect(() => {

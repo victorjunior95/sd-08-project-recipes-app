@@ -21,12 +21,19 @@ function RecipeList({ route, recipeType, endpoint }) {
     return <p>Nenhuma Receita Encontrada</p>;
   }
   function list(recipes) {
+    function redirectToCard(id) {
+      return <Redirect to={ `/${route}/${id}` } />;
+    }
     return (
       <section>
         {recipes.slice(0, FIRST_TWELVE_RECIPES).map((recipe, index) => (
           <div
             data-testid={ `${index}-recipe-card` }
             key={ recipe[`id${recipeType}`] }
+            onClick={ () => redirectToCard(recipe[`id${recipeType}`]) }
+            onKeyPress={ () => redirectToCard(recipe[`id${recipeType}`]) }
+            role="button"
+            tabIndex="0"
           >
             <p data-testid={ `${index}-card-name` }>
               {recipe[`str${recipeType}`]}

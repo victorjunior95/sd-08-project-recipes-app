@@ -13,7 +13,8 @@ function Foods() {
   const [category, setCategory] = useState('');
   const history = useHistory();
   const onClickAll = ({ target }) => setCategory(target.value);
-  const onClickCategory = ({ target }) => (category !== target.value ? setCategory(target.value) : setCategory(''));
+  const onClickCategory = ({ target }) => (category !== target.value
+    ? setCategory(target.value) : setCategory(''));
 
   useEffect(() => {
     setFilterFood({ key: 'category', value: category });

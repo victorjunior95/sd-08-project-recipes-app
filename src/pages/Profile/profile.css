@@ -1,0 +1,21 @@
+.email {
+  color: #81807e;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  font-weight: 600;
+  width: 155px;
+  background-color: #ffb45f;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}

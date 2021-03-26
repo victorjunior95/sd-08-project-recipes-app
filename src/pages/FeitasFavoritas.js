@@ -26,9 +26,8 @@ export default function FeitasFavoritas() {
   };
 
   useEffect(() => {
-    setDoneList(listCart);
-    setFavList(listFavCart);
-    console.log('ff');
+    if (listCart) { setDoneList(listCart); }
+    if (listFavCart) { setFavList(listFavCart); }
   }, []);
 
   // useEffect(() => {

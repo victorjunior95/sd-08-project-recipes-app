@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
 import Context from '../../contextApi/Context';
+import './login.css';
 
 function Login() {
   const {
@@ -20,10 +21,10 @@ function Login() {
       const PASSWRDLENGTH = 6;
       const re = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
       if (
-        password
-        && password.length > PASSWRDLENGTH
-        && email
-        && re.test(email) === true
+        password &&
+        password.length > PASSWRDLENGTH &&
+        email &&
+        re.test(email) === true
       ) {
         setDisabled(false);
       }
@@ -37,33 +38,33 @@ function Login() {
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     setRedirect(true);
   };
-  console.log(email);
   return (
-    <div>
+    <div className="form-login">
       {redirect && <Redirect to="/comidas" />}
       <label htmlFor="email">
-        Email:
         <input
           type="email"
+          placeholder="Email..."
           data-testid="email-input"
           name="email"
-          onChange={ (e) => setEmail(e.target.value) }
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
         />
       </label>
       <label htmlFor="password">
-        Senha:
         <input
           type="password"
+          placeholder="Senha..."
           data-testid="password-input"
           name="password"
-          onChange={ (e) => setPassword(e.target.value) }
+          onChange={(e) => setPassword(e.target.value)}
         />
       </label>
       <Button
-        variant="success"
+        variant="warning"
         data-testid="login-submit-btn"
-        onClick={ submit }
-        disabled={ disableds }
+        onClick={submit}
+        disabled={disableds}
       >
         Entrar
       </Button>

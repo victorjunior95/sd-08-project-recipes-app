@@ -22,7 +22,7 @@ const CardDetails = ({ title, object, isLoading, children }) => {
   };
   useEffect(() => {
     recomendedRecipes(title).then((response) => setRecomended(response));
-    if (!localStorage.hasOwnProperty('favoriteRecipes')) {
+    if (localStorage.getItem('favoriteRecipes') === null) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
     const local = JSON.parse(localStorage.getItem('favoriteRecipes'));

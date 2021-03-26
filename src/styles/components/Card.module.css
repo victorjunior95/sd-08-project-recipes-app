@@ -1,31 +1,41 @@
 .card {
-  align-items: center;
   border-radius: 8px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   display: inline-flex;
   flex-direction: column;
-  height: 100%;
-  max-height: 210px;
+  max-height: 250px;
   min-width: 100px;
   overflow: hidden;
 }
 
-.header {
-  align-items: center;
-  align-self: stretch;
-  background: #ccc;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+.card p {
   display: flex;
   flex: 1;
+  min-height: 15px;
+}
+
+.header {
   font-size: 1rem;
-  justify-content: center;
-  min-height: 50px;
+}
+
+.card p:not( :last-child ) {
+  margin-bottom: 5px;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: 10px;
-  text-align: center;
 }
 
 .card img {
   min-width: 80px;
   transition: transform 0.2s;
   width: 100%;
+}
+
+.category {
+  font-size: 0.8rem;
+  opacity: 0.4;
 }

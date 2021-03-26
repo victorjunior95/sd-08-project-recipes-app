@@ -9,7 +9,8 @@ import { Creators as RecipesActions } from '../store/ducks/mealRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Container from '../components/Container';
-import IngredientCard from '../components/IngredientCard';
+// import IngredientCard from '../components/IngredientCard';
+import Card from '../components/Card';
 import CardsContainer from '../components/CardsContainer';
 
 const INGREDIENTS_LIMIT = 12;
@@ -36,7 +37,8 @@ const ExploreMealsByIngredient = ({ fetchIngredients,
           idIngredient,
           thumbnail = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`,
         }, index) => (
-          <IngredientCard
+          <Card
+            data-testid={ `${index}-ingredient-card` }
             key={ idIngredient }
             name={ strIngredient }
             thumbnail={ thumbnail }

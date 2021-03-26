@@ -9,7 +9,8 @@ import { Creators as RecipesActions } from '../store/ducks/cocktailRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Container from '../components/Container';
-import IngredientCard from '../components/IngredientCard';
+// import IngredientCard from '../components/IngredientCard';
+import Card from '../components/Card';
 import CardsContainer from '../components/CardsContainer';
 
 const COCKTAILS_LIMIT = 12;
@@ -35,7 +36,8 @@ const ExploreCocktailsByIngredient = ({ fetchIngredients,
           strIngredient1,
           thumbnail = `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`,
         }, index) => (
-          <IngredientCard
+          <Card
+            data-testid={ `${index}-ingredient-card` }
             key={ index }
             name={ strIngredient1 }
             thumbnail={ thumbnail }

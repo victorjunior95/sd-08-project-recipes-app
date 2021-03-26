@@ -33,8 +33,6 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
     }
   }, []);
 
-  console.log(recipes);
-
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
 
   if (isFetchingRecipes && isFetchingCategories) return <LoadingScreen />;
@@ -64,18 +62,18 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
 
       { recipesNotFound && <p>Nenhuma comida encontrada</p> }
 
-      { console.log('inside', recipes) }
-
       <CardsContainer>
         { isFetchingRecipes
           ? <LoadingScreen />
           : recipes.length >= 1
             && recipes.slice(0, RESULTS_LIMIT).map((recipe, index) => (
               <Card
+                data-testid={ `${index}-recipe-card` }
                 key={ recipe.idMeal }
                 name={ recipe.strMeal }
                 thumbnail={ recipe.strMealThumb }
                 index={ index }
+                // category={ recipe.strCategory }
                 onClick={ () => history.push(`/comidas/${recipe.idMeal}`) }
               />)) }
       </CardsContainer>

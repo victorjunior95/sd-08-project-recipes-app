@@ -5,10 +5,6 @@
   padding: 15px;
 }
 
-.exploreContainer a {
-  text-decoration: none;
-}
-
 .exploreContainer a, .exploreContainer button {
   align-items: center;
   background-color: #fefefe;
@@ -20,7 +16,7 @@
   display: flex;
   font-size: 1.4rem;
   height: 100px;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 10px;
-  text-align: center;
+  text-align: left;
 }

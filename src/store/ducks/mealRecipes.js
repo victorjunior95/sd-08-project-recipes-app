@@ -58,7 +58,6 @@ export const Creators = {
   }),
 
   fetchRecipes: (searchType = '', searchValue = '') => async (dispatch) => {
-    console.log('fetching recipes');
     dispatch(Creators.fetch());
     try {
       let results = null;

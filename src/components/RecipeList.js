@@ -21,7 +21,7 @@ function RecipeList({ route, recipeType, endpoint }) {
     return <p>Nenhuma Receita Encontrada</p>;
   }
   function list(recipes) {
-    function redirectToCard(id) {
+    function redirectToDetails(id) {
       return <Redirect to={ `/${route}/${id}` } />;
     }
     return (
@@ -30,8 +30,8 @@ function RecipeList({ route, recipeType, endpoint }) {
           <div
             data-testid={ `${index}-recipe-card` }
             key={ recipe[`id${recipeType}`] }
-            onClick={ () => redirectToCard(recipe[`id${recipeType}`]) }
-            onKeyPress={ () => redirectToCard(recipe[`id${recipeType}`]) }
+            onClick={ () => redirectToDetails(recipe[`id${recipeType}`]) }
+            onKeyPress={ () => redirectToDetails(recipe[`id${recipeType}`]) }
             role="button"
             tabIndex="0"
           >

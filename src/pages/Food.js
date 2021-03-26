@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import ListCard from '../components/ListCard';
 import Footer from '../components/Footer';
+import Filtro from '../components/Filtros';
 
 export default class Food extends Component {
   render() {
@@ -27,6 +28,7 @@ export default class Food extends Component {
     return (
       <div>
         <Header params={ values } />
+        <Filtro />
         <ListCard infos={ food } />
         <Footer />
       </div>

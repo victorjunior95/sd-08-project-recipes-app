@@ -19,11 +19,11 @@ const RecipesInProgress = ({ title, match }) => {
   const getMealOrDrink = async () => {
     if (title === 'Comidas') {
       const meal = await getMeal(id);
-      console.log(meal);
+      // console.log(meal);
       return meal;
     }
     const drink = await getDrink(id);
-    console.log(drink);
+    // console.log(drink);
     return drink;
   };
 
@@ -42,8 +42,8 @@ const RecipesInProgress = ({ title, match }) => {
 
   return (
     <>
-      <CardDetails title={title} object={object} isLoading={isLoading}>
-        <CheckBoxIngredients object={object} />
+      <CardDetails title={ title } object={ object } isLoading={ isLoading }>
+        <CheckBoxIngredients object={ object } title={ title } />
       </CardDetails>
       <Button
         className="btn btn-primary w-100"

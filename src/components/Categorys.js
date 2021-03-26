@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import firstRequest from '../services/firstRequest';
 import filterCategoryRequest from '../services/filterCategoryRequest';
@@ -39,7 +40,6 @@ function Categorys({ title }) {
     target.classList.add('ativo');
 
     const { foodRequest, drinkRequest } = await filterCategoryRequest(target.name);
-    console.log(foodRequest, drinkRequest);
     if (drinkRequest) {
       setBebidas(drinkRequest);
     } else {
@@ -60,6 +60,7 @@ function Categorys({ title }) {
         if (index <= LIMIT) {
           return (
             <button
+              key={ index }
               type="button"
               data-testid={ `${item.strCategory}-category-filter` }
               onClick={ toggleCategoryFilter ? firstContent : categoryFilter }
@@ -74,5 +75,9 @@ function Categorys({ title }) {
     </div>
   );
 }
+
+Categorys.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Categorys;

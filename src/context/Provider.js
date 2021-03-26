@@ -18,6 +18,9 @@ function Provider({ children }) {
   const [bebidas, setBebidas] = useState([]);
   const [categoryComidas, setCategoryComidas] = useState([]);
   const [categoryBebidas, setCategoryBebidas] = useState([]);
+  const [recipe, setRecipe] = useState({});
+  const [recomendados, setRecomendados] = useState([]);
+  const [renderRec, setRenderRec] = useState(false);
   const contextValue = {
     userEmail,
     setEmail,
@@ -45,6 +48,12 @@ function Provider({ children }) {
     setCategoryBebidas,
     toggleCategoryFilter,
     setToggleCategoryFilter,
+    recipe,
+    setRecipe,
+    recomendados,
+    setRecomendados,
+    renderRec,
+    setRenderRec,
   };
 
   useEffect(async () => {

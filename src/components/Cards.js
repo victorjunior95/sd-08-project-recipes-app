@@ -9,6 +9,7 @@ function Cards({ title }) {
     comidas,
     bebidas,
     setType,
+    setRecipe,
   } = useContext(MyContext);
   const LIMIT = 11;
   let array = [];
@@ -43,7 +44,10 @@ function Cards({ title }) {
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
-            onClick={ () => redirectToDetails(item[`id${type.palavra}`]) }
+            onClick={ () => {
+              setRecipe(item[`id${type.palavra}`]);
+              redirectToDetails(item[`id${type.palavra}`]);
+            } }
             onKeyPress={ () => console.log('clicou') }
             role="button"
             tabIndex={ index }

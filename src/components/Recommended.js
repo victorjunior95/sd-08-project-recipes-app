@@ -4,7 +4,7 @@ import Context from '../context/Context';
 
 function Recommended({ recipeType }) {
   const { recommendations } = useContext(Context);
-
+  console.log(recommendations);
   const SIX = 6;
 
   return (

@@ -22,6 +22,34 @@ function RecipeDetails({ recipeType, status, route }) {
     // https://orclqa.com/copy-url-clipboard/
   }
 
+  function favoriteRecipe(recipe) {
+    console.log(recipe);
+    const id = recipe[`id${recipeType}`];
+    const type = recipeType;
+    const area = recipe.strArea;
+    const category = recipe.strCategory;
+    const alcoholicOrNot = recipe.strAlcoholic === 'Alcoholic';
+    const name = recipe[`str${recipeType}`];
+    const image = recipe[`str${recipeType}Thumb`];
+    const doneDate = '';
+    const tags = recipe.strTags;
+    const favorite = JSON.stringify([
+      { id, type, area, category, alcoholicOrNot, name, image },
+    ]);
+    /*     if (doneRecipe === true) {
+      favorite = JSON.stringify([
+        { id, type, area, category, alcoholicOrNot, name, image, doneDate, tags },
+      ]);
+      return favorite;
+    } if (doneRecipe === false) {
+      favorite = JSON.stringify([
+        { id, type, area, category, alcoholicOrNot, name, image },
+      ]);
+      return favorite;
+    } */
+    localStorage.setItem('favoriteRecipes', favorite);
+  }
+
   function renderDetails() {
     const recipe = Object.values(recipeDetails[0])[0][0];
 
@@ -45,7 +73,12 @@ function RecipeDetails({ recipeType, status, route }) {
         >
           <img alt="Share" src={ shareIcon } />
         </button>
-        <button type="button" data-testid="favorite-btn" className="favorite-btn">
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          className="favorite-btn"
+          onClick={ () => favoriteRecipe(recipe) }
+        >
           <img
             alt="Favorite"
             src={ /* favorite ? blackHeartIcon : whiteHeartIcon */ whiteHeartIcon }

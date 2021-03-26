@@ -11,7 +11,7 @@ import CardsButtonsCategories from './CardsButtonsCategories';
 import '../../styles/components/Header/index.css';
 
 const MAX_LENGTH_NAMES_CATEGORIES = 5;
-const ARGUMENT_REQUEST = { search: '', searchRadio: 'name' };
+const ARGUMENT_REQUEST_ALL = { search: '', searchRadio: 'name' };
 class Header extends Component {
   render() {
     const {
@@ -24,13 +24,13 @@ class Header extends Component {
       getFood,
     } = this.props;
     let buttons = [];
-    let callback = () => {};
+    let getRecipes = () => {};
     if (title === 'Comidas') {
       buttons = [...foodButtons];
-      callback = getFood;
+      getRecipes = getFood;
     } else {
       buttons = [...drinkButtons];
-      callback = getDrink;
+      getRecipes = getDrink;
     }
     return (
       <header className="headerContainer">
@@ -75,8 +75,8 @@ class Header extends Component {
           data-testid="All-category-filter"
           type="button"
           onClick={ () => (title === 'Comidas'
-            ? getFood(ARGUMENT_REQUEST)
-            : getDrink(ARGUMENT_REQUEST)
+            ? getFood(ARGUMENT_REQUEST_ALL)
+            : getDrink(ARGUMENT_REQUEST_ALL)
           ) }
         >
           All
@@ -90,7 +90,8 @@ class Header extends Component {
                   key={ index }
                   strCategory={ button.strCategory }
                   title={ title }
-                  callback={ callback }
+                  getRecipes={ getRecipes }
+                  buttons={ buttons }
                 />
               );
             }

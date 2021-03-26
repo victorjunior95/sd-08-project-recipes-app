@@ -3,6 +3,7 @@ import { alertSearch } from '../../serviceWorker';
 
 const INITIAL_STATE = {
   data: [],
+  count: 0,
 };
 
 export default function foodsReducer(state = INITIAL_STATE, action) {

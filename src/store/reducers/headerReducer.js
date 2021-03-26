@@ -21,7 +21,7 @@ export default function headerReducer(state = INITIAL_STATE_USER, action) {
   case TOGGLE_HEADER_TITLE:
     return {
       ...state,
-      titleHeader: action.payload.titleHeader, // precisa de titleHeader ??
+      titleHeader: action.payload.titleHeader,
     };
   case SET_FILTERS_FOODS_BUTTONS:
     return {

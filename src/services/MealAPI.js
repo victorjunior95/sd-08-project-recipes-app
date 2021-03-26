@@ -69,3 +69,11 @@ export function fetchFistMealCats() {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchRecipesMealCats(filter) {
+  const recipesFilteredURL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`;
+
+  return fetch(recipesFilteredURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

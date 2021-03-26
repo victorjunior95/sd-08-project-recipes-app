@@ -47,8 +47,12 @@ const RecipesFavDone = ({ title, visible }) => {
         doneRecipes.map((recipe, index) => (
           <CardRecipe
             key={index}
+            id={recipe.id}
+            type={recipe.type}
             index={index}
             image={recipe.image}
+            alcoholicOrNot={recipe.alcoholicOrNot}
+            area={recipe.area}
             category={recipe.category}
             name={recipe.name}
             doneDate={recipe.doneDate}

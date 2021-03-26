@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as RecipesActions } from '../store/ducks/cocktailRecipes';
@@ -23,6 +23,7 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
   recipes, categories }) => {
   const { id } = useParams();
   const [showSearchBar, toggleSearchBar] = useToggle();
+  const history = useHistory();
 
   useEffect(() => {
     fetchCategories();
@@ -64,6 +65,7 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
                 name={ cocktail.strDrink }
                 thumbnail={ cocktail.strDrinkThumb }
                 index={ index }
+                onClick={ () => history.push(`/bebidas/${cocktail.idDrink}`) }
               />)) }
       </CardsContainer>
       <Footer />

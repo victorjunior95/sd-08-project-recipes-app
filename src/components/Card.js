@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles/components/Card.module.css';
 
-const Card = ({ name, thumbnail, index }) => (
-  <div data-testid={ `${index}-recipe-card` } className={ styles.card }>
+const Card = ({ name, thumbnail, index, ...rest }) => (
+  <div
+    data-testid={ `${index}-recipe-card` }
+    className={ styles.card }
+    { ...rest }
+  >
     <img
       data-testid={ `${index}-card-img` }
       src={ `${thumbnail}` }

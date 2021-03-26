@@ -44,8 +44,6 @@ const RecipesInProgress = ({ title, match }) => {
             Iniciar receita
       </Button>
     </>
-    
-    
   );
 };
 

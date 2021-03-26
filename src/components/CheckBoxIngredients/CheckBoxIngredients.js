@@ -1,130 +1,138 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import './checkBoxIngredient.css';
-import Context from '../../contextApi/Context';
-import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 const CheckBoxIngredients = ({ object, title }) => {
-
-  const [ inProgressRecipes, setProgressRecipes ] = useState({
+  const [inProgressRecipes, setProgressRecipes] = useState({
     cocktails: {},
-    meals: {}
+    meals: {},
   });
-  const [ isClicked, setClicked] = useState(false);
+
+  const objectSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  if (!objectSaved) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }
+
+  const [isClicked, setClicked] = useState(false);
 
   const mealId = object.idMeal;
-  const drinkId = object.idDrink
+  const drinkId = object.idDrink;
 
-  const updateInProgressRecipes = () => {
-    const objectSaved = JSON.parse(localStorage.getItem("inProgressRecipes"))
-    const idsMealList = objectSaved && Object.keys(objectSaved.meals)
-    const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
-    console.log(objectSaved, existSpecificId , 'Antes de entrar nas condições')
+  const updateInProgressRecipes = (id, recipe) => {
+    // const objectSaved = JSON.parse(localStorage.getItem("inProgressRecipes"))
+    const idsRecipeList = objectSaved && Object.keys(objectSaved[recipe]);
+    const existSpecificId = idsRecipeList && idsRecipeList.some((specificId) => specificId === id);
+    console.log(objectSaved, existSpecificId, 'Antes de entrar nas condições');
 
     if (objectSaved === null || !existSpecificId) {
-      console.log('Entra na primeira condição')
+      console.log('Entra na primeira condição');
       setProgressRecipes({
-        ... inProgressRecipes, ...objectSaved, meals: {
-          ...inProgressRecipes.meals, ...objectSaved.meals, [mealId] : [],
-        }
-      })
+        ...inProgressRecipes,
+        ...objectSaved,
+        [recipe]: {
+          ...inProgressRecipes[recipe], ...objectSaved[recipe], [id]: [],
+        },
+      });
       // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
     } else {
-      console.log('entra na segunda condição')
-      console.log(inProgressRecipes, objectSaved )
+      console.log('entra na segunda condição');
+      console.log(inProgressRecipes, objectSaved);
       setProgressRecipes(objectSaved);
       // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
     }
-  }
+  };
 
-  const saveOnLocalStorage = () => {
-
-    const idsMealList = inProgressRecipes && Object.keys(inProgressRecipes.meals)
-    const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
+  const saveOnLocalStorage = (id, recipe) => {
+    const idsRecipeList = inProgressRecipes && Object.keys(inProgressRecipes[recipe]);
+    const existSpecificId = idsRecipeList && idsRecipeList.some((specificId) => specificId === id);
 
     if (existSpecificId) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes))
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     }
-  }
+  };
 
-  useEffect (() => {
-    saveOnLocalStorage()
-  },[isClicked])
+  useEffect(() => {
+    (title === 'Comidas') ? saveOnLocalStorage(mealId, 'meals') : saveOnLocalStorage(drinkId, 'cocktails');
+  }, [isClicked]);
 
-  useEffect (() => {
-    if (mealId) {
-      setClicked(!isClicked)
-      updateInProgressRecipes()
+  useEffect(() => {
+    if (mealId || drinkId) {
+      setClicked(!isClicked);
+      (title === 'Comidas') ? updateInProgressRecipes(mealId, 'meals') : updateInProgressRecipes(drinkId, 'cocktails');
     }
     // return () => saveOnLocalStorage
-  },[])
-
-
+  }, []);
 
   const addIngredient = (event, id, recipe) => {
     setProgressRecipes({
-      ...inProgressRecipes, [recipe]: { ...inProgressRecipes[recipe],
-        [id] : [...inProgressRecipes[recipe][id], object[event.target.name] ],
-      }
-    })
-  }
+      ...inProgressRecipes,
+      [recipe]: {
+        ...inProgressRecipes[recipe],
+        [id]: [...inProgressRecipes[recipe][id], object[event.target.name]],
+      },
+    });
+  };
 
   const removeIngredient = (event, id, recipe) => {
-    const filteredIngredients = inProgressRecipes[recipe][id].filter(ingredient=> ingredient !== object[event.target.name] );
+    const filteredIngredients = inProgressRecipes[recipe][id].filter(
+      (ingredient) => ingredient !== object[event.target.name],
+    );
     setProgressRecipes({
-      ...inProgressRecipes, [recipe]: { ...inProgressRecipes[recipe],
-        [id] : [...filteredIngredients],
-      }
-    })
-  }
+      ...inProgressRecipes,
+      [recipe]: {
+        ...inProgressRecipes[recipe],
+        [id]: [...filteredIngredients],
+      },
+    });
+  };
 
   const adOrRemoveIngredient = (event, id, recipe) => {
     if (!event.target.checked) {
-      removeIngredient(event, id, recipe)
+      removeIngredient(event, id, recipe);
     } else {
-      addIngredient(event, id, recipe)
+      addIngredient(event, id, recipe);
     }
-  }
+  };
 
-
-// adicionando ingredientes no array da respectiva Key id
+  // adicionando ingredientes no array da respectiva Key id
   const handleClick = (event) => {
-    setClicked(!isClicked)
-    if (title === "Comidas") {
-      adOrRemoveIngredient(event, mealId, "meals");
-      }
-    else {
-      adOrRemoveIngredient(event, drinkId, "cocktails")
+    setClicked(!isClicked);
+    if (title === 'Comidas') {
+      adOrRemoveIngredient(event, mealId, 'meals');
+    } else {
+      adOrRemoveIngredient(event, drinkId, 'cocktails');
     }
-  }
+  };
 
-  const isChecked = (ingredient) => {
-    const idsMealList = inProgressRecipes && Object.keys(inProgressRecipes.meals)
-    const existSpecificId = idsMealList && idsMealList.some(id => id === mealId );
+  const isChecked = (ingredient, id, recipe) => {
+    const idsRecipeList = inProgressRecipes && Object.keys(inProgressRecipes[recipe]);
+    const existSpecificId = idsRecipeList && idsRecipeList.some((specificId) => specificId === id);
 
-    const specificIingredient = object[ingredient]
+    const specificIingredient = object[ingredient];
 
-    if (existSpecificId && title === "Comidas") {
-      const ingredientList = inProgressRecipes.meals[mealId]
-      return ingredientList.some(el => el === specificIingredient);
-    } else if (existSpecificId) {
-      const ingredientList = inProgressRecipes.cocktails[drinkId]
-      return ingredientList.some(el => el === specificIingredient);
+    if (existSpecificId) {
+      const ingredientList = inProgressRecipes[recipe][id];
+      return ingredientList.some((el) => el === specificIingredient);
     }
-  }
-  
+  };
+
   const renderIngredientList = () => {
     const listKeys = Object.keys(object);
     const ingredients = listKeys.filter((key) => key.includes('strIngredient'));
 
     const listKeysMeasure = Object.keys(object);
-    const measures = listKeysMeasure.filter((key) => key.includes('strMeasure'))
+    const measures = listKeysMeasure.filter((key) => key.includes('strMeasure'));
 
     return ingredients.map((ingredient, index) => {
       if (object[ingredient]) {
         return (
-          <div key={ingredient} className="mb-3" data-testid={ `${index}-ingredient-step` }>
+          <div
+            key={ingredient}
+            className="mb-3"
+            data-testid={`${index}-ingredient-step`}
+          >
             <input
               className="checkClass"
               type="checkbox"
@@ -132,8 +140,8 @@ const CheckBoxIngredients = ({ object, title }) => {
               id={ingredient}
               onClick={handleClick}
               // ref={ createRef }
-              checked={isChecked(ingredient)}
-              />
+              checked={(title === 'Comidas') ? isChecked(ingredient, mealId, 'meals') : isChecked(ingredient, drinkId, 'cocktails')}
+            />
             <label
               htmlFor={ingredient}
               className="strikethrough"
@@ -141,7 +149,7 @@ const CheckBoxIngredients = ({ object, title }) => {
               {`${object[ingredient]} - ${object[measures[index]]}`}
             </label>
           </div>
-        )
+        );
       }
     });
   };
@@ -157,12 +165,9 @@ const CheckBoxIngredients = ({ object, title }) => {
 CheckBoxIngredients.propTypes = {
   title: PropTypes.string.isRequired,
   object: PropTypes.shape({
-    strMealThumb: PropTypes.string,
-    strDrinkThumb: PropTypes.string,
-    strMeal: PropTypes.string,
-    strDrink: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }).isRequired,
-  index: PropTypes.string.isRequired,
 };
 
 export default CheckBoxIngredients;

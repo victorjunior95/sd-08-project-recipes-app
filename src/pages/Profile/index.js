@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
@@ -6,13 +6,22 @@ import Footer from '../../components/Footer';
 import './profile.css';
 
 function Profile({ history }) {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [useremail, setUserEmail] = useState();
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user === null) user = 'mail: oi@oi.com';
+    setUserEmail(user.email);
+  }, []);
+
   return (
     <>
       <Header history={ history } />
       <br />
       <section className="section">
-        <h1 className="email" data-testid="profile-email">{user.email}</h1>
+        { (useremail)
+          ? (<h1 className="email" data-testid="profile-email">{ useremail }</h1>)
+          : (<h1>ops</h1>)}
       </section>
       <br />
       <section className="section">

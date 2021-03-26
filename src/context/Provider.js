@@ -11,7 +11,7 @@ function Provider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
   const [apiReturn, setApiReturn] = useState(null);
   const [apiReturnCategory, setApiReturnCategory] = useState([]);
-  const [filteredRecipes, setfilteredRecipes] = useState(null);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [toggle, setToggle] = useState(false);
 
   async function requestApiData(endpoint) {
@@ -29,7 +29,7 @@ function Provider({ children }) {
 
   async function onClickCategoryFetch(endpoint, categoria) {
     const recipesByCategory = await fetchRecipes(endpoint, 'filter', 'c', categoria);
-    setfilteredRecipes(recipesByCategory);
+    setFilteredRecipes(recipesByCategory);
     setIsFetching(false);
   }
 

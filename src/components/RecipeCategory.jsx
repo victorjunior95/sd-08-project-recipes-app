@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 import '../styles/RecipeList.css';
 
@@ -14,6 +14,8 @@ export default function RecipeCategory({ recipeType }) {
     setToggle,
   } = useContext(Context);
 
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
   useEffect(() => {
     requestApiCategory();
   }, []);
@@ -24,26 +26,38 @@ export default function RecipeCategory({ recipeType }) {
       : apiReturnCategory.length && apiReturnCategory[1];
     const endpoint = type === 'meals' ? 'themealdb' : 'thecocktaildb';
     const typeCategoryPopulated = typeCategory[type];
-    function toggleFunc(serviceEndpoint, category) {
-      onClickCategoryFetch(serviceEndpoint, category);
-      setToggle((prevToggle) => !prevToggle);
+
+    async function toggleFunc([serviceEndpoint, category], categoryValue) {
+      await onClickCategoryFetch(serviceEndpoint, category);
+      if (categoryValue !== 'all') {
+        setSelectedCategory(categoryValue);
+        if (selectedCategory === categoryValue) setToggle(false);
+        else setToggle(true);
+      } else setToggle(false);
     }
 
     return (
       <div>
-        { typeCategoryPopulated && typeCategoryPopulated.length && typeCategoryPopulated
-          .slice(0, FIRST_FIVE_CATEGORY)
-          .map((category) => (
-            <button
-              type="button"
-              key={ `${category.strCategory}` }
-              data-testid={ `${category.strCategory}-category-filter` }
-              onClick={ () => toggleFunc(endpoint, category.strCategory) }
-            >
-              {category.strCategory}
-            </button>
-          ))}
-        <button type="button" onClick={ () => setToggle(false) }>
+        {typeCategoryPopulated
+          && typeCategoryPopulated.length
+          && typeCategoryPopulated
+            .slice(0, FIRST_FIVE_CATEGORY)
+            .map((category) => (
+              <button
+                type="button"
+                key={ `${category.strCategory}` }
+                value={ `${category.strCategory}` }
+                data-testid={ `${category.strCategory}-category-filter` }
+                onClick={ (e) => toggleFunc([endpoint, category.strCategory], e.target.value) }
+              >
+                {category.strCategory}
+              </button>
+            ))}
+        <button
+          type="button"
+          onClick={ () => setToggle(false) }
+          data-testid="All-category-filter"
+        >
           All
         </button>
       </div>

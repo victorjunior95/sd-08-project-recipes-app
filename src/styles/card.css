@@ -1,7 +1,7 @@
 .card {
-  background-color: red;
+  margin-right: 5px;
+  min-width: 50%;
   width: 170px;
-  width: 50%;
 }
 
 .card > img {

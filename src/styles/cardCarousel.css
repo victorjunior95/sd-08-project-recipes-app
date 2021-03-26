@@ -1,5 +1,4 @@
 .div-carousel {
-  background-color: lightblue;
   display: flex;
   overflow-x: scroll;
 }

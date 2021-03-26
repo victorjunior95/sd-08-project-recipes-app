@@ -15,3 +15,11 @@
   border-radius: 10px;
   width: 80%;
 }
+
+.carousel-card-container {
+  width: 50%;
+}
+
+.carousel-card-container img {
+  width: 50%;
+}

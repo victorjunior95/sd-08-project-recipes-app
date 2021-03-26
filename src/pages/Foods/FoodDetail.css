@@ -5,7 +5,9 @@
 .carousel {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;  
+  overflow-x: scroll;
+  width: 600%;
 }
 
 .icons {

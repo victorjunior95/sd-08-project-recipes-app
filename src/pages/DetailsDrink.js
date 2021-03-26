@@ -16,7 +16,6 @@ function DetailsDrink() {
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getDrinkRecipesDetails(Params.id);
-      console.log(saveDetail);
       setDrinkDetail(saveDetail);
     }
     getMealByName('');

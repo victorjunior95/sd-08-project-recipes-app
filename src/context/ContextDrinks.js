@@ -34,7 +34,6 @@ function DrinksContext(props) {
   const handleClickSearchDrink = useCallback(async () => {
     if (nameSearchRadioDrink) {
       const res = await getDrinkByName(searchInputDrink);
-      // console.log(res);
       if (res === null) {
         myCustomAlert(
           'Sinto muito, não encontramos nenhuma receita para esses filtros.',
@@ -122,18 +121,6 @@ function DrinksContext(props) {
   const handleChangeSearchDrink = (e) => {
     setSearchInputDrink(e);
   };
-
-  // const handleByCategoryDrinkAll = async () => {
-  //   console.log(categoriesDrinks);
-  //   const result = await Promise.all(categoriesDrinks.map(async ({ strCategory }) => {
-  //     const drinksAll = await getDrinksByCategory(strCategory);
-  //     // console.log(drinksAll);
-  //     return drinksAll;
-  //   }));
-  //   const reduceDrinks = result.reduce((acc, curr) => acc.concat(curr));
-  //   console.log(reduceDrinks);
-  //   return reduceDrinks;
-  // };
 
   const handleByCategoryDrink = async (category) => {
     if (category === categoryDrinks) {

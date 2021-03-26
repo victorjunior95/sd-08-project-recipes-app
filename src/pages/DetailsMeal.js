@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { useParams, useHistory, Link } from 'react-router-dom';
+// import { Button } from 'react-bootstrap';
 import { DataDrinksContext } from '../context/ContextDrinks';
 import { getMealRecipesDetails } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
@@ -26,15 +26,12 @@ function DetailsMeal() {
   const startOfSlice = 0;
   const endOfSlice = 6;
 
-  const measure = Object.entries(mealDetail).reduce(
-    (acc, [key, value]) => {
-      if (key.includes('strMeasure') && value) {
-        return acc.concat(value);
-      }
-      return acc;
-    },
-    [],
-  );
+  const measure = Object.entries(mealDetail).reduce((acc, [key, value]) => {
+    if (key.includes('strMeasure') && value) {
+      return acc.concat(value);
+    }
+    return acc;
+  }, []);
 
   return (
     <div>
@@ -81,9 +78,7 @@ function DetailsMeal() {
           <h4>Recomendadas</h4>
           <div className="carousel-class">
             {drinks.length > sizeOfLength
-            && drinks
-              .slice(startOfSlice, endOfSlice)
-              .map((drink, index) => (
+              && drinks.slice(startOfSlice, endOfSlice).map((drink, index) => (
                 <figure className="recomendation-img-food" key={ index }>
                   <img
                     key={ drink.idDrink }
@@ -92,34 +87,32 @@ function DetailsMeal() {
                     alt="recomendations"
                   />
                   <figcaption>{drink.strCategory}</figcaption>
-                  <figcaption
-                    data-testid={ `${index}-recomendation-title` }
-                  >
-                    { drink.strDrink }
+                  <figcaption data-testid={ `${index}-recomendation-title` }>
+                    {drink.strDrink}
                   </figcaption>
                 </figure>
               ))}
           </div>
-          <Button
-            onClick={ () => history.push(`/comidas/${Params.id}/in-progress`) }
+          <Link
+            to={ `/comidas/${Params.id}/in-progress` }
             className="start-recipe-btn"
             data-testid="start-recipe-btn"
           >
             Iniciar Receita
-          </Button>
+          </Link>
         </div>
       </div>
       <div className="share-favorite-btn">
-        <Button variant="warning">
+        <button type="button" variant="warning">
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
-        </Button>
-        <Button variant="danger">
+        </button>
+        <button type="button" variant="danger">
           <img
             data-testid="favorite-btn"
             src={ whiteHeartIcon }
             alt="favorite-icon"
           />
-        </Button>
+        </button>
       </div>
     </div>
   );

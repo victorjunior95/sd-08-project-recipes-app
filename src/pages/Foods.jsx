@@ -30,7 +30,7 @@ function Foods() {
   }, []);
 
   const mapCards = (array) => (
-    <section>
+    <section className="card-item">
       {array.map((food, index) => (
         <Card
           index={ index }
@@ -65,7 +65,7 @@ function Foods() {
     return mapCards(foodsToMap);
   };
   return (
-    <div>
+    <div className="div-foods">
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
@@ -74,7 +74,9 @@ function Foods() {
         <>
           <Header label="Comidas" Search={ SearchButton } page="Comidas" />
           <CategoriesContainer page="Comidas" />
-          {showCards()}
+          <div className="card-food">
+            {showCards()}
+          </div>
           <Footer />
         </>
       )}

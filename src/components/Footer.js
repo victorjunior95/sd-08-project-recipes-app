@@ -6,6 +6,7 @@ import mealIcon from '../images/mealIcon.svg';
 
 class Footer extends Component {
   render() {
+    const arr = [];
     return (
       <div className="footer" data-testid="footer">
         <Link to="/bebidas">
@@ -26,7 +27,7 @@ class Footer extends Component {
             data-testid="food-bottom-btn"
           />
         </Link>
-
+        {arr.map((item) => item)}
       </div>
     );
   }

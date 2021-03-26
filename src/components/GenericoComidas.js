@@ -130,13 +130,16 @@ class GenericoComidas extends Component {
         <h2>Ingredientes</h2>
         {ingredientList && <IngredientList ingredientList={ ingredientList } />}
         <div data-testid="instructions">{currentRecipe.strInstructions}</div>
-        {window.location.href.includes('comidas') && <iframe
-          width="360"
-          height="240"
-          title="video"
-          src={ currentVideo }
-          data-testid="video"
-        />}
+        {window.location.href.includes('comidas')
+         && (
+           <center>
+             <iframe
+               title="video"
+               className="linkVideo"
+               src={ currentVideo }
+               data-testid="video"
+             />
+           </center>)}
         {recomendations
               && <RecomendationCard
                 recomendations={ recomendations }

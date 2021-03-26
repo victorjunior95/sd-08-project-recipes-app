@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { getDrinkById } from '../services/API';
 import RecipesContext from '../context/RecipesContext';
-import BlackHeartIcon from '../images/blackHeartIcon.svg';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function DetalhesBebida() {
   const history = useHistory();
@@ -28,6 +28,12 @@ function DetalhesBebida() {
       setDrink(drinks[0]);
       foodRandom();
       setToRender(true);
+      const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (getFavsFromLocal.some((recipe) => recipe.id === Number(id))) {
+        setFav(true);
+      } else {
+        setFav(false);
+      }
     });
   }, []);
 
@@ -35,9 +41,7 @@ function DetalhesBebida() {
 
   if (toRender) {
     for (let i = 1; i <= PROP_LIMITER; i += 1) {
-      if (drink[`strIngredient${i}`] !== null
-      && drink[`strIngredient${i}`] !== undefined
-      && drink[`strIngredient${i}`] !== '') {
+      if (drink[`strIngredient${i}`]) {
         ingredients.push(drink[`strIngredient${i}`]);
         measure.push(drink[`strMeasure${i}`]);
       }
@@ -54,12 +58,31 @@ function DetalhesBebida() {
   };
 
   const favorite = () => {
-    if (fav) {
-      document.getElementById('fav').src = WhiteHeartIcon;
-    } else {
-      document.getElementById('fav').src = BlackHeartIcon;
+    const recipe = {
+      id: Number(drink.idDrink),
+      type: 'bebida',
+      area: '',
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+      doneDate: '',
+      tags: [],
+    };
+
+    const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (getFavsFromLocal.some((r) => r.id === Number(drink.idDrink))) {
+      setFav(false);
+      return localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(getFavsFromLocal.filter((r) => r.id !== Number(drink.idDrink))),
+      );
     }
-    setFav(!fav);
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([...getFavsFromLocal, recipe]),
+    );
+    return setFav(true);
   };
 
   return toRender && (
@@ -83,7 +106,7 @@ function DetalhesBebida() {
         <button onClick={ () => favorite() } type="button">
           <img
             id="fav"
-            src={ WhiteHeartIcon }
+            src={ fav ? blackHeartIcon : whiteHeartIcon }
             alt="favoritar"
             data-testid="favorite-btn"
           />

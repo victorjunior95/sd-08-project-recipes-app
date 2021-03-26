@@ -9,6 +9,7 @@ import { CategoryButtons } from '../../components/Buttons';
 
 function Foods() {
   const STOP_INDEX = 11;
+  const THREE_SECONDS = 3000;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
   const history = useHistory();
@@ -51,7 +52,8 @@ function Foods() {
           ))}
 
         { meals && meals.length === 1
-          ? <Redirect to={ `/comidas/${meals[0].idMeal}` } /> : '' }
+          ? setTimeout(() => history.push(`/comidas/${meals[0].idMeal}`), THREE_SECONDS)
+          : '' }
         { meals === null
           // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')

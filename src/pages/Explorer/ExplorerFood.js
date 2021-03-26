@@ -21,7 +21,6 @@ function ExplorerFood() {
 
   return (
     <div>
-      {console.log(randomRecipeNumber)}
       <Header name="Explorar Comidas" currentPage="Foods" icon="true" />
       <ExploreByWhat
         dataTestId="area"

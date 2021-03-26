@@ -1,6 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { filterFirstLetter, filterIngredient, filterName, filterCategory } from '../services/api';
+import {
+  filterFirstLetter,
+  filterIngredient, filterName, filterCategory } from '../services/api';
 
 export const FoodCtx = createContext();
 

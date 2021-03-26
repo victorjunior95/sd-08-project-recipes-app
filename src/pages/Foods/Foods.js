@@ -58,7 +58,7 @@ function Foods() {
       <div className="cards">
         {/* {(renderingCondition(category))} */}
         {meals && meals
-          .filter((meal, index) => index <= STOP_INDEX && meal.strMeal.includes(''))
+          .filter((meal, index) => index <= STOP_INDEX)
           .map((item, index) => (
             <Card
               key={ item.idMeal }

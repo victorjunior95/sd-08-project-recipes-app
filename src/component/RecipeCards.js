@@ -6,7 +6,6 @@ import { useLocation } from 'react-router';
 export default function RecipeCards({ recipe, type, index, id, recommendation }) {
   const { pathname } = useLocation();
   const link = pathname.includes('comidas') ? 'comidas' : 'bebidas';
-
   return (
     <Link
       to={ `${link}/${id}` }

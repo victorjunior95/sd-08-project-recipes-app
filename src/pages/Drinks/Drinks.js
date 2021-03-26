@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import CategoryFilter from '../../component/CategoryFilter';
 import { Header, RecipeCards, Footer } from '../../component';
 import Context from '../../context/Context';
@@ -19,7 +20,7 @@ export default function Drinks() {
     if (recipes === 'NF') {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (recipes.length === 1 && selectedParameter !== 'category') {
-      return history.push(`/bebidas/${recipes[0].idMeal}`);
+      return history.push(`/bebidas/${recipes[0].idDrink}`);
     } else if (recipes.length >= 1) {
       return setRecipesToRender([...recipes].slice(0, SHOW_TWELVE_RECIPES));
     }
@@ -31,13 +32,19 @@ export default function Drinks() {
       <CategoryFilter />
       <div>
         {recipesToRender.map((recipe, index) => (
-          <RecipeCards
+          <Link
+            to={ `${history.location.pathname}/${recipe.idDrink}` }
+            data-testid={ `${index}-recipe-card` }
             key={ index }
-            recipe={ recipe }
-            id={ recipe.idDrink }
-            type="Drink"
-            index={ index }
-          />
+          >
+            <RecipeCards
+              key={ index }
+              recipe={ recipe }
+              id={ recipe.idDrink }
+              type="Drink"
+              index={ index }
+            />
+          </Link>
         ))}
       </div>
 

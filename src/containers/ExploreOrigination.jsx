@@ -25,7 +25,6 @@ function ExploreOrigination() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
-  console.log(mealArea);
   return (
     <div>
       <components.Header title="Explorar Origem" />

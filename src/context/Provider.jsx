@@ -8,7 +8,7 @@ function RecipesProvider() {
   const [filter, setFilter] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
-  const [currentFood, setCurrentFood] = useState([]);
+  const [currentFood, setCurrentFood] = useState({});
   const [currentFoodIngredients, setCurrentFoodIngredients] = useState([]);
   const [mainIngredient, setMain] = useState('');
 

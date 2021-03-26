@@ -4,11 +4,11 @@ function createIngredientsArray(obj) {
   for (let i = 1; i <= TOTAL_NUMBER_OF_INGREDIENTS; i += 1) {
     const ingr = `strIngredient${i}`;
     const meas = `strMeasure${i}`;
-    if (obj[0][ingr]) {
-      if (obj[0][meas]) {
-        IngredientsArray.push(`${obj[0][ingr]} - ${obj[0][meas]}`);
+    if (obj[ingr]) {
+      if (obj[meas]) {
+        IngredientsArray.push(`${obj[ingr]} - ${obj[meas]}`);
       } else {
-        IngredientsArray.push(`${obj[0][ingr]}`);
+        IngredientsArray.push(`${obj[ingr]}`);
       }
     }
   }

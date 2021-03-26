@@ -12,9 +12,8 @@ function DetalhesComida() {
   useEffect(() => {
     async function getMeal() {
       const food = await getResultFromAPI('/comidas', 'lookup', id);
-      console.log(food);
-      context.setCurrentFood(food);
-      context.setCurrentFoodIngredients(createIngredientsArray(food));
+      context.setCurrentFood({ ...food[0] });
+      context.setCurrentFoodIngredients(createIngredientsArray(food[0]));
     }
     getMeal();
   }, []);

@@ -13,6 +13,9 @@ const endPointFoodRandom = 'https://www.themealdb.com/api/json/v1/1/search.php?s
 
 const endPointDrinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
+const filterFoodCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+const filterDrinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+
 const returnAlert = () => {
   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   return null;
@@ -23,8 +26,6 @@ export const getFoodIngredients = async (ingredient) => (
     .then((response) => response.json())
     .then(({ meals }) => (meals || returnAlert()))
 );
-
-// export default getFoodIngredients;
 
 export const getFoodName = async (name) => (
   fetch(`${endpointFoodName}${name}`)
@@ -71,6 +72,7 @@ export const getDrinkById = async (id) => (
 export const getFoodRandom = async () => {
   const results = await fetch(endPointFoodRandom).then((res) => res.json());
   const { meals } = results;
+  console.log(meals.map((i) => i.strCategory));
   return meals;
 };
 
@@ -87,5 +89,19 @@ export const getCategoryFoods = async () => {
 
 export const getCategoryDrinks = async () => {
   const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((result) => result.json());
+  return drinks;
+};
+
+export const getFoodCategory = async (category) => {
+  const results = await fetch(`${filterFoodCategory}${category}`)
+    .then((res) => res.json());
+  const { meals } = results;
+  return meals;
+};
+
+export const getDrinkCategory = async (category) => {
+  const results = await fetch(`${filterDrinkCategory}${category}`)
+    .then((res) => res.json());
+  const { drinks } = results;
   return drinks;
 };

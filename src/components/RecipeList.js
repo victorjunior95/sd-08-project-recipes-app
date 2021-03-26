@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Context from '../context/Context';
 import '../styles/RecipeList.css';
@@ -9,7 +9,13 @@ function RecipeList({ route, recipeType, endpoint }) {
     isFetching,
     apiReturn,
     requestApiData,
+    filteredRecipes,
+    toggle,
   } = useContext(Context);
+
+  useEffect(() => {
+    requestApiData(endpoint);
+  }, []);
   function renderNoRecipeMessage() {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return <p>Nenhuma Receita Encontrada</p>;
@@ -18,8 +24,13 @@ function RecipeList({ route, recipeType, endpoint }) {
     return (
       <section>
         {recipes.slice(0, FIRST_TWELVE_RECIPES).map((recipe, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ recipe[`id${recipeType}`] }>
-            <p data-testid={ `${index}-card-name` }>{ recipe[`str${recipeType}`] }</p>
+          <div
+            data-testid={ `${index}-recipe-card` }
+            key={ recipe[`id${recipeType}`] }
+          >
+            <p data-testid={ `${index}-card-name` }>
+              {recipe[`str${recipeType}`]}
+            </p>
             <img
               className="recipe-img"
               data-testid={ `${index}-card-img` }
@@ -31,22 +42,19 @@ function RecipeList({ route, recipeType, endpoint }) {
       </section>
     );
   }
-  if (apiReturn === null) {
-    requestApiData(endpoint);
-  }
+
   function renderRecipeList() {
-    const recipes = Object.values(apiReturn[0])[0];
+    // const recipes = Object.values(apiReturn[0])[0];
+    const recipes = toggle
+      ? Object.values(filteredRecipes[0])[0]
+      : Object.values(apiReturn[0])[0];
+    // console.log(recipes);
+    // console.log(Object.values(filteredRecipes[0])[0]);
     if (recipes !== null && recipes.length === 1) {
       return <Redirect to={ `/${route}/${recipes[0][`id${recipeType}`]}` } />;
     }
-    return recipes
-      ? list(recipes)
-      : renderNoRecipeMessage();
+    return recipes ? list(recipes) : renderNoRecipeMessage();
   }
-  return (
-    apiReturn && (isFetching
-      ? <p>Loading...</p>
-      : renderRecipeList())
-  );
+  return apiReturn && (isFetching ? <p>Loading...</p> : renderRecipeList());
 }
 export default RecipeList;

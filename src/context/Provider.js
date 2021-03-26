@@ -14,7 +14,6 @@ function Provider({ children }) {
   const [recommendedDrink, setRecommendedDrink] = useState([]);
   const [copied, setCopied] = useState(false);
 
-
   // const [startedRecipes, setStartedRecipes] = useState([]);
 
   // const addStartedRecipes = (newId) => {

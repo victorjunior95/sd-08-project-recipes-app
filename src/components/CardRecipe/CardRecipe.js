@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ShareIcon from '../../images/shareIcon.svg';
 import './cardRecipe.css';
-const CardRecipe = ({ index, image, category, name, doneDate, tags }) => {
+const CardRecipe = ({
+  id,
+  type,
+  index,
+  image,
+  alcoholicOrNot,
+  area,
+  category,
+  name,
+  doneDate,
+  tags,
+}) => {
+  const [saveClipBoard, setSaveClipBoard] = useState(false);
+  const savetoClipboard = (id, type) => {
+    window.navigator.clipboard.writeText(
+      `http://localhost:3000/${type}s/${id}`,
+    );
+    setSaveClipBoard(true);
+  };
   return (
     <div className="card-recipe">
       <div className="left">
@@ -14,11 +32,12 @@ const CardRecipe = ({ index, image, category, name, doneDate, tags }) => {
         />
       </div>
       <div className="right">
+        {saveClipBoard && 'Link copiado!'}
         <span
           className="card-category"
           data-testid={`${index}-horizontal-top-text`}
         >
-          {category}
+          {type === 'comida' ? area : alcoholicOrNot} - {category}
         </span>
         <span className="card-name" data-testid={`${index}-horizontal-name`}>
           {name}
@@ -29,6 +48,7 @@ const CardRecipe = ({ index, image, category, name, doneDate, tags }) => {
         >
           Feita em: {doneDate}
         </span>
+
         <div className="card-tag">
           {tags.length > 0 &&
             tags.map((tag, key) => (
@@ -43,16 +63,21 @@ const CardRecipe = ({ index, image, category, name, doneDate, tags }) => {
         </div>
       </div>
       <img
-          className="card-icon-share"
-          src={ShareIcon}
-          data-testid={`${index}-horizontal-share-btn`}
-        />
+        className="card-icon-share"
+        src={ShareIcon}
+        data-testid={`${index}-horizontal-share-btn`}
+        onClick={() => savetoClipboard(id, type)}
+      />
     </div>
   );
 };
 
 CardRecipe.propTypes = {
   index: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  alcoholicOrNot: PropTypes.string.isRequired,
+  area: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

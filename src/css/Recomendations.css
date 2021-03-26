@@ -1,0 +1,17 @@
+.recommendationList {
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.recommendationList li {
+  display: inline-block;
+  width: 50%;
+}
+
+.carouselImage {
+  width: 100%;
+}
+

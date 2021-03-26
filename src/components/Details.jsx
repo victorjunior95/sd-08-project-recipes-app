@@ -3,22 +3,20 @@ import { useHistory } from 'react-router-dom';
 import contextRecipes from '../context/Context';
 import Button from './Button';
 import Recomendations from './Recomendations';
+import '../css/Details.css';
 
 function Details() {
   const history = useHistory();
   const { currentFood, currentFoodIngredients } = useContext(contextRecipes);
 
   const ytVideo = () => (
-    history.location.pathname.includes('comidas')
-      ? currentFood.map((video) => (
-        <iframe
-          frameBorder="0"
-          data-testid="video"
-          key={ video.strYoutube }
-          src={ video.strYoutube.split('watch?v=').join('embed/') }
-          title="recipe video"
-        />
-      ))
+    currentFood.strYoutube ? <iframe
+      frameBorder="0"
+      data-testid="video"
+      key={ currentFood.strYoutube }
+      src={ currentFood.strYoutube.split('watch?v=').join('embed/') }
+      title="recipe video"
+    />
       : ''
   );
 
@@ -27,50 +25,44 @@ function Details() {
   );
 
   return (
-    <>
-      { currentFood.map((food) => (
-        <div key={ 0 }>
-          <img
-            src={ food.strMealThumb || food.strDrinkThumb }
-            data-testid="recipe-photo"
-            alt="Thumbnail"
-          />
-          <h1 data-testid="recipe-title">
-            { food.strMeal || food.strDrink }
-          </h1>
-          <p data-testid="share-btn">btnCompartilhar</p>
-          <p data-testid="favorite-btn">btnFavorito</p>
-          <h6
-            data-testid="recipe-category"
+    <div className="detailsDiv">
+      <img
+        src={ currentFood.strMealThumb || currentFood.strDrinkThumb }
+        data-testid="recipe-photo"
+        alt="Thumbnail"
+      />
+      <h1 data-testid="recipe-title">
+        { currentFood.strMeal || currentFood.strDrink }
+      </h1>
+      <p data-testid="share-btn">btnCompartilhar</p>
+      <p data-testid="favorite-btn">btnFavorito</p>
+      <h6
+        data-testid="recipe-category"
+      >
+        { currentFood.strAlcoholic
+          ? currentFood.strAlcoholic : currentFood.strCategory }
+      </h6>
+      <h2>Ingredientes</h2>
+      <ul>
+        { currentFoodIngredients.map((curr, index) => (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
           >
-            { food.strAlcoholic ? food.strAlcoholic : food.strCategory }
-          </h6>
-          <h2>Ingredientes</h2>
-          <ul>
-            { currentFoodIngredients.map((curr, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ index }
-              >
-                { curr }
-              </li>
-            ))}
-          </ul>
-          <h2>Instruções</h2>
-          <p data-testid="instructions">{ food.strInstructions }</p>
-
-          <div>
-            {ytVideo()}
-          </div>
-          <Recomendations />
-          <Button
-            datatestid="start-recipe-btn"
-            label="Iniciar Receita"
-            onClick={ historyPath }
-          />
-        </div>
-      ))}
-    </>
+            { curr }
+          </li>
+        ))}
+      </ul>
+      <h2>Instruções</h2>
+      <p data-testid="instructions">{ currentFood.strInstructions }</p>
+      { ytVideo() }
+      <Recomendations />
+      <Button
+        datatestid="start-recipe-btn"
+        label="Iniciar Receita"
+        onClick={ historyPath }
+      />
+    </div>
   );
 }
 

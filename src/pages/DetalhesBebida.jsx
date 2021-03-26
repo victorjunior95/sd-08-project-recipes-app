@@ -12,16 +12,14 @@ function DetalhesBebida() {
   useEffect(() => {
     async function getDrink() {
       const food = await getResultFromAPI('/bebidas', 'lookup', id);
-      context.setCurrentFood(food);
-      context.setCurrentFoodIngredients(createIngredientsArray(food));
+      context.setCurrentFood(food[0]);
+      context.setCurrentFoodIngredients(createIngredientsArray(food[0]));
     }
     getDrink();
   }, []);
 
   return (
-    <div>
-      <Details />
-    </div>
+    <Details />
   );
 }
 

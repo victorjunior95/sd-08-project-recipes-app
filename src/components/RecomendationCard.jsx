@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
+import alternatePath from '../services/alternatePath';
 
 function RecomendationCard(props) {
   const { index, food } = props;
   const history = useHistory();
   const { pathname } = useLocation();
-  const PATHSIZE = 8;
-  const shortPath = pathname.slice(0, PATHSIZE);
+
+  function handlePush() {
+    history.push(`${alternatePath(pathname)}/${food.idDrink || food.idMeal}`);
+  }
 
   return (
-    <div className="carousel">
+    <>
       <button
         type="button"
-        onClick={ () => history.push(`${shortPath}/${food.idDrink || food.idMeal}`) }
+        onClick={ () => handlePush() }
         data-testid={ `${index}-recipe-card` }
       >
         <img
           data-testid={ `${index}-card-img` }
           src={ food.strDrinkThumb || food.strMealThumb }
           alt="Food"
-          width="100%"
+          className="carouselImage"
         />
       </button>
       <p
@@ -29,7 +32,7 @@ function RecomendationCard(props) {
         { food.strDrink || food.strMeal }
 
       </p>
-    </div>
+    </>
   );
 }
 RecomendationCard.propTypes = {

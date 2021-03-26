@@ -5,6 +5,8 @@ import getApi from '../services/apiRequests';
 
 export default function Provider({ children }) {
   const [recipes, setRecipes] = useState([]);
+  const [recipeDetail, setRecipeDetail] = useState([]);
+  const [recipesInProgress, setRecipesInProgress] = useState([]);
   const [categories, setCategories] = useState([]);
   const [searchParams, setSearchParams] = useState({
     searchInput: '',
@@ -43,6 +45,11 @@ export default function Provider({ children }) {
         .then((response) => setRecipes(response));
       break;
 
+    case 'recipe':
+      getApi(domain, `lookup.php?i=${searchInput}`)
+        .then((response) => setRecipeDetail(response));
+      break;
+
     default:
       if (domain) {
         getApi(domain, 'search.php?s=')
@@ -58,9 +65,12 @@ export default function Provider({ children }) {
 
   const context = {
     setSearchParams,
+    setRecipesInProgress,
     searchParams,
     recipes,
     categories,
+    recipeDetail,
+    recipesInProgress,
   };
 
   return <Context.Provider value={ context }>{children}</Context.Provider>;

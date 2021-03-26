@@ -1,40 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import getDrinks from '../helpers/drinkApi';
 
 export default function CardIngredientsDrinks({ index, name }) {
-  const [setControl] = useState(false);
-  const [setRecipes] = useState([]);
-  const [setFilteredRecipes] = useState([]);
   const history = useHistory();
   const src = `https://www.thecocktaildb.com/images/ingredients/${name}-Small.png`;
-  const path = '/bebidas';
-  const fetchDrinks = async (type, value, controlVar) => {
-    const result = await getDrinks(type, value);
-    setRecipes(result);
-    if (controlVar) setFilteredRecipes(result);
-    if (!controlVar) {
-      return null;
-    }
-    const resultReturn = {
-      result,
-      redirect: false,
-    };
-    if (result.drinks === null) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-    if (result.drinks.length === 1) {
-      resultReturn.redirect = true;
-      setControl(true);
-      return resultReturn;
-    }
-    setControl(true);
-    return resultReturn;
-  };
   const searchRecipes = async () => {
-    await fetchDrinks('ingredient', name, true);
-    history.push(path);
+    history.push('/bebidas');
   };
   return (
     <div

@@ -4,7 +4,9 @@ const FOOD_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 export const showCompleteLists = async (query, currentPage) => {
-  // lists: (c)ategories, (i)ngredients, (a)rea;
+  // lists:
+  // FoodApi: (c)ategories, (i)ngredients, (a)rea;
+  // DrinkApi: (c)ategories, (g)lasses, (i)ngredients or (a)lcoholic filters;
   const LIST_API = currentPage === 'Foods'
     ? 'https://www.themealdb.com/api/json/v1/1/list.php'
     : 'https://www.thecocktaildb.com/api/json/v1/1/list.php';

@@ -8,7 +8,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
   useEffect(() => {
     async function getList() {
       const fetchList = await showCompleteLists('categories', label);
-      setFullList(label === 'drinks' ? fetchList.drinks : fetchList.meals);
+      setFullList(label.match(/drinks/i) ? fetchList.drinks : fetchList.meals);
     }
     getList();
   }, [label]);
@@ -18,7 +18,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
     const checkFullList = () => {
       if (fullList.length > 0) {
         const mapping = fullList
-          .filter((element, index) => index <= STOP_ON_FIVE).map((element) => element);
+          .filter((element, index) => index < STOP_ON_FIVE).map((element) => element);
         setFirstFive(mapping);
       }
     }; checkFullList();

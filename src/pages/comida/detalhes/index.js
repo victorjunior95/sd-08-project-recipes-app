@@ -4,6 +4,8 @@ import { requestDrinkRecipe, requestFoodId } from '../../../services/API';
 import FoodContext from '../../../context/comidaContext/FoodContext';
 import CardFoodDetails from '../../../components/Card/CardFoodDetails';
 import DrinkRecomendation from '../../../components/Carousel/DrinkRecomendation';
+import Header from '../../../components/Header';
+import Footer from '../../../components/footer';
 
 function ComidaDetalhes() {
   const {
@@ -51,6 +53,7 @@ function ComidaDetalhes() {
 
   return (
     <section>
+      <Header explore="false">Detalhes</Header>
       {!loading
       && (
         <>
@@ -60,6 +63,7 @@ function ComidaDetalhes() {
           />
           <DrinkRecomendation />
         </>)}
+      <Footer />
     </section>
   );
 }

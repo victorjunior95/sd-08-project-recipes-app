@@ -92,7 +92,7 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
           <ul>
             {ingredientIndex.map((index) => {
               const srt = `${item[`strMeasure${index + 1}`]}`;
-              if (srt === 'null' || srt === '') return '';
+              if (srt === 'null' || srt === '' || srt === ' ') return '';
               ingredients.push(`${srt} ${item[`strIngredient${index + 1}`]}`);
               return (
                 <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>

@@ -16,6 +16,7 @@ code {
 .recommendation {
   display: flex;
   overflow-x: auto;
+  padding-bottom: 75px;
 }
 
 .recommendation::-webkit-scrollbar {
@@ -140,6 +141,7 @@ code {
 }
 
 .start-recipe {
-  bottom: 0;
+  bottom: 50px;
+  left: 120px;
   position: fixed;
 }

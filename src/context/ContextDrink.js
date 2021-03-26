@@ -1,6 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { filterFirstLetter, filterIngredient, filterName } from '../services/api';
+import { filterFirstLetter,
+  filterIngredient, filterName, filterCategory } from '../services/api';
 
 export const DrinkCtx = createContext();
 
@@ -29,6 +30,10 @@ function ContextFood(props) {
         const f = await filterFirstLetter(value, 'Drinks');
         console.log(value);
         return setDrinkApi(f);
+      }
+      if (key === 'category') {
+        const c = await filterCategory(value, 'Drinks');
+        return setDrinkApi(c);
       }
     }
     connect();

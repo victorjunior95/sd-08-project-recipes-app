@@ -1,0 +1,54 @@
+.exploreContainer {
+  background-color: rgb(255, 165, 0);
+  display: flex;
+  flex-direction: column;
+  width: 317px;
+  margin-right: 110%;
+  margin-top: 5%;
+}
+
+.exploreContainer input[type=text] {
+  background-color: rgb(255, 165, 0);
+  border-color: rgb(255,0,0);
+  color: rgb(255, 0, 0);
+  outline: none;
+  padding-left: 1rem;
+  width: 150%;
+}
+
+.exploreContainer input[type=text]:focus {
+  background-color: rgba(255, 0, 0);
+  color:  rgb(255, 165, 0);  
+}
+
+.exploreContainer label {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  text-align: center;
+  width: 150%;
+}
+
+.exploreContainer label:hover {
+  background-color: rgba(255, 0, 0);
+  color:  rgb(255, 165, 0);  
+}
+
+.exploreContainer input {
+  width: 100%;
+}
+
+.exploreContainer button {
+  background-color: rgb(255, 165, 0);
+  color: rgb(255, 0, 0);
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: 1s;
+  width: 80%;
+}
+
+.exploreContainer button:hover {
+  background-color: rgb(255, 0, 0) !important;
+  color: rgb(255, 165, 0);
+}
+

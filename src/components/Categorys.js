@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import firstRequest from '../services/firstRequest';
 import filterCategoryRequest from '../services/filterCategoryRequest';
+import '../styles/Categorys.css';
 
 function Categorys({ title }) {
   const {
@@ -48,7 +49,7 @@ function Categorys({ title }) {
   }
 
   return (
-    <div>
+    <div className="category-btn-container">
       <button
         type="button"
         data-testid="All-category-filter"

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import searchIcon from '../images/searchIcon.svg';
 import requestApi from '../services/requestApi';
+import '../styles/ExploreButton.css';
 
 function ExploreButton({ title }) {
   const history = useHistory();
@@ -61,7 +62,7 @@ function ExploreButton({ title }) {
 
   function renderInput() {
     return (
-      <>
+      <div className="exploreContainer">
         <input
           type="text"
           placeholder="Buscar Receita"
@@ -108,7 +109,7 @@ function ExploreButton({ title }) {
         >
           Buscar
         </button>
-      </>
+      </div>
     );
   }
 

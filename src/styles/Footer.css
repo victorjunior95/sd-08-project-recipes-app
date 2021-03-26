@@ -1,0 +1,25 @@
+.footerContainer {
+  bottom: 0;
+  position: fixed;
+  align-items: center;
+  background-color: rgb(255, 165, 0);
+  color: rgb(255, 0, 0);
+  display: flex;
+  flex-wrap: nowrap;  
+  justify-content: center;
+  width:320px;
+}
+
+.footerContainer img {
+  height: 1.5rem;
+}
+
+.footerContainer h3 {
+  font-size: 2rem;
+}
+
+.footerContainer button:last-child {
+  background-color: transparent;
+  border: none;
+  margin-left: 1rem;
+}

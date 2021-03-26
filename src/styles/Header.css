@@ -1,0 +1,23 @@
+.headerContainer {
+  align-items: center;
+  background-color: rgb(255, 165, 0);
+  color: rgb(255, 0, 0);
+  display: flex;
+  flex-wrap: nowrap;  
+  justify-content: center;
+}
+
+.headerContainer img {
+  height: 1.5rem;
+}
+
+.headerContainer h3 {
+  font-size: 2rem;
+}
+
+.headerContainer button:last-child {
+  background-color: transparent;
+  border: none;
+  margin-left: 1rem;
+  outline: none;
+}

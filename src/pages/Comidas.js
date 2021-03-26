@@ -11,7 +11,7 @@ function Comidas() {
   } = useContext(MyContext);
 
   return (
-    <div>
+    <div className="comidasContainer">
       <Header title="Comidas" explore />
       <Categorys title="Comidas" />
       {createCards ? <Cards title="Comidas" /> : null}

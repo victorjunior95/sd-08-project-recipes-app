@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/MyContext';
+import '../styles/Login.css';
 
 function LoginForm({ props }) {
   const { setEmail, setPassword, userEmail, password } = useContext(Context);
@@ -26,34 +27,41 @@ function LoginForm({ props }) {
   }
 
   return (
-    <>
-      <label htmlFor="email">
-        Email:
-        <input
-          name="email"
-          type="email"
-          data-testid="email-input"
-          onChange={ handleChangeEmail }
-        />
-      </label>
-      <label htmlFor="password">
-        Password:
-        <input
-          name="password"
-          type="password"
-          data-testid="password-input"
-          onChange={ handleChangePassword }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !isValid }
-        onClick={ handleClick }
-      >
-        Entrar
-      </button>
-    </>
+    <div className="loginContainer">
+      <h3>App de Receitas</h3>
+      <h5>Seja bem vindo(a)</h5>
+      <div className="formContainer">
+        <label htmlFor="email">
+          Email:
+          <input
+            data-testid="email-input"
+            id="email"
+            name="email"
+            onChange={ handleChangeEmail }
+            placeholder="Seu email, por favor?"
+            type="email"
+          />
+        </label>
+        <label htmlFor="password">
+          Password:
+          <input
+            data-testid="password-input"
+            name="password"
+            onChange={ handleChangePassword }
+            placeholder="Sua senha?"
+            type="password"
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !isValid }
+          onClick={ handleClick }
+        >
+          Entrar
+        </button>
+      </div>
+    </div>
   );
 }
 

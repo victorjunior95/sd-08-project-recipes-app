@@ -5,6 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import MyContext from '../context/MyContext';
 
 import ExploreButton from './ExploreButton';
+import '../styles/Header.css';
 
 function Header({ title, explore }) {
   const {
@@ -29,7 +30,7 @@ function Header({ title, explore }) {
   }, []);
 
   return (
-    <div>
+    <div className="headerContainer">
       <Link to="/perfil">
         <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
       </Link>

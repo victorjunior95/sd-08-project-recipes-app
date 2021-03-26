@@ -10,6 +10,7 @@ export default function Bebidas() {
   const { drink } = data;
   const [card, setCard] = useState(false);
   const LIMITER = 12;
+  const [card, setCard] = useState(false);
   const FIVE = 5;
   const [listDrinkCategories, setListDrinkCategories] = useState([]);
   useEffect(() => {

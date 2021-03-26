@@ -9,7 +9,6 @@ import { CategoryButtons } from '../../components/Buttons';
 
 function Foods() {
   const STOP_INDEX = 11;
-  const THREE_SECONDS = 3000;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
   const history = useHistory();
@@ -51,8 +50,8 @@ function Foods() {
             />
           ))}
 
-        { meals && meals.length === 1
-          ? setTimeout(() => history.push(`/comidas/${meals[0].idMeal}`), THREE_SECONDS)
+        { (meals && meals.length === 1 && category === '')
+          ? history.push(`/comidas/${meals[0].idMeal}`)
           : '' }
         { meals === null
           // eslint-disable-next-line no-alert

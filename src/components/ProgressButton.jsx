@@ -4,6 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { startRecipe, endRecipe } from '../actions/recipes';
 
+const formatedObject = (obj, type, id) => {
+  const { strArea: area = '', strCategory: category = '',
+    strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
+    [`str${type}Thumb`]: image, doneDate = Date.now(), strTags } = obj;
+  const tags = !strTags ? [] : strTags.split(',');
+  const ptType = type === 'Meal' ? 'comida' : 'bebida';
+  return {
+    id, area, category, alcoholicOrNot, name, image, type: ptType, doneDate, tags };
+};
+
 function ProgressButton({ type, id, ingredientsLength }) {
   const { pathname } = useLocation();
   const history = useHistory();
@@ -13,13 +23,7 @@ function ProgressButton({ type, id, ingredientsLength }) {
 
   const handleClick = () => {
     if (inProgress) {
-      const { strArea: area = '', strCategory: category = '',
-        strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
-        [`str${type}Thumb`]: image, doneDate = Date.now(), strTags } = list[0];
-      const tags = !strTags ? [] : strTags.split(',');
-      const formatedRecipe = {
-        id, area, category, alcoholicOrNot, name, image, type, doneDate, tags };
-      dispatch(endRecipe(formatedRecipe));
+      dispatch(endRecipe(formatedObject(list[0], type, id)));
       history.push('/receitas-feitas');
       return;
     }
@@ -29,13 +33,18 @@ function ProgressButton({ type, id, ingredientsLength }) {
     history.push(`${pathname}/in-progress`);
   };
 
-  useEffect(() => {
-    localStorage.setItem('doneRecipes', JSON.stringify(done));
-  }, [done]);
+  useEffect(() => (
+    () => localStorage.setItem('doneRecipes', JSON.stringify(done))
+  ), [done]);
+
+  const buttonName = () => {
+    if (inProgress) return 'Finalizar Receita';
+    if (Object.keys(start[type]).includes(id)) return 'Continuar Receita';
+    return 'Iniciar Receita';
+  };
 
   return (
-    <div>
-      { done.some(({ id: currId, type: currType }) => id === currId && type === currType)
+    done.some(({ id: currId, type: currType }) => id === currId && type === currType)
           || (
             <button
               className="start"
@@ -45,12 +54,9 @@ function ProgressButton({ type, id, ingredientsLength }) {
               disabled={ inProgress
                && (start[type][id] || []).length !== ingredientsLength }
             >
-              { inProgress && 'Finalizar Receita' }
-              { !inProgress && (Object.keys(start[type])
-                .includes(id) ? 'Continuar Receita' : 'Iniciar Receita') }
+              { buttonName() }
             </button>
-          )}
-    </div>
+          )
   );
 }
 

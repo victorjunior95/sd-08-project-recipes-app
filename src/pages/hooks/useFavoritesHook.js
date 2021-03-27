@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 
 const useFavoritesHook = () => {
   const [favorites, setFavorites] = useState([]);
-
   useEffect(() => {
-    const list = localStorage.getItem('favoriteRecipes');
-    setFavorites(list);
+    const localData = localStorage.getItem('favoriteRecipes');
+    const newFav = localData ? JSON.parse(localData) : [];
+    setFavorites(newFav);
   }, []);
 
   useEffect(() => {

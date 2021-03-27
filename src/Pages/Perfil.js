@@ -5,7 +5,8 @@ import Header from './Header';
 import Footer from './Footer';
 
 function Perfil() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { email } = user || { email: 'No email found!' };
   return (
     <>
       <Header title="Perfil" searchType="none" />

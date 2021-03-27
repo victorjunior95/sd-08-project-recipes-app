@@ -16,7 +16,6 @@ function Ingredients({ status, id }) {
       const checks = [...document.getElementsByClassName('checkbox')];
       checks.map((item, index) => {
         item.checked = loadChecks[index];
-        console.log('oi');
         return item.checked;
       });
     }
@@ -42,13 +41,12 @@ function Ingredients({ status, id }) {
                 recipe[`strIngredient${index + 1}`] !== ''
               && recipe[`strIngredient${index + 1}`]
                   ? (
-                    <div key={ index }>
+                    <div data-testid={ `${index}-ingredient-step` } key={ index }>
                       <input
                         type="checkbox"
                         key={ index }
                         id={ index }
                         className="checkbox"
-                        data-testid="ingredient-step"
                         onChange={ saveChecks }
                         required
                       />

@@ -49,8 +49,8 @@ export const filterCategory = async (query, currentPage) => {
 };
 export const filterIngredient = async (query, currentPage) => {
   const INGREDIENT_API = currentPage === 'Foods'
-    ? 'https://www.themealdb.com/api/json/v1/1/filter.php'
-    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+    ? FILTER_FOODS_API
+    : FILTER_DRINKS_API;
   const api = await fetch(`${INGREDIENT_API}?i=${query}`);
   const result = await api.json();
   console.log(result);

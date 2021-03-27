@@ -77,10 +77,10 @@ function FoodDetails(props) {
           </button>
           <button
             type="button"
-            data-testid="favorite-btn"
             onClick={ handleFavorite }
           >
             <img
+              data-testid="favorite-btn"
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Compartilhar"
             />

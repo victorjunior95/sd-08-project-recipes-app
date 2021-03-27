@@ -35,7 +35,13 @@ function useFoodDetailsHook() {
   }, [id]);
   console.log(recipe);
 
-  const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = recipe;
+  const {
+    strMealThumb,
+    strMeal,
+    strCategory,
+    strInstructions,
+    strYoutube,
+    strArea } = recipe;
 
   return [
     setId,
@@ -44,6 +50,7 @@ function useFoodDetailsHook() {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
     ingredientsAndMeasuresList,
   ];
 }

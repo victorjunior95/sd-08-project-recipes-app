@@ -9,6 +9,7 @@ import './FoodDetail.css';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import useFavoritesHook from '../hooks/useFavoritesHook';
 
 function FoodDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -16,7 +17,7 @@ function FoodDetails(props) {
   const [isFavorite, setIsFavorite] = useState(false);
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
-  // const location = useLocation();
+  const [favorites, updateFavorites] = useFavoritesHook();
   const STOP_INDEX = 5;
   const [
     setId,
@@ -25,12 +26,23 @@ function FoodDetails(props) {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
     ingredientsAndMeasuresList,
   ] = useFoodDetailsHook();
 
   useEffect(() => {
     setId(id);
   }, [id, setId]);
+
+  useEffect(() => {
+    function checkIsFavorite() {
+      return favorites
+        .find((fav) => fav.id === id)
+        ? setIsFavorite(true)
+        : setIsFavorite(false);
+    }
+    checkIsFavorite();
+  }, [id, favorites]);
 
   function handleClick() {
     copy(window.location.href);
@@ -51,7 +63,15 @@ function FoodDetails(props) {
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ () => setIsFavorite(!isFavorite) }
+            onClick={ () => updateFavorites({
+              id,
+              type: strCategory,
+              area: strArea,
+              category: strCategory,
+              alcoholicOrNot: 'not',
+              name: strMeal,
+              image: strMealThumb,
+            }) }
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }

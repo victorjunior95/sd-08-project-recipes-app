@@ -20,7 +20,6 @@ function DrinkDetails(props) {
   const STOP_INDEX = 5;
   const [
     setId,
-    strIBA,
     strDrinkThumb,
     strDrink,
     strCategory,

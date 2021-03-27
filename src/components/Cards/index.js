@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
-import './style.css';
+import './styles.css';
 import { useHistory, useRouteMatch } from 'react-router';
 
 function Cards(props) {

@@ -24,8 +24,8 @@ function DrinkDetails(props) {
     strDrink,
     strCategory,
     strInstructions,
-    ingredientsAndMeasuresList,
     strAlcoholic,
+    ingredientsAndMeasuresList,
   ] = useDrinkDetailsHook();
 
   useEffect(() => {

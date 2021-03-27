@@ -10,6 +10,7 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFavoritesHook from '../hooks/useFavoritesHook';
+import useInProgressRecipeHook from '../hooks/useInProgressRecipeHook';
 
 function FoodDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -18,6 +19,7 @@ function FoodDetails(props) {
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   const [favorites, updateFavorites] = useFavoritesHook();
+  const [inProgressRecipes, addIProgressRecipe] = useInProgressRecipeHook();
   const STOP_INDEX = 5;
   const [
     setId,
@@ -62,6 +64,15 @@ function FoodDetails(props) {
     };
     updateFavorites(newRecipe, isFavorite);
     setIsFavorite(!isFavorite);
+  }
+
+  function handleStartRecipeClick() {
+    const newRecipe = {
+      id,
+      ingList: ingredientsAndMeasuresList,
+    };
+    addIProgressRecipe(newRecipe, 'comida');
+    setShouldRedirect(true);
   }
 
   return (
@@ -139,7 +150,7 @@ function FoodDetails(props) {
             className="start-btn"
             type="button"
             data-testid="start-recipe-btn"
-            onClick={ () => setShouldRedirect(true) }
+            onClick={ handleStartRecipeClick }
           >
             Iniciar
           </button>

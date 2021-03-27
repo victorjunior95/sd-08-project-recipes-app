@@ -15,13 +15,14 @@ function CardsArea({ type }) {
         { !meals ? <p> nada por aqui! </p>
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : meals.map(
-            ({ strMeal, strMealThumb }, index) => (
+            ({ strMeal, strMealThumb, idMeal }, index) => (
               index < TWELVE_CARDS && (
                 <Cards
                   key={ strMeal }
                   name={ strMeal }
                   thumbSrc={ strMealThumb }
                   index={ index }
+                  id={ idMeal }
                 />)),
           )}
       </Container>
@@ -33,13 +34,14 @@ function CardsArea({ type }) {
         { !drinks ? <p> nada por aqui! </p>
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : drinks.map(
-            ({ strDrink, strDrinkThumb }, index) => (
+            ({ strDrink, strDrinkThumb, idDrink }, index) => (
               index < TWELVE_CARDS && (
                 <Cards
                   key={ strDrink }
                   name={ strDrink }
                   thumbSrc={ strDrinkThumb }
                   index={ index }
+                  id={ idDrink }
                 />)),
           )}
       </Container>

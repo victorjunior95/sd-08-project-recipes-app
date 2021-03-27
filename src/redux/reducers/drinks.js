@@ -24,7 +24,7 @@ const drinks = (state = INITIALSTATE, action) => {
     };
   case ERROR_REQUEST_API_DRINKS:
     return { ...state,
-      drinks: ['error'],
+      drinks: false,
       isFetching: false,
     };
   default:

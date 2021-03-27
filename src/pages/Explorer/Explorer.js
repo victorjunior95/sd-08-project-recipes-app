@@ -18,7 +18,7 @@ function Explorer() {
     </button>);
   return (
     <div>
-      <Header name="Explorar" icon="true" currentPage="Foods" />
+      <Header name="Explorar" icon="false" currentPage="Foods" />
       {renderExplorerButtons('comidas', 'food')}
       <br />
       {renderExplorerButtons('bebidas', 'drinks')}

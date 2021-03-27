@@ -17,7 +17,7 @@ function ExplorerDrinksIngredients() {
 
   return (
     <div>
-      <Header name="Explorar Ingredientes" icon="true" currentPage="Drinks" />
+      <Header name="Explorar Ingredientes" icon="false" currentPage="Drinks" />
       <div className="ingredient-card-complete-container">
         {ingredientsList && ingredientsList
           .filter((ingredient, index) => index <= STOP_INDEX)

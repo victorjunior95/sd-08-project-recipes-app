@@ -19,7 +19,7 @@ function ExplorerFood() {
 
   return (
     <div>
-      <Header name="Explorar Comidas" currentPage="Foods" icon="true" />
+      <Header name="Explorar Comidas" currentPage="Foods" icon="false" />
       <ExploreByWhat
         dataTestId="area"
         ptBr="Local de Origem"

@@ -1,25 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 
-const ExploreByWhat = ({ label, path }) => {
-  const history = useHistory();
-  return (
-    <div>
+const ExploreByWhat = ({ ptBr, dataTestId, onClick }) => {
+  const testId = dataTestId === 'surprise'
+    ? (
       <button
+        data-testid={ `explore-${dataTestId}` }
         style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
         type="button"
-        onClick={ () => history.push(`${label}/${path}`) }
+        onClick={ onClick }
       >
-        {`Explorar ${label}`}
+        {ptBr}
       </button>
-    </div>
+    )
+    : (
+      <button
+        data-testid={ `explore-by-${dataTestId}` }
+        style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
+        type="button"
+        onClick={ onClick }
+      >
+        {`Por ${ptBr}`}
+      </button>
+    );
+  return (
+    <div>{testId}</div>
   );
 };
 
 ExploreByWhat.propTypes = {
-  label: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  ptBr: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ExploreByWhat;

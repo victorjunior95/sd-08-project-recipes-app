@@ -25,7 +25,7 @@ function Drinks() {
         setFilterDrink({ key: 'name', value: categoryState });
       }
     }; renderingCondition(category);
-  }, [category]);
+  }, [category, setFilterDrink]);
 
   return (
     <div>

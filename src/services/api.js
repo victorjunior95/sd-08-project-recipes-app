@@ -3,6 +3,17 @@ const DRINK_API = 'https://www.thecocktaildb.com/api.php';
 const FOOD_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+export const getRandomRecipe = async (query, currentPage) => {
+  // lists:
+  // FoodApi: (c)ategories, (i)ngredients, (a)rea;
+  // DrinkApi: (c)ategories, (g)lasses, (i)ngredients or (a)lcoholic filters;
+  const RANDOM_API = currentPage === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/';
+  const api = await fetch(`${RANDOM_API}${query}.php`);
+  const result = await api.json();
+  return result;
+};
 export const showCompleteLists = async (query, currentPage) => {
   // lists:
   // FoodApi: (c)ategories, (i)ngredients, (a)rea;

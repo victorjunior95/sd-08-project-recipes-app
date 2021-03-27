@@ -26,7 +26,7 @@ function Foods() {
         setFilterFood({ key: 'name', value: categoryState });
       }
     }; renderingCondition(category);
-  }, [category]);
+  }, [category, setFilterFood]);
 
   return (
     <div>

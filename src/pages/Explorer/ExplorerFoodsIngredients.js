@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { showCompleteLists } from '../../services/api';
@@ -8,6 +9,7 @@ import './ExplorerIngredients.css';
 function ExplorerFoodsIngredients() {
   const STOP_INDEX = 11;
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [redirectToFoods, setRedirectToFoods] = useState('');
 
   useEffect(() => {
     async function requestNSet() {
@@ -29,11 +31,17 @@ function ExplorerFoodsIngredients() {
               name={ item.strIngredient }
               img={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
               index={ index }
-              onClick={ () => console.log('Ok') }
+              onClick={ () => setRedirectToFoods({
+                pathname: '/comidas',
+                state: { fromExplorerFoodsIngredients: true,
+                  ingredient: item.strIngredient },
+              }) }
             />
           ))}
       </div>
       <Footer />
+      {console.log(redirectToFoods)}
+      {redirectToFoods !== '' ? <Redirect to={ redirectToFoods } /> : ''}
     </div>
   );
 }

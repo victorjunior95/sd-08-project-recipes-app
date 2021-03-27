@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Foods.css';
+import PropTypes from 'prop-types';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import { FoodCtx } from '../../context/ContextFood';
 import Footer from '../../components/Footer';
 import { CategoryButtons } from '../../components/Buttons';
 
-function Foods() {
+function Foods({ location }) {
   const STOP_INDEX = 11;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
@@ -21,11 +22,11 @@ function Foods() {
   }, [category, setFilterFood]);
 
   useEffect(() => {
-    const renderingCondition = (categoryState) => {
+    const renderFromCategory = (categoryState) => {
       if (categoryState === '') {
         setFilterFood({ key: 'name', value: categoryState });
       }
-    }; renderingCondition(category);
+    }; renderFromCategory(category);
   }, [category, setFilterFood]);
 
   return (
@@ -37,6 +38,7 @@ function Foods() {
         onClickCategory={ onClickCategory }
       />
       <div className="cards">
+        {console.log('Do Foods', location)}
         {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)
           .map((item, index) => (
@@ -64,5 +66,28 @@ function Foods() {
     </div>
   );
 }
+
+Foods.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.shape({
+      fromExplorerFoodsIngredients: PropTypes.bool,
+      ingredient: PropTypes.string,
+    }),
+    key: PropTypes.string,
+  }),
+};
+
+Foods.defaultProps = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.string,
+    key: PropTypes.string,
+  }),
+};
 
 export default Foods;

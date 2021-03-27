@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import fetchFood from '../services/FoodApi';
 import fetchDrink from '../services/CocktailApi';
+import fetchCategories from '../services/CategoriesApi';
 
 const searchParams = {
   selectedParam: '',
@@ -14,6 +15,7 @@ function RecipesProvider({ children }) {
   const [password, setPassword] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [cocktails, setCocktails] = useState([]);
+  const [allCategories, setCategories] = useState([]);
   const [searchParam, setSearchParam] = useState(searchParams);
 
   const handleEmail = ({ target: { value } }) => {
@@ -23,8 +25,6 @@ function RecipesProvider({ children }) {
   const handlePassword = ({ target: { value } }) => {
     setPassword(value);
   };
-
-  console.log(recipes);
 
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
@@ -70,6 +70,10 @@ function RecipesProvider({ children }) {
     }
   }, [searchParam]);
 
+  useEffect(() => {
+    fetchCategories().then((data) => setCategories(data));
+  });
+
   const provide = {
     email,
     password,
@@ -79,6 +83,7 @@ function RecipesProvider({ children }) {
     setSearchParam,
     recipes,
     cocktails,
+    allCategories,
   };
 
   return (

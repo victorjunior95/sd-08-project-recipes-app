@@ -28,7 +28,7 @@ const NotFound = () => {
           textAlign: 'center' }
         }
         type="button"
-        onClick={ () => history.push('perfil') }
+        onClick={ () => history.push('/perfil') }
       >
         Clique aqui para retornar à página do perfil
       </button>

@@ -75,6 +75,8 @@ const Details = ({ title, match, history }) => {
   };
 
   const renderButton = () => {
+  if( localStorage.getItem('doneRecipes') ) {
+
     const doneRecipes = JSON.parse(localStorage.getItem("doneRecipes"));
     const isDoneRecipe = doneRecipes.some(recipe => id === recipe.id);
     if (!isDoneRecipe) {
@@ -88,6 +90,7 @@ const Details = ({ title, match, history }) => {
       </Button>
       )
     } 
+  }
   }
 
   // De repente eu tenha que colocar o load aqui, por causa do botão

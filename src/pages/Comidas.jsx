@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { buscarComidasPorCategoria } from '../services/buscarCategoriasComidas';
 import CartaoReceitaComidas from '../components/CartaoReceitaComidas';
 import ContextReceitas from '../context/ContextReceitas';
 import { fetchComidasAPI } from '../services/fetchComidas';
 
-const CENTOEOITENTA = 180;
 function Comidas() {
   const {
     comidas,
@@ -16,7 +16,13 @@ function Comidas() {
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
     categoriasComidas,
+    listaDeCategoria,
+    setlistaDeCategoria,
+    toggle,
+    setToggle,
   } = useContext(ContextReceitas);
+
+  const [clickInfo, setClickInfo] = useState('Primeira Vez');
 
   useEffect(() => {
     async function listaComidasAPI() {
@@ -28,6 +34,29 @@ function Comidas() {
     mudarStatusBotaoPesquisa(true);
   }, []);
 
+  async function handleClick({ target: { name, id } }) {
+    const novasComidas = await buscarComidasPorCategoria(name);
+    setlistaDeCategoria(novasComidas);
+    setClickInfo(id);
+    if (clickInfo === 'Primeira Vez') return setToggle(!toggle);
+    if (clickInfo !== id) return setToggle(false);
+    setToggle(!toggle);
+  }
+
+  function handleClickAll() {
+    setToggle(true);
+  }
+
+  function renderCards() {
+    if (comidas && toggle) {
+      return <CartaoReceitaComidas resultadoApi={ comidas } />;
+    } if (comidas && !toggle && listaDeCategoria !== undefined) {
+      return <CartaoReceitaComidas resultadoApi={ listaDeCategoria } />;
+    } if (apiResult !== null && apiResult.length > 1) {
+      return <CartaoReceitaComidas resultadoApi={ apiResult } />;
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -37,29 +66,29 @@ function Comidas() {
           <button
             type="button"
             key={ strCategory }
+            name={ strCategory }
+            id={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
+            onClick={ handleClick }
           >
             {strCategory}
           </button>))}
+      <button
+        type="button"
+        key="all"
+        name="all"
+        id="all"
+        data-testid="All-category-filter"
+        onClick={ handleClickAll }
+      >
+        All
+      </button>
 
-      { comidas && comidas.map((comida, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ comida.idMeal }>
-          <img
-            width={ `${CENTOEOITENTA}vw` }
-            data-testid={ `${index}-card-img` }
-            src={ comida.strMealThumb }
-            alt={ comida.strMeal }
-          />
-          <p data-testid={ `${index}-card-name` }>{ comida.strMeal }</p>
-        </div>
-      ))}
-
+      {renderCards()}
       {apiResult !== null
-      && apiResult.length === 1 && tituloDaPagina === 'Comidas'
-        ? <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> : false }
-      {apiResult !== null
-      && apiResult.length > 1
-      && <CartaoReceitaComidas />}
+      && apiResult.length === 1
+      && tituloDaPagina === 'Comidas'
+      && <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> }
       <Footer />
     </div>
   );

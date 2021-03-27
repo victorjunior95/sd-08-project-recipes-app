@@ -35,7 +35,7 @@ function Drinks() {
         onClickAll={ onClickAll }
         onClickCategory={ onClickCategory }
       />
-      <div className="cards">
+      <div className="cards ingredient-card">
         {drinks && drinks
           .filter((drink, index) => index <= STOP_INDEX)
           .map((item, index) => (
@@ -45,7 +45,7 @@ function Drinks() {
               name={ item.strDrink }
               img={ item.strDrinkThumb }
               index={ index }
-              onClick={ () => history.push(`bebidas/${item.idDrink}`) }
+              onClick={ () => history.push(`/bebidas/${item.idDrink}`) }
             />
           ))}
         { drinks && drinks.length === 1

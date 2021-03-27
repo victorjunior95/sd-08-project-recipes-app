@@ -42,12 +42,19 @@ function Comidas() {
     if (clickInfo !== id) return setToggle(false);
     setToggle(!toggle);
   }
-  // function clickHandle() {
-  //   setDeveriaRedirecionar(!deveriaRedirecionar);
-  // }
 
   function handleClickAll() {
     setToggle(true);
+  }
+
+  function renderCards() {
+    if (comidas && toggle) {
+      return <CartaoReceitaComidas resultadoApi={ comidas } />;
+    } if (comidas && !toggle && listaDeCategoria !== undefined) {
+      return <CartaoReceitaComidas resultadoApi={ listaDeCategoria } />;
+    } if (apiResult !== null && apiResult.length > 1) {
+      return <CartaoReceitaComidas resultadoApi={ apiResult } />;
+    }
   }
 
   return (
@@ -77,18 +84,11 @@ function Comidas() {
         All
       </button>
 
-      { comidas
-      && toggle
-      && <CartaoReceitaComidas resultadoApi={ comidas } /> }
-      { comidas && !toggle && listaDeCategoria !== undefined
-        ? <CartaoReceitaComidas resultadoApi={ listaDeCategoria } />
-        : false }
+      {renderCards()}
       {apiResult !== null
-      && apiResult.length === 1 && tituloDaPagina === 'Comidas'
-        ? <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> : false }
-      {apiResult !== null
-      && apiResult.length > 1
-      && <CartaoReceitaComidas resultadoApi={ apiResult } />}
+      && apiResult.length === 1
+      && tituloDaPagina === 'Comidas'
+      && <Redirect to={ `/comidas/${apiResult[0].idMeal}` } /> }
       <Footer />
     </div>
   );

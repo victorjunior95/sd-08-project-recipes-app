@@ -20,8 +20,6 @@ function Bebidas() {
     listaDeCategoria,
     toggle,
     setToggle,
-    deveriaRedirecionar,
-    setDeveriaRedirecionar,
   } = useContext(ContextReceitas);
 
   const [clickInfo, setClickInfo] = useState('Primeira Vez');
@@ -45,12 +43,18 @@ function Bebidas() {
     setToggle(!toggle);
   }
 
-  function clickHandle() {
-    setDeveriaRedirecionar(!deveriaRedirecionar);
-  }
-
   function handleClickAll() {
     setToggle(true);
+  }
+
+  function renderCards() {
+    if (bebidas && toggle) {
+      return <CartaoReceitaBebidas resultadoApi={ bebidas } />;
+    } if (bebidas && !toggle && listaDeCategoria !== undefined) {
+      return <CartaoReceitaBebidas resultadoApi={ listaDeCategoria } />;
+    } if (apiResult !== null && apiResult.length > 1) {
+      return <CartaoReceitaBebidas resultadoApi={ apiResult } />;
+    }
   }
 
   return (
@@ -64,6 +68,7 @@ function Bebidas() {
             key={ strCategory }
             name={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
+            id={ strCategory }
             onClick={ handleClick }
           >
             {strCategory}
@@ -79,19 +84,12 @@ function Bebidas() {
         All
       </button>
 
-      { bebidas && toggle
-      && <CartaoReceitaBebidas resultadoApi={ bebidas } click={ clickHandle } /> }
-      { bebidas && !toggle && listaDeCategoria !== undefined
-        ? <CartaoReceitaBebidas resultadoApi={ listaDeCategoria } click={ clickHandle } />
-        : false }
-
+      { renderCards() }
       {apiResult !== null
       && apiResult.length === 1
       && tituloDaPagina === 'Bebidas'
-        ? <Redirect to={ `/bebidas/${apiResult[0].idDrink}` } /> : false }
-      {apiResult !== null
-      && apiResult.length > 1
-      && <CartaoReceitaBebidas resultadoApi={ apiResult } click={ clickHandle } />}
+      && <Redirect to={ `/bebidas/${apiResult[0].idDrink}` } /> }
+
       <Footer />
     </div>
 

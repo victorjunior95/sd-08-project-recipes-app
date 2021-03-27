@@ -10,7 +10,7 @@ function ProviderReceitas({ children }) {
   const [deveriaRedirecionar, setDeveriaRedirecionar] = useState(false);
   const [toggle, setToggle] = useState(true);
   const [logedIn, setLoged] = useState(0);
-  const [bebidas, setBebidas] = useState([]);
+  const [bebidas, setBebidas] = useState();
   const [comidas, setComidas] = useState();
   const [listaDeCategoria, setlistaDeCategoria] = useState();
   const [search, setSearch] = useState({ type: 's', value: '' });

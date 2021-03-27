@@ -22,12 +22,8 @@ function Recomendations() {
   return (
     <ul className="recommendationList">
       { recomended.map((food, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-recomendation-card` }
-        >
-          <RecomendationCard index={ index } food={ food } />
-        </li>
+        <RecomendationCard key={ index } index={ index } food={ food } />
+
       ))}
     </ul>
   );

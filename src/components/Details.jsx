@@ -58,6 +58,7 @@ function Details() {
       { ytVideo() }
       <Recomendations />
       <Button
+        className="button-start-recipe"
         datatestid="start-recipe-btn"
         label="Iniciar Receita"
         onClick={ historyPath }

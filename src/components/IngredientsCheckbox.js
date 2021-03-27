@@ -9,9 +9,9 @@ function IngredientsCheckbox({ objDetail, id, url }) {
         return inProgressRecipes.meals[id];
       }
       if (url.includes('bebida')) {
-        return inProgressRecipes.meals[id];
+        return inProgressRecipes.cocktails[id];
       }
-    } else { return []; }
+    } else { return ['textoaleatorio']; }
   };
 
   const handleChange = ({ target }) => {
@@ -28,24 +28,37 @@ function IngredientsCheckbox({ objDetail, id, url }) {
     });
 
     console.log(listaDeIngredientes);
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (url.includes('comidas')) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        meals: {
-          ...inProgressRecipes.meals,
-          [id]: listaDeIngredientes,
-        },
-      }));
-    }
-    if (url.includes('bebidas')) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        cocktails: {
-          ...inProgressRecipes.cocktails,
-          [id]: listaDeIngredientes,
-        },
-      }));
+    if (localStorage.getItem('inProgressRecipes') !== null) {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (url.includes('comidas')) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          meals: {
+            ...inProgressRecipes.meals,
+            [id]: listaDeIngredientes,
+          },
+        }));
+      }
+      if (url.includes('bebidas')) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          cocktails: {
+            ...inProgressRecipes.cocktails,
+            [id]: listaDeIngredientes,
+          },
+        }));
+      }
+    } else {
+      if (url.includes('comidas')) {
+        localStorage.setItem(
+          'inProgressRecipes', JSON.stringify({ meals: { [id]: listaDeIngredientes } }),
+        );
+      }
+      if (url.includes('bebidas')) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify(
+          { cocktails: { [id]: listaDeIngredientes } },
+        ));
+      }
     }
     const SELECTED_LI = 'selected-li';
     if (!target.checked) {

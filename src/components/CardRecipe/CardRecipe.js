@@ -62,12 +62,14 @@ const CardRecipe = ({
             ))}
         </div>
       </div>
-      <img
+      <button
+        type="button"
         className="card-icon-share"
-        src={ShareIcon}
-        data-testid={`${index}-horizontal-share-btn`}
         onClick={() => savetoClipboard(id, type)}
-      />
+        data-testid={`${index}-horizontal-share-btn`}
+      >
+        <img src={ShareIcon} />
+      </button>
     </div>
   );
 };

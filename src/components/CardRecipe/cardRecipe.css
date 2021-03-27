@@ -34,7 +34,10 @@
 }
 
 .card-icon-share {
+  background-color: transparent;
+  border: none;
   margin-left: 8px;
+  outline: none;
 }
 
 .card-tag span {

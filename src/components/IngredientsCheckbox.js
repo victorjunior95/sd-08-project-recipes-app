@@ -13,6 +13,7 @@ function IngredientsCheckbox({ objDetail, id, url }) {
     const ol = target.parentNode.parentNode.parentNode;
     const lista = ol.childNodes;
     const listaDeIngredientes = [];
+    console.log(ol);
 
     lista.forEach((elem) => {
       const checkbox = elem.firstChild.firstChild;
@@ -53,7 +54,6 @@ function IngredientsCheckbox({ objDetail, id, url }) {
 
     const results = filtering.map((elem, index) => {
       const isChecked = verifyIngredientsChecked().some((e) => e === elem[1]);
-
       return (
         <li
           name="li-ingredients"
@@ -62,7 +62,7 @@ function IngredientsCheckbox({ objDetail, id, url }) {
         >
           <label htmlFor={ elem[1] }>
             <input
-              checked={ isChecked }
+              defaultChecked={ isChecked }
               onChange={ handleChange }
               type="checkbox"
               id={ elem[1] }
@@ -77,7 +77,10 @@ function IngredientsCheckbox({ objDetail, id, url }) {
   };
 
   return (
-    <ol className="ingredient-list">
+    <ol
+      className="ingredient-list"
+      id="ingredient-list"
+    >
       {getIngredients()}
     </ol>
   );

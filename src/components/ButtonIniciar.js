@@ -9,16 +9,6 @@ function ButtonIniciar({ id }) {
 
   const [buttonName, setButtonName] = useState(iniciarReceita);
 
-  // const Ingredients = () => {
-  //   // const ingredientes = Object.entries(objDetail[0]);
-
-  //   const filtering = ingredientes.filter((element) => (
-  //     element[0].includes('strIngredient') && element[1] !== null && element[1] !== ''));
-
-  //   const results = filtering.map((elem) => elem[1]);
-  //   return results;
-  // };
-
   const value = history.location.pathname;
 
   const setLocalStoragesIngredients = () => {
@@ -116,9 +106,6 @@ function ButtonIniciar({ id }) {
 
 ButtonIniciar.propTypes = {
   id: PropTypes.string.isRequired,
-  objDetail: PropTypes.shape(
-    PropTypes.any,
-  ).isRequired,
 };
 
 export default ButtonIniciar;

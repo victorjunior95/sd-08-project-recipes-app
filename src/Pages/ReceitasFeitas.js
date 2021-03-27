@@ -4,63 +4,14 @@ import Header from './Header';
 import Detail from './Details/DetailHorizontal';
 
 function ReceitasFeitas() {
-  const data = '23/06/2020';
-  const [feitas, setFeitas] = useState([
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: data,
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: data,
-      tags: [],
-    },
-  ]);
-  // setFetias(JSON.parse(localStorage.getItem('doneRecipes')));
-  const local = [
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: data,
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: data,
-      tags: [],
-    },
-  ];
+  const storedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [feitas, setFeitas] = useState(storedDoneRecipes);
 
-  const handelClick = (e) => {
+  const handleClick = (e) => {
     if (e === 'volta') {
-      setFeitas(local);
+      setFeitas(storedDoneRecipes);
     } else {
-      const foods = local.filter((food) => food.type.includes(e));
-      setFeitas(foods);
+      setFeitas(storedDoneRecipes.filter((food) => food.type.includes(e)));
     }
   };
 
@@ -72,7 +23,7 @@ function ReceitasFeitas() {
           <Button
             variant="secondary"
             style={ { margin: '10px 0px', borderRadius: '5px' } }
-            onClick={ () => handelClick('volta') }
+            onClick={ () => handleClick('volta') }
             data-testid="filter-by-all-btn"
           >
             All
@@ -80,7 +31,7 @@ function ReceitasFeitas() {
           <Button
             variant="secondary"
             style={ { margin: '10px 0px', borderRadius: '5px' } }
-            onClick={ () => handelClick('comida') }
+            onClick={ () => handleClick('comida') }
             data-testid="filter-by-food-btn"
           >
             Food
@@ -88,7 +39,7 @@ function ReceitasFeitas() {
           <Button
             variant="secondary"
             style={ { margin: '10px 0px', borderRadius: '5px' } }
-            onClick={ () => handelClick('bebida') }
+            onClick={ () => handleClick('bebida') }
             data-testid="filter-by-drink-btn"
           >
             Drinks

@@ -18,8 +18,8 @@ function Bebidas() {
     setBebidas,
     setlistaDeCategoria,
     listaDeCategoria,
-    toggle,
     setToggle,
+    toggle,
   } = useContext(ContextReceitas);
 
   const [clickInfo, setClickInfo] = useState('Primeira Vez');

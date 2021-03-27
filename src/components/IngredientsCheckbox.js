@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 
 function IngredientsCheckbox({ objDetail, id, url }) {
   const verifyIngredientsChecked = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (url.includes('comida')) {
-      return inProgressRecipes.meals[id];
-    }
+    if (localStorage.getItem('inProgressRecipes') !== null) {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (url.includes('comida')) {
+        return inProgressRecipes.meals[id];
+      }
+      if (url.includes('bebida')) {
+        return inProgressRecipes.meals[id];
+      }
+    } else { return []; }
   };
 
   const handleChange = ({ target }) => {
@@ -42,6 +47,10 @@ function IngredientsCheckbox({ objDetail, id, url }) {
         },
       }));
     }
+    const SELECTED_LI = 'selected-li';
+    if (!target.checked) {
+      target.parentNode.classList.remove(SELECTED_LI);
+    } else { target.parentNode.classList.add(SELECTED_LI); }
   };
   const getIngredients = () => {
     const ingredientes = Object.entries(objDetail[0]);
@@ -60,7 +69,10 @@ function IngredientsCheckbox({ objDetail, id, url }) {
           key={ elem[1] }
           data-testid={ `${index}-ingredient-step` }
         >
-          <label htmlFor={ elem[1] }>
+          <label
+            htmlFor={ elem[1] }
+            className={ isChecked ? 'selected-li' : '' }
+          >
             <input
               defaultChecked={ isChecked }
               onChange={ handleChange }

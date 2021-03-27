@@ -11,7 +11,7 @@ function Recommended({ recipeType }) {
     <section>
       <h5>Recomendadas</h5>
       { recipeType === 'Drink' ? (
-        recommendations[0].meals && recommendations[0].meals.map((item, index) => (
+        recommendations[0].meals.map((item, index) => (
           index < SIX ? (
             <div key={ index } data-testid={ `${index}-recomendation-card` }>
               <img

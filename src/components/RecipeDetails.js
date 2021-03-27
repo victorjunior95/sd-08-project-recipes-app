@@ -9,7 +9,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
-function RecipeDetails({ recipeType, status, route }) {
+function RecipeDetails({ recipeType, route, status }) {
   const { isFetching, recipeDetails, copyURL, setCopyURL } = useContext(Context);
 
   function shareLink() {
@@ -32,12 +32,12 @@ function RecipeDetails({ recipeType, status, route }) {
     const favorite = JSON.stringify([
       { id, type, area, category, alcoholicOrNot, name, image },
     ]);
-    /*     if (doneRecipe === true) {
+    /*     if (done === true) {
       favorite = JSON.stringify([
         { id, type, area, category, alcoholicOrNot, name, image, doneDate, tags },
       ]);
       return favorite;
-    } if (doneRecipe === false) {
+    } if (done === false) {
       favorite = JSON.stringify([
         { id, type, area, category, alcoholicOrNot, name, image },
       ]);
@@ -85,7 +85,7 @@ function RecipeDetails({ recipeType, status, route }) {
           { recipe.strCategory }
           {recipeType === 'Drink' ? recipe.strAlcoholic : null}
         </h5>
-        <Ingredients status={ status } />
+        <Ingredients status={ status } id={ recipe[`id${recipeType}`] } />
         { recipeType === 'Meal'
           ? (
             <div>
@@ -107,18 +107,11 @@ function RecipeDetails({ recipeType, status, route }) {
               to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
               className="last-btn"
               data-testid="start-recipe-btn"
+              // onClick={ () =>  }
             >
-              Start Recipe
+              { status === 'ongoing' ? 'Continuar Receita' : 'Start Recipe' }
             </Link>
-          ) : (
-            <Link
-              to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
-              className="last-btn"
-              data-testid="start-recipe-btn"
-            >
-              Finalizar Receita
-            </Link>
-          )
+          ) : null
         }
 
       </section>

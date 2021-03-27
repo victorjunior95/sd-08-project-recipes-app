@@ -16,7 +16,7 @@ function DoneRecipes({ history }) {
         <section>
           <FilterButton filter="all" />
           <FilterButton filter="food" />
-          <FilterButton filter="drinks" />
+          <FilterButton filter="drink" />
         </section>
         <section>
           { favorites.map((recipe, index) => (

@@ -11,7 +11,9 @@ function CardsArea({ type }) {
   const TWELVE_CARDS = 12;
   if (type === 'foods') {
     return (
-      <Container className="d-flex flex-column align-items-center m-0 p-0">
+      <Container
+        className="d-flex flex-row flex-wrap align-items-center justify-content-center"
+      >
         { !meals ? <p> nada por aqui! </p>
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : meals.map(

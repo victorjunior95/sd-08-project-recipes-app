@@ -1,6 +1,7 @@
 .card {
   cursor: pointer;
   width: 7rem;
+  margin: 3px;
 }
 
 div .card-body-custom {

@@ -4,14 +4,14 @@ import Context from '../context/Context';
 
 function Recommended({ recipeType }) {
   const { recommendations } = useContext(Context);
-  console.log(recommendations);
+
   const SIX = 6;
 
   return (
     <section>
       <h5>Recomendadas</h5>
       { recipeType === 'Drink' ? (
-        recommendations[0].meals.map((item, index) => (
+        recommendations[0].meals && recommendations[0].meals.map((item, index) => (
           index < SIX ? (
             <div key={ index } data-testid={ `${index}-recomendation-card` }>
               <img
@@ -28,7 +28,7 @@ function Recommended({ recipeType }) {
             </div>)
             : null)))
         : (
-          recommendations[0].drinks.map((item, index) => (
+          recommendations[0].drinks && recommendations[0].drinks.map((item, index) => (
             index < SIX ? (
               <div key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img

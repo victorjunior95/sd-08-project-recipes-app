@@ -25,7 +25,7 @@ function Ingredients({ status }) {
                         type="checkbox"
                         key={ index }
                         id={ index }
-                        data-testid={ `${index}-ingredient-name-and-measure` }
+                        data-testid="ingredient-step"
                       />
                       <label htmlFor={ index }>
                         { `${recipe[`strIngredient${index + 1}`]} - 

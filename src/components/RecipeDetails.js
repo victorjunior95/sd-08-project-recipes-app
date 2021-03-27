@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import Context from '../context/Context';
 import Recommended from './Recommended';
 import Ingredients from './Ingredients';
@@ -9,21 +10,16 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ recipeType, status, route }) {
-  const { isFetching, recipeDetails } = useContext(Context);
+  const { isFetching, recipeDetails, copyURL, setCopyURL } = useContext(Context);
 
   function shareLink() {
-    const share = document.body.appendChild(document.createElement('input'));
-    share.value = window.location.href;
-    share.select();
-    document.execCommand('copy');
-    share.parentNode.removeChild(share);
-    const shareMessage = document.querySelector('.share');
-    shareMessage.innerHTML = 'Link copiado!';
-    // https://orclqa.com/copy-url-clipboard/
+    copy(window.location.href);
+    setCopyURL(true);
+    // https://dev.to/myogeshchavan97/an-easy-way-for-adding-copy-to-clipboard-functionality-in-react-app-4oo0
   }
 
   function favoriteRecipe(recipe) {
-    console.log(recipe);
+    // console.log(recipe);
     const id = recipe[`id${recipeType}`];
     const type = recipeType;
     const area = recipe.strArea;
@@ -84,7 +80,7 @@ function RecipeDetails({ recipeType, status, route }) {
             src={ /* favorite ? blackHeartIcon : whiteHeartIcon */ whiteHeartIcon }
           />
         </button>
-        <p className="share" />
+        { copyURL ? <p>Link copiado!</p> : null }
         <h5 data-testid="recipe-category">
           { recipe.strCategory }
           {recipeType === 'Drink' ? recipe.strAlcoholic : null}

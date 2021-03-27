@@ -16,6 +16,7 @@ function Provider({ children }) {
   const [apiReturn, setApiReturn] = useState(null);
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [copyURL, setCopyURL] = useState(false);
 
   async function requestApiData(endpoint) {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -28,6 +29,7 @@ function Provider({ children }) {
     setIsFetching(true);
     setRecipeDetails([await fetchRecipeDetails(endpoint, recipeId)]);
     setRecommendations([await fetchRecommendations(secondEndpoint)]);
+    console.log(copyURL, 'oioi');
     setIsFetching(false);
   }
 
@@ -48,6 +50,8 @@ function Provider({ children }) {
     requestRecipeDetails,
     recommendations,
     setRecommendations,
+    copyURL,
+    setCopyURL,
   };
 
   return (

@@ -8,7 +8,6 @@ function FilterButton({ filter }) {
     return firstLetter + stringWithoutFirstLetter;
   }
 
-  const id = 'a';
   const dataTestid = `filter-by-${filter}-btn`;
   return (
     <button
@@ -16,7 +15,7 @@ function FilterButton({ filter }) {
       data-testid={ dataTestid }
       onClick={ () => console.log(filter) }
     >
-    { firstToUpperCase(filter) }
+      { firstToUpperCase(filter) }
     </button>
   );
 }

@@ -33,7 +33,6 @@ function ExplorerFoodsIngredients() {
             />
           ))}
       </div>
-      {console.log(ingredientsList[0], ingredientsList[1], ingredientsList[2])}
       <Footer />
     </div>
   );

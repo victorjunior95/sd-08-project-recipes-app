@@ -64,14 +64,16 @@ label {
 .radio {
   width: 20%;
 }
+
 .exec-search {
   align-self: center;
   width: 90%;
 }
+
 .exec-search-btn {
-  width: 100%;
   background-color: gray;
   margin-top: 2%;
+  width: 100%;
 }
 
 h2 {

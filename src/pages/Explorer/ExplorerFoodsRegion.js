@@ -37,7 +37,7 @@ function ExplorerFoodsRegion() {
     </option>));
   return (
     <div>
-      <Header name="Explorar Origem" icon="false" currentPage="Foods" />
+      <Header name="Explorar Origem" icon="true" currentPage="Foods" />
       <label htmlFor="dropdown">
         Origem:
         <select

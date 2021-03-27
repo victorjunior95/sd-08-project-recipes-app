@@ -27,7 +27,7 @@ function Main({ location: { pathname } }) {
     } else {
       dispatch(fetchRecipes(token, type));
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <>

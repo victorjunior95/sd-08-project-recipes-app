@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
@@ -19,12 +19,12 @@ function ProgressButton({ type, id, ingredientsLength }) {
   const history = useHistory();
   const inProgress = pathname.split('/')[3] === 'in-progress';
   const { done, start, list } = useSelector((state) => state.recipes);
+  const refDone = useRef(done);
   const dispatch = useDispatch();
 
   const handleClick = () => {
     if (inProgress) {
       dispatch(endRecipe(formatedObject(list[0], type, id)));
-      history.push('/receitas-feitas');
       return;
     }
     if (!Object.keys(start[type]).includes(id)) {
@@ -33,9 +33,12 @@ function ProgressButton({ type, id, ingredientsLength }) {
     history.push(`${pathname}/in-progress`);
   };
 
-  useEffect(() => (
-    () => localStorage.setItem('doneRecipes', JSON.stringify(done))
-  ), [done]);
+  useEffect(() => {
+    if (refDone.current.length !== done.length) {
+      localStorage.setItem('doneRecipes', JSON.stringify(done));
+      history.push('/receitas-feitas');
+    }
+  }, [done]);
 
   const buttonName = () => {
     if (inProgress) return 'Finalizar Receita';

@@ -8,7 +8,7 @@ import { FoodCtx } from '../../context/ContextFood';
 import Footer from '../../components/Footer';
 import { CategoryButtons } from '../../components/Buttons';
 
-function Foods({ location }) {
+function Foods({ location: { state } }) {
   const STOP_INDEX = 11;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
@@ -22,14 +22,14 @@ function Foods({ location }) {
   }, [category, setFilterFood]);
 
   useEffect(() => {
-    const renderFromCategory = (categoryState) => {
+    const categorySetting = (categoryState) => {
       if (categoryState === '') {
         setFilterFood({ key: 'name', value: categoryState });
       }
-    }; renderFromCategory(category);
+    }; categorySetting(category);
   }, [category, setFilterFood]);
 
-  return (
+  const renderFromIngredients = () => (
     <div>
       <Header name="Comidas" icon="true" currentPage="Foods" />
       <CategoryButtons
@@ -38,7 +38,44 @@ function Foods({ location }) {
         onClickCategory={ onClickCategory }
       />
       <div className="cards">
-        {console.log('Do Foods', location)}
+        {meals && meals
+          .filter((meal, index) => index <= STOP_INDEX)
+          .map((item, index) => (
+            <Card
+              key={ item.idMeal }
+              id={ item.idMeal }
+              name={ item.strMeal }
+              img={ item.strMealThumb }
+              index={ index }
+              onClick={ () => history.push(`comidas/${item.idMeal}`) }
+            />
+          ))}
+        {console.log('Este é o meals', meals && meals.filter((element, index) => (element[`strIngredient${Number}`] === 'Potatoes')))}
+
+        { (meals && meals.length === 1 && category === '')
+          ? history.push(`/comidas/${meals[0].idMeal}`)
+          : '' }
+        { meals === null
+        // eslint-disable-next-line no-alert
+          ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+          : ''}
+        {console.log(meals)}
+      </div>
+      <div className="spacing" />
+      <Footer />
+    </div>
+  );
+
+  const renderFromCategory = () => (
+    <div>
+      <Header name="Comidas" icon="true" currentPage="Foods" />
+      <CategoryButtons
+        label="Foods"
+        onClickAll={ onClickAll }
+        onClickCategory={ onClickCategory }
+      />
+      <div className="cards">
+        {console.log('Do Foods', state)}
         {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)
           .map((item, index) => (
@@ -56,7 +93,7 @@ function Foods({ location }) {
           ? history.push(`/comidas/${meals[0].idMeal}`)
           : '' }
         { meals === null
-          // eslint-disable-next-line no-alert
+        // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
         {console.log(meals)}
@@ -65,6 +102,9 @@ function Foods({ location }) {
       <Footer />
     </div>
   );
+
+  return (
+    renderFromIngredients());
 }
 
 Foods.propTypes = {

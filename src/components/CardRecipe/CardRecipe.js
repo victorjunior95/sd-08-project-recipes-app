@@ -51,7 +51,7 @@ const CardRecipe = ({
 
         <div className="card-tag">
           {tags.length > 0 &&
-            tags.map((tag, key) => (
+            tags.slice(0, 2).map((tag, key) => (
               <span
                 className="badge badge-pill badge-success"
                 key={key}

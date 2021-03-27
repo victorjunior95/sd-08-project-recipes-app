@@ -12,10 +12,15 @@ const useFavoritesHook = () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }, [favorites]);
 
-  const updateFavorites = (recipe) => {
-    const newFavorites = [...favorites, recipe];
-    console.log('newfavorites: ', newFavorites);
-    setFavorites(newFavorites);
+  const updateFavorites = (recipe, isFav) => {
+    if (!isFav) {
+      const newFavorites = [...favorites, recipe];
+      console.log('newfavorites: ', newFavorites);
+      setFavorites(newFavorites);
+    } else {
+      const newFavorites = favorites.filter((fav) => fav.id !== recipe.id);
+      setFavorites(newFavorites);
+    }
   };
 
   return [favorites, updateFavorites];

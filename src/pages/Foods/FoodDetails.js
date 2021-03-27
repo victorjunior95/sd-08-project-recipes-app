@@ -60,7 +60,8 @@ function FoodDetails(props) {
       name: strMeal,
       image: strMealThumb,
     };
-    updateFavorites(newRecipe);
+    updateFavorites(newRecipe, isFavorite);
+    setIsFavorite(!isFavorite);
   }
 
   return (

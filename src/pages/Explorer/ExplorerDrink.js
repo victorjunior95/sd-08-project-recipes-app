@@ -19,7 +19,7 @@ function ExplorerDrink() {
 
   return (
     <div>
-      <Header name="Explorar Bebidas" currentPage="Drinks" icon="true" />
+      <Header name="Explorar Bebidas" currentPage="Drinks" icon="false" />
       <ExploreByWhat
         dataTestId="ingredient"
         ptBr="Ingredientes"

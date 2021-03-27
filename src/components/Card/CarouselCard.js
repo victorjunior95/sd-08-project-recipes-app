@@ -7,7 +7,7 @@ function CarouselCard(props) {
   return (
     <div
       name={ id }
-      className="card-container"
+      className="carousel-card-container"
       data-testid={ `${index}-recomendation-card` }
     >
       <h4 data-testid={ `${index}-recomendation-title` }>{name}</h4>

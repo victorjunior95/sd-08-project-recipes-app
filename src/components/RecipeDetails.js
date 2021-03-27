@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Context from '../context/Context';
@@ -15,7 +15,7 @@ function RecipeDetails({ recipeType, status, route }) {
   function shareLink() {
     copy(window.location.href);
     setCopyURL(true);
-    // https://dev.to/myogeshchavan97/an-easy-way-for-adding-copy-to-clipboard-functionality-in-react-app-4oo0
+    // https://github.com/feross/clipboard-copy
   }
 
   function favoriteRecipe(recipe) {
@@ -27,8 +27,8 @@ function RecipeDetails({ recipeType, status, route }) {
     const alcoholicOrNot = recipe.strAlcoholic === 'Alcoholic';
     const name = recipe[`str${recipeType}`];
     const image = recipe[`str${recipeType}Thumb`];
-    const doneDate = '';
-    const tags = recipe.strTags;
+    // const doneDate = '';
+    // const tags = recipe.strTags;
     const favorite = JSON.stringify([
       { id, type, area, category, alcoholicOrNot, name, image },
     ]);

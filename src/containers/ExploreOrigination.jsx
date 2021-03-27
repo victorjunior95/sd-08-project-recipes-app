@@ -13,7 +13,11 @@ function ExploreOrigination() {
   useEffect(() => {
     api.fetchAreaList()
       .then((response) => response.json())
-      .then((result) => setMealArea(result.meals.concat({ strArea: 'All' })));
+      .then((result) => setMealArea([...mealArea, ...result.meals]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (input && input !== 'All') {
       api.fetchFilterMealByArea(input)
         .then((response) => response.json())

@@ -12,7 +12,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
       <p data-testid="recipe-title">{meal}</p>
       {values.map((curr, index) => (
         <div data-testid={ `${index}-ingredient-step` } key={ index }>
-          <input type="checkbox" />
+          <input type="checkbox" checked />
           <p>{curr}</p>
         </div>
       ))}

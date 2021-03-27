@@ -33,7 +33,7 @@ function ExplorerDrinksIngredients() {
               onClick={ () => setRedirectToDrinks({
                 pathname: '/bebidas',
                 state: { fromExplorerDrinksIngredients: true,
-                  ingredient: item.strIngredient },
+                  ingredient: item.strIngredient1 },
               }) }
             />
           ))}

@@ -5,7 +5,7 @@ import { filterFirstLetter,
 
 export const DrinkCtx = createContext();
 
-function ContextFood(props) { // ??
+function ContextDrink(props) { // ??
   const { children } = props;
   const [drinkApi, setDrinkApi] = useState([]);
   const [filterDrink, setFilterDrink] = useState({ key: 'name', value: '' });
@@ -41,18 +41,18 @@ function ContextFood(props) { // ??
 
   return (
     <DrinkCtx.Provider
-      value={ { drinkApi, filterDrink, setFilterDrink } }
+      value={ { drinkApi, setDrinkApi, filterDrink, setFilterDrink } }
     >
       {children}
     </DrinkCtx.Provider>
   );
 }
 
-ContextFood.propTypes = {
+ContextDrink.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
 };
 
-export default ContextFood;
+export default ContextDrink;

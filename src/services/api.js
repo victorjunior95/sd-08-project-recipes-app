@@ -48,9 +48,9 @@ export const filterCategory = async (query, currentPage) => {
   return result;
 };
 export const filterIngredient = async (query, currentPage) => {
-  const INGREDIENT_API = currentPage === 'Foods'
-    ? FILTER_FOODS_API
-    : FILTER_DRINKS_API;
+  const INGREDIENT_API = currentPage === 'Drinks'
+    ? FILTER_DRINKS_API
+    : FILTER_FOODS_API;
   const api = await fetch(`${INGREDIENT_API}?i=${query}`);
   const result = await api.json();
   console.log(result);

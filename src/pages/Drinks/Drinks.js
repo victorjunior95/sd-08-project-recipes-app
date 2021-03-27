@@ -41,11 +41,11 @@ function Drinks({ location: { state } }) {
 
   useEffect(() => {
     const categorySetting = (categoryState) => {
-      if (categoryState === '') {
+      if (categoryState === '' && state === undefined) {
         setFilterDrink({ key: 'name', value: categoryState });
       }
     }; categorySetting(category);
-  }, [category, setFilterDrink]);
+  }, [category, setFilterDrink, state]);
 
   const render = () => (
     <div>
@@ -68,7 +68,7 @@ function Drinks({ location: { state } }) {
               onClick={ () => history.push(`/bebidas/${item.idDrink}`) }
             />
           ))}
-
+        {console.log(state)}
         { (drinks && drinks.length === 1 && category === '')
           ? history.push(`/bebidas/${drinks[0].idDrink}`)
           : ''}

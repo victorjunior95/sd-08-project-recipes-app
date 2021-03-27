@@ -147,18 +147,20 @@ function HeaderSearchBar() {
               Primeira letra
             </label>
           </div>
-          <button
-            onClick={
-              location.pathname === '/comidas'
-                ? () => handleClickSearch()
-                : () => handleClickSearchDrink()
-            }
-            type="button"
-            className="exec-search-btn"
-            data-testid="exec-search-btn"
-          >
-            Buscar
-          </button>
+          <div className="exec-search">
+            <button
+              onClick={
+                location.pathname === '/comidas'
+                  ? () => handleClickSearch()
+                  : () => handleClickSearchDrink()
+              }
+              type="button"
+              className="exec-search-btn"
+              data-testid="exec-search-btn"
+            >
+              Buscar
+            </button>
+          </div>
         </div>
       )}
     </div>

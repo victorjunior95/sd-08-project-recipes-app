@@ -65,9 +65,15 @@ label {
   width: 20%;
 }
 
-.container .exec-search-btn {
+.exec-search {
+  align-self: center;
+  width: 90%;
+}
+
+.exec-search-btn {
   background-color: gray;
   margin-top: 2%;
+  width: 100%;
 }
 
 h2 {

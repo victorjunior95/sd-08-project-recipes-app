@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import shareIcon from '../../images/shareIcon.svg';
 
 function DoneRecipeCard({ index, recipe }) {
   const {
@@ -29,7 +30,14 @@ function DoneRecipeCard({ index, recipe }) {
   const imageId = `${index}-horizontal-image`;
   const nameId = `${index}-horizontal-name`;
   // const tagsId = `${index}-${tag}-horizontal-top-text`;
-  // const shareButtonId = `${index}-horizontal-share-btn`;
+  const shareButtonId = `${index}-horizontal-share-btn`;
+
+  function showTags(allTags) {
+    return allTags.map((tag) => {
+      const id = `${index}-${tag}-horizontal-tag`;
+      return <span key={ id } data-testid={ id }>{ tag }</span>;
+    });
+  }
 
   return (
     <section>
@@ -42,19 +50,13 @@ function DoneRecipeCard({ index, recipe }) {
         <span>{ area }</span>
         { ' - ' }
         <span data-testid={ categoryId }>{ category }</span>
+        <img data-testid={ shareButtonId } src={ shareIcon } alt="share icon" />
       </div>
       <h3 data-testid={ nameId }>{ name }</h3>
       { 'Feita em: ' }
       <span data-testid={ doneDateId }>{ doneDate }</span>
       <div>
-        { tags.map((tag) => (
-          <span
-            key={ tag + index }
-            data-testid={ tag }
-          >
-            { tag }
-          </span>
-        ))}
+        { showTags(tags) }
       </div>
     </section>
   );

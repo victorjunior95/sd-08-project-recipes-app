@@ -12,7 +12,8 @@ import {
   ExplorarBebidaOuComida,
   ExplorarComidas,
   ExplorarBebidas,
-  ExplorarIngredientes,
+  ExplorarIngredientesComidas,
+  ExplorarIngredientesBebidas,
   ExplorarPorLocalDeOrigem,
   Perfil,
   ReceitasFeitas,
@@ -37,12 +38,12 @@ function App() {
           <Route
             exact
             path="/explorar/comidas/ingredientes"
-            component={ ExplorarIngredientes }
+            component={ ExplorarIngredientesComidas }
           />
           <Route
             exact
             path="/explorar/bebidas/ingredientes"
-            component={ ExplorarIngredientes }
+            component={ ExplorarIngredientesBebidas }
           />
           <Route
             exact

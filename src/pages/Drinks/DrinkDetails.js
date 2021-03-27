@@ -56,8 +56,8 @@ function DrinkDetails(props) {
   function handleFavorite() {
     const newRecipe = {
       id,
-      type: strIBA,
-      area: 'bebida',
+      type: 'bebida',
+      area: '',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
       name: strDrink,

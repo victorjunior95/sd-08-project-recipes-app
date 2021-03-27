@@ -26,6 +26,7 @@ function FoodDetails(props) {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
     ingredientsAndMeasuresList,
   ] = useFoodDetailsHook();
 
@@ -52,8 +53,8 @@ function FoodDetails(props) {
   function handleFavorite() {
     const newRecipe = {
       id,
-      type: strCategory,
-      area: 'comida',
+      type: 'comida',
+      area: strArea,
       category: strCategory,
       alcoholicOrNot: '',
       name: strMeal,

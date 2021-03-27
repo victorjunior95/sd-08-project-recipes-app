@@ -41,6 +41,7 @@ function useFoodDetailsHook() {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
   } = recipe;
 
   return [
@@ -50,6 +51,7 @@ function useFoodDetailsHook() {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
     ingredientsAndMeasuresList,
   ];
 }

@@ -12,14 +12,28 @@ function Foods({ location: { state } }) {
   const STOP_INDEX = 11;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
+  const [ingredient, setIngredient] = useState('');
   const history = useHistory();
-  const onClickAll = ({ target }) => setCategory(target.value);
-  const onClickCategory = ({ target }) => (category !== target.value
-    ? setCategory(target.value) : setCategory(''));
+  const onClickAll = ({ target }) => {
+    state.fromExplorerFoodsIngredients = false;
+    setCategory(target.value);
+    setFilterFood({ key: 'name', value: category });
+  };
+  const onClickCategory = ({ target }) => {
+    if (category !== target.value) {
+      state.fromExplorerFoodsIngredients = false;
+      setCategory(target.value);
+    } else { setCategory(''); }
+  };
 
   useEffect(() => {
-    setFilterFood({ key: 'category', value: category });
-  }, [category, setFilterFood]);
+    if (state !== undefined && state.fromExplorerFoodsIngredients) {
+      setIngredient(state.ingredient);
+      setFilterFood({ key: 'ing', value: ingredient });
+    } else {
+      setFilterFood({ key: 'category', value: category });
+    }
+  }, [category, setFilterFood, state, ingredient]);
 
   useEffect(() => {
     const categorySetting = (categoryState) => {
@@ -29,44 +43,7 @@ function Foods({ location: { state } }) {
     }; categorySetting(category);
   }, [category, setFilterFood]);
 
-  const renderFromIngredients = () => (
-    <div>
-      <Header name="Comidas" icon="true" currentPage="Foods" />
-      <CategoryButtons
-        label="Foods"
-        onClickAll={ onClickAll }
-        onClickCategory={ onClickCategory }
-      />
-      <div className="cards">
-        {meals && meals
-          .filter((meal, index) => index <= STOP_INDEX)
-          .map((item, index) => (
-            <Card
-              key={ item.idMeal }
-              id={ item.idMeal }
-              name={ item.strMeal }
-              img={ item.strMealThumb }
-              index={ index }
-              onClick={ () => history.push(`comidas/${item.idMeal}`) }
-            />
-          ))}
-        {console.log('Este é o meals', meals && meals.filter((element, index) => (element[`strIngredient${Number}`] === 'Potatoes')))}
-
-        { (meals && meals.length === 1 && category === '')
-          ? history.push(`/comidas/${meals[0].idMeal}`)
-          : '' }
-        { meals === null
-        // eslint-disable-next-line no-alert
-          ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-          : ''}
-        {console.log(meals)}
-      </div>
-      <div className="spacing" />
-      <Footer />
-    </div>
-  );
-
-  const renderFromCategory = () => (
+  const render = () => (
     <div>
       <Header name="Comidas" icon="true" currentPage="Foods" />
       <CategoryButtons
@@ -104,7 +81,7 @@ function Foods({ location: { state } }) {
   );
 
   return (
-    renderFromIngredients());
+    render());
 }
 
 Foods.propTypes = {

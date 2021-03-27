@@ -19,7 +19,7 @@ function FoodDetails(props) {
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   const [favorites, updateFavorites] = useFavoritesHook();
-  const [inProgressRecipes, addIProgressRecipe] = useInProgressRecipeHook();
+  const [addIProgressRecipe] = useInProgressRecipeHook();
   const STOP_INDEX = 5;
   const [
     setId,

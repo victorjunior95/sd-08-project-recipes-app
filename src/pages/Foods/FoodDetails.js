@@ -35,6 +35,7 @@ function FoodDetails(props) {
   }, [id, setId]);
 
   useEffect(() => {
+    console.log('favoritos:', favorites);
     function checkIsFavorite() {
       return favorites
         .find((fav) => fav.id === id)
@@ -47,6 +48,19 @@ function FoodDetails(props) {
   function handleClick() {
     copy(window.location.href);
     setCopied(true);
+  }
+
+  function handleFavorite() {
+    const newRecipe = {
+      id,
+      type: strCategory,
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: 'not',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    updateFavorites(newRecipe);
   }
 
   return (
@@ -63,15 +77,7 @@ function FoodDetails(props) {
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ () => updateFavorites({
-              id,
-              type: strCategory,
-              area: strArea,
-              category: strCategory,
-              alcoholicOrNot: 'not',
-              name: strMeal,
-              image: strMealThumb,
-            }) }
+            onClick={ handleFavorite }
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }

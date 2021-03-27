@@ -4,16 +4,18 @@ const useFavoritesHook = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const favList = localStorage.getItem('favoriteRecipes') || [];
-    setFavorites(favList);
+    const list = localStorage.getItem('favoriteRecipes');
+    setFavorites(list);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('favoriteRecipes', favorites);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }, [favorites]);
 
   const updateFavorites = (recipe) => {
-    setFavorites([...favorites, recipe]);
+    const newFavorites = [...favorites, recipe];
+    console.log('newfavorites: ', newFavorites);
+    setFavorites(newFavorites);
   };
 
   return [favorites, updateFavorites];

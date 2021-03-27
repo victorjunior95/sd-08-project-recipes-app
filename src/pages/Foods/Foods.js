@@ -15,14 +15,18 @@ function Foods({ location: { state } }) {
   const [ingredient, setIngredient] = useState('');
   const history = useHistory();
   const onClickAll = ({ target }) => {
-    state.fromExplorerFoodsIngredients = false;
+    if (state && state.fromExplorerFoodsIngredients) {
+      state.fromExplorerFoodsIngredients = false;
+    }
     setCategory(target.value);
     setFilterFood({ key: 'name', value: category });
   };
   const onClickCategory = ({ target }) => {
     if (category !== target.value) {
-      state.fromExplorerFoodsIngredients = false;
       setCategory(target.value);
+      if (state && state.fromExplorerFoodsIngredients) {
+        state.fromExplorerFoodsIngredients = false;
+      }
     } else { setCategory(''); }
   };
 
@@ -52,7 +56,6 @@ function Foods({ location: { state } }) {
         onClickCategory={ onClickCategory }
       />
       <div className="cards">
-        {console.log('Do Foods', state)}
         {meals && meals
           .filter((meal, index) => index <= STOP_INDEX)
           .map((item, index) => (
@@ -73,15 +76,13 @@ function Foods({ location: { state } }) {
         // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
-        {console.log(meals)}
       </div>
       <div className="spacing" />
       <Footer />
     </div>
   );
 
-  return (
-    render());
+  return (render());
 }
 
 Foods.propTypes = {

@@ -1,33 +1,53 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import './Drinks.css';
+import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import { DrinkCtx } from '../../context/ContextDrink';
 import Footer from '../../components/Footer';
 import { CategoryButtons } from '../../components/Buttons';
 
-function Drinks() {
+function Drinks({ location: { state } }) {
   const STOP_INDEX = 11;
   const { drinkApi: { drinks }, setFilterDrink } = useContext(DrinkCtx);
   const [category, setCategory] = useState('');
+  const [ingredient, setIngredient] = useState('');
   const history = useHistory();
-  const onClickAll = ({ target }) => setCategory(target.value);
-  const onClickCategory = ({ target }) => (category !== target.value
-    ? setCategory(target.value) : setCategory(''));
+  const onClickAll = ({ target }) => {
+    if (state && state.fromExplorerDrinksIngredients) {
+      state.fromExplorerDrinksIngredients = false;
+    }
+    setCategory(target.value);
+    setFilterDrink({ key: 'name', value: category });
+  };
+  const onClickCategory = ({ target }) => {
+    if (category !== target.value) {
+      setCategory(target.value);
+      if (state && state.fromExplorerDrinksIngredients) {
+        state.fromExplorerDrinksIngredients = false;
+      }
+    } else { setCategory(''); }
+  };
 
   useEffect(() => {
-    setFilterDrink({ key: 'category', value: category });
-  }, [category, setFilterDrink]);
+    if (state !== undefined && state.fromExplorerDrinksIngredients) {
+      setIngredient(state.ingredient);
+      setFilterDrink({ key: 'ing', value: ingredient });
+    } else {
+      setFilterDrink({ key: 'category', value: category });
+    }
+  }, [category, setFilterDrink, state, ingredient]);
 
   useEffect(() => {
-    const renderingCondition = (categoryState) => {
+    const categorySetting = (categoryState) => {
       if (categoryState === '') {
         setFilterDrink({ key: 'name', value: categoryState });
       }
-    }; renderingCondition(category);
+    }; categorySetting(category);
   }, [category, setFilterDrink]);
 
-  return (
+  const render = () => (
     <div>
       <Header name="Bebidas" icon="true" currentPage="Drinks" />
       <CategoryButtons
@@ -48,8 +68,10 @@ function Drinks() {
               onClick={ () => history.push(`/bebidas/${item.idDrink}`) }
             />
           ))}
-        { drinks && drinks.length === 1
-          ? <Redirect to={ `/bebidas/${drinks[0].idDrink}` } /> : '' }
+
+        { (drinks && drinks.length === 1 && category === '')
+          ? history.push(`/bebidas/${drinks[0].idDrink}`)
+          : ''}
         { drinks === null
           // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
@@ -59,6 +81,31 @@ function Drinks() {
       <Footer />
     </div>
   );
+
+  return (render());
 }
+
+Drinks.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.shape({
+      fromExplorerDrinksIngredients: PropTypes.bool,
+      ingredient: PropTypes.string,
+    }),
+    key: PropTypes.string,
+  }),
+};
+
+Drinks.defaultProps = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.string,
+    key: PropTypes.string,
+  }),
+};
 
 export default Drinks;

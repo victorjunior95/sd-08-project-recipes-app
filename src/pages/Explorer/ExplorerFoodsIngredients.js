@@ -40,7 +40,6 @@ function ExplorerFoodsIngredients() {
           ))}
       </div>
       <Footer />
-      {console.log(redirectToFoods)}
       {redirectToFoods !== '' ? <Redirect to={ redirectToFoods } /> : ''}
     </div>
   );

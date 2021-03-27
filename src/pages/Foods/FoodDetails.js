@@ -26,7 +26,6 @@ function FoodDetails(props) {
     strCategory,
     strInstructions,
     strYoutube,
-    strArea,
     ingredientsAndMeasuresList,
   ] = useFoodDetailsHook();
 

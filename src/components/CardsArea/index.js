@@ -29,7 +29,7 @@ function CardsArea({ type }) {
   }
   if (type === 'drinks') {
     return (
-      <Container>
+      <Container className="d-flex flex-column align-items-center m-0 p-0">
         { !drinks ? <p> nada por aqui! </p>
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : drinks.map(

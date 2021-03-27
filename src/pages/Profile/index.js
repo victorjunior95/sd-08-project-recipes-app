@@ -35,6 +35,7 @@ function Profile() {
         <Button
           type="button"
           className="mb-3"
+          variant="dark"
           data-testid="profile-logout-btn"
           size="block"
           onClick={ () => localStorage.clear() }

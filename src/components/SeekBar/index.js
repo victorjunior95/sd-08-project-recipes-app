@@ -6,7 +6,7 @@ import { fetchDrinksByFilter, fetchMealsByFilter } from '../../redux/actions';
 
 export default function SeekBar(props) {
   const [onSeek, setOnSeek] = useState('');
-  const [onRadio, setOnRadio] = useState('');
+  const [onRadio, setOnRadio] = useState('Nome');
   const dispatch = useDispatch();
   const { title } = props;
 

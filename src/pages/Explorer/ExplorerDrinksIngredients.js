@@ -28,7 +28,7 @@ function ExplorerDrinksIngredients() {
               name={ item.strIngredient1 }
               img={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
               index={ index }
-              onClick={ () => console.log('Ok') }
+              onClick={ () => console.log('Só falta esse') }
             />
           ))}
       </div>

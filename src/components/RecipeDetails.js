@@ -13,7 +13,7 @@ function RecipeDetails({ recipeType, route, status }) {
   const { isFetching, recipeDetails, copyURL, setCopyURL } = useContext(Context);
 
   function shareLink() {
-    copy(window.location.href);
+    copy((window.location.href).replace('/in-progress', ''));
     setCopyURL(true);
     // https://github.com/feross/clipboard-copy
   }

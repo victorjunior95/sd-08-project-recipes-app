@@ -15,8 +15,11 @@ function Ingredients({ status, id }) {
     if (id === loadChecks[loadChecks.length - 1]) {
       const checks = [...document.getElementsByClassName('checkbox')];
       checks.map((item, index) => {
-        item.checked = loadChecks[index];
-        return item.checked;
+        if (loadChecks[index] === true) {
+          item.setAttribute('checked', true);
+        }
+        // item.checked = loadChecks[index];
+        return item;
       });
     }
   }, []);

@@ -57,7 +57,7 @@ function DrinkDetails(props) {
     const newRecipe = {
       id,
       type: strIBA,
-      area: '',
+      area: 'bebida',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
       name: strDrink,

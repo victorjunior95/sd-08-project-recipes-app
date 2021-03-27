@@ -54,9 +54,9 @@ function FoodDetails(props) {
     const newRecipe = {
       id,
       type: strCategory,
-      area: strArea,
+      area: 'comida',
       category: strCategory,
-      alcoholicOrNot: 'not',
+      alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
     };

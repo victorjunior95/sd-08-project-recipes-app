@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
 import {
   fetchRecipes,
   fetchRecipeDetails,
   fetchRecommendations,
+  fetchRandomRecipe,
 } from '../services/RequisicaoApi';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [inputText, setInputText] = useState('');
-  const [radioValue, setRadioValue] = useState('i');
+  const [radioValue, setRadioValue] = useState('s');
   const [isFetching, setIsFetching] = useState(true);
   const [apiReturn, setApiReturn] = useState(null);
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [copyURL, setCopyURL] = useState(false);
 
-  async function requestApiData(endpoint) {
+  // async function requestApiData(endpoint) {
+  //   const searchType = radioValue === 'i' ? 'filter' : 'search';
+  //   setIsFetching(true);
+  //   setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
+  //   setIsFetching(false);
+  // }
+
+  const requestApiData = useCallback(async (endpoint) => {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
     setIsFetching(true);
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
+    setIsFetching(false);
+  }, [inputText, radioValue]);
+
+  async function requestRandomRecipe(endpoint) {
+    setIsFetching(true);
+    setApiReturn([await fetchRandomRecipe(endpoint)]);
     setIsFetching(false);
   }
 
@@ -52,6 +66,7 @@ function Provider({ children }) {
     setRecommendations,
     copyURL,
     setCopyURL,
+    requestRandomRecipe,
   };
 
   return (

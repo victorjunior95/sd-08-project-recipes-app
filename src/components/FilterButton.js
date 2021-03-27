@@ -25,4 +25,3 @@ FilterButton.propTypes = {
 };
 
 export default FilterButton;
-

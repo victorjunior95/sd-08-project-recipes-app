@@ -47,10 +47,14 @@ function DoneRecipeCard({ index, recipe }) {
       { 'Feita em: ' }
       <span data-testid={ doneDateId }>{ doneDate }</span>
       <div>
-        { tags.map((tag) => <span
-          key={ tag + index }
-          data-testid={ tag }
-        >{ tag }</span>) }
+        { tags.map((tag) => (
+          <span
+            key={ tag + index }
+            data-testid={ tag }
+          >
+            { tag }
+          </span>
+        ))}
       </div>
     </section>
   );
@@ -67,4 +71,3 @@ DoneRecipeCard.propTypes = {
 };
 
 export default DoneRecipeCard;
-

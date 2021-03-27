@@ -19,11 +19,13 @@ function DoneRecipes({ history }) {
           <FilterButton filter="drinks" />
         </section>
         <section>
-          {( favorites.map((recipe, index) => <DoneRecipeCard
-            index={ index }
-            key={ recipe.id }
-            recipe={ recipe }
-          />) )}
+          { favorites.map((recipe, index) => (
+            <DoneRecipeCard
+              index={ index }
+              key={ recipe.id }
+              recipe={ recipe }
+            />
+          )) }
         </section>
       </main>
     </>
@@ -35,4 +37,3 @@ DoneRecipes.propTypes = {
 };
 
 export default DoneRecipes;
-

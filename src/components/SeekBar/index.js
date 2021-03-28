@@ -8,6 +8,7 @@ import './styles.css';
 export default function SeekBar(props) {
   const [onSeek, setOnSeek] = useState('');
   const [onRadio, setOnRadio] = useState('Nome');
+  const RadioValues = ['ingrediente', 'Nome', 'Primeira letra'];
   const dispatch = useDispatch();
   const { title } = props;
 
@@ -47,33 +48,20 @@ export default function SeekBar(props) {
         />
       </Form.Row>
       <Form.Group as={ Row } className="justify-content-around mx-0 my-2 flex-row">
-        <Form.Check
-          sm={ 4 }
-          data-testid="ingredient-search-radio"
-          label="Ingrediente"
-          type="radio"
-          name="SearchChoise"
-          value="Ingrediente"
-          onChange={ (e) => setOnRadio(e.target.value) }
-        />
-        <Form.Check
-          sm={ 4 }
-          data-testid="name-search-radio"
-          label="Nome"
-          type="radio"
-          name="SearchChoise"
-          value="Nome"
-          onChange={ (e) => setOnRadio(e.target.value) }
-        />
-        <Form.Check
-          sm={ 4 }
-          data-testid="first-letter-search-radio"
-          label="Primeira Letra"
-          type="radio"
-          name="SearchChoise"
-          value="Primeira Letra"
-          onChange={ (e) => setOnRadio(e.target.value) }
-        />
+        {RadioValues.map(
+          (radioValue) => (
+            <Form.Check
+              sm={ 4 }
+              data-testid="ingredient-search-radio"
+              label={ radioValue }
+              type="radio"
+              name="SearchChoise"
+              value={ radioValue }
+              checked={ radioValue === onRadio }
+              onChange={ (e) => setOnRadio(e.target.value) }
+              key={ radioValue }
+            />),
+        )}
       </Form.Group>
       <Button
         type="submit"

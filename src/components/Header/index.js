@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Navbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useRouteMatch } from 'react-router';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './style.css';
@@ -9,13 +10,18 @@ import SeekBar from '../SeekBar';
 export default function Header(props) {
   const [showSeachbar, setShowSeachbar] = useState(false);
   const { title } = props;
+  const match = useRouteMatch();
+  const currentPage = (match.url === '/comidas' || match.url === '/bebidas'
+  || match.url === '/explorar/comidas/area');
 
   function controlSearchbar(e) {
     const { target: { checked } } = e;
     setShowSeachbar(checked);
   }
+
   function renderSearchBarIcon() {
-    if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
+    console.log(match.url);
+    if (currentPage) {
       return (
         <label htmlFor="searchBarControl" className="navbar-brand searchIcon">
           <img

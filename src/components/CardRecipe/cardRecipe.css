@@ -43,3 +43,7 @@
 .card-tag span {
   margin: 4px;
 }
+.btn-favorite {
+  background-color: transparent;
+  border: none;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ShareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './cardRecipe.css';
 const CardRecipe = ({
   id,
@@ -13,6 +14,7 @@ const CardRecipe = ({
   name,
   doneDate,
   tags,
+  favorite = false,
 }) => {
   const [saveClipBoard, setSaveClipBoard] = useState(false);
   const savetoClipboard = (id, type) => {
@@ -50,7 +52,8 @@ const CardRecipe = ({
         </span>
 
         <div className="card-tag">
-          {tags.length > 0 &&
+          {tags !== null &&
+            tags.length > 0 &&
             tags.slice(0, 2).map((tag, key) => (
               <span
                 className="badge badge-pill badge-success"
@@ -71,6 +74,15 @@ const CardRecipe = ({
       >
         <img src={ShareIcon} />
       </button>
+      {favorite && (
+        <button className="btn-favorite" type="button">
+          <img
+            src={blackHeartIcon}
+            alt="Profile icon"
+            data-testid={`${index}-horizontal-favorite-btn`}
+          />
+        </button>
+      )}
     </div>
   );
 };
@@ -86,6 +98,7 @@ CardRecipe.propTypes = {
   name: PropTypes.string.isRequired,
   doneDate: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf.isRequired,
+  favorite: PropTypes.bool.isRequired,
 };
 
 export default CardRecipe;

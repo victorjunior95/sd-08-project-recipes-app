@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
 import RecomendedCards from '../components/RecomendedCards';
 import Ingredientes from '../components/Ingredientes';
 import requestById from '../services/requestById';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/Comida.css';
 
 function Comida() {
@@ -19,11 +21,15 @@ function Comida() {
     setRecipe,
     renderButtonComparison,
     setRenderButtonComparison,
+    copied,
+    setCopied,
+    favorite,
+    setFavorite,
   } = useContext(MyContext);
 
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem('doneRecipe')) || [];
-    console.log('useEffect', storage);
+    console.log('useEffect antes do if', storage);
     if (storage && storage.length) {
       console.log(storage, 'dentro do if');
       storage.map((item) => {
@@ -71,6 +77,7 @@ function Comida() {
     }
     localStorage.setItem('doneRecipe', JSON.stringify(savedRecipes.concat(startRecipe)));
     setRenderButtonComparison(false);
+    history.push(`/comidas/${id}/in-progress`);
     console.log('iniciar receitar', renderButtonComparison);
   }
 
@@ -94,7 +101,9 @@ function Comida() {
     requestRecipe();
   }, []);
 
+  const storagesssss = JSON.parse(localStorage.getItem('doneRecipe'));
   console.log(renderButtonComparison, 'da pagina');
+  console.log(storagesssss, 'storage usada pra renderizar');
   return (
     <div>
       <img
@@ -106,14 +115,29 @@ function Comida() {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => {
+          Copy(`http://localhost:3000${history.location.pathname}`);
+          setCopied(true);
+        } }
       >
+        {copied && 'Link copiado!'}
         <img src={ shareIcon } alt="shareIcon" />
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
+        onClick={ () => {
+          if (favorite) {
+            setFavorite(false);
+          } else {
+            setFavorite(true);
+          }
+        } }
       >
-        <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+        <img
+          data-testid="favorite-btn"
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="favoriteIcon"
+        />
       </button>
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
       <Ingredientes />

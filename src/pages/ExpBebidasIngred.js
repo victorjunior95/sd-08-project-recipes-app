@@ -13,6 +13,7 @@ function ExplorarBebidasIngredientes() {
   useEffect(() => {
     const requestByIngredients = async () => {
       const ingredients = await requestDrinksIngredientsList();
+      console.log(ingredients);
       setIngredientsList(ingredients);
     };
     requestByIngredients();

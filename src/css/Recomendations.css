@@ -12,19 +12,19 @@
   width: 50%;
 }
 
-.recommendationList li:nth-child(3){
+.recommendationList li:nth-child (3) {
   display: none;
 }
 
-.recommendationList li:nth-child(4){
+.recommendationList li:nth-child (4) {
   display: none;
 }
 
-.recommendationList li:nth-child(5){
+.recommendationList li:nth-child (5) {
   display: none;
 }
 
-.recommendationList li:nth-child(6){
+.recommendationList li:nth-child (6) {
   display: none;
 }
 

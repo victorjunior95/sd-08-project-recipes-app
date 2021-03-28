@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import RecipesContext from '../core/RecipesContext';
 
 const MAGIC_NUMBER = -1;
 const MAGIC_NUMBER_2 = -12;
 function FoodInProgressCard({ data, img, meal, category, instructions }) {
+  const { setFavoriteRecipe, favoriteRecipe } = useContext(RecipesContext);
   const [checkFavorite, setCheckFavorite] = useState(null);
   const [verified, setVerified] = useState(['default']);
   const [copied, setCopied] = useState(false);
   const history = useHistory();
 
-  // console.log(verified);
+  console.log(favoriteRecipe);
 
   const keys = Object.keys(data[0]).filter((key) => key.includes('strIngredient'));
   const values = keys.map((
@@ -21,6 +23,15 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   function compartilhar() {
     navigator.clipboard.writeText(`http://localhost:3000${history.location.pathname.slice(0, MAGIC_NUMBER_2)}`); // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
     setCopied(true);
+  }
+
+  function handleFavorite() {
+    if (!checkFavorite) {
+      setCheckFavorite(true);
+    } else {
+      setCheckFavorite(false);
+    }
+    setFavoriteRecipe([...favoriteRecipe, data]);
   }
 
   function handleChange({ target }) {
@@ -72,8 +83,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
         {!copied ? 'compartilhar' : 'Link copiado!'}
       </button>
       <button
-        onClick={ () => (!checkFavorite
-          ? setCheckFavorite(true) : setCheckFavorite(false)) }
+        onClick={ handleFavorite }
         type="button"
 
       >

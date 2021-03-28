@@ -1,11 +1,6 @@
 .footer {
-  position: fixed;
   bottom: 0;
   display: flex;
-  justify-content: space-between
-}
-
-.footer div {
-  /* display: flex;
-  justify-content: center; */
+  justify-content: space-between;
+  position: fixed;
 }

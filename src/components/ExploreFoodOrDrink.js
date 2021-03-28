@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function ExploreFoodOrDrink({ foodOrDrink, id }) {
+function ExploreFoodOrDrink({ foodOrDrink, meals }) {
+  const { idMeal } = meals;
   return (
     <div>
       <Link to={ `/explorar/${foodOrDrink}/ingredientes` }>
@@ -24,7 +25,7 @@ function ExploreFoodOrDrink({ foodOrDrink, id }) {
             Por Local de Origem
           </button>
         </Link>)}
-      <Link to={ `/${foodOrDrink}/${id}` }>
+      <Link to={ `/${foodOrDrink}/${idMeal}` }>
         <button
           type="button"
           data-testid="explore-surprise"
@@ -38,7 +39,9 @@ function ExploreFoodOrDrink({ foodOrDrink, id }) {
 
 ExploreFoodOrDrink.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  meals: PropTypes.shape({
+    idMeal: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ExploreFoodOrDrink;

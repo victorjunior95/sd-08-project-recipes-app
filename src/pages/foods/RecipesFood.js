@@ -1,21 +1,25 @@
 import React, { useContext } from 'react';
+import FoodCard from '../../components/FoodCard';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 import RecipesContext from '../../ContextApi/RecipesContext';
 
 function RecipesFood() {
   const { recipes } = useContext(RecipesContext);
-  console.log(recipes);
+
+  const recipeMeals = recipes.meals;
+  const cardMaximun = 12;
 
   return (
     <div>
-      <Header title="Comidas" />
-      <ul>
-        {/* {recipes.length > 0
-          ? Object.values(recipes)
-            .map((recipe, i) => <li key={ i }><img src={ recipe.meals.strMealThumb } alt="img" /></li>)
-            : null} */}
-      </ul>
+      <Header title="Comidas" search="" />
+      {
+        recipeMeals
+        && recipeMeals.map((recipe, i) => (
+          i < cardMaximun
+           && <FoodCard key={ i } recipes={ recipe } />
+        ))
+      }
       <Footer />
     </div>
   );

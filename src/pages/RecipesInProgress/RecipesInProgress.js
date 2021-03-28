@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import Context from '../../contextApi/Context';
 
 const RecipesInProgress = ({ title, match }) => {
-  const {checkbox} = useContext(Context)
+  const { checkbox } = useContext(Context);
   const history = useHistory();
   const {
     params: { id },
@@ -36,22 +36,40 @@ const RecipesInProgress = ({ title, match }) => {
       setObject(mealOrDrink);
       setLoad(false);
     })();
+    if (localStorage.getItem('doneRecipes') === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   const finishRecipe = () => {
+    const doneRecipesObject = {
+      id: title === 'Comidas' ? object.idMeal : object.idDrink,
+      type: title === 'Comidas' ? 'comida' : 'bebida',
+      area: object.strArea,
+      category: object.strCategory,
+      alcoholicOrNot: title === 'Comidas' ? '' : 'Alcoholic',
+      name: title === 'Comidas' ? object.strMeal : object.strDrink,
+      image: title === 'Comidas' ? object.strMealThumb : object.strDrinkThumb,
+      doneDate: new Date().toLocaleDateString(),
+      tags: object.strTags !== null ? object.strTags.split(',') : '',
+    };
+    const localRecipes = [
+      ...JSON.parse(localStorage.getItem('doneRecipes')),
+      doneRecipesObject,
+    ];
+    localStorage.setItem('doneRecipes', JSON.stringify(localRecipes));
     history.push('/receitas-feitas');
   };
 
   return (
     <>
-      <CardDetails title={ title } object={ object } isLoading={ isLoading }>
-        <CheckBoxIngredients object={ object } title={ title } />
+      <CardDetails title={title} object={object} isLoading={isLoading}>
+        <CheckBoxIngredients object={object} title={title} />
       </CardDetails>
       <Button
         className="btn btn-primary w-100"
         data-testid="finish-recipe-btn"
-        disabled = {checkbox ? false : true
-        }
+        disabled={checkbox ? false : true}
         onClick={() => finishRecipe()}
       >
         Finalizar Receita

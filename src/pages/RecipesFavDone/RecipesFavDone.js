@@ -6,36 +6,18 @@ import CardRecipe from '../../components/CardRecipe/CardRecipe';
 
 const RecipesFavDone = ({ title, visible }) => {
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   useEffect(() => {
-    const doneRecipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: '23/06/2020',
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot:  'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: '23/06/2020',
-        tags: [],
-      },
-    ];
     if (localStorage.getItem('doneRecipes') === null) {
-      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
-    const localRecipes = localStorage.getItem('doneRecipes');
-    setDoneRecipes(JSON.parse(localRecipes));
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const localFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const localDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    setDoneRecipes(localDone);
+    setFavoriteRecipes(localFavorite);
   }, []);
   return (
     <div>
@@ -67,7 +49,8 @@ const RecipesFavDone = ({ title, visible }) => {
           Drinks
         </button>
       </div>
-      {doneRecipes.length > 0 &&
+      {title === 'Receitas Feitas' &&
+        doneRecipes.length > 0 &&
         doneRecipes.map((recipe, index) => (
           <CardRecipe
             key={index}
@@ -81,6 +64,24 @@ const RecipesFavDone = ({ title, visible }) => {
             name={recipe.name}
             doneDate={recipe.doneDate}
             tags={recipe.tags}
+          />
+        ))}
+      {title === 'Receitas Favoritas' &&
+        favoriteRecipes.length > 0 &&
+        favoriteRecipes.map((recipe, index) => (
+          <CardRecipe
+            key={index}
+            id={recipe.id}
+            type={recipe.type}
+            index={index}
+            image={recipe.image}
+            alcoholicOrNot={recipe.alcoholicOrNot}
+            area={recipe.area}
+            category={recipe.category}
+            name={recipe.name}
+            doneDate={null}
+            tags={null}
+            favorite={true}
           />
         ))}
     </div>

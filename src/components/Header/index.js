@@ -20,7 +20,6 @@ export default function Header(props) {
   }
 
   function renderSearchBarIcon() {
-    console.log(match.url);
     if (currentPage) {
       return (
         <label htmlFor="searchBarControl" className="navbar-brand searchIcon">

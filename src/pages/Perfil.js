@@ -47,6 +47,8 @@ function Perfil() {
         data-testid="profile-logout-btn"
         onClick={ () => {
           localStorage.removeItem('user');
+          localStorage.removeItem('mealsToken');
+          localStorage.removeItem('cocktailsToken');
           history.push('/');
         } }
       >

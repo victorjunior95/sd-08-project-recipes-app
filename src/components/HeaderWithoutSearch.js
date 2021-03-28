@@ -1,13 +1,11 @@
+/* eslint-disable no-lone-blocks */
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
+import Title from './Title';
 
 function HeaderWithoutSearch() {
   const history = useHistory();
-  const { pathname } = useLocation();
-  const firstLetterUppercased = pathname[1].toUpperCase();
-  const title = firstLetterUppercased + pathname.slice(2);
-
   return (
     <header>
       <div data-testid="header" className="header">
@@ -18,7 +16,7 @@ function HeaderWithoutSearch() {
             alt="profile page"
           />
         </button>
-        <h1 data-testid="page-title">{title}</h1>
+        <h1 data-testid="page-title"><Title /></h1>
       </div>
     </header>
   );

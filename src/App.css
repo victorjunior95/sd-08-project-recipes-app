@@ -1,4 +1,3 @@
-
 .scroll-menu {
   overflow: auto;
   white-space: nowrap;
@@ -6,14 +5,14 @@
 
 .recommended {
   display: inline-block;
-  text-align: center;
   padding: 14px;
+  text-align: center;
   width: 50%;
 }
 
 .start {
-  position: fixed;
   bottom: 0;
+  position: fixed;
 }
 
 .header {

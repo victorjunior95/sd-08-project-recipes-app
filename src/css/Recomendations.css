@@ -2,9 +2,9 @@
   list-style: none;
   margin: 0;
   overflow: auto;
+  overflow-x: scroll;
   padding: 0;
   white-space: nowrap;
-  overflow-x: scroll;
 }
 
 .recommendationList li {
@@ -21,5 +21,4 @@
   margin-left: 10%;
   position: fixed;
   width: 80%;}
-
-
+  

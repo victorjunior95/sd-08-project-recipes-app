@@ -102,16 +102,37 @@ function RecipeDetails({ recipeType, route, status }) {
           : null }
         <Recommended recipeType={ recipeType } />
         {
-          !status ? (
-            <Link
-              to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
-              className="last-btn"
-              data-testid="start-recipe-btn"
-              // onClick={ () =>  }
-            >
-              { status === 'ongoing' ? 'Continuar Receita' : 'Start Recipe' }
-            </Link>
-          ) : null
+          !status && (recipe[`id${recipeType}`] !== JSON
+            .parse(localStorage.getItem('finishedRecipes')) ? (
+              <Link
+                to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
+                className="last-btn"
+                data-testid="start-recipe-btn"
+                onClick={ () => {
+                  localStorage.setItem('inProgressRecipes', JSON
+                    .stringify(recipe[`id${recipeType}`]));
+                } }
+              >
+                { (recipe[`id${recipeType}`] === JSON
+                  .parse(localStorage.getItem('inProgressRecipes')))
+                  ? 'Continuar Receita' : 'Iniciar Receita' }
+              </Link>
+            ) : (
+              <Link
+                to="/receitas-feitas"
+                type="submit"
+                className="last-btn"
+                data-testid="finish-recipe-btn"
+                onClick={ () => {
+                  localStorage.setItem('finishedRecipes', JSON
+                    .stringify(recipe[`id${recipeType}`]));
+                } }
+                // disabled={ document.querySelectorAll('.checkbox').checked }
+              >
+                Finalizar Receita
+              </Link>
+            )
+          )
         }
 
       </section>

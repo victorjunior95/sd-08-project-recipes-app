@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
 import Context from '../context/Context';
 import '../styles/Ingredients.css';
 
@@ -12,16 +11,16 @@ function Ingredients({ status, id }) {
 
   useEffect(() => {
     const loadChecks = JSON.parse(localStorage.getItem('usedIngredients')) || {};
-    if (id === loadChecks[loadChecks.length - 1]) {
-      const checks = [...document.getElementsByClassName('checkbox')];
-      checks.map((item, index) => {
-        if (loadChecks[index] === true) {
-          item.setAttribute('checked', true);
-        }
-        // item.checked = loadChecks[index];
-        return item;
-      });
-    }
+    // if (id === loadChecks[loadChecks.length - 1]) {
+    const checks = [...document.getElementsByClassName('checkbox')];
+    checks.map((item, index) => {
+      if (loadChecks[index] === true) {
+        item.setAttribute('checked', true);
+      }
+      // item.checked = loadChecks[index];
+      return item;
+    });
+    // }
   }, []);
 
   function saveChecks() {
@@ -57,15 +56,6 @@ function Ingredients({ status, id }) {
                         { `${recipe[`strIngredient${index + 1}`]} - 
                         ${recipe[`strMeasure${index + 1}`]}` }
                       </label>
-                      <Link
-                        to="/receitas-feitas"
-                        type="submit"
-                        className="last-btn"
-                        data-testid="finish-recipe-btn"
-                        // disabled={ document.querySelectorAll('.checkbox').checked }
-                      >
-                        Finalizar Receita
-                      </Link>
                     </div>
                   )
                   : null

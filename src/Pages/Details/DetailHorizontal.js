@@ -9,15 +9,15 @@ function DetailHorizontal({ feitas }) {
 
   return (
     <Container>
-      {feitas.length > 0 ? feitas.map((recep, i) => {
-        const condi = `${recep.type === 'comida' ? 'comidas/' : 'bebidas/'}${recep.id}`;
+      {feitas && feitas.length ? feitas.map((recipe, i) => {
+        const condi = `${recipe.type === 'comida' ? 'comidas/' : 'bebidas/'}${recipe.id}`;
         return (
           <Card key={ i }>
             <Row>
               <Col>
                 <Link to={ condi }>
                   <Card.Img
-                    src={ recep.image }
+                    src={ recipe.image }
                     style={ { width: '10rem' } }
                     data-testid={ `${i}-horizontal-image` }
                   />
@@ -28,23 +28,23 @@ function DetailHorizontal({ feitas }) {
                   <Card.Title
                     data-testid={ `${i}-horizontal-top-text` }
                   >
-                    { `${recep.type === 'comida' ? recep.area
-                      : recep.alcoholicOrNot} - ${recep.category}` }
+                    { `${recipe.type === 'comida' ? recipe.area
+                      : recipe.alcoholicOrNot} - ${recipe.category}` }
                   </Card.Title>
                   <Card.Subtitle
                     as={ Link }
                     to={ condi }
                     data-testid={ `${i}-horizontal-name` }
                   >
-                    { recep.name }
+                    { recipe.name }
                   </Card.Subtitle>
                   <Card.Text
                     data-testid={ `${i}-horizontal-done-date` }
                   >
                     Feita em:
-                    { recep.doneDate }
+                    { recipe.doneDate }
                   </Card.Text>
-                  {recep.tags.length > 0 ? recep.tags.map((tag) => (
+                  {recipe.tags && recipe.tags.length > 0 ? recipe.tags.map((tag) => (
                     <Col key={ tag }>
                       <Button
                         variant="secondary"
@@ -53,7 +53,7 @@ function DetailHorizontal({ feitas }) {
                         { tag }
                       </Button>
                     </Col>
-                  )) : <div />}
+                  )) : null}
                 </Card.Body>
               </Col>
               <Col>
@@ -79,7 +79,7 @@ function DetailHorizontal({ feitas }) {
             )}
           </Card>
         );
-      }) : <div />}
+      }) : null}
     </Container>
   );
 }

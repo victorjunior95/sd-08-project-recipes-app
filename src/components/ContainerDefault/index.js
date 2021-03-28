@@ -7,7 +7,7 @@ import './styles.css';
 
 function ContainerDefault({ title, children }) {
   return (
-    <Container fluid>
+    <Container className="template" fluid>
       <Row className="mb-5">
         <Header title={ title } />
       </Row>

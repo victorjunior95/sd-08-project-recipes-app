@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, NavbarBrand } from 'react-bootstrap';
 import ContainerDefault from '../../components/ContainerDefault';
 import { getlocalStorage } from '../../services/localStorage';
+import './styles.css';
 
 function Profile() {
   const GetEmail = getlocalStorage('user');
@@ -35,7 +36,7 @@ function Profile() {
         <Button
           type="button"
           className="mb-3"
-          variant="dark"
+          variant="danger"
           data-testid="profile-logout-btn"
           size="block"
           onClick={ () => localStorage.clear() }

@@ -24,9 +24,14 @@ function Cards(props) {
         data-testid={ `${index}-card-img` }
         onClick={ goToDetailsPage }
       />
-      <Card.Body className="card-body-custom">
-        <Card.Title data-testid={ `${index}-card-name` } className="text-center m-0">
-          {name}
+      <Card.Body
+        className="card-body-custom d-flex align-items-center justify-content-center"
+      >
+        <Card.Title
+          data-testid={ `${index}-card-name` }
+          className="text-center m-0 h6"
+        >
+          <mark>{name}</mark>
         </Card.Title>
       </Card.Body>
     </Card>

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, FormControl, Button, Row } from 'react-bootstrap';
 import { fetchDrinksByFilter, fetchMealsByFilter } from '../../redux/actions';
+import './styles.css';
 
 export default function SeekBar(props) {
   const [onSeek, setOnSeek] = useState('');
@@ -35,8 +36,8 @@ export default function SeekBar(props) {
 
   return (
 
-    <Form>
-      <Form.Row className="m-3">
+    <Form className="py-2">
+      <Form.Row className="mx-3">
         <FormControl
           type="text"
           placeholder="Pesquisar"
@@ -45,7 +46,7 @@ export default function SeekBar(props) {
           onChange={ handleOnSeek }
         />
       </Form.Row>
-      <Form.Group as={ Row } className="justify-content-around mx-0 flex-row">
+      <Form.Group as={ Row } className="justify-content-around mx-0 my-2 flex-row">
         <Form.Check
           sm={ 4 }
           data-testid="ingredient-search-radio"

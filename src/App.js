@@ -15,6 +15,7 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExpBebidasIngred from './pages/ExpBebidasIngred';
 import ExpComidasIngred from './pages/ExpComidasIngred';
 import ExpComidasOrigem from './pages/ExpComidasOrigem';
+import EmProgresso from './pages/EmProgresso';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
       <Route exact path="/explorar/comidas/ingredientes" component={ ExpComidasIngred } />
       <Route exact path="/explorar/comidas/area" component={ ExpComidasOrigem } />
       <Route exact path="/explorar/bebidas/ingredientes" component={ ExpBebidasIngred } />
+      <Route path="/comidas/:id/in-progress" component={ EmProgresso } />
+      <Route path="/bebidas/:id/in-progress" component={ EmProgresso } />
     </Switch>
   );
 }

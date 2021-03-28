@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { requestMealRecipe } from '../services/apiRequests';
 import RecommendedDrinks from '../components/RecommendedDrinks';
 
@@ -9,9 +10,8 @@ function DetalhesComidas() {
   const [meal, setMeal] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [ingredientList, setIngredientList] = useState([]);
-
-  // console.log(params.id);
+  const [copied, setCopied] = useState(false);
+  const history = useHistory();
 
   const parseRecipe = (data) => {
     const aux = Object.entries(data).reduce((acc, cur) => {
@@ -40,9 +40,6 @@ function DetalhesComidas() {
     requestById();
   }, [id]);
 
-  // console.log('teste meal array:', meal[0]);
-  // console.log('acessando chaves do objeto meal:', meal && meal.length && meal[0].strMealThumb);
-
   if (loading) {
     return (
       <p>Loading</p>
@@ -52,9 +49,13 @@ function DetalhesComidas() {
     <div>
       <h1 data-testid="recipe-title">{meal.strMeal}</h1>
       <img src={ meal.strMealThumb } alt="imagem" data-testid="recipe-photo" />
-      <button type="button" data-testid="share-btn">
-        Compartilhar
-      </button>
+      <CopyToClipboard
+        text={ window.location.href }
+        onCopy={ () => setCopied(true) }
+      >
+        <button type="button" data-testid="share-btn">Compartilhar</button>
+      </CopyToClipboard>
+      {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
       <button type="button" data-testid="favorite-btn">
         Adicionar aos favoritos
       </button>
@@ -75,23 +76,16 @@ function DetalhesComidas() {
         <track kind="captions" />
       </video>
       <RecommendedDrinks />
-      <button type="button" data-testid="start-recipe-btn" className="start">
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start"
+        onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
+      >
         Iniciar Receita
       </button>
     </div>
   );
 }
-
-// const [allMeals, setAllMeals] = useState([]);
-// const MAX_INDEX = 11;
-// useEffect(() => {
-//   async function requestRecipes() {
-//     const meals = await requestRecipesList();
-//     setAllMeals(meals);
-//   }
-//   requestRecipes();
-// }, []);
-
-// https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
 
 export default DetalhesComidas;

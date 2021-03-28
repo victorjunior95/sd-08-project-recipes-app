@@ -26,8 +26,8 @@ function RecommendedDrinks() {
         recommended.map((drink, index) => {
           if (index <= MAX_LENGTH) {
             return (
-              <div data-testid="recomendation-card" className="recommended">
-                <h1 data-testid={ `${index}-recomendation-card` } key={ index }>
+              <div data-testid={ `${index}-recomendation-card` }>
+                <h1 data-testid={ `${index}-recomendation-title` } key={ index }>
                   {drink.strDrink}
                 </h1>
               </div>

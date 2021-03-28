@@ -7,7 +7,7 @@ import { MAIN_FOOD_CARD_LENGTH_12 } from '../constants';
 
 function ExploreOrigination() {
   const { setMealArea, mealArea } = useContext(RecipesContext);
-  const [input, setInput] = useState('American');
+  const [input, setInput] = useState('All');
   const [data, setData] = useState([]);
 
   useEffect(() => {

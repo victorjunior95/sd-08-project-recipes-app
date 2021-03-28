@@ -65,6 +65,7 @@ function Details(props) {
         { ytVideo() }
         <Recomendations />
         <Button
+          className="start-recipe-btn"
           datatestid="start-recipe-btn"
           label="Iniciar Receita"
           onClick={ historyPath }

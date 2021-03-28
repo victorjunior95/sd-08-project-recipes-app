@@ -12,6 +12,22 @@
   width: 50%;
 }
 
+.recommendationList li:nth-child(3){
+  display: none;
+}
+
+.recommendationList li:nth-child(4){
+  display: none;
+}
+
+.recommendationList li:nth-child(5){
+  display: none;
+}
+
+.recommendationList li:nth-child(6){
+  display: none;
+}
+
 .carouselImage {
   width: 50%;
 }
@@ -20,4 +36,5 @@
   bottom: 0;
   margin-left: 10%;
   position: fixed;
-  width: 80%;}
+  width: 80%;
+}

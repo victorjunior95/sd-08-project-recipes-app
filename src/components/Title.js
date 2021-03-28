@@ -1,21 +1,20 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 function Title() {
   const { pathname } = useLocation();
 
   switch (pathname) {
-  case '/comidas': return <h1>Comidas</h1>;
-  case '/bebidas': return <h1>Bebidas</h1>;
-  case '/explorar': return <h1>Explorar</h1>;
-  case '/explorar/comidas': return <h1>Explorar Comidas</h1>;
-  case '/explorar/bebidas': return <h1>Explorar Bebidas</h1>;
-  case '/explorar/comidas/ingredientes': return <h1>Explorar Ingredientes</h1>;
-  case '/explorar/bebidas/ingredientes': return <h1>Explorar Ingredientes</h1>;
-  case '/explorar/comidas/area': return <h1>Explorar Origem</h1>;
-  case '/perfil': return <h1>Perfil</h1>;
-  case '/receitas-feitas': return <h1>Receitas Feitas</h1>;
-  case '/receitas-favoritas': return <h1>Receitas Favoritas</h1>;
+  case '/comidas': return 'Comidas';
+  case '/bebidas': return 'Bebidas';
+  case '/explorar': return 'Explorar';
+  case '/explorar/comidas': return 'Explorar Comidas';
+  case '/explorar/bebidas': return 'Explorar Bebidas';
+  case '/explorar/comidas/ingredientes': return 'Explorar Ingredientes';
+  case '/explorar/bebidas/ingredientes': return 'Explorar Ingredientes';
+  case '/explorar/comidas/area': return 'Explorar Origem';
+  case '/perfil': return 'Perfil';
+  case '/receitas-feitas': return 'Receitas Feitas';
+  case '/receitas-favoritas': return 'Receitas Favoritas';
   default: return false;
   }
 }

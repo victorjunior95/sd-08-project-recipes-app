@@ -3,16 +3,15 @@ import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
+import { FavoriteButton, ShareDisplay } from '../../component';
+import { getRecipesInProgress } from '../../services/localStorage';
 
 export default function DrinkDetails({ match: { params: { id } } }) {
   const { recipeDetail, setSearchParams } = useContext(Context);
   const history = useHistory();
   const [recipe, setRecipe] = useState();
 
-  const recipesInProgressLS = JSON.parse(localStorage.getItem('RecipesInProgress')) || [];
-
-  const recipeInProgress = recipesInProgressLS
-    .find((idRecipe) => idRecipe === id);
+  const recipeInProgress = () => getRecipesInProgress().cocktails[id];
 
   useEffect(() => {
     setSearchParams({
@@ -23,6 +22,7 @@ export default function DrinkDetails({ match: { params: { id } } }) {
   }, [setSearchParams, history.location.pathname, id]);
 
   useEffect(() => setRecipe(...recipeDetail), [recipeDetail, setRecipe]);
+
   if (!recipe) return <div>Carregando...</div>;
 
   const {
@@ -47,8 +47,18 @@ export default function DrinkDetails({ match: { params: { id } } }) {
     <>
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Recipe Done" />
       <h1 data-testid="recipe-title">{strDrink}</h1>
-      <button type="button" data-testid="share-btn">Share</button>
-      <button type="button" data-testid="favorite-btn">Favorites</button>
+      <ShareDisplay />
+      <FavoriteButton
+        recipeInfo={ {
+          id,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+        } }
+      />
       <h5 data-testid="recipe-category">{`${strCategory} ${strAlcoholic}`}</h5>
       {ingredients.map((ingredient, index) => (
         <p
@@ -67,7 +77,7 @@ export default function DrinkDetails({ match: { params: { id } } }) {
         onClick={ () => {
           if (!recipeInProgress) {
             localStorage.setItem('RecipesInProgress',
-              JSON.stringify([...recipesInProgressLS, id]));
+              JSON.stringify([...getRecipesInProgress(), id]));
           }
         } }
       >

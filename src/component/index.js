@@ -4,3 +4,4 @@ export { default as RecipeCards } from './RecipeCards';
 export { default as Footer } from './Footer';
 export { default as ShareDisplay } from './ShareDisplay';
 export { default as FavoriteButton } from './FavoriteButton';
+export { default as CategoryFilter } from './CategoryFilter';

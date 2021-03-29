@@ -22,6 +22,10 @@ code {
   display: none;
 }
 
+.recommendation .recommendation-item {
+  min-width: 180px;
+}
+
 .recommendation .recommendation-item img {
   height: 100px;
   margin: 10px;
@@ -135,6 +139,7 @@ code {
   box-shadow: 1px 1px 8px rgb(209, 206, 198);
 }
 
+<<<<<<< HEAD
 .checkbox-list {
   list-style: none;
 }
@@ -143,3 +148,9 @@ code {
   text-decoration: line-through;
   color: gray;
 }
+=======
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+>>>>>>> 7ded1873980672b8e94d1f58ce03c85c3ceedeac

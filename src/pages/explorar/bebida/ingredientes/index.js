@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../../components/Header';
 import Footer from '../../../../components/footer';
 import { requestIngredientsDrinks } from '../../../../services/API';
+import GlobalContext from '../../../../context/globalContext/GlobalContext';
 
 function BebidaIngredientes() {
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsImages, setIngredientsImages] = useState([]);
+  const { functions: { handleExploreIngredients } } = useContext(GlobalContext);
 
   const mountImage = (array) => {
     const path = 'https://www.thecocktaildb.com/images/ingredients/';
@@ -37,6 +39,7 @@ function BebidaIngredientes() {
         <button
           key={ ingredient }
           type="button"
+          onClick={ handleExploreIngredients }
         >
           <Link to="/bebidas">
             <div data-testid={ `${index}-ingredient-card` }>

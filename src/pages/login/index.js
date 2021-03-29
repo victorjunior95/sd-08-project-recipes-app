@@ -45,6 +45,8 @@ function Login() {
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    const obj = { cocktails: {}, meals: {} };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
     setRedirect(true);
   };
 

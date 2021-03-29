@@ -1,32 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { requestMealsByCategory, requestFoodCategory } from '../../services/API';
 import GlobalContext from './GlobalContext';
 
 function GlobalProvider({ children }) {
   const [email, setEmail] = useState('');
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState('');
+  const [filteredMeals, setFilteredMeals] = useState([]);
+
+  const [fetchExploreIngredients, setFetchExploreIngredients] = useState(false);
+  const [exploreIngredients, setExploreIngredients] = useState('');
+
   const handleEmail = ({ target }) => setEmail(target.value);
+  const handleFetchExploreIngredients = () => setFetchExploreIngredients(true);
 
-  const [cocktails, setCocktails] = useState({});
-  const [meals, setMeals] = useState({});
+  const handleExploreIngredients = ({ target }) => {
+    const value = target.alt ? target.alt : target.innerText;
+    setExploreIngredients(value);
+    handleFetchExploreIngredients();
+  };
 
-  const [doneRecipes, setDoneRecipes] = useState([]);
+  const handleFilteredMeals = async ({ target }) => {
+    const categoryName = target.innerText;
+    if (categoryName === 'All') return setFilteredMeals([]);
+    if (filteredMeals.length === 0 || currentCategory !== categoryName) {
+      setCurrentCategory(categoryName);
+      const result = await requestMealsByCategory(categoryName);
+      setFilteredMeals(result.meals);
+    } else {
+      setFilteredMeals([]);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await requestFoodCategory();
+      setFoodCategory(result.meals);
+    };
+    fetchData();
+  }, []);
 
   const provide = {
     values: {
       email,
+      foodCategory,
+      filteredMeals,
+      fetchExploreIngredients,
+      exploreIngredients,
     },
     functions: {
       setEmail,
       handleEmail,
-      setCocktails,
-      setMeals,
-      setDoneRecipes,
+      handleFilteredMeals,
+      handleExploreIngredients,
     },
-    inProgressRecipes: {
-      cocktails,
-      meals,
-    },
-    doneRecipes,
   };
   return (
     <GlobalContext.Provider value={ provide }>

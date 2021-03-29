@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './DrinkContext';
 import {
   requestDrinkRecipe,
   requestDrinksCategory,
   requestDrinksByCategory,
+  SearchCocktailByIngredient,
 } from '../../services/API';
+import GlobalContext from '../globalContext/GlobalContext';
 
 function DrinkProvider({ children }) {
   const [searchInput, setSearchInput] = useState('');
@@ -17,6 +19,9 @@ function DrinkProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [drinksCategory, setDrinksCategory] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
+
+  const { values: { fetchExploreIngredients,
+    exploreIngredients } } = useContext(GlobalContext);
   const handleFilteredDrinks = async ({ target }) => {
     const categoryName = target.innerText;
     if (categoryName === 'All') return setFilteredDrinks([]);
@@ -30,12 +35,16 @@ function DrinkProvider({ children }) {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await requestDrinkRecipe();
-      setDrinks(result.drinks);
-    };
-    fetchData();
-  }, []);
+    if (fetchExploreIngredients) {
+      SearchCocktailByIngredient(exploreIngredients)
+        .then((result) => setDrinks(result.drinks));
+    } else {
+      requestDrinkRecipe().then((result) => setDrinks(result.drinks));
+    }
+  }, [exploreIngredients, fetchExploreIngredients]);
+
+  const [detailDrinks, setDetailsDrinks] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,12 +61,16 @@ function DrinkProvider({ children }) {
       drinks,
       drinksCategory,
       filteredDrinks,
+      detailDrinks,
+      recomendations,
     },
     functions: {
       handleSearchInput,
       handleSearchType,
       handleFilteredDrinks,
       setDrinks,
+      setDetailsDrinks,
+      setRecomendations,
     },
   };
 

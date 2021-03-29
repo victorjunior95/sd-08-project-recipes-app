@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const useInProgressRecipeHook = () => {
-  const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const initialValue = { cocktails: {}, meals: {} };
+  const [inProgressRecipes, setInProgressRecipes] = useState(initialValue);
 
   useEffect(() => {
     const localData = localStorage.getItem('inProgressRecipes');
@@ -12,6 +13,28 @@ const useInProgressRecipeHook = () => {
   useEffect(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
+
+  const addFoodInProgress = (recipe) => {
+    const { cocktails, meals } = inProgressRecipes;
+    setInProgressRecipes({
+      cocktails,
+      meals: Object.assign(meals, recipe),
+    });
+  };
+
+  return [addFoodInProgress];
 };
 
 export default useInProgressRecipeHook;
+
+// inProgressRecipes =
+// {
+//   cocktails: {
+//       id-da-bebida: [lista-de-ingredientes-utilizados],
+//       ...
+//   },
+//   meals: {
+//       id-da-comida: [lista-de-ingredientes-utilizados],
+//       ...
+//   }
+// }

@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import Recomendations from './Recomendations';
 import '../css/Details.css';
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 const doneRecipes = [
   {
@@ -37,6 +40,7 @@ function Details(props) {
   const [doneList] = useState(JSON.parse(
     localStorage.getItem('doneRecipes') || '{}',
   ));
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     function disabledBtn() {
@@ -72,6 +76,12 @@ function Details(props) {
     );
   }
 
+  function renderMessage() {
+    return (
+      <span>Link copiado!</span>
+    );
+  }
+
   function renderDetails() {
     return (
       <>
@@ -83,7 +93,14 @@ function Details(props) {
         <h1 data-testid="recipe-title">
           { currentFood.strMeal || currentFood.strDrink }
         </h1>
-        <p data-testid="share-btn">btnCompartilhar</p>
+        <input
+          type="image"
+          src={ shareIcon }
+          alt="share"
+          data-testid="share-btn"
+          onClick={ () => setMessage([true]) || copy(`http://localhost:3000${history.location.pathname}`) }
+        />
+        { message ? renderMessage() : null }
         <p data-testid="favorite-btn">btnFavorito</p>
         <h6
           data-testid="recipe-category"

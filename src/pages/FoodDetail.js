@@ -5,6 +5,7 @@ import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import Recomendation from '../components/Recomendation';
 
 function FoodDetail() {
   const dispatch = useDispatch();
@@ -26,8 +27,6 @@ function FoodDetail() {
   }, [dispatch, arrayId]);
 
   const arrayMeat = idMeat[0];
-
-  console.log(arrayMeat);
 
   const findKey = (value) => Object.entries(arrayMeat).map((nome) => {
     if (nome[0].includes(value)) {
@@ -92,7 +91,7 @@ function FoodDetail() {
           />
         }
         Recomendadas
-        <p data-testid="0-recomendation-card">{arrayMeat.strDrinkAlternate}</p>
+        <Recomendation />
         <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
       </div>
     ));

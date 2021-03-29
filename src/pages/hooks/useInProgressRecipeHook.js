@@ -22,7 +22,15 @@ const useInProgressRecipeHook = () => {
     });
   };
 
-  return [addFoodInProgress];
+  const addDrinkInProgress = (recipe) => {
+    const { cocktails, meals } = inProgressRecipes;
+    setInProgressRecipes({
+      cocktails: Object.assign(cockitails, recipe),
+      meals,
+    });
+  };
+
+  return [addFoodInProgress, addDrinkInProgress, inProgressRecipes];
 };
 
 export default useInProgressRecipeHook;

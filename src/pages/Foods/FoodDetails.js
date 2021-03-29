@@ -20,6 +20,7 @@ function FoodDetails(props) {
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   const [favorites, updateFavorites] = useFavoritesHook();
   const [addFoodInProgress] = useInProgressRecipeHook();
+  const [isInProgress, setIsInProgress] = useState(false);
   const STOP_INDEX = 5;
   const [
     setId,
@@ -150,7 +151,7 @@ function FoodDetails(props) {
             data-testid="start-recipe-btn"
             onClick={ handleStartRecipeClick }
           >
-            Iniciar
+            { isInProgress ? 'Continuar receita' : 'Iniciar' }
           </button>
         </div>
       </div>

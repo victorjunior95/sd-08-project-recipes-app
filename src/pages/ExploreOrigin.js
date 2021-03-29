@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 const areas = [
   { strArea: 'American' },
@@ -41,6 +42,7 @@ function ExploreOrigin() {
           </option>
         )) }
       </select>
+      <Footer />
     </div>
   );
 }

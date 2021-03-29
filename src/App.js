@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipesDoneAndFavorite from './pages/RecipesDoneAndFavorite';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
       <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
       <Route path="/explorar/comidas" component={ ExploreMain } />
       <Route path="/explorar/bebidas" component={ ExploreMain } />
+      <Route path="/receitas-feitas" component={ RecipesDoneAndFavorite } />
+      <Route path="/receitas-favoritas" component={ RecipesDoneAndFavorite } />
       <Route path="/explorar" component={ Explore } />
       <Route path="/bebidas" component={ Main } />
       <Route path="/comidas" component={ Main } />

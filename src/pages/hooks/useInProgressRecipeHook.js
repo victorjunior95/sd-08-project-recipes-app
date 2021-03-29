@@ -29,8 +29,8 @@ const useInProgressRecipeHook = () => {
     const { meals, cocktails } = inProgressRecipes;
     console.log('em progresso: ', inProgressRecipes);
     const newDrinkInProgress = {
-      meals,
       cocktails: Object.assign(cocktails, recipe),
+      meals,
     };
     return setInProgressRecipes(newDrinkInProgress);
   };

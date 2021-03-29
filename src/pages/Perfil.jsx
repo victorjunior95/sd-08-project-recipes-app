@@ -13,7 +13,13 @@ function Perfil() {
     enviarTituloDaPagina('Perfil');
     mudarStatusBotaoPesquisa(false);
   }, []);
-  const emailLocal = JSON.parse(localStorage.getItem('user')).email;
+
+  let emailLocal = 'alerta de penetra';
+
+  if (JSON.parse(localStorage.getItem('user'))) {
+    emailLocal = JSON.parse(localStorage.getItem('user')).email;
+  }
+
   return (
     <div>
       <Header />

@@ -40,7 +40,9 @@ export default class Item extends Component {
               type="checkbox"
 
             />
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>{`${nome} - ${measure[index]}`}</p>
+            <p data-testid={ `${index}-ingredient-name-and-measure` }>
+              {`${nome} - ${measure[index]}`}
+            </p>
           </>
         );
       }
@@ -98,11 +100,14 @@ export default class Item extends Component {
                 {results.meals[0].strDrinkAlternate
                 && results.meals[0].strDrinkAlternate
                   .map((drinkAlternate, index) => (
-                    <p key={ drinkAlternate } data-testid={ `${index}-recomendation-card` }>
+                    <p
+                      key={ drinkAlternate }
+                      data-testid={ `${index}-recomendation-card` }
+                    >
                       {drinkAlternate}
                     </p>
                   ))}
-                <div style={ { display: 'flex', flexDirection: 'column' } }>
+                <div>
                   {this.ingredientesComQuantidades()}
                 </div>
                 <p data-testid="instructions">

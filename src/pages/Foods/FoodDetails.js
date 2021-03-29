@@ -46,6 +46,10 @@ function FoodDetails(props) {
   }, []);
 
   useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
+
+  useEffect(() => {
     function checkIsInProgress(idNumber) {
       const { meals, cocktails } = inProgressRecipes;
       if (Object.keys(meals).includes(idNumber)
@@ -56,10 +60,6 @@ function FoodDetails(props) {
     }
     checkIsInProgress(id);
   });
-
-  useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [inProgressRecipes]);
 
   const addFoodInProgress = (recipe) => {
     const { meals, cocktails } = inProgressRecipes;
@@ -186,7 +186,7 @@ function FoodDetails(props) {
             data-testid="start-recipe-btn"
             onClick={ handleStartRecipeClick }
           >
-            { isInProgress ? 'Iniciar' : 'Continuar' }
+            { isInProgress ? 'Continuar Receita' : 'Iniciar' }
           </button>
         </div>
       </div>

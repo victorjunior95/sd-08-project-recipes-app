@@ -35,7 +35,7 @@ function Header() {
   }
 
   return (
-    <div className="w-100">
+    <div className="w-100 fixedHeader">
       <Navbar
         className="d-flex bg-warning justify-content-between align-items-center w-100"
       >
@@ -61,7 +61,7 @@ function Header() {
       { searchBar ? (
         <Form className="border bg-light d-flex flex-column align-items-center w-100">
           <Form.Row className="w-100">
-            <Form.Group controlId="input-search" className="w-100 p-1">
+            <Form.Group className="w-100 p-1">
               <Form.Control
                 type="text"
                 className="w-100"
@@ -77,7 +77,6 @@ function Header() {
           </Form.Row>
           <Form.Row>
             <Form.Group
-              controlId="radioPrefer"
               className="m-1 lh-1 d-flex align-items-center"
               value={ searchItens.radio }
               onChange={ (e) => setSearchItens({ ...searchItens, radio: e.target.id }) }

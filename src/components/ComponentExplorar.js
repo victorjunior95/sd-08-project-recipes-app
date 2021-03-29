@@ -1,27 +1,28 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const ComponentExplorar = () => {
   const history = useHistory();
 
   return (
-    <section className="buttons-explorar">
-      <button
-        className="btn btn-primary"
+    <section className="w-100 bg-dark cardHeigth cardBody">
+      <Button
+        className="btn btn-primary mt-5"
         type="button"
         data-testid="explore-food"
         onClick={ () => history.push('/explorar/comidas') }
       >
         Explorar Comidas
-      </button>
-      <button
+      </Button>
+      <Button
         className="btn btn-primary"
         type="button"
         data-testid="explore-drinks"
         onClick={ () => history.push('/explorar/bebidas') }
       >
         Explorar Bebidas
-      </button>
+      </Button>
     </section>
   );
 };

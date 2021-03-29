@@ -42,42 +42,44 @@ const ExplorarIngredientes = () => {
   }, [setHeaderInfo]);
 
   return (
-    <section className="w-100">
+    <section className="w-100 bg-dark cardHeigth2">
       <Header />
-      <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
-        {
-          ingredientsList && ingredientsList.map((ingredient, index) => {
-            if (index < MAX_CARDS) {
-              const call = `strIngredient${one}`;
-              const ingredientName = ingredient[call];
-              const buscarIngredient = {
-                input: ingredientName,
-                radio: 'ingredientes',
-              };
-              return (
-                <Card
-                  key={ index }
-                  data-testid={ `${index}-ingredient-card` }
-                  className="col-5 m-2"
-                  onClick={ () => onClickHandler(buscarIngredient) }
-                >
-                  <Card.Img
-                    variant="top"
-                    data-testid={ `${index}-card-img` }
-                    src={ `https://www.${url}.com/images/ingredients/${ingredientName}-Small.png` }
-                  />
-                  <Card.Body>
-                    <Card.Title data-testid={ `${index}-card-name` }>
-                      { ingredientName }
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              );
-            }
-            return false;
-          })
-        }
-      </CardDeck>
+      <div className="cardBody">
+        <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+          {
+            ingredientsList && ingredientsList.map((ingredient, index) => {
+              if (index < MAX_CARDS) {
+                const call = `strIngredient${one}`;
+                const ingredientName = ingredient[call];
+                const buscarIngredient = {
+                  input: ingredientName,
+                  radio: 'ingredientes',
+                };
+                return (
+                  <Card
+                    key={ index }
+                    data-testid={ `${index}-ingredient-card` }
+                    className="col-5 m-2"
+                    onClick={ () => onClickHandler(buscarIngredient) }
+                  >
+                    <Card.Img
+                      variant="top"
+                      data-testid={ `${index}-card-img` }
+                      src={ `https://www.${url}.com/images/ingredients/${ingredientName}-Small.png` }
+                    />
+                    <Card.Body>
+                      <Card.Title data-testid={ `${index}-card-name` }>
+                        { ingredientName }
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                );
+              }
+              return false;
+            })
+          }
+        </CardDeck>
+      </div>
       <Footer />
     </section>
   );

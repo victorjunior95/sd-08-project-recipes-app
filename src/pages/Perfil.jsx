@@ -19,7 +19,7 @@ function Perfil() {
   if (JSON.parse(localStorage.getItem('user'))) {
     emailLocal = JSON.parse(localStorage.getItem('user')).email;
   }
-
+ 
   return (
     <div>
       <Header />

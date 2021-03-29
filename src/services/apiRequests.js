@@ -1,14 +1,9 @@
-// export async function getFoodsApi(URL) {
-//   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/${URL}`);
-//   const result = await response.json();
-//   return result;
-// }
+export async function fetchRandom(URL) {
+  const response = await fetch(URL);
+  const result = await response.json();
 
-// export async function getDrinksApi(URL) {
-//   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/${URL}`);
-//   const result = await response.json();
-//   return result;
-// }
+  return result;
+}
 
 export default async function getApi(domain, URL) {
   try {

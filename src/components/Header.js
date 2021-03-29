@@ -160,6 +160,7 @@ Header.propTypes = {
       byName: PropTypes.string.isRequired,
       byFirstLetter: PropTypes.string.isRequired,
     }).isRequired,
+    defaultSearch: PropTypes.string.isRequired,
   }).isRequired,
   searchIngredient: PropTypes.func.isRequired,
 };

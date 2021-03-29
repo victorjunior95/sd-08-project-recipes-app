@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -61,13 +63,13 @@ export default class Item extends Component {
               <>
                 <img
                   data-testid="recipe-photo"
-                  src={ results.meals[0].strMealThumb }
+                  src={ results.drinks[0].strDrinkThumb }
                   alt="img"
                   width="70px"
                 />
-                <h1 data-testid="recipe-title">{ results.meals[0].strMeal }</h1>
+                <h1 data-testid="recipe-title">{ results.drinks[0].strDrink }</h1>
                 <p data-testid="recipe-category">
-                  { results.meals[0].strCategory }
+                  { results.drinks[0].strCategory }
                 </p>
               </>
             )
@@ -105,3 +107,9 @@ export default class Item extends Component {
     );
   }
 }
+
+Item.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};

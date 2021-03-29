@@ -11,11 +11,12 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   const [checkFavorite, setCheckFavorite] = useState(null);
   const [verified, setVerified] = useState([]);
   const [copied, setCopied] = useState(false);
-  const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')));
+  const [teste, setTeste] = useState(false);
+  // const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')) || []);
   const history = useHistory();
   const { idMeal } = data[0];
 
-  // console.log(storage[0].meals[idMeal]);
+  // console.log(storage);
 
   const inProgressRecipes = [{
     meals: {
@@ -51,11 +52,13 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   }
 
   useEffect(() => {
-    if (verified.length === 0) {
-      localStorage.clear('inProgressRecipes');
-    }
-    if (verified.length > 0) localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [inProgressRecipes]);
+    if (verified) return setTeste(true);
+    if (verified.length > 0) return setTeste(false);
+  }, [verified]);
+
+  useEffect(() => {
+    if (verified && teste) return localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [verified]);
 
   return (
     <div className="MainCard">

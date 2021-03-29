@@ -121,3 +121,15 @@ export async function getReceitaComidasDetalhesPorId(id) {
   const details = await response.json();
   return details.meals;
 }
+
+export async function getRecomendacoesReceitasBebidas() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const details = await response.json();
+  return details.drinks;
+}
+
+export async function getRecomendacoesReceitasComidas() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const details = await response.json();
+  return details.meals;
+}

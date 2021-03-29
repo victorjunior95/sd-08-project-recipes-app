@@ -115,6 +115,19 @@ header {
   width: 100%;
 }
 
+.fixButton {
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
+}
+
+.sizeFoto {
+  height: 30vh;
+}
+
 .categoryButton {
   font-size: 0.84rem;
   margin-top: 5px;

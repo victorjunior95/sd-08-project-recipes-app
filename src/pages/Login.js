@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import StyledLogin from '../styles/login';
+import recipeBook from '../images/recipe-book.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -23,7 +25,8 @@ function Login() {
   }
 
   return (
-    <>
+    <StyledLogin>
+      <img src={ recipeBook } alt="Recipe Book" />
       <input
         type="text"
         name="email"
@@ -46,7 +49,7 @@ function Login() {
       >
         Entrar
       </button>
-    </>
+    </StyledLogin>
   );
 }
 

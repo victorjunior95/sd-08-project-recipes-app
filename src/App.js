@@ -21,10 +21,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './pages/Login';
 import NotFound from './pages/Explore/NotFound';
+import GlobalStyles from './styles/GlobalStyles';
 
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyles />
       <Provider>
         <Switch>
           <Route path="/explorar/comidas/area" component={ ExploreByOrigin } />

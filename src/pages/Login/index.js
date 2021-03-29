@@ -83,7 +83,6 @@ function Login() {
             type="submit"
             disabled={ isDisabled }
           >
-            {' '}
             Entrar
           </button>
         </form>

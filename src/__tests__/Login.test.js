@@ -48,6 +48,6 @@ describe('Testing page Login', () => {
   test('should Text Button Login to equal Entrar', () => {
     const { getByTestId } = renderWithRouter(<App />);
     const btn = getByTestId(buttonLogin);
-    expect(btn).toBeInTheDocument();
+    expect(btn.textContent).toBe('Entrar');
   });
 });

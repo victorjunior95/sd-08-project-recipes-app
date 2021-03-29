@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { requestMealsByAreaList,
   requestAreaList,
   requestRecipesList } from '../services/apiRequests';
-import HeaderWithSearch from '../components/HeaderWithoutSearch';
+import HeaderWithSearch from '../components/HeaderWithSearch';
 import Footer from '../components/Footer';
 
 function ExplorarComidasOrigem() {

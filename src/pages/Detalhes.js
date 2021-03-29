@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation, useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -16,6 +17,8 @@ const Detalhes = () => {
   const [ingredients, setIngredients] = useState([]);
   const [buttonRecipe, setButtonRecipe] = useState(true);
   const [inProgress, setProgress] = useState(false);
+  const [hidden, setHidden] = useState(false);
+
   const location = useLocation();
   const history = useHistory();
 
@@ -57,6 +60,25 @@ const Detalhes = () => {
     fetchInProgress();
   }, [location.pathname, isMeal]);
 
+  console.log(isFavorite);
+  const handleIsFavorite = (favorite) => {
+    // const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    // const [,, id] = location.pathname.split('/');
+    localStorage.setItem('isFavorite', favorite);
+    setIsFavorite(favorite);
+  };
+  useEffect(() => {
+    // const getIsFavorite = () => {
+    //   const getFavorite = (localStorage.getItem('isFavorite') === 'true');
+    //   return getFavorite;
+    // };
+    // const results = getIsFavorite();
+    // setIsFavorite(results);
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const [,, id] = location.pathname.split('/');
+    setIsFavorite(fav.some((result) => result.id === id));
+  }, []);
+
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
   return (
@@ -73,16 +95,26 @@ const Detalhes = () => {
       <h3 data-testid="recipe-category">
         { isMeal ? foodDetails.strCategory : foodDetails.strAlcoholic}
       </h3>
-      <button type="button" data-testid="share-btn">
-        <img src={ shareIcon } alt="Share" />
-      </button>
-      <button
-        type="button"
+      <input
+        type="image"
+        onClick={ () => {
+          const one = 1000;
+          copy(window.location); setHidden(true);
+          setTimeout(() => setHidden(false), one);
+        } }
+        data-testid="share-btn"
+        src={ shareIcon }
+        alt="Share"
+      />
+
+      <span hidden={ !hidden }>Link copiado!</span>
+      <input
+        type="image"
         data-testid="favorite-btn"
-        onClick={ () => setIsFavorite(!isFavorite) }
-      >
-        <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
-      </button>
+        onClick={ () => handleIsFavorite(!isFavorite) }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        alt="Favorite"
+      />
       {
         ingredients.map((ingredient, index) => {
           const ingredientName = foodDetails[ingredient];

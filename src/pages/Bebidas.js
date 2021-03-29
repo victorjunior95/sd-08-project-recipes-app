@@ -20,6 +20,7 @@ const Drinks = () => {
 
   useEffect(() => {
     setFilteredDrinks(drink);
+    // console.log(drink);
   }, [drink]);
 
   useEffect(() => {

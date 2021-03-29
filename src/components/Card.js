@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const Card = ({ id,
-  index, name, thumbnail, isFood, cat, doneDate, tags, area, alcoholic }) => {
+const Card = ({ id, index, name, thumbnail, isFood, cat,
+  doneDate, tags, area, alcoholic, unfavRecipe }) => {
   const history = useHistory();
   const path = history.location.pathname;
   let isClicked = false;
@@ -15,14 +15,17 @@ const Card = ({ id,
   //   console.log(name);
   //   console.log(thumbnail);
   const popTags = () => (
-    tags.map((tagName, tagInex) => (
-      <p
-        key={ tagInex }
-        data-testid={ `${index}-${tagName}-horizontal-tag` }
-      >
-        {tagName}
-      </p>
-    ))
+    tags.map((tagName, tagInex) => {
+      console.log(` ${tagName} ${tagInex} `);
+      return (
+        <p
+          key={ tagInex }
+          data-testid={ `${index}-${tagName}-horizontal-tag` }
+        >
+          {tagName}
+        </p>
+      );
+    })
   );
   function handleClick() {
     if (isFood) {
@@ -61,6 +64,7 @@ const Card = ({ id,
       </button>
     );
   } if (path === '/receitas-feitas') {
+    console.log('Receitas feitas');
     return (
       <div data-testid={ `${index}-recipe-card` }>
 
@@ -86,7 +90,7 @@ const Card = ({ id,
           onClick={ () => { copy(urlDetails); isClicked = true; } }
         />
         <p hidden={ isClicked }>Link copiado!</p>
-        {() => popTags()}
+        {popTags()}
       </div>
     );
   } if (path === '/receitas-favoritas') {
@@ -118,8 +122,8 @@ const Card = ({ id,
           type="image"
           data-testid={ `${index}-horizontal-favorite-btn` }
           src={ blackHeartIcon }
-          alt="share"
-          onClick={ () => { } }
+          alt="favorite"
+          onClick={ () => unfavRecipe(id) }
         />
         <p hidden={ isClicked }>Link copiado!</p>
         {() => popTags()}
@@ -133,6 +137,7 @@ Card.defaultProps = {
   tags: [],
   area: '',
   alcoholic: '',
+  unfavRecipe: () => {},
 };
 
 Card.propTypes = {
@@ -146,6 +151,7 @@ Card.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   area: PropTypes.string,
   alcoholic: PropTypes.string,
+  unfavRecipe: PropTypes.func,
 };
 
 export default Card;

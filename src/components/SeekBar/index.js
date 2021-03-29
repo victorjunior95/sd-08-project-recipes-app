@@ -8,7 +8,20 @@ import './styles.css';
 export default function SeekBar(props) {
   const [onSeek, setOnSeek] = useState('');
   const [onRadio, setOnRadio] = useState('Nome');
-  const RadioValues = ['ingrediente', 'Nome', 'Primeira letra'];
+  const RadioValues = [
+    {
+      name: 'Ingrediente',
+      dataTestId: 'ingredient-search-radio',
+    },
+    {
+      name: 'Nome',
+      dataTestId: 'name-search-radio',
+    },
+    {
+      name: 'Primeira Letra',
+      dataTestId: 'first-letter-search-radio',
+    },
+  ];
   const dispatch = useDispatch();
   const { title } = props;
 
@@ -49,17 +62,17 @@ export default function SeekBar(props) {
       </Form.Row>
       <Form.Group as={ Row } className="justify-content-around mx-0 my-2 flex-row">
         {RadioValues.map(
-          (radioValue) => (
+          ({ name, dataTestId }) => (
             <Form.Check
               sm={ 4 }
-              data-testid="ingredient-search-radio"
-              label={ radioValue }
+              label={ name }
               type="radio"
               name="SearchChoise"
-              value={ radioValue }
-              checked={ radioValue === onRadio }
+              value={ name }
+              checked={ name === onRadio }
               onChange={ (e) => setOnRadio(e.target.value) }
-              key={ radioValue }
+              key={ name }
+              data-testid={ dataTestId }
             />),
         )}
       </Form.Group>

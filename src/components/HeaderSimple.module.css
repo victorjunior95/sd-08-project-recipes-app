@@ -1,11 +1,11 @@
-.container-header-simple {
+.containerHeaderSimple {
   align-items: center;
   display: flex;
   flex-direction: column;
   width: 100vw;
 }
 
-.container-header-simple:before {
+.containerHeaderSimple:before {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   width: 100vw;
 }
 
-.header-simple {
+.headerSimple {
   align-items: center;
   background-color: gray;
   display: flex;
@@ -22,11 +22,11 @@
   width: 100vw;
 }
 
-.header-simple img {
+.headerSimple img {
   margin-left: 2%;
 }
 
-.header-simple h2 {
+.headerSimple h2 {
   align-self: center;
   margin-left: 6%;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
-import './HeaderSimple.css';
+import styles from './HeaderSimple.module.css';
 
 function HeaderSimple() {
   const location = useLocation();
@@ -31,9 +31,10 @@ function HeaderSimple() {
       return 'Receitas Favoritas';
     }
   };
+
   return (
-    <div className="container-header-simple">
-      <div className="header-simple">
+    <div className={ styles.containerHeaderSimple }>
+      <div className={ styles.headerSimple }>
         <img
           data-testid="profile-top-btn"
           src={ ProfileIcon }

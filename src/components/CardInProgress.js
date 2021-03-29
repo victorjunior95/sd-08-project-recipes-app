@@ -6,6 +6,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import { PageProgress } from '../context/ContextProgress';
+import { saveDoneRecipes } from '../localStorage/doneRecipes';
 
 import {
   saveRecipeFavorites,
@@ -94,7 +95,10 @@ function CardInProgress({ recipe, type }) {
           disabled={ recipeCompleted }
           data-testid="finish-recipe-btn"
           type="button"
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ () => {
+            saveDoneRecipes(recipe);
+            history.push({ pathname: '/receitas-feitas', state: { id: idRecipe } });
+          } }
         >
           Finalizar receita
         </button>

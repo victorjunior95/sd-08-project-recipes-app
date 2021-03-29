@@ -14,8 +14,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   const [verifiedCheck, setVerifiedCheck] = useState(false);
   const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')) || []);
   const history = useHistory();
-  const { idMeal } = data[0];
-
+  const { idMeal, idDrink, strArea, strCategory, strDrinkThumb, strDrink, strMeal, strMealThumb, strAlcoholic } = data[0];
   // const teste = storage[0].meals[idMeal]
   // console.log(teste);
 
@@ -24,16 +23,16 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
       [idMeal]: [...verified],
     },
   }];
-
-  // const [{
-  //   id: idMeal
-  //   type,
-  //   area,
-  //   category,
-  //   alcoholicOrNot,
-  //   name,
-  //   image,
-  // }]
+  const favoriteRecipeInfo = [{
+    id: idMeal || idDrink,
+    type: drinkOrMeal(),
+    area: strArea || '',
+    category: strCategory || '',
+    alcoholicOrNot: strAlcoholic || '',
+    name: strMeal || strDrink,
+    image: strDrinkThumb || strMealThumb,
+  }];
+  console.log(favoriteRecipeInfo);
 
   const keys = Object.keys(data[0]).filter((key) => key.includes('strIngredient'));
   const values = keys.map((
@@ -45,13 +44,19 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
     setCopied(true);
   }
 
+  function drinkOrMeal() {
+    if (history.location.pathname.includes('bebidas')) return 'bebida';
+    return 'comida';
+  }
+
   function handleFavorite() {
     if (!checkFavorite) {
       setCheckFavorite(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipeInfo));
     } else {
       setCheckFavorite(false);
+      localStorage.removeItem('favoriteRecipes');
     }
-    setFavoriteRecipe([...favoriteRecipe]);
   }
 
   function handleChange({ target }) {

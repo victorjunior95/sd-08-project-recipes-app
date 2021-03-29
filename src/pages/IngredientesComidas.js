@@ -37,10 +37,11 @@ function IngredientesComidas() {
   return (
     <>
       <HeaderP title="Explorar Ingredientes" />
-      <main>
+      <main className="ingredients-main-container">
         { ingredients && (
           ingredients.meals.slice(0, TWELVE_INGREDIENTS).map((ingredient, index) => (
             <button
+              className="ingredient-card"
               data-testid={ `${index}-ingredient-card` }
               id={ ingredient.strIngredient }
               key={ index }

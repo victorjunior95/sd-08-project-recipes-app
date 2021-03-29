@@ -18,7 +18,7 @@ const Detalhes = () => {
   const [buttonRecipe, setButtonRecipe] = useState(true);
   const [inProgress, setProgress] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [favoriteRecipe, setFavoriteRecipe] = useState({});
+  // const [favoriteRecipe, setFavoriteRecipe] = useState({});
 
   const location = useLocation();
   const history = useHistory();
@@ -62,40 +62,8 @@ const Detalhes = () => {
     fetchInProgress();
   }, [location.pathname, isMeal]);
 
-  console.log(isFavorite);
-  const handleIsFavorite = (favorite) => {
-    // const [,, id] = location.pathname.split('/');
-    localStorage.setItem('isFavorite', favorite);
-    setIsFavorite(favorite);
-    let recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-
-    if (favorite && favoriteRecipe !== {}) {
-      recipeFavorite = JSON.stringify([...recipeFavorite, favoriteRecipe]);
-      localStorage.setItem('favoriteRecipes', recipeFavorite);
-    } else if (isMeal && favoriteRecipe !== {}) {
-      const result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(result));
-    } else if (favoriteRecipe !== {}) {
-      const result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idDrink);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(result));
-    }
-  };
-  useEffect(() => {
-    // const getIsFavorite = () => {
-    //   const getFavorite = (localStorage.getItem('isFavorite') === 'true');
-    //   return getFavorite;
-    // };
-    // const results = getIsFavorite();
-    // setIsFavorite(results);
-    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const [,, id] = location.pathname.split('/');
-    setIsFavorite(fav.some((result) => result.id === id));
-  }, []);
-
   const saveFavoriteRecipes = () => {
-    let results = { ou: 1 };
-
-    console.log(foodDetails, 'oi');
+    let results = {};
     if (isMeal) {
       results = {
         id: foodDetails.idMeal,
@@ -117,9 +85,36 @@ const Detalhes = () => {
         image: foodDetails.strDrinkThumb,
       };
     }
-    setFavoriteRecipe(results);
-    handleIsFavorite(!isFavorite);
+    return results;
+    // setFavoriteRecipe(results);
   };
+  const handleIsFavorite = (favorite) => {
+    // const [,, id] = location.pathname.split('/');
+    const favoriteRecipe = saveFavoriteRecipes();
+    localStorage.setItem('isFavorite', favorite);
+    setIsFavorite(favorite);
+    const recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    let result = '';
+    if (favorite) {
+      result = [...recipeFavorite, favoriteRecipe];
+    } else if (isMeal) {
+      result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
+    } else {
+      result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idDrink);
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(result));
+  };
+  useEffect(() => {
+    // const getIsFavorite = () => {
+    //   const getFavorite = (localStorage.getItem('isFavorite') === 'true');
+    //   return getFavorite;
+    // };
+    // const results = getIsFavorite();
+    // setIsFavorite(results);
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const [,, id] = location.pathname.split('/');
+    setIsFavorite(fav.some((result) => result.id === id));
+  }, []);
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
@@ -153,7 +148,7 @@ const Detalhes = () => {
       <input
         type="image"
         data-testid="favorite-btn"
-        onClick={ () => saveFavoriteRecipes() }
+        onClick={ () => handleIsFavorite(!isFavorite) }
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Favorite"
       />

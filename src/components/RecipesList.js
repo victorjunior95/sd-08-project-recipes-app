@@ -8,11 +8,12 @@ import RecipesCard from './RecipesCard';
 import Context from '../context/Context';
 
 function RecipesList() {
-  const { searchParams, inputValue } = useContext(Context);
+  const { searchParams, inputValue, setIsLoading } = useContext(Context);
   const [allMeals, setAllMeals] = useState([]);
   const MAX_INDEX = 11;
   useEffect(() => {
     async function requestRecipes(searchFilter, value) {
+      setIsLoading(true);
       if (searchFilter === '') {
         const meals = await requestRecipesList();
         setAllMeals(meals);
@@ -26,9 +27,10 @@ function RecipesList() {
         const meals = await requestRecipesByNameOrFirstLetter('s', value);
         setAllMeals(meals);
       }
+      setIsLoading(false);
     }
     requestRecipes(searchParams, inputValue);
-  }, [searchParams, inputValue]);
+  }, [searchParams, inputValue, setIsLoading]);
   return (
     <main>
       {

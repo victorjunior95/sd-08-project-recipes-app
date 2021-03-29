@@ -10,19 +10,28 @@ function Provider({ children }) {
   });
   const [searchParams, setSearchParams] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const data = {
-    setUser,
-    setMealsToken,
-    setCocktailsToken,
-    mealsToken,
-    cocktailsToken,
     user,
+    setUser,
+    mealsToken,
+    setMealsToken,
+    cocktailsToken,
+    setCocktailsToken,
   };
 
   return (
     <Context.Provider
-      value={ { data, searchParams, setSearchParams, inputValue, setInputValue } }
+      value={ {
+        data,
+        searchParams,
+        setSearchParams,
+        inputValue,
+        setInputValue,
+        isLoading,
+        setIsLoading,
+      } }
     >
       { children }
     </Context.Provider>

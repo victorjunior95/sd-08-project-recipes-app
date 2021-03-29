@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import RecommendedMeals from '../components/RecommendedMeals';
 import { requestDrinkRecipe } from '../services/apiRequests';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DetalhesBebidas() {
   const params = useParams();
@@ -11,6 +13,7 @@ function DetalhesBebidas() {
   const [recipe, setRecipe] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
 
   const parseRecipe = (data) => {
@@ -29,15 +32,44 @@ function DetalhesBebidas() {
 
   useEffect(() => {
     async function requestById() {
-      console.log('teste', id);
       const clickedRecipe = await requestDrinkRecipe(id);
-      console.log('clickedRecipe:', clickedRecipe);
       setDrink(clickedRecipe[0]);
       setRecipe(parseRecipe(clickedRecipe[0]));
       setLoading(false);
     }
+    async function verifyFavorites() {
+      const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const haveRecipe = favoriteRecipes
+        .some((element) => element.id.includes(drink.idDrink));
+      if (haveRecipe) return setFavorite(true);
+    }
     requestById();
-  }, [id]);
+    verifyFavorites();
+  }, [id, drink.idDrink]);
+
+  async function addToFavorite() {
+    setFavorite(!favorite);
+    const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteRecipe = {
+      id: drink.idDrink,
+      type: 'drink',
+      area: drink.strArea,
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+    };
+    favoriteRecipes.push(favoriteRecipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
+
+  async function removeFromFavorite() {
+    setFavorite(!favorite);
+    const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newList = favoriteRecipes.filter((element) => element.id !== drink.idDrink);
+    console.log(newList);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
+  }
 
   console.log('teste drink array:', drink[0]);
   // console.log('acessando chaves do objeto meal:', meal && meal.length && meal[0].strMealThumb);
@@ -58,9 +90,27 @@ function DetalhesBebidas() {
         <button type="button" data-testid="share-btn">Compartilhar</button>
       </CopyToClipboard>
       {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-      <button type="button" data-testid="favorite-btn">
-        Adicionar aos favoritos
-      </button>
+      {
+        favorite
+          ? (
+            <input
+              type="image"
+              src={ blackHeartIcon }
+              data-testid="favorite-btn"
+              alt="favorite btn"
+              onClick={ removeFromFavorite }
+            />
+          )
+          : (
+            <input
+              type="image"
+              src={ whiteHeartIcon }
+              data-testid="favorite-btn"
+              alt="favorite btn"
+              onClick={ addToFavorite }
+            />
+          )
+      }
       <p data-testid="recipe-category">
         { drink.strAlcoholic }
       </p>

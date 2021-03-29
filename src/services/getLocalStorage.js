@@ -4,17 +4,23 @@ export const getUser = () => {
 };
 
 export const getInProgressMeals = () => {
-  const inProgressRecipes = JSON.parse(
-    localStorage.getItem('inProgressRecipes'),
-  );
-  return inProgressRecipes.meals;
+  if (localStorage.getItem('inProgressRecipes')) {
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    return inProgressRecipes.meals;
+  }
+  return null;
 };
 
 export const getInProgressCocktails = () => {
-  const inProgressRecipes = JSON.parse(
-    localStorage.getItem('inProgressRecipes'),
-  );
-  return inProgressRecipes.cocktails;
+  if (localStorage.getItem('inProgressRecipes')) {
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    return inProgressRecipes.cocktails;
+  }
+  return null;
 };
 
 export const nameButtonRecipe = (id, type) => {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function ProfilePage() {
   const history = useHistory();
@@ -19,17 +21,16 @@ function ProfilePage() {
 
   return (
     <section className="content">
+      <Header label="Perfil" Search={ () => '' } />
+      <Footer />
       <section className="profile">
-        <div data-testid="profile-email">
-          {getUser()}
-        </div>
+        <div data-testid="profile-email">{getUser()}</div>
         <button
           type="button"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/receitas-feitas') }
         >
           Receitas Feitas
-
         </button>
         <button
           type="button"
@@ -37,7 +38,6 @@ function ProfilePage() {
           onClick={ () => history.push('/receitas-favoritas') }
         >
           Receitas Favoritas
-
         </button>
         <button
           type="button"
@@ -45,7 +45,6 @@ function ProfilePage() {
           onClick={ handleLogout }
         >
           Sair
-
         </button>
       </section>
     </section>

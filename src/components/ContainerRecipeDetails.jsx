@@ -110,7 +110,6 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     arrayIngredients,
     route,
   } = recipeInfo;
-
   return (
     <div>
       {isLoading ? (

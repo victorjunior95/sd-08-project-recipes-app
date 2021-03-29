@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
-import { requestFoodCategory, requestMealRecipe, SearchMealByIngredient } from '../../services/API';
+import { requestMealRecipe, SearchMealByIngredient } from '../../services/API';
 import GlobalContext from '../globalContext/GlobalContext';
 
 function FoodProvider({ children }) {
@@ -25,25 +25,6 @@ function FoodProvider({ children }) {
   const [detailFoods, setDetailsFoods] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await requestFoodCategory();
-      setFoodCategory(result.meals);
-    };
-    fetchData();
-  }, []);
-
-  // const [checkedBox, setCheckedBox] = useState(false);
-  const handleCheckedBox = (event) => {
-    const { checked } = event.target.checked;
-    const { element } = event.target;
-    if (checked) {
-      element.className = 'checkedBox-true';
-    } else {
-      element.className = 'checkedBox-false';
-    }
-  };
-
   const [doneRecipe, setDoneRecipe] = useState([]);
 
   const provide = {
@@ -53,8 +34,6 @@ function FoodProvider({ children }) {
       foods,
       detailFoods,
       recomendations,
-      foodCategory,
-      checkedBox,
       doneRecipe,
     },
     functions: {
@@ -63,7 +42,6 @@ function FoodProvider({ children }) {
       setFoods,
       setDetailsFoods,
       setRecomendations,
-      handleCheckedBox,
       setDoneRecipe,
     },
   };

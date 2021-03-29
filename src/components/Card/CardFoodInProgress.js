@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import FoodContext from '../../context/comidaContext/FoodContext';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -11,6 +11,15 @@ function copyToClipboard(Button, callback) {
   navigator.clipboard.writeText(Button);
   callback(true);
 }
+
+// function mealProgress(index) {
+//   const checkedbox = JSON.parse(localStorage.getItem('checkedItems'));
+//   const checkedboxStorage = Object.keys(checkedbox).some((id) => id === idDaReceita);
+//   if (checkedboxStorage) {
+//     const data = checkedbox[idDaReceita];
+//   } else {
+//   }
+// }
 
 function favorite(isFavorited, callback, item) {
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -34,18 +43,18 @@ function favorite(isFavorited, callback, item) {
   }
 }
 
-function CardFoodInProgress({ alreadyFavorited }) {
+function CardFoodInProgress({ alreadyFavorited, idDaReceita }) {
   const {
     values: {
       detailFoods,
-      checkedBox,
     },
     functions: {
-      handleCheckedBox,
       setDoneRecipe,
     },
   } = useContext(FoodContext);
   const date = new Date().toLocaleDateString();
+
+  const [redirect, setRedirect] = useState(false);
 
   const handleClick = () => {
     localStorage.setItem('doneRecipes', JSON.stringify(
@@ -62,6 +71,20 @@ function CardFoodInProgress({ alreadyFavorited }) {
       }],
     ));
     setDoneRecipe(detailFoods.strMeal);
+    setRedirect(true);
+  };
+
+  const [disableButton, setDisableButton] = useState(true);
+
+  let checkButton = 0;
+  let ingredientList = 0;
+
+  const disabledButton = () => {
+    if (checkButton === ingredientList) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
   };
 
   const LAST_INGREDIENT = 20;
@@ -70,8 +93,42 @@ function CardFoodInProgress({ alreadyFavorited }) {
     ingredientIndex.push(index);
   }
 
+  // const checkedbox = JSON.parse(localStorage.getItem('checkedItems'));
+  // const checkedboxStorage = Object.keys(checkedbox).some((id) => id === idDaReceita);
+  // let data = [];
+  // if (checkedboxStorage) {
+  //   data = checkedbox[idDaReceita];
+  // } else {
+  //   for (let index = 0; index < LAST_INGREDIENT; index += 1) {
+  //     data.push(false);
+  //   }
+  //   const obj = { [idDaReceita]: data };
+  //   localStorage.setItem('checkedItems', { ...checkedbox, ...obj });
+  // }
+
+  const handleCheckedBox = (event) => {
+    const { parentNode } = event.target;
+    const { checked } = event.target;
+    if (checked) {
+      parentNode.className = 'checkedBox-true';
+      checkButton += 1;
+      // data[index] = true;
+      // const obj = { [idDaReceita]: data };
+      // localStorage.setItem('checkedItems', { ...checkedbox, ...obj });
+    } else {
+      parentNode.className = 'checkedBox-false';
+      checkButton -= 1;
+      // data[index] = false;
+      // const obj = { [idDaReceita]: data };
+      // localStorage.setItem('checkedItems', { ...checkedbox, ...obj });
+    }
+    disabledButton();
+  };
+
   const [isCopied, setIsCopied] = useState(false);
   const [favorited, setFavorited] = useState(alreadyFavorited);
+
+  if (redirect) return <Redirect to="/receitas-feitas" />;
 
   return (
     <section>
@@ -83,30 +140,31 @@ function CardFoodInProgress({ alreadyFavorited }) {
             data-testid="recipe-photo"
           />
           <h3 data-testid="recipe-title">{item.strMeal}</h3>
-          <button
-            type="button"
+          <input
+            type="image"
             data-testid="share-btn"
-            onClick={ () => { copyToClipboard(item.strSource, setIsCopied); } }
-          >
-            <img src={ shareIcon } alt="share" />
-          </button>
-          {isCopied && <p>Button copiado!</p>}
-          <button
-            type="button"
+            onClick={ () => { copyToClipboard(idDaReceita, setIsCopied); } }
+            src={ shareIcon }
+            alt="share"
+          />
+          {isCopied && <p>Link copiado!</p>}
+          <input
+            type="image"
             data-testid="favorite-btn"
             onClick={ () => { favorite(favorited, setFavorited, item); } }
-          >
-            <img src={ (favorited) ? blackHeartIcon : whiteHeartIcon } alt="share" />
-          </button>
+            src={ (favorited) ? blackHeartIcon : whiteHeartIcon }
+            alt="share"
+          />
           <p data-testid="recipe-category">{item.strCategory}</p>
           <ul className="checkbox-list">
             {ingredientIndex.map((index) => {
               const srt = `${item[`strMeasure${index + 1}`]}`;
-              if (srt === 'null' || srt === '') return '';
+              if (srt === 'null' || srt === '' || srt === ' ') return '';
+              ingredientList += 1;
               return (
                 <li
                   key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  data-testid={ `${index}-ingredient-step` }
                   className="checkedBox-false"
                 >
                   <input
@@ -114,6 +172,7 @@ function CardFoodInProgress({ alreadyFavorited }) {
                     key={ index }
                     value={ item[`strMeasure${index + 1}`] }
                     onClick={ handleCheckedBox }
+                    // checked={ data[index] }
                   />
                   {`${item[`strMeasure${index + 1}`]}`
                   + ` ${item[`strIngredient${index + 1}`]}`}
@@ -122,14 +181,15 @@ function CardFoodInProgress({ alreadyFavorited }) {
             })}
           </ul>
           <p data-testid="instructions">{item.strInstructions}</p>
-          <Link
-            to="/receitas-feitas"
+          <button
             type="button"
-            key="finalizar"
-            onClick={ handleClick }
+            data-testid="finish-recipe-btn"
+            className="finalizar-receita"
+            disabled={ disableButton }
+            onClick={ () => { handleClick(); } }
           >
             Finalizar Receita
-          </Link>
+          </button>
         </div>
       ))}
     </section>
@@ -138,6 +198,7 @@ function CardFoodInProgress({ alreadyFavorited }) {
 
 CardFoodInProgress.propTypes = {
   alreadyFavorited: PropTypes.bool.isRequired,
+  idDaReceita: PropTypes.string.isRequired,
 };
 
 export default CardFoodInProgress;

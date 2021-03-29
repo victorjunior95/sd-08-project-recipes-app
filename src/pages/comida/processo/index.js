@@ -21,12 +21,31 @@ function ComidaProgresso() {
     fetchFood();
   }, [setDetailsFoods, idDaReceita]);
 
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const alreadyFavorited = favorites.some((obj) => obj.id === idDaReceita);
+  useEffect(() => {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const obj = { cocktails: {}, meals: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    if (localStorage.getItem('checkedItems') === null) {
+      localStorage.setItem('checkedItems', JSON.stringify({}));
+    }
+  }, []);
+
+  let alreadyFavorited = false;
+  if (JSON.parse(localStorage.getItem('favoriteRecipes') !== null)) {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    alreadyFavorited = favorites.some((obj) => obj.id === idDaReceita);
+  }
 
   return (
     <section>
-      <CardFoodInProgress alreadyFavorited={ alreadyFavorited } />
+      <CardFoodInProgress
+        alreadyFavorited={ alreadyFavorited }
+        idDaReceita={ idDaReceita }
+      />
     </section>
   );
 }

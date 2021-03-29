@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 
+const initialValue = { cocktails: {}, meals: {} };
 const useInProgressRecipeHook = () => {
-  const initialValue = { cocktails: {}, meals: {} };
   const [inProgressRecipes, setInProgressRecipes] = useState(initialValue);
+  const [isInProgress, setIsInProgress] = useState(false);
 
   useEffect(() => {
     const localData = localStorage.getItem('inProgressRecipes');
-    const inProgress = localData ? JSON.parse(localData) : {};
+    const inProgress = localData ? JSON.parse(localData) : initialValue;
     setInProgressRecipes(inProgress);
   }, []);
 
@@ -15,22 +16,41 @@ const useInProgressRecipeHook = () => {
   }, [inProgressRecipes]);
 
   const addFoodInProgress = (recipe) => {
-    const { cocktails, meals } = inProgressRecipes;
-    setInProgressRecipes({
+    const { meals, cocktails } = inProgressRecipes;
+    console.log('em progresso: ', inProgressRecipes);
+    const newFoodInProgress = {
       cocktails,
       meals: Object.assign(meals, recipe),
-    });
+    };
+    return setInProgressRecipes(newFoodInProgress);
   };
 
   const addDrinkInProgress = (recipe) => {
-    const { cocktails, meals } = inProgressRecipes;
-    setInProgressRecipes({
-      cocktails: Object.assign(cockitails, recipe),
+    const { meals, cocktails } = inProgressRecipes;
+    console.log('em progresso: ', inProgressRecipes);
+    const newDrinkInProgress = {
       meals,
-    });
+      cocktails: Object.assign(cocktails, recipe),
+    };
+    return setInProgressRecipes(newDrinkInProgress);
   };
 
-  return [addFoodInProgress, addDrinkInProgress, inProgressRecipes];
+  function checkIsInProgress(idNumber) {
+    const { meals, cocktails } = inProgressRecipes;
+    if (Object.keys(meals).includes(idNumber)
+    || Object.keys(cocktails).includes(idNumber)) {
+      return setIsInProgress(true);
+    }
+    return setIsInProgress(false);
+  }
+
+  return [
+    addFoodInProgress,
+    addDrinkInProgress,
+    checkIsInProgress,
+    isInProgress,
+    inProgressRecipes,
+  ];
 };
 
 export default useInProgressRecipeHook;

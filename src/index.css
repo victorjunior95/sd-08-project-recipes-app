@@ -16,6 +16,7 @@ code {
 .recommendation {
   display: flex;
   overflow-x: auto;
+  padding-bottom: 25px;
 }
 
 .recommendation::-webkit-scrollbar {
@@ -39,9 +40,9 @@ code {
 }
 
 .imageDetails img {
-  height: 100px;
   margin: 10px;
-  min-width: 150px;
+  margin-left: 10%;
+  width: 200px;
   object-fit: contain;
 }
 .recipe-card {
@@ -140,6 +141,7 @@ code {
 }
 
 .start-recipe {
-  bottom: 0;
+  bottom: 0px;
+  left: 120px;
   position: fixed;
 }

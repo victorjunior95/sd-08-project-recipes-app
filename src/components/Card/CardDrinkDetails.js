@@ -61,6 +61,9 @@ function CardDrinkDetails({ alreadyFavorited, idDaReceita }) {
     setRedirect(true);
   }
 
+  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  const recipeFinished = recipesDone.some((item) => item.id === idDaReceita);
+
   if (redirect) return <Redirect to={ `/bebidas/${idDaReceita}/in-progress` } />;
 
   return (
@@ -92,7 +95,7 @@ function CardDrinkDetails({ alreadyFavorited, idDaReceita }) {
           <ul>
             {ingredientIndex.map((index) => {
               const srt = `${item[`strMeasure${index + 1}`]}`;
-              if (srt === 'null' || srt === '') return '';
+              if (srt === 'null' || srt === '' || srt === ' ') return '';
               ingredients.push(`${srt} ${item[`strIngredient${index + 1}`]}`);
               return (
                 <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
@@ -104,14 +107,16 @@ function CardDrinkDetails({ alreadyFavorited, idDaReceita }) {
           <p data-testid="instructions">{item.strInstructions}</p>
         </div>
       ))}
-      <button
-        type="button"
-        onClick={ () => { startRecipe(); } }
-        className="start-recipe"
-        data-testid="start-recipe-btn"
-      >
-        {(recipeStarted) ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
+      {!recipeFinished
+      && (
+        <button
+          type="button"
+          onClick={ () => { startRecipe(); } }
+          className="start-recipe"
+          data-testid="start-recipe-btn"
+        >
+          {(recipeStarted) ? 'Continuar Receita' : 'Iniciar Receita'}
+        </button>)}
     </section>
   );
 }

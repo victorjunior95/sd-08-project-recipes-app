@@ -1,24 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
-import Context from '../context/Context';
 
-function DetailsButtons({ route, id, page, recipeType }) {
-/*   const { recipeDetails } = useContext(Context);
-  const recipe = Object.values(recipeDetails[0])[0][0];
-
-  const doneRecipes = [{
-    id,
-    type: (recipeType === 'Meal' ? 'comida' : 'bebida'),
-    area: recipe.strArea,
-    category: recipe.strCategory,
-    alcoholicOrNot: (recipeType === 'Drink' ? recipe.strAlcoholic : ''),
-    name: recipe[`str${recipeType}`],
-    image: recipe[`str${recipeType}Thumb`],
-    doneDate: "22/6/2020",
-    tags: recipe.strTags,
-  }]; */
-
+function DetailsButtons({ route, id, page }) {
   return (
     <div>
       {

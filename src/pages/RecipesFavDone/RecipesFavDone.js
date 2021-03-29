@@ -50,9 +50,6 @@ const RecipesFavDone = ({ title, visible }) => {
     }
 
   }
-
-
-
   return (
     <div>
       <Header title={title} visible={visible} />

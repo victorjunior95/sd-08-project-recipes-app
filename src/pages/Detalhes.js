@@ -18,6 +18,7 @@ const Detalhes = () => {
   const [buttonRecipe, setButtonRecipe] = useState(true);
   const [inProgress, setProgress] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState({});
 
   const location = useLocation();
   const history = useHistory();
@@ -35,6 +36,7 @@ const Detalhes = () => {
       const productType = { comidas: 'meals', bebidas: 'drinks' };
 
       const foodDetailRequest = await fetchProductDetailsById(id, type);
+      console.log(foodDetailRequest);
       const foodDetail = foodDetailRequest[productType[type]][0];
 
       const ingredientFilter = Object
@@ -62,10 +64,21 @@ const Detalhes = () => {
 
   console.log(isFavorite);
   const handleIsFavorite = (favorite) => {
-    // const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     // const [,, id] = location.pathname.split('/');
     localStorage.setItem('isFavorite', favorite);
     setIsFavorite(favorite);
+    let recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    if (favorite && favoriteRecipe !== {}) {
+      recipeFavorite = JSON.stringify([...recipeFavorite, favoriteRecipe]);
+      localStorage.setItem('favoriteRecipes', recipeFavorite);
+    } else if (isMeal && favoriteRecipe !== {}) {
+      const result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(result));
+    } else if (favoriteRecipe !== {}) {
+      const result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(result));
+    }
   };
   useEffect(() => {
     // const getIsFavorite = () => {
@@ -78,6 +91,35 @@ const Detalhes = () => {
     const [,, id] = location.pathname.split('/');
     setIsFavorite(fav.some((result) => result.id === id));
   }, []);
+
+  const saveFavoriteRecipes = () => {
+    let results = { ou: 1 };
+
+    console.log(foodDetails, 'oi');
+    if (isMeal) {
+      results = {
+        id: foodDetails.idMeal,
+        type: 'comida',
+        area: foodDetails.strArea,
+        category: foodDetails.strCategory,
+        alcoholicOrNot: '',
+        name: foodDetails.strMeal,
+        image: foodDetails.strMealThumb,
+      };
+    } else {
+      results = {
+        id: foodDetails.idDrink,
+        type: 'bebida',
+        area: '',
+        category: foodDetails.strCategory,
+        alcoholicOrNot: foodDetails.strAlcoholic,
+        name: foodDetails.strCategory,
+        image: foodDetails.strDrinkThumb,
+      };
+    }
+    setFavoriteRecipe(results);
+    handleIsFavorite(!isFavorite);
+  };
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
@@ -111,7 +153,7 @@ const Detalhes = () => {
       <input
         type="image"
         data-testid="favorite-btn"
-        onClick={ () => handleIsFavorite(!isFavorite) }
+        onClick={ () => saveFavoriteRecipes() }
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Favorite"
       />

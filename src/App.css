@@ -10,14 +10,16 @@
   width: 100%;
 }
 
-/* *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
+  /* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  } */
 
-/* animation: shake 1.5s infinite ease; */
+
+
 .meals > .logo {
+  animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat , sans-serif;
   font-size: 3em;
@@ -57,4 +59,9 @@
 .btnStyle {
   bottom: 0;
   position: fixed;
+}
+
+body .Login{
+  background-image: url('./images/legumesefrutas.jpg');
+  
 }

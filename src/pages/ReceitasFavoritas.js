@@ -57,12 +57,12 @@ const ReceitasFavoritas = () => {
     setRenderMSG(true);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
-  const TAMANHO_IDEAL = 4;
+  const NUMERO_DE_CARDS_MAX = 4;
   const classCardHeigth = favoriteRecipes
-    .length < TAMANHO_IDEAL ? 'cardHeigth' : 'cardHeigth2';
+    .length < NUMERO_DE_CARDS_MAX ? 'cardHeigth' : 'cardHeigth2';
 
   return (
-    <section className={ `w-100 bg-dark ${classCardHeigth}` }>
+    <section className={ `w-100 bg-dark ${classCardHeigth} receitasF` }>
       <Header />
       { favoriteRecipes.length === 0
         ? (
@@ -108,19 +108,20 @@ const ReceitasFavoritas = () => {
                 Drinks
               </Button>
             </div>
-            <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+            <CardDeck className="d-flex flex-row flex-wrap justify-content-center p-2">
               { favoriteRecipes.map((favoriteArray, index) => (
-                <Card key={ index } className="col-8 m-2 p-0 border-dark">
-                  <Nav.Link href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` } className="p-0">
-                    <Card.Img
-                      variant="top"
-                      src={ favoriteArray.image }
-                      alt="Foto do Cocktail"
-                      width="130"
-                      data-testid={ `${index}-horizontal-image` }
-                    />
-                  </Nav.Link>
-                  <Card.Body className="p-0">
+                <Card key={ index } className="m-1 p-0 border-dark d-flex flex-row">
+                  <Card.Body className="p-0 w-50">
+                    <Nav.Link href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` } className="p-0">
+                      <Card.Img
+                        variant="top"
+                        src={ favoriteArray.image }
+                        alt="Foto do Cocktail"
+                        data-testid={ `${index}-horizontal-image` }
+                      />
+                    </Nav.Link>
+                  </Card.Body>
+                  <Card.Body className="p-1 w-50">
                     <Card.Text
                       data-testid={ `${index}-horizontal-top-text` }
                     >
@@ -132,35 +133,36 @@ const ReceitasFavoritas = () => {
                           )
                       }
                     </Card.Text>
-                  </Card.Body>
-                  <Nav.Link
-                    href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
-                    data-testid={ `${index}-horizontal-name` }
-                  >
-                    { favoriteArray.name }
-                  </Nav.Link>
-                  <Card.Body className="d-flex justify-content-evenly">
-                    <input
-                      type="image"
-                      src={ ShareIcon }
-                      alt="Botão Compartilhar"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                      className="share"
-                      onClick={ () => copiarURL(
-                        `${favoriteArray.type}s`, favoriteArray.id,
-                      ) }
-                    />
-                    {
-                      renderMSG ? <h2>Link copiado!</h2>
-                        : <h2 hidden>Link copiado!</h2>
-                    }
-                    <input
-                      type="image"
-                      src={ BlackHeartIcon }
-                      alt="Botão Favoritar"
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      onClick={ () => removerLocalStorage(favoriteArray.id) }
-                    />
+                    <Nav.Link
+                      href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
+                      data-testid={ `${index}-horizontal-name` }
+                      className="fs-6 mb-2"
+                    >
+                      { favoriteArray.name }
+                    </Nav.Link>
+                    <div className="d-flex flex-row justify-content-evenly mb-1">
+                      <input
+                        type="image"
+                        src={ ShareIcon }
+                        alt="Botão Compartilhar"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        className="share"
+                        onClick={ () => copiarURL(
+                          `${favoriteArray.type}s`, favoriteArray.id,
+                        ) }
+                      />
+                      {
+                        renderMSG ? <h2>Link copiado!</h2>
+                          : <h2 hidden>Link copiado!</h2>
+                      }
+                      <input
+                        type="image"
+                        src={ BlackHeartIcon }
+                        alt="Botão Favoritar"
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        onClick={ () => removerLocalStorage(favoriteArray.id) }
+                      />
+                    </div>
                   </Card.Body>
                 </Card>
               )) }

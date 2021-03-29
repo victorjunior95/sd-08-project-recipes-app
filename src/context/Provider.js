@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
 import { fetchRecipes, fetchRandomRecipe } from '../services/RequisicaoApi';
@@ -16,6 +16,7 @@ function Provider({ children }) {
 
   const requestApiData = useCallback(async (endpoint) => {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
+    setIsFetching(true);
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
     setIsFetching(false);
   }, [inputText, radioValue]);

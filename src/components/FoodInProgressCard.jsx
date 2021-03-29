@@ -12,8 +12,15 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   const [verified, setVerified] = useState(['default']);
   const [copied, setCopied] = useState(false);
   const history = useHistory();
+  const { idMeal } = data[0];
 
-  console.log(favoriteRecipe);
+  console.log(verified);
+
+  const inProgressRecipes = [{
+    meals: {
+      [idMeal]: verified,
+    },
+  }];
 
   const keys = Object.keys(data[0]).filter((key) => key.includes('strIngredient'));
   const values = keys.map((
@@ -31,7 +38,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
     } else {
       setCheckFavorite(false);
     }
-    setFavoriteRecipe([...favoriteRecipe, data]);
+    setFavoriteRecipe([...favoriteRecipe]);
   }
 
   function handleChange({ target }) {
@@ -49,11 +56,11 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   // }
 
   useEffect(() => {
-    if (localStorage.getItem('key')) setVerified(JSON.parse(localStorage.getItem('key')));
+    if (localStorage.getItem('inProgressRecipes')) setVerified(JSON.parse(localStorage.getItem('inProgressRecipes')));
   }, []);
 
   useEffect(() => {
-    if (verified.length) return localStorage.setItem('key', JSON.stringify(verified));
+    if (verified) return localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [verified]);
 
   return (
@@ -69,7 +76,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
           <input
             value={ curr }
             type="checkbox"
-            checked={ !!verified.includes(curr) }
+            checked={ verified.length > 1 ? verified.includes(curr) : false }
             onChange={ handleChange }
           />
           {curr}

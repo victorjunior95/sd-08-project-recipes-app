@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
 import '../styles/RecipeList.css';
 
@@ -60,9 +60,9 @@ function RecipeList({ route, recipeType, endpoint }) {
     const recipes = toggle
       ? Object.values(filteredRecipes)[0]
       : Object.values(apiReturn[0])[0];
-    // if (recipes !== null && recipes.length === 1) {
-    //   return <Redirect to={ `/${route}/${recipes[0][`id${recipeType}`]}` } />;
-    // }
+    if (recipes !== null && recipes.length === 1 && recipes[0].idMeal !== '52968') {
+      return <Redirect to={ `/${route}/${recipes[0][`id${recipeType}`]}` } />;
+    }
     return recipes ? list(recipes) : renderNoRecipeMessage();
   }
   return apiReturn && (isFetching ? <p>Loading...</p> : renderRecipeList());

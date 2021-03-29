@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
 import fetchRecipes from '../services/RequisicaoApi';
@@ -14,11 +14,12 @@ function Provider({ children }) {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  async function requestApiData(endpoint) {
+  const requestApiData = useCallback(async (endpoint) => {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
+    setIsFetching(true);
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
     setIsFetching(false);
-  }
+  }, [inputText, radioValue]);
 
   async function requestApiCategory() {
     const meals = await fetchRecipes('themealdb', 'list', 'c', 'list');

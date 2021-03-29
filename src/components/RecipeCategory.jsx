@@ -48,7 +48,9 @@ export default function RecipeCategory({ recipeType }) {
                 key={ `${category.strCategory}` }
                 value={ `${category.strCategory}` }
                 data-testid={ `${category.strCategory}-category-filter` }
-                onClick={ (e) => toggleFunc([endpoint, category.strCategory], e.target.value) }
+                onClick={
+                  (e) => toggleFunc([endpoint, category.strCategory], e.target.value)
+                }
               >
                 {category.strCategory}
               </button>

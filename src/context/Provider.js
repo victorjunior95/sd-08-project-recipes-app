@@ -18,7 +18,7 @@ function Provider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [copyURL, setCopyURL] = useState(false);
-  const [status, setStatus] = useState('');
+  const [favorite, setFavorite] = useState(false);
 
   // async function requestApiData(endpoint) {
   //   const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -67,8 +67,8 @@ function Provider({ children }) {
     copyURL,
     setCopyURL,
     requestRandomRecipe,
-    status,
-    setStatus,
+    favorite,
+    setFavorite,
   };
 
   return (

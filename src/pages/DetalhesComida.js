@@ -12,12 +12,6 @@ function DetalhesComida({ match }) {
     requestRecipeDetails('themealdb', id, 'thecocktaildb');
   }, []);
 
-  if (id === JSON.parse(localStorage.getItem('finishedRecipes'))
-    && localStorage.getItem('finishedRecipes')) {
-    document.getElementById('start-recipe-btn').style = { display: 'none' };
-    console.log(document.getElementById('start-recipe-btn'));
-  }
-
   return (
     <main>
       <RecipeDetails recipeType="Meal" page="details" />

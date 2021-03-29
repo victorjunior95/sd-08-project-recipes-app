@@ -5,11 +5,18 @@ import Recommended from './Recommended';
 import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ recipeType, page }) {
-  const { isFetching, recipeDetails, copyURL, setCopyURL } = useContext(Context);
+  const {
+    isFetching,
+    recipeDetails,
+    copyURL,
+    setCopyURL,
+    favorite,
+    setFavorite,
+  } = useContext(Context);
 
   function shareLink() {
     copy((window.location.href).replace('/in-progress', ''));
@@ -23,26 +30,23 @@ function RecipeDetails({ recipeType, page }) {
     const type = recipeType;
     const area = recipe.strArea;
     const category = recipe.strCategory;
-    const alcoholicOrNot = recipe.strAlcoholic === 'Alcoholic';
+    const alcoholicOrNot = (recipe.strAlcoholic === 'Alcoholic') ? 'Alcoholic' : '';
     const name = recipe[`str${recipeType}`];
     const image = recipe[`str${recipeType}Thumb`];
-    // const doneDate = '';
-    // const tags = recipe.strTags;
-    const favorite = JSON.stringify([
+
+    const saveFavorite = JSON.stringify([
       { id, type, area, category, alcoholicOrNot, name, image },
     ]);
-    /*     if (done === true) {
-      favorite = JSON.stringify([
-        { id, type, area, category, alcoholicOrNot, name, image, doneDate, tags },
-      ]);
-      return favorite;
-    } if (done === false) {
-      favorite = JSON.stringify([
-        { id, type, area, category, alcoholicOrNot, name, image },
-      ]);
-      return favorite;
-    } */
-    localStorage.setItem('favoriteRecipes', favorite);
+
+    localStorage.setItem('favoriteRecipes', saveFavorite);
+
+    if (favorite === true) {
+      setFavorite(false);
+      document.getElementById('favorite-btn').setAttribute('src', whiteHeartIcon);
+    } if (favorite === false) {
+      setFavorite(true);
+      document.getElementById('favorite-btn').setAttribute('src', blackHeartIcon);
+    }
   }
 
   function renderDetails() {
@@ -72,11 +76,12 @@ function RecipeDetails({ recipeType, page }) {
           type="button"
           data-testid="favorite-btn"
           className="favorite-btn"
+          id="favorite-btn"
           onClick={ () => favoriteRecipe(recipe) }
         >
           <img
             alt="Favorite"
-            src={ /* favorite ? blackHeartIcon : whiteHeartIcon */ whiteHeartIcon }
+            src={ favorite ? blackHeartIcon : whiteHeartIcon }
           />
         </button>
         { copyURL ? <p>Link copiado!</p> : null }

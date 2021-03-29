@@ -8,7 +8,7 @@ import Filtro from '../components/Filtros';
 
 export default class Food extends Component {
   render() {
-    const { history: { push } } = this.props;
+    const { history: { push }, location: { pathname } } = this.props;
     const values = {
       name: 'Comidas',
       url: {
@@ -28,7 +28,7 @@ export default class Food extends Component {
     return (
       <div>
         <Header params={ values } />
-        <Filtro />
+        <Filtro pathname={ pathname } />
         <ListCard infos={ food } />
         <Footer />
       </div>

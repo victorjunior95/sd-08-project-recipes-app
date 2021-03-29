@@ -9,15 +9,15 @@ export default class Footer extends Component {
   render() {
     return (
       <footer className="footer" data-testid="footer">
-        <Link to="/bebidas" data-testid="drinks-bottom-btn">
+        <Link to="/bebidas" src={ drinkIcon } data-testid="drinks-bottom-btn">
           <img src={ drinkIcon } alt="Drink Icon" />
         </Link>
-        <Link to="/bebidas" data-testid="explore-bottom-btn">
+        <Link to="/comidas" src={ exploreIcon } data-testid="explore-bottom-btn">
           <img src={ exploreIcon } alt="Explore Icon" />
         </Link>
-        <Link to="/comidas" data-testid="food-bottom-btn">
+        <a href="/comidas" src={ mealIcon } data-testid="food-bottom-btn">
           <img src={ mealIcon } alt="Food Icon" />
-        </Link>
+        </a>
       </footer>
     );
   }

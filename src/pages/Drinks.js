@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import ListCard from '../components/ListCard';
 import Footer from '../components/Footer';
+import Filtros from '../components/Filtros';
 
 export default class Drinks extends Component {
   render() {
-    const { history: { push } } = this.props;
+    const { history: { push }, location: { pathname } } = this.props;
     const values = {
       name: 'Bebidas',
       url: {
@@ -27,6 +28,7 @@ export default class Drinks extends Component {
     return (
       <div>
         <Header params={ values } />
+        <Filtros pathname={ pathname } />
         <ListCard infos={ drinks } />
         <Footer />
       </div>

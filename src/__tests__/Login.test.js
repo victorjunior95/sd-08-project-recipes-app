@@ -54,16 +54,26 @@ describe('Testing page Login', () => {
     const { buttonLogin } = setup();
     expect(buttonLogin.textContent).toBe('Entrar');
   });
+});
 
+describe('Tests functionality and routes', () => {
   test('should Button after Login to Disabled', () => {
     const { buttonLogin } = setup();
     expect(buttonLogin).toBeDisabled();
   });
-
   test('should type email and password Button to UnDisabled', () => {
-    const { buttonLogin, emailInput, passwordInput } = setup();
+    const { buttonLogin, emailInput, passwordInput, history } = setup();
     fireEvent.change(emailInput, { target: { value: 'rafa@rafa.com' } });
     fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    console.log(history.location);
     expect(buttonLogin).not.toBeDisabled();
+  });
+
+  test('should change route on Click Button Login', () => {
+    const { buttonLogin, emailInput, passwordInput, history } = setup();
+    fireEvent.change(emailInput, { target: { value: 'rafa@rafa.com' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    fireEvent.click(buttonLogin);
+    expect(history.location.pathname).toBe('/comidas');
   });
 });

@@ -17,14 +17,12 @@ function Login() {
     const isValidPassword = password.length > minimumNameSize;
     if (isValidEmail && isValidPassword) {
       setIsDisabled(false);
-      console.log(isValidEmail, isValidPassword, password.length);
     } else {
       setIsDisabled(true);
     }
   }, [user]);
 
   const handleChange = ({ target }) => {
-    console.log('mudou');
     setUser({ ...user, [target.name]: target.value });
   };
 

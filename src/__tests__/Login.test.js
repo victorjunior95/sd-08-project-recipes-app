@@ -57,7 +57,7 @@ describe('Testing page Login', () => {
 });
 
 describe('Tests functionality and routes', () => {
-  test('should Button after Login to Disabled', () => {
+  test('should verify if Button is Disable before Login', () => {
     const { buttonLogin } = setup();
     expect(buttonLogin).toBeDisabled();
   });

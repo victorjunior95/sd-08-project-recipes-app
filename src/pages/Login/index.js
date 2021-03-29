@@ -19,7 +19,6 @@ function Login() {
       setIsDisabled(false);
       console.log(isValidEmail, isValidPassword, password.length);
     } else {
-      console.log('else');
       setIsDisabled(true);
     }
   }, [user]);

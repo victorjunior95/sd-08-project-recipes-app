@@ -31,6 +31,7 @@ function ExplorarComidas() {
         <Row>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-by-ingredient"
               onClick={ () => history.push('/explorar/comidas/ingredientes') }
             >
@@ -39,6 +40,7 @@ function ExplorarComidas() {
           </Col>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-by-area"
               onClick={ () => history.push('/explorar/comidas/area') }
             >
@@ -47,6 +49,7 @@ function ExplorarComidas() {
           </Col>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-surprise"
               onClick={ () => surpriseButton() }
             >

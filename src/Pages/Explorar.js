@@ -22,6 +22,7 @@ function Explorar() {
         <Row>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-food"
               onClick={ () => redirectHandle(true) }
             >
@@ -30,6 +31,7 @@ function Explorar() {
           </Col>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-drinks"
               onClick={ () => redirectHandle(false) }
             >

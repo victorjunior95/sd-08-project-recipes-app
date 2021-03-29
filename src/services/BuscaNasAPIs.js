@@ -122,6 +122,20 @@ export async function getReceitaComidasDetalhesPorId(id) {
   return details.meals;
 }
 
+export const getAreaFoodList = () => (
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const getComidaByArea = (area) => (
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
 export async function getRecomendacoesReceitasBebidas() {
   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   const details = await response.json();

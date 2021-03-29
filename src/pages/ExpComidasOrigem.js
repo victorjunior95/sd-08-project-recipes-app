@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { requestMealsByAreaList,
   requestAreaList,
   requestRecipesList } from '../services/apiRequests';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import HeaderWithSearch from '../components/HeaderWithSearch';
 import Footer from '../components/Footer';
 
 function ExplorarComidasOrigem() {
@@ -18,16 +18,13 @@ function ExplorarComidasOrigem() {
     const requestArea = async () => {
       const listArea = await requestAreaList();
       setAreaList(listArea);
-      // console.log('area list', listArea);
     };
     const requestMealsArea = async () => {
       const listMealsByArea = await requestMealsByAreaList(mealsList);
-      // console.log('Dentro', listMealsByArea);
       setMealsByArea(listMealsByArea);
     };
     const requestAllMeals = async () => {
       const listAllMeals = await requestRecipesList();
-      console.log('Dentro2222', listAllMeals);
       setMealsByArea(listAllMeals);
     };
     requestArea();
@@ -41,7 +38,7 @@ function ExplorarComidasOrigem() {
   return (
     <div>
       <div>
-        <HeaderWithoutSearch />
+        <HeaderWithSearch />
       </div>
       <div>
         <select

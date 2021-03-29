@@ -36,7 +36,6 @@ function DetalhesComidas() {
       setIsLoading(true);
       const clickedRecipe = await requestMealRecipe(id);
       setMeal(clickedRecipe[0]);
-      console.log(clickedRecipe[0]);
       setRecipe(parseRecipe(clickedRecipe[0]));
       setIsLoading(false);
     }

@@ -20,7 +20,6 @@ function ExplorarComidas() {
   return (
     <div>
       <HeaderWithoutSearch />
-      <h1>Explorar Comidas</h1>
       <button
         type="button"
         data-testid="explore-by-ingredient"

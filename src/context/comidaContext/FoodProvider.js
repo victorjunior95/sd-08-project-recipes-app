@@ -48,6 +48,17 @@ function FoodProvider({ children }) {
     fetchData();
   }, []);
 
+  const [checkedBox, setCheckedBox] = useState(false);
+  const handleCheckedBox = (event) => {
+    const { checked } = event.target.checked;
+    if (checked) {
+      setCheckedBox(false);
+    }
+    setCheckedBox(true);
+  };
+
+  const [doneRecipe, setDoneRecipe] = useState([]);
+
   const provide = {
     values: {
       searchInput,
@@ -57,6 +68,8 @@ function FoodProvider({ children }) {
       detailFoods,
       recomendations,
       foodCategory,
+      checkedBox,
+      doneRecipe,
     },
     functions: {
       handleFilteredMeals,
@@ -65,6 +78,8 @@ function FoodProvider({ children }) {
       setFoods,
       setDetailsFoods,
       setRecomendations,
+      handleCheckedBox,
+      setDoneRecipe,
     },
   };
 

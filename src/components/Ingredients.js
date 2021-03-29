@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import '../styles/Ingredients.css';
 
-function Ingredients({ status, id }) {
+function Ingredients({ page, id }) {
   const { recipeDetails } = useContext(Context);
 
   const details = Object.values(recipeDetails[0])[0];
@@ -36,7 +36,7 @@ function Ingredients({ status, id }) {
     <section>
       <h5>Ingredients</h5>
       {
-        status === 'ongoing' ? (
+        page !== 'details' ? (
           <fieldset id="fieldset">
             {
               Object.keys(details[0]).map((item, index) => (
@@ -93,7 +93,7 @@ function Ingredients({ status, id }) {
 }
 
 Ingredients.propTypes = {
-  status: PropTypes.string,
+  page: PropTypes.string,
 }.isRequired;
 
 export default Ingredients;

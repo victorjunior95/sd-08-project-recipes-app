@@ -2,17 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import RecipeDetails from '../components/RecipeDetails';
+import DetailsButtons from '../components/DetailsButtons';
 
-function DetalhesBebida(props) {
+function DetalhesBebida({ match }) {
   const { requestRecipeDetails } = useContext(Context);
+  const { id } = match.params;
 
   useEffect(() => {
-    requestRecipeDetails('thecocktaildb', props.match.params.id, 'themealdb');
+    requestRecipeDetails('thecocktaildb', id, 'themealdb');
   }, []);
 
   return (
     <main>
-      <RecipeDetails recipeType="Drink" route="bebidas" />
+      <RecipeDetails recipeType="Drink" page="details" />
+      <DetailsButtons route="bebidas" id={ id } page="details" />
     </main>
   );
 }

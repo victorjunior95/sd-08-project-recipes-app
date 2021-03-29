@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Context from '../context/Context';
 import Recommended from './Recommended';
@@ -9,7 +8,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
-function RecipeDetails({ recipeType, route, status }) {
+function RecipeDetails({ recipeType, page }) {
   const { isFetching, recipeDetails, copyURL, setCopyURL } = useContext(Context);
 
   function shareLink() {
@@ -85,7 +84,7 @@ function RecipeDetails({ recipeType, route, status }) {
           { recipe.strCategory }
           {recipeType === 'Drink' ? recipe.strAlcoholic : null}
         </h5>
-        <Ingredients status={ status } id={ recipe[`id${recipeType}`] } />
+        <Ingredients page={ page } id={ recipe[`id${recipeType}`] } />
         { recipeType === 'Meal'
           ? (
             <div>
@@ -101,40 +100,6 @@ function RecipeDetails({ recipeType, route, status }) {
           )
           : null }
         <Recommended recipeType={ recipeType } />
-        {
-          !status && (recipe[`id${recipeType}`] !== JSON
-            .parse(localStorage.getItem('finishedRecipes')) ? (
-              <Link
-                to={ `/${route}/${recipe[`id${recipeType}`]}/in-progress` }
-                className="last-btn"
-                data-testid="start-recipe-btn"
-                onClick={ () => {
-                  localStorage.setItem('inProgressRecipes', JSON
-                    .stringify(recipe[`id${recipeType}`]));
-                } }
-              >
-                { (recipe[`id${recipeType}`] === JSON
-                  .parse(localStorage.getItem('inProgressRecipes')))
-                  ? 'Continuar Receita' : 'Iniciar Receita' }
-              </Link>
-            ) : (
-              <Link
-                to="/receitas-feitas"
-                type="submit"
-                className="last-btn"
-                data-testid="finish-recipe-btn"
-                onClick={ () => {
-                  localStorage.setItem('finishedRecipes', JSON
-                    .stringify(recipe[`id${recipeType}`]));
-                } }
-                // disabled={ document.querySelectorAll('.checkbox').checked }
-              >
-                Finalizar Receita
-              </Link>
-            )
-          )
-        }
-
       </section>
     );
   }

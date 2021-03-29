@@ -18,6 +18,36 @@ export default class Item extends Component {
     this.fetchRecipe();
   }
 
+  juntar(chave) {
+    const { results } = this.state;
+    return Object.entries(results.meals[0]).map((nome) => {
+      if (nome[0].includes(chave)) {
+        return nome[1];
+      }
+      return undefined;
+    }).filter((element) => element !== undefined);
+  }
+
+  ingredientesComQuantidades() {
+    const ingredient = this.juntar('strIngredient');
+    const measure = this.juntar('strMeasure');
+    return ingredient.map((nome, index) => {
+      if (nome) {
+        return (
+          <>
+            <input
+              key={ nome }
+              type="checkbox"
+
+            />
+            <p data-testid={ `${index}-ingredient-name-and-measure` }>{`${nome} - ${measure[index]}`}</p>
+          </>
+        );
+      }
+      return undefined;
+    });
+  }
+
   async fetchRecipe() {
     const { location: { pathname } } = this.props;
     const id = pathname.split('/')[2];
@@ -26,19 +56,16 @@ export default class Item extends Component {
       const req = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const results = await req.json();
       this.setState({ results });
-      console.log(results.meals);
     }
     if (type === 'bebidas') {
       const req = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const results = await req.json();
       this.setState({ results });
-      console.log(results.drinks);
     }
   }
 
   renderMeal() {
     const { location: { pathname } } = this.props;
-    const index = 0;
     const type = pathname.split('/')[1];
     const { results } = this.state;
     return (
@@ -53,10 +80,38 @@ export default class Item extends Component {
                   alt="img"
                   width="70px"
                 />
+                <button type="button" data-testid="share-btn">
+                  <img src={ shareIcon } alt="share icon" />
+                </button>
+                <button type="button" data-testid="favorite-btn">
+                  <img src={ whiteHeartIcon } alt="favorite" />
+                </button>
                 <h1 data-testid="recipe-title">{ results.meals[0].strMeal }</h1>
                 <p data-testid="recipe-category">
                   { results.meals[0].strCategory }
                 </p>
+                <iframe
+                  title="video"
+                  data-testid="video"
+                  src={ results.meals[0].strYoutube.replace('watch?v=', 'embed/') }
+                />
+                {results.meals[0].strDrinkAlternate
+                && results.meals[0].strDrinkAlternate
+                  .map((drinkAlternate, index) => (
+                    <p key={ drinkAlternate } data-testid={ `${index}-recomendation-card` }>
+                      {drinkAlternate}
+                    </p>
+                  ))}
+                <div style={ { display: 'flex', flexDirection: 'column' } }>
+                  {this.ingredientesComQuantidades()}
+                </div>
+                <p data-testid="instructions">
+                  Instruções:
+                  {results.meals[0].strInstructions}
+                </p>
+                <button data-testid="start-recipe-btn" type="button">
+                  Iniciar Receita
+                </button>
               </>
             )
             : (
@@ -74,25 +129,13 @@ export default class Item extends Component {
               </>
             )
         }
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="favorite" />
-        </button>
+
         <p
-          data-testid={ `${index}-ingredient-name-and-measure` }
+          data-testid="ingredient-name-and-measure"
         >
-          ingredientes:
+          Ingredientes:
         </p>
-        <p data-testid="instructions">instruçoes</p>
-        <iframe
-          title="teste"
-          data-testid="video"
-          src=""
-        />
-        <p data-testid={ `${index}-recomendation-card` }>recomendaçoes</p>
-        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+
       </div>
     );
   }

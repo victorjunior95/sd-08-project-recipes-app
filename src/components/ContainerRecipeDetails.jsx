@@ -120,6 +120,8 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             title={ name }
             category={ category }
             imgPath={ image }
+            page={ page.toLowerCase() }
+            id={ id }
           />
           <IngredientsRecipeDetails ingredients={ arrayIngredients } />
           <InstructionsRecipeDetails instruction={ instructions } />

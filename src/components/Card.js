@@ -15,14 +15,17 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
   //   console.log(name);
   //   console.log(thumbnail);
   const popTags = () => (
-    tags.map((tagName, tagInex) => (
-      <p
-        key={ tagInex }
-        data-testid={ `${index}-${tagName}-horizontal-tag` }
-      >
-        {tagName}
-      </p>
-    ))
+    tags.map((tagName, tagInex) => {
+      console.log(` ${tagName} ${tagInex} `);
+      return (
+        <p
+          key={ tagInex }
+          data-testid={ `${index}-${tagName}-horizontal-tag` }
+        >
+          {tagName}
+        </p>
+      );
+    })
   );
   function handleClick() {
     if (isFood) {
@@ -61,6 +64,7 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
       </button>
     );
   } if (path === '/receitas-feitas') {
+    console.log('Receitas feitas');
     return (
       <div data-testid={ `${index}-recipe-card` }>
 
@@ -86,7 +90,7 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
           onClick={ () => { copy(urlDetails); isClicked = true; } }
         />
         <p hidden={ isClicked }>Link copiado!</p>
-        {() => popTags()}
+        {popTags()}
       </div>
     );
   } if (path === '/receitas-favoritas') {

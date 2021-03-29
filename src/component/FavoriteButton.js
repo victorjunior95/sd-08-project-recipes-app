@@ -6,20 +6,24 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import {
   getFavoriteRecipes,
   addFavoriteRecipe,
-  removeFavoriteRecipe } from '../services/localStorage';
+  removeFavoriteRecipe,
+} from '../services/localStorage';
 
 export default function FavoriteButton({ recipeInfo }) {
   const { id } = recipeInfo;
 
   const [isFavorite, setIsFavorite] = useState();
 
-  useEffect(() => setIsFavorite(getFavoriteRecipes()
-    .find(({ id: recipeId }) => recipeId === id)), [setIsFavorite, id]);
+  useEffect(
+    () => setIsFavorite(getFavoriteRecipes().find(({ id: recipeId }) => recipeId === id)),
+    [setIsFavorite, id],
+  );
 
   return (
     <button
       type="button"
       data-testid="favorite-btn"
+      src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       onClick={ () => {
         if (isFavorite) {
           removeFavoriteRecipe(id);

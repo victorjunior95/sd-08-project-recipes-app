@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
-import fetchRecipes from '../services/RequisicaoApi';
+import { fetchRecipes, fetchRandomRecipe } from '../services/RequisicaoApi';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -20,6 +20,12 @@ function Provider({ children }) {
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
     setIsFetching(false);
   }, [inputText, radioValue]);
+
+  async function requestRandomRecipe(endpoint) {
+    setIsFetching(true);
+    setApiReturn([await fetchRandomRecipe(endpoint)]);
+    setIsFetching(false);
+  }
 
   async function requestApiCategory() {
     const meals = await fetchRecipes('themealdb', 'list', 'c', 'list');
@@ -52,6 +58,7 @@ function Provider({ children }) {
     filteredRecipes,
     setToggle,
     toggle,
+    requestRandomRecipe,
   };
 
   return (

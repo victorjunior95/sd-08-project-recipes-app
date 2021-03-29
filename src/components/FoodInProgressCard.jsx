@@ -1,23 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import RecipesContext from '../core/RecipesContext';
 
-const MAGIC_NUMBER = -1;
-const MAGIC_NUMBER_2 = -12;
+const NEGATIVE_1 = -1;
+const NEGATIVE_12 = -12;
+
 function FoodInProgressCard({ data, img, meal, category, instructions }) {
-  const { setFavoriteRecipe, favoriteRecipe } = useContext(RecipesContext);
+  const history = useHistory();
   const [checkFavorite, setCheckFavorite] = useState(null);
-  const [verified, setVerified] = useState([]);
   const [copied, setCopied] = useState(false);
   const [verifiedCheck, setVerifiedCheck] = useState(false);
-  const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')) || []);
-  const history = useHistory();
-  const { idMeal, idDrink, strArea, strCategory, strDrinkThumb, strDrink, strMeal, strMealThumb, strAlcoholic } = data[0];
-  // const teste = storage[0].meals[idMeal]
-  // console.log(teste);
-
+  const { idMeal, idDrink, strArea, strCategory, strDrinkThumb,
+    strDrink, strMeal, strMealThumb, strAlcoholic } = data[0];
+  // const { idMeal } = data[0];
+  const [verified, setVerified] = useState(() => {
+    const result = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (result) {
+      return result[0].meals[idMeal];
+    }
+    return [];
+  });
   const inProgressRecipes = [{
     meals: {
       [idMeal]: [...verified],
@@ -32,16 +35,16 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
     name: strMeal || strDrink,
     image: strDrinkThumb || strMealThumb,
   }];
-  console.log(favoriteRecipeInfo);
-
-  const keys = Object.keys(data[0]).filter((key) => key.includes('strIngredient'));
-  const values = keys.map((
+  // console.log(favoriteRecipeInfo);
+  const values = Object.keys(data[0]).filter((
+    key,
+  ) => key.includes('strIngredient')).map((
     key,
   ) => data[0][key]).filter((element) => element !== null && element !== '');
 
   function compartilhar() {
-    navigator.clipboard.writeText(`http://localhost:3000${history.location.pathname.slice(0, MAGIC_NUMBER_2)}`); // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
     setCopied(true);
+    return navigator.clipboard.writeText(`http://localhost:3000${history.location.pathname.slice(0, NEGATIVE_12)}`); // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
   }
 
   function drinkOrMeal() {
@@ -60,19 +63,12 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   }
 
   function handleChange({ target }) {
-    if (verified.indexOf(target.value) === MAGIC_NUMBER) { // https://www.codegrepper.com/code-examples/javascript/javascript+if+array+not+contains
+    if (verified.indexOf(target.value) === NEGATIVE_1) { // https://www.codegrepper.com/code-examples/javascript/javascript+if+array+not+contains
       setVerified([...verified, target.value]);
     } else if (verified.includes(target.value)) {
       setVerified(verified.filter((element) => element !== target.value));
     }
   }
-
-  useEffect(() => {
-    if (storage.length) {
-      const isChecked = storage[0].meals[idMeal];
-      setVerified(isChecked);
-    }
-  }, []);
 
   useEffect(() => {
     if (verified) return setVerifiedCheck(true);
@@ -141,3 +137,10 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
 }
 
 export default FoodInProgressCard;
+
+// useEffect(() => {
+//   if (storage.length) {
+//     const isChecked = storage[0].meals[idMeal];
+//     setVerified(isChecked);
+//   }
+// }, []);

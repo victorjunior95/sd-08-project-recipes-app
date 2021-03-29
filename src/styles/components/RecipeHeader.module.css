@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  opacity: 0.6;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+}
+
+.controls a {
+  display: flex;
+  padding: 5px;
+}

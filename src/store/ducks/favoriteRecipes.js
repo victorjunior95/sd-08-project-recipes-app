@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 };
 
 const addRecipe = (state, action) => {
-  const newRecipe = { id: idCount, ...action.payload };
+  const newRecipe = { id: state.idCount, ...action.payload };
   return {
     ...state,
     favoriteRecipes: [...state.favoriteRecipes, newRecipe],

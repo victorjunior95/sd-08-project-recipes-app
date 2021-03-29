@@ -1,4 +1,4 @@
-.mealsDetails {
+.cocktailDetails {
   margin-bottom: 60px;
 }
 
@@ -6,11 +6,11 @@
   width: 100%;
 }
 
-.mealsDetailsContainer {
+.cocktailDetailsContainer {
   padding: 10px;
 }
 
-.mealsDetailsContainer > *:not( :last-child ) {
+.cocktailDetailsContainer > *:not( :last-child ) {
   margin-bottom: 20px;
 }
 

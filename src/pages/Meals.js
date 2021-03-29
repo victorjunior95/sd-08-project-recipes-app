@@ -73,7 +73,6 @@ const Meals = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
                 name={ recipe.strMeal }
                 thumbnail={ recipe.strMealThumb }
                 index={ index }
-                // category={ recipe.strCategory }
                 onClick={ () => history.push(`/comidas/${recipe.idMeal}`) }
               />)) }
       </CardsContainer>

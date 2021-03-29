@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/components/Card.module.css';
 
-const Card = ({ name, thumbnail, index, category, ...rest }) => (
+const Card = ({ name, thumbnail, index, category, recommendation, ...rest }) => (
   <div
     className={ styles.card }
     { ...rest }
@@ -14,13 +14,24 @@ const Card = ({ name, thumbnail, index, category, ...rest }) => (
     />
     <div className={ styles.cardBody }>
       { category && <p className={ styles.category }>{ category }</p> }
-      <p data-testid={ `${index}-card-name` } className={ styles.header }>{ name }</p>
+      <p
+        data-testid={
+          recommendation
+            ? `${index}-recomendation-title`
+            : `${index}-card-name`
+        }
+        className={ styles.header }
+      >
+        { name }
+
+      </p>
     </div>
   </div>
 );
 
 Card.defaultProps = {
   category: '',
+  recommendation: false,
 };
 
 Card.propTypes = {
@@ -28,6 +39,7 @@ Card.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   category: PropTypes.string,
+  recommendation: PropTypes.bool,
 };
 
 export default Card;

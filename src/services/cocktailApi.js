@@ -30,6 +30,10 @@ export const getByCategory = (category) => (
   fetchEndpoint(`${BASE_URL}/filter.php?c=${category}`)
 );
 
+export const getById = (id) => (
+  fetchEndpoint(`${BASE_URL}/lookup.php?i=${id}`)
+);
+
 export const getRandom = () => (
   fetchEndpoint(`${BASE_URL}/random.php`)
 );

@@ -19,6 +19,7 @@ function DetalhesInProgress() {
   const id = urlText.split('/')[2];
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(objDetail);
 
   const { setCopied } = useContext(RecipeContext);
 
@@ -83,7 +84,7 @@ function DetalhesInProgress() {
       </div>
       <IngredientsCheckbox objDetail={ objDetail } id={ id } url={ urlText } />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <ButtonFinish />
+      <ButtonFinish objDetail={ objDetail } />
     </div>
 
   );
@@ -116,7 +117,7 @@ function DetalhesInProgress() {
       </div>
       <IngredientsCheckbox objDetail={ objDetail } id={ id } url={ urlText } />
       <p data-testid="instructions">{objDetail[0].strInstructions}</p>
-      <ButtonFinish />
+      <ButtonFinish objDetail={ objDetail } />
     </div>
 
   );

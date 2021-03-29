@@ -9,6 +9,7 @@ import Explorar from './Pages/Explorar';
 import Login from './Pages/Login';
 import Perfil from './Pages/Perfil';
 import DetalhesInProgress from './Pages/DetalhesInProgress';
+import ReceitasFeitas from './Pages/ReceitasFeitas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from './Pages/NotFound';
 
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/bebidas/:id" component={ Detalhes } />
         <Route exact path="/comidas/:id/in-progress" component={ DetalhesInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DetalhesInProgress } />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route component={ NotFound } />
       </Switch>
     </Provider>

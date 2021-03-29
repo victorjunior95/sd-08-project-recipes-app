@@ -13,7 +13,7 @@ function Provider({ children }) {
   const [recommendedFood, setRecommendedFood] = useState([]);
   const [recommendedDrink, setRecommendedDrink] = useState([]);
   const [copied, setCopied] = useState(false);
-  const [verifyCheckbox, setVerifyCheckbox] = useState([]);
+  const [verifyCheckbox, setVerifyCheckbox] = useState([false]);
 
   const searchBarRequestFood = async (type, inputvalue) => {
     try {

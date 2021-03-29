@@ -76,8 +76,11 @@ function Detalhes() {
   };
 
   const handleYoutube = () => {
-    const https = objDetail[0].strYoutube.split('https://www.youtube.com/watch?v=');
-    const newHttps = `https://www.youtube.com/embed/${https[1]}`;
+    let newHttps;
+    if (objDetail[0].idDrink === undefined) {
+      const https = objDetail[0].strYoutube.split('https://www.youtube.com/watch?v=');
+      newHttps = `https://www.youtube.com/embed/${https[1]}`;
+    }
     return newHttps;
   };
 

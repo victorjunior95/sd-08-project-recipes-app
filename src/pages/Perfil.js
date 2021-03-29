@@ -1,15 +1,22 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import Header from '../components/Header';
 
 export default function Perfil() {
+  const history = useHistory();
+
+  const handleButton = (target) => {
+    history.push(`/${target}`);
+  };
   return (
     <div>
       <Header pageTitle="Perfil" />
-      <h5 data-testid="profile-email">Aqui vem um E-mail</h5>
+      <div data-testid="profile-email">Aqui vem um E-mail</div>
       <button
         className="g6-header-button"
         type="button"
         data-testid="profile-done-btn"
+        onClick={ () => handleButton('receitas-feitas') }
       >
         Receitas Feitas
 
@@ -18,6 +25,7 @@ export default function Perfil() {
         className="g6-header-button"
         type="button"
         data-testid="profile-favorite-btn"
+        onClick={ () => handleButton('receitas-favoritas') }
       >
         Receitas Favoritas
 

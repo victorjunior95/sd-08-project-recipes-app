@@ -3,6 +3,7 @@ import search from './searchSlice';
 import login from './loginSlice';
 import api from './apiSlice';
 import categoriesButton from './apiCategoriesSlice';
+import surprise from './surpriseSlice';
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     login,
     api,
     categoriesButton,
+    surprise,
   },
 });

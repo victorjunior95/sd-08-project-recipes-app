@@ -8,6 +8,7 @@ import { saveFavorites } from '../../redux/actions/details';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import { useParams } from 'react-router';
 
 function favConstructor(actualRecipe, isMeal) {
   if (isMeal) {
@@ -77,6 +78,8 @@ function favoriting(actualRecipe, favorites, isMeal, dispatch) {
 }
 
 export default function ShareFavBtn() {
+  const { id } = useParams();
+  console.log(id);
   const { actualRecipe, favorites } = useSelector((state) => state.detailsReducer);
   const isMeal = useIsMeal();
   const [copied, setCopied] = useState(false);
@@ -94,6 +97,14 @@ export default function ShareFavBtn() {
     saveOnStorage('favoriteRecipes', favorites);
   }, [favorites]);
 
+  let mealCocktail = '';
+
+  if (isMeal) {
+    mealCocktail = 'comidas';
+  } else {
+    mealCocktail = 'bebidas';
+  }
+
   const isFavorite = isInFavorites(actualRecipe, favorites, isMeal);
   return (
     <div className="share-fav-btn">
@@ -101,7 +112,7 @@ export default function ShareFavBtn() {
         type="button"
         data-testid="share-btn"
         onClick={ () => {
-          copy(window.location.href);
+          copy(`http://localhost:3000/${mealCocktail}/${id}`);
           setCopied(true);
         } }
       >

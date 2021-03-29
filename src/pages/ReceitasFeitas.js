@@ -43,13 +43,16 @@ const ReceitasFeitas = () => {
     setRenderMSG(true);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
+  const NUMERO_DE_CARDS_MAX = 4;
+  const classCardHeigth = doneRecipes.length < NUMERO_DE_CARDS_MAX
+    ? 'cardHeigth' : 'cardHeigth2';
 
   return (
-    <section className="w-100">
+    <section className={ `w-100 bg-dark ${classCardHeigth} receitasF` }>
       <Header />
       { doneRecipes.length === 0
         ? (
-          <div>
+          <div className="cardBody">
             <h1>Nenhum Receita Feita...</h1>
             <h1>:-(</h1>
           </div>
@@ -85,64 +88,66 @@ const ReceitasFeitas = () => {
                 Drinks
               </Button>
             </div>
-            <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+            <CardDeck className="d-flex flex-row flex-wrap justify-content-center p-2">
               { doneRecipes.map((doneRecipe, index) => (
-                <Card key={ index } className="col-8 m-2 p-0">
-                  <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="p-0">
-                    <Card.Img
-                      variant="top"
-                      src={ doneRecipe.image }
-                      alt="Foto do Cocktail"
-                      width="130"
-                      height="130"
-                      data-testid={ `${index}-horizontal-image` }
-                    />
-                  </Nav.Link>
-                  <Card.Body className="p-0">
-                    <Card.Text
-                      data-testid={ `${index}-horizontal-top-text` }
-                    >
-                      {
-                        doneRecipe.alcoholicOrNot === ''
-                          ? `${doneRecipe.area} - ${doneRecipe.category}`
-                          : (
-                            `${doneRecipe.alcoholicOrNot} - ${doneRecipe.category}`
-                          )
-                      }
-                    </Card.Text>
+                <Card key={ index } className="m-1 p-0 border-dark d-flex flex-row">
+                  <Card.Body className="p-0 w-50">
+                    <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="p-0">
+                      <Card.Img
+                        variant="top"
+                        src={ doneRecipe.image }
+                        alt="Foto da receita"
+                        data-testid={ `${index}-horizontal-image` }
+                      />
+                    </Nav.Link>
                   </Card.Body>
-                  <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="p-1">
-                    <Card.Title
-                      data-testid={ `${index}-horizontal-name` }
-                    >
-                      { doneRecipe.name }
-                    </Card.Title>
-                  </Nav.Link>
-                  <Card.Text>
-                    <small
-                      className="text-muted"
-                      data-testid={ `${index}-horizontal-done-date` }
-                    >
-                      { doneRecipe.doneDate }
-                    </small>
-                  </Card.Text>
-                  <Card.Body>
-                    <input
-                      type="image"
-                      src={ ShareIcon }
-                      alt="Botão Compartilhar"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                      className="share"
-                      onClick={ () => copiarURL(
-                        `${doneRecipe.type}s`, doneRecipe.id,
-                      ) }
-                    />
+                  <Card.Body className="p-1 w-50">
+                    <div className="d-flex flex-row justify-content-between mb-1">
+                      <Card.Text
+                        data-testid={ `${index}-horizontal-top-text` }
+                        className="m-0"
+                      >
+                        <small>
+                          {
+                            doneRecipe.alcoholicOrNot === ''
+                              ? `${doneRecipe.area} - ${doneRecipe.category}`
+                              : (
+                                `${doneRecipe.alcoholicOrNot}`
+                              )
+                          }
+                        </small>
+                      </Card.Text>
+                      <input
+                        type="image"
+                        src={ ShareIcon }
+                        alt="Botão Compartilhar"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        className="share"
+                        onClick={ () => copiarURL(
+                          `${doneRecipe.type}s`, doneRecipe.id,
+                        ) }
+                      />
+                    </div>
                     {
                       renderMSG ? <h2>Link copiado!</h2>
                         : <h2 hidden>Link copiado!</h2>
                     }
-                  </Card.Body>
-                  <Card.Footer>
+                    <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="p-1">
+                      <Card.Text
+                        data-testid={ `${index}-horizontal-name` }
+                        className="fs-6 mb-1"
+                      >
+                        { doneRecipe.name }
+                      </Card.Text>
+                    </Nav.Link>
+                    <Card.Text>
+                      <small
+                        className="text-muted fst-italic"
+                        data-testid={ `${index}-horizontal-done-date` }
+                      >
+                        { `Feito em: ${doneRecipe.doneDate}` }
+                      </small>
+                    </Card.Text>
                     { doneRecipe.tags.map((tag) => (
                       <span
                         key={ tag }
@@ -152,7 +157,7 @@ const ReceitasFeitas = () => {
                         { tag }
                       </span>
                     )) }
-                  </Card.Footer>
+                  </Card.Body>
                 </Card>
               )) }
             </CardDeck>

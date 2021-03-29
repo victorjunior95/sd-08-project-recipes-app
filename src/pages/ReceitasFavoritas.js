@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import { Button, CardDeck, Card, Nav } from 'react-bootstrap';
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
 import ShareIcon from '../images/shareIcon.svg';
@@ -56,111 +57,119 @@ const ReceitasFavoritas = () => {
     setRenderMSG(true);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
+  const NUMERO_DE_CARDS_MAX = 4;
+  const classCardHeigth = favoriteRecipes
+    .length < NUMERO_DE_CARDS_MAX ? 'cardHeigth' : 'cardHeigth2';
 
-  return favoriteRecipes.length === 0
-    ? (
-      <section className="receitas-favoritas">
-        <Header />
-        <h1>Nenhum Favorito...</h1>
-        <h1>:-(</h1>
-      </section>
-    ) : (
-      <section>
-        <Header />
-        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <button
-            className="categoryButton btn btn-success"
-            type="button"
-            name="options"
-            id="option1"
-            checked
-            data-testid="filter-by-all-btn"
-            onClick={ filterAll }
-          >
-            All
-          </button>
-          <button
-            type="button"
-            name="options"
-            id="option2"
-            className="categoryButton btn btn-success"
-            data-testid="filter-by-food-btn"
-            onClick={ filterFood }
-          >
-            Food
-          </button>
-          <button
-            type="button"
-            name="options"
-            id="option3"
-            className="categoryButton btn btn-success"
-            data-testid="filter-by-drink-btn"
-            onClick={ filterDrink }
-          >
-            Drinks
-          </button>
-        </div>
-        {
-          renderMSG ? <h2>Link copiado!</h2>
-            : <h2 hidden>Link copiado!</h2>
-        }
-        { favoriteRecipes.map((favoriteArray, index) => (
-          <div key={ index }>
-            <div>
-              <a href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }>
-                <img
-                  variant="top"
-                  src={ favoriteArray.image }
-                  alt="Foto do Cocktail"
-                  width="130"
-                  height="130"
-                  data-testid={ `${index}-horizontal-image` }
-                />
-              </a>
-              <div>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {
-                    favoriteArray.alcoholicOrNot === ''
-                      ? `${favoriteArray.area} - ${favoriteArray.category}`
-                      : (
-                        `${favoriteArray.alcoholicOrNot} - ${favoriteArray.category}`
-                      )
-                  }
-                </p>
-                <a
-                  href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  { favoriteArray.name }
-                </a>
-                <input
-                  type="image"
-                  src={ ShareIcon }
-                  alt="Botão Compartilhar"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  className="share"
-                  onClick={ () => copiarURL(
-                    `${favoriteArray.type}s`, favoriteArray.id,
-                  ) }
-                />
-                <button
-                  type="button"
-                  onClick={ () => removerLocalStorage(favoriteArray.id) }
-                >
-                  <img
-                    src={ BlackHeartIcon }
-                    alt="Botão Favoritar"
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                  />
-                </button>
-              </div>
-            </div>
+  return (
+    <section className={ `w-100 bg-dark ${classCardHeigth} receitasF` }>
+      <Header />
+      { favoriteRecipes.length === 0
+        ? (
+          <div className="cardBody">
+            <h1>Nenhum Receita Favoritada...</h1>
+            <h1>:-(</h1>
           </div>
-        )) }
-      </section>
-    );
+        ) : (
+          <div>
+            <div className="buttonsList">
+              <Button
+                variant="success"
+                className="categoryButton"
+                type="button"
+                name="options"
+                id="option1"
+                checked
+                data-testid="filter-by-all-btn"
+                onClick={ filterAll }
+              >
+                All
+              </Button>
+              <Button
+                type="button"
+                className="categoryButton"
+                name="options"
+                id="option2"
+                variant="success"
+                data-testid="filter-by-food-btn"
+                onClick={ filterFood }
+              >
+                Food
+              </Button>
+              <Button
+                type="button"
+                className="categoryButton"
+                name="options"
+                id="option3"
+                variant="success"
+                data-testid="filter-by-drink-btn"
+                onClick={ filterDrink }
+              >
+                Drinks
+              </Button>
+            </div>
+            <CardDeck className="d-flex flex-row flex-wrap justify-content-center p-2">
+              { favoriteRecipes.map((favoriteArray, index) => (
+                <Card key={ index } className="m-1 p-0 border-dark d-flex flex-row">
+                  <Card.Body className="p-0 w-50">
+                    <Nav.Link href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` } className="p-0">
+                      <Card.Img
+                        variant="top"
+                        src={ favoriteArray.image }
+                        alt="Foto do Cocktail"
+                        data-testid={ `${index}-horizontal-image` }
+                      />
+                    </Nav.Link>
+                  </Card.Body>
+                  <Card.Body className="p-1 w-50">
+                    <Card.Text
+                      data-testid={ `${index}-horizontal-top-text` }
+                    >
+                      {
+                        favoriteArray.alcoholicOrNot === ''
+                          ? `${favoriteArray.area} - ${favoriteArray.category}`
+                          : (
+                            `${favoriteArray.alcoholicOrNot} - ${favoriteArray.category}`
+                          )
+                      }
+                    </Card.Text>
+                    <Nav.Link
+                      href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
+                      data-testid={ `${index}-horizontal-name` }
+                      className="fs-6 mb-2"
+                    >
+                      { favoriteArray.name }
+                    </Nav.Link>
+                    <div className="d-flex flex-row justify-content-evenly mb-1">
+                      <input
+                        type="image"
+                        src={ ShareIcon }
+                        alt="Botão Compartilhar"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        className="share"
+                        onClick={ () => copiarURL(
+                          `${favoriteArray.type}s`, favoriteArray.id,
+                        ) }
+                      />
+                      {
+                        renderMSG ? <h2>Link copiado!</h2>
+                          : <h2 hidden>Link copiado!</h2>
+                      }
+                      <input
+                        type="image"
+                        src={ BlackHeartIcon }
+                        alt="Botão Favoritar"
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        onClick={ () => removerLocalStorage(favoriteArray.id) }
+                      />
+                    </div>
+                  </Card.Body>
+                </Card>
+              )) }
+            </CardDeck>
+          </div>) }
+    </section>
+  );
 };
 
 export default ReceitasFavoritas;

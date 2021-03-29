@@ -106,11 +106,9 @@ header {
 }
 
 .footer {
-  background-color: grey;
   bottom: 0;
   display: flex;
   justify-content: space-between;
-  padding: 5px;
   position: fixed;
   width: 100%;
 }
@@ -128,6 +126,10 @@ header {
   height: 30vh;
 }
 
+.footer img {
+  width: 30px;
+}
+
 .categoryButton {
   font-size: 0.84rem;
   margin-top: 5px;
@@ -139,6 +141,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-top: 62px;
 }
 
 .buttons-explorar {
@@ -166,6 +169,25 @@ header {
   padding: 30px;
 }
 
+.cardBody {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 62px;
+}
+
+.cardBody button {
+  font-size: 25px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.fixedHeader {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+
 .loginHeader {
   background-image: url('./images/foto-capa.jpg');
   background-size: cover;
@@ -173,5 +195,14 @@ header {
 }
 
 .cardHeigth {
-  height: 640px;
+  height: 100vh;
+}
+
+.cardHeigth2 {
+  height: auto;
+  margin-bottom: 62px;
+}
+
+.receitasF {
+  margin-bottom: 0;
 }

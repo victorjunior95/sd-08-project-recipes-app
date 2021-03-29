@@ -124,19 +124,20 @@ const ReceitasFavoritas = () => {
                   <Card.Body className="p-1 w-50">
                     <Card.Text
                       data-testid={ `${index}-horizontal-top-text` }
+                      className="fs-6 p-0 mb-3 fst-italic fw-light"
                     >
                       {
                         favoriteArray.alcoholicOrNot === ''
                           ? `${favoriteArray.area} - ${favoriteArray.category}`
                           : (
-                            `${favoriteArray.alcoholicOrNot} - ${favoriteArray.category}`
+                            `${favoriteArray.alcoholicOrNot}`
                           )
                       }
                     </Card.Text>
                     <Nav.Link
                       href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
                       data-testid={ `${index}-horizontal-name` }
-                      className="fs-6 mb-2"
+                      className="fs-5 p-0 mb-3 fw-bold"
                     >
                       { favoriteArray.name }
                     </Nav.Link>

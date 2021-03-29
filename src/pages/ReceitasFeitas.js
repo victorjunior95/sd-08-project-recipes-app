@@ -132,15 +132,15 @@ const ReceitasFeitas = () => {
                       renderMSG ? <h2>Link copiado!</h2>
                         : <h2 hidden>Link copiado!</h2>
                     }
-                    <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="p-1">
+                    <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="m-0 p-0 mb-1">
                       <Card.Text
                         data-testid={ `${index}-horizontal-name` }
-                        className="fs-6 mb-1"
+                        className="fs-5 mb-1 fw-bold"
                       >
                         { doneRecipe.name }
                       </Card.Text>
                     </Nav.Link>
-                    <Card.Text>
+                    <Card.Text className="m-0 mb-1">
                       <small
                         className="text-muted fst-italic"
                         data-testid={ `${index}-horizontal-done-date` }

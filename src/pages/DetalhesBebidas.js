@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import RecommendedMeals from '../components/RecommendedMeals';
 import { requestDrinkRecipe } from '../services/apiRequests';
 
 function DetalhesBebidas() {
@@ -8,6 +10,8 @@ function DetalhesBebidas() {
   const [drink, setDrink] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const history = useHistory();
 
   const parseRecipe = (data) => {
     const aux = Object.entries(data).reduce((acc, cur) => {
@@ -47,9 +51,13 @@ function DetalhesBebidas() {
     <div>
       <h1 data-testid="recipe-title">{drink.strDrink}</h1>
       <img src={ drink.strDrinkThumb } alt="imagem" data-testid="recipe-photo" />
-      <button type="button" data-testid="share-btn">
-        Compartilhar
-      </button>
+      <CopyToClipboard
+        text={ window.location.href }
+        onCopy={ () => setCopied(true) }
+      >
+        <button type="button" data-testid="share-btn">Compartilhar</button>
+      </CopyToClipboard>
+      {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
       <button type="button" data-testid="favorite-btn">
         Adicionar aos favoritos
       </button>
@@ -69,10 +77,16 @@ function DetalhesBebidas() {
       <video src={ drink.strYoutube } data-testid="video" controls>
         <track kind="captions" />
       </video>
-      <div>
+      {/* <div>
         <p data-testid="0-recomendation-card">Recomendação</p>
-      </div>
-      <button type="button" data-testid="start-recipe-btn">
+      </div> */}
+      <RecommendedMeals />
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start"
+        onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
+      >
         Iniciar Receita
       </button>
     </div>

@@ -14,11 +14,13 @@ import ExplorarComidasEBebidas from './pages/ExplorarComidasEBebidas';
 import ExplorarIngredientes from './pages/ExplorarIngredientes';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
     <ProviderRecipes>
       <Switch>
+        <Route path="/explorar/comidas/area" component={ NotFound } />
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/explorar/comidas/area" component={ ExplorarIngredientes } />

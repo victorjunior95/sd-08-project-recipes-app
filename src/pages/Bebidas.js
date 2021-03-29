@@ -13,15 +13,11 @@ const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
 
 const Bebidas = () => {
-  const { dataByBusca, setHeaderInfo } = useContext(ContextRecipes);
+  const { dataByBusca, setHeaderInfo, barraBuscar } = useContext(ContextRecipes);
   const history = useHistory();
   const [dataBebidas, setDataBebidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [actualCategory, setActualCategory] = useState('');
-
-  useEffect(() => {
-    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
-  }, [setHeaderInfo]);
 
   useEffect(() => {
     async function getCategorias() {
@@ -32,9 +28,15 @@ const Bebidas = () => {
       const allDrink = await getAllBebida();
       setDataBebidas(allDrink.drinks);
     }
-    getAll();
+    if (barraBuscar.input === '') {
+      getAll();
+    }
     getCategorias();
-  }, []);
+  }, [barraBuscar.input]);
+
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Bebidas', showSearchIcon: true });
+  }, [setHeaderInfo]);
 
   useEffect(() => {
     if (dataByBusca.drinks === null) {
@@ -59,7 +61,7 @@ const Bebidas = () => {
   }
 
   return (
-    <section className="w-100">
+    <section className="w-100 bg-dark cardHeigth2">
       <Header />
       <div className="buttonsList">
         {categorias.map((categoria, index) => {
@@ -88,7 +90,7 @@ const Bebidas = () => {
                 <Card
                   key={ bebida.idDrink }
                   data-testid={ `${index}-recipe-card` }
-                  className="col-5 m-2"
+                  className="col-5 m-2 border-dark"
                   onClick={ () => history.push(`/bebidas/${bebida.idDrink}`) }
                 >
                   <Card.Img

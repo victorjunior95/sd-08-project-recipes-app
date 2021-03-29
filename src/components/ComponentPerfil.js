@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import ContextRecipes from '../context/ContextRecipes';
 
@@ -11,34 +12,40 @@ function ComponentPerfil() {
   useEffect(() => {
     setHeaderInfo({
       pageTitle: 'Perfil',
+      showSearchIcon: false,
     });
-    setUserEmail(JSON.parse(localStorage.getItem('user')).email);
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      setUserEmail(JSON.parse(localStorage.getItem('user')).email);
+    } else {
+      setUserEmail('name@email.com');
+    }
   }, [setHeaderInfo, setUserEmail]);
 
   return (
-    <section className="buttons-perfil">
+    <section className="w-100 bg-dark cardHeigth cardBody">
       <h1
         data-testid="profile-email"
+        className="p-5"
       >
         { userEmail }
       </h1>
-      <button
+      <Button
         className="btn btn-primary"
         type="button"
         data-testid="profile-done-btn"
         onClick={ () => history.push('/receitas-feitas') }
       >
         Receitas Feitas
-      </button>
-      <button
+      </Button>
+      <Button
         className="btn btn-primary"
         type="button"
         data-testid="profile-favorite-btn"
         onClick={ () => history.push('/receitas-favoritas') }
       >
         Receitas Favoritas
-      </button>
-      <button
+      </Button>
+      <Button
         className="btn btn-primary"
         type="button"
         data-testid="profile-logout-btn"
@@ -48,7 +55,7 @@ function ComponentPerfil() {
         } }
       >
         Sair
-      </button>
+      </Button>
     </section>
   );
 }

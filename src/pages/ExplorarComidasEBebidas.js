@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { getComidasRandom, getBebidasRandom } from '../services/BuscaNasAPIs';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ContextRecipes from '../context/ContextRecipes';
 
 const ExplorarComidasEBebidadas = () => {
+  const { setHeaderInfo, setBarraBuscar } = useContext(ContextRecipes);
   const history = useHistory();
-  const wordLength = -7;
-  const Type = history.location.pathname.substr(wordLength);
+  const Type = history.location.pathname.includes('bebidas') ? 'bebidas' : 'comidas';
+  const typeTitle = history.location.pathname.includes('bebidas') ? 'Bebidas' : 'Comidas';
   const [randomId, setRandomId] = useState('');
 
   useEffect(() => {
@@ -20,16 +22,16 @@ const ExplorarComidasEBebidadas = () => {
     getRandomId();
   }, [setRandomId, Type]);
 
-  const { setHeaderInfo, setBarraBuscar } = useContext(ContextRecipes);
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: `Explorar ${typeTitle}`, showSearchIcon: false });
+  }, [typeTitle, setHeaderInfo]);
 
   function handleClickIngredientsBtn() {
-    setHeaderInfo({ pageTitle: 'Explorar Ingredientes', showSearchIcon: false });
     setBarraBuscar({ input: '', radio: '' });
     return history.push(`${history.location.pathname}/ingredientes`);
   }
 
   function handleClickOriginBtn() {
-    setHeaderInfo({ pageTitle: 'Explorar Origem', showSearchIcon: true });
     setBarraBuscar({ input: '', radio: '' });
     return history.push('/explorar/comidas/area');
   }
@@ -37,33 +39,38 @@ const ExplorarComidasEBebidadas = () => {
   return (
     <section className="w-100">
       <Header />
-      <button
-        type="button"
-        onClick={ () => handleClickIngredientsBtn() }
-        data-testid="explore-by-ingredient"
-      >
-        Por Ingredientes
-      </button>
-      {
-        history.location.pathname.includes('comidas')
-          ? (
-            <button
-              type="button"
-              onClick={ () => handleClickOriginBtn() }
-              data-testid="explore-by-area"
-            >
-              Por Local de Origem
-            </button>
-          )
-          : ''
-      }
-      <button
-        type="button"
-        onClick={ () => history.push(`/${Type}/${randomId}`) }
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </button>
+      <section className="w-100 bg-dark cardHeigth cardBody">
+        <Button
+          className="btn btn-primary mt-5"
+          type="button"
+          onClick={ () => handleClickIngredientsBtn() }
+          data-testid="explore-by-ingredient"
+        >
+          Por Ingredientes
+        </Button>
+        {
+          history.location.pathname.includes('comidas')
+            ? (
+              <Button
+                className="btn btn-primary"
+                type="button"
+                onClick={ () => handleClickOriginBtn() }
+                data-testid="explore-by-area"
+              >
+                Por Local de Origem
+              </Button>
+            )
+            : ''
+        }
+        <Button
+          className="btn btn-primary"
+          type="button"
+          onClick={ () => history.push(`/${Type}/${randomId}`) }
+          data-testid="explore-surprise"
+        >
+          Me Surpreenda!
+        </Button>
+      </section>
       <Footer />
     </section>
   );

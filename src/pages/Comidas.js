@@ -13,11 +13,15 @@ const MAX_CARDS = 12;
 const MAX_CATEGORIES = 6;
 
 const Comidas = () => {
-  const { dataByBusca } = useContext(ContextRecipes);
+  const { dataByBusca, barraBuscar, setHeaderInfo } = useContext(ContextRecipes);
   const history = useHistory();
   const [dataComidas, setDataComidas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [actualCategory, setActualCategory] = useState('');
+
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Comidas', showSearchIcon: true });
+  }, [setHeaderInfo]);
 
   useEffect(() => {
     async function getCategorias() {
@@ -28,9 +32,15 @@ const Comidas = () => {
       const allFood = await getAllComida();
       setDataComidas(allFood.meals);
     }
-    getAll();
+    if (barraBuscar.input === '') {
+      getAll();
+    }
     getCategorias();
-  }, []);
+  }, [barraBuscar.input]);
+
+  useEffect(() => {
+    setHeaderInfo({ pageTitle: 'Comidas', showSearchIcon: true });
+  }, [setHeaderInfo]);
 
   useEffect(() => {
     if (dataByBusca.meals === null) {
@@ -55,7 +65,7 @@ const Comidas = () => {
   }
 
   return (
-    <section className="w-100">
+    <section className="w-100 bg-dark cardHeigth2">
       <Header />
       <div className="buttonsList">
         {categorias.map((categoria, index) => {
@@ -76,6 +86,7 @@ const Comidas = () => {
           return false;
         })}
       </div>
+
       <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
         {
           dataComidas && dataComidas.map((comida, index) => {
@@ -84,7 +95,7 @@ const Comidas = () => {
                 <Card
                   key={ comida.idMeal }
                   data-testid={ `${index}-recipe-card` }
-                  className="col-5 m-2"
+                  className="col-5 m-2 border-dark"
                   onClick={ () => history.push(`/comidas/${comida.idMeal}`) }
                 >
                   <Card.Img

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import { Button, CardDeck, Card, Nav } from 'react-bootstrap';
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
 import ShareIcon from '../images/shareIcon.svg';
@@ -15,7 +16,11 @@ const ReceitasFavoritas = () => {
   const [renderMSG, setRenderMSG] = useState(false);
 
   useEffect(() => {
-    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    const favoriteRecipesFromLocalStorage = JSON
+      .parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipesFromLocalStorage !== null) {
+      setFavoriteRecipes(favoriteRecipesFromLocalStorage);
+    }
     setHeaderInfo({
       pageTitle: 'Receitas Favoritas',
     });
@@ -52,111 +57,117 @@ const ReceitasFavoritas = () => {
     setRenderMSG(true);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
+  const TAMANHO_IDEAL = 4;
+  const classCardHeigth = favoriteRecipes
+    .length < TAMANHO_IDEAL ? 'cardHeigth' : 'cardHeigth2';
 
-  return favoriteRecipes.length === 0
-    ? (
-      <section className="receitas-favoritas">
-        <Header />
-        <h1>Nenhum Favorito...</h1>
-        <h1>:-(</h1>
-      </section>
-    ) : (
-      <section>
-        <Header />
-        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <button
-            className="categoryButton btn btn-success"
-            type="button"
-            name="options"
-            id="option1"
-            checked
-            data-testid="filter-by-all-btn"
-            onClick={ filterAll }
-          >
-            All
-          </button>
-          <button
-            type="button"
-            name="options"
-            id="option2"
-            className="categoryButton btn btn-success"
-            data-testid="filter-by-food-btn"
-            onClick={ filterFood }
-          >
-            Food
-          </button>
-          <button
-            type="button"
-            name="options"
-            id="option3"
-            className="categoryButton btn btn-success"
-            data-testid="filter-by-drink-btn"
-            onClick={ filterDrink }
-          >
-            Drinks
-          </button>
-        </div>
-        {
-          renderMSG ? <h2>Link copiado!</h2>
-            : <h2 hidden>Link copiado!</h2>
-        }
-        { favoriteRecipes.map((favoriteArray, index) => (
-          <div key={ index }>
-            <div>
-              <a href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }>
-                <img
-                  variant="top"
-                  src={ favoriteArray.image }
-                  alt="Foto do Cocktail"
-                  width="130"
-                  height="130"
-                  data-testid={ `${index}-horizontal-image` }
-                />
-              </a>
-              <div>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {
-                    favoriteArray.alcoholicOrNot === ''
-                      ? `${favoriteArray.area} - ${favoriteArray.category}`
-                      : (
-                        `${favoriteArray.alcoholicOrNot} - ${favoriteArray.category}`
-                      )
-                  }
-                </p>
-                <a
-                  href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  { favoriteArray.name }
-                </a>
-                <input
-                  type="image"
-                  src={ ShareIcon }
-                  alt="Botão Compartilhar"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  className="share"
-                  onClick={ () => copiarURL(
-                    `${favoriteArray.type}s`, favoriteArray.id,
-                  ) }
-                />
-                <button
-                  type="button"
-                  onClick={ () => removerLocalStorage(favoriteArray.id) }
-                >
-                  <img
-                    src={ BlackHeartIcon }
-                    alt="Botão Favoritar"
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                  />
-                </button>
-              </div>
-            </div>
+  return (
+    <section className={ `w-100 bg-dark ${classCardHeigth}` }>
+      <Header />
+      { favoriteRecipes.length === 0
+        ? (
+          <div className="cardBody">
+            <h1>Nenhum Receita Favoritada...</h1>
+            <h1>:-(</h1>
           </div>
-        )) }
-      </section>
-    );
+        ) : (
+          <div>
+            <div className="buttonsList">
+              <Button
+                variant="success"
+                className="categoryButton"
+                type="button"
+                name="options"
+                id="option1"
+                checked
+                data-testid="filter-by-all-btn"
+                onClick={ filterAll }
+              >
+                All
+              </Button>
+              <Button
+                type="button"
+                className="categoryButton"
+                name="options"
+                id="option2"
+                variant="success"
+                data-testid="filter-by-food-btn"
+                onClick={ filterFood }
+              >
+                Food
+              </Button>
+              <Button
+                type="button"
+                className="categoryButton"
+                name="options"
+                id="option3"
+                variant="success"
+                data-testid="filter-by-drink-btn"
+                onClick={ filterDrink }
+              >
+                Drinks
+              </Button>
+            </div>
+            <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+              { favoriteRecipes.map((favoriteArray, index) => (
+                <Card key={ index } className="col-8 m-2 p-0 border-dark">
+                  <Nav.Link href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` } className="p-0">
+                    <Card.Img
+                      variant="top"
+                      src={ favoriteArray.image }
+                      alt="Foto do Cocktail"
+                      width="130"
+                      data-testid={ `${index}-horizontal-image` }
+                    />
+                  </Nav.Link>
+                  <Card.Body className="p-0">
+                    <Card.Text
+                      data-testid={ `${index}-horizontal-top-text` }
+                    >
+                      {
+                        favoriteArray.alcoholicOrNot === ''
+                          ? `${favoriteArray.area} - ${favoriteArray.category}`
+                          : (
+                            `${favoriteArray.alcoholicOrNot} - ${favoriteArray.category}`
+                          )
+                      }
+                    </Card.Text>
+                  </Card.Body>
+                  <Nav.Link
+                    href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { favoriteArray.name }
+                  </Nav.Link>
+                  <Card.Body className="d-flex justify-content-evenly">
+                    <input
+                      type="image"
+                      src={ ShareIcon }
+                      alt="Botão Compartilhar"
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      className="share"
+                      onClick={ () => copiarURL(
+                        `${favoriteArray.type}s`, favoriteArray.id,
+                      ) }
+                    />
+                    {
+                      renderMSG ? <h2>Link copiado!</h2>
+                        : <h2 hidden>Link copiado!</h2>
+                    }
+                    <input
+                      type="image"
+                      src={ BlackHeartIcon }
+                      alt="Botão Favoritar"
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                      onClick={ () => removerLocalStorage(favoriteArray.id) }
+                    />
+                  </Card.Body>
+                </Card>
+              )) }
+            </CardDeck>
+          </div>) }
+    </section>
+  );
 };
 
 export default ReceitasFavoritas;

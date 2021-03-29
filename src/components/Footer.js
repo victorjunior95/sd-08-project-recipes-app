@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, NavLink } from 'react-bootstrap';
+import { Button, Navbar, NavLink } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import ContextRecipes from '../context/ContextRecipes';
 import drinkIcon from '../images/drinkIcon.svg';
@@ -28,32 +28,37 @@ function Footer() {
   }
 
   return (
-    <section className="footer" data-testid="footer">
-      <NavLink
-        data-testid="drinks-bottom-btn"
-        onClick={ handleClickDrinkBtn }
-        src={ drinkIcon }
+    <section className="w-100 footer" data-testid="footer">
+      <Navbar
+        className="d-flex bg-warning justify-content-between align-items-center w-100"
       >
-        <img src={ drinkIcon } alt="drink-icon" />
-      </NavLink>
+        <NavLink
+          data-testid="drinks-bottom-btn"
+          onClick={ handleClickDrinkBtn }
+          src={ drinkIcon }
+        >
+          <img src={ drinkIcon } alt="drink-icon" />
+        </NavLink>
 
-      <Button
-        className="buttom"
-        type="button"
-        data-testid="explore-bottom-btn"
-        onClick={ handleClickExploreBtn }
-        src={ exploreIcon }
-      >
-        <img src={ exploreIcon } alt="explore-icon" />
-      </Button>
+        <Button
+          className="buttom"
+          variant="warning"
+          type="button"
+          data-testid="explore-bottom-btn"
+          onClick={ handleClickExploreBtn }
+          src={ exploreIcon }
+        >
+          <img src={ exploreIcon } alt="explore-icon" />
+        </Button>
 
-      <NavLink
-        data-testid="food-bottom-btn"
-        onClick={ handleClickMeatBtn }
-        src={ mealIcon }
-      >
-        <img src={ mealIcon } alt="food icon" />
-      </NavLink>
+        <NavLink
+          data-testid="food-bottom-btn"
+          onClick={ handleClickMeatBtn }
+          src={ mealIcon }
+        >
+          <img src={ mealIcon } alt="food icon" />
+        </NavLink>
+      </Navbar>
     </section>
   );
 }

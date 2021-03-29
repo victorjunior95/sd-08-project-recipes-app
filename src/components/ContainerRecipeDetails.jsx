@@ -9,6 +9,8 @@ import RecommendedRecipeDetails from './RecommendedRecipeDetails';
 import Button from './Button';
 import { requestSixDrinks } from '../services/requestDrinksAPI';
 import { requestSixMeals } from '../services/requestFoodsAPI';
+import { setInProgressRecipes } from '../services/setLocalStorage';
+import { nameButtonRecipe } from '../services/getLocalStorage';
 
 const ContainerRecipeDetails = ({ recipe, page }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +25,9 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       ) {
         const ingredient = recipe[`strIngredient${i}`];
         const measure = recipe[`strMeasure${i}`];
-        arrayIngredients.push(`${ingredient} - ${measure}`);
+        arrayIngredients.push(
+          `${ingredient} - ${measure}`.replace('- null', ''),
+        );
       }
     }
     return arrayIngredients;
@@ -42,6 +46,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
+      id,
       name,
       category,
       image,
@@ -66,6 +71,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
+      id,
       name,
       category,
       image,
@@ -95,6 +101,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
   }, []);
 
   const {
+    id,
     name,
     category,
     image,
@@ -103,7 +110,6 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     arrayIngredients,
     route,
   } = recipeInfo;
-
   return (
     <div>
       {isLoading ? (
@@ -124,9 +130,10 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
           />
           <Link to={ route }>
             <Button
-              name="Iniciar Receita"
+              name={ nameButtonRecipe(id, page) }
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
+              onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
             />
           </Link>
         </main>

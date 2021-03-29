@@ -20,6 +20,7 @@ const HeaderPS = ({ title, endpoint }) => {
     radioValue,
     setRadioValue,
     requestApiData,
+    setToggle,
   } = useContext(Context);
 
   const [data, setData] = useState('');
@@ -27,6 +28,7 @@ const HeaderPS = ({ title, endpoint }) => {
 
   function handleClick(e) {
     e.preventDefault();
+    setToggle(false);
     return (radioValue === 'f' && inputText.length !== 1)
       ? alert('Sua busca deve conter somente 1 (um) caracter')
       : requestApiData(endpoint);

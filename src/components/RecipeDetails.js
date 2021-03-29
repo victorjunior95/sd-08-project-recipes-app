@@ -15,7 +15,7 @@ function RecipeDetails({ recipeType, page }) {
     copyURL,
     setCopyURL,
     favorite,
-    setFavorite,
+    // setFavorite,
   } = useContext(Context);
 
   function shareLink() {
@@ -40,13 +40,13 @@ function RecipeDetails({ recipeType, page }) {
 
     localStorage.setItem('favoriteRecipes', saveFavorite);
 
-    if (favorite === true) {
+    /* if (favorite === true) {
       setFavorite(false);
       document.getElementById('favorite-btn').setAttribute('src', whiteHeartIcon);
     } if (favorite === false) {
       setFavorite(true);
       document.getElementById('favorite-btn').setAttribute('src', blackHeartIcon);
-    }
+    } */
   }
 
   function renderDetails() {

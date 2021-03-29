@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
 import {
@@ -19,6 +19,9 @@ function Provider({ children }) {
   const [recommendations, setRecommendations] = useState([]);
   const [copyURL, setCopyURL] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [apiReturnCategory, setApiReturnCategory] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   // async function requestApiData(endpoint) {
   //   const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -47,6 +50,19 @@ function Provider({ children }) {
     setIsFetching(false);
   }
 
+  async function requestApiCategory() {
+    const meals = await fetchRecipes('themealdb', 'list', 'c', 'list');
+    const drinks = await fetchRecipes('thecocktaildb', 'list', 'c', 'list');
+    setApiReturnCategory([meals, drinks]);
+    setIsFetching(false);
+  }
+
+  async function onClickCategoryFetch(endpoint, categoria) {
+    const recipesByCategory = await fetchRecipes(endpoint, 'filter', 'c', categoria);
+    setFilteredRecipes(recipesByCategory);
+    setIsFetching(false);
+  }
+
   const context = {
     email,
     setEmail,
@@ -66,6 +82,12 @@ function Provider({ children }) {
     setRecommendations,
     copyURL,
     setCopyURL,
+    apiReturnCategory,
+    requestApiCategory,
+    onClickCategoryFetch,
+    filteredRecipes,
+    setToggle,
+    toggle,
     requestRandomRecipe,
     favorite,
     setFavorite,

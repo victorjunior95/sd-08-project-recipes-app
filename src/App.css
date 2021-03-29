@@ -113,6 +113,19 @@ header {
   width: 100%;
 }
 
+.fixButton {
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
+}
+
+.sizeFoto {
+  height: 30vh;
+}
+
 .footer img {
   width: 30px;
 }

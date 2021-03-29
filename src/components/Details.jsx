@@ -5,33 +5,12 @@ import Button from './Button';
 import Recomendations from './Recomendations';
 import '../css/Details.css';
 import shareIcon from '../images/shareIcon.svg';
+import FavoriteButton from './FavoriteButton';
+import YtVideo from './YtVideo';
 
 const copy = require('clipboard-copy');
 
-const doneRecipes = [
-  {
-    id: '52771',
-    type: 'comida',
-    area: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'bebida',
-    area: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
+const doneRecipes = [];
 function Details(props) {
   const history = useHistory();
   const { currentFood, ingredients } = props;
@@ -54,17 +33,6 @@ function Details(props) {
     }
     disabledBtn();
   }, [currentFood]);
-
-  const ytVideo = () => (
-    currentFood.strYoutube ? <iframe
-      frameBorder="0"
-      data-testid="video"
-      key={ currentFood.strYoutube }
-      src={ currentFood.strYoutube.split('watch?v=').join('embed/') }
-      title="recipe video"
-    />
-      : ''
-  );
 
   const historyPath = () => (
     history.push(`${history.location.pathname}/in-progress`)
@@ -98,10 +66,10 @@ function Details(props) {
           src={ shareIcon }
           alt="share"
           data-testid="share-btn"
-          onClick={ () => setMessage([true]) || copy(`http://localhost:3000${history.location.pathname}`) }
+          onClick={ () => setMessage(true) || copy(`http://localhost:3000${history.location.pathname}`) }
         />
         { message ? renderMessage() : null }
-        <p data-testid="favorite-btn">btnFavorito</p>
+        <FavoriteButton currentFood={ currentFood } />
         <h6
           data-testid="recipe-category"
         >
@@ -121,7 +89,7 @@ function Details(props) {
         </ul>
         <h2>Instruções</h2>
         <p data-testid="instructions">{ currentFood.strInstructions }</p>
-        { ytVideo() }
+        <YtVideo currentFood={ currentFood } />
         <Recomendations />
         <Button
           disabled={ disabled }

@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
+import { ShareDisplay, FavoriteButton } from '../../component';
+import { getRecipesInProgress } from '../../services/localStorage';
 
 export default function FoodDetails({ match: { params: { id } } }) {
   const { recipeDetail,
@@ -10,10 +12,7 @@ export default function FoodDetails({ match: { params: { id } } }) {
   const history = useHistory();
   const [recipe, setRecipe] = useState();
 
-  const recipesInProgressLS = JSON.parse(localStorage.getItem('RecipesInProgress')) || [];
-
-  const recipeInProgress = recipesInProgressLS
-    .find((idRecipe) => idRecipe === id);
+  const recipeInProgress = () => getRecipesInProgress().cocktails[id];
 
   useEffect(() => setSearchParams({
     searchInput: id,
@@ -31,6 +30,7 @@ export default function FoodDetails({ match: { params: { id } } }) {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
   } = recipe;
 
   const ingredients = Object.keys(recipe)
@@ -46,10 +46,20 @@ export default function FoodDetails({ match: { params: { id } } }) {
   return (
     <>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="Recipe Done" />
-      <h1 data-testid="recipe-title">{strMeal}</h1>
-      <button type="button" data-testid="share-btn">Share</button>
-      <button type="button" data-testid="favorite-btn">Favorites</button>
-      <h5 data-testid="recipe-category">{strCategory}</h5>
+      <h1 data-testid="recipe-title">{ strMeal }</h1>
+      <ShareDisplay />
+      <FavoriteButton
+        recipeInfo={ {
+          id,
+          type: 'comida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: '',
+          name: strMeal,
+          image: strMealThumb,
+        } }
+      />
+      <h5 data-testid="recipe-category">{ strCategory }</h5>
       {ingredients.map((ingredient, index) => (
         <p
           data-testid={ `${index}-ingredient-name-and-measure` }
@@ -71,13 +81,12 @@ export default function FoodDetails({ match: { params: { id } } }) {
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ () => {
           if (!recipeInProgress) {
-            localStorage.setItem('RecipesInProgress',
-              JSON.stringify([...recipesInProgressLS, id]));
+            localStorage.setItem('inProgressRecipes',
+              JSON.stringify([...getRecipesInProgress(), id]));
           }
         } }
       >
         {recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-
       </Link>
       <Recommendations />
     </>

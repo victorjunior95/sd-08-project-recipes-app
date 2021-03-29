@@ -9,7 +9,7 @@ export default function CategoryButton({ categories }) {
     // <Link to={ `comidas/${idMeal} ` }>
     <button
       type="button"
-      data-testeid={ `${strCategory}-category-filter` }
+      data-testid={ `${strCategory}-category-filter` }
     >
       { strCategory }
     </button>

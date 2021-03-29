@@ -2,7 +2,20 @@ const FOOD_API = 'https://www.themealdb.com/api.php';
 const DRINK_API = 'https://www.thecocktaildb.com/api.php';
 const FOOD_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const FILTER_FOODS_API = 'https://www.themealdb.com/api/json/v1/1/filter.php';
+const FILTER_DRINKS_API = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
 
+export const getRandomRecipe = async (query, currentPage) => {
+  // lists:
+  // FoodApi: (c)ategories, (i)ngredients, (a)rea;
+  // DrinkApi: (c)ategories, (g)lasses, (i)ngredients or (a)lcoholic filters;
+  const RANDOM_API = currentPage === 'Foods'
+    ? 'https://www.themealdb.com/api/json/v1/1/'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/';
+  const api = await fetch(`${RANDOM_API}${query}.php`);
+  const result = await api.json();
+  return result;
+};
 export const showCompleteLists = async (query, currentPage) => {
   // lists:
   // FoodApi: (c)ategories, (i)ngredients, (a)rea;
@@ -15,19 +28,29 @@ export const showCompleteLists = async (query, currentPage) => {
   return result;
 };
 
+export const filterArea = async (query, currentPage) => {
+  const AREA_API = currentPage === 'Foods'
+    ? FILTER_FOODS_API
+    : FILTER_DRINKS_API;
+  const api = await fetch(`${AREA_API}?a=${query}`);
+  const result = await api.json();
+  console.log(result);
+  return result;
+};
+
 export const filterCategory = async (query, currentPage) => {
   const CATEGORY_API = currentPage === 'Foods'
-    ? 'https://www.themealdb.com/api/json/v1/1/filter.php'
-    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+    ? FILTER_FOODS_API
+    : FILTER_DRINKS_API;
   const api = await fetch(`${CATEGORY_API}?c=${query}`);
   const result = await api.json();
   console.log(result);
   return result;
 };
 export const filterIngredient = async (query, currentPage) => {
-  const INGREDIENT_API = currentPage === 'Foods'
-    ? 'https://www.themealdb.com/api/json/v1/1/filter.php'
-    : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+  const INGREDIENT_API = currentPage === 'Drinks'
+    ? FILTER_DRINKS_API
+    : FILTER_FOODS_API;
   const api = await fetch(`${INGREDIENT_API}?i=${query}`);
   const result = await api.json();
   console.log(result);

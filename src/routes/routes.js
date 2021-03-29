@@ -12,6 +12,7 @@ import {
   ExplorerFoodsIngredients,
   ExplorerFoodsRegion,
 } from '../pages/Explorer';
+import NotFound from '../pages/NotFound';
 
 function routes() {
   return (
@@ -38,7 +39,8 @@ function routes() {
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavRecipes } />
-        <Route path="/" component={ Login } />
+        <Route exact path="/" component={ Login } />
+        <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );

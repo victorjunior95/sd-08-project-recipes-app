@@ -1,34 +1,53 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Foods.css';
+import PropTypes from 'prop-types';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import { FoodCtx } from '../../context/ContextFood';
 import Footer from '../../components/Footer';
 import { CategoryButtons } from '../../components/Buttons';
 
-function Foods() {
+function Foods({ location: { state } }) {
   const STOP_INDEX = 11;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
+  const [ingredient, setIngredient] = useState('');
   const history = useHistory();
-  const onClickAll = ({ target }) => setCategory(target.value);
-  const onClickCategory = ({ target }) => (category !== target.value
-    ? setCategory(target.value) : setCategory(''));
+  const onClickAll = ({ target }) => {
+    if (state && state.fromExplorerFoodsIngredients) {
+      state.fromExplorerFoodsIngredients = false;
+    }
+    setCategory(target.value);
+    setFilterFood({ key: 'name', value: category });
+  };
+  const onClickCategory = ({ target }) => {
+    if (category !== target.value) {
+      setCategory(target.value);
+      if (state && state.fromExplorerFoodsIngredients) {
+        state.fromExplorerFoodsIngredients = false;
+      }
+    } else { setCategory(''); }
+  };
 
   useEffect(() => {
-    setFilterFood({ key: 'category', value: category });
-  }, [category, setFilterFood]);
+    if (state !== undefined && state.fromExplorerFoodsIngredients) {
+      setIngredient(state.ingredient);
+      setFilterFood({ key: 'ing', value: ingredient });
+    } else {
+      setFilterFood({ key: 'category', value: category });
+    }
+  }, [category, setFilterFood, state, ingredient]);
 
   useEffect(() => {
-    const renderingCondition = (categoryState) => {
+    const categorySetting = (categoryState) => {
       if (categoryState === '') {
         setFilterFood({ key: 'name', value: categoryState });
       }
-    }; renderingCondition(category);
-  }, [category]);
+    }; categorySetting(category);
+  }, [category, setFilterFood]);
 
-  return (
+  const render = () => (
     <div>
       <Header name="Comidas" icon="true" currentPage="Foods" />
       <CategoryButtons
@@ -54,15 +73,39 @@ function Foods() {
           ? history.push(`/comidas/${meals[0].idMeal}`)
           : '' }
         { meals === null
-          // eslint-disable-next-line no-alert
+        // eslint-disable-next-line no-alert
           ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : ''}
-        {console.log(meals)}
       </div>
       <div className="spacing" />
       <Footer />
     </div>
   );
+
+  return (render());
 }
+
+Foods.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.shape({
+      fromExplorerFoodsIngredients: PropTypes.bool,
+      ingredient: PropTypes.string,
+    }),
+    key: PropTypes.string,
+  }),
+};
+
+Foods.defaultProps = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.string,
+    key: PropTypes.string,
+  }),
+};
 
 export default Foods;

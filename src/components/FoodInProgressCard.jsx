@@ -9,16 +9,17 @@ const MAGIC_NUMBER_2 = -12;
 function FoodInProgressCard({ data, img, meal, category, instructions }) {
   const { setFavoriteRecipe, favoriteRecipe } = useContext(RecipesContext);
   const [checkFavorite, setCheckFavorite] = useState(null);
-  const [verified, setVerified] = useState(['default']);
+  const [verified, setVerified] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')));
   const history = useHistory();
   const { idMeal } = data[0];
 
-  console.log(verified);
+  // console.log(storage[0].meals[idMeal]);
 
   const inProgressRecipes = [{
     meals: {
-      [idMeal]: verified,
+      [idMeal]: [...verified],
     },
   }];
 
@@ -48,20 +49,13 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
       setVerified(verified.filter((element) => element !== target.value));
     }
   }
-  // const bugTest = 'whiteHeartIcon blackHeartIcon'; //!
-  // function handleFavorite() {
-  //   if (checkFavorite === null) return bugTest;
-  //   if (checkFavorite === true) return bugTest;
-  //   if (checkFavorite === false) return bugTest;
-  // }
 
   useEffect(() => {
-    if (localStorage.getItem('inProgressRecipes')) setVerified(JSON.parse(localStorage.getItem('inProgressRecipes')));
-  }, []);
-
-  useEffect(() => {
-    if (verified) return localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [verified]);
+    if (verified.length === 0) {
+      localStorage.clear('inProgressRecipes');
+    }
+    if (verified.length > 0) localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
 
   return (
     <div className="MainCard">
@@ -76,7 +70,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
           <input
             value={ curr }
             type="checkbox"
-            checked={ verified.length > 1 ? verified.includes(curr) : false }
+            checked={ !!verified.includes(curr) }
             onChange={ handleChange }
           />
           {curr}

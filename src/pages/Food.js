@@ -8,7 +8,6 @@ import HeaderSearchBar from '../components/HeaderSearchBar';
 function Food() {
   const dataContext = useContext(LoginAndFoodContext);
   const { meals, categoriesMeals, handleByCategoryMeal } = dataContext;
-
   const sizeOfLength = 12;
   const endOfSliceOfCategories = 5;
   const startOfSlice = 0;

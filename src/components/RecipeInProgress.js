@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import {
   getIngredientes,
   checkIngrediente,
@@ -18,6 +19,16 @@ import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
 // Página de ingredientes de comida para teste (retirado do avaliador): http://localhost:3000/comidas/52771/in-progress
 // Página de ingredientes de bebida para teste (retirado do avaliador): http://localhost:3000/bebidas/178319/in-progress
+
+const renderReceitaFoto = (tipoReceita, detalhesDaReceita) => (
+  <img
+    className="sizeFoto"
+    alt={ `Foto ${tipoReceita}` }
+    width="100%"
+    data-testid="recipe-photo"
+    src={ detalhesDaReceita[`str${tipoReceita === 'meals' ? 'Meal' : 'Drink'}Thumb`] }
+  />
+);
 
 const ativarBotaoFinalizarReceita = (
   setDesativarBotaoFinalizar,
@@ -144,12 +155,7 @@ function RecipeInProgress() {
 
   return (
     <div>
-      <img
-        alt=""
-        width="100%"
-        data-testid="recipe-photo"
-        src=""
-      />
+      { renderReceitaFoto(tipoReceita, detalhesDaReceita) }
 
       <h3 data-testid="recipe-title">Receita em progresso</h3>
 
@@ -179,6 +185,7 @@ function RecipeInProgress() {
       </button>
 
       <h5 hidden={ exibirMensagem }>Link copiado!</h5>
+
       <h4 width="90%" data-testid="recipe-category">
         {
           tipoReceita === 'meals'
@@ -189,11 +196,10 @@ function RecipeInProgress() {
 
       { loadListaDeIngredientes() }
 
-      <p width="90%" data-testid="instructions">Instruções</p>
-
       <p width="90%" data-testid="instructions">{detalhesDaReceita.strInstructions}</p>
 
-      <button
+      <Button
+        className="fixButton"
         type="button"
         width="100%"
         data-testid="finish-recipe-btn"
@@ -204,7 +210,7 @@ function RecipeInProgress() {
         } }
       >
         Finalizar
-      </button>
+      </Button>
     </div>
   );
 }

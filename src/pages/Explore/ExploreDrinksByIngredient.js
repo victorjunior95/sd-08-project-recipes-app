@@ -21,14 +21,12 @@ export default function ExploreDrinksByIngredient() {
     }
   };
 
-  // Mostrar apenas 12 ingredientes na página
   const onFetchIngredients = async () => {
     const ingredientsRes = await getDrinkIngredients();
     const filtered = ingredientsRes.drinks.filter((_, index) => index < SHOW_ME_TWELVE);
     setIngredientes(filtered);
   };
 
-  // Função que leva pra pagina de comidas com as receitas filtradas por ingrediente
   const handleFilter = async (ingredient) => {
     setSearchParams({
       searchInput: ingredient,

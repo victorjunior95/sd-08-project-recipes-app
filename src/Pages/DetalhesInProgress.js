@@ -14,6 +14,8 @@ function DetalhesInProgress() {
   const TWO_SECONDS = 2000;
   const history = useHistory();
   const urlText = history.location.pathname;
+  const urlDetails = urlText.split('/in-progress');
+  console.log(urlDetails[0]);
   const id = urlText.split('/')[2];
   const [objDetail, setObjDetail] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -64,7 +66,7 @@ function DetalhesInProgress() {
       />
       <div>
         <CopyToClipboard
-          text={ `http://localhost:3000${urlText}` }
+          text={ `http://localhost:3000${urlDetails[0]}` }
           onCopy={ () => {
             handleCopied();
           } }
@@ -97,7 +99,7 @@ function DetalhesInProgress() {
       />
       <div>
         <CopyToClipboard
-          text={ `http://localhost:3000${urlText}` }
+          text={ `http://localhost:3000${urlDetails[0]}` }
           onCopy={ () => {
             handleCopied();
           } }

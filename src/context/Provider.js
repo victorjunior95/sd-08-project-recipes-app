@@ -4,11 +4,12 @@ import Context from './Context';
 import getApi from '../services/apiRequests';
 
 export default function Provider({ children }) {
+  const [recipesToRender, setRecipesToRender] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [searchParams, setSearchParams] = useState({
     searchInput: '',
-    selectedParameter: '',
+    selectedParameter: 'none',
     location: '',
   });
 
@@ -43,11 +44,16 @@ export default function Provider({ children }) {
         .then((response) => setRecipes(response));
       break;
 
-    default:
+    case 'none':
+      console.log(domain);
       if (domain) {
         getApi(domain, 'search.php?s=')
           .then((response) => setRecipes(response));
+      }
+      break;
 
+    default:
+      if (domain) {
         getApi(domain, 'list.php?c=list')
           .then((response) => response.map((category) => category.strCategory))
           .then((response) => setCategories(['All', ...response]));
@@ -61,6 +67,9 @@ export default function Provider({ children }) {
     searchParams,
     recipes,
     categories,
+    recipesToRender,
+    setRecipes,
+    setRecipesToRender,
   };
 
   return <Context.Provider value={ context }>{children}</Context.Provider>;

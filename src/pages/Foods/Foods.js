@@ -9,12 +9,15 @@ const SHOW_TWELVE_RECIPES = 12;
 
 export default function Foods() {
   const { recipes, setSearchParams,
-    searchParams: { selectedParameter } } = useContext(Context);
+    searchParams } = useContext(Context);
+  const { selectedParameter } = searchParams;
   const history = useHistory();
   const [recipesToRender, setRecipesToRender] = useState([]);
 
-  useEffect(() => setSearchParams({ location: history.location.pathname }),
-    [setSearchParams, history.location.pathname]);
+  useEffect(() => setSearchParams({
+    ...searchParams,
+    location: history.location.pathname }),
+  [setSearchParams, history.location.pathname]);
 
   useEffect(() => {
     if (recipes === 'NF') {

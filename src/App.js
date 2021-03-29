@@ -33,8 +33,16 @@ function App() {
         <Route path="/comidas/:id/in-progress" component={ ProcessoComida } />
         <Route path="/bebidas/:id/in-progress" component={ ProcessoBebida } />
         <Route exact path="/explorar" component={ Explorar } />
-        <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route
+          exact
+          path="/explorar/comidas"
+          render={ (props) => <ExplorarComidas { ...props } endpoint="themealdb" /> }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas"
+          render={ (props) => <ExplorarBebidas { ...props } endpoint="thecocktaildb" /> }
+        />
         <Route path="/explorar/comidas/ingredientes" component={ IngredientesComidas } />
         <Route path="/explorar/bebidas/ingredientes" component={ IngredientesBebidas } />
         <Route path="/explorar/comidas/area" component={ OrigemComidas } />

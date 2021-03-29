@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
-import fetchRecipes from '../services/RequisicaoApi';
+import { fetchRecipes, fetchRandomRecipe } from '../services/RequisicaoApi';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -14,9 +14,15 @@ function Provider({ children }) {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  async function requestApiData(endpoint) {
+  const requestApiData = useCallback(async (endpoint) => {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
     setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
+    setIsFetching(false);
+  }, [inputText, radioValue]);
+
+  async function requestRandomRecipe(endpoint) {
+    setIsFetching(true);
+    setApiReturn([await fetchRandomRecipe(endpoint)]);
     setIsFetching(false);
   }
 
@@ -51,6 +57,7 @@ function Provider({ children }) {
     filteredRecipes,
     setToggle,
     toggle,
+    requestRandomRecipe,
   };
 
   return (

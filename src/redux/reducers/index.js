@@ -2,15 +2,15 @@ import { combineReducers } from 'redux';
 import user from './loginReducer';
 import search from './searchReducer';
 import recipes from './recipesReducer';
-import doneRecipes from './DoneRecipes';
 import recomendation from './recomendationReducers';
+import favoriteRecipes from './FavoriteRecipesReducer';
 
 const appReducer = combineReducers({
   user,
   search,
   recipes,
-  doneRecipes,
   recomendation,
+  favoriteRecipes,
 });
 
 export default appReducer;

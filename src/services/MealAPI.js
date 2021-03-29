@@ -77,3 +77,19 @@ export function fetchRecipesMealCats(filter) {
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
+
+export function fetchIngridients() {
+  const fetchURL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+
+  return fetch(fetchURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}
+
+export function fetchMealIngridientsFilter(ingredient) {
+  const recipesFilteredURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+
+  return fetch(recipesFilteredURL)
+    .then((r) => r.json())
+    .then((resolve) => resolve);
+}

@@ -5,8 +5,8 @@ import Context from '../context/Context';
 function Login() {
   const numberLength = 5;
   const [disabled, setDisabled] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const history = useHistory();
   const { data } = useContext(Context);
 

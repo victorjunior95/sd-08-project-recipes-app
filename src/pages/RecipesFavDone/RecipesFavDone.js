@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header/Header';
 import './recipesFavDone.css';
 import CardRecipe from '../../components/CardRecipe/CardRecipe';
 import { useHistory } from 'react-router';
+import Context from '../../contextApi/Context';
 
 const RecipesFavDone = ({ title, visible }) => {
   const history  = useHistory()
+  const {favoriteRecipes, setFavoriteRecipes} = useContext(Context)
   const [doneRecipes, setDoneRecipes] = useState([]);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+ 
 
   useEffect(() => {
     if (localStorage.getItem('doneRecipes') === null) {
@@ -24,7 +26,7 @@ const RecipesFavDone = ({ title, visible }) => {
   }, []);
 
   const filterBy = (type)=>{
-    if(localStorage.getItem('doneRecipes')){
+    if(localStorage.getItem('doneRecipes') && title === 'Receitas Feitas'){
       if(type === 'food'){
         
         const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
@@ -40,8 +42,24 @@ const RecipesFavDone = ({ title, visible }) => {
 
       }
     }
-  }
+    if(localStorage.getItem('favoriteRecipes') && title === 'Receitas Favoritas'){
+      if(type === 'food'){
+        
+        const getRecipes =JSON.parse(localStorage.getItem('favoriteRecipes'))
+         const filterFood = getRecipes.filter(({type})=>type ==='comida' )
+         setFavoriteRecipes(filterFood) 
+      }else if(type === 'drink'){
+        const getRecipes =JSON.parse(localStorage.getItem('favoriteRecipes'))
+        const filterDrink = getRecipes.filter(({type})=>type ==='bebida' )
+        setFavoriteRecipes(filterDrink) 
+      }else if(type === 'all'){
+        const getRecipes =JSON.parse(localStorage.getItem('favoriteRecipes'))
+        setFavoriteRecipes(getRecipes)
 
+      }
+    }
+  }
+  
   const redirectTo = (id,type)=>{
     if(type === 'comida'){
       history.push(`/comidas/${id}`)

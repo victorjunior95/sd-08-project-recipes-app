@@ -10,16 +10,19 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFavoritesHook from '../hooks/useFavoritesHook';
-import useInProgressRecipeHook from '../hooks/useInProgressRecipeHook';
 
 function FoodDetails(props) {
+  const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   const [favorites, updateFavorites] = useFavoritesHook();
-  const [addFoodInProgress] = useInProgressRecipeHook();
+  const [inProgressRecipes,
+    setInProgressRecipes] = useState(initialInProgressRecipesValue);
+  const [isInProgress, setIsInProgress] = useState(false);
+
   const STOP_INDEX = 5;
   const [
     setId,
@@ -35,6 +38,38 @@ function FoodDetails(props) {
   useEffect(() => {
     setId(id);
   }, [id, setId]);
+
+  useEffect(() => {
+    const localData = localStorage.getItem('inProgressRecipes');
+    const inProgress = localData ? JSON.parse(localData) : initialInProgressRecipesValue;
+    setInProgressRecipes(inProgress);
+  }, []);
+
+  useEffect(() => {
+    function checkIsInProgress(idNumber) {
+      const { meals, cocktails } = inProgressRecipes;
+      if (Object.keys(meals).includes(idNumber)
+      || Object.keys(cocktails).includes(idNumber)) {
+        return setIsInProgress(true);
+      }
+      return setIsInProgress(false);
+    }
+    checkIsInProgress(id);
+  });
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
+
+  const addFoodInProgress = (recipe) => {
+    const { meals, cocktails } = inProgressRecipes;
+    console.log('em progresso: ', inProgressRecipes);
+    const newFoodInProgress = {
+      cocktails,
+      meals: Object.assign(meals, recipe),
+    };
+    return setInProgressRecipes(newFoodInProgress);
+  };
 
   useEffect(() => {
     console.log('favoritos:', favorites);
@@ -151,7 +186,7 @@ function FoodDetails(props) {
             data-testid="start-recipe-btn"
             onClick={ handleStartRecipeClick }
           >
-            Iniciar
+            { isInProgress ? 'Iniciar' : 'Continuar' }
           </button>
         </div>
       </div>

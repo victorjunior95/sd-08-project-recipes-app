@@ -92,8 +92,13 @@ export const fetchSurprised = async (type) => {
   return json;
 };
 
-export const ingredients = async () => {
-  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
-    .then((response) => response.json());
-  return result.meals;
+export const ingredients = async (type) => {
+  const API_LINK = type === 'comidas'
+    ? 'https://www.themealdb.com/api/json/v1/1/list.php?i=list'
+    // -> json(object) -> {meals:[{id, ingred, descrip, type}, {}...]}
+    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+    // -> json(object) -> {drinks:[{ingred}, {}...]}
+  const result = await fetch(API_LINK);
+  const json = await result.json();
+  return json;
 };

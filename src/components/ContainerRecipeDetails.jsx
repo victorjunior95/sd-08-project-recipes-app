@@ -9,6 +9,7 @@ import RecommendedRecipeDetails from './RecommendedRecipeDetails';
 import Button from './Button';
 import { requestSixDrinks } from '../services/requestDrinksAPI';
 import { requestSixMeals } from '../services/requestFoodsAPI';
+import { setInProgressRecipes } from '../services/setLocalStorage';
 
 const ContainerRecipeDetails = ({ recipe, page }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +43,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
+      id,
       name,
       category,
       image,
@@ -66,6 +68,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
+      id,
       name,
       category,
       image,
@@ -95,6 +98,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
   }, []);
 
   const {
+    id,
     name,
     category,
     image,
@@ -127,6 +131,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
               name="Iniciar Receita"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
+              onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
             />
           </Link>
         </main>

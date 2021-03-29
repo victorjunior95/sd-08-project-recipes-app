@@ -27,8 +27,6 @@ const removeRecipeInArray = (local, idRecipe) => {
 };
 
 const saveRecipeFavorites = (recipe, page = false, KEY = KEY_FAVORITE) => {
-  console.log(recipe);
-  console.log(page);
   if (JSON.parse(localStorage.getItem(KEY)) === null) {
     const objRecipe = page
       ? (editObjectForPageDoneRecipe(recipe)

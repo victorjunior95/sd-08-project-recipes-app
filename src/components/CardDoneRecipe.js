@@ -19,12 +19,10 @@ function CardDoneRecipe({ typeFilter }) {
   const onClickFavorite = ({ target }) => {
     const { dataset: { recipeid, indexstate } } = target;
     const recipeData = recipeAll.find((el) => el.id === recipeid);
-    console.log(favorite, indexstate);
     const newArrFavorite = favorite.map((el, index) => {
       if (index === Number(indexstate)) return !el;
       return el;
     });
-    console.log(newArrFavorite);
     setFavorite(newArrFavorite);
     saveRecipeFavorites(recipeData, true);
   };
@@ -66,11 +64,9 @@ function CardDoneRecipe({ typeFilter }) {
 
   const filter = useCallback(() => {
     const doneRecipes = getLocalStorageDoneRecipe();
-    console.log(doneRecipes);
     if (typeFilter === 'all') {
       setRecipeAll(doneRecipes);
     } else {
-      console.log(typeFilter);
       const result = doneRecipes.filter((el) => el.type === typeFilter);
       setRecipeAll(result);
     }

@@ -39,7 +39,6 @@ const saveDoneRecipes = (recipe, KEY = KEY_DONE_RECIPES) => {
 
 const getLocalStorageDoneRecipe = () => {
   if (JSON.parse(localStorage.getItem(KEY_DONE_RECIPES))) {
-    console.log('tudo');
     return JSON.parse(localStorage.getItem(KEY_DONE_RECIPES));
   }
   localStorage.setItem(KEY_DONE_RECIPES, JSON.stringify(initialState));
@@ -50,8 +49,6 @@ const getLocalStorageDoneRecipeById = (idRecipe) => {
   if (JSON.parse(localStorage.getItem(KEY_DONE_RECIPES))) {
     const local = JSON.parse(localStorage.getItem(KEY_DONE_RECIPES));
     const result = local.find((el) => el.id === idRecipe);
-    console.log('por id');
-    console.log(result);
     return result;
   }
   localStorage.setItem(KEY_DONE_RECIPES, JSON.stringify(initialState));

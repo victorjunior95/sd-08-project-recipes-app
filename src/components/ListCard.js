@@ -14,7 +14,7 @@ class ListCard extends Component {
           {result && result.map((item, index) => {
             const TOTAL_ITEMS = 12;
             if (index >= TOTAL_ITEMS) {
-              return;
+              return null;
             }
             if (result.length === 1) {
               const redirect = `${infos.linkRedirect}${item[infos.id]}`;
@@ -22,7 +22,7 @@ class ListCard extends Component {
             }
             return (<Card
               infos={ infos }
-              key={ item[infos.name] }
+              key={ item[infos.name] ? item[infos.name] : Math.random() * 100 }
               value={ item }
               index={ index }
             />);

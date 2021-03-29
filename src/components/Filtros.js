@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchIngredient as fetchIngredientAction } from '../action';
 
-class Filtro extends Component {
+class Filtros extends Component {
   constructor() {
     super();
     this.state = {
@@ -70,7 +71,7 @@ class Filtro extends Component {
         </button>
         {results.length !== 0 && result.map((category, index) => {
           if (index > TOTAL_ITEMS) {
-            return;
+            return null;
           }
           return (
             <button
@@ -92,4 +93,9 @@ const mapDispatchToProps = (dispatch) => ({
   searchIngredient: (url) => dispatch(fetchIngredientAction(url)),
 });
 
-export default connect(null, mapDispatchToProps)(Filtro);
+export default connect(null, mapDispatchToProps)(Filtros);
+
+Filtros.propTypes = {
+  pathname: PropTypes.string.isRequired,
+  searchIngredient: PropTypes.func.isRequired,
+};

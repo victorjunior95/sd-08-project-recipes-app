@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
@@ -11,18 +11,13 @@ function Provider({ children }) {
   const [searchParams, setSearchParams] = useState('');
   const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    if (!localStorage.getItem('user')) {
-      localStorage.setItem('mealsToken', mealsToken);
-      localStorage.setItem('cocktailsToken', cocktailsToken);
-      localStorage.setItem('user', JSON.stringify(user));
-    }
-  }, [user, mealsToken, cocktailsToken]);
-
   const data = {
     setUser,
     setMealsToken,
     setCocktailsToken,
+    mealsToken,
+    cocktailsToken,
+    user,
   };
 
   return (

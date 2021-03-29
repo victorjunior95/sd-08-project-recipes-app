@@ -1,3 +1,20 @@
+.scroll-menu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.recommended {
+  display: inline-block;
+  padding: 14px;
+  text-align: center;
+  width: 50%;
+}
+
+.start {
+  bottom: 0;
+  position: fixed;
+}
+
 .header {
   display: flex;
   top: 0;

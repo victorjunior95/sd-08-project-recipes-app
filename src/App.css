@@ -1,7 +1,3 @@
-body {
-  background-color: black;
-}
-
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -147,6 +143,19 @@ header {
   padding: 30px;
 }
 
+.buttons-perfil {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.buttons-perfil button {
+  font-size: 25px;
+  margin-top: 30px;
+  padding: 30px;
+}
+
 .cardBody {
   align-items: center;
   display: flex;
@@ -181,6 +190,9 @@ header {
   margin-bottom: 62px;
 }
 
+
 .margin100px {
   margin-top: 100px;
-}
+
+.receitasF {
+  margin-bottom: 0;

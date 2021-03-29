@@ -11,18 +11,29 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   const [checkFavorite, setCheckFavorite] = useState(null);
   const [verified, setVerified] = useState([]);
   const [copied, setCopied] = useState(false);
-  const [teste, setTeste] = useState(false);
-  // const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')) || []);
+  const [verifiedCheck, setVerifiedCheck] = useState(false);
+  const [storage] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')) || []);
   const history = useHistory();
   const { idMeal } = data[0];
 
-  // console.log(storage);
+  // const teste = storage[0].meals[idMeal]
+  // console.log(teste);
 
   const inProgressRecipes = [{
     meals: {
       [idMeal]: [...verified],
     },
   }];
+
+  // const [{
+  //   id: idMeal
+  //   type,
+  //   area,
+  //   category,
+  //   alcoholicOrNot,
+  //   name,
+  //   image,
+  // }]
 
   const keys = Object.keys(data[0]).filter((key) => key.includes('strIngredient'));
   const values = keys.map((
@@ -52,12 +63,23 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   }
 
   useEffect(() => {
-    if (verified) return setTeste(true);
-    if (verified.length > 0) return setTeste(false);
+    if (storage.length) {
+      const isChecked = storage[0].meals[idMeal];
+      setVerified(isChecked);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (verified) return setVerifiedCheck(true);
+    if (verified.length > 0) return setVerifiedCheck(false);
   }, [verified]);
 
   useEffect(() => {
-    if (verified && teste) return localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    if (verified && verifiedCheck) {
+      return localStorage.setItem(
+        'inProgressRecipes', JSON.stringify(inProgressRecipes),
+      );
+    }
   }, [verified]);
 
   return (
@@ -67,10 +89,11 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
       {values.map((curr, index) => (
         <label
           key={ index }
-          htmlFor={ `${curr}` }
+          htmlFor={ curr }
           data-testid={ `${index}-ingredient-step` }
         >
           <input
+            id={ curr }
             value={ curr }
             type="checkbox"
             checked={ !!verified.includes(curr) }
@@ -101,7 +124,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
       <p data-testid="instructions">{instructions}</p>
       <Link to="/receitas-feitas">
         <button
-          disabled={ verified.length !== values.length + 1 }
+          disabled={ verified.length !== values.length }
           data-testid="finish-recipe-btn"
           type="button"
         >

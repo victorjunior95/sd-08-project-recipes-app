@@ -16,23 +16,24 @@ const Drinks = () => {
   const [currentCategory, setCurrentCategory] = useState('All');
   useEffect(() => {
     setFilteredDrinks(drink);
+    // console.log(drink);
   }, [drink]);
   useEffect(() => {
     async function fetchFetch() {
       recipesFetch(false);
     }
     async function fetchCategory() {
-      const result = await categoryDrink()
+      await categoryDrink()
         .then((response) => setCategory(response));
       // console.log(categoryFood());
-      console.log(result);
+      // console.log(result);
     }
     fetchCategory();
     // console.log(category);
     fetchFetch();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipesFetch]);
+  }, []);
   useEffect(() => {
     // console.log(food);
     const mapDrinks = () => (
@@ -81,10 +82,9 @@ const Drinks = () => {
         category.map((drinks, index) => {
           if (index < MAX_CATEGORY) {
             return (
-              <label htmlFor={ drinks.strCategory }>
+              <label key={ index } htmlFor={ drinks.strCategory }>
                 {drinks.strCategory}
                 <input
-                  key={ index }
                   type="radio"
                   data-testid={ `${drinks.strCategory}-category-filter` }
                   onClick={ () => fetchDrinkByCategory(drinks.strCategory) }

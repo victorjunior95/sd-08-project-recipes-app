@@ -1,23 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/Card';
+import Header from '../components/header/Header';
 
 export default function FeitasFavoritas() {
   const history = useHistory();
   const path = history.location.pathname;
-  let listCart = [];
-  let listFavCart = [];
-  listCart = JSON.parse(localStorage.getItem('doneRecipes'));
-  listFavCart = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const [filteredDoneList, setDoneList] = useState(listCart);
-  const [FList, setFavList] = useState(listFavCart);
+  // let listCart = [];
+  // let listFavCart = [];
+  const listCart = JSON.parse(localStorage.getItem('doneRecipes'));
+  const listFavCart = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [filteredDoneList, setDoneList] = useState([]);
+  // const [FList, setFavList] = useState(listFavCart);
+  const [FList, setFavList] = useState([]);
+
+  const unfavRecipe = (recipeId) => {
+    const updatedFavs = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((recipe) => recipe.id !== recipeId);
+    console.log(updatedFavs);
+    setFavList(updatedFavs);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavs));
+    console.log(localStorage);
+    // updatedFavs.filter((recipe) => recipe.id !== recipeId);
+    // localStorage.favoriteRecipes = updatedFavs;
+  };
+
   useEffect(() => {
-    setDoneList(listCart);
-    setFavList(listFavCart);
+    if (listCart) { setDoneList(listCart); }
+    if (listFavCart) { setFavList(listFavCart); }
   }, []);
+
+  // useEffect(() => {
+  //   setFavList(listFavCart);
+  // }, [listFavCart]);
+
   if (path === '/receitas-feitas') {
     return (
       <div>
+        <Header title="Receitas Feitas" showSearchButton={ false } />
         <label htmlFor="All">
           <input
             type="radio"
@@ -72,6 +92,7 @@ export default function FeitasFavoritas() {
   } if (path === '/receitas-favoritas') {
     return (
       <div>
+        <Header title="Receitas Favoritas" showSearchButton={ false } />
         <label htmlFor="All">
           <input
             type="radio"
@@ -119,6 +140,7 @@ export default function FeitasFavoritas() {
             name={ card.name }
             thumbnail={ card.image }
             isFood={ card.type === 'comida' }
+            unfavRecipe={ unfavRecipe }
           />
         ))}
 

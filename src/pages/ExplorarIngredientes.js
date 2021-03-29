@@ -10,7 +10,7 @@ export default function Ingredientes() {
 
   return (
     <div>
-      <Header title="Ingredientes" showSearchButton={ false } />
+      <Header title="Explorar Ingredientes" showSearchButton={ false } />
       <ExploreIngredients type={ isFood ? 'comidas' : 'bebidas' } />
       <Footer />
     </div>

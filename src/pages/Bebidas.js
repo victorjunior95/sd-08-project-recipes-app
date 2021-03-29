@@ -65,12 +65,13 @@ class Bebidas extends Component {
             onClick={ (event) => this.handleClick(event.target.name) }
             name="All"
             data-testid="All-category-filter"
+            hidden={ bool }
           >
             All
           </button>
           {
             drinksCategories.map((category, index) => {
-              if (index < MAX_CATEGORIES) {
+              if (index < MAX_CATEGORIES && bool === false) {
                 return (
                   <button
                     type="submit"
@@ -123,7 +124,7 @@ class Bebidas extends Component {
         </button>
         {
           drinksCategories.map((category, index) => {
-            if (index < MAX_CATEGORIES) {
+            if (index < MAX_CATEGORIES && bool === false) {
               return (
                 <button
                   type="button"
@@ -141,7 +142,7 @@ class Bebidas extends Component {
         {
 
           selectedCategory.map((drink, index) => {
-            if (index < MAX_CARDS) {
+            if (index < MAX_CARDS && bool === false) {
               return (
                 <Link
                   to={ `/bebidas/${drink.idDrink}` }

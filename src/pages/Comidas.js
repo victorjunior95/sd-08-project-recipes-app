@@ -54,7 +54,7 @@ class Comidas extends Component {
   render() {
     const { categories: { recipesCategories }, meals: { meals }, bool } = this.props;
     const { selectedCategory } = this.state;
-    if (selectedCategory.length === 0) {
+    if (selectedCategory.length === 0 && bool === false) {
       return (
         <div>
           <HeaderLocation />
@@ -68,7 +68,7 @@ class Comidas extends Component {
           </button>
           {
             recipesCategories.map((category, index) => {
-              if (index < MAX_CATEGORIES) {
+              if (index < MAX_CATEGORIES && bool === false) {
                 return (
                   <button
                     key={ index }
@@ -123,7 +123,7 @@ class Comidas extends Component {
         </button>
         {
           recipesCategories.map((category, index) => {
-            if (index < MAX_CATEGORIES) {
+            if (index < MAX_CATEGORIES && bool === false) {
               return (
                 <button
                   type="button"
@@ -141,7 +141,7 @@ class Comidas extends Component {
         {
 
           selectedCategory.map((meal, index) => {
-            if (index < MAX_CARDS) {
+            if (index < MAX_CARDS && bool === false) {
               console.log(meal);
               return (
                 <Link

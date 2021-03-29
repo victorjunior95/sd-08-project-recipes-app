@@ -137,7 +137,7 @@ const ReceitasFavoritas = () => {
                     <Nav.Link
                       href={ `http://localhost:3000/${favoriteArray.type}s/${favoriteArray.id}` }
                       data-testid={ `${index}-horizontal-name` }
-                      className="fs-5 p-0 mb-3 fw-bold"
+                      className="fs-5 p-0 mb-4 lh-1 fw-bold"
                     >
                       { favoriteArray.name }
                     </Nav.Link>

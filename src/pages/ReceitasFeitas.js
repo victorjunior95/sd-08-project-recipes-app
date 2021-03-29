@@ -102,7 +102,7 @@ const ReceitasFeitas = () => {
                     </Nav.Link>
                   </Card.Body>
                   <Card.Body className="p-1 w-50">
-                    <div className="d-flex flex-row justify-content-between mb-1">
+                    <div className="d-flex flex-row justify-content-between mb-3">
                       <Card.Text
                         data-testid={ `${index}-horizontal-top-text` }
                         className="m-0"
@@ -132,15 +132,15 @@ const ReceitasFeitas = () => {
                       renderMSG ? <h2>Link copiado!</h2>
                         : <h2 hidden>Link copiado!</h2>
                     }
-                    <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="m-0 p-0 mb-1">
+                    <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="m-0 p-0 mb-3">
                       <Card.Text
                         data-testid={ `${index}-horizontal-name` }
-                        className="fs-5 mb-1 fw-bold"
+                        className="fs-5 fw-bold lh-1"
                       >
                         { doneRecipe.name }
                       </Card.Text>
                     </Nav.Link>
-                    <Card.Text className="m-0 mb-1">
+                    <Card.Text className="m-0 mb-2">
                       <small
                         className="text-muted fst-italic"
                         data-testid={ `${index}-horizontal-done-date` }

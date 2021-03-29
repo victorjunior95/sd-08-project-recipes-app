@@ -64,6 +64,7 @@ const CardDetails = ({ title, object, isLoading, children }) => {
         name: strMeal,
         image: strMealThumb,
       };
+      
       localStorage.setItem('favoriteRecipes', JSON.stringify([Objectid]));
     }
     if (title === 'Bebidas' && favorite === false) {

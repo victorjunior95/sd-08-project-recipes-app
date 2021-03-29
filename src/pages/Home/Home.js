@@ -17,7 +17,7 @@ const Home = ({ title }) => {
       setALL(response);
     });
   }, [title]);
-
+console.log(results)
   return (
     <>
       <Header title={ title } />

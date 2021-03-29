@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import Header from '../../components/Header/Header';
 import './recipesFavDone.css';
 import CardRecipe from '../../components/CardRecipe/CardRecipe';
+import { useHistory } from 'react-router';
 
 const RecipesFavDone = ({ title, visible }) => {
+  const history  = useHistory()
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   useEffect(() => {
@@ -19,6 +21,41 @@ const RecipesFavDone = ({ title, visible }) => {
     setDoneRecipes(localDone);
     setFavoriteRecipes(localFavorite);
   }, []);
+
+
+
+
+  const filterBy = (type)=>{
+    if(localStorage.getItem('doneRecipes')){
+      if(type === 'food'){
+        
+        const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
+         const filterFood = getRecipes.filter(({type})=>type ==='comida' )
+         console.log(filterFood)
+         setDoneRecipes(filterFood) 
+      }else if(type === 'drink'){
+        const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
+        const filterDrink = getRecipes.filter(({type})=>type ==='bebida' )
+        console.log(filterDrink)
+        setDoneRecipes(filterDrink) 
+      }else if(type === 'all'){
+        const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
+        setDoneRecipes(getRecipes)
+
+      }
+    }
+  }
+
+  const redirectTo = (id,type)=>{
+    if(type === 'comida'){
+      history.push(`/comidas/${id}`)
+    }else{
+      history.push(`/bebidas/${id}`)
+    }
+    console.log('clicou')
+
+  }
+  
   return (
     <div>
       <Header title={title} visible={visible} />
@@ -30,6 +67,7 @@ const RecipesFavDone = ({ title, visible }) => {
         <button
           type="button"
           className="btn btn-info"
+          onClick ={()=>filterBy('all')}
           data-testid="filter-by-all-btn"
         >
           All
@@ -37,6 +75,7 @@ const RecipesFavDone = ({ title, visible }) => {
         <button
           type="button"
           className="btn btn-info"
+          onClick ={()=>filterBy('food')}
           data-testid="filter-by-food-btn"
         >
           Food
@@ -44,6 +83,7 @@ const RecipesFavDone = ({ title, visible }) => {
         <button
           type="button"
           className="btn btn-info"
+        onClick ={()=>filterBy('drink')}
           data-testid="filter-by-drink-btn"
         >
           Drinks
@@ -52,6 +92,8 @@ const RecipesFavDone = ({ title, visible }) => {
       {title === 'Receitas Feitas' &&
         doneRecipes.length > 0 &&
         doneRecipes.map((recipe, index) => (
+          <button key={index}    onClick = {()=>redirectTo(recipe.id,recipe.type)}>
+
           <CardRecipe
             key={index}
             id={recipe.id}
@@ -64,7 +106,8 @@ const RecipesFavDone = ({ title, visible }) => {
             name={recipe.name}
             doneDate={recipe.doneDate}
             tags={recipe.tags}
-          />
+            />
+            </button>
         ))}
       {title === 'Receitas Favoritas' &&
         favoriteRecipes.length > 0 &&

@@ -258,12 +258,10 @@ describe('39 - Implemente a solução de forma que caso a receita já tenha sido
         }];
         localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
         win.fetch = fetchMock;
-        console.log('setaLocalStorage');
       },
     });
-    console.log(JSON.parse(localStorage.getItem('doneRecipes')), 'localStorage do teste');
+
     cy.get('[data-testid="start-recipe-btn"]').should('not.be.visible');
-    console.log('pegou botão');
   });
 
   it('Verifica se botão de iniciar receita não é visível na tela de detalhes de uma bebida', () => {
@@ -289,7 +287,7 @@ describe('39 - Implemente a solução de forma que caso a receita já tenha sido
   });
 });
 
-describe('40 - Implemente a solução de modo que caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continuar Receita"', () => {
+describe.only('40 - Implemente a solução de modo que caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continuar Receita"', () => {
   it('Verifica botão de "Continuar Receita" na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -403,7 +401,7 @@ describe('43 - Implemente a solução de forma que, ao clicar no botão de compa
   });
 });
 
-describe.only('44 - Implemente o ícone do coração (favorito) de maneira que, deve vir preenchido caso a receita esteja favoritada e "despreenchido" caso contrário', () => {
+describe('44 - Implemente o ícone do coração (favorito) de maneira que, deve vir preenchido caso a receita esteja favoritada e "despreenchido" caso contrário', () => {
   it('Verifica se a comida favoritada vem com o coração preenchido', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {

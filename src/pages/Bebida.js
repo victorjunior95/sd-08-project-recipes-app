@@ -9,8 +9,10 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/Bebida.css';
+import verifyInProgress from '../services/verifyInProgress';
+import verifyText from '../services/verifyText';
 
-function Comida() {
+function Bebida() {
   const INICIO_CORTE = 9;
   const history = useHistory();
   const id = history.location.pathname
@@ -34,48 +36,27 @@ function Comida() {
   }
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('doneRecipe')) || [];
-    console.log('useEffect antes do if', storage);
+    const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     if (storage && storage.length) {
-      console.log(storage, 'dentro do if');
-      storage.map((item) => {
+      storage.find((item) => {
         if (item.id === id) {
-          console.log('verificação do storage');
           setRenderButtonComparison(false);
-        } else {
-          setRenderButtonComparison(true);
         }
         return null;
       });
     } else {
-      console.log(storage, 'cai no else');
       setRenderButtonComparison(true);
     }
   }, [renderButtonComparison]);
 
   function iniciarReceita() {
-    const startRecipe = {
-      id: recipe.idDrink,
-      type: 'bebida',
-      area: '',
-      category: recipe.strCategory,
-      alcoholicOrNor: recipe.strAlcoholic,
-      name: recipe.strDrink,
-      image: recipe.strDrinkThumb,
-      doneDate: '',
-      tags: recipe.strTags,
-    };
-    let savedRecipes = JSON.parse(localStorage.getItem('doneRecipe'));
-    if (!savedRecipes) {
-      localStorage.setItem('doneRecipe', JSON.stringify([]));
-      savedRecipes = JSON.parse(localStorage.getItem('doneRecipe'));
-    }
-    localStorage.setItem('doneRecipe', JSON.stringify(savedRecipes.concat(startRecipe)));
-    setRenderButtonComparison(false);
+    verifyInProgress(id, 'cocktails');
     history.push(`/bebidas/${id}/in-progress`);
   }
 
   function renderButton() {
+    const textButton = verifyText(id);
+
     return (
       <button
         className="iniciar-receita-btn"
@@ -83,7 +64,7 @@ function Comida() {
         data-testid="start-recipe-btn"
         onClick={ iniciarReceita }
       >
-        Iniciar Receita
+        { textButton }
       </button>
     );
   }
@@ -137,4 +118,4 @@ function Comida() {
   );
 }
 
-export default Comida;
+export default Bebida;

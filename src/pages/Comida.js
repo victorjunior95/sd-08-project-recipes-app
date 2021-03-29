@@ -28,21 +28,15 @@ function Comida() {
   } = useContext(MyContext);
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('doneRecipe')) || [];
-    console.log('useEffect antes do if', storage);
+    const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     if (storage && storage.length) {
-      console.log(storage, 'dentro do if');
-      storage.map((item) => {
+      storage.find((item) => {
         if (item.id === id) {
-          console.log('verificação do storage');
           setRenderButtonComparison(false);
-        } else {
-          setRenderButtonComparison(true);
         }
         return null;
       });
     } else {
-      console.log(storage, 'cai no else');
       setRenderButtonComparison(true);
     }
   }, [renderButtonComparison]);
@@ -70,21 +64,18 @@ function Comida() {
       doneDate: '',
       tags: recipe.strTags,
     };
-    let savedRecipes = JSON.parse(localStorage.getItem('doneRecipe'));
+    let savedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!savedRecipes) {
-      localStorage.setItem('doneRecipe', JSON.stringify([]));
-      savedRecipes = JSON.parse(localStorage.getItem('doneRecipe'));
+      localStorage.setItem('inProgressRecipes', JSON.stringify([]));
+      savedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     }
-    localStorage.setItem('doneRecipe', JSON.stringify(savedRecipes.concat(startRecipe)));
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify(savedRecipes.concat(startRecipe)));
     setRenderButtonComparison(false);
     history.push(`/comidas/${id}/in-progress`);
-    console.log('iniciar receitar', renderButtonComparison);
   }
 
   function renderButton() {
-    // console.log('render button');
-    // console.log(renderButtonComparison);
-    // setRenderButtonComparison(true);
     return (
       <button
         className="iniciar-receita-btn"
@@ -101,9 +92,6 @@ function Comida() {
     requestRecipe();
   }, []);
 
-  const storagesssss = JSON.parse(localStorage.getItem('doneRecipe'));
-  console.log(renderButtonComparison, 'da pagina');
-  console.log(storagesssss, 'storage usada pra renderizar');
   return (
     <div>
       <img

@@ -51,18 +51,7 @@ function DrinkDetails(props) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
-  useEffect(() => {
-    function checkIsInProgress(idNumber) {
-      const { cocktails } = inProgressRecipes;
-      if (Object.keys(inProgressRecipes.meals).includes(idNumber)
-      || Object.keys(cocktails).includes(idNumber)) {
-        return setIsInProgress(true);
-      }
-      return setIsInProgress(false);
-    }
-    checkIsInProgress(id);
-  });
-
+  // effect In Progress => voltar para ca caso de errado
   const addDrinkInProgress = (recipe) => {
     const { cocktails } = inProgressRecipes;
     console.log('em progresso: ', inProgressRecipes);
@@ -83,6 +72,20 @@ function DrinkDetails(props) {
     }
     checkIsFavorite();
   }, [id, favorites]);
+
+  useEffect(() => {
+    function checkIsInProgress(idNumber) {
+      const { cocktails } = inProgressRecipes;
+      const newMeals = inProgressRecipes.meals;
+      console.log('new melas: ', newMeals);
+      if (Object.keys(newMeals).includes(idNumber)
+      || Object.keys(cocktails).includes(idNumber)) {
+        return setIsInProgress(true);
+      }
+      return setIsInProgress(false);
+    }
+    checkIsInProgress(id);
+  });
 
   function handleClick() {
     copy(window.location.href);

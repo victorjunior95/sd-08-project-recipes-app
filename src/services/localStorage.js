@@ -15,9 +15,23 @@ export const setUserLocalStorage = (email) => setLocalStorage('user', { email })
 export const setDoneRecipes = (recipes) => setLocalStorage('doneRecipes', recipes);
 export const setFavoriteRecipe = (recipes) => setLocalStorage('favoriteRecipes', recipes);
 
+export const setProgressDrink = () => {
+  setLocalStorage('inProgressRecipes', [{ cocktails: {}, meals: {} }]);
+};
+
 export const setInProgressRecipe = (recipes) => {
   setLocalStorage('progressRecipes', recipes);
 };
 
 export const getProfileEmailLocalStorage = () => getLocalStorage('user');
 export const deleteKeyLocalStorage = (key) => localStorage.clear(key);
+
+export const getArrayIngredients = (idDrink, ingredientes) => {
+  const current = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const newValue = {
+    ...current,
+    cocktails:
+      { ...current.cocktails, [idDrink]: ingredientes },
+  };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newValue));
+};

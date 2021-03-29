@@ -27,13 +27,16 @@ class Routes extends Component {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/bebidas" component={ Drinks } />
-        <Route path="/comidas/:id" component={ DetailsRecipeFood } />
-        <Route path="/bebidas/:id" component={ DetailsRecipeDrink } />
+        <Route exact path="/comidas/:id" component={ DetailsRecipeFood } />
+        <Route exact path="/bebidas/:id" component={ DetailsRecipeDrink } />
         <Route
+          exact
           path="/comidas/:id/in-progress"
           component={ ProgressRecipesFood }
+
         />
         <Route
+          exact
           path="/bebidas/:id/in-progress"
           component={ ProgressRecipesDrink }
         />

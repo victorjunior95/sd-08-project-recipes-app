@@ -7,6 +7,8 @@ export {
   setInProgressRecipe,
   getProfileEmailLocalStorage,
   deleteKeyLocalStorage,
+  setProgressDrink,
+  getArrayIngredients,
 } from './localStorage';
 
 export {

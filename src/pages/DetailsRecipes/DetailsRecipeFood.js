@@ -146,7 +146,9 @@ class RecipeFood extends Component {
           <Link
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
-            to={ `${idMeal}/in-progress` }
+            exact
+            to={ `/comidas/${idMeal}/in-progress` }
+
           >
             Iniciar receita
           </Link>

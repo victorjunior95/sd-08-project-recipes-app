@@ -16,7 +16,6 @@ class Drinks extends Component {
 
   render() {
     const { drinks } = this.props;
-    console.log(drinks);
     if (drinks && drinks.length === 1) {
       return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     }

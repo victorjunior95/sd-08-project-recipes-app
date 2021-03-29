@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { requestMealRecipe } from '../services/apiRequests';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecommendedDrinks from '../components/RecommendedDrinks';
 import Loading from '../components/Loading';
 
@@ -12,6 +14,7 @@ function DetalhesComidas() {
   const [recipe, setRecipe] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
 
   const parseRecipe = (data) => {
@@ -31,16 +34,45 @@ function DetalhesComidas() {
   useEffect(() => {
     async function requestById() {
       setIsLoading(true);
-      console.log('teste', id);
       const clickedRecipe = await requestMealRecipe(id);
-      console.log('clickedRecipe:', clickedRecipe);
       setMeal(clickedRecipe[0]);
+      console.log(clickedRecipe[0]);
       setRecipe(parseRecipe(clickedRecipe[0]));
       setIsLoading(false);
-      console.log(clickedRecipe[0]);
+    }
+    async function verifyFavorites() {
+      const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const haveRecipe = favoriteRecipes
+        .some((element) => element.id.includes(meal.idMeal));
+      if (haveRecipe) return setFavorite(true);
     }
     requestById();
-  }, [id, setIsLoading]);
+    verifyFavorites();
+  }, [id, setIsLoading, meal.idMeal]);
+
+  async function addToFavorite() {
+    setFavorite(!favorite);
+    const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteRecipe = {
+      id: meal.idMeal,
+      type: 'meal',
+      area: meal.strArea,
+      category: meal.strCategory,
+      alcoholicOrNot: '',
+      name: meal.strMeal,
+      image: meal.strMealThumb,
+    };
+    favoriteRecipes.push(favoriteRecipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
+
+  async function removeFromFavorite() {
+    setFavorite(!favorite);
+    const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newList = favoriteRecipes.filter((element) => element.id !== meal.idMeal);
+    console.log(newList);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
+  }
 
   return (
     <div>
@@ -58,9 +90,27 @@ function DetalhesComidas() {
         <button type="button" data-testid="share-btn">Compartilhar</button>
       </CopyToClipboard>
       {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-      <button type="button" data-testid="favorite-btn">
-        Adicionar aos favoritos
-      </button>
+      {
+        favorite
+          ? (
+            <input
+              type="image"
+              src={ blackHeartIcon }
+              data-testid="favorite-btn"
+              alt="favorite btn"
+              onClick={ removeFromFavorite }
+            />
+          )
+          : (
+            <input
+              type="image"
+              src={ whiteHeartIcon }
+              data-testid="favorite-btn"
+              alt="favorite btn"
+              onClick={ addToFavorite }
+            />
+          )
+      }
       <p data-testid="recipe-category">
         { meal.strCategory }
       </p>

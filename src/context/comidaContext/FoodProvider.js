@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
-import { requestMealRecipe, SearchMealByIngredient } from '../../services/API';
+import { requestFoodCategory, requestMealRecipe, SearchMealByIngredient } from '../../services/API';
 import GlobalContext from '../globalContext/GlobalContext';
 
 function FoodProvider({ children }) {
@@ -33,13 +33,15 @@ function FoodProvider({ children }) {
     fetchData();
   }, []);
 
-  const [checkedBox, setCheckedBox] = useState(false);
+  // const [checkedBox, setCheckedBox] = useState(false);
   const handleCheckedBox = (event) => {
     const { checked } = event.target.checked;
+    const { element } = event.target;
     if (checked) {
-      setCheckedBox(false);
+      element.className = 'checkedBox-true';
+    } else {
+      element.className = 'checkedBox-false';
     }
-    setCheckedBox(true);
   };
 
   const [doneRecipe, setDoneRecipe] = useState([]);

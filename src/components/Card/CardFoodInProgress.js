@@ -107,7 +107,7 @@ function CardFoodInProgress({ alreadyFavorited }) {
                 <li
                   key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
-                  className={ `checkedBox-${checkedBox}` }
+                  className="checkedBox-false"
                 >
                   <input
                     type="checkbox"

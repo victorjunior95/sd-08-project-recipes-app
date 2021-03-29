@@ -4,7 +4,6 @@ import styles from '../styles/components/Card.module.css';
 
 const Card = ({ name, thumbnail, index, category, ...rest }) => (
   <div
-    // data-testid={ `${index}-recipe-card` }
     className={ styles.card }
     { ...rest }
   >

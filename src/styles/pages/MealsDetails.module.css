@@ -1,0 +1,90 @@
+.photo {
+  background-position: center;
+  background-size: cover;
+  height: 240px;
+  width: 100%;
+}
+
+.mealsDetailsContainer {
+  padding: 10px;
+}
+
+.mealsDetailsContainer > *:not( :last-child ) {
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  opacity: 0.6;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+}
+
+.controls a {
+  display: flex;
+  padding: 5px;
+}
+
+.ingredientsContainer h2 {
+  margin-bottom: 10px;
+}
+
+.ingredients {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.instructionsContainer h2 {
+  margin-bottom: 10px;
+}
+
+.instructions {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.videoContainer h2 {
+  margin-bottom: 10px;
+}
+
+.videoContainer iframe {
+  border-radius: 4px;
+  width: 100%;
+}
+
+.homeButton {
+  background: white;
+  border-radius: 50%;
+  box-shadow: -1px -1px 5px rgba(255, 255, 255, 0.3);
+  color: white;
+  font-family: monospace;
+  font-size: 0;
+  font-weight: 700;
+  left: 0;
+  margin: 15px;
+  position: fixed;
+  top: 0;
+}
+
+.homeButton img {
+  color: white;
+  left: -1px;
+  position: relative;
+  top: -1px;
+  transform: scale(1.1);
+  width: 40px;
+}

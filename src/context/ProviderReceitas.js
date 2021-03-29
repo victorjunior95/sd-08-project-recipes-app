@@ -22,7 +22,7 @@ function ProviderReceitas({ children }) {
       if (search.type === 'f' && search.search.length > 1) {
         return window.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      const comidasResultado = tituloDaPagina === 'Comidas'
+      const comidasResultado = tituloDaPagina.includes('Comidas')
         ? await resultadoApiComidas(search.type, search.search)
         : await resultadoApiBebidas(search.type, search.search);
 

@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CartaoReceitaBebidas from '../components/CartaoReceitaBebidas';
 
-const CINQUENTA = 50;
+// const CINQUENTA = 50;
 function Bebidas() {
   const {
     apiResult,
@@ -14,7 +14,7 @@ function Bebidas() {
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
     categoriasBebidas,
-    bebidas,
+    // bebidas,
     setBebidas,
   } = useContext(ContextReceitas);
 
@@ -42,7 +42,7 @@ function Bebidas() {
             {strCategory}
           </button>))}
 
-      { bebidas && bebidas.map((bebida, index) => (
+      {/* { bebidas && bebidas.map((bebida, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ bebida.idDrink }>
           <img
             width={ `${CINQUENTA}vh` }
@@ -52,7 +52,7 @@ function Bebidas() {
           />
           <p data-testid={ `${index}-card-name` }>{ bebida.strDrink }</p>
         </div>
-      ))}
+      ))} */}
 
       {apiResult !== null
       && apiResult.length === 1

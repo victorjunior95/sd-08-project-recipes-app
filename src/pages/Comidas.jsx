@@ -6,10 +6,10 @@ import CartaoReceitaComidas from '../components/CartaoReceitaComidas';
 import ContextReceitas from '../context/ContextReceitas';
 import { fetchComidasAPI } from '../services/fetchComidas';
 
-const CENTOEOITENTA = 180;
+// const CENTOEOITENTA = 180;
 function Comidas() {
   const {
-    comidas,
+    // comidas,
     setComidas,
     apiResult,
     tituloDaPagina,
@@ -42,7 +42,7 @@ function Comidas() {
             {strCategory}
           </button>))}
 
-      { comidas && comidas.map((comida, index) => (
+      {/* { comidas && comidas.map((comida, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ comida.idMeal }>
           <img
             width={ `${CENTOEOITENTA}vw` }
@@ -52,7 +52,7 @@ function Comidas() {
           />
           <p data-testid={ `${index}-card-name` }>{ comida.strMeal }</p>
         </div>
-      ))}
+      ))} */}
 
       {apiResult !== null
       && apiResult.length === 1 && tituloDaPagina === 'Comidas'

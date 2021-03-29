@@ -143,12 +143,13 @@ function RecipeInProgress() {
   );
 
   return (
-    <div>
+    <div className="text-light">
       <img
-        alt=""
+        alt={ `Foto ${tipoReceita}` }
         width="100%"
         data-testid="recipe-photo"
-        src=""
+        src={ detalhesDaReceita[`str${tipoReceita === 'meals' ? 'Meal' : 'Drink'}Thumb`] }
+        tagName="img"
       />
 
       <h3 data-testid="recipe-title">Receita em progresso</h3>

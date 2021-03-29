@@ -67,7 +67,7 @@ const ReceitasFavoritas = () => {
       { favoriteRecipes.length === 0
         ? (
           <div className="cardBody">
-            <h1>Nenhum Receita Favoritada...</h1>
+            <h1 className="text-light">Nenhum Receita Favoritada...</h1>
             <h1>:-(</h1>
           </div>
         ) : (

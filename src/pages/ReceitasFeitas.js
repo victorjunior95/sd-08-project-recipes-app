@@ -52,7 +52,7 @@ const ReceitasFeitas = () => {
       { doneRecipes.length === 0
         ? (
           <div className="cardBody">
-            <h1>Nenhum Receita Feita...</h1>
+            <h1 className="text-light">Nenhum Receita Feita...</h1>
             <h1>:-(</h1>
           </div>
         ) : (

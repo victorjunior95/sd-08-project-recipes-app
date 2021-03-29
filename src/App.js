@@ -14,6 +14,7 @@ import ExplorarComidasEBebidas from './pages/ExplorarComidasEBebidas';
 import ExplorarIngredientes from './pages/ExplorarIngredientes';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import ExplorarLocalDeOrigem from './pages/ExplorarLocalDeOrigem';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <Switch>
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
-        <Route path="/explorar/comidas/area" component={ ExplorarIngredientes } />
+        <Route path="/explorar/comidas/area" component={ ExplorarLocalDeOrigem } />
         <Route path="/comidas/:id/in-progress" component={ ReceitaEmProcesso } />
         <Route path="/bebidas/:id/in-progress" component={ ReceitaEmProcesso } />
         <Route path="/explorar/comidas" component={ ExplorarComidasEBebidas } />

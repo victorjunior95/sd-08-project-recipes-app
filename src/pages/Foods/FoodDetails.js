@@ -59,7 +59,7 @@ export default function FoodDetails({ match: { params: { id } } }) {
           image: strMealThumb,
         } }
       />
-      <h5 data-testid="recipe-category">{ strCategory }</h5>
+      <h5 data-testid="recipe-category">{strCategory}</h5>
       {ingredients.map((ingredient, index) => (
         <p
           data-testid={ `${index}-ingredient-name-and-measure` }

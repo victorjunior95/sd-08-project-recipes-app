@@ -11,6 +11,8 @@ const Provider = ({ children }) => {
   };
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [nameIngredient, setNameIngredient] = useState('');
+
   const setMeals = async (array) => {
     if (array.meals === null) {
       // eslint-disable-next-line no-alert
@@ -56,7 +58,16 @@ const Provider = ({ children }) => {
     }
   };
 
-  const context = { handleHeaderSearch, food, drink, recipesFetch };
+  console.log(drink);
+
+  const context = {
+    handleHeaderSearch,
+    food,
+    drink,
+    recipesFetch,
+    nameIngredient,
+    setNameIngredient,
+  };
   return (
     <div>
       <LariContext.Provider value={ context }>

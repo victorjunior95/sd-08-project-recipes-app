@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { ingredients } from '../../services';
+import LariContext from '../../context/Context';
 
 const Teste = ({ type }) => {
+  const { setNameIngredient } = useContext(LariContext);
+
   const history = useHistory();
+
   const [arrayOfIngredients, setArrayOfIngredients] = useState([]);
 
   const TOTAL_CARDS = 12;
@@ -20,7 +24,9 @@ const Teste = ({ type }) => {
     responseAPI();
   }, [type]);
 
-  const redirect = (path) => {
+  const redirect = (name, path) => {
+    // console.log(name);
+    setNameIngredient(name);
     history.push(path);
   };
 
@@ -37,7 +43,7 @@ const Teste = ({ type }) => {
                 type="button"
                 key={ name }
                 data-testid={ `${index}-ingredient-card` }
-                onClick={ () => redirect('/comidas') }
+                onClick={ () => redirect(name, `/${type}`) }
               >
                 <p data-testid={ `${index}-card-name` }>{name}</p>
                 <img

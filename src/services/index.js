@@ -37,7 +37,7 @@ export const fetchDrink = async () => {
 export const categoryFood = async () => {
   const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((response) => response.json());
-  console.log(result.meals);
+  // console.log(result.meals);
   return result.meals;
 };
 export const categoryDrink = async () => {

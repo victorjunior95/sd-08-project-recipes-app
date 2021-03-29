@@ -21,9 +21,9 @@ function App() {
     <ProviderRecipes>
       <Switch>
         <Route path="/explorar/comidas/area" component={ NotFound } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
-        <Route path="/explorar/comidas/area" component={ ExplorarIngredientes } />
         <Route path="/comidas/:id/in-progress" component={ ReceitaEmProcesso } />
         <Route path="/bebidas/:id/in-progress" component={ ReceitaEmProcesso } />
         <Route path="/explorar/comidas" component={ ExplorarComidasEBebidas } />

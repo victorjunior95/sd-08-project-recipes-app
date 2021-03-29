@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { requestMealsByAreaList,
   requestAreaList,
   requestRecipesList } from '../services/apiRequests';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import HeaderWithSearch from '../components/HeaderWithoutSearch';
 import Footer from '../components/Footer';
 
 function ExplorarComidasOrigem() {
@@ -38,7 +38,7 @@ function ExplorarComidasOrigem() {
   return (
     <div>
       <div>
-        <HeaderWithoutSearch />
+        <HeaderWithSearch />
       </div>
       <div>
         <select

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { saveInProgress } from '../../redux/actions/details';
 import { useIsMeal } from '../../services/customHooks';
 import { loadFromStorage, saveOnStorage, makeListWithObj } from '../../services/utils';
 
@@ -28,6 +27,9 @@ export default function StepList() {
   function initialCheck() {
     const inProgressStorage = loadFromStorage('inProgressRecipes');
     if (inProgressStorage === null) {
+      return arrayIngredients.map(() => false);
+    }
+    if (inProgressStorage[mealCocktail][actualId] === undefined) {
       return arrayIngredients.map(() => false);
     }
     return inProgressStorage[mealCocktail][actualId];

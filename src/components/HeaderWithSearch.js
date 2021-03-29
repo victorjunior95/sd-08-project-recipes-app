@@ -12,7 +12,7 @@ function HeaderWithSearch() {
   return (
     <header>
       <div data-testid="header" className="header">
-        <button type="button" onClick={ () => history.push('./perfil') }>
+        <button type="button" onClick={ () => history.push('/perfil') }>
           <img
             src={ profileIcon }
             data-testid="profile-top-btn"

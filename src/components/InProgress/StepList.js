@@ -26,10 +26,8 @@ export default function StepList() {
 
   function initialCheck() {
     const inProgressStorage = loadFromStorage('inProgressRecipes');
-    if (inProgressStorage === null) {
-      return arrayIngredients.map(() => false);
-    }
-    if (inProgressStorage[mealCocktail][actualId] === undefined) {
+    if (inProgressStorage === null
+      || inProgressStorage[mealCocktail][actualId] === undefined) {
       return arrayIngredients.map(() => false);
     }
     return inProgressStorage[mealCocktail][actualId];

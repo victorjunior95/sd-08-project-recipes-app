@@ -8,11 +8,12 @@ import {
 import Context from '../context/Context';
 
 function DrinksList() {
-  const { searchParams, inputValue } = useContext(Context);
+  const { searchParams, inputValue, setIsLoading } = useContext(Context);
   const [allDrinks, setAllDrinks] = useState([]);
   const MAX_INDEX = 11;
   useEffect(() => {
     async function requestDrinks(searchFilter, value) {
+      setIsLoading(true);
       if (searchFilter === '') {
         const drinks = await requestDrinksList();
         setAllDrinks(drinks);
@@ -26,9 +27,10 @@ function DrinksList() {
         const drinks = await requestDrinksByNameOrFirstLetter('s', value);
         setAllDrinks(drinks);
       }
+      setIsLoading(false);
     }
     requestDrinks(searchParams, inputValue);
-  }, [searchParams, inputValue]);
+  }, [searchParams, inputValue, setIsLoading]);
   return (
     <main>
       {

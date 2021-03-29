@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import Loading from '../components/Loading';
+import Context from '../context/Context';
 import { requestMealRecipe } from '../services/apiRequests';
 
 function DetalhesComidas() {
@@ -7,7 +9,7 @@ function DetalhesComidas() {
   const { id } = params;
   const [meal, setMeal] = useState([]);
   const [recipe, setRecipe] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, setIsLoading } = useContext(Context);
   // const [ingredientList, setIngredientList] = useState([]);
 
   // console.log(params.id);
@@ -28,57 +30,64 @@ function DetalhesComidas() {
 
   useEffect(() => {
     async function requestById() {
+      setIsLoading(true);
       console.log('teste', id);
       const clickedRecipe = await requestMealRecipe(id);
       console.log('clickedRecipe:', clickedRecipe);
       setMeal(clickedRecipe[0]);
       setRecipe(parseRecipe(clickedRecipe[0]));
-      setLoading(false);
+      setIsLoading(false);
       console.log(clickedRecipe[0]);
     }
     requestById();
-  }, [id]);
+  }, [id, setIsLoading]);
 
   // console.log('teste meal array:', meal[0]);
   // console.log('acessando chaves do objeto meal:', meal && meal.length && meal[0].strMealThumb);
 
-  if (loading) {
-    return (
-      <p>Loading</p>
-    );
-  }
   return (
     <div>
-      <h1 data-testid="recipe-title">{meal.strMeal}</h1>
-      <img src={ meal.strMealThumb } alt="imagem" data-testid="recipe-photo" />
-      <button type="button" data-testid="share-btn">
-        Compartilhar
-      </button>
-      <button type="button" data-testid="favorite-btn">
-        Adicionar aos favoritos
-      </button>
-      <p data-testid="recipe-category">
-        { meal.strCategory }
-      </p>
-      <ul>
-        { recipe.map((item, index) => (
-          <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-            <span>{ `${item.measure} ${item.ingredient}` }</span>
-          </li>
-        ))}
-      </ul>
-      <p data-testid="instructions">
-        { meal.strInstructions }
-      </p>
-      <video src={ meal.strYoutube } data-testid="video" controls>
-        <track kind="captions" />
-      </video>
-      <div>
-        <p data-testid="0-recomendation-card">Recomendação</p>
-      </div>
-      <button type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
+      {
+        isLoading
+          ? <Loading />
+          : (
+            <>
+              <h1 data-testid="recipe-title">{meal.strMeal}</h1>
+              <img src={ meal.strMealThumb } alt="imagem" data-testid="recipe-photo" />
+              <button type="button" data-testid="share-btn">
+                Compartilhar
+              </button>
+              <button type="button" data-testid="favorite-btn">
+                Adicionar aos favoritos
+              </button>
+              <p data-testid="recipe-category">
+                { meal.strCategory }
+              </p>
+              <ul>
+                { recipe.map((item, index) => (
+                  <li
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                    key={ index }
+                  >
+                    <span>{ `${item.measure} ${item.ingredient}` }</span>
+                  </li>
+                ))}
+              </ul>
+              <p data-testid="instructions">
+                { meal.strInstructions }
+              </p>
+              <video src={ meal.strYoutube } data-testid="video" controls>
+                <track kind="captions" />
+              </video>
+              <div>
+                <p data-testid="0-recomendation-card">Recomendação</p>
+              </div>
+              <button type="button" data-testid="start-recipe-btn">
+                Iniciar Receita
+              </button>
+            </>
+          )
+      }
     </div>
   );
 }

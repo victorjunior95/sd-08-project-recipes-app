@@ -1,17 +1,23 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
 
 import SearchBar from '../../components/SearchBar';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import DrinkCard from '../../components/DrinkCard';
 import CategoryBar from '../../components/CategoryBar';
 import { LIMIT_OF_CARDS } from '../../common/defs';
 
-export default function Cocktails({ history }) {
-  const { drinks, isShow } = useContext(RecipesContext);
+export default function Cocktails() {
+  const { drinks, isShow, setShouldRenderAll } = useContext(RecipesContext);
+
+  useEffect(() => (
+    () => {
+      setShouldRenderAll(true);
+    }
+  ));
 
   return (
     <div>
@@ -28,14 +34,12 @@ export default function Cocktails({ history }) {
               key={ index }
               drink={ drink }
               index={ index }
-              history={ history }
             />
           );
         }
         return null;
       })}
+      <Footer />
     </div>
   );
 }
-
-Cocktails.propTypes = ({ history: PropTypes.objectOf(PropTypes.string).isRequired });

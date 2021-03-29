@@ -5,7 +5,6 @@ import DrinkContext from '../../../context/bebidaContext/DrinkContext';
 import CardDrinkDetails from '../../../components/Card/CardDrinkDetails';
 import FoodRecomendation from '../../../components/Carousel/FoodRecomendation';
 import Header from '../../../components/Header';
-import Footer from '../../../components/footer';
 
 function BebidaDetalhes() {
   const {
@@ -25,6 +24,9 @@ function BebidaDetalhes() {
     if (localStorage.getItem('inProgressRecipes') === null) {
       const obj = { cocktails: {}, meals: {} };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    if (localStorage.getItem('doneRecipes') === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
     setLoading(false);
   }, []);
@@ -66,7 +68,6 @@ function BebidaDetalhes() {
         </>
       )}
       </section>
-      <Footer />
     </>
   );
 }

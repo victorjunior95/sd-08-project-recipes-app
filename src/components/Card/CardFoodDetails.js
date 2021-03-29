@@ -61,6 +61,9 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
     setRedirect(true);
   }
 
+  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  const recipeFinished = recipesDone.some((item) => item.id === idDaReceita);
+
   if (redirect) return <Redirect to={ `/comidas/${idDaReceita}/in-progress` } />;
 
   return (
@@ -105,14 +108,16 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
           <p data-testid="video">{item.strYoutube}</p>
         </div>
       ))}
-      <button
-        type="button"
-        onClick={ () => { startRecipe(); } }
-        className="start-recipe"
-        data-testid="start-recipe-btn"
-      >
-        {(recipeStarted) ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
+      {!recipeFinished
+      && (
+        <button
+          type="button"
+          onClick={ () => { startRecipe(); } }
+          className="start-recipe"
+          data-testid="start-recipe-btn"
+        >
+          {(recipeStarted) ? 'Continuar Receita' : 'Iniciar Receita'}
+        </button>)}
     </section>
   );
 }

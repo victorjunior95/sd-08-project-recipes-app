@@ -79,12 +79,11 @@ const Detalhes = () => {
           const ingMeasure = foodDetails[ingredient.replace('Ingredient', 'Measure')];
 
           return (
-            <div key={ ingredient }>
+            <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
               {`${ingredientName} - ${ingMeasure}`}
               <input
                 type="checkbox"
-                data-testid={ `${index}-ingredient-name-and-measure` }
-
+                value={ `${ingredientName} - ${ingMeasure}` }
               />
             </div>
           );
@@ -92,7 +91,7 @@ const Detalhes = () => {
       }
       <p data-testid="instructions">{foodDetails.strInstructions}</p>
 
-      <button type="button" data-testid="start-recipe-btn">Finalizar Receita</button>
+      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
     </div>
   );
 };

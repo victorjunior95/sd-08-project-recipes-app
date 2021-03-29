@@ -83,7 +83,7 @@ function addRecipeStep(correctId, params) {
 }
 
 export default function StepList() {
-  // const [checks, setChecks] = useState([]);
+  const [checked, setChecked] = useState(false);
   const isMeal = useIsMeal();
   const actualRecipe = useSelector((state) => state.detailsReducer.actualRecipe);
   const progress = useSelector((state) => state.detailsReducer.progress);
@@ -97,6 +97,7 @@ export default function StepList() {
   useEffect(() => {
     const inProgressRecipes = loadFromStorage('inProgressRecipes');
     if (inProgressRecipes != null) {
+      setChecked(true);
       dispatch(saveInProgress(inProgressRecipes));
     }
   }, []);
@@ -111,26 +112,29 @@ export default function StepList() {
     progress,
     dispatch,
   };
-
+  console.log(checked);
   return (
     <div>
       <h1>Ingredients</h1>
       <ul className="ingredients-list">
         { arrayIngredients.map((e, i) => (
-          <li
-            data-testid={ `${i}-ingredient-step` }
-            key={ `ReactKey${e}${i}` }
-          >
-            <input
-              type="checkbox"
-              onChange={ () => addRecipeStep(i, addParams) }
-              checked={ matchChecked(i, addParams) }
-            />
-            -
-            {e}
-            -
-            { arrayMeasures[i] }
-          </li>
+          <label htmlFor={ `liIngridient${i}` } key={ `ReactKey${e}${i}` }>
+            <li
+              data-testid={ `${i}-ingredient-step` }
+            >
+              <input
+                id={ `liIngridient${i}` }
+                type="checkbox"
+                onChange={ () => addRecipeStep(i, addParams) }
+                value={ i }
+                checked={ checked }
+              />
+              -
+              {e}
+              -
+              { arrayMeasures[i] }
+            </li>
+          </label>
         )) }
       </ul>
     </div>

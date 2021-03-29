@@ -1,13 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import Recomendations from './Recomendations';
 import '../css/Details.css';
 
+const doneRecipes = [
+  {
+    id: '52771',
+    type: 'comida',
+    area: 'Italian',
+    category: 'Vegetarian',
+    alcoholicOrNot: '',
+    name: 'Spicy Arrabiata Penne',
+    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    doneDate: '23/06/2020',
+    tags: ['Pasta', 'Curry'],
+  },
+  {
+    id: '178319',
+    type: 'bebida',
+    area: '',
+    category: 'Cocktail',
+    alcoholicOrNot: 'Alcoholic',
+    name: 'Aquamarine',
+    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    doneDate: '23/06/2020',
+    tags: [],
+  },
+];
 function Details(props) {
   const history = useHistory();
   const { currentFood, ingredients } = props;
+  const [disabled, setDisabled] = useState(false);
+  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  const [doneList] = useState(JSON.parse(
+    localStorage.getItem('doneRecipes') || '{}',
+  ));
+
+  useEffect(() => {
+    function disabledBtn() {
+      const currentId = currentFood.idMeal || currentFood.idDrink;
+      const filterFood = doneList.filter((filter) => (
+        filter.id === currentId
+      ));
+      if (filterFood.length > 0) {
+        setDisabled(true);
+      }
+    }
+    disabledBtn();
+  }, [currentFood]);
 
   const ytVideo = () => (
     currentFood.strYoutube ? <iframe
@@ -65,6 +107,7 @@ function Details(props) {
         { ytVideo() }
         <Recomendations />
         <Button
+          disabled={ disabled }
           className="start-recipe-btn"
           datatestid="start-recipe-btn"
           label="Iniciar Receita"

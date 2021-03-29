@@ -5,7 +5,7 @@ import { Spinner } from 'react-bootstrap';
 
 function Loading() {
   return (
-    <Spinner animation="border" variant="primary" />
+    <Spinner animation="border" variant="primary" className="mx-auto" />
   );
 }
 

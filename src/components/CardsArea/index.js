@@ -11,17 +11,20 @@ function CardsArea({ type }) {
   const TWELVE_CARDS = 12;
   if (type === 'foods') {
     return (
-      <Container className="d-flex flex-column align-items-center m-0 p-0">
+      <Container
+        className="d-flex flex-row flex-wrap align-items-center justify-content-center"
+      >
         { !meals ? <p> nada por aqui! </p>
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : meals.map(
-            ({ strMeal, strMealThumb }, index) => (
+            ({ strMeal, strMealThumb, idMeal }, index) => (
               index < TWELVE_CARDS && (
                 <Cards
                   key={ strMeal }
                   name={ strMeal }
                   thumbSrc={ strMealThumb }
                   index={ index }
+                  id={ idMeal }
                 />)),
           )}
       </Container>
@@ -29,17 +32,20 @@ function CardsArea({ type }) {
   }
   if (type === 'drinks') {
     return (
-      <Container>
+      <Container
+        className="d-flex flex-row flex-wrap align-items-center justify-content-center"
+      >
         { !drinks ? <p> nada por aqui! </p>
         && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
           : drinks.map(
-            ({ strDrink, strDrinkThumb }, index) => (
+            ({ strDrink, strDrinkThumb, idDrink }, index) => (
               index < TWELVE_CARDS && (
                 <Cards
                   key={ strDrink }
                   name={ strDrink }
                   thumbSrc={ strDrinkThumb }
                   index={ index }
+                  id={ idDrink }
                 />)),
           )}
       </Container>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import { Button, Form, Container } from 'react-bootstrap';
 import { setLocalStorage } from '../../services/localStorage';
-import './login.css';
+import './styles.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');

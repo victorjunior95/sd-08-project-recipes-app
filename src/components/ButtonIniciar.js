@@ -55,7 +55,6 @@ function ButtonIniciar({ id }) {
 
   const verifyId = () => {
     let newArray = [];
-    console.log(localStorage.getItem('inProgressRecipes'));
     if (localStorage.getItem('inProgressRecipes') !== null) {
       const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (value.includes('comidas')) {
@@ -65,7 +64,6 @@ function ButtonIniciar({ id }) {
       if (value.includes('bebidas')) {
         const novaVariavelFood = Object.keys(inProgress.cocktails);
         newArray = [...novaVariavelFood];
-        console.log(newArray);
       }
     }
     return newArray;

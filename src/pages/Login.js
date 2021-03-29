@@ -1,14 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
 function Login() {
   const numberLength = 5;
   const [disabled, setDisabled] = useState(true);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory();
   const { data } = useContext(Context);
+
+  useEffect(() => {
+    localStorage.setItem('mealsToken', data.mealsToken);
+    localStorage.setItem('cocktailsToken', data.cocktailsToken);
+    localStorage.setItem('user', JSON.stringify(data.user));
+  }, [data.user, data.mealsToken, data.cocktailsToken]);
 
   function validEmail(typedEmail) {
     const regex = /\S+@\S+\.\S+/;
@@ -56,8 +62,9 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabled }
-        onClick={ () => {
-          data.setUser({ email });
+        onClick={ async () => {
+          await data.setUser({ email });
+          localStorage.setItem('user', JSON.stringify(data.user));
           history.push('/comidas');
         } }
       >

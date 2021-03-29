@@ -1,54 +1,69 @@
 import React from 'react';
-// import { render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/dom';
 import renderWithRouter from '../routes/renderWithRouter';
 
-import App from '../App';
 import Login from '../pages/Login';
 
-const emailInput = 'email-input';
-const passwordInput = 'password-input';
-const buttonLogin = 'login-submit-btn';
+const setup = () => {
+  const utils = renderWithRouter(<Login />);
+  const img = utils.getByRole('img');
+  const emailInput = utils.getByTestId('email-input');
+  const passwordInput = utils.getByTestId('password-input');
+  const buttonLogin = utils.getByTestId('login-submit-btn');
+  return {
+    img,
+    emailInput,
+    buttonLogin,
+    passwordInput,
+    ...utils,
+  };
+};
 
 describe('Testing page Login', () => {
   test('should Login Image', () => {
-    const { getByRole } = renderWithRouter(<App />);
-    const img = getByRole('img');
+    const { img } = setup();
     expect(img.className).toBe('login-img-logo');
   });
 
   test('should Exist Text Digite seu email:', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
-    const inputEmail = getByTestId(emailInput);
-    expect(inputEmail.previousSibling.textContent).toBe('Digite seu email:');
+    const { emailInput } = setup();
+    expect(emailInput.previousSibling.textContent).toBe('Digite seu email:');
   });
 
   test('should Exist Input Email', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
-    const inputEmail = getByTestId(emailInput);
-    expect(inputEmail).toBeInTheDocument();
+    const { emailInput } = setup();
+    expect(emailInput).toBeInTheDocument();
   });
 
   test('should Exist Text Digite sua Senha:', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
-    const inputPassword = getByTestId(passwordInput);
-    expect(inputPassword.previousSibling.textContent).toBe('Digite sua Senha:');
+    const { passwordInput } = setup();
+    expect(passwordInput.previousSibling.textContent).toBe('Digite sua Senha:');
   });
 
   test('should Exist Input Password', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
-    const inputPassword = getByTestId(passwordInput);
-    expect(inputPassword).toBeInTheDocument();
+    const { passwordInput } = setup();
+    expect(passwordInput).toBeInTheDocument();
   });
 
   test('should Exist Button Login', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
-    const btn = getByTestId(buttonLogin);
-    expect(btn).toBeInTheDocument();
+    const { buttonLogin } = setup();
+    expect(buttonLogin).toBeInTheDocument();
   });
 
   test('should Text Button Login to equal Entrar', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
-    const btn = getByTestId(buttonLogin);
-    expect(btn.textContent).toBe('Entrar');
+    const { buttonLogin } = setup();
+    expect(buttonLogin.textContent).toBe('Entrar');
+  });
+
+  test('should Button after Login to Disabled', () => {
+    const { buttonLogin } = setup();
+    expect(buttonLogin).toBeDisabled();
+  });
+
+  test('should type email and password Button to UnDisabled', () => {
+    const { buttonLogin, emailInput, passwordInput } = setup();
+    fireEvent.change(emailInput, { target: { value: 'rafa@rafa.com' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    expect(buttonLogin).not.toBeDisabled();
   });
 });

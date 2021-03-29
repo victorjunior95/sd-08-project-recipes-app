@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import {
   getReceitaBebidasDetalhesPorId,
   getReceitaComidasDetalhesPorId,
@@ -9,16 +10,15 @@ import {
 } from '../services/BuscaNasAPIs';
 import {
   getIngredientes,
-  checkIngrediente,
+  // checkIngrediente,
   copyLink,
   checkFavoritos,
   adicionarFavorito,
-  salvarReceitaFeita,
+  // salvarReceitaFeita,
 } from '../services/services';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
-import { Button } from 'react-bootstrap';
 
 const NUMERO_MAXIMO_RECOMENDACOES_RECEITAS = 6;
 
@@ -99,7 +99,7 @@ const renderReceitaVideo = (detalhesDaReceita) => (
   />
 );
 // const renderReceitaQuadroRecomendacao = () => (
-//   <div 
+//   <div
 //     width="90%"
 //     data-testid="instructions">{detalhesDaReceita.strInstructions}</div>
 // );

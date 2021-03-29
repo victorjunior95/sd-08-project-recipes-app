@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import {
   getIngredientes,
   checkIngrediente,
@@ -15,7 +16,6 @@ import {
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
-import { Button } from 'react-bootstrap';
 
 // Página de ingredientes de comida para teste (retirado do avaliador): http://localhost:3000/comidas/52771/in-progress
 // Página de ingredientes de bebida para teste (retirado do avaliador): http://localhost:3000/bebidas/178319/in-progress

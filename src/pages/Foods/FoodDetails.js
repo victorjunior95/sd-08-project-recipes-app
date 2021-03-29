@@ -19,7 +19,7 @@ function FoodDetails(props) {
   const { match: { params: { id } } } = props;
   const { drinkApi: { drinks } } = useContext(DrinkCtx);
   const [favorites, updateFavorites] = useFavoritesHook();
-  const [addIProgressRecipe] = useInProgressRecipeHook();
+  const [addFoodInProgress] = useInProgressRecipeHook();
   const STOP_INDEX = 5;
   const [
     setId,
@@ -67,11 +67,10 @@ function FoodDetails(props) {
   }
 
   function handleStartRecipeClick() {
-    const newRecipe = {
-      id,
-      ingList: ingredientsAndMeasuresList,
+    const newFoodInProgress = {
+      [id]: ingredientsAndMeasuresList,
     };
-    addIProgressRecipe(newRecipe, 'comida');
+    addFoodInProgress(newFoodInProgress);
     setShouldRedirect(true);
   }
 

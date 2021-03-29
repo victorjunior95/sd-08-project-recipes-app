@@ -16,6 +16,15 @@ export default function RecipeCategory({ recipeType }) {
 
   const [selectedCategory, setSelectedCategory] = useState('all');
 
+  async function toggleFunc([serviceEndpoint, category], categoryValue) {
+    await onClickCategoryFetch(serviceEndpoint, category);
+    if (categoryValue !== 'all') {
+      setSelectedCategory(categoryValue);
+      if (selectedCategory === categoryValue) setToggle(false);
+      else setToggle(true);
+    } else setToggle(false);
+  }
+
   useEffect(() => {
     requestApiCategory();
   }, []);
@@ -26,15 +35,6 @@ export default function RecipeCategory({ recipeType }) {
       : apiReturnCategory.length && apiReturnCategory[1];
     const endpoint = type === 'meals' ? 'themealdb' : 'thecocktaildb';
     const typeCategoryPopulated = typeCategory[type];
-
-    async function toggleFunc([serviceEndpoint, category], categoryValue) {
-      await onClickCategoryFetch(serviceEndpoint, category);
-      if (categoryValue !== 'all') {
-        setSelectedCategory(categoryValue);
-        if (selectedCategory === categoryValue) setToggle(false);
-        else setToggle(true);
-      } else setToggle(false);
-    }
 
     return (
       <div>

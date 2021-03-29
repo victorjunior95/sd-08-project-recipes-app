@@ -34,6 +34,7 @@ function DrinksRecipes() {
 
   return (
     <main>
+
       { drinks && drinks.length === 1
         && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Header />

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
 import { fetchRecipes, fetchRandomRecipe } from '../services/RequisicaoApi';
@@ -10,13 +10,9 @@ function Provider({ children }) {
   const [radioValue, setRadioValue] = useState('s');
   const [isFetching, setIsFetching] = useState(true);
   const [apiReturn, setApiReturn] = useState(null);
-
-  // async function requestApiData(endpoint) {
-  //   const searchType = radioValue === 'i' ? 'filter' : 'search';
-  //   setIsFetching(true);
-  //   setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
-  //   setIsFetching(false);
-  // }
+  const [apiReturnCategory, setApiReturnCategory] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   const requestApiData = useCallback(async (endpoint) => {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -28,6 +24,19 @@ function Provider({ children }) {
   async function requestRandomRecipe(endpoint) {
     setIsFetching(true);
     setApiReturn([await fetchRandomRecipe(endpoint)]);
+    setIsFetching(false);
+  }
+
+  async function requestApiCategory() {
+    const meals = await fetchRecipes('themealdb', 'list', 'c', 'list');
+    const drinks = await fetchRecipes('thecocktaildb', 'list', 'c', 'list');
+    setApiReturnCategory([meals, drinks]);
+    setIsFetching(false);
+  }
+
+  async function onClickCategoryFetch(endpoint, categoria) {
+    const recipesByCategory = await fetchRecipes(endpoint, 'filter', 'c', categoria);
+    setFilteredRecipes(recipesByCategory);
     setIsFetching(false);
   }
 
@@ -43,6 +52,12 @@ function Provider({ children }) {
     isFetching,
     apiReturn,
     requestApiData,
+    apiReturnCategory,
+    requestApiCategory,
+    onClickCategoryFetch,
+    filteredRecipes,
+    setToggle,
+    toggle,
     requestRandomRecipe,
   };
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import ExplorarComidas from './components/ExplorarComidas';
+import ExplorarComidas from './Pages/Explorar/ExplorarComidas';
 import Provider from './context/Provider';
 import Bebidas from './Pages/Bebidas';
 import Comidas from './Pages/Comidas';
 import Detalhes from './Pages/Detalhes';
-import Explorar from './Pages/Explorar';
+import Explorar from './Pages/Explorar/Explorar';
 import Login from './Pages/Login';
 import Perfil from './Pages/Perfil';
 import DetalhesInProgress from './Pages/DetalhesInProgress';
@@ -15,6 +15,7 @@ import NotFound from './Pages/NotFound';
 
 import './App.css';
 import ReceitasFavoritas from './Pages/ReceitasFavoritas';
+import ExplorarBebidas from './Pages/Explorar/ExplorarBebidas';
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
         <Route exact path="/bebidas/:id/in-progress" component={ DetalhesInProgress } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
         <Route component={ NotFound } />
       </Switch>
     </Provider>

@@ -7,6 +7,7 @@ import updateLocalStorage from '../services/updateLocalStorage';
 import readLocalStorage from '../services/readLocalStorage';
 import getResultFromAPI from '../api/getResultFromAPI';
 import createIngredientsArray from '../services/createIngredientsArray';
+import FavoriteButton from './FavoriteButton';
 
 function InProgressFood() {
   const { pathname } = useLocation();
@@ -53,7 +54,7 @@ function InProgressFood() {
           { currentFood.strMeal || currentFood.strDrink }
         </h1>
         <ShareButton path={ `${pathAndId[0]}` } />
-        <p data-testid="favorite-btn">btnFavorito</p>
+        <FavoriteButton currentFood={ currentFood } />
         <h6
           data-testid="recipe-category"
         >

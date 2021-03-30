@@ -1,63 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
-const favoriteRecipes = [{
-  id: '52771',
-  type: 'comida',
-  area: 'Italian',
-  category: 'Vegetarian',
-  alcoholicOrNot: '',
-  name: 'Spicy Arrabiata Penne',
-  image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-}];
+import { checkFavoritesLocal, addFavoritesLocal,
+  removeFavoritesLocal } from '../services/favoritesLocalStorage';
 
 const FavoriteButton = (props) => {
-  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-  const [favRecipes] = useState(JSON.parse(
-    localStorage.getItem('favoriteRecipes') || '{}',
-  ));
-  console.log(favRecipes);
-  const [changeButton, setChangeButton] = useState(false);
+  const [changeButton, setChangeButton] = useState(true);
+  const { pathname } = useLocation();
+  const pathAndId = pathname.match(/(\/[comidas||bebidas]+)\/([0-9]+)+/);
   const { currentFood } = props;
-  let typeRecipe = 'comida';
-  const objList = {
-    id: currentFood.idMeal || currentFood.idDrink,
-    type: typeRecipe,
-    area: currentFood.strArea,
-    category: currentFood.strCategory,
-    alcoholicOrNot: currentFood.strAlcoholic || '',
-    name: currentFood.strMeal || currentFood.strDrink,
-    image: currentFood.strMealThumb || currentFood.strDrinkThumb,
+  const typeRecipe = {
+    '/comidas': 'comida',
+    '/bebidas': 'bebida',
   };
 
-  async function favRecipesBtn() {
-    console.log(favRecipes);
-    const favoriteList = favRecipes;
-    if (changeButton === true) {
-      favoriteList.splice(favoriteList.indexOf(objList), 1);
-      await localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
+  useEffect(() => {
+    setChangeButton(checkFavoritesLocal(pathAndId[2]));
+  }, []);
+
+  function generateFavoriteObject(food) {
+    const objList = {
+      id: food.idMeal || food.idDrink,
+      type: typeRecipe[pathAndId[1]],
+      area: food.strArea || '',
+      category: food.strCategory,
+      alcoholicOrNot: food.strAlcoholic || '',
+      name: food.strMeal || food.strDrink,
+      image: food.strMealThumb || food.strDrinkThumb,
+    };
+    return objList;
+  }
+
+  function favRecipesBtn() {
+    if (changeButton) {
+      removeFavoritesLocal(pathAndId[2]);
       setChangeButton(false);
     } else {
-      favoriteList.concat(objList);
-      await localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
+      addFavoritesLocal(generateFavoriteObject(currentFood));
       setChangeButton(true);
     }
   }
-
-  useEffect(() => {
-    if (currentFood.idMeal === undefined) {
-      typeRecipe = 'bebida';
-    }
-    const recipeId = currentFood.idMeal || currentFood.idDrink;
-    const favoriteList = favRecipes.filter((filter) => (
-      filter.id === recipeId
-    ));
-    if (favoriteList.length > 0) {
-      setChangeButton(true);
-    }
-  }, [currentFood]);
 
   return (
     <input

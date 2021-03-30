@@ -66,7 +66,10 @@ function Details(props) {
           src={ shareIcon }
           alt="share"
           data-testid="share-btn"
-          onClick={ () => setMessage(true) || copy(`http://localhost:3000${history.location.pathname}`) }
+          onClick={ () => {
+            setMessage(true);
+            copy(`http://localhost:3000${history.location.pathname}`);
+          } }
         />
         { message ? renderMessage() : null }
         <FavoriteButton currentFood={ currentFood } />

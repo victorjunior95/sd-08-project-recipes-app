@@ -15,7 +15,7 @@ const Button = ({ className, label, onClick, datatestid, disabled }) => (
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   datatestid: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
@@ -23,6 +23,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   disabled: false,
+  className: '',
 };
 
 export default Button;

@@ -23,6 +23,7 @@ const MAX_RECIPES = 12;
 const MAX_RECOMMENDATIONS = 6;
 
 const recipes = (state = INITIAL_STATE, action) => {
+  const doneDate = new Date();
   switch (action.type) {
   case REQUEST_RECIPES:
     return { ...state, isFetching: true };
@@ -40,7 +41,9 @@ const recipes = (state = INITIAL_STATE, action) => {
         [action.selectedType]:
           { ...state.start[action.selectedType], ...action.payload } } };
   case END_RECIPE:
-    return { ...state, done: [...state.done, action.payload] };
+    return { ...state,
+      done: [...state.done,
+        { ...action.payload, doneDate: doneDate.toLocaleDateString('pt-Br') }] };
   case ADD_FAVORITE:
     return { ...state, favorite: [...state.favorite, action.payload] };
   case RM_FAVORITE:

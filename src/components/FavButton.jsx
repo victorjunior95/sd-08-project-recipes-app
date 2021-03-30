@@ -5,7 +5,7 @@ import { addFavorite, removeFavorite } from '../actions/recipes';
 import FavIcon from '../images/whiteHeartIcon.svg';
 import BlackFavIcon from '../images/blackHeartIcon.svg';
 
-function FavButton({ type, recipe }) {
+function FavButton({ type, recipe, index }) {
   const favorite = useSelector((state) => state.recipes.favorite);
   const dispatch = useDispatch();
   // const formatedType = type === 'Meal' ? 'comida' : 'bebida';
@@ -35,7 +35,8 @@ function FavButton({ type, recipe }) {
   return (
     <button type="button" onClick={ handleClick }>
       <img
-        data-testid="favorite-btn"
+        data-testid={ index !== undefined
+          ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
         src={ favorite
           .some((rec) => recipe.id === rec.id && type.startsWith(rec.type))
           ? BlackFavIcon : FavIcon }
@@ -48,6 +49,7 @@ function FavButton({ type, recipe }) {
 FavButton.propTypes = {
   recipe: PropTypes.shape().isRequired,
   type: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default FavButton;

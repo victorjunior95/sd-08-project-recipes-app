@@ -6,6 +6,7 @@ import styles from '../styles/components/RenderIngredients.module.css';
 const RenderIngredients = ({ ingredients, measures }) => (
   <div className={ styles.ingredientsContainer }>
     <h2>Ingredients</h2>
+    { console.log(ingredients, measures)}
     <section className={ styles.ingredients }>
       {ingredients
         .map((ingredient, index) => (

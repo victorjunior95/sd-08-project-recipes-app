@@ -21,6 +21,12 @@ export const getInProgress = () => localStorage.getItem('inProgressRecipes');
 
 export const getFavoriteRecipes = () => localStorage.getItem('favoriteRecipes');
 
+export const saveInProgressRecipe = (recipe) => {
+  const oldState = JSON.parse(getInProgress());
+  const newState = { ...oldState, [recipe.id]: recipe.ingredients };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newState));
+};
+
 export const clear = () => {
   clearUser();
   clearMealsToken();

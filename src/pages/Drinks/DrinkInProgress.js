@@ -3,7 +3,7 @@ import React from 'react';
 function DrinkInProgress() {
   return (
     <div>
-      Drink in Progress
+      Drink in Progress first commit
     </div>
   );
 }

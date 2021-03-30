@@ -14,6 +14,8 @@ import LogoutButton from './buttons/LogoutButton';
 import SearchDropDown from './SearchDropDown';
 import MainIngredientCard from './MainIngredientCard';
 import MainIngredientDrinkCard from './MainIngredientDrinkCard';
+import DoneAndFavoriteButtons from './buttons/DoneAndFavoriteButtons';
+import FavoriteCard from './FavoriteCard/FavoriteCard';
 
 const components = {
   Header,
@@ -32,6 +34,8 @@ const components = {
   SearchDropDown,
   MainIngredientCard,
   MainIngredientDrinkCard,
+  DoneAndFavoriteButtons,
+  FavoriteCard,
 };
 
 export default components;

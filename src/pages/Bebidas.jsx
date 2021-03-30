@@ -48,13 +48,13 @@ function Bebidas() {
   }
 
   function renderCards() {
-      if (apiResult !== null && apiResult.length > 1) {      
+    if (apiResult !== null && apiResult.length > 1) {
       return <CartaoReceitaBebidas resultadoApi={ apiResult } />;
     } if (bebidas && !toggle && listaDeCategoria !== undefined) {
       return <CartaoReceitaBebidas resultadoApi={ listaDeCategoria } />;
-    }  if (bebidas && toggle) {
+    } if (bebidas && toggle) {
       return <CartaoReceitaBebidas resultadoApi={ bebidas } />;
-    } 
+    }
   }
 
   return (

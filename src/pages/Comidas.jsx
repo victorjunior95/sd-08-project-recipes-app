@@ -48,7 +48,7 @@ function Comidas() {
   }
 
   function renderCards() {
-      if (apiResult !== null && apiResult.length > 1) {
+    if (apiResult !== null && apiResult.length > 1) {
       return <CartaoReceitaComidas resultadoApi={ apiResult } />;
     } if (comidas && !toggle && listaDeCategoria !== undefined) {
       return <CartaoReceitaComidas resultadoApi={ listaDeCategoria } />;
@@ -83,7 +83,6 @@ function Comidas() {
       >
         All
       </button>
-
 
       {renderCards()}
 

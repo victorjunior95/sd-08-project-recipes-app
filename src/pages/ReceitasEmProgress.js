@@ -14,6 +14,8 @@ const Detalhes = () => {
   const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [hidden, setHidden] = useState(false);
+  // const [check, setCheck] = useState(false);
+  const [usedIngri, setUseIngri] = useState([]);
 
   const location = useLocation();
 
@@ -37,6 +39,19 @@ const Detalhes = () => {
 
     fetchData();
   }, [location.pathname]);
+
+  const handleCheckBox = (name) => {
+    let usedIngredients = [...usedIngri];
+    const index = usedIngredients.indexOf(name);
+    console.log(name, index);
+    if (index >= 0) {
+      usedIngredients.splice(index, 1);
+    } else {
+      usedIngredients = [...usedIngredients, name];
+    }
+    setUseIngri(usedIngredients);
+    console.log(usedIngredients);
+  };
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
@@ -80,10 +95,16 @@ const Detalhes = () => {
 
           return (
             <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
-              {`${ingredientName} - ${ingMeasure}`}
+              {/* { usedIngri.indexOf(ingredientName) >= 0 && '<s>' }
+              {`${ingredientName} - ${ingMeasure}`} */}
+              { usedIngri.indexOf(ingredientName) >= 0
+                ? <s>{`${ingredientName} - ${ingMeasure}`}</s>
+                : `${ingredientName} - ${ingMeasure}` }
+
               <input
+                onChange={ ({ target }) => { handleCheckBox((target.value)); } }
                 type="checkbox"
-                value={ `${ingredientName} - ${ingMeasure}` }
+                value={ `${ingredientName}` }
               />
             </div>
           );

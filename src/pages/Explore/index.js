@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Feed from '../../components/ExploreComponents/Feed';
-// import NotFound from '../NotFound/NotFound';
+import {
+  Feed, Meals, Drinks, Ingredients, NotFound,
+} from '../../components/ExploreComponents';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -13,12 +14,12 @@ function Explore({ history }) {
     <>
       <Header history={ history } />
       {pathname === '/explorar' && <Feed />}
-      {/* {path === '/explorar/comidas' && <Meals path={ path } />} */}
+      {pathname === '/explorar/comidas' && <Meals path={ pathname } />}
+      {pathname === '/explorar/bebidas' && <Drinks path={ pathname } />}
+      {pathname === '/explorar/comidas/ingredientes' && <Ingredients path="comidas" />}
+      {pathname === '/explorar/bebidas/ingredientes' && <Ingredients path="bebidas" />}
       {/* {path === '/explorar/comidas/area' && <Area path={ path } />} */}
-      {/* {path === '/explorar/bebidas/area' && <NotFound path={ path } />} */}
-      {/* {path === '/explorar/bebidas' && <Drinks path={ path } />} */}
-      {/* {path === '/explorar/comidas/ingredientes' && <Ingredients path={ path } />} */}
-      {/* {path === '/explorar/bebidas/ingredientes' && <Ingredients path={ path } />} */}
+      {pathname === '/explorar/bebidas/area' && <NotFound />}
       <Footer />
     </>
   );

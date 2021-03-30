@@ -14,7 +14,7 @@ function Bebidas({ history }) {
   const drinks = useSelector((state) => state.drinkReducer.drinks);
 
   useEffect(() => {
-    dispatch(getDrinks());
+    if (drinks === undefined) dispatch(getDrinks());
   }, [dispatch]);
 
   if (drinks) drinksFiltred = drinks.filter((meal, index) => index < QUANTITY_OF_CARDS);

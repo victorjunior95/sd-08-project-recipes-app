@@ -107,6 +107,8 @@ export const fetchApi = async (value, type, api) => {
 
 export const fetchRandom = async (type) => {
   let url = '';
+  const TYPE_RESULT_MEAL = 'meals';
+  const TYPE_RESULT_DRINK = 'drinks';
   switch (type) {
   case 'comidas':
     url = 'https://www.themealdb.com/api/json/v1/1/random.php';
@@ -120,8 +122,8 @@ export const fetchRandom = async (type) => {
 
   const response = await fetch(url);
   const results = await response.json();
-  if (type === 'comidas') return Object.entries(results)[0][1][0].idMeal;
-  return Object.entries(results)[0][1][0].idDrink;
+  if (type === 'comidas') return results[TYPE_RESULT_MEAL][0].idMeal;
+  return results[TYPE_RESULT_DRINK][0].idDrink;
 };
 
 export const fetchByIngredients = async (type) => {

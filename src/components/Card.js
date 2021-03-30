@@ -33,7 +33,6 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
     } else {
       history.push(`/bebidas/${id}`);
     }
-    console.log(history);
   }
   let urlDetails = '';
   if (isFood) {

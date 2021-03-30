@@ -41,15 +41,15 @@ function FoodDetails(props) {
     setId(id);
   }, [id, setId]);
   // continuar daqui
-  useEffect(() => {
-    const localData = localStorage.getItem('doneRecipes');
-    const isItDone = localData ? localData.find((each) => each.id === id) : false;
-    if (isItDone) {
-      setISDone(true);
-    } else {
-      setISDone(false);
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   const localData = localStorage.getItem('doneRecipes');
+  //   const isItDone = localData ? localData.find((each) => each.id === id) : false;
+  //   if (isItDone) {
+  //     setISDone(true);
+  //   } else {
+  //     setISDone(false);
+  //   }
+  // }, [id]);
 
   useEffect(() => {
     const localData = localStorage.getItem('inProgressRecipes');
@@ -203,11 +203,12 @@ function FoodDetails(props) {
               />
             ))}
 
-          {
+          {/* {
             isDone
               ? ''
               : renderButton()
-          }
+          } */}
+          { renderButton() }
 
         </div>
       </div>

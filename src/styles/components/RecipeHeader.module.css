@@ -30,6 +30,8 @@
 }
 
 .copiedLink {
+  animation-duration: 3s;
+  animation-name: copied;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
@@ -42,4 +44,11 @@
   top: 100px;
   transform: translateX(-50%);
   width: 80%;
+}
+
+@keyframes copied {
+
+  to {
+    opacity: 0;
+  }
 }

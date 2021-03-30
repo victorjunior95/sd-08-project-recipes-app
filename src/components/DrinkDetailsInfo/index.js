@@ -83,11 +83,11 @@ DrinkDetailsInfo.propTypes = {
   strCategory: PropTypes.string.isRequired,
   strAlcoholic: PropTypes.string.isRequired,
   handleFavorite: PropTypes.func.isRequired,
-  isFavorite: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   strDrink: PropTypes.string.isRequired,
   strDrinkThumb: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
-  ingredientsAndMeasuresList: PropTypes.shape([]).isRequired,
+  ingredientsAndMeasuresList: PropTypes.arrayOf(PropTypes.string).isRequired,
   strInstructions: PropTypes.string.isRequired,
 };
 

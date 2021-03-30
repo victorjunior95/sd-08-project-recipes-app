@@ -119,7 +119,7 @@ function FoodDetails(props) {
   return (
     <>
       { shouldRedirect && <Redirect to={ `/comidas/${id}/in-progress` } /> }
-      <FoodDetailsInfo
+      {strMeal && <FoodDetailsInfo
         copied={ copied }
         strMeal={ strMeal }
         strCategory={ strCategory }
@@ -130,7 +130,7 @@ function FoodDetails(props) {
         strYoutube={ strYoutube }
         strInstructions={ strInstructions }
         ingredientsAndMeasuresList={ ingredientsAndMeasuresList }
-      />
+      />}
       { isDone ? '' : renderButton() }
     </>
   );

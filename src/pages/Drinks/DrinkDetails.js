@@ -121,7 +121,7 @@ function DrinkDetails(props) {
   return (
     <>
       { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
-      <DrinkDetailsInfo
+      {strDrink && <DrinkDetailsInfo
         copied={ copied }
         strCategory={ strCategory }
         strAlcoholic={ strAlcoholic }
@@ -133,7 +133,7 @@ function DrinkDetails(props) {
         ingredientsAndMeasuresList={ ingredientsAndMeasuresList }
         strInstructions={ strInstructions }
 
-      />
+      />}
       { isDone ? '' : renderButton() }
 
     </>

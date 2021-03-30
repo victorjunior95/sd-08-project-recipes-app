@@ -106,7 +106,7 @@ FoodDetailsInfo.propTypes = {
   strMealThumb: PropTypes.string.isRequired,
   strYoutube: PropTypes.string.isRequired,
   strInstructions: PropTypes.string.isRequired,
-  // ingredientsAndMeasuresList: PropTypes.shape([]).isRequired,
+  ingredientsAndMeasuresList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FoodDetailsInfo;

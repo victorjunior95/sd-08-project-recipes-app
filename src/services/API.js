@@ -105,3 +105,15 @@ export const getDrinkCategory = async (category) => {
   const { drinks } = results;
   return drinks;
 };
+
+export const surpriseMeAPI = async (api) => {
+  const result = await fetch(`https://www.the${api}db.com/api/json/v1/1/random.php`)
+    .then((res) => res.json());
+  return result;
+};
+
+export const getIngredientsAPI = async (api) => {
+  const result = await fetch(`https://www.the${api}db.com/api/json/v1/1/list.php?i=list`)
+    .then((res) => res.json());
+  return result;
+};

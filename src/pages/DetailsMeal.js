@@ -1,10 +1,11 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-// import { Button } from 'react-bootstrap';
+import Copy from 'clipboard-copy';
 import { DataDrinksContext } from '../context/ContextDrinks';
 import { getMealRecipesDetails } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { getRecipeById } from '../localStorage/recipeProgressStorage';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './DetailsMeal.css';
 
@@ -13,13 +14,27 @@ function DetailsMeal() {
   const { drinks } = dataDrinks;
   const Params = useParams();
   const [mealDetail, setMealDetail] = useState([]);
+  const [startRecipeBtnVisible, setStartRecipeBtnVisible] = useState(true);
+  const [continueRecipe, setContinueRecipe] = useState(false);
+  const [copyLink, setCopyLink] = useState(false);
+
+  const isContinue = useCallback(() => {
+    if (getRecipeById('meals', Params.id)) {
+      setContinueRecipe(true);
+    }
+  }, [Params.id]);
+
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getMealRecipesDetails(Params.id);
       setMealDetail(saveDetail);
+      JSON.parse(localStorage.doneRecipes).filter(
+        (item) => item.id === Params.id && setStartRecipeBtnVisible(false),
+      );
     }
+    isContinue();
     fetchDetails();
-  }, [Params.id]);
+  }, [Params.id, isContinue]);
 
   const sizeOfLength = 2;
   const startOfSlice = 0;
@@ -31,6 +46,11 @@ function DetailsMeal() {
     }
     return acc;
   }, []);
+
+  const onClickCopyLink = () => {
+    setCopyLink(true);
+    Copy(`http://localhost:3000/comidas/${Params.id}`);
+  };
 
   return (
     <div>
@@ -89,17 +109,23 @@ function DetailsMeal() {
                 </figure>
               ))}
           </div>
-          <Link
-            to={ `/comidas/${Params.id}/in-progress` }
-            className="start-recipe-btn"
-            data-testid="start-recipe-btn"
-          >
-            Iniciar Receita
-          </Link>
+          {!!startRecipeBtnVisible && (
+            <Link
+              to={ `/comidas/${Params.id}/in-progress` }
+              className="start-recipe-btn"
+              data-testid="start-recipe-btn"
+            >
+              {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+            </Link>
+          )}
         </div>
       </div>
       <div className="share-favorite-btn">
-        <button type="button" variant="warning">
+        <button
+          onClick={ () => onClickCopyLink() }
+          type="button"
+          variant="warning"
+        >
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
         </button>
         <button type="button" variant="danger">
@@ -109,6 +135,7 @@ function DetailsMeal() {
             alt="favorite-icon"
           />
         </button>
+        {copyLink && <span>Link copiado!</span>}
       </div>
     </div>
   );

@@ -117,7 +117,7 @@ const Drinks = () => {
           type="radio"
           data-testid="All-category-filter"
           onClick={ () => setFilteredDrinks(drink) }
-          // checked={ currentCategory === 'All' }
+          checked={ currentCategory === 'All' }
         />
       </label>
       {mapCards}

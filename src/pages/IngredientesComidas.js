@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import HeaderP from '../components/HeaderP';
 import Context from '../context/Context';
 import { fetchListByFilter } from '../services/RequisicaoApi';
-import '../styles/Ingredientes.css';
+import '../styles/ExplorarIngredientes.css';
 
 const TWELVE_INGREDIENTS = 12;
 
@@ -37,10 +37,11 @@ function IngredientesComidas() {
   return (
     <>
       <HeaderP title="Explorar Ingredientes" />
-      <main>
+      <main className="ingredients-main-container">
         { ingredients && (
           ingredients.meals.slice(0, TWELVE_INGREDIENTS).map((ingredient, index) => (
             <button
+              className="ingredient-card"
               data-testid={ `${index}-ingredient-card` }
               id={ ingredient.strIngredient }
               key={ index }

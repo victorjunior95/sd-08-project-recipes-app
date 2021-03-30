@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
-import '../styles/RecipeList.css';
 
 const FIRST_FIVE_CATEGORY = 5;
 
@@ -37,13 +36,14 @@ export default function RecipeCategory({ recipeType }) {
     const typeCategoryPopulated = typeCategory[type];
 
     return (
-      <div>
+      <div className="category-container">
         {typeCategoryPopulated
           && typeCategoryPopulated.length
           && typeCategoryPopulated
             .slice(0, FIRST_FIVE_CATEGORY)
             .map((category) => (
               <button
+                className="category-button"
                 type="button"
                 key={ `${category.strCategory}` }
                 value={ `${category.strCategory}` }
@@ -56,6 +56,7 @@ export default function RecipeCategory({ recipeType }) {
               </button>
             ))}
         <button
+          className="category-button"
           type="button"
           onClick={ () => setToggle(false) }
           data-testid="All-category-filter"
@@ -67,7 +68,7 @@ export default function RecipeCategory({ recipeType }) {
   }
 
   function renderCategory() {
-    return <section>{setType(recipeType)}</section>;
+    return setType(recipeType);
   }
   return isFetching ? <p>Loading...</p> : renderCategory();
 }

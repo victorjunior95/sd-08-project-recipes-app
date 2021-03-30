@@ -27,11 +27,12 @@ function RecipeList({ route, recipeType, endpoint }) {
       history.push(`/${route}/${id}`);
     }
     return (
-      <section>
+      <div className="recipes-container">
         {recipes
           && recipes.length
           && recipes.slice(0, FIRST_TWELVE_RECIPES).map((recipe, index) => (
             <div
+              className="recipe-card"
               data-testid={ `${index}-recipe-card` }
               key={ recipe[`id${recipeType}`] }
               onClick={ () => redirectToDetails(recipe[`id${recipeType}`]) }
@@ -40,7 +41,7 @@ function RecipeList({ route, recipeType, endpoint }) {
               tabIndex="0"
               style={ { cursor: 'pointer' } }
             >
-              <p data-testid={ `${index}-card-name` }>
+              <p className="recipe-name" data-testid={ `${index}-card-name` }>
                 {recipe[`str${recipeType}`]}
               </p>
               <img
@@ -52,7 +53,7 @@ function RecipeList({ route, recipeType, endpoint }) {
               <hr />
             </div>
           ))}
-      </section>
+      </div>
     );
   }
 

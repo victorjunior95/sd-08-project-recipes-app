@@ -80,7 +80,13 @@ function DetalhesComidas() {
           : (
             <>
               <h1 data-testid="recipe-title">{meal.strMeal}</h1>
-              <img src={ meal.strMealThumb } alt="imagem" data-testid="recipe-photo" />
+              <img
+                className="card-image"
+                src={ meal.strMealThumb }
+                alt="imagem"
+                data-testid="recipe-photo"
+              />
+              <br />
               <CopyToClipboard
                 text={ window.location.href }
                 onCopy={ () => setCopied(true) }

@@ -1,3 +1,11 @@
+.card-image {
+  border: solid 2px black;
+  border-radius: 15px;
+  height: 150px;
+  margin: 5px;
+  width: 150px;
+}
+
 .scroll-menu {
   overflow: auto;
   white-space: nowrap;

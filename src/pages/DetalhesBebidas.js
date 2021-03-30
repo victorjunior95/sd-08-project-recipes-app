@@ -81,7 +81,13 @@ function DetalhesBebidas() {
           : (
             <>
               <h1 data-testid="recipe-title">{drink.strDrink}</h1>
-              <img src={ drink.strDrinkThumb } alt="imagem" data-testid="recipe-photo" />
+              <img
+                className="card-image"
+                src={ drink.strDrinkThumb }
+                alt="imagem"
+                data-testid="recipe-photo"
+              />
+              <br />
               <CopyToClipboard
                 text={ window.location.href }
                 onCopy={ () => setCopied(true) }

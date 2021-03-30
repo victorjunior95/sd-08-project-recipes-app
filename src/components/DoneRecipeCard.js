@@ -12,10 +12,22 @@ function DoneRecipeCard({ recipe }) {
         recipe.type === 'meal'
           ? (
             <section>
-              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-              <p data-testid={ `${index}-horizontal-image` }>{recipe.image}</p>
-              <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
-              <p>{recipe.area}</p>
+              <p data-testid={ `${index}-horizontal-name` }>
+                {recipe.name}
+              </p>
+              <input
+                className="card-image"
+                type="image"
+                src={ recipe.image }
+                data-testid={ `${index}-horizontal-image` }
+                alt={ `Recipe: ${recipe.name}` }
+                // onClick={ () => history.push(`/comidas/${recipe.id}`) }
+              />
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${recipe.area} - ${recipe.category}`}
+              </p>
               <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
               {recipe.tags.map((tag, indexTag) => {
                 if (indexTag <= INDEX_TAG_MAX) {

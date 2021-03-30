@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const NEGATIVE_1 = -1;
 const NEGATIVE_12 = -12;
@@ -57,7 +57,13 @@ function handleFavorite(checkFavorite, setCheckFavorite, data) {
 function FoodInProgressCard({ data, img, meal, category, instructions, idMeal }) {
   const values = ingredients(data);
   const history = useHistory();
-  const [checkFavorite, setCheckFavorite] = useState(null);
+  const [checkFavorite, setCheckFavorite] = useState(() => {
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorite) {
+      return true;
+    }
+    return null;
+  });
   const [copied, setCopied] = useState(false);
   const [verifiedCheck, setVerifiedCheck] = useState(false);
   const [verified, setVerified] = useState(() => {
@@ -120,8 +126,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions, idMeal })
       >
         <img
           data-testid="favorite-btn"
-          src="blackHeartIcon whiteHeartIcon"
-          // src={ checkFavorite ? blackHeartIcon : whiteHeartIcon }
+          src={ checkFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar"
         />
       </button>

@@ -55,7 +55,6 @@ function DrinkDetails(props) {
   // effect In Progress => voltar para ca caso de errado
   const addDrinkInProgress = (recipe) => {
     const { cocktails } = inProgressRecipes;
-    console.log('em progresso: ', inProgressRecipes);
     const newFoodInProgress = {
       cocktails: Object.assign(cocktails, recipe),
       meals: inProgressRecipes.meals,
@@ -83,7 +82,6 @@ function DrinkDetails(props) {
     }
     checkIsFavorite();
   }, [id, favorites]);
-
 
   function handleClick() {
     copy(window.location.href);

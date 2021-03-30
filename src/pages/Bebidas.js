@@ -13,19 +13,16 @@ const Drinks = () => {
     nameIngredient,
     setNameIngredient,
     handleHeaderSearch } = useContext(LariContext);
-  const [mapCards, setMapCards] = useState();
+  const [mapCards, setMapCards] = useState([]);
   const [category, setCategory] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('All');
 
   useEffect(() => {
-    console.log('useEffect1');
     setFilteredDrinks(drink);
-    // console.log(drink);
   }, [drink]);
 
   useEffect(() => {
-    console.log('useEffect2');
     function fetchFetch() {
       recipesFetch(false);
     }
@@ -33,19 +30,12 @@ const Drinks = () => {
       console.log('fetchCategory');
       categoryDrink()
         .then((response) => setCategory(response));
-      // console.log(categoryFood());
-      // console.log(result);
     }
     fetchCategory();
-    // console.log(category);
     fetchFetch();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    console.log('useEffect3');
-    // console.log(food);
     const mapDrinks = () => (
       setMapCards(
         filteredDrinks.map((beverage, index) => {
@@ -69,12 +59,9 @@ const Drinks = () => {
   }, [filteredDrinks]);
 
   const fetchDrinkByCategory = async (cat) => {
-    console.log('fetchDrinkByCategory');
-    // console.log(` ${currentCategory}  <=>  ${cat} `);
     if (currentCategory === cat) {
       setFilteredDrinks(drink);
       setCurrentCategory('All');
-      // console.log(` ${currentCategory}`);
     } else {
       const result = await seachDrinkByCategory(cat);
       setFilteredDrinks(result);
@@ -82,22 +69,18 @@ const Drinks = () => {
     }
   };
 
-  const mapCategory = () => {
-    console.log('mapCategory');
-    return category.slice(0, MAX_CATEGORY).map((drinks, index) => (
-      <label key={ drinks.strCategory } htmlFor={ drinks.strCategory }>
-        {drinks.strCategory}
-        <input
-          key={ index }
-          type="radio"
-          data-testid={ `${drinks.strCategory}-category-filter` }
-          onClick={ () => fetchDrinkByCategory(drinks.strCategory) }
-          checked={ currentCategory === drinks.strCategory }
-        />
-      </label>
-    ));
-  };
-
+  const mapCategory = () => category.slice(0, MAX_CATEGORY).map((drinks, index) => (
+    <label key={ drinks.strCategory } htmlFor={ drinks.strCategory }>
+      {drinks.strCategory}
+      <input
+        key={ index }
+        type="radio"
+        data-testid={ `${drinks.strCategory}-category-filter` }
+        onClick={ () => fetchDrinkByCategory(drinks.strCategory) }
+        checked={ currentCategory === drinks.strCategory }
+      />
+    </label>
+  ));
   useEffect(() => {
     console.log('useEffect');
     if (nameIngredient) {

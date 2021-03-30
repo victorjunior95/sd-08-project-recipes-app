@@ -7,8 +7,8 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import '../../index.css';
 import DrinkContext from '../../context/bebidaContext/DrinkContext';
 
-function copyToClipboard(Button, callback) {
-  navigator.clipboard.writeText(Button);
+function copyToClipboard(id, callback) {
+  navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
   callback(true);
 }
 
@@ -80,7 +80,7 @@ function CardDrinkInProgress({ alreadyFavorited, idDaReceita }) {
     }
   };
 
-  const LAST_INGREDIENT = 20;
+  const LAST_INGREDIENT = 15;
   const ingredientIndex = [];
   for (let index = 0; index < LAST_INGREDIENT; index += 1) {
     ingredientIndex.push(index);
@@ -134,7 +134,6 @@ function CardDrinkInProgress({ alreadyFavorited, idDaReceita }) {
             {ingredientIndex.map((index) => {
               const srt = `${item[`strMeasure${index + 1}`]}`;
               if (srt === 'null' || srt === '' || srt === ' ') return '';
-
               ingredientList += 1;
               return (
                 <li

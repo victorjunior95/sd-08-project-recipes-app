@@ -7,8 +7,8 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import '../../index.css';
 
-function copyToClipboard(Button, callback) {
-  navigator.clipboard.writeText(Button);
+function copyToClipboard(id, callback) {
+  navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
   callback(true);
 }
 
@@ -169,6 +169,7 @@ function CardFoodInProgress({ alreadyFavorited, idDaReceita }) {
                 >
                   <input
                     type="checkbox"
+                    // id={ `${item.idMeal}-${index}` }
                     key={ index }
                     value={ item[`strMeasure${index + 1}`] }
                     onClick={ handleCheckedBox }

@@ -18,8 +18,10 @@ export default function Recommendations() {
     ? location.replace('comidas', 'bebidas')
     : location.replace('bebidas', 'comidas');
 
-  useEffect(() => setSearchParams({ location: toggledLocation }),
-    [setSearchParams, toggledLocation]);
+  useEffect(() => setSearchParams({
+    selectedParameter: 'none',
+    location: toggledLocation }),
+  [setSearchParams, toggledLocation]);
 
   useEffect(() => {
     setRecommendations([...recipes].slice(0, SHOW_SIX_RECOMMENDATIONS));

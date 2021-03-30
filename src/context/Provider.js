@@ -10,11 +10,13 @@ export default function Provider({ children }) {
   const [categories, setCategories] = useState([]);
   const [searchParams, setSearchParams] = useState({
     searchInput: '',
-    selectedParameter: '',
+    selectedParameter: 'none',
     location: '',
   });
 
   const { searchInput, selectedParameter, location } = searchParams;
+
+  console.log(location);
 
   useEffect(() => {
     let domain = '';
@@ -50,15 +52,18 @@ export default function Provider({ children }) {
         .then((response) => setRecipeDetail(response));
       break;
 
-    default:
+    case 'none':
+      console.log(domain);
       if (domain) {
         getApi(domain, 'search.php?s=')
           .then((response) => setRecipes(response));
-
         getApi(domain, 'list.php?c=list')
           .then((response) => response.map((category) => category.strCategory))
           .then((response) => setCategories(['All', ...response]));
       }
+      break;
+
+    default:
       break;
     }
   }, [location, searchInput, searchParams, selectedParameter]);

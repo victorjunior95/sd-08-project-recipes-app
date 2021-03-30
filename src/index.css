@@ -94,3 +94,18 @@ code {
 .g6-caroussel .g6-card img {
   width: 150px;
 }
+
+.g6-ingredient-card-display {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  width: 320px;
+}
+
+.g6-ingredient-card {
+  box-shadow: 0 2px 8px rgba(25, 30, 50, 0.25);
+  margin: 5px;
+  max-width: 150px;
+  padding: 25px;
+  text-align: center;
+}

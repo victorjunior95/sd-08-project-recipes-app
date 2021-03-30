@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import CardBebida from '../components/CardBebida';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -66,11 +67,13 @@ export default function Bebidas() {
         { card && arrayOfDrinksCategories.map((d, i) => {
           const { idDrink } = d;
           return (i < LIMITER) && (
-            <CardBebida
-              key={ idDrink }
-              bebida={ d }
-              id={ i }
-            />
+            <Link to={ `/bebidas/${idDrink}` }>
+              <CardBebida
+                key={ idDrink }
+                bebida={ d }
+                id={ i }
+              />
+            </Link>
           );
         }) }
       </section>

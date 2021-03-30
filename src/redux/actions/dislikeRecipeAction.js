@@ -1,8 +1,8 @@
 import { DISLIKE_RECIPE } from './index';
 
-const dislikeRecipeAction = (index) => ({
+const dislikeRecipeAction = (recipe) => ({
   type: DISLIKE_RECIPE,
-  payload: index,
+  payload: recipe,
 });
 
 export default dislikeRecipeAction;

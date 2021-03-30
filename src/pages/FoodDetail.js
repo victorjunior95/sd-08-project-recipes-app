@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ShareButton from '../components/ShareButton';
+import LikeButton from '../components/LikeButton';
 
 function FoodDetail() {
   const dispatch = useDispatch();
@@ -23,11 +23,9 @@ function FoodDetail() {
       fetchData = (id) => dispatch(fetchDrinkActionId(id));
     }
     fetchData(arrayId);
-  }, [dispatch, arrayId]);
+  }, [dispatch, arrayId, arrayRecipes]);
 
   const arrayMeat = idMeat[0];
-
-  console.log(arrayMeat);
 
   const findKey = (value) => Object.entries(arrayMeat).map((nome) => {
     if (nome[0].includes(value)) {
@@ -62,12 +60,8 @@ function FoodDetail() {
             ? <img data-testid="recipe-photo" src={ arrayMeat.strMealThumb } alt="img" />
             : <img data-testid="recipe-photo" src={ arrayMeat.strDrinkThumb } alt="img" />
         }
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="favorite" />
-        </button>
+        <ShareButton recipeId={ arrayMeat.idMeal } recipeType="comida" />
+        <LikeButton recipe={ arrayMeat } />
         {
           arrayRecipes === 'comidas'
             ? <h1 data-testid="recipe-title">{arrayMeat.strMeal}</h1>

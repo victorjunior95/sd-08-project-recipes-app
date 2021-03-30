@@ -1,15 +1,48 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import likeBtn from '../images/whiteHeartIcon.svg';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import notLikedBtn from '../images/whiteHeartIcon.svg';
 import likedBtn from '../images/blackHeartIcon.svg';
-import dislikeRecipeAction from '../redux/actions/dislikeRecipeAction';
+import favoriteRecipesAction from '../redux/actions/favoriteRecipeAction';
 
-export default function LikeButton({ likedProp, recipeId, dataTestId }) {
+export default function LikeButton() {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const recipes = useSelector((state) => state.recipes.recipes);
+  const [likedToogle, setLikedToogle] = useState(false);
+
+  const type = (pathname.includes('comidas') ? 'Meal' : 'Drink');
+  const recipeStorage = (localStorage.getItem('favoriteRecipes'))
+    ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+    : [];
+  const recipe = {
+    id: recipes[0][`id${type}`],
+    type: (type === 'Meal' ? 'comida' : 'bebida'),
+    area: (recipes[0].strArea ? recipes[0].strArea : ''),
+    category: recipes[0].strCategory,
+    alcoholicOrNot: (type === 'Drink' ? recipes[0].strAlcoholic : ''),
+    name: recipes[0][`str${type}`],
+    image: recipes[0][`str${type}Thumb`],
+  };
+
+  useEffect(() => {
+    if (likedToogle) {
+      dispatch(favoriteRecipesAction(recipeStorage));
+    }
+  }, [likedToogle, recipeStorage]);
 
   function handleClick() {
-    dispatch(dislikeRecipeAction(recipeId));
+    if (!likedToogle) {
+      setLikedToogle(true);
+      recipeStorage.push(recipe);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(recipeStorage));
+    }
+
+    if (likedToogle) {
+      setLikedToogle(false);
+      localStorage.setItem('favoriteRecipes', JSON
+        .stringify(recipeStorage.filter((e) => e.id !== recipe.id)));
+    }
   }
 
   return (
@@ -19,21 +52,10 @@ export default function LikeButton({ likedProp, recipeId, dataTestId }) {
     >
       <img
         alt="like-icon"
-        src={ (likedProp) ? likedBtn : likeBtn }
-        data-testid={ dataTestId }
+        src={ (likedToogle) ? likedBtn : notLikedBtn }
+        data-testid="favorite-btn"
 
       />
     </button>
   );
 }
-
-LikeButton.propTypes = {
-  likedProp: PropTypes.bool,
-  recipeId: PropTypes.string.isRequired,
-  dataTestId: PropTypes.string,
-};
-
-LikeButton.defaultProps = {
-  likedProp: false,
-  dataTestId: 'favorite-btn',
-};

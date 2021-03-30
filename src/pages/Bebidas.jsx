@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import ContextReceitas from '../context/ContextReceitas';
 import { fetchBebidasAPI } from '../services/fetchBebidas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CartaoReceitaBebidas from '../components/CartaoReceitaBebidas';
+import { buscarBebidasPorCategoria } from '../services/buscarCategoriasBebidas';
 
-const CINQUENTA = 50;
 function Bebidas() {
   const {
     apiResult,
@@ -16,7 +16,13 @@ function Bebidas() {
     categoriasBebidas,
     bebidas,
     setBebidas,
+    setlistaDeCategoria,
+    listaDeCategoria,
+    setToggle,
+    toggle,
   } = useContext(ContextReceitas);
+
+  const [clickInfo, setClickInfo] = useState('Primeira Vez');
 
   useEffect(() => {
     async function listaBebidasAPI() {
@@ -28,6 +34,29 @@ function Bebidas() {
     mudarStatusBotaoPesquisa(true);
   }, []);
 
+  async function handleClick({ target: { name, id } }) {
+    const novasBebidas = await buscarBebidasPorCategoria(name);
+    setlistaDeCategoria(novasBebidas);
+    setClickInfo(id);
+    if (clickInfo === 'Primeira Vez') return setToggle(!toggle);
+    if (clickInfo !== id) return setToggle(false);
+    setToggle(!toggle);
+  }
+
+  function handleClickAll() {
+    setToggle(true);
+  }
+
+  function renderCards() {
+      if (apiResult !== null && apiResult.length > 1) {      
+      return <CartaoReceitaBebidas resultadoApi={ apiResult } />;
+    } if (bebidas && !toggle && listaDeCategoria !== undefined) {
+      return <CartaoReceitaBebidas resultadoApi={ listaDeCategoria } />;
+    }  if (bebidas && toggle) {
+      return <CartaoReceitaBebidas resultadoApi={ bebidas } />;
+    } 
+  }
+
   return (
     <div>
       <Header />
@@ -37,30 +66,30 @@ function Bebidas() {
           <button
             type="button"
             key={ strCategory }
+            name={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
+            id={ strCategory }
+            onClick={ handleClick }
           >
             {strCategory}
           </button>))}
+      <button
+        type="button"
+        key="all"
+        name="all"
+        id="all"
+        data-testid="All-category-filter"
+        onClick={ handleClickAll }
+      >
+        All
+      </button>
 
-      {/* { bebidas && bebidas.map((bebida, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ bebida.idDrink }>
-          <img
-            width={ `${CINQUENTA}vh` }
-            data-testid={ `${index}-card-img` }
-            src={ bebida.strDrinkThumb }
-            alt={ bebida.strDrink }
-          />
-          <p data-testid={ `${index}-card-name` }>{ bebida.strDrink }</p>
-        </div>
-      ))} */}
-
+      { renderCards() }
       {apiResult !== null
       && apiResult.length === 1
       && tituloDaPagina === 'Bebidas'
-        ? <Redirect to={ `/bebidas/${apiResult[0].idDrink}` } /> : false }
-      {apiResult !== null
-      && apiResult.length > 1
-      && <CartaoReceitaBebidas />}
+      && <Redirect to={ `/bebidas/${apiResult[0].idDrink}` } /> }
+
       <Footer />
     </div>
 

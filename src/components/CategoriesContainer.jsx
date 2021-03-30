@@ -51,6 +51,25 @@ const CategoriesContainer = ({ page }) => {
         },
         ...drinksCategories,
       ];
+    } else if (page === 'Favoritas') {
+      buttons = [{
+        strCategory: 'All',
+      },
+      {
+        strCategory: 'Food',
+      },
+      {
+        strCategory: 'Drink',
+      },
+      ];
+      return buttons.map((button) => (
+        <Button
+          name={ button.strCategory }
+          key={ button.strCategory }
+          data-testid={ `filter-by-${button.strCategory.toLowerCase()}-btn` }
+          onClick={ () => handleClick(button.strCategory) }
+        />
+      ));
     }
     return buttons.map((button) => (
       <Button

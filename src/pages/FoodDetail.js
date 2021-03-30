@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
@@ -14,6 +15,8 @@ function FoodDetail() {
   const arrayRecipes = pathname.split('/')[1];
 
   const idMeat = useSelector((state) => state.recipes.recipes);
+
+  const history = useHistory();
 
   useEffect(() => {
     let fetchData = '';
@@ -92,7 +95,13 @@ function FoodDetail() {
         }
         Recomendadas
         <Recomendation />
-        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+        <button
+          onClick={ () => history.push(`/${arrayRecipes}/${arrayId}/in-progress`) }
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Iniciar Receita
+        </button>
       </div>
     ));
 

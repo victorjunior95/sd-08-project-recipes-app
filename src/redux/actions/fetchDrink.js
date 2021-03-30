@@ -1,17 +1,17 @@
 import { fetchDrinkId } from '../../services/MealAPI';
 
-import { FETCH_API } from './index';
+import { FETCH_RECIPE_ID } from './index';
 
-const fetchMealAction = (recipes) => ({
-  type: FETCH_API,
+const fetchDrinkAction = (recipe) => ({
+  type: FETCH_RECIPE_ID,
   payload: {
-    recipes,
+    recipe,
   },
 });
 
 const fetchDrinkActionId = (id) => async (dispatch) => {
   const { drinks } = await fetchDrinkId(id);
-  dispatch(fetchMealAction(drinks));
+  dispatch(fetchDrinkAction(drinks));
 };
 
 export default fetchDrinkActionId;

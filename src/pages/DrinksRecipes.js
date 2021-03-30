@@ -16,8 +16,8 @@ function DrinksRecipes() {
   const input = useSelector((state) => state.search.inputValue);
   const type = useSelector((state) => state.search.inputType);
   const drinks = useSelector((state) => state.recipes.recipes);
-  const filter = useSelector((state) => state.recipes.drinkFilter);
-  const ifilter = useSelector((state) => state.recipes.ingredientFilter);
+  const filter = useSelector((state) => state.search.drinkFilter);
+  const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
     const fetchData = (inputf, typef) => dispatch(fetchDrinkThunk(inputf, typef));
     const ingredientFilter = (filteri) => dispatch(fetchDrinkIFilterThunk(filteri));
@@ -32,9 +32,12 @@ function DrinksRecipes() {
     dispatch(clearSearchAction());
   }, []);
 
+  useEffect(() => {
+    if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
+  }, []);
+
   return (
     <main>
-
       { drinks && drinks.length === 1
         && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Header />

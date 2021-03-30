@@ -5,6 +5,7 @@ import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import IngredientList from '../components/IngredientList';
 import Recomendation from '../components/Recomendation';
 
 function FoodDetail() {
@@ -12,8 +13,7 @@ function FoodDetail() {
   const { pathname } = useLocation();
   const arrayId = pathname.split('/')[2];
   const arrayRecipes = pathname.split('/')[1];
-
-  const idMeat = useSelector((state) => state.recipes.recipes);
+  const recipes = useSelector((state) => state.recipes.singleRecipe);
 
   useEffect(() => {
     let fetchData = '';
@@ -24,78 +24,53 @@ function FoodDetail() {
       fetchData = (id) => dispatch(fetchDrinkActionId(id));
     }
     fetchData(arrayId);
-  }, [dispatch, arrayId]);
+  }, []);
 
-  const arrayMeat = idMeat[0];
+  const recipe = recipes[0];
 
-  const findKey = (value) => Object.entries(arrayMeat).map((nome) => {
-    if (nome[0].includes(value)) {
-      return nome[1];
-    }
-    return undefined;
-  }).filter((element) => element !== undefined);
-
-  const createIngrediets = () => {
-    const ingredient = findKey('strIngredient');
-    const measure = findKey('strMeasure');
-    return ingredient.map((nome, index) => {
-      if (nome) {
-        return (
-          <p
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            {`${nome} - ${measure[index]}`}
-          </p>
-        );
+  const renderMeal = () => recipe !== undefined && (
+    <div>
+      {
+        arrayRecipes === 'comidas'
+          ? <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />
+          : <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="img" />
       }
-      return undefined;
-    });
-  };
-
-  const renderMeal = () => (
-    arrayMeat !== undefined && (
-      <div>
-        {
-          arrayRecipes === 'comidas'
-            ? <img data-testid="recipe-photo" src={ arrayMeat.strMealThumb } alt="img" />
-            : <img data-testid="recipe-photo" src={ arrayMeat.strDrinkThumb } alt="img" />
-        }
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="favorite" />
-        </button>
-        {
-          arrayRecipes === 'comidas'
-            ? <h1 data-testid="recipe-title">{arrayMeat.strMeal}</h1>
-            : <h1 data-testid="recipe-title">{arrayMeat.strDrink}</h1>
-        }
-        {arrayRecipes === 'bebidas'
-        && <p data-testid="recipe-category">{arrayMeat.strAlcoholic}</p> }
-        <p data-testid="recipe-category">{arrayMeat.strCategory}</p>
-        Ingredients
-        {createIngrediets()}
-        Instructions
-        <p data-testid="instructions">{arrayMeat.strInstructions}</p>
-        Video
-        {
-          arrayRecipes === 'comidas'
+      <button type="button" data-testid="share-btn">
+        <img src={ shareIcon } alt="share icon" />
+      </button>
+      <button type="button" data-testid="favorite-btn">
+        <img src={ whiteHeartIcon } alt="favorite" />
+      </button>
+      {
+        arrayRecipes === 'comidas'
+          ? <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
+          : <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
+      }
+      {arrayRecipes === 'bebidas'
+        && <p data-testid="recipe-category">{recipe.strAlcoholic}</p> }
+      <p data-testid="recipe-category">{recipe.strCategory}</p>
+      Ingredients
+      <IngredientList />
+      Instructions
+      <p data-testid="instructions">{recipe.strInstructions}</p>
+      Video
+      {
+        arrayRecipes === 'comidas'
           && <iframe
             title="Meat"
             data-testid="video"
             width="420"
             height="315"
-            src={ arrayMeat.strYoutube.replace('watch?v=', 'embed/') }
+            src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
           />
-        }
-        Recomendadas
-        <Recomendation />
-        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
-      </div>
-    ));
+      }
+      Recomendadas
+      <Recomendation />
+      <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+    </div>
+  );
 
+  // if (recipe) return <main><span>Loading</span></main>;
   return (
     <main>
       <div>

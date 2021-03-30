@@ -9,7 +9,7 @@ import { fetchComidasAPI } from '../services/fetchComidas';
 
 function Comidas() {
   const {
-    // comidas,
+    comidas,
     setComidas,
     apiResult,
     tituloDaPagina,

@@ -17,11 +17,20 @@ export const setInProgressRecipes = (id, type, ingredients) => {
   if (localStorage.getItem('inProgressRecipes') !== null) {
     prevProgressState = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (type === 'Comidas') {
-      prevProgressState.meals = { ...prevProgressState.meals, ...ingredientsObj };
+      prevProgressState.meals = {
+        ...prevProgressState.meals,
+        ...ingredientsObj,
+      };
     } else if (type === 'Bebidas') {
-      prevProgressState.cocktails = { ...prevProgressState.cocktails, ...ingredientsObj };
+      prevProgressState.cocktails = {
+        ...prevProgressState.cocktails,
+        ...ingredientsObj,
+      };
     }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(prevProgressState));
+    localStorage.setItem(
+      'inProgressRecipes',
+      JSON.stringify(prevProgressState),
+    );
   } else {
     const inProgressObject = {};
     if (type === 'Comidas') {
@@ -30,5 +39,30 @@ export const setInProgressRecipes = (id, type, ingredients) => {
       inProgressObject.cocktails = { ...ingredientsObj };
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObject));
+  }
+};
+
+export const setFavoriteRecipes = (recipeInfo) => {
+  if (localStorage.getItem('favoriteRecipes') === null) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([recipeInfo]));
+  } else {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const alredyFavorite = favoriteRecipes.some(
+      (favorite) => favorite.id === recipeInfo.id,
+    );
+    if (alredyFavorite) {
+      const newFavoriteRecipes = favoriteRecipes.filter(
+        (favorite) => favorite.id !== recipeInfo.id,
+      );
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(newFavoriteRecipes),
+      );
+    } else {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify([...favoriteRecipes, recipeInfo]),
+      );
+    }
   }
 };

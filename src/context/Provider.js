@@ -1,7 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from './Context';
-import { fetchRecipes, fetchRandomRecipe } from '../services/RequisicaoApi';
+import {
+  fetchRecipes,
+  fetchRecipeDetails,
+  fetchRecommendations,
+  fetchRandomRecipe,
+} from '../services/RequisicaoApi';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -10,9 +15,20 @@ function Provider({ children }) {
   const [radioValue, setRadioValue] = useState('s');
   const [isFetching, setIsFetching] = useState(true);
   const [apiReturn, setApiReturn] = useState(null);
+  const [recipeDetails, setRecipeDetails] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
+  const [copyURL, setCopyURL] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const [apiReturnCategory, setApiReturnCategory] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [toggle, setToggle] = useState(false);
+
+  // async function requestApiData(endpoint) {
+  //   const searchType = radioValue === 'i' ? 'filter' : 'search';
+  //   setIsFetching(true);
+  //   setApiReturn([await fetchRecipes(endpoint, searchType, radioValue, inputText)]);
+  //   setIsFetching(false);
+  // }
 
   const requestApiData = useCallback(async (endpoint) => {
     const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -24,6 +40,13 @@ function Provider({ children }) {
   async function requestRandomRecipe(endpoint) {
     setIsFetching(true);
     setApiReturn([await fetchRandomRecipe(endpoint)]);
+    setIsFetching(false);
+  }
+
+  async function requestRecipeDetails(endpoint, recipeId, secondEndpoint) {
+    setIsFetching(true);
+    setRecipeDetails([await fetchRecipeDetails(endpoint, recipeId)]);
+    setRecommendations([await fetchRecommendations(secondEndpoint)]);
     setIsFetching(false);
   }
 
@@ -52,6 +75,13 @@ function Provider({ children }) {
     isFetching,
     apiReturn,
     requestApiData,
+    recipeDetails,
+    setRecipeDetails,
+    requestRecipeDetails,
+    recommendations,
+    setRecommendations,
+    copyURL,
+    setCopyURL,
     apiReturnCategory,
     requestApiCategory,
     onClickCategoryFetch,
@@ -59,6 +89,8 @@ function Provider({ children }) {
     setToggle,
     toggle,
     requestRandomRecipe,
+    favorite,
+    setFavorite,
   };
 
   return (

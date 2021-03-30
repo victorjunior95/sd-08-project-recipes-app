@@ -9,6 +9,28 @@ export async function fetchRecipes(endpoint, searchType, radioValue, inputText) 
   }
 }
 
+export async function fetchRecipeDetails(endpoint, recipeId) {
+  const url = `https://www.${endpoint}.com/api/json/v1/1/lookup.php?i=${recipeId}`;
+  try {
+    const requestReturn = await fetch(url);
+    const requestObject = await requestReturn.json();
+    return requestObject;
+  } catch (error) {
+    return { recipe: null };
+  }
+}
+
+export async function fetchRecommendations(endpoint) {
+  const url = `https://www.${endpoint}.com/api/json/v1/1/search.php?s=`;
+  try {
+    const requestReturn = await fetch(url);
+    const requestObject = await requestReturn.json();
+    return requestObject;
+  } catch (error) {
+    return { recipe: null };
+  }
+}
+
 export async function fetchRandomRecipe(endpoint) {
   const url = `https://www.${endpoint}.com/api/json/v1/1/random.php`;
   try {

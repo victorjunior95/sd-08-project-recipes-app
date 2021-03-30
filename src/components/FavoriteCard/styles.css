@@ -1,14 +1,15 @@
 .message {
   align-items: center;
-  flex-direction: column;
-  position: absolute;
   background-color: #0fa36b;
-  left: 50%;
-  top: 50%;
-  height: 3rem;
   border-radius: 5px;
-  width: 10rem;
+  flex-direction: column;
+  height: 3rem;
+  left: 50%;
+  position: absolute;
+  top: 50%;
   text-align: center;
+  width: 10rem;
+  
 }
 
 .message p {

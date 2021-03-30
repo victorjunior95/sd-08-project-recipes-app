@@ -36,7 +36,7 @@ function CardItens({ name, image, index, id, food = 'false', drink = 'false' }) 
           boxShadow: 'rgba(0, 0, 0, 0.50) 0px 5px 15px',
         } }
         data-testid={
-          history.location.pathname.includes('explorar') ? `${index}-ingredient-card`
+          history.location.pathname.includes('ingredientes') ? `${index}-ingredient-card`
             : `${index}-recipe-card`
         }
       >

@@ -16,8 +16,8 @@ function MealsRecipes() {
   const input = useSelector((state) => state.search.inputValue);
   const type = useSelector((state) => state.search.inputType);
   const meals = useSelector((state) => state.recipes.recipes);
-  const filter = useSelector((state) => state.recipes.mealFilter);
-  const ifilter = useSelector((state) => state.recipes.ingredientFilter);
+  const filter = useSelector((state) => state.search.mealFilter);
+  const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
     const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
     const ingredientFilter = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
@@ -28,13 +28,21 @@ function MealsRecipes() {
   }, [input, type, filter, ifilter]);
 
   useEffect(() => () => {
-    dispatch(clearRecipesAction());
-    dispatch(clearSearchAction());
+    const clearDispatch = () => {
+      dispatch(clearRecipesAction());
+      dispatch(clearSearchAction());
+    };
+    clearDispatch();
   }, []);
+
+  useEffect(() => {
+    if (meals.length === 1) return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+  }, []);
+
+  console.log('meals', meals);
 
   return (
     <main>
-
       {(meals && meals.length === 1 && filter === '')
       && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />

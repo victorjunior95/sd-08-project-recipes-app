@@ -8,7 +8,7 @@ import favoriteRecipesAction from '../redux/actions/favoriteRecipeAction';
 export default function LikeButton() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const recipes = useSelector((state) => state.recipes.recipes);
+  const recipes = useSelector((state) => state.recipes.singleRecipe);
   const [likedToogle, setLikedToogle] = useState(false);
 
   const type = (pathname.includes('comidas') ? 'Meal' : 'Drink');

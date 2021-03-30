@@ -129,9 +129,9 @@ const Detalhes = () => {
       <input
         type="image"
         onClick={ () => {
-          const one = 1000;
+          const ONE_SECOND = 1000;
           copy(window.location); setHidden(true);
-          setTimeout(() => setHidden(false), one);
+          setTimeout(() => setHidden(false), ONE_SECOND);
         } }
         data-testid="share-btn"
         src={ shareIcon }

@@ -17,7 +17,7 @@ const RecomandationCard = ({ type }) => {
 
   return (
 
-    <Carousel>
+    <Carousel className="Carousel">
 
       {typeDrinkFood.reduce((acc, _, index, array) => {
         if (index % 2 === 0) {

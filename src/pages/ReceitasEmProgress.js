@@ -23,7 +23,6 @@ const Detalhes = () => {
     const fetchData = async () => {
       const [, type, id] = location.pathname.split('/');
       const productType = { comidas: 'meals', bebidas: 'drinks' };
-
       const foodDetailRequest = await fetchProductDetailsById(id, type);
       const foodDetail = foodDetailRequest[productType[type]][0];
 
@@ -72,8 +71,9 @@ const Detalhes = () => {
       <button
         type="button"
         onClick={ () => {
+          const link = window.location.href.split('/in-progress')[0];
           const one = 1000;
-          copy(location.pathname.split('/in-progress')[0]); setHidden(true);
+          copy(link); setHidden(true);
           setTimeout(() => setHidden(false), one);
         } }
         data-testid="share-btn"

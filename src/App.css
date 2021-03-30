@@ -58,6 +58,7 @@
 .btnStyle {
   bottom: 0;
   position: fixed;
+  z-index: 1;
 }
 
 body .Login {

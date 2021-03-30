@@ -19,7 +19,7 @@ const food = (state = INITIALSTATE, action) => {
     };
   case ERROR_REQUEST_API_FOODS:
     return { ...state,
-      meals: ['error'],
+      meals: false,
       isFetching: false,
     };
   default:

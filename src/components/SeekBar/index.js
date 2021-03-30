@@ -3,10 +3,25 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, FormControl, Button, Row } from 'react-bootstrap';
 import { fetchDrinksByFilter, fetchMealsByFilter } from '../../redux/actions';
+import './styles.css';
 
 export default function SeekBar(props) {
   const [onSeek, setOnSeek] = useState('');
-  const [onRadio, setOnRadio] = useState('');
+  const [onRadio, setOnRadio] = useState('Nome');
+  const RadioValues = [
+    {
+      name: 'Ingrediente',
+      dataTestId: 'ingredient-search-radio',
+    },
+    {
+      name: 'Nome',
+      dataTestId: 'name-search-radio',
+    },
+    {
+      name: 'Primeira Letra',
+      dataTestId: 'first-letter-search-radio',
+    },
+  ];
   const dispatch = useDispatch();
   const { title } = props;
 
@@ -35,8 +50,8 @@ export default function SeekBar(props) {
 
   return (
 
-    <Form>
-      <Form.Row className="m-3">
+    <Form className="py-2">
+      <Form.Row className="mx-3">
         <FormControl
           type="text"
           placeholder="Pesquisar"
@@ -45,34 +60,21 @@ export default function SeekBar(props) {
           onChange={ handleOnSeek }
         />
       </Form.Row>
-      <Form.Group as={ Row } className="justify-content-around mx-0 flex-row">
-        <Form.Check
-          sm={ 4 }
-          data-testid="ingredient-search-radio"
-          label="Ingrediente"
-          type="radio"
-          name="SearchChoise"
-          value="Ingrediente"
-          onChange={ (e) => setOnRadio(e.target.value) }
-        />
-        <Form.Check
-          sm={ 4 }
-          data-testid="name-search-radio"
-          label="Nome"
-          type="radio"
-          name="SearchChoise"
-          value="Nome"
-          onChange={ (e) => setOnRadio(e.target.value) }
-        />
-        <Form.Check
-          sm={ 4 }
-          data-testid="first-letter-search-radio"
-          label="Primeira Letra"
-          type="radio"
-          name="SearchChoise"
-          value="Primeira Letra"
-          onChange={ (e) => setOnRadio(e.target.value) }
-        />
+      <Form.Group as={ Row } className="justify-content-around mx-0 my-2 flex-row">
+        {RadioValues.map(
+          ({ name, dataTestId }) => (
+            <Form.Check
+              sm={ 4 }
+              label={ name }
+              type="radio"
+              name="SearchChoise"
+              value={ name }
+              checked={ name === onRadio }
+              onChange={ (e) => setOnRadio(e.target.value) }
+              key={ name }
+              data-testid={ dataTestId }
+            />),
+        )}
       </Form.Group>
       <Button
         type="submit"

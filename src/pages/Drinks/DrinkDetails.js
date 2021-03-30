@@ -10,8 +10,9 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFavoritesHook from '../hooks/useFavoritesHook';
 
+const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
+
 function DrinkDetails(props) {
-  const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -63,6 +64,17 @@ function DrinkDetails(props) {
   };
 
   useEffect(() => {
+    function checkIsInProgress(idNumber) {
+      const { cocktails } = inProgressRecipes;
+      if (Object.keys(cocktails).includes(idNumber)) {
+        return setIsInProgress(true);
+      }
+      return setIsInProgress(false);
+    }
+    checkIsInProgress(id);
+  });
+
+  useEffect(() => {
     function checkIsFavorite() {
       return favorites
         .find((fav) => fav.id === id)
@@ -72,18 +84,6 @@ function DrinkDetails(props) {
     checkIsFavorite();
   }, [id, favorites]);
 
-  useEffect(() => {
-    function checkIsInProgress(idNumber) {
-      const { cocktails } = inProgressRecipes;
-      const newMeals = inProgressRecipes.meals;
-      if (Object.keys(newMeals).includes(idNumber)
-      || Object.keys(cocktails).includes(idNumber)) {
-        return setIsInProgress(true);
-      }
-      return setIsInProgress(false);
-    }
-    checkIsInProgress(id);
-  });
 
   function handleClick() {
     copy(window.location.href);

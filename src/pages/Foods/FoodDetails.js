@@ -11,8 +11,9 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFavoritesHook from '../hooks/useFavoritesHook';
 
+const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
+
 function FoodDetails(props) {
-  const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -62,9 +63,8 @@ function FoodDetails(props) {
 
   useEffect(() => {
     function checkIsInProgress(idNumber) {
-      const { meals, cocktails } = inProgressRecipes;
-      if (Object.keys(meals).includes(idNumber)
-      || Object.keys(cocktails).includes(idNumber)) {
+      const { meals } = inProgressRecipes;
+      if (Object.keys(meals).includes(idNumber)) {
         return setIsInProgress(true);
       }
       return setIsInProgress(false);

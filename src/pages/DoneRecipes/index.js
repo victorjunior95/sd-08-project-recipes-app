@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
-import FilterButton from '../../components/FilterButton';
+import FilterButton from '../../components/Buttons/FilterButton';
 import DoneRecipeCard from '../../components/cards/DoneRecipeCard';
+import '../../components/cards/doneCards.css';
 
 function DoneRecipes({ history }) {
-  // const [listOfDoneRecipes, setListOfDoneRecipes] = useState([]);
-  // const dones = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const [filterBy, setFilterBy] = useState('');
+  const dones = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const recipes = dones.filter((recipe) => recipe.type.includes(filterBy));
 
   return (
     <>
       <Header history={ history } />
       <main>
-        <section>
-          <FilterButton filter="all" />
-          <FilterButton filter="food" />
-          <FilterButton filter="drink" />
+        <section className="filters">
+          <FilterButton filter="all" setFilterBy={ setFilterBy } />
+          <FilterButton filter="food" setFilterBy={ setFilterBy } />
+          <FilterButton filter="drink" setFilterBy={ setFilterBy } />
         </section>
-        <section>
-          { favorites.map((recipe, index) => (
+        <section className="cards">
+          { recipes.map((recipe, index) => (
             <DoneRecipeCard
               index={ index }
               key={ recipe.id }

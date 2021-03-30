@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FilterButton({ filter }) {
+function FilterButton({ filter, setFilterBy }) {
+  const filterType = {
+    all: '',
+    drink: 'bebida',
+    food: 'comida',
+  };
+
   function firstToUpperCase(string) {
     const firstLetter = string.slice(0, 1).toUpperCase();
     const stringWithoutFirstLetter = string.slice(1);
@@ -11,9 +17,10 @@ function FilterButton({ filter }) {
   const dataTestid = `filter-by-${filter}-btn`;
   return (
     <button
+      className="filter"
       type="button"
       data-testid={ dataTestid }
-      onClick={ () => console.log(filter) }
+      onClick={ () => setFilterBy(filterType[filter]) }
     >
       { firstToUpperCase(filter) }
     </button>
@@ -22,6 +29,7 @@ function FilterButton({ filter }) {
 
 FilterButton.propTypes = {
   filter: PropTypes.string.isRequired,
+  setFilterBy: PropTypes.func.isRequired,
 };
 
 export default FilterButton;

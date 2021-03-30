@@ -8,34 +8,34 @@ import { categoryDrink, seachDrinkByCategory } from '../services';
 const Drinks = () => {
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
-  const { recipesFetch, drink } = useContext(LariContext);
-  const [mapCards, setMapCards] = useState();
+  const { recipesFetch,
+    drink,
+    nameIngredient,
+    setNameIngredient,
+    handleHeaderSearch } = useContext(LariContext);
+  const [mapCards, setMapCards] = useState([]);
   const [category, setCategory] = useState([]);
-  const [mapCategorys, setMapCategorys] = useState();
   const [filteredDrinks, setFilteredDrinks] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('All');
+
   useEffect(() => {
     setFilteredDrinks(drink);
-    // console.log(drink);
   }, [drink]);
+
   useEffect(() => {
-    async function fetchFetch() {
+    function fetchFetch() {
       recipesFetch(false);
     }
-    async function fetchCategory() {
-      await categoryDrink()
+    function fetchCategory() {
+      console.log('fetchCategory');
+      categoryDrink()
         .then((response) => setCategory(response));
-      // console.log(categoryFood());
-      // console.log(result);
     }
     fetchCategory();
-    // console.log(category);
     fetchFetch();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
-    // console.log(food);
     const mapDrinks = () => (
       setMapCards(
         filteredDrinks.map((beverage, index) => {
@@ -57,52 +57,43 @@ const Drinks = () => {
     );
     mapDrinks();
   }, [filteredDrinks]);
+
+  const fetchDrinkByCategory = async (cat) => {
+    if (currentCategory === cat) {
+      setFilteredDrinks(drink);
+      setCurrentCategory('All');
+    } else {
+      const result = await seachDrinkByCategory(cat);
+      setFilteredDrinks(result);
+      setCurrentCategory(cat);
+    }
+  };
+
+  const mapCategory = () => category.slice(0, MAX_CATEGORY).map((drinks, index) => (
+    <label key={ drinks.strCategory } htmlFor={ drinks.strCategory }>
+      {drinks.strCategory}
+      <input
+        key={ index }
+        type="radio"
+        data-testid={ `${drinks.strCategory}-category-filter` }
+        onClick={ () => fetchDrinkByCategory(drinks.strCategory) }
+        checked={ currentCategory === drinks.strCategory }
+      />
+    </label>
+  ));
   useEffect(() => {
-    // const filterCategories = (cat) => {
-    //   console.log(cat);
-    //   // console.log(drink);
-    //   const result = drink.filter((beverage) => beverage.strCategory === cat);
-    //   setFilteredDrinks(result);
-    // };
-    const fetchDrinkByCategory = async (cat) => {
-      // console.log(` ${currentCategory}  <=>  ${cat} `);
-      if (currentCategory === cat) {
-        setFilteredDrinks(drink);
-        setCurrentCategory('All');
-        // console.log(` ${currentCategory}`);
-      } else {
-        const result = await seachDrinkByCategory(cat);
-        setFilteredDrinks(result);
-        setCurrentCategory(cat);
-      }
-    };
-    // console.log(category);
-    const mapCategory = () => (
-      setMapCategorys(
-        category.map((drinks, index) => {
-          if (index < MAX_CATEGORY) {
-            return (
-              <label key={ index } htmlFor={ drinks.strCategory }>
-                {drinks.strCategory}
-                <input
-                  type="radio"
-                  data-testid={ `${drinks.strCategory}-category-filter` }
-                  onClick={ () => fetchDrinkByCategory(drinks.strCategory) }
-                  checked={ currentCategory === drinks.strCategory }
-                />
-              </label>
-            );
-          }
-          return '';
-        }),
-      )
-    );
-    mapCategory();
-  }, [category, drink, currentCategory]);
+    console.log('useEffect');
+    if (nameIngredient) {
+      handleHeaderSearch(nameIngredient, 'ingredients', 'Bebidas');
+      setNameIngredient('');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <Header title="Bebidas" />
-      {mapCategorys}
+      {mapCategory()}
       <label htmlFor="All">
         All
         <input

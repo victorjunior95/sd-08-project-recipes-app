@@ -8,7 +8,11 @@ import { categoryFood, seachFoodByCategory } from '../services';
 const Comidas = () => {
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
-  const { recipesFetch, food } = useContext(LariContext);
+  const { recipesFetch,
+    food,
+    nameIngredient,
+    setNameIngredient,
+    handleHeaderSearch } = useContext(LariContext);
   const [mapCards, setMapCards] = useState();
   const [category, setCategory] = useState([]);
   const [mapCategorys, setMapCategorys] = useState();
@@ -23,11 +27,11 @@ const Comidas = () => {
       const result = await recipesFetch(true);
       return result;
     }
-    async function fetchCategory() {
-      const result = await categoryFood()
+    function fetchCategory() {
+      categoryFood()
         .then((response) => setCategory(response));
       // console.log(categoryFood());
-      console.log(result);
+      // console.log(result);
     }
     fetchCategory();
     // console.log(category);
@@ -98,6 +102,14 @@ const Comidas = () => {
     );
     mapCategory();
   }, [category, food, currentCategory]);
+
+  useEffect(() => {
+    if (nameIngredient) {
+      handleHeaderSearch(nameIngredient, 'ingredients', 'Comidas');
+      setNameIngredient('');
+    }
+  }, [nameIngredient]);
+
   return (
     <div>
       <Header title="Comidas" />

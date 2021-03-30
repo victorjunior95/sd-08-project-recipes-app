@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from './Pages/NotFound';
 
 import './App.css';
+import ReceitasFavoritas from './Pages/ReceitasFavoritas';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/comidas/:id/in-progress" component={ DetalhesInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DetalhesInProgress } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route component={ NotFound } />
       </Switch>
     </Provider>

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ label, onClick, datatestid, disabled }) => (
+const Button = ({ className, label, onClick, datatestid, disabled }) => (
   <button
     type="button"
     onClick={ onClick }
     data-testid={ datatestid }
     disabled={ disabled }
+    className={ className }
   >
     { label }
   </button>
@@ -14,6 +15,7 @@ const Button = ({ label, onClick, datatestid, disabled }) => (
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
   datatestid: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,

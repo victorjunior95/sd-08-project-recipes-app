@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import Recomendations from './Recomendations';
 import '../css/Details.css';
+import shareIcon from '../images/shareIcon.svg';
+import FavoriteButton from './FavoriteButton';
+import YtVideo from './YtVideo';
 
+const copy = require('clipboard-copy');
+
+const doneRecipes = [];
 function Details(props) {
   const history = useHistory();
   const { currentFood, ingredients } = props;
+  const [disabled, setDisabled] = useState(false);
+  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  const [doneList] = useState(JSON.parse(
+    localStorage.getItem('doneRecipes') || '{}',
+  ));
+  const [message, setMessage] = useState(false);
 
-  const ytVideo = () => (
-    currentFood.strYoutube ? <iframe
-      frameBorder="0"
-      data-testid="video"
-      key={ currentFood.strYoutube }
-      src={ currentFood.strYoutube.split('watch?v=').join('embed/') }
-      title="recipe video"
-    />
-      : ''
-  );
+  useEffect(() => {
+    function disabledBtn() {
+      const currentId = currentFood.idMeal || currentFood.idDrink;
+      const filterFood = doneList.filter((filter) => (
+        filter.id === currentId
+      ));
+      if (filterFood.length > 0) {
+        setDisabled(true);
+      }
+    }
+    disabledBtn();
+  }, [currentFood]);
 
   const historyPath = () => (
     history.push(`${history.location.pathname}/in-progress`)
@@ -27,6 +41,12 @@ function Details(props) {
   function loadingScreen() {
     return (
       <div>LOADING...</div>
+    );
+  }
+
+  function renderMessage() {
+    return (
+      <span>Link copiado!</span>
     );
   }
 
@@ -41,8 +61,15 @@ function Details(props) {
         <h1 data-testid="recipe-title">
           { currentFood.strMeal || currentFood.strDrink }
         </h1>
-        <p data-testid="share-btn">btnCompartilhar</p>
-        <p data-testid="favorite-btn">btnFavorito</p>
+        <input
+          type="image"
+          src={ shareIcon }
+          alt="share"
+          data-testid="share-btn"
+          onClick={ () => setMessage(true) || copy(`http://localhost:3000${history.location.pathname}`) }
+        />
+        { message ? renderMessage() : null }
+        <FavoriteButton currentFood={ currentFood } />
         <h6
           data-testid="recipe-category"
         >
@@ -62,9 +89,11 @@ function Details(props) {
         </ul>
         <h2>Instruções</h2>
         <p data-testid="instructions">{ currentFood.strInstructions }</p>
-        { ytVideo() }
+        <YtVideo currentFood={ currentFood } />
         <Recomendations />
         <Button
+          disabled={ disabled }
+          className="start-recipe-btn"
           datatestid="start-recipe-btn"
           label="Iniciar Receita"
           onClick={ historyPath }

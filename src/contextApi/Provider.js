@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Login({ children }) {
-  const [email, setEmail] = useState('bla');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState();
   const [searchBar, setSearchBar] = useState(false);
   const [results, setResults] = useState([]);

@@ -17,6 +17,7 @@ const mealIngredients = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list
 const drinkIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const mealsByIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i='
 const drinksByIngredients =  'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i='
+const filterByArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list'
 
 export const filterRecipes = async (title, filter, query) => {
   const URL = title === 'Comidas' ? baseURLFoods : baseURLDrinks;
@@ -97,3 +98,10 @@ export const getRecipesByIngredient = async (title, ingredient) => {
   const { drinks } = await response.json();
   return drinks;
 };
+
+export const getFilterByArea = async()=>{
+  const URL = filterByArea
+  const response = await fetch(URL)
+  const {meals} = await response.json()
+  return meals
+}

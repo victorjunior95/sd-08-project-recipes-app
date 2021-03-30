@@ -19,7 +19,6 @@ import FavoriteCard from './FavoriteCard/FavoriteCard';
 import FoodInProgressCard from './FoodInProgressCard';
 import DrinkInProgressCard from './DrinkInProgressCard';
 
-
 const components = {
   Header,
   Footer,
@@ -41,7 +40,6 @@ const components = {
   FavoriteCard,
   FoodInProgressCard,
   DrinkInProgressCard,
-
 };
 
 export default components;

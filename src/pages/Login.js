@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as UserActions } from '../store/ducks/user';
 import * as storage from '../services/storage';
+import PrimaryButton from '../components/PrimaryButton';
 
 import styles from '../styles/pages/Login.module.css';
 
@@ -46,14 +47,13 @@ const Login = ({ login }) => {
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
         />
-        <button
+        <PrimaryButton
           data-testid="login-submit-btn"
-          type="button"
           disabled={ !isFormValid() }
           onClick={ handleLogin }
         >
           Login
-        </button>
+        </PrimaryButton>
       </form>
     </div>
   );

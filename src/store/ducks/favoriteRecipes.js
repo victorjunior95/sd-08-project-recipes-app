@@ -5,17 +5,22 @@ export const Types = {
 
 const INITIAL_STATE = {
   favoriteRecipes: [],
-  idCount: 0,
 };
 
-const addRecipe = (state, action) => {
-  const newRecipe = { id: idCount, ...action.payload };
-  return {
-    ...state,
-    favoriteRecipes: [...state.favoriteRecipes, newRecipe],
-    idCount: state.idCount + 1,
-  };
-};
+const mapFavorite = (favorite) => ({
+  id: favorite.idMeal || favorite.idDrink,
+  type: favorite.idMeal ? 'comida' : 'bebida',
+  area: favorite.strArea || '',
+  category: favorite.strCategory || '',
+  alcoholicOrNot: favorite.strAlcoholic || '',
+  name: favorite.strMeal || favorite.strDrink,
+  image: favorite.strMealThumb || favorite.strDrinkThumb || '',
+});
+
+const addRecipe = (state, action) => ({
+  ...state,
+  favoriteRecipes: [...state.favoriteRecipes, mapFavorite(action.payload)],
+});
 
 const removeRecipe = (state, action) => ({
   ...state,

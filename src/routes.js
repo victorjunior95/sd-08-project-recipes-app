@@ -15,6 +15,8 @@ import ExploreMeals from './pages/ExploreMeals';
 import ExploreCocktails from './pages/ExploreCocktails';
 import NotFound from './pages/NotFound';
 import MealsDetails from './pages/MealsDetails';
+import CocktailDetails from './pages/CocktailDetails';
+import ProgressRecipe from './pages/ProgressRecipe';
 
 export default function Routes() {
   return (
@@ -23,10 +25,12 @@ export default function Routes() {
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/perfil" component={ Profile } />
 
+      <Route path="/comidas/:id/in-progress" component={ ProgressRecipe } />
       <Route path="/comidas/:id" component={ MealsDetails } />
       <Route path="/comidas" component={ Meals } />
 
-      <Route path="/bebidas/:id" component={ Cocktails } />
+      <Route path="/bebidas/:id/in-progress" component={ ProgressRecipe } />
+      <Route path="/bebidas/:id" component={ CocktailDetails } />
       <Route path="/bebidas" component={ Cocktails } />
 
       <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />

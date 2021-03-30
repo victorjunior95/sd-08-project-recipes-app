@@ -9,10 +9,22 @@ const INITIAL_USER_STATE = {
   isAuthenticated: false,
 };
 
+const INITIAL_IN_PROGRESS_STATE = {
+  meals: {},
+  cocktails: {},
+};
+
 const INITIAL_STATE = {
   user: {
     ...INITIAL_USER_STATE,
     ...JSON.parse(storage.getUser()),
+  },
+  inProgressRecipes: {
+    ...INITIAL_IN_PROGRESS_STATE,
+    ...JSON.parse(storage.getInProgress()),
+  },
+  favoriteRecipes: {
+    favoriteRecipes: JSON.parse(storage.getFavoriteRecipes()) || [],
   },
 };
 
@@ -21,5 +33,10 @@ const store = createStore(
   INITIAL_STATE,
   composeWithDevTools(applyMiddleware(thunk)),
 );
+
+store.subscribe(() => {
+  const { favoriteRecipes } = store.getState().favoriteRecipes;
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+});
 
 export default store;

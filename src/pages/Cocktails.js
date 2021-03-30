@@ -32,10 +32,13 @@ const Cocktails = ({ fetchRecipes, fetchCategories, isFetchingRecipes,
   }, []);
 
   if (id) return <p>{ `foi passado o id ${id}` }</p>;
+
   if (isFetchingRecipes && isFetchingCategories) return <LoadingScreen />;
+
   if (recipesNotFound) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
+
   if (recipes.length === 1) {
     return <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />;
   }

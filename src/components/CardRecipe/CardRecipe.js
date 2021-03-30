@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './cardRecipe.css';
+import Context from '../../contextApi/Context';
 const CardRecipe = ({
   id,
   type,
@@ -16,12 +18,27 @@ const CardRecipe = ({
   tags,
   favorite = false,
 }) => {
+  const {setFavoriteRecipes} =useContext(Context)
+  const history = useHistory();
   const [saveClipBoard, setSaveClipBoard] = useState(false);
   const savetoClipboard = (id, type) => {
     window.navigator.clipboard.writeText(
       `http://localhost:3000/${type}s/${id}`,
     );
     setSaveClipBoard(true);
+  };
+
+  const removeFav = ()=>{
+    const idDoObj = id
+    if(localStorage.getItem('favoriteRecipes')){
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      const filterFav = favorites.filter(ele=>ele.id !==idDoObj )
+      localStorage.setItem('favoriteRecipes',JSON.stringify(filterFav))
+      setFavoriteRecipes(filterFav)
+     }
+    }
+  const redirectToDetails = (type, id) => {
+    history.push(`/${type}s/${id}`);
   };
   return (
     <div className="card-recipe">
@@ -31,6 +48,7 @@ const CardRecipe = ({
           src={image}
           alt=""
           data-testid={`${index}-horizontal-image`}
+          onClick={() => redirectToDetails(type, id)}
         />
       </div>
       <div className="right">
@@ -41,7 +59,11 @@ const CardRecipe = ({
         >
           {type === 'comida' ? area : alcoholicOrNot} - {category}
         </span>
-        <span className="card-name" data-testid={`${index}-horizontal-name`}>
+        <span
+          className="card-name"
+          data-testid={`${index}-horizontal-name`}
+          onClick={() => redirectToDetails(type, id)}
+        >
           {name}
         </span>
         <span
@@ -75,7 +97,7 @@ const CardRecipe = ({
         <img src={ShareIcon} />
       </button>
       {favorite && (
-        <button className="btn-favorite" type="button">
+        <button className="btn-favorite" type="button" onClick = {()=>removeFav()}>
           <img
             src={blackHeartIcon}
             alt="Profile icon"

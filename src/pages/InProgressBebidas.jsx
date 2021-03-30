@@ -1,7 +1,8 @@
 import React from 'react';
+import InProgressFood from '../components/InProgressFood';
 
 const InProgressBebidas = () => (
-  <div>suidauishd</div>
+  <InProgressFood />
 );
 
 export default InProgressBebidas;

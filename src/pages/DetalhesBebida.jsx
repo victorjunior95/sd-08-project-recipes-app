@@ -1,25 +1,25 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import getResultFromAPI from '../api/getResultFromAPI';
 import Details from '../components/Details';
-import contextRecipes from '../context/Context';
 import createIngredientsArray from '../services/createIngredientsArray';
 
 function DetalhesBebida() {
   const { id } = useParams();
-  const context = useContext(contextRecipes);
+  const [currentFood, setCurrentFood] = useState({});
+  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     async function getDrink() {
       const food = await getResultFromAPI('/bebidas', 'lookup', id);
-      context.setCurrentFood(food[0]);
-      context.setCurrentFoodIngredients(createIngredientsArray(food[0]));
+      setCurrentFood(food[0]);
+      setIngredients(createIngredientsArray(food[0]));
     }
     getDrink();
   }, []);
 
   return (
-    <Details />
+    <Details currentFood={ currentFood } ingredients={ ingredients } />
   );
 }
 

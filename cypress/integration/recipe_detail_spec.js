@@ -287,7 +287,7 @@ describe('39 - Implemente a solução de forma que caso a receita já tenha sido
   });
 });
 
-describe('40 - Implemente a solução de modo que caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continuar Receita"', () => {
+describe.only('40 - Implemente a solução de modo que caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continuar Receita"', () => {
   it('Verifica botão de "Continuar Receita" na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -301,6 +301,7 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
       },
     });
 
+    console.log('teste das comidas :', cy.get('[data-testid="start-recipe-btn"]'))
     cy.get('[data-testid="start-recipe-btn"]').contains('Continuar Receita');
   });
 
@@ -316,7 +317,8 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
         win.fetch = fetchMock;
       },
     });
-
+    console.log('teste das bebidas :', cy.get('[data-testid="start-recipe-btn"]'))
+    console.log('local storage: ', localStorage.getItem('inProgressRecipes'));
     cy.get('[data-testid="start-recipe-btn"]').contains('Continuar Receita');
   });
 });

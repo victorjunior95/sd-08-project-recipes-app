@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+// import { useHistory } from 'react-router-dom';
 import FoodCategoryButton from '../../components/FoodCategoryButton';
 import FoodCard from '../../components/FoodCard';
 import Footer from '../../components/footer/Footer';
@@ -7,6 +8,7 @@ import RecipesContext from '../../ContextApi/RecipesContext';
 
 function RecipesFood() {
   const { recipes } = useContext(RecipesContext);
+  // const history = useHistory();
 
   const recipeMeals = recipes.meals;
   const cardMaximun = 12;

@@ -10,7 +10,7 @@ function ExploreByOriginationButton() {
       data-testid="explore-by-area"
       type="button"
     >
-      Por Local De Origem
+      Por Local de Origem
     </button>
   );
 }

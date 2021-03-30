@@ -3,6 +3,21 @@ import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function DetailsButtons({ route, id, page }) {
+  // https://stackoverflow.com/questions/16083919/push-json-objects-to-array-in-localstorage
+  function SaveProgressRecipes(data) {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    a.push(data);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(a));
+  }
+
+  function SaveFinishedRecipes(data) {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('finishedRecipes')) || [];
+    a.push(data);
+    localStorage.setItem('finishedRecipes', JSON.stringify(a));
+  }
+
   return (
     <div>
       {
@@ -13,10 +28,12 @@ function DetailsButtons({ route, id, page }) {
             data-testid="start-recipe-btn"
             id="start-recipe-btn"
             onClick={ () => {
-              localStorage.setItem('inProgressRecipes', JSON.stringify(id));
+              SaveProgressRecipes(id);
             } }
           >
-            { (id === JSON.parse(localStorage.getItem('inProgressRecipes')))
+            { localStorage.getItem('inProgressRecipes')
+              && JSON.parse(localStorage.getItem('inProgressRecipes'))
+                .some((item) => item === id)
               ? 'Continuar Receita' : 'Iniciar Receita' }
           </Link>
 
@@ -27,7 +44,7 @@ function DetailsButtons({ route, id, page }) {
             className="last-btn"
             data-testid="finish-recipe-btn"
             onClick={ () => {
-              localStorage.setItem('finishedRecipes', JSON.stringify(id));
+              SaveFinishedRecipes(id);
             } }
             // disabled={ document.querySelectorAll('.checkbox').checked }
           >

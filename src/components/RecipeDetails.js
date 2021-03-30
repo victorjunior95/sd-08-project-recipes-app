@@ -14,8 +14,6 @@ function RecipeDetails({ recipeType, page }) {
     recipeDetails,
     copyURL,
     setCopyURL,
-    favorite,
-    // setFavorite,
   } = useContext(Context);
 
   function shareLink() {
@@ -34,19 +32,13 @@ function RecipeDetails({ recipeType, page }) {
     const name = recipe[`str${recipeType}`];
     const image = recipe[`str${recipeType}Thumb`];
 
-    const saveFavorite = JSON.stringify([
-      { id, type, area, category, alcoholicOrNot, name, image },
-    ]);
+    const newFavorite = { id, type, area, category, alcoholicOrNot, name, image };
 
-    localStorage.setItem('favoriteRecipes', saveFavorite);
+    let favoritesArray = [];
+    favoritesArray = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    favoritesArray.push(newFavorite);
 
-    /* if (favorite === true) {
-      setFavorite(false);
-      document.getElementById('favorite-btn').setAttribute('src', whiteHeartIcon);
-    } if (favorite === false) {
-      setFavorite(true);
-      document.getElementById('favorite-btn').setAttribute('src', blackHeartIcon);
-    } */
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesArray));
   }
 
   function renderDetails() {
@@ -63,27 +55,27 @@ function RecipeDetails({ recipeType, page }) {
         <h1 data-testid="recipe-title">
           { recipe[`str${recipeType}`] }
         </h1>
-        <button
-          type="button"
+        <input
+          type="image"
+          alt="Share image"
           data-testid="share-btn"
           className="share-btn"
           id="share-btn"
+          src={ shareIcon }
           onClick={ () => shareLink() }
-        >
-          <img alt="Share" src={ shareIcon } />
-        </button>
-        <button
-          type="button"
+        />
+        <input
+          type="image"
+          alt="Favorite image"
           data-testid="favorite-btn"
           className="favorite-btn"
           id="favorite-btn"
+          src={ localStorage.getItem('favoriteRecipes')
+            && JSON.parse(localStorage.getItem('favoriteRecipes'))
+              .some((item) => item.id === recipe[`id${recipeType}`])
+            ? blackHeartIcon : whiteHeartIcon }
           onClick={ () => favoriteRecipe(recipe) }
-        >
-          <img
-            alt="Favorite"
-            src={ favorite ? blackHeartIcon : whiteHeartIcon }
-          />
-        </button>
+        />
         { copyURL ? <p>Link copiado!</p> : null }
         <h5 data-testid="recipe-category">
           { recipe.strCategory }
@@ -110,7 +102,7 @@ function RecipeDetails({ recipeType, page }) {
   }
 
   return (
-    recipeDetails && (isFetching
+    recipeDetails.length && (isFetching
       ? <p>Loading...</p>
       : renderDetails())
   );

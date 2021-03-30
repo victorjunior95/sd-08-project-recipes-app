@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Context from '../context/Context';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 import Footer from '../components/Footer';
 import { requestDrinksIngredientsList } from '../services/apiRequests';
@@ -9,6 +10,7 @@ function ExplorarBebidasIngredientes() {
   const MIN_INDEX = 0;
   const MAX_INDEX = 12;
   const [ingredientsList, setIngredientsList] = useState([]);
+  const { setInputValue, setSearchParams } = useContext(Context);
 
   useEffect(() => {
     const requestByIngredients = async () => {
@@ -34,7 +36,11 @@ function ExplorarBebidasIngredientes() {
                 type="button"
                 key={ strIngredient1 }
                 data-testid={ `${index}-ingredient-card` }
-                onClick={ () => history.push('/bebidas') }
+                onClick={ () => {
+                  setSearchParams('ingrediente');
+                  setInputValue(strIngredient1);
+                  history.push('/bebidas');
+                } }
               >
                 <img
                   src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }

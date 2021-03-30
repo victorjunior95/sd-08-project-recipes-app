@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function ExplorarBebidasIngredientes() {
   const [ingredientes, setIngredientes] = useState([]);
@@ -18,26 +19,46 @@ function ExplorarBebidasIngredientes() {
     setLoading(false);
   };
 
+  // const redirectIngredientes = async (param) => {
+  //   console.log(param);
+  // };
   useEffect(() => {
     fetchIngredients();
   }, []);
 
   return (
     <div>
-      {console.log(ingredientes)}
       {!loading && ingredientes.map((elem, index) => (
-        <div
+        <label
+          htmlFor={ `${index}-checkbox` }
           key={ `${elem.idIngredient1}, ${index} ` }
-          data-testid={ `${index}-ingredient-card` }
         >
-          <h1 data-testid={ `${index}-card-name` }>
-            {elem.strIngredient1}
-          </h1>
-          <img data-testid={ `${index}-card-img` } src={ `https://www.thecocktaildb.com/images/ingredients/${elem.strIngredient1}-Small.png` } alt={ elem.strIngredient1 } />
-        </div>
+          <input
+            name={ elem.idIngredient1 }
+            value={ elem.idIngredient1 }
+            type="checkbox"
+            id={ `${index}-checkbox` }
+            // onChange={ ({ target }) => console.log(target.parentNode.children[1].firstChild.innerText) }
+          />
+          <div
+            key={ `${elem.idIngredient1}, ${index} ` }
+            data-testid={ `${index}-ingredient-card` }
+          >
+            <h1 data-testid={ `${index}-card-name` }>
+              {elem.strIngredient1}
+            </h1>
+            <img data-testid={ `${index}-card-img` } src={ `https://www.thecocktaildb.com/images/ingredients/${elem.strIngredient1}-Small.png` } alt={ elem.strIngredient1 } />
+          </div>
+        </label>
       ))}
     </div>
   );
 }
+
+ExplorarBebidasIngredientes.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default ExplorarBebidasIngredientes;

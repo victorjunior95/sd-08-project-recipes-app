@@ -8,7 +8,9 @@ import RecipeContext from '../context/RecipeContext';
 function Comidas() {
   const { isDrinkLoading, directRequestFood } = useContext(RecipeContext);
   useEffect(() => {
-    directRequestFood();
+    if (!document.referrer.includes('explorar')) {
+      directRequestFood();
+    }
   }, []);
 
   return (
@@ -18,6 +20,7 @@ function Comidas() {
       <CategoriasFood />
       {!isDrinkLoading ? (
         <div>
+          {console.log(document.referrer)}
           <RecipesList />
         </div>) : <p>Carregando</p>}
       <Footer />

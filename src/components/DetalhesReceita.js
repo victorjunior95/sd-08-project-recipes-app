@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
+import { Button, CardDeck, Card } from 'react-bootstrap';
 import {
   getReceitaBebidasDetalhesPorId,
   getReceitaComidasDetalhesPorId,
@@ -10,11 +10,10 @@ import {
 } from '../services/BuscaNasAPIs';
 import {
   getIngredientes,
-  // checkIngrediente,
+  checkReceitaCompleta,
   copyLink,
   checkFavoritos,
   adicionarFavorito,
-  // salvarReceitaFeita,
 } from '../services/services';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -31,11 +30,9 @@ const renderReceitaFoto = (tipoReceita, detalhesDaReceita) => (
     src={ detalhesDaReceita[`str${tipoReceita}Thumb`] }
   />
 );
-
 const renderReceitaTitulo = (tipoReceita, detalhesDaReceita) => (
   <h3 data-testid="recipe-title">{ detalhesDaReceita[`str${tipoReceita}`] }</h3>
 );
-
 const renderReceitaBotaoCompartilhar = (setExibirMensagem) => (
   <input
     type="image"
@@ -46,11 +43,9 @@ const renderReceitaBotaoCompartilhar = (setExibirMensagem) => (
     onClick={ () => copyLink(window.location.href, setExibirMensagem) }
   />
 );
-
 const renderReceitaMensagem = (exibirMensagem) => (
   <h5 hidden={ exibirMensagem }>Link copiado!</h5>
 );
-
 const renderReceitaCategoria = (tipoReceita, detalhesDaReceita) => (
   <h4 width="90%" data-testid="recipe-category">
     {
@@ -60,36 +55,12 @@ const renderReceitaCategoria = (tipoReceita, detalhesDaReceita) => (
     }
   </h4>
 );
-
 const renderReceitaInstrucoes = (detalhesDaReceita) => (
   <p width="90%" data-testid="instructions">{detalhesDaReceita.strInstructions}</p>
 );
-
-const renderReceitaIniciarReceita = (receitaItemId, tipoReceita, history) => (
-  <Button
-    className="fixButton"
-    type="button"
-    width="100%"
-    data-testid="start-recipe-btn"
-    onClick={ () => {
-      // salvarReceitasFavoritas(receitaItemId, tipoReceita, detalhesDaReceita);
-      if (tipoReceita === 'Drink') {
-        history.push(`/bebidas/${receitaItemId}/in-progress`);
-      } else {
-        history.push(`/comidas/${receitaItemId}/in-progress`);
-      }
-    } }
-  >
-    Iniciar Receita
-  </Button>
-);
-
 const renderReceitaVideo = (detalhesDaReceita) => (
   // https://stackoverflow.com/questions/44715819/iframes-and-react-js-how-to-embed-a-youtube-video-into-my-app
   <iframe
-    allow="autoplay; encrypted-media"
-    allowFullScreen
-    frameBorder="0"
     title="video"
     data-testid="video"
     // https://stackoverflow.com/questions/20498831/refused-to-display-in-a-frame-because-it-set-x-frame-options-to-sameorigin
@@ -98,17 +69,68 @@ const renderReceitaVideo = (detalhesDaReceita) => (
     width="90%"
   />
 );
-// const renderReceitaQuadroRecomendacao = () => (
-//   <div
-//     width="90%"
-//     data-testid="instructions">{detalhesDaReceita.strInstructions}</div>
-// );
+const renderReceitaQuadroRecomendacao = (tipoReceita, recomendacoesReceitas, history) => {
+  const tipoRecomendacaoReceita = tipoReceita === 'Meal' ? 'Drink' : 'Meal';
+  const id = `id${tipoRecomendacaoReceita}`;
+  const nomeReceita = `str${tipoRecomendacaoReceita}`;
+  const src = `str${tipoRecomendacaoReceita}Thumb`;
+  const path = tipoRecomendacaoReceita === 'Meal' ? 'comidas' : 'bebidas';
+  return (
+    <div className="cardBody">
+      <CardDeck className="m-2 d-flex flex-row flex-wrap justify-content-center">
+        {
+          recomendacoesReceitas && recomendacoesReceitas.map((receita, index) => (
+            <Card
+              key={ receita[id] }
+              data-testid={ `${index}-recomendation-card` }
+              className="col-5 m-2 border-dark"
+              hidden={ index > 1 ? 'hidden' : '' }
+              onClick={ () => history.push(`/${path}/${receita[id]}`) }
+            >
+              <Card.Img
+                variant="top"
+                data-testid={ `${index}-card-img` }
+                src={ receita[src] }
+              />
+              <Card.Body>
+                <Card.Title data-testid={ `${index}-recomendation-title` }>
+                  { receita[nomeReceita] }
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          ))
+        }
+      </CardDeck>
+    </div>
+  );
+};
+const loadListaDeIngredientes = (detalhesDaReceita) => (
+  <ul>
+    {getIngredientes(detalhesDaReceita).map((item, index) => (
+      <li
+        key={ `ìngredient${index}` }
+        data-testid={ `${index}-ingredient-name-and-measure` }
+      >
+        <img
+          width="30px"
+          src={ `https://www.themealdb.com/images/ingredients/${item.ingredient}.png` }
+          alt="ingredient"
+        />
+        {`${item.measure} - ${item.ingredient}`}
+      </li>
+    ))}
+  </ul>
+);
 
 function DetalhesReceita({ receitaItemId, tipoReceita }) {
   const [detalhesDaReceita, setDetalhesDaReceita] = useState({});
-  const [recomendacoesReceitas, setRecomendacoesReceitas] = useState({});
-  // const [listaIngredientesState, setListaIngredientesState] = useState([]);
+  const [recomendacoesReceitas, setRecomendacoesReceitas] = useState([]);
   const [exibirMensagem, setExibirMensagem] = useState('hidden');
+  const [exibirBotaoIniciarReceita, setExibirBotaoIniciarReceita] = useState('');
+  const [
+    textoBotaoIniciarReceita,
+    setTextoBotaoIniciarReceita,
+  ] = useState('Iniciar Receita');
   const [isFavorito, setIsFavorito] = useState(false);
   const history = useHistory();
 
@@ -133,29 +155,11 @@ function DetalhesReceita({ receitaItemId, tipoReceita }) {
     );
   };
 
-  const loadListaDeIngredientes = () => (
-    <ul>
-      {getIngredientes(detalhesDaReceita).map((item, index) => (
-        <li
-          key={ `ìngredient${index}` }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          <img
-            width="30px"
-            src={ `https://www.themealdb.com/images/ingredients/${item.ingredient}.png` }
-            alt="ingredient"
-          />
-          {`${item.measure} - ${item.ingredient}`}
-        </li>
-      ))}
-    </ul>
-  );
-
   useEffect(() => {
     const getRecomendacoesReceitas = async () => {
       const arrayRecomendacoesReceitas = tipoReceita === 'Drink'
-        ? await getRecomendacoesReceitasBebidas()
-        : await getRecomendacoesReceitasComidas();
+        ? await getRecomendacoesReceitasComidas()
+        : await getRecomendacoesReceitasBebidas();
       if (arrayRecomendacoesReceitas) {
         arrayRecomendacoesReceitas.length = NUMERO_MAXIMO_RECOMENDACOES_RECEITAS;
         setRecomendacoesReceitas(arrayRecomendacoesReceitas);
@@ -174,15 +178,47 @@ function DetalhesReceita({ receitaItemId, tipoReceita }) {
     };
 
     getReceitaDetalhes();
+
+    const checkReceitaProgresso = () => {
+      const listReceitasProgresso = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (listReceitasProgresso) {
+        let idsReceitasProgresso = [];
+        if (tipoReceita === 'Meal') {
+          idsReceitasProgresso = Object.keys(listReceitasProgresso.meals);
+        } else {
+          idsReceitasProgresso = Object.keys(listReceitasProgresso.cocktails);
+        }
+        if (idsReceitasProgresso.includes(receitaItemId)) {
+          setTextoBotaoIniciarReceita('Continuar Receita');
+        }
+      }
+    };
+    checkReceitaProgresso();
+    checkReceitaCompleta(receitaItemId, setExibirBotaoIniciarReceita);
   }, [receitaItemId, tipoReceita]);
 
   useEffect(() => {
-    // const carregarIngredientes = () => {
-    //   setListaIngredientesState(getIngredientes(detalhesDaReceita));
-    // };
     checkFavoritos(receitaItemId, setIsFavorito);
-    // carregarIngredientes();
-  }, [receitaItemId, tipoReceita, detalhesDaReceita, setIsFavorito]);
+  }, [receitaItemId, setIsFavorito]);
+
+  const renderReceitaIniciarReceita = () => (
+    <Button
+      className="fixButton"
+      type="button"
+      width="100%"
+      hidden={ `${exibirBotaoIniciarReceita}` }
+      data-testid="start-recipe-btn"
+      onClick={ () => {
+        if (tipoReceita === 'Drink') {
+          history.push(`/bebidas/${receitaItemId}/in-progress`);
+        } else {
+          history.push(`/comidas/${receitaItemId}/in-progress`);
+        }
+      } }
+    >
+      { textoBotaoIniciarReceita }
+    </Button>
+  );
 
   return (
     <section className="w-100">
@@ -192,13 +228,15 @@ function DetalhesReceita({ receitaItemId, tipoReceita }) {
       { renderReceitaBotaoFavoritar() }
       { renderReceitaMensagem(exibirMensagem) }
       { renderReceitaCategoria(tipoReceita, detalhesDaReceita) }
-      { loadListaDeIngredientes() }
+      { loadListaDeIngredientes(detalhesDaReceita) }
       { renderReceitaInstrucoes(detalhesDaReceita) }
       {/* https://pt-br.reactjs.org/docs/conditional-rendering.html */}
       { tipoReceita === 'Meal'
         && renderReceitaVideo(detalhesDaReceita)}
-      { console.log(recomendacoesReceitas) }
-      { renderReceitaIniciarReceita(receitaItemId, tipoReceita, history) }
+      { renderReceitaQuadroRecomendacao(tipoReceita,
+        recomendacoesReceitas,
+        history) }
+      { renderReceitaIniciarReceita() }
     </section>
   );
 }

@@ -12,10 +12,12 @@ const Home = ({ title }) => {
   const { searchBar, results, setResults, setALL } = useContext(Context);
 
   useEffect(() => {
-    getAllRecipes(title).then((response) => {
-      setResults(response);
-      setALL(response);
-    });
+    if (results.length === 0) {
+      getAllRecipes(title).then((response) => {
+        setResults(response);
+        setALL(response);
+      });
+    }
   }, [title]);
 
   return (

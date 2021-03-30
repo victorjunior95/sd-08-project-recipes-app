@@ -1,0 +1,12 @@
+.card-ingredient {
+  align-items: center;
+  box-shadow: 5px 5px 5px darkgray;
+  display: flex;
+  margin: 8px;
+  padding: 8px;
+  width: 80px;
+}
+
+.card-ingredient-image {
+  width: 50px;
+}

@@ -7,17 +7,17 @@ import '../css/Details.css';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from './FavoriteButton';
 import YtVideo from './YtVideo';
+import buttonTextChanges from '../services/Complexity';
 
 const copy = require('clipboard-copy');
 
-const doneRecipes = [];
 function Details(props) {
   const history = useHistory();
   const { currentFood, ingredients } = props;
   const [disabled, setDisabled] = useState(false);
-  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  const [btnLabel, setLabel] = useState('Iniciar Receita');
   const [doneList] = useState(JSON.parse(
-    localStorage.getItem('doneRecipes') || '{}',
+    localStorage.getItem('doneRecipes') || '[]',
   ));
   const [message, setMessage] = useState(false);
 
@@ -29,6 +29,9 @@ function Details(props) {
       ));
       if (filterFood.length > 0) {
         setDisabled(true);
+      }
+      if (buttonTextChanges(currentFood)) {
+        setLabel('Continuar Receita');
       }
     }
     disabledBtn();
@@ -50,6 +53,11 @@ function Details(props) {
     );
   }
 
+  function shareButtonClick() {
+    setMessage(true);
+    copy(`http://localhost:3000${history.location.pathname}`);
+  }
+
   function renderDetails() {
     return (
       <>
@@ -66,10 +74,7 @@ function Details(props) {
           src={ shareIcon }
           alt="share"
           data-testid="share-btn"
-          onClick={ () => {
-            setMessage(true);
-            copy(`http://localhost:3000${history.location.pathname}`);
-          } }
+          onClick={ shareButtonClick }
         />
         { message ? renderMessage() : null }
         <FavoriteButton currentFood={ currentFood } />
@@ -98,7 +103,7 @@ function Details(props) {
           disabled={ disabled }
           className="start-recipe-btn"
           datatestid="start-recipe-btn"
-          label="Iniciar Receita"
+          label={ btnLabel }
           onClick={ historyPath }
         />
       </>

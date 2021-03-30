@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Button from './Button';
 import ShareButton from './ShareButton';
 import '../css/InProgressFood.css';
@@ -8,6 +8,7 @@ import readLocalStorage from '../services/readLocalStorage';
 import getResultFromAPI from '../api/getResultFromAPI';
 import createIngredientsArray from '../services/createIngredientsArray';
 import FavoriteButton from './FavoriteButton';
+import { addDoneLocal, createObject } from '../services/doneRecipesLocalStorage';
 
 function InProgressFood() {
   const { pathname } = useLocation();
@@ -15,10 +16,17 @@ function InProgressFood() {
   const [checked, setChecked] = useState([]);
   const [currentFood, setCurrentFood] = useState({});
   const [ingredients, setIngredients] = useState([]);
+  const [btnDisable, setIDisable] = useState(true);
+  const history = useHistory();
 
   function handleCheckClick(index) {
     setChecked(checked.includes(index)
       ? checked.filter((x) => x !== index) : [index, ...checked]);
+  }
+
+  async function handleDoneClick() {
+    await addDoneLocal(createObject(currentFood, pathAndId));
+    history.push('/receitas-feitas');
   }
 
   useEffect(() => {
@@ -32,7 +40,18 @@ function InProgressFood() {
   }, []);
 
   useEffect(() => {
+    if (checked.length === ingredients.length) {
+      setIDisable(false);
+    }
+  }, [ingredients]);
+
+  useEffect(() => {
     updateLocalStorage([pathAndId[1], pathAndId[2]], checked);
+    if (checked.length !== ingredients.length || ingredients.length === 0) {
+      setIDisable(true);
+    } else {
+      setIDisable(false);
+    }
   }, [checked]);
 
   function loadingScreen() {
@@ -86,7 +105,8 @@ function InProgressFood() {
         <Button
           datatestid="finish-recipe-btn"
           label="Finalizar Receita"
-          onClick={ () => console.log('FINALIZOU') }
+          onClick={ handleDoneClick }
+          disabled={ btnDisable }
         />
       </>
     );

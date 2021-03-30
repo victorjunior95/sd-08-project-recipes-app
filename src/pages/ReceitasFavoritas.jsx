@@ -7,8 +7,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
-const doneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
 function renderRecipe(data, index) {
   switch (data.type) {
   case 'comida':
@@ -34,12 +32,16 @@ function renderMessage(index, expectedIndex) {
   }
 }
 
+function doneList() {
+  const localData = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  return localData || [];
+}
+
 function ReceitasFavoritas() {
   const BOOLEAN_TRUE = true;
   const history = useHistory();
   const [message, setMessage] = useState([false, '']);
-  const [recipesList, setList] = useState(doneRecipes);
-  console.log(recipesList);
+  const [recipesList, setList] = useState(doneList);
 
   function disfavorite(id) {
     console.log(id);
@@ -50,21 +52,21 @@ function ReceitasFavoritas() {
 
   return (
     <>
-      <Header title="Receitas Feitas" disableBtn={ BOOLEAN_TRUE } />
+      <Header title="Receitas Favoritas" disableBtn={ BOOLEAN_TRUE } />
       <Button
         label="All"
         datatestid="filter-by-all-btn"
-        onClick={ () => setList(doneRecipes) }
+        onClick={ () => setList(doneList()) }
       />
       <Button
         label="Food"
         datatestid="filter-by-food-btn"
-        onClick={ () => setList(doneRecipes.filter((data) => data.type === 'comida')) }
+        onClick={ () => setList(doneList().filter((data) => data.type === 'comida')) }
       />
       <Button
         label="Drinks"
         datatestid="filter-by-drink-btn"
-        onClick={ () => setList(doneRecipes.filter((data) => data.type === 'bebida')) }
+        onClick={ () => setList(doneList().filter((data) => data.type === 'bebida')) }
       />
       { recipesList.map((data, index) => (
         <div key={ index }>

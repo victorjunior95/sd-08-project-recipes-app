@@ -1,6 +1,5 @@
 export function checkFavoritesLocal(currentId) {
   const favoritos = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  // return favoritos.map(({ id }) => id).includes(currentId);
   return favoritos.some(({ id }) => id === currentId);
 }
 

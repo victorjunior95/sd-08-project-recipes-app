@@ -144,62 +144,76 @@ const FoodDetails = () => {
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   return (
-    <div>
+    <div style={ { padding: 10 } }>
       {loading
         ? (
           <div>Loading</div>
         ) : (
           <div>
             <div>
-              <img src={ food[0].strMealThumb } alt="data" data-testid="recipe-photo" />
+              <img
+                src={ food[0].strMealThumb }
+                alt="data"
+                data-testid="recipe-photo"
+                className="image-details"
+              />
             </div>
-            <div>
+            <div className="title-details-container">
               <h3 data-testid="recipe-title">{food[0].strMeal}</h3>
-              <button
-                type="submit"
-                data-testid="share-btn"
-                onClick={ () => copyToClipBoard(history.location.pathname) }
-              >
-                <object
-                  className="rocksGlass"
-                  type="image/svg+xml"
-                  data={ shareIcon }
+              <div className="share-favorite-container">
+                <button
+                  className="share-favorite-buttons"
+                  type="submit"
+                  data-testid="share-btn"
+                  onClick={ () => copyToClipBoard(history.location.pathname) }
                 >
-                  Share
-                </object>
-              </button>
-              {copied && <p>Link copiado!</p>}
-              <button
-                type="submit"
-                data-testid="favorite-btn"
-                src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                onClick={ () => setFavorite(!favorite) }
-              >
-                {favorite
-                  ? (
-                    <img
-                      className="rocksGlass"
-                      type="image/svg+xml"
-                      src={ blackHeartIcon }
-                      alt="blackHeartIcon"
-                    />
-                  ) : (
-                    <img
-                      className="rocksGlass"
-                      type="image/svg+xml"
-                      src={ whiteHeartIcon }
-                      alt="whiteHeartIcon"
-                    />
-                  )}
-              </button>
+                  <object
+                    className="rocksGlass"
+                    type="image/svg+xml"
+                    data={ shareIcon }
+                  >
+                    Share
+                  </object>
+                </button>
+                {copied && <p>Link copiado!</p>}
+                <button
+                  className="share-favorite-buttons"
+                  type="submit"
+                  data-testid="favorite-btn"
+                  src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                  onClick={ () => setFavorite(!favorite) }
+                >
+                  {favorite
+                    ? (
+                      <img
+                        className="rocksGlass"
+                        type="image/svg+xml"
+                        src={ blackHeartIcon }
+                        alt="blackHeartIcon"
+                      />
+                    ) : (
+                      <img
+                        className="rocksGlass"
+                        type="image/svg+xml"
+                        src={ whiteHeartIcon }
+                        alt="whiteHeartIcon"
+                      />
+                    )}
+                </button>
+              </div>
             </div>
             <p data-testid="recipe-category">{food[0].strCategory}</p>
             <h5>Ingredients</h5>
-            <ul>
+            <ul className="instructions-recipes">
               {filterIngredientsAndMeasures(food[0])}
             </ul>
             <h5>Instructions</h5>
-            <p data-testid="instructions">{food[0].strInstructions}</p>
+            <p
+              className="instructions-recipes"
+              data-testid="instructions"
+            >
+              {food[0].strInstructions}
+            </p>
             <div>
               <iframe
                 src={ food[0].strYouTube }
@@ -213,7 +227,7 @@ const FoodDetails = () => {
             <button
               type="button"
               data-testid="start-recipe-btn"
-              className="start-recipe-btn"
+              className="btnz2 btn btn-primary start-recipe-btn"
               onClick={ () => setStart(true) }
             >
               {inProgessRecipes.meals !== {} ? 'Continuar Receita' : 'Iniciar Receita'}

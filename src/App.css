@@ -229,3 +229,90 @@ html, body {
   justify-content: space-evenly;
   padding: 5px;
 }
+
+.image-details {
+  margin-bottom: 10px;
+  width: 340px;
+}
+
+.instructions-recipes {
+  background: #ececec;
+  border-radius: 4px;
+  list-style: none;
+  padding: 10px;
+  width: 341px;
+}
+
+.title-details-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.share-favorite-buttons {
+  background-color: white;
+  border: none;
+}
+
+.recomendations-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recomendation-image {
+  width: 140px;
+}
+
+.navegation-buttons {
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+
+.recomendation-cards {
+  background-color: whitesmoke;
+  border-radius: 6px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.recomendation-cards:hover {
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btnz2 {
+  height: 50px;
+  margin: 10px;
+  width: 320px;
+}
+
+.share-favorite-container {
+  align-items: flex-start;
+  display: flex;
+}
+
+.content-card-favorite {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container {
+  background-color: whitesmoke;
+  border-radius: 6px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.card-container:hover {
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.image-favorites {
+  width: 140px;
+}

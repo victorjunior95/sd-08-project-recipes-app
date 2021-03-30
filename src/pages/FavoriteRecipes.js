@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FilterTypeBtn from '../components/FilterTypeBtn';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
-import LikeButton from '../components/LikeButton';
+import FavoritePageLikeBtn from '../components/FavoritePageLikeBtn';
 
 function FavoriteRecipes() {
-  const favoriteRecipes = useSelector((state) => state.favoriteRecipes.recipes);
+  const favoriteRecipesStorage = (localStorage.getItem('favoriteRecipes'))
+    ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+    : [];
   const [filterSelector, setFilterSelector] = useState('all');
+  const [reRender, setReRender] = useState(false);
 
   function handleSelector({ target }) {
     const { value } = target;
@@ -33,43 +35,46 @@ function FavoriteRecipes() {
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <h4 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h4>
         </Link>
-        <span
-          data-testid={ `${index}-horizontal-done-date` }
-        >
-          { `Feita em: ${recipe.doneDate} ` }
-        </span>
         <ShareButton
           dataTestId={ `${index}-horizontal-share-btn` }
           recipeId={ recipe.id }
           recipeType={ recipe.type }
         />
-        <LikeButton
+        <FavoritePageLikeBtn
           dataTestId={ `${index}-horizontal-favorite-btn` }
-          likedProp={ recipe.liked }
           recipeId={ recipe.id }
+          reRender={ reRender }
+          setReRender={ setReRender }
         />
       </div>
     );
   }
 
   function generateListOfCards() {
-    if (filterSelector === 'all') {
+    if (favoriteRecipesStorage.length === 0) {
+      return (
+        <div>No favorite recipes yet!</div>
+      );
+    }
+    if (filterSelector === 'all' && favoriteRecipesStorage) {
       return (
         <div>
-          { favoriteRecipes.map((recipe, index) => generateCard(recipe, index)) }
+          { favoriteRecipesStorage.map((recipe, index) => generateCard(recipe, index)) }
         </div>
       );
     }
-    if (filterSelector === 'food') {
-      const filteredRecipes = favoriteRecipes.filter((elem) => elem.type === 'comida');
+    if (filterSelector === 'food' && favoriteRecipesStorage) {
+      const filteredRecipes = favoriteRecipesStorage
+        .filter((elem) => elem.type === 'comida');
       return (
         <div>
           { filteredRecipes.map((recipe, index) => generateCard(recipe, index)) }
         </div>
       );
     }
-    if (filterSelector === 'drinks') {
-      const filteredRecipes = favoriteRecipes.filter((elem) => elem.type === 'bebida');
+    if (filterSelector === 'drinks' && favoriteRecipesStorage) {
+      const filteredRecipes = favoriteRecipesStorage
+        .filter((elem) => elem.type === 'bebida');
       return (
         <div>
           { filteredRecipes.map((recipe, index) => generateCard(recipe, index)) }

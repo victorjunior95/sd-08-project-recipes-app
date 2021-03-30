@@ -20,7 +20,7 @@ const FoodDetailsInProgress = () => {
 
     <div>
       {data && data.map((
-        { strMeal, strMealThumb, strCategory, strInstructions }, index, object,
+        { strMeal, strMealThumb, strCategory, strInstructions, idMeal }, index, object,
       ) => (
         <div className="home-container" key={ index }>
           <components.FoodInProgressCard
@@ -29,6 +29,7 @@ const FoodDetailsInProgress = () => {
             meal={ strMeal }
             category={ strCategory }
             instructions={ strInstructions }
+            idMeal={ idMeal }
           />
         </div>
       ))}

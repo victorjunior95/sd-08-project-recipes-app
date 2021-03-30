@@ -1,19 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import PropTypes from 'prop-types';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const NEGATIVE_1 = -1;
 const NEGATIVE_12 = -12;
 
-function FoodInProgressCard({ data, img, meal, category, instructions }) {
+const ingredients = (data) => Object.keys(data[0]).filter((
+  key,
+) => key.includes('strIngredient')).map((
+  key,
+) => data[0][key]).filter((element) => element !== null && element !== '');
+
+function handleChange({ target }, verified, setVerified) {
+  if (verified.indexOf(target.value) === NEGATIVE_1) { // https://www.codegrepper.com/code-examples/javascript/javascript+if+array+not+contains
+    setVerified([...verified, target.value]);
+  } else if (verified.includes(target.value)) {
+    setVerified(verified.filter((element) => element !== target.value));
+  }
+}
+
+function handleShare(history) {
+  return navigator.clipboard.writeText(`http://localhost:3000${history.location.pathname.slice(0, NEGATIVE_12)}`); // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+}
+
+function drinkOrMeal(strDrink) {
+  if (strDrink) return 'bebida';
+  return 'comida';
+}
+function FavoriteRecipeInfo(data) {
+  const { idMeal, idDrink, strArea, strCategory, strDrinkThumb,
+    strDrink, strMeal, strMealThumb, strAlcoholic } = data[0];
+  const obj = [{
+    id: idMeal || idDrink,
+    type: drinkOrMeal(strDrink),
+    area: strArea || '',
+    category: strCategory || '',
+    alcoholicOrNot: strAlcoholic || '',
+    name: strMeal || strDrink,
+    image: strDrinkThumb || strMealThumb,
+  }];
+  return obj;
+}
+
+function handleFavorite(checkFavorite, setCheckFavorite, data) {
+  if (!checkFavorite) {
+    setCheckFavorite(true);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(FavoriteRecipeInfo(data)));
+  } else {
+    setCheckFavorite(false);
+    localStorage.removeItem('favoriteRecipes');
+  }
+}
+
+function FoodInProgressCard({ data, img, meal, category, instructions, idMeal }) {
+  const values = ingredients(data);
   const history = useHistory();
   const [checkFavorite, setCheckFavorite] = useState(null);
   const [copied, setCopied] = useState(false);
   const [verifiedCheck, setVerifiedCheck] = useState(false);
-  const { idMeal, idDrink, strArea, strCategory, strDrinkThumb,
-    strDrink, strMeal, strMealThumb, strAlcoholic } = data[0];
-  // const { idMeal } = data[0];
   const [verified, setVerified] = useState(() => {
     const result = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (result) {
@@ -21,67 +67,21 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
     }
     return [];
   });
-  const inProgressRecipes = [{
-    meals: {
-      [idMeal]: [...verified],
-    },
-  }];
-  const favoriteRecipeInfo = [{
-    id: idMeal || idDrink,
-    type: drinkOrMeal(),
-    area: strArea || '',
-    category: strCategory || '',
-    alcoholicOrNot: strAlcoholic || '',
-    name: strMeal || strDrink,
-    image: strDrinkThumb || strMealThumb,
-  }];
-  // console.log(favoriteRecipeInfo);
-  const values = Object.keys(data[0]).filter((
-    key,
-  ) => key.includes('strIngredient')).map((
-    key,
-  ) => data[0][key]).filter((element) => element !== null && element !== '');
-
-  function compartilhar() {
-    setCopied(true);
-    return navigator.clipboard.writeText(`http://localhost:3000${history.location.pathname.slice(0, NEGATIVE_12)}`); // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-  }
-
-  function drinkOrMeal() {
-    if (history.location.pathname.includes('bebidas')) return 'bebida';
-    return 'comida';
-  }
-
-  function handleFavorite() {
-    if (!checkFavorite) {
-      setCheckFavorite(true);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipeInfo));
-    } else {
-      setCheckFavorite(false);
-      localStorage.removeItem('favoriteRecipes');
-    }
-  }
-
-  function handleChange({ target }) {
-    if (verified.indexOf(target.value) === NEGATIVE_1) { // https://www.codegrepper.com/code-examples/javascript/javascript+if+array+not+contains
-      setVerified([...verified, target.value]);
-    } else if (verified.includes(target.value)) {
-      setVerified(verified.filter((element) => element !== target.value));
-    }
-  }
 
   useEffect(() => {
-    if (verified) return setVerifiedCheck(true);
-    if (verified.length > 0) return setVerifiedCheck(false);
-  }, [verified]);
-
-  useEffect(() => {
-    if (verified && verifiedCheck) {
-      return localStorage.setItem(
-        'inProgressRecipes', JSON.stringify(inProgressRecipes),
-      );
+    if (verified) {
+      setVerifiedCheck(true);
+      if (verified && verifiedCheck) {
+        return localStorage.setItem(
+          'inProgressRecipes', JSON.stringify([{
+            meals: {
+              [idMeal]: [...verified],
+            },
+          }]),
+        );
+      }
     }
-  }, [verified]);
+  }, [verifiedCheck, verified, idMeal]);
 
   return (
     <div className="MainCard">
@@ -98,26 +98,30 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
             value={ curr }
             type="checkbox"
             checked={ !!verified.includes(curr) }
-            onChange={ handleChange }
+            onChange={ ({ target }) => handleChange({ target }, verified, setVerified) }
           />
           {curr}
         </label>
       ))}
       <button
-        onClick={ compartilhar }
+        onClick={ () => {
+          handleShare(history);
+          setCopied(true);
+        } }
         type="button"
         data-testid="share-btn"
       >
         {!copied ? 'compartilhar' : 'Link copiado!'}
       </button>
       <button
-        onClick={ handleFavorite }
+        onClick={ () => handleFavorite(checkFavorite, setCheckFavorite, data) }
         type="button"
 
       >
         <img
           data-testid="favorite-btn"
-          src={ checkFavorite ? blackHeartIcon : whiteHeartIcon }
+          src="blackHeartIcon whiteHeartIcon"
+          // src={ checkFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar"
         />
       </button>
@@ -136,11 +140,13 @@ function FoodInProgressCard({ data, img, meal, category, instructions }) {
   );
 }
 
-export default FoodInProgressCard;
+FoodInProgressCard.propTypes = {
+  data: PropTypes.arrayOf(Object).isRequired,
+  img: PropTypes.string.isRequired,
+  meal: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  instructions: PropTypes.string.isRequired,
+  idMeal: PropTypes.string.isRequired,
+};
 
-// useEffect(() => {
-//   if (storage.length) {
-//     const isChecked = storage[0].meals[idMeal];
-//     setVerified(isChecked);
-//   }
-// }, []);
+export default FoodInProgressCard;

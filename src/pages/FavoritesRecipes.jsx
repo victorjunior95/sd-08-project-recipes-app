@@ -7,14 +7,40 @@ import { getFavoriteRecipes } from '../services/getLocalStorage';
 function FavoritesRecipes() {
   const favoriteRecipes = getFavoriteRecipes() || [];
   const [shoulUpdate, setShouldUpdate] = useState(false);
+  const [filterFavorite, setFilterFavorite] = useState('All');
+  let favorites = [];
   const handleClick = () => {
     setShouldUpdate(!shoulUpdate);
   };
+
+  const showFavorites = () => {
+    if (filterFavorite === 'All') {
+      favorites = favoriteRecipes;
+    } else if (filterFavorite === 'Drink') {
+      const filteredFavorites = favoriteRecipes.filter(
+        (favorite) => favorite.type === 'bebida',
+      );
+      favorites = filteredFavorites;
+    } else {
+      // Food
+      const filteredFavorites = favoriteRecipes.filter(
+        (favorite) => favorite.type === 'comida',
+      );
+      favorites = filteredFavorites;
+    }
+  };
+
+  const handleClickFilter = (type) => {
+    setFilterFavorite(type);
+  };
+
+  showFavorites();
+
   return (
     <section>
       <Header label="Receitas Favoritas" Search={ () => '' } />
-      <CategoriesContainer page="Favoritas" />
-      {favoriteRecipes.map((favorite, index) => {
+      <CategoriesContainer page="Favoritas" callback={ handleClickFilter } />
+      {favorites.map((favorite, index) => {
         const {
           id,
           type,

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 import { shareIcon, whiteHeartIcon, blackHeartIcon } from '../common/svgStore';
 import { setFavoriteRecipes } from '../services/setLocalStorage';
 import { getHeartType } from '../services/getLocalStorage';
@@ -42,14 +43,20 @@ const CardFavoritRecipe = ({
   };
   return (
     <section>
-      <img
-        src={ imgPath }
-        alt="recipe"
-        className="image-details"
-        data-testid={ `${index}-horizontal-image` }
-      />
-      <h3 data-testid={ `${index}-horizontal-name` }>{ title }</h3>
-      <h5 data-testid={ `${index}-horizontal-top-text` }>{ category }</h5>
+      <Link key={ id } to={ `/${page}/${id}` }>
+        <img
+          src={ imgPath }
+          alt="recipe"
+          className="image-details"
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </Link>
+      <Link key={ id } to={ `/${page}/${id}` }>
+        <h3 data-testid={ `${index}-horizontal-name` }>{title}</h3>
+      </Link>
+      <h5 data-testid={ `${index}-horizontal-top-text` }>
+        {`${area} - ${category}`}
+      </h5>
       <CopyToClipboard
         text={ `http://localhost:3000/${page}/${id}` }
         onCopy={ handleClick }

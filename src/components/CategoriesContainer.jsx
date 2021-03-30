@@ -9,7 +9,7 @@ import {
 
 import Button from './Button';
 
-const CategoriesContainer = ({ page }) => {
+const CategoriesContainer = ({ page, callback }) => {
   const foodsCategories = useSelector(
     (state) => state.CategoriesRecipes.foodsCategories,
   );
@@ -67,7 +67,7 @@ const CategoriesContainer = ({ page }) => {
           name={ button.strCategory }
           key={ button.strCategory }
           data-testid={ `filter-by-${button.strCategory.toLowerCase()}-btn` }
-          onClick={ () => handleClick(button.strCategory) }
+          onClick={ () => callback(button.strCategory) }
         />
       ));
     }
@@ -85,6 +85,7 @@ const CategoriesContainer = ({ page }) => {
 
 CategoriesContainer.propTypes = {
   page: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default CategoriesContainer;

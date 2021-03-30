@@ -26,8 +26,11 @@
 }
 
 .three-headerps {
-  margin-left: 50px;
-  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* margin-left: 50px;
+  margin-top: 5px; */
 }
 
 .btn-headerps {

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 import shareIcon from '../images/shareIcon.svg';
 import LinkCopiado from './LinkCopiado';
@@ -39,20 +40,22 @@ function CardFeitas({ objDetail, index }) {
 
   const render = () => (
     <div className="done-card-body">
-
-      <h1
-        data-testid={ `${index}-horizontal-name` }
-      >
-        {objDetail.name}
-      </h1>
+      <Link to={ `/${objDetail.type}s/${objDetail.id}` }>
+        <h1
+          data-testid={ `${index}-horizontal-name` }
+        >
+          {objDetail.name}
+        </h1>
+      </Link>
 
       <div className="card-content">
-
-        <img
-          src={ objDetail.image }
-          alt={ objDetail.name }
-          data-testid={ `${index}-horizontal-image` }
-        />
+        <Link to={ `/${objDetail.type}s/${objDetail.id}` }>
+          <img
+            src={ objDetail.image }
+            alt={ objDetail.name }
+            data-testid={ `${index}-horizontal-image` }
+          />
+        </Link>
 
         <section>
           <h3

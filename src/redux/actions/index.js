@@ -1,7 +1,7 @@
 export const LOGIN_USER = 'LOGIN_USER';
 export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const FETCH_API = 'FETCH_API';
-export const CLEAR_API = 'CLEAR_API';
+export const CLEAR_RECIPES = 'CLEAR_RECIPES';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const FETCH_AREA_API = 'FETCH_AREA_API';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
@@ -14,3 +14,4 @@ export const DISLIKE_RECIPE = 'DISLIKE_RECIPE';
 export const AREA_SELECT = 'AREA_SELECT';
 export const FETCH_INGREDIENTS = 'FETCH_INGREDIENTS';
 export const FILTER_INGREDIENT = 'FILTER_INGREDIENT';
+export const FETCH_RECIPE_ID = 'FETCH_RECIPE_ID';

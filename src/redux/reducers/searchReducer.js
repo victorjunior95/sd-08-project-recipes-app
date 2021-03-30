@@ -1,10 +1,15 @@
 import { AREA_SELECT, CLEAR_SEARCH, FILTER_DRINK_CAT, FETCH_AREA_API,
-  SEARCH_INPUT } from '../actions';
+  SEARCH_INPUT, 
+  FILTER_INGREDIENT,
+  FILTER_MEAL_CAT} from '../actions';
 
 const INITIAL_STATE = {
   inputValue: '',
   inputType: '',
   areaChoosen: '',
+  drinkFilter: '',
+  mealFilter: '',
+  ingredientFilter: '',
   areas: [{ strArea: 'All' }],
 };
 
@@ -23,11 +28,7 @@ export default function searchBar(state = INITIAL_STATE, action) {
       ...state,
       inputValue: '',
       inputType: '',
-    };
-  case FILTER_DRINK_CAT:
-    return {
-      ...state,
-      filter: payload.filter,
+      ingredientFilter: '',
     };
   case FETCH_AREA_API:
     return {
@@ -38,6 +39,21 @@ export default function searchBar(state = INITIAL_STATE, action) {
     return {
       ...state,
       areaChoosen: payload.area,
+    };
+  case FILTER_DRINK_CAT:
+    return {
+      ...state,
+      drinkFilter: payload.drinkFilter,
+    };
+  case FILTER_MEAL_CAT:
+    return {
+      ...state,
+      mealFilter: payload.mealFilter,
+    };
+  case FILTER_INGREDIENT:
+    return {
+      ...state,
+      ingredientFilter: payload.ingredient,
     };
   default:
     return state;

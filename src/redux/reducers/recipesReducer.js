@@ -1,14 +1,11 @@
-import { CLEAR_API, FETCH_API, FETCH_CATEGORIES,
-  FETCH_CAT_RECIPES, FETCH_INGREDIENTS, FILTER_DRINK_CAT,
-  FILTER_INGREDIENT, FILTER_MEAL_CAT } from '../actions';
+import { FETCH_API, FETCH_CATEGORIES, CLEAR_RECIPES,
+  FETCH_CAT_RECIPES, FETCH_INGREDIENTS, FETCH_RECIPE_ID } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
   categories: [],
-  drinkFilter: '',
-  mealFilter: '',
   ingredients: [],
-  ingredientFilter: '',
+  singleRecipe: '',
 };
 
 export default function recipesReducer(state = INITIAL_STATE, action) {
@@ -20,26 +17,15 @@ export default function recipesReducer(state = INITIAL_STATE, action) {
       ...state,
       recipes: payload.recipes,
     };
-  case CLEAR_API:
+  case CLEAR_RECIPES:
     return {
       ...state,
       recipes: [],
-      ingredientFilter: '',
     };
   case FETCH_CATEGORIES:
     return {
       ...state,
       categories: payload.categories,
-    };
-  case FILTER_DRINK_CAT:
-    return {
-      ...state,
-      drinkFilter: payload.drinkFilter,
-    };
-  case FILTER_MEAL_CAT:
-    return {
-      ...state,
-      mealFilter: payload.mealFilter,
     };
   case FETCH_CAT_RECIPES:
     return {
@@ -51,10 +37,10 @@ export default function recipesReducer(state = INITIAL_STATE, action) {
       ...state,
       ingredients: payload.ingredients,
     };
-  case FILTER_INGREDIENT:
+  case FETCH_RECIPE_ID:
     return {
       ...state,
-      ingredientFilter: payload.ingredient,
+      singleRecipe: payload.recipe,
     };
   default:
     return state;

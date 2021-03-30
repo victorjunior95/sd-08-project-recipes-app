@@ -1,25 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import ExploreFoodOrDrink from '../../components/ExploreFoodOrDrink';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
-import RecipesContext from '../../ContextApi/RecipesContext';
+import fetchFood from '../../services/FoodApi';
 
 export default function ExploreFood() {
-  const { recipes } = useContext(RecipesContext);
-  const recipeMeals = recipes.meals;
+  const [idName, setIdName] = useState('');
 
+  useEffect(() => {
+    async function getId() {
+      const id = await fetchFood('random.php')
+        .then((response) => Object.values(response)[0])
+        .catch((error) => console.log(error));
+      setIdName(id[0].idMeal);
+    }
+    getId();
+  }, []);
   return (
     <div>
       <Header title="Explorar Comidas" search="false" />
-      {
-        recipeMeals
-        && recipeMeals.map((recipe, i) => (
-          <ExploreFoodOrDrink
-            key={ i }
-            foodOrDrink="comidas"
-            meals={ recipe }
-          />))
-      }
+      <ExploreFoodOrDrink
+        foodOrDrink="comidas"
+        idName={ idName }
+      />
       <Footer />
     </div>
   );

@@ -1,14 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-export default function FoodDetails({ foodOrDrinkApi }) {
+export default function FoodDetails() {
   return (
     <div>
-      {foodOrDrinkApi ? <p>oi</p> : <p>ainda não</p>}
+      Food details
     </div>
   );
 }
-
-FoodDetails.propTypes = {
-  foodOrDrinkApi: PropTypes.objectOf(PropTypes.array).isRequired,
-};

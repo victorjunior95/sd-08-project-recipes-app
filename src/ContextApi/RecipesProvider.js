@@ -40,10 +40,6 @@ function RecipesProvider({ children }) {
       fetchFood(`search.php?f=${inputSearch}`)
         .then((response) => setRecipes(response));
       break;
-    case 'meal':
-      fetchFood('random.php')
-        .then((response) => setRecipes(response));
-      break;
     default:
       break;
     }
@@ -63,10 +59,6 @@ function RecipesProvider({ children }) {
       break;
     case 'first-letter':
       fetchDrink(`search.php?f=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    case 'cocktail':
-      fetchFood('random.php')
         .then((response) => setCocktails(response));
       break;
     default:

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Login, Bebida, BebidaDetalhes, BebidaProcesso, Comida, ComidaDetalhes,
+import { Login, Bebida, BebidaDetalhes, Comida, ComidaDetalhes,
   Explorar, ExplorarComida, ExplorarBebida, ComidaIngredientes,
   BebidaIngredientes, ComidaArea, BebidaArea, Perfil, ReceitasFeitas,
   ReceitasFavoritas } from '../pages';
@@ -10,6 +10,7 @@ import FoodProvider from '../context/comidaContext/FoodProvider';
 import DrinkProvider from '../context/bebidaContext/DrinkProvider';
 import GlobalProvider from '../context/globalContext/GlobalProvider';
 import ComidaProgresso from '../pages/comida/processo';
+import BebidaProgresso from '../pages/bebida/processo';
 
 function Routes() {
   return (
@@ -29,7 +30,12 @@ function Routes() {
       <Route path="/explorar/comidas" component={ ExplorarComida } />
       <Route path="/explorar/bebidas" component={ ExplorarBebida } />
       <Route path="/explorar" component={ Explorar } />
-      <Route path="/bebidas/:idDaReceita/in-progress" component={ BebidaProcesso } />
+      <ContextRoute
+        exact
+        path="/bebidas/:idDaReceita/in-progress"
+        contextComponent={ DrinkProvider }
+        component={ BebidaProgresso }
+      />
       <ContextRoute
         exact
         path="/comidas/:idDaReceita/in-progress"

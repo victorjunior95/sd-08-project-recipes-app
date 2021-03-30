@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import FoodContext from './DrinkContext';
 import {
   requestDrinkRecipe,
   requestDrinksCategory,
@@ -8,6 +7,7 @@ import {
   SearchCocktailByIngredient,
 } from '../../services/API';
 import GlobalContext from '../globalContext/GlobalContext';
+import DrinkContext from './DrinkContext';
 
 function DrinkProvider({ children }) {
   const [searchInput, setSearchInput] = useState('');
@@ -54,6 +54,8 @@ function DrinkProvider({ children }) {
     fetchData();
   }, []);
 
+  const [doneRecipe, setDoneRecipe] = useState([]);
+
   const provide = {
     values: {
       searchInput,
@@ -63,6 +65,7 @@ function DrinkProvider({ children }) {
       filteredDrinks,
       detailDrinks,
       recomendations,
+      doneRecipe,
     },
     functions: {
       handleSearchInput,
@@ -71,11 +74,11 @@ function DrinkProvider({ children }) {
       setDrinks,
       setDetailsDrinks,
       setRecomendations,
+      setDoneRecipe,
     },
   };
-
   return (
-    <FoodContext.Provider value={ provide }>{children}</FoodContext.Provider>
+    <DrinkContext.Provider value={ provide }>{children}</DrinkContext.Provider>
   );
 }
 

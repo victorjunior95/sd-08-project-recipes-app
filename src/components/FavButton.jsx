@@ -11,6 +11,7 @@ function FavButton({ type, recipe }) {
   const formatedType = type === 'Meal' ? 'comida' : 'bebida';
 
   const handleClick = () => {
+    console.log(favorite);
     const fav = favorite
       .find(
         (currRec) => recipe[`id${type}`] === currRec.id && currRec.type === formatedType,

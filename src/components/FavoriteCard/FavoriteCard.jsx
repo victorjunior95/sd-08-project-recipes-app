@@ -38,28 +38,35 @@ const FavoriteCard = ({ handleFavorite, index, recipe }) => {
             </div>
           ) : null
       }
-      <Link to={ `/${type}s/${id}` }>
-        <div className="image-container">
-          <img
-            src={ image }
-            alt={ `${type} ${name}` }
-            data-testid={ `${index}-horizontal-image` }
-          />
-        </div>
-      </Link>
-      <div className="content-card">
+      <div className="title-details-container">
         <Link to={ `/${type}s/${id}` }>
-          <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+          <div className="image-container">
+            <img
+              className="image-favorites"
+              src={ image }
+              alt={ `${type} ${name}` }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </div>
         </Link>
-        <p
-          data-testid={ `${index}-horizontal-top-text` }
-        >
-          {
-            type === 'comida' ? `${area} - ${category}` : alcoholicOrNot
-          }
-        </p>
-        <div className="share-like">
-          <button type="button" onClick={ handleShare }>
+        <div className="content-card-favorite">
+          <p
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {
+              type === 'comida' ? `${area} - ${category}` : alcoholicOrNot
+            }
+          </p>
+          <Link to={ `/${type}s/${id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
+          </Link>
+        </div>
+        <div className="share-like share-favorite-container">
+          <button
+            className="share-favorite-buttons"
+            type="button"
+            onClick={ handleShare }
+          >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
@@ -67,6 +74,7 @@ const FavoriteCard = ({ handleFavorite, index, recipe }) => {
             />
           </button>
           <button
+            className="share-favorite-buttons"
             type="button"
             onClick={ (event) => handleFavorite(event) }
           >

@@ -4,6 +4,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardCarousel from '../components/CardCarousel';
 import api from '../services/index';
+import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -142,70 +143,86 @@ const DrinkDetails = () => {
 
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   return (
-    <div>
-      {loading
-        ? (
-          <div>Loading</div>
-        )
-        : (
+    <div style={ { padding: 10 } }>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <div>
           <div>
-            <div>
-              <img src={ drink[0].strDrinkThumb } alt="data" data-testid="recipe-photo" />
-            </div>
-            <div>
-              <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
+            <img
+              src={ drink[0].strDrinkThumb }
+              alt="data"
+              data-testid="recipe-photo"
+              className="image-details"
+            />
+          </div>
+          <div className="title-details-container">
+            <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
+            <div className="share-favorite-container">
               <button
+                className="share-favorite-buttons"
                 type="submit"
                 data-testid="share-btn"
                 onClick={ () => copyToClipBoard(history.location.pathname) }
               >
-                Share
+                <object
+                  className="rocksGlass"
+                  type="image/svg+xml"
+                  data={ shareIcon }
+                >
+                  Share
+                </object>
               </button>
-              {copied && <p>Link copiado!</p> }
+              {copied && <p>Link copiado!</p>}
               <button
+                className="share-favorite-buttons"
                 type="submit"
                 data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
                 onClick={ () => setFavorite(!favorite) }
               >
-                {favorite
-                  ? (
-                    <img
-                      className="rocksGlass"
-                      type="image/svg+xml"
-                      src={ blackHeartIcon }
-                      alt="blackHeartIcon"
-                    />
-                  ) : (
-                    <img
-                      className="rocksGlass"
-                      type="image/svg+xml"
-                      src={ whiteHeartIcon }
-                      alt="whiteHeartIcon"
-                    />
-                  )}
+                {favorite ? (
+                  <img
+                    className="rocksGlass"
+                    type="image/svg+xml"
+                    src={ blackHeartIcon }
+                    alt="blackHeartIcon"
+                  />
+                ) : (
+                  <img
+                    className="rocksGlass"
+                    type="image/svg+xml"
+                    src={ whiteHeartIcon }
+                    alt="whiteHeartIcon"
+                  />
+                )}
               </button>
             </div>
-            <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
-            <h5>Ingredients</h5>
-            <ul>
-              {filterIngredientsAndMeasures(drink[0])}
-            </ul>
-            <h5>Instructions</h5>
-            <p data-testid="instructions">{drink[0].strInstructions}</p>
-            <h5>Recomendadas</h5>
-            <CardCarousel foods={ foods } />
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn"
-              onClick={ () => setStart(true) }
-            >
-              {inProgessRecipes.drinks !== {} ? 'Continuar Receita' : 'Iniciar Receita'}
-              {/* Req 39 e 40 passam mas precisamos melhorar isso depois. */}
-            </button>
           </div>
-        )}
+          <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
+          <h5>Ingredients</h5>
+          <ul className="instructions-recipes">
+            {filterIngredientsAndMeasures(drink[0])}
+          </ul>
+          <h5>Instructions</h5>
+          <p data-testid="instructions" className="instructions-recipes">
+            {drink[0].strInstructions}
+          </p>
+          <h5>Recomendadas</h5>
+          <CardCarousel foods={ foods } />
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btnz2 btn btn-primary start-recipe-btn"
+            onClick={ () => setStart(true) }
+          >
+            {inProgessRecipes.drinks !== {}
+              ? 'Continuar Receita'
+              : 'Iniciar Receita'}
+            {/* Req 39 e 40 passam mas precisamos melhorar isso depois. */}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

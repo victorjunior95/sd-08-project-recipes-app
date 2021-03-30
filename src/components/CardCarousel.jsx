@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
 const SIX_FIRST_RESULTS = 6;
 const VISIBLE = 'visible';
@@ -28,8 +29,10 @@ const CardCarousel = (props) => {
   }
 
   return (
-    <div>
-      <button type="button">Prev</button>
+    <div className="recomendations-container">
+      <button type="button" className="navegation-buttons">
+        <MdNavigateBefore />
+      </button>
       {data.slice(0, SIX_FIRST_RESULTS).map((recipe, index) => (
         index > 1
           ? (
@@ -39,7 +42,7 @@ const CardCarousel = (props) => {
               className={ NOT_VISIBLE }
             >
               <div>
-                <img src={ recipe[thumb] } alt="data" data-testid="recipe-photo" />
+                <img className="recomendation-image" src={ recipe[thumb] } alt="data" data-testid="recipe-photo" />
                 <h3 data-testid={ `${index}-recomendation-title` }>{recipe[title]}</h3>
                 <p
                   data-testid={ `${index}-recomendation-category` }
@@ -54,8 +57,8 @@ const CardCarousel = (props) => {
               data-testid={ `${index}-recomendation-card` }
               className={ VISIBLE }
             >
-              <div>
-                <img src={ recipe[thumb] } alt="data" data-testid="recipe-photo" />
+              <div className="recomendation-cards">
+                <img className="recomendation-image" src={ recipe[thumb] } alt="data" data-testid="recipe-photo" />
                 <h3 data-testid={ `${index}-recomendation-title` }>{recipe[title]}</h3>
                 <p
                   data-testid={ `${index}-recomendation-category` }
@@ -66,7 +69,9 @@ const CardCarousel = (props) => {
             </div>
           )
       ))}
-      <button type="button">Next</button>
+      <button type="button" className="navegation-buttons">
+        <MdNavigateNext />
+      </button>
     </div>
   );
 };

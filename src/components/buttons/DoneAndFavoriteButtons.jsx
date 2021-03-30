@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import { buttonsDoneAndFavoriteRecipes } from '../../constants/index';
 
 const DoneAndFavoriteButtons = ({ handleFilters }) => (
-  <div>
+  <div className="main-foods-buttons-container">
     {buttonsDoneAndFavoriteRecipes.map((button) => (
       <button
+        className="btn btn-primary"
+        style={ { marginTop: 5,
+          marginBottom: 5,
+          width: 106 } }
         onClick={ (event) => handleFilters(event) }
         key={ button.name }
         value={ button.type }

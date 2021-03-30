@@ -7,6 +7,7 @@ import {
   setMealsTokenLocalStorage,
   setCocktailsTokenLocalStorage,
   setUserLocalStorage,
+  setProgressDrink,
 } from '../services';
 import logoImage from '../images/logo.svg';
 import '../styles/components/LoginForm.css';
@@ -33,6 +34,7 @@ class LoginForm extends Component {
     setUserLocalStorage(email);
     setMealsTokenLocalStorage();
     setCocktailsTokenLocalStorage();
+    setProgressDrink();
     this.setState({
       redirectFoods: true,
     });

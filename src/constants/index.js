@@ -32,6 +32,15 @@ export const header = {
 };
 export const MAIN_FOOD_CARD_LENGTH_12 = 12;
 export const CATEGORIES_LENGTH_5 = 5;
+
+export const buttonsDoneAndFavoriteRecipes = [
+  {
+    name: 'All', type: 'all', testId: 'filter-by-all-btn',
+  },
+  { name: 'Food', type: 'comida', testId: 'filter-by-food-btn' },
+  { name: 'Drinks', type: 'bebida', testId: 'filter-by-drink-btn' },
+];
+
 // const ReturnPathName = () => {
 //   const { pathname } = useLocation();
 //   return pathname;

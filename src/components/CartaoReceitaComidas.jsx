@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 const DOZE = 12;
 const CINQUENTA = 50;
 function CartaoReceitaComidas({ resultadoApi }) {
-  console.log(resultadoApi);
-
   return (
     <>
       { resultadoApi.slice(0, DOZE).map((element, i) => (

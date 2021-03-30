@@ -20,6 +20,9 @@ function ProviderReceitas({ children }) {
   const [categoriasComidas, setCategoriasComidas] = useState([]);
   const [categoriasBebidas, setCategoriasBebidas] = useState([]);
   const mensagem = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  const [detalhesComidas, setDetalhesComidas] = useState([]);
+  const [detalhesBebidas, setDetalhesBebidas] = useState([]);
+
   useEffect(() => {
     async function fetchComida() {
       if (search.type === 'f' && search.search.length > 1) {
@@ -59,6 +62,10 @@ function ProviderReceitas({ children }) {
     setToggle,
     deveriaRedirecionar,
     setDeveriaRedirecionar,
+    detalhesComidas,
+    setDetalhesComidas,
+    detalhesBebidas,
+    setDetalhesBebidas,
   };
 
   useEffect(() => {

@@ -10,21 +10,6 @@ const copy = require('clipboard-copy');
 
 const NUMBER_9 = 9;
 
-function FavoriteMealRecipe(foods) {
-  const { idMeal, strArea, strCategory,
-    strMeal, strMealThumb } = foods[0];
-  const obj = [{
-    id: idMeal,
-    type: 'comida',
-    area: strArea || '',
-    category: strCategory || '',
-    alcoholicOrNot: '',
-    name: strMeal,
-    image: strMealThumb,
-  }];
-  return obj;
-}
-
 function FavoriteDrinkRecipe(drink) {
   const { idDrink, strArea, strCategory,
     strDrinkThumb, strDrink, strAlcoholic } = drink[0];

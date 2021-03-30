@@ -4,7 +4,7 @@ import Drinks from '../images/drinkIcon.svg';
 import Explore from '../images/exploreIcon.svg';
 import Foods from '../images/mealIcon.svg';
 
-const BottomMenu = () => (
+const Footer = () => (
   <footer style={ { position: 'fixed', bottom: '0px' } } data-testid="footer">
     <a
       href="/bebidas"
@@ -32,4 +32,4 @@ const BottomMenu = () => (
   </footer>
 );
 
-export default BottomMenu;
+export default Footer;

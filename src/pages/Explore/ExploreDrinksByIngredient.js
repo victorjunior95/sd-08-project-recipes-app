@@ -6,10 +6,8 @@ import Context from '../../context/Context';
 export default function ExploreDrinksByIngredient() {
   const { setSearchParams } = useContext(Context);
   const SHOW_ME_TWELVE = 12;
-
   const [ingredients, setIngredientes] = useState([]);
   const history = useHistory();
-
   const getDrinkIngredients = async () => {
     const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
     let response = {};
@@ -26,7 +24,6 @@ export default function ExploreDrinksByIngredient() {
     const filtered = ingredientsRes.drinks.filter((_, index) => index < SHOW_ME_TWELVE);
     setIngredientes(filtered);
   };
-
   const handleFilter = async (ingredient) => {
     setSearchParams({
       searchInput: ingredient,
@@ -34,13 +31,10 @@ export default function ExploreDrinksByIngredient() {
       location: history.location.pathname });
     history.push('/bebidas');
   };
-
   const source = (ingredient) => `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`;
-
   useEffect(() => {
     onFetchIngredients();
   }, []);
-
   return (
     <>
       <Header pageTitle="Explorar Ingredientes" showSearchButton={ false } />

@@ -4,6 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { requestMealRecipe } from '../services/apiRequests';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import RecommendedDrinks from '../components/RecommendedDrinks';
 import Loading from '../components/Loading';
 
@@ -54,7 +55,7 @@ function DetalhesComidas() {
     const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
     const favoriteRecipe = {
       id: meal.idMeal,
-      type: 'meal',
+      type: 'comida',
       area: meal.strArea,
       category: meal.strCategory,
       alcoholicOrNot: '',
@@ -91,7 +92,12 @@ function DetalhesComidas() {
                 text={ window.location.href }
                 onCopy={ () => setCopied(true) }
               >
-                <button type="button" data-testid="share-btn">Compartilhar</button>
+                <input
+                  data-testid="share-btn"
+                  type="image"
+                  src={ shareIcon }
+                  alt="button share with friends"
+                />
               </CopyToClipboard>
               {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
               {

@@ -24,17 +24,16 @@ function FavoriteRecipeCard({ recipe, index }) {
   return (
     <main>
       {
-        recipe.type === 'meal'
+        recipe.type === 'comida'
           ? (
             <section>
-              <p data-testid={ `${index}-horizontal-name` }>
-                {recipe.name}
-              </p>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-name` }
+                onClick={ () => history.push(`/comidas/${recipe.id}`) }
               >
-                {`${recipe.area} - ${recipe.category}`}
-              </p>
+                {recipe.name}
+              </button>
               <input
                 className="card-image"
                 type="image"
@@ -43,6 +42,11 @@ function FavoriteRecipeCard({ recipe, index }) {
                 alt={ `Recipe: ${recipe.name}` }
                 onClick={ () => history.push(`/comidas/${recipe.id}`) }
               />
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${recipe.area} - ${recipe.category}`}
+              </p>
               <CopyToClipboard
                 text={ `http://localhost:3000/comidas/${recipe.id}` }
                 onCopy={ () => {
@@ -73,10 +77,15 @@ function FavoriteRecipeCard({ recipe, index }) {
           )
           : (
             <section>
-              <p data-testid={ `${index}-horizontal-name` }>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-name` }
+                onClick={ () => history.push(`/bebidas/${recipe.id}`) }
+              >
                 {recipe.name}
-              </p>
+              </button>
               <input
+                className="card-image"
                 type="image"
                 src={ recipe.image }
                 data-testid={ `${index}-horizontal-image` }
@@ -114,7 +123,6 @@ function FavoriteRecipeCard({ recipe, index }) {
                 alt="unfavorite"
                 onClick={ () => removeFromFavorite() }
               />
-              {console.log(recipe)}
             </section>
           )
       }

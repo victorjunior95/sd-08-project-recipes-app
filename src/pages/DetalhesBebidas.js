@@ -5,6 +5,7 @@ import RecommendedMeals from '../components/RecommendedMeals';
 import { requestDrinkRecipe } from '../services/apiRequests';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import Context from '../context/Context';
 import Loading from '../components/Loading';
 
@@ -55,7 +56,7 @@ function DetalhesBebidas() {
     const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
     const favoriteRecipe = {
       id: drink.idDrink,
-      type: 'drink',
+      type: 'bebida',
       area: drink.strArea,
       category: drink.strCategory,
       alcoholicOrNot: drink.strAlcoholic,
@@ -92,7 +93,12 @@ function DetalhesBebidas() {
                 text={ window.location.href }
                 onCopy={ () => setCopied(true) }
               >
-                <button type="button" data-testid="share-btn">Compartilhar</button>
+                <input
+                  data-testid="share-btn"
+                  type="image"
+                  src={ shareIcon }
+                  alt="button share with friends"
+                />
               </CopyToClipboard>
               {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
               {

@@ -1,36 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 import Loading from '../components/Loading';
-
-const receitasFeitas = [{
-  id: 12345,
-  type: 'meal',
-  area: 'area',
-  category: 'categoria',
-  alcoholicOrNot: '',
-  name: 'Miojo',
-  image: 'foto',
-  doneDate: 'diaTal',
-  tags: ['Curry', 'Pasta'],
-},
-{
-  id: 54321,
-  type: 'drink',
-  area: 'area1',
-  category: 'categoria1',
-  alcoholicOrNot: 'yes',
-  name: 'mojito',
-  image: 'foto1',
-  doneDate: 'diaTal',
-  tags: ['tag1', 'tag2'],
-}];
-
-function handleFilter({ target }) {
-  console.log(target.value);
-}
+import Context from '../context/Context';
 
 function ReceitasFeitas() {
+  const [filterType, setFilterType] = useState('');
+  const { doneRecipesList, setDoneRecipesList } = useContext(Context);
+
+  useEffect(() => {
+    async function filterRecipes(filterParam) {
+      const doneRecipes = await JSON.parse(localStorage.getItem('doneRecipes'));
+      const filteredRecipes = doneRecipes
+        .filter((element) => element.type === filterParam);
+      setDoneRecipesList(filteredRecipes);
+    }
+
+    async function getDoneRecipes() {
+      const doneRecipes = await JSON.parse(localStorage.getItem('doneRecipes'));
+      if (filterType === 'food') return filterRecipes('comida');
+      if (filterType === 'drinks') return filterRecipes('bebida');
+      setDoneRecipesList(doneRecipes);
+    }
+    getDoneRecipes();
+  }, [setDoneRecipesList, filterType]);
+
+  function handleFilter(filterParam) {
+    setFilterType(filterParam);
+  }
+
   return (
     <>
       <HeaderWithoutSearch />
@@ -39,7 +37,7 @@ function ReceitasFeitas() {
           data-testid="filter-by-all-btn"
           type="button"
           value="all"
-          onClick={ () => handleFilter('all') }
+          onClick={ () => handleFilter('') }
         >
           All
         </button>
@@ -47,7 +45,7 @@ function ReceitasFeitas() {
           data-testid="filter-by-food-btn"
           type="button"
           value="food"
-          onClick={ () => handleFilter('meal') }
+          onClick={ () => handleFilter('food') }
         >
           Food
         </button>
@@ -55,14 +53,16 @@ function ReceitasFeitas() {
           data-testid="filter-by-drink-btn"
           type="button"
           value="drinks"
-          onClick={ () => handleFilter('drink') }
+          onClick={ () => handleFilter('drinks') }
         >
           Drinks
         </button>
         {
-          receitasFeitas !== undefined || null
-            ? receitasFeitas.map(
-              (recipe) => <DoneRecipeCard key={ recipe } recipe={ recipe } />,
+          doneRecipesList !== null || undefined
+            ? doneRecipesList.map(
+              (recipe, index) => (
+                <DoneRecipeCard key={ recipe.id } recipe={ recipe } index={ index } />
+              ),
             )
             : <Loading />
         }

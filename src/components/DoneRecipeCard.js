@@ -9,7 +9,7 @@ function DoneRecipeCard({ recipe }) {
   return (
     <section>
       {
-        recipe.type === 'meal'
+        recipe.type === 'comida'
           ? (
             <section>
               <p data-testid={ `${index}-horizontal-name` }>

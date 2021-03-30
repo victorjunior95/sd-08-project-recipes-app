@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Loading from '../components/Loading';
 import Context from '../context/Context';
 
 function ReceitasFavoritas() {
@@ -17,8 +18,8 @@ function ReceitasFavoritas() {
 
     async function getFavoriteRecipes() {
       const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (filterType === 'food') return filterRecipes('meal');
-      if (filterType === 'drinks') return filterRecipes('drink');
+      if (filterType === 'food') return filterRecipes('comida');
+      if (filterType === 'drinks') return filterRecipes('bebida');
       setFavoriteRecipesList(favoriteRecipes);
     }
     getFavoriteRecipes();
@@ -63,7 +64,7 @@ function ReceitasFavoritas() {
                 <FavoriteRecipeCard key={ recipe.id } recipe={ recipe } index={ index } />
               ),
             )
-            : ''
+            : <Loading />
         }
       </main>
     </>

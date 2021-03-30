@@ -43,6 +43,12 @@ export const setInProgressRecipes = (id, type, ingredients) => {
 };
 
 export const setFavoriteRecipes = (recipeInfo) => {
+  recipeInfo.type = recipeInfo.type.toLowerCase().replace('s', '');
+  if (recipeInfo.type === 'bebida') {
+    const { alcoholicOrNot } = recipeInfo;
+    recipeInfo.alcoholicOrNot = recipeInfo.category;
+    recipeInfo.category = alcoholicOrNot;
+  }
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([recipeInfo]));
   } else {

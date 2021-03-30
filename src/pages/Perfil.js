@@ -26,7 +26,6 @@ function Perfil() {
       setEmail(JSON.parse(localStorage.user).email);
     }
   });
-  // -----------------------------------------------
 
   return (
     <div>

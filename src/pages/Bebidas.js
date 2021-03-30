@@ -4,13 +4,17 @@ import HeaderPS from '../components/HeaderPS';
 import RecipeList from '../components/RecipeList';
 import RecipeCategory from '../components/RecipeCategory';
 
+import '../styles/RecipeList.css';
+
 function Bebidas() {
   return (
     <>
       <HeaderPS title="Bebidas" endpoint="thecocktaildb" />
-      <RecipeCategory recipeType="drinks" endpoint="thecocktaildb" />
-      <RecipeList route="bebidas" recipeType="Drink" endpoint="thecocktaildb" />
-      <Footer />
+      <main className="recipe-list-container">
+        <RecipeCategory recipeType="drinks" endpoint="thecocktaildb" />
+        <RecipeList route="bebidas" recipeType="Drink" endpoint="thecocktaildb" />
+        <Footer />
+      </main>
     </>
   );
 }

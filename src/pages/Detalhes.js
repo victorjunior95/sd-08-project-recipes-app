@@ -105,12 +105,6 @@ const Detalhes = () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(result));
   };
   useEffect(() => {
-    // const getIsFavorite = () => {
-    //   const getFavorite = (localStorage.getItem('isFavorite') === 'true');
-    //   return getFavorite;
-    // };
-    // const results = getIsFavorite();
-    // setIsFavorite(results);
     const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const [,, id] = location.pathname.split('/');
     setIsFavorite(fav.some((result) => result.id === id));

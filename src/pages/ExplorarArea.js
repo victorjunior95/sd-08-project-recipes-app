@@ -29,7 +29,6 @@ export default function ExplorarArea() {
     getMealsByArea();
   }, [area]);
 
-  console.log(foodsByArea);
   return (
     <div>
       <Header title="Explorar Origem" />

@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
-
-const receitasFavoritas = [{
-  id: 12345,
-  type: 'meal',
-  area: 'area',
-  category: 'categoria',
-  alcoholicOrNot: '',
-  name: 'Miojo',
-  image: 'foto',
-},
-{
-  id: 54321,
-  type: 'drink',
-  area: 'area1',
-  category: 'categoria1',
-  alcoholicOrNot: 'yes',
-  name: 'mojito',
-  image: 'foto1',
-}];
-
-function handleClick({ target }) {
-  console.log(target.value);
-}
+import Context from '../context/Context';
+import Loading from '../components/Loading';
 
 function ReceitasFavoritas() {
+  const [filterType, setFilterType] = useState('');
+  const { favoriteRecipesList, setFavoriteRecipesList } = useContext(Context);
+
+  useEffect(() => {
+    async function filterRecipes(filterParam) {
+      const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const filteredRecipes = await favoriteRecipes
+        .filter((element) => element.type === filterParam);
+      setFavoriteRecipesList(filteredRecipes);
+    }
+
+    async function getFavoriteRecipes() {
+      const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (filterType === 'food') return filterRecipes('meal');
+      if (filterType === 'drinks') return filterRecipes('drink');
+      setFavoriteRecipesList(favoriteRecipes);
+    }
+    getFavoriteRecipes();
+  }, [setFavoriteRecipesList, filterType]);
+
+  function handleFilter(filterParam) {
+    setFilterType(filterParam);
+  }
+
   return (
     <>
       <HeaderWithoutSearch />
@@ -34,7 +37,7 @@ function ReceitasFavoritas() {
           data-testid="filter-by-all-btn"
           type="button"
           value="all"
-          onClick={ (e) => handleClick(e) }
+          onClick={ () => handleFilter('') }
         >
           All
         </button>
@@ -42,7 +45,7 @@ function ReceitasFavoritas() {
           data-testid="filter-by-food-btn"
           type="button"
           value="food"
-          onClick={ (e) => handleClick(e) }
+          onClick={ () => handleFilter('food') }
         >
           Food
         </button>
@@ -50,14 +53,18 @@ function ReceitasFavoritas() {
           data-testid="filter-by-drink-btn"
           type="button"
           value="drinks"
-          onClick={ (e) => handleClick(e) }
+          onClick={ () => handleFilter('drinks') }
         >
           Drinks
         </button>
         {
-          receitasFavoritas.map(
-            (recipe) => <FavoriteRecipeCard key={ recipe } recipe={ recipe } />,
-          )
+          favoriteRecipesList !== undefined || null
+            ? favoriteRecipesList.map(
+              (recipe, index) => (
+                <FavoriteRecipeCard key={ recipe.id } recipe={ recipe } index={ index } />
+              ),
+            )
+            : <Loading />
         }
       </main>
     </>

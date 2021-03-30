@@ -1,6 +1,7 @@
 import React from 'react';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Loading from '../components/Loading';
 
 const receitasFeitas = [{
   id: 12345,
@@ -25,7 +26,7 @@ const receitasFeitas = [{
   tags: ['tag1', 'tag2'],
 }];
 
-function handleClick({ target }) {
+function handleFilter({ target }) {
   console.log(target.value);
 }
 
@@ -38,7 +39,7 @@ function ReceitasFeitas() {
           data-testid="filter-by-all-btn"
           type="button"
           value="all"
-          onClick={ () => handleClick('all') }
+          onClick={ () => handleFilter('all') }
         >
           All
         </button>
@@ -46,7 +47,7 @@ function ReceitasFeitas() {
           data-testid="filter-by-food-btn"
           type="button"
           value="food"
-          onClick={ () => handleClick('meal') }
+          onClick={ () => handleFilter('meal') }
         >
           Food
         </button>
@@ -54,14 +55,16 @@ function ReceitasFeitas() {
           data-testid="filter-by-drink-btn"
           type="button"
           value="drinks"
-          onClick={ () => handleClick('drink') }
+          onClick={ () => handleFilter('drink') }
         >
           Drinks
         </button>
         {
-          receitasFeitas.map(
-            (recipe) => <DoneRecipeCard key={ recipe } recipe={ recipe } />,
-          )
+          receitasFeitas !== undefined || null
+            ? receitasFeitas.map(
+              (recipe) => <DoneRecipeCard key={ recipe } recipe={ recipe } />,
+            )
+            : <Loading />
         }
       </main>
     </>

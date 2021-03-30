@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 import Context from '../context/Context';
-import Loading from '../components/Loading';
 
 function ReceitasFavoritas() {
   const [filterType, setFilterType] = useState('');
@@ -11,7 +10,7 @@ function ReceitasFavoritas() {
   useEffect(() => {
     async function filterRecipes(filterParam) {
       const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const filteredRecipes = await favoriteRecipes
+      const filteredRecipes = favoriteRecipes
         .filter((element) => element.type === filterParam);
       setFavoriteRecipesList(filteredRecipes);
     }
@@ -58,13 +57,13 @@ function ReceitasFavoritas() {
           Drinks
         </button>
         {
-          favoriteRecipesList !== undefined || null
+          favoriteRecipesList !== null || undefined
             ? favoriteRecipesList.map(
               (recipe, index) => (
                 <FavoriteRecipeCard key={ recipe.id } recipe={ recipe } index={ index } />
               ),
             )
-            : <Loading />
+            : ''
         }
       </main>
     </>

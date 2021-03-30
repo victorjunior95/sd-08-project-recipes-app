@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 const FOUR_SECONDS = 4000;
 
@@ -11,7 +12,7 @@ function FavoriteRecipeCard({ recipe, index }) {
   const [copied, setCopied] = useState('');
   // const index = 0;
   async function removeFromFavorite() {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
     const updatedFavoriteRecipes = favoriteRecipes
       .filter((favorita) => favorita.id !== recipe.id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
@@ -23,13 +24,14 @@ function FavoriteRecipeCard({ recipe, index }) {
         recipe.type === 'meal'
           ? (
             <section>
-              <input
-                type="text"
-                data-testid={ `${index}-horizontal-name` }
-                onClick={ () => history.push(`/comidas/${recipe.id}`) }
-                value={ recipe.name }
-                readOnly
-              />
+              <p data-testid={ `${index}-horizontal-name` }>
+                {recipe.name}
+              </p>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${recipe.area} - ${recipe.category}`}
+              </p>
               <input
                 type="image"
                 src={ recipe.image }
@@ -37,8 +39,6 @@ function FavoriteRecipeCard({ recipe, index }) {
                 alt={ `Recipe: ${recipe.name}` }
                 onClick={ () => history.push(`/comidas/${recipe.id}`) }
               />
-              <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
-              <p>{recipe.area}</p>
               <CopyToClipboard
                 text={ `http://localhost:3000/comidas/${recipe.id}` }
                 onCopy={ () => {
@@ -46,12 +46,12 @@ function FavoriteRecipeCard({ recipe, index }) {
                   setTimeout(() => setCopied(''), FOUR_SECONDS);
                 } }
               >
-                <button
+                <input
                   data-testid={ `${index}-horizontal-share-btn` }
-                  type="button"
-                >
-                  Compartilhar
-                </button>
+                  type="image"
+                  src={ shareIcon }
+                  alt="button share with friends"
+                />
               </CopyToClipboard>
               {
                 copied === index
@@ -59,6 +59,7 @@ function FavoriteRecipeCard({ recipe, index }) {
                   : null
               }
               <input
+                data-testid={ `${index}-horizontal-favorite-btn` }
                 type="image"
                 src={ blackHeartIcon }
                 alt="unfavorite"
@@ -68,13 +69,9 @@ function FavoriteRecipeCard({ recipe, index }) {
           )
           : (
             <section>
-              <input
-                type="text"
-                data-testid={ `${index}-horizontal-name` }
-                onClick={ () => history.push(`/bebidas/${recipe.id}`) }
-                value={ recipe.name }
-                readOnly
-              />
+              <p data-testid={ `${index}-horizontal-name` }>
+                {recipe.name}
+              </p>
               <input
                 type="image"
                 src={ recipe.image }
@@ -82,20 +79,24 @@ function FavoriteRecipeCard({ recipe, index }) {
                 alt={ `Recipe: ${recipe.name}` }
                 onClick={ () => history.push(`/bebidas/${recipe.id}`) }
               />
-              <p>{recipe.alcoholicOrNot}</p>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {recipe.alcoholicOrNot}
+              </p>
               <CopyToClipboard
-                text={ `http://localhost:3000/bebidas/${recipe.id}` }
+                text={ `http://localhost:3000/comidas/${recipe.id}` }
                 onCopy={ () => {
                   setCopied(index);
                   setTimeout(() => setCopied(''), FOUR_SECONDS);
                 } }
               >
-                <button
+                <input
                   data-testid={ `${index}-horizontal-share-btn` }
-                  type="button"
-                >
-                  Compartilhar
-                </button>
+                  type="image"
+                  src={ shareIcon }
+                  alt="button share with friends"
+                />
               </CopyToClipboard>
               {
                 copied === index
@@ -103,11 +104,13 @@ function FavoriteRecipeCard({ recipe, index }) {
                   : null
               }
               <input
+                data-testid={ `${index}-horizontal-favorite-btn` }
                 type="image"
                 src={ blackHeartIcon }
                 alt="unfavorite"
                 onClick={ () => removeFromFavorite() }
               />
+              {console.log(recipe)}
             </section>
           )
       }

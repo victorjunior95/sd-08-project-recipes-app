@@ -19,7 +19,6 @@ import FavoriteCard from './FavoriteCard/FavoriteCard';
 import FoodInProgressCard from './FoodInProgressCard';
 import DrinkInProgressCard from './DrinkInProgressCard';
 
-
 const components = {
   Header,
   Footer,

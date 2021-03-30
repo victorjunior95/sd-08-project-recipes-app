@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+import leftArrow from '../images/back-arrow.svg';
+import rightArrow from '../images/chevron-right.svg';
 
 const SIX_FIRST_RESULTS = 6;
 const VISIBLE = 'visible';
@@ -31,7 +32,7 @@ const CardCarousel = (props) => {
   return (
     <div className="recomendations-container">
       <button type="button" className="navegation-buttons">
-        <MdNavigateBefore />
+        <img src={ leftArrow } alt="esquerda" />
       </button>
       {data.slice(0, SIX_FIRST_RESULTS).map((recipe, index) => (
         index > 1
@@ -80,7 +81,7 @@ const CardCarousel = (props) => {
           )
       ))}
       <button type="button" className="navegation-buttons">
-        <MdNavigateNext />
+        <img src={ rightArrow } alt="direita" />
       </button>
     </div>
   );

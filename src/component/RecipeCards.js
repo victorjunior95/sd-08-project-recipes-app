@@ -8,7 +8,7 @@ export default function RecipeCards({ recipe, type, index, id, recommendation })
   const link = pathname.includes('comidas') ? 'comidas' : 'bebidas';
   return (
     <Link
-      to={ `${link}/${id}` }
+      to={ `/${link}/${id}` }
       data-testid={ `${index}-recipe-card` }
     >
       <img

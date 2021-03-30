@@ -62,19 +62,14 @@ export default function ExploreByOrigin() {
         {
           mealsByCountry && mealsByCountry.filter((_, index) => index < TWELVE)
             .map((recipe, index) => (
-              <Link
-                to={ `/comidas/${recipe.idMeal}` }
-                data-testid={ `${index}-recipe-card` }
+              <RecipeCards
                 key={ index }
-              >
-                <RecipeCards
-                  key={ index }
-                  id={ recipe.idMeal }
-                  recipe={ recipe }
-                  index={ index }
-                  type="Meal"
-                />
-              </Link>
+                id={ recipe.idMeal }
+                recipe={ recipe }
+                index={ index }
+                type="Meal"
+              />
+
             ))
         }
       </div>

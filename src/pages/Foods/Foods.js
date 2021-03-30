@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import CategoryFilter from '../../component/CategoryFilter';
 import { Header, RecipeCards, Footer } from '../../component';
 import Context from '../../context/Context';
@@ -9,12 +8,15 @@ const SHOW_TWELVE_RECIPES = 12;
 
 export default function Foods() {
   const { recipes, setSearchParams,
-    searchParams: { selectedParameter } } = useContext(Context);
+    searchParams } = useContext(Context);
+  const { selectedParameter } = searchParams;
   const history = useHistory();
   const [recipesToRender, setRecipesToRender] = useState([]);
 
-  useEffect(() => setSearchParams({ location: history.location.pathname }),
-    [setSearchParams, history.location.pathname]);
+  useEffect(() => setSearchParams({
+    ...searchParams,
+    location: history.location.pathname }),
+  [setSearchParams, history.location.pathname]);
 
   useEffect(() => {
     if (recipes === 'NF') {
@@ -32,19 +34,13 @@ export default function Foods() {
       <CategoryFilter />
       <div>
         {recipesToRender.map((recipe, index) => (
-          <Link
-            to={ `${history.location.pathname}/${recipe.idMeal}` }
-            data-testid={ `${index}-recipe-card` }
+          <RecipeCards
             key={ index }
-          >
-            <RecipeCards
-              key={ index }
-              recipe={ recipe }
-              id={ recipe.idMeal }
-              type="Meal"
-              index={ index }
-            />
-          </Link>
+            recipe={ recipe }
+            id={ recipe.idMeal }
+            type="Meal"
+            index={ index }
+          />
         ))}
       </div>
 

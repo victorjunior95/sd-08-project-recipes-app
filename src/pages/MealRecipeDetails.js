@@ -128,6 +128,12 @@ class MealRecipeDetails extends Component {
 
   render() {
     const { meals, isLoading, favorite, ingredients, measures, isDone } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const recipesFromStorage = (JSON
+      .parse(localStorage.getItem('inProgressRecipes'))) || { meals: {} };
+    const buttonText = (recipesFromStorage.meals[id] !== undefined)
+      ? 'Continuar Receita' : 'Iniciar Receita';
+
     if (isLoading) return <p>Loading...</p>;
     const {
       idMeal,
@@ -223,7 +229,7 @@ class MealRecipeDetails extends Component {
               className="start-recipe-btn"
               to={ `${idMeal}/in-progress` }
             >
-              Iniciar Receita
+              {buttonText}
             </Link>
           )}
         </div>

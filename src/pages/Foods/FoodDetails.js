@@ -23,7 +23,7 @@ function FoodDetails(props) {
   const [inProgressRecipes,
     setInProgressRecipes] = useState(initialInProgressRecipesValue);
   const [isInProgress, setIsInProgress] = useState(false);
-  const [isDone, setISDone] = useState(false);
+  // const [isDone, setISDone] = useState(false);
 
   const STOP_INDEX = 5;
   const [

@@ -45,6 +45,7 @@ function Login({ children }) {
     ingredients,
     setIngredients
   };
+  // teste para o lint
   return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;
 }
 

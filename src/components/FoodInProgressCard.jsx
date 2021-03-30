@@ -152,6 +152,7 @@ FoodInProgressCard.propTypes = {
   category: PropTypes.string.isRequired,
   instructions: PropTypes.string.isRequired,
   idMeal: PropTypes.string.isRequired,
+  idDrink: PropTypes.string.isRequired,
 };
 
 export default FoodInProgressCard;

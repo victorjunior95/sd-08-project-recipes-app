@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Creators as InProgressRecipesActions } from '../store/ducks/inProgressRecipes';
+import { Creators as FavoriteRecipesActions } from '../store/ducks/favoriteRecipes';
 import * as mealApi from '../services/mealApi';
 
 import previousIcon from '../images/previousIcon.svg';
@@ -19,7 +19,7 @@ import RecipeVideo from '../components/RecipeVideo';
 import styles from '../styles/pages/MealsDetails.module.css';
 import CocktailRecipeRecommendations from '../components/CocktailRecipeRecommendations';
 
-const MealsDetails = ({ addMeal, meals }) => {
+const MealsDetails = ({ addInProgressMeal, addFavoriteRecipe, meals }) => {
   const { id } = useParams();
   const [meal, setMeal] = useState({});
   const [isFetching, setIsFetching] = useState(true);
@@ -52,7 +52,7 @@ const MealsDetails = ({ addMeal, meals }) => {
   }, [meal]);
 
   function handleStartRecipe() {
-    addMeal(meal);
+    addInProgressMeal(meal);
     history.push(`/comidas/${meal.idMeal}/in-progress`);
   }
 
@@ -72,7 +72,12 @@ const MealsDetails = ({ addMeal, meals }) => {
       />
 
       <div className={ styles.mealsDetailsContainer }>
-        <RecipeHeader title={ meal.strMeal } category={ meal.strCategory } />
+        <RecipeHeader
+          title={ meal.strMeal }
+          category={ meal.strCategory }
+          id={ meal.idMeal }
+          handleFavorite={ () => { addFavoriteRecipe(meal); } }
+        />
         <RecipeIngredients ingredients={ ingredients } measures={ measures } />
         <RecipeInstructions instructions={ meal.strInstructions } />
         <RecipeVideo src={ meal.strYoutube.replace('watch?v=', 'embed/') } />
@@ -90,7 +95,8 @@ const MealsDetails = ({ addMeal, meals }) => {
 };
 
 MealsDetails.propTypes = {
-  addMeal: PropTypes.func.isRequired,
+  addInProgressMeal: PropTypes.func.isRequired,
+  addFavoriteRecipe: PropTypes.func.isRequired,
   meals: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
@@ -98,7 +104,9 @@ const mapStateToProps = ({ inProgressRecipes }) => ({
   meals: inProgressRecipes.meals,
 });
 
-const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(InProgressRecipesActions, dispatch));
+const mapDispatchToProps = (dispatch) => ({
+  addInProgressMeal: (meal) => dispatch(InProgressRecipesActions.addMeal(meal)),
+  addFavoriteRecipe: (recipe) => dispatch(FavoriteRecipesActions.addRecipe(recipe)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealsDetails);

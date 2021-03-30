@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import * as cocktailApi from '../services/cocktailApi';
 import { Creators as InProgressRecipesActions } from '../store/ducks/inProgressRecipes';
+import { Creators as FavoriteRecipesActions } from '../store/ducks/favoriteRecipes';
 
 import previousIcon from '../images/previousIcon.svg';
 
@@ -18,7 +18,7 @@ import RecipeInstructions from '../components/RecipeInstructions';
 import styles from '../styles/pages/CocktailDetails.module.css';
 import MealRecipeRecommendations from '../components/MealRecipeRecommendations';
 
-const CocktailDetails = ({ addCocktail, cocktails }) => {
+const CocktailDetails = ({ addInProgressCocktail, cocktails, addFavoriteRecipe }) => {
   const { id } = useParams();
   const [cocktail, setCocktail] = useState({});
   const [isFetching, setIsFetching] = useState(true);
@@ -51,7 +51,7 @@ const CocktailDetails = ({ addCocktail, cocktails }) => {
   }, [cocktail]);
 
   function handleStartRecipe() {
-    addCocktail(cocktail);
+    addInProgressCocktail(cocktail);
     history.push(`/bebidas/${cocktail.idDrink}/in-progress`);
   }
 
@@ -71,7 +71,12 @@ const CocktailDetails = ({ addCocktail, cocktails }) => {
       />
 
       <div className={ styles.cocktailDetailsContainer }>
-        <RecipeHeader title={ cocktail.strDrink } category={ cocktail.strAlcoholic } />
+        <RecipeHeader
+          title={ cocktail.strDrink }
+          category={ cocktail.strAlcoholic }
+          id={ cocktail.idDrink }
+          handleFavorite={ () => { addFavoriteRecipe(cocktail); } }
+        />
         <RecipeIngredients ingredients={ ingredients } measures={ measures } />
         <RecipeInstructions instructions={ cocktail.strInstructions } />
         <MealRecipeRecommendations />
@@ -88,7 +93,8 @@ const CocktailDetails = ({ addCocktail, cocktails }) => {
 };
 
 CocktailDetails.propTypes = {
-  addCocktail: PropTypes.func.isRequired,
+  addInProgressCocktail: PropTypes.func.isRequired,
+  addFavoriteRecipe: PropTypes.func.isRequired,
   cocktails: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
@@ -96,7 +102,10 @@ const mapStateToProps = ({ inProgressRecipes }) => ({
   cocktails: inProgressRecipes.cocktails,
 });
 
-const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(InProgressRecipesActions, dispatch));
+const mapDispatchToProps = (dispatch) => ({
+  addInProgressCocktail: (cocktail) => (
+    dispatch(InProgressRecipesActions.addCocktail(cocktail))),
+  addFavoriteRecipe: (recipe) => dispatch(FavoriteRecipesActions.addRecipe(recipe)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CocktailDetails);

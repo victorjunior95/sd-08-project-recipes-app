@@ -75,11 +75,12 @@ const List = ({ title, results, refCard}) => {
     };
 
     const handleClickToRecipes = () => {
+      setResults(manipulatedResult)
       setRedirect(true)
     }
 
     useEffect( () => {
-      if (activatedFilters.length !== 0) {
+      if (activatedFilters.length === 1) {
         getRecipesByIngredient(title, activatedFilters[0]).then( (response) => {
           setRecipesByIngredient(response);
         });
@@ -123,38 +124,6 @@ const List = ({ title, results, refCard}) => {
         })();
       }
     }, [activatedFilters])
-
-    useEffect(() => {
-      // if (prevResults.length === 0) {
-        setResults(manipulatedResult)
-      // }
-    }, [manipulatedResult]);
-
-    // useEffect(() => {
-    //   // if (prevResults.length === 0) {
-    //     setRedirect(true)
-    //   // }
-    // }, [prevResults]);
-      
-
-    // activatedFilters.forEach((ingredient, index) => {
-    //   if (index > 0) {
-    //     console.log(response)
-    //     response = response.filter((recipe, index) => {
-
-    //       const listValues = Object.values(recipe);
-    //       // console.log(recipe)
-    //       // console.log(listValues)
-    //       const existIngredient = listValues.includes(ingredient)
-    //       // console.log(existIngredient)
-    //       if (existIngredient) {
-    //         return recipe
-    //       }
-    //     })
-    //     // console.log(response)
-    //     return response
-    //   }
-    // });
 
   if (results && refCard === "ingredients") {
     // console.log(results)

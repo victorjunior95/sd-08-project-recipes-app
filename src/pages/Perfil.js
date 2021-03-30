@@ -36,7 +36,7 @@ export default function Perfil() {
         className="g6-header-button"
         type="button"
         data-testid="profile-logout-btn"
-        onClick={ () => { handleButton(''); localStorage.clear(); } }
+        onClick={ () => { localStorage.clear(); handleButton(''); } }
       >
         Sair
 

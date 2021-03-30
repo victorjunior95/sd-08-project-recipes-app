@@ -14,7 +14,6 @@ function ExplorarIngredientesBebidas() {
     // tituloDaPagina,
     setSearch,
   } = useContext(ContextReceitas);
-  // const [setRedireciona] = useState(false);
   useEffect(() => {
     async function listaIngredientesAPI() {
       const ingredientesAPI = await buscarIngredientesBebidas();
@@ -28,12 +27,9 @@ function ExplorarIngredientesBebidas() {
   function handleRedireciona({ target: { alt } }) {
     console.log('olá');
     console.log(alt);
-    // const { history } = props;
     history.push('/bebidas');
     setSearch({ type: 'i', search: alt });
   }
-
-  // if (redireciona === true) return <Redirect to="/bebida" />;
 
   return (
     <div>
@@ -56,24 +52,6 @@ function ExplorarIngredientesBebidas() {
             />
             <div data-testid={ `${index}-card-name` }>{element.strIngredient1}</div>
           </Link>
-
-          // <button
-          //   type="button"
-          //   key={ element.strIngredient1 }
-          //   data-testid={ `${index}-ingredient-card` }
-          // >
-          //   <div data-testid={ `${index}-card-img` }>
-          //     <img
-          //       src={ `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png` }
-          //       alt={ element.strIngredient1 }
-          //       value={ element.strIngredient1 }
-
-          //     />
-          //   </div>
-
-          //   <div data-testid={ `${index}-card-name` }>{element.strIngredient1}</div>
-          // </button>
-
         ))}
         ;
       </div>

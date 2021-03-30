@@ -14,7 +14,6 @@ function ExplorarIngredientesComidas() {
     mudarStatusBotaoPesquisa,
     // tituloDaPagina,
   } = useContext(ContextReceitas);
-  // const [setRedireciona] = useState(false);
   useEffect(() => {
     async function listaIngredientesAPI() {
       const ingredientesAPI = await buscarIngredientesComidas();
@@ -28,12 +27,9 @@ function ExplorarIngredientesComidas() {
   function handleRedireciona({ target: { alt } }) {
     console.log('olá');
     console.log(alt);
-    // const { history } = props;
     history.push('/comidas');
     setSearch({ type: 'i', search: alt });
   }
-
-  // if (redireciona === true) return <Redirect to="/comida" />;
 
   return (
     <div>

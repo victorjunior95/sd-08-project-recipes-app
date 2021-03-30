@@ -13,6 +13,10 @@ const endPointFoodRandom = 'https://www.themealdb.com/api/json/v1/1/search.php?s
 const endPointDrinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const filterFoodCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const filterDrinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+
+const endPointAreas = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const endPointGetByArea = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+
 const returnAlert = () => {
   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   return null;
@@ -111,6 +115,18 @@ export const surpriseMeAPI = async (api) => {
 
 export const getIngredientsAPI = async (api) => {
   const result = await fetch(`https://www.the${api}db.com/api/json/v1/1/list.php?i=list`)
+    .then((res) => res.json());
+  return result;
+};
+
+export const getAreas = async () => {
+  const result = await fetch(endPointAreas)
+    .then((res) => res.json());
+  return result;
+};
+
+export const getFoodsByArea = async (area) => {
+  const result = await fetch(`${endPointGetByArea}${area}`)
     .then((res) => res.json());
   return result;
 };

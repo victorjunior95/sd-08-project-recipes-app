@@ -8,8 +8,14 @@ function DetalhesComida({ match }) {
   const { requestRecipeDetails } = useContext(Context);
   const { id } = match.params;
 
+  // const ids = JSON.parse(localStorage.getItem('finishedRecipes')) || [];
+
   useEffect(() => {
     requestRecipeDetails('themealdb', id, 'thecocktaildb');
+    document.getElementById('start-recipe-btn').style.display = 'block';
+    // if (ids.includes(id)) {
+    //   document.getElementById('start-recipe-btn').style.display = 'none';
+    // }
   }, []);
 
   return (

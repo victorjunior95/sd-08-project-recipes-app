@@ -5,7 +5,7 @@ import Recommended from './Recommended';
 import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ recipeType, page }) {
@@ -28,7 +28,7 @@ function RecipeDetails({ recipeType, page }) {
     const type = recipeType;
     const area = recipe.strArea;
     const category = recipe.strCategory;
-    const alcoholicOrNot = (recipe.strAlcoholic === 'Alcoholic') ? 'Alcoholic' : '';
+    const alcoholicOrNot = recipe.strAlcoholic === 'Alcoholic';
     const name = recipe[`str${recipeType}`];
     const image = recipe[`str${recipeType}Thumb`];
 

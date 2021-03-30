@@ -5,13 +5,19 @@ import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import Context from '../context/Context';
 
+import '../styles/Footer.css';
+
 const Footer = () => {
   const { requestApiData } = useContext(Context);
 
   return (
-    <footer data-testid="footer" className="navbar fixed-bottom">
+    <footer data-testid="footer" className="navbar fixed-bottom footer">
       <Link to="/bebidas">
-        <button type="button" onClick={ () => requestApiData('thecocktaildb') }>
+        <button
+          type="button"
+          className="btn-footer"
+          onClick={ () => requestApiData('thecocktaildb') }
+        >
           <img
             src={ drinkIcon }
             alt="ícone drink"
@@ -20,7 +26,10 @@ const Footer = () => {
         </button>
       </Link>
       <Link to="/explorar">
-        <button type="button">
+        <button
+          type="button"
+          className="btn-footer"
+        >
           <img
             src={ exploreIcon }
             alt="ícone explorar"
@@ -29,7 +38,11 @@ const Footer = () => {
         </button>
       </Link>
       <Link to="/comidas">
-        <button type="button" onClick={ () => requestApiData('thecocktaildb') }>
+        <button
+          type="button"
+          className="btn-footer"
+          onClick={ () => requestApiData('thecocktaildb') }
+        >
           <img
             src={ mealIcon }
             alt="ícone receitas"

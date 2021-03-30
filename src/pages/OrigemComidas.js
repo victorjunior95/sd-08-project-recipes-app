@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import HeaderPS from '../components/HeaderPS';
 import { fetchListByFilter, fetchRecipeByArea } from '../services/RequisicaoApi';
 
+import '../styles/OrigemComidas.css';
+
 const TWELVE_RECIPES = 12;
 
 function OrigemComidas() {
@@ -40,7 +42,7 @@ function OrigemComidas() {
   return (
     <>
       <HeaderPS title="Explorar Origem" endpoint="themealdb" />
-      <main>
+      <main className="area-main-container">
         <label htmlFor="area-dropdown">
           <select
             data-testid="explore-by-area-dropdown"
@@ -60,11 +62,12 @@ function OrigemComidas() {
             ))}
           </select>
         </label>
-        <div>
+        <div className="recipes-container">
           { !recipes
             ? <p>Carregando...</p>
             : (recipes.meals.slice(0, TWELVE_RECIPES).map((recipe, index) => (
               <button
+                className="recipe-card"
                 data-testid={ `${index}-recipe-card` }
                 id={ recipe.idMeal }
                 key={ index }
@@ -74,7 +77,8 @@ function OrigemComidas() {
                 <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
                 <img
                   alt="ingredient"
-                  className="ingredient-img"
+                  // className="ingredient-img"
+                  className="recipe-img"
                   data-testid={ `${index}-card-img` }
                   src={ recipe.strMealThumb }
                 />

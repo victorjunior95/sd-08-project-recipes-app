@@ -6,6 +6,8 @@ import HeaderP from '../components/HeaderP';
 import LinkButton from '../components/LinkButton';
 import Context from '../context/Context';
 
+import '../styles/Explorar.css';
+
 function ExplorarComidas({ endpoint }) {
   const { apiReturn, requestRandomRecipe } = useContext(Context);
   const [redirect, setRedirect] = useState(false);
@@ -23,18 +25,21 @@ function ExplorarComidas({ endpoint }) {
   return (
     <>
       <HeaderP title="Explorar Comidas" />
-      <main>
+      <main className="explore-main-container">
         <LinkButton
+          clas="explore-button"
           path="/explorar/comidas/ingredientes"
           attribute="explore-by-ingredient"
           name="Por Ingredientes"
         />
         <LinkButton
+          clas="explore-button"
           path="/explorar/comidas/area"
           attribute="explore-by-area"
           name="Por Local de Origem"
         />
         <button
+          className="explore-button"
           data-testid="explore-surprise"
           onClick={ handleClick }
           type="button"

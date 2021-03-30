@@ -27,6 +27,7 @@ function DetailsButtons({ route, id, page }) {
             className="last-btn"
             data-testid="start-recipe-btn"
             id="start-recipe-btn"
+            style={ { display: 'none' } }
             onClick={ () => {
               SaveProgressRecipes(id);
             } }

@@ -23,8 +23,6 @@ function FoodDetails(props) {
   const [inProgressRecipes,
     setInProgressRecipes] = useState(initialInProgressRecipesValue);
   const [isInProgress, setIsInProgress] = useState(false);
-  // const [isDone, setISDone] = useState(false);
-
   const STOP_INDEX = 5;
   const [
     setId,
@@ -34,22 +32,13 @@ function FoodDetails(props) {
     strInstructions,
     strYoutube,
     strArea,
+    isDone,
     ingredientsAndMeasuresList,
   ] = useFoodDetailsHook();
 
   useEffect(() => {
     setId(id);
   }, [id, setId]);
-  // continuar daqui
-  // useEffect(() => {
-  //   const localData = localStorage.getItem('doneRecipes');
-  //   const isItDone = localData ? localData.find((each) => each.id === id) : false;
-  //   if (isItDone) {
-  //     setISDone(true);
-  //   } else {
-  //     setISDone(false);
-  //   }
-  // }, [id]);
 
   useEffect(() => {
     const localData = localStorage.getItem('inProgressRecipes');
@@ -203,13 +192,7 @@ function FoodDetails(props) {
               />
             ))}
 
-          {/* {
-            isDone
-              ? ''
-              : renderButton()
-          } */}
-          { renderButton() }
-
+          { isDone ? '' : renderButton() }
         </div>
       </div>
     </>

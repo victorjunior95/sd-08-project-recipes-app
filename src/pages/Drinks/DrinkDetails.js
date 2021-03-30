@@ -31,6 +31,7 @@ function DrinkDetails(props) {
     strCategory,
     strInstructions,
     strAlcoholic,
+    isDone,
     ingredientsAndMeasuresList,
   ] = useDrinkDetailsHook();
 
@@ -110,6 +111,19 @@ function DrinkDetails(props) {
     setShouldRedirect(true);
   }
 
+  function renderButton() {
+    return (
+      <button
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipeClick }
+      >
+        { isInProgress ? 'Continuar Receita' : 'Iniciar' }
+      </button>
+    );
+  }
+
   return (
     <>
       { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
@@ -167,14 +181,8 @@ function DrinkDetails(props) {
             />
 
           ))}
-        <button
-          className="start-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleStartRecipeClick }
-        >
-          { isInProgress ? 'Continuar Receita' : 'Iniciar' }
-        </button>
+
+        { isDone ? '' : renderButton() }
       </div>
     </>
   );

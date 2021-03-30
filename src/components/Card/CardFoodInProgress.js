@@ -57,18 +57,21 @@ function CardFoodInProgress({ alreadyFavorited, idDaReceita }) {
   const [redirect, setRedirect] = useState(false);
 
   const handleClick = () => {
+    const previousDoceRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     localStorage.setItem('doneRecipes', JSON.stringify(
-      [{
-        id: detailFoods[0].idMeal,
-        type: 'comida',
-        area: detailFoods[0].strArea,
-        category: detailFoods[0].strCategory,
-        alcoholicOrNot: '',
-        name: detailFoods[0].strMeal,
-        image: detailFoods[0].strMealThumb,
-        doneDate: date,
-        tags: detailFoods[0].strTags,
-      }],
+      [...previousDoceRecipes,
+        {
+          id: detailFoods[0].idMeal,
+          type: 'comida',
+          area: detailFoods[0].strArea,
+          category: detailFoods[0].strCategory,
+          alcoholicOrNot: '',
+          name: detailFoods[0].strMeal,
+          image: detailFoods[0].strMealThumb,
+          doneDate: date,
+          tags: [detailFoods[0].strTags],
+        },
+      ],
     ));
     setDoneRecipe(detailFoods.strMeal);
     setRedirect(true);

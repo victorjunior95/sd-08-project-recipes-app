@@ -62,7 +62,7 @@ function OrigemComidas() {
             ))}
           </select>
         </label>
-        <div>
+        <div className="recipes-container">
           { !recipes
             ? <p>Carregando...</p>
             : (recipes.meals.slice(0, TWELVE_RECIPES).map((recipe, index) => (

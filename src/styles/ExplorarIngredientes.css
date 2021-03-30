@@ -7,10 +7,11 @@
 .ingredients-main-container {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   height: 100vh;
   justify-content: center;
-  margin-top: 630px;
+  margin-top: 30px;
+  width: 350px;
 }
 
 .ingredient-card {
@@ -20,14 +21,12 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   color: rgb(77, 74, 74);
   display: block;
-  margin-bottom: 3px;
-  width: 200px;
+  font-size: 12px;
+  height: 150px;
+  margin: 3px;
+  width: 150px;
 }
 
 .ingredient-card:hover {
   background: #ca9bae;
-  border-radius: 5px;
-  display: block;
-  margin-bottom: 3px;
-  width: 200px;
 }

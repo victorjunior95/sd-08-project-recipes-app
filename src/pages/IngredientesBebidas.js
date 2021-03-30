@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import HeaderP from '../components/HeaderP';
 import Context from '../context/Context';
 import { fetchListByFilter } from '../services/RequisicaoApi';
-import '../styles/Ingredientes.css';
+import '../styles/ExplorarIngredientes.css';
 
 const TWELVE_INGREDIENTS = 12;
 

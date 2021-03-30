@@ -34,6 +34,7 @@ function MealsRecipes() {
 
   return (
     <main>
+
       {(meals && meals.length === 1 && filter === '')
       && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />

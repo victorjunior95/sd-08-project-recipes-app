@@ -5,6 +5,7 @@ import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
+import Recomendation from '../components/Recomendation';
 
 function FoodDetail() {
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ function FoodDetail() {
           />
         }
         Recomendadas
-        <p data-testid="0-recomendation-card">{arrayMeat.strDrinkAlternate}</p>
+        <Recomendation />
         <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
       </div>
     ));

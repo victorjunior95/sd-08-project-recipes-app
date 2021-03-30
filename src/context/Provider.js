@@ -11,6 +11,8 @@ function Provider({ children }) {
   const [searchParams, setSearchParams] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [favoriteRecipesList, setFavoriteRecipesList] = useState([]);
+  const [doneRecipesList, setDoneRecipesList] = useState([]);
 
   const data = {
     user,
@@ -31,6 +33,10 @@ function Provider({ children }) {
         setInputValue,
         isLoading,
         setIsLoading,
+        favoriteRecipesList,
+        setFavoriteRecipesList,
+        doneRecipesList,
+        setDoneRecipesList,
       } }
     >
       { children }

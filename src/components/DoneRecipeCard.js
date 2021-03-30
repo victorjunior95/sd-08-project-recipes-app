@@ -5,21 +5,39 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DoneRecipeCard({ recipe }) {
   const index = 0;
+  const INDEX_TAG_MAX = 1;
   return (
     <section>
       {
-        recipe.type === 'meal'
+        recipe.type === 'comida'
           ? (
             <section>
-              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-              <p data-testid={ `${index}-horizontal-image` }>{recipe.image}</p>
-              <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
-              <p>{recipe.area}</p>
+              <p data-testid={ `${index}-horizontal-name` }>
+                {recipe.name}
+              </p>
+              <input
+                className="card-image"
+                type="image"
+                src={ recipe.image }
+                data-testid={ `${index}-horizontal-image` }
+                alt={ `Recipe: ${recipe.name}` }
+                // onClick={ () => history.push(`/comidas/${recipe.id}`) }
+              />
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${recipe.area} - ${recipe.category}`}
+              </p>
               <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-              {recipe.tags.map((tag) => (<p
-                key={ `${index}-${tag}` }
-                data-testid={ `${index}-${tag}-horizontal-tag` }
-              />))}
+              {recipe.tags.map((tag, indexTag) => {
+                if (indexTag <= INDEX_TAG_MAX) {
+                  return (<p
+                    key={ `${index}-${tag}` }
+                    data-testid={ `${index}-${tag}-horizontal-tag` }
+                  />);
+                }
+                return '';
+              })}
               <CopyToClipboard text={ `localhost:3000/comidas/${recipe.id}` }>
                 <button
                   data-testid={ `${index}-horizontal-share-btn` }

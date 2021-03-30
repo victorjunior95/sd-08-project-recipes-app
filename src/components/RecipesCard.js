@@ -9,6 +9,7 @@ function RecipesCard(props) {
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <input
+        className="card-image"
         type="image"
         data-testid={ `${index}-card-img` }
         src={ meal.strMealThumb }

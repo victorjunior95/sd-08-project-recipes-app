@@ -1,6 +1,6 @@
 import { ADD_CATEGORIES, ADD_FAVORITE, ADD_FILTER, ADD_RECIPES,
   ADD_RECOMMENDATIONS, END_RECIPE, REQUEST_RECIPES, RM_FAVORITE,
-  START_RECIPE, ADD_BYINGREDIENT } from './index';
+  START_RECIPE, ADD_BYINGREDIENT, ADD_COUNTRIES } from './index';
 
 const addRecipes = (payload) => ({
   type: ADD_RECIPES,
@@ -58,18 +58,6 @@ export const fetchRecipes = (token, type = 'comidas',
     dispatch(addRecipes(recipes.map((recipe) => formatedObject(recipe, type))));
   }
 );
-
-// if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?i=list')
-// return Promise.resolve(mealIngredients);
-
-// if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?i=Chicken')
-// return Promise.resolve(mealsByIngredient);
-
-// if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
-// return Promise.resolve(drinkIngredients);
-
-// if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Light rum')
-// return Promise.resolve(drinksByIngredient);
 
 const addCategories = (payload) => ({
   type: ADD_CATEGORIES,
@@ -131,3 +119,17 @@ export const byAddIngredient = (payload) => ({
   type: ADD_BYINGREDIENT,
   payload,
 });
+
+const addAreas = (payload) => ({
+  type: ADD_COUNTRIES,
+  payload,
+});
+
+export const fetchAreas = (token) => (
+  async (dispatch) => {
+    const url = `https://www.themealdb.com/api/json/v1/${token}/list.php?a=list`;
+    const data = await fetch(url);
+    const areas = await data.json();
+    dispatch(addAreas(areas));
+  }
+);

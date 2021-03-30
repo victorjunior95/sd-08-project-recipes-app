@@ -5,22 +5,19 @@ import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Footer from '../components/Footer';
 import { byAddIngredient, fetchRecipes } from '../actions/recipes';
+import Header from '../components/Header';
 
 function ExploreIngredients({ location: { pathname } }) {
   const type = pathname.split('/')[2];
-  // const selectType = { comidas: 'meals', bebidas: 'drinks' };
-  // const type = selectType[select];
-  // const token = 1;
   const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
-
-  const { list, isFetching } = useSelector((state) => state.recipes);
+  const { list = [], isFetching } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
-
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
+    const reqType = { request: 'list', key: 'i', parameter: 'list' };
     const token = type === 'comidas' ? mealsToken : cocktailsToken;
-    dispatch(fetchRecipes(token, type, { request: 'list', key: 'i', parameter: 'list' }));
+    dispatch(fetchRecipes(token, type, reqType));
   }, []);
 
   const handleClick = (ingredient) => {
@@ -31,7 +28,8 @@ function ExploreIngredients({ location: { pathname } }) {
   if (isFetching) return (<Loading />);
   return (
     <>
-      <h1>Explorar</h1>
+      <Header />
+      <h1>Explorar Ingredientes</h1>
       { type === 'comidas'
         ? list.map(({ idIngredient, strIngredient }, index) => {
           const url = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`;

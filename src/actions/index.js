@@ -11,3 +11,4 @@ export const START_RECIPE = 'START_RECIPE';
 export const END_RECIPE = 'END_RECIPE';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const RM_FAVORITE = 'RM_FAVORITE';
+export const ADD_COUNTRIES = 'ADD_COUNTRIES';

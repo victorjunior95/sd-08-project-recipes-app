@@ -7,13 +7,17 @@ import { MAIN_FOOD_CARD_LENGTH_12 } from '../constants';
 
 function ExploreOrigination() {
   const { setMealArea, mealArea } = useContext(RecipesContext);
-  const [input, setInput] = useState('American');
+  const [input, setInput] = useState('All');
   const [data, setData] = useState([]);
 
   useEffect(() => {
     api.fetchAreaList()
       .then((response) => response.json())
-      .then((result) => setMealArea(result.meals.concat({ strArea: 'All' })));
+      .then((result) => setMealArea([...mealArea, ...result.meals]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (input && input !== 'All') {
       api.fetchFilterMealByArea(input)
         .then((response) => response.json())

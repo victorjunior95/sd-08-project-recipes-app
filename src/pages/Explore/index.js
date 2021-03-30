@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Feed, Meals, Drinks, Ingredients, NotFound,
+  Feed, Meals, Drinks, Ingredients, NotFound, Origin,
 } from '../../components/ExploreComponents';
 
 import Header from '../../components/Header';
@@ -18,7 +18,7 @@ function Explore({ history }) {
       {pathname === '/explorar/bebidas' && <Drinks path={ pathname } />}
       {pathname === '/explorar/comidas/ingredientes' && <Ingredients path="comidas" />}
       {pathname === '/explorar/bebidas/ingredientes' && <Ingredients path="bebidas" />}
-      {/* {path === '/explorar/comidas/area' && <Area path={ path } />} */}
+      {pathname === '/explorar/comidas/area' && <Origin />}
       {pathname === '/explorar/bebidas/area' && <NotFound />}
       <Footer />
     </>

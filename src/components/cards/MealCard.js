@@ -14,16 +14,16 @@ function Card({ data }) {
 
   return (
     <section data-testid={ `${index}-card-name` } className="card">
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ strMealThumb }
-        alt={ strMeal }
-      />
       <button
         onClick={ () => setCardSelected(true) }
         data-testid={ `${index}${recipeCard}` }
         type="button"
       >
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ strMealThumb }
+          alt={ strMeal }
+        />
         { strMeal }
       </button>
     </section>

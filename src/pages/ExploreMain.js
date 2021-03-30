@@ -6,13 +6,14 @@ import Footer from '../components/Footer';
 import { fetchRecipes } from '../actions/recipes';
 
 function ExploreMain({ location: { pathname } }) {
-  const prevPath = pathname.split('/')[2]; console.log(prevPath);
-  const selectType = {
-    comidas: { 0: 'meals', 1: 'idMeal' },
-    bebidas: { 0: 'drinks', 1: 'idDrink' },
-  };
-  const type = selectType[prevPath][0];
-  const idType = selectType[prevPath][1];
+  const type = pathname.split('/')[2];
+  // console.log(prevPath);
+  // const selectType = {
+  //   comidas: { 0: 'meals', 1: 'idMeal' },
+  //   bebidas: { 0: 'drinks', 1: 'idDrink' },
+  // };
+  // const type = selectType[prevPath][0];
+  // const idType = selectType[prevPath][1];
   const token = 1;
 
   const { list } = useSelector((state) => state.recipes);
@@ -34,20 +35,19 @@ function ExploreMain({ location: { pathname } }) {
 
   useEffect(() => {
     if (list !== prevList.current) {
-      console.log(list, prevList);
-      setId(list[0][idType]);
+      setId(list[0].id);
     }
     return () => setId('');
   }, [list]);
 
   return (
     <>
-      <h1>{ `Explorar ${prevPath}` }</h1>
+      <h1>{ `Explorar ${type}` }</h1>
       <Link data-testid="explore-by-ingredient" to={ `${pathname}/ingredientes` }>
         Por Ingredientes
       </Link>
       <br />
-      { (prevPath === 'comidas') && (
+      { (type === 'comidas') && (
         <Link data-testid="explore-by-area" to={ `${pathname}/area` }>
           Por Local de Origem
         </Link>) }
@@ -55,7 +55,7 @@ function ExploreMain({ location: { pathname } }) {
       <button data-testid="explore-surprise" onClick={ handleClick } type="button">
         Me Surpreenda!
       </button>
-      { id && <Redirect to={ `../${prevPath}/${id}` } /> }
+      { id && <Redirect to={ `../${type}/${id}` } /> }
       <Footer />
     </>
   );

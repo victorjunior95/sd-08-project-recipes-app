@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
+import Footer from '../components/Footer';
 import { byAddIngredient, fetchRecipes } from '../actions/recipes';
 
 function ExploreIngredients({ location: { pathname } }) {
-  const select = pathname.split('/')[2];
-  const selectType = { comidas: 'meals', bebidas: 'drinks' };
-  const type = selectType[select];
-  const token = 1;
+  const type = pathname.split('/')[2];
+  // const selectType = { comidas: 'meals', bebidas: 'drinks' };
+  // const type = selectType[select];
+  // const token = 1;
+  const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
 
   const { list, isFetching } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function ExploreIngredients({ location: { pathname } }) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
+    const token = type === 'comidas' ? mealsToken : cocktailsToken;
     dispatch(fetchRecipes(token, type, { request: 'list', key: 'i', parameter: 'list' }));
   }, []);
 
@@ -29,7 +32,7 @@ function ExploreIngredients({ location: { pathname } }) {
   return (
     <>
       <h1>Explorar</h1>
-      { type === 'meals'
+      { type === 'comidas'
         ? list.map(({ idIngredient, strIngredient }, index) => {
           const url = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`;
           return (
@@ -66,7 +69,8 @@ function ExploreIngredients({ location: { pathname } }) {
             </button>
           );
         }) }
-      { shouldRedirect && <Redirect to={ `../../${select}` } /> }
+      { shouldRedirect && <Redirect to={ `../../${type}` } /> }
+      <Footer />
     </>
   );
 }

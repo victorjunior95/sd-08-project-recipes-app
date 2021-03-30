@@ -14,8 +14,8 @@ function Main({ location: { pathname } }) {
     list, isFetching, categories, byIngredient,
   } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
-  const selectType = { '/comidas': 'meals', '/bebidas': 'drinks' };
-  const type = selectType[pathname];
+  // const selectType = { '/comidas': 'meals', '/bebidas': 'drinks' };
+  const type = pathname.slice(1);
   const token = 1;
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function Main({ location: { pathname } }) {
       <CategoryButton name="All" type={ type } />
       { isFetching ? <Loading /> : list.map((recipe, index) => (
         <RecipeCard
-          type={ type === 'meals' ? 'Meal' : 'Drink' }
+          type={ type }
           index={ index }
           recipe={ recipe }
           key={ `recipe-${index}` }

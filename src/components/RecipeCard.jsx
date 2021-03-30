@@ -3,25 +3,24 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function RecipeCard({ type, index, recipe, recommendation }) {
-  const pathname = type === 'Meal' ? 'comidas' : 'bebidas';
   return (
     <Link
-      to={ `/${pathname}/${recipe[`id${type}`]}` }
+      to={ `/${type}/${recipe.id}` }
       data-testid={ `${index}-recipe-card` }
     >
       <img
         data-testid={ `${index}-card-img` }
-        src={ recipe[`str${type}Thumb`] }
-        alt={ recipe[`str${type}`] }
+        src={ recipe.image }
+        alt={ recipe.name }
       />
       { recommendation
-          && <p>{ type === 'Meal' ? recipe.strCategory : recipe.strAlcoholic }</p> }
+          && <p>{ type === 'comidas' ? recipe.category : recipe.alcoholicOrNot }</p> }
       <p
         data-testid={
           recommendation ? `${index}-recomendation-title` : `${index}-card-name`
         }
       >
-        { recipe[`str${type}`] }
+        { recipe.name }
       </p>
     </Link>
   );

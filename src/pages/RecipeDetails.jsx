@@ -18,14 +18,20 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
 
   const [shouldFetch, setShouldFetch] = useState(true);
 
-  const selectType = { comidas: 'meals', bebidas: 'drinks' };
-  const inProgress = pathname.split('/')[3] === 'in-progress';
-  const type = selectType[pathname.split('/')[1]];
-  const recommendationsType = type === 'meals' ? 'drinks' : 'meals';
+  // const selectType = { comidas: 'meals', bebidas: 'drinks' };
+  // const inProgress = pathname.split('/')[3] === 'in-progress';
+  // const type = selectType[pathname.split('/')[1]];
+  // const type = pathname.split('/')[1];
+  // const recommendationsType = type === 'comidas' ? 'bebidas' : 'comidas';
 
   const token = 1;
+  const inProgress = pathname.split('/')[3] === 'in-progress';
+  // const inProgress = pathname.split('/')[3] === 'in-progress';
+  const type = pathname.split('/')[1];
+  const recommendationsType = type === 'comidas' ? 'bebidas' : 'comidas';
 
   useEffect(() => {
+    // console.log(recommendationsType);
     dispatch(fetchRecipes(token, type,
       { request: 'lookup', key: 'i', parameter: params.id }));
     dispatch(fetchRecommendations(token, recommendationsType));
@@ -42,25 +48,25 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         && recipe[ingKey] !== '' && recipe[ingKey] !== null));
   const IngredientsAndMeasures = IngredientKeys
     .map((key, index) => [recipe[key], recipe[`strMeasure${index + 1}`]]);
-  const formatedType = type[0].toUpperCase() + type.slice(1, 0 - 1);
+  // const formatedType = type[0].toUpperCase() + type.slice(1, 0 - 1);
 
   return (
     <section>
       <img
         className="recipe-photo"
         data-testid="recipe-photo"
-        src={ recipe[`str${formatedType}Thumb`] }
-        alt={ recipe[`str${formatedType}`] }
+        src={ recipe.image }
+        alt={ recipe.name }
       />
-      <h1 data-testid="recipe-title">{ recipe[`str${formatedType}`] }</h1>
-      <ShareButton type={ pathname.split('/')[1] } id={ params.id } />
-      <FavButton type={ formatedType } recipe={ recipe } />
+      <h1 data-testid="recipe-title">{ recipe.name }</h1>
+      <ShareButton type={ type } id={ params.id } />
+      <FavButton type={ type } recipe={ recipe } />
       <h2 data-testid="recipe-category">
-        { `${recipe.strAlcoholic || ''} ${recipe.strCategory}` }
+        { `${recipe.alcoholicOrNot} ${recipe.category}` }
       </h2>
       <IngredientsList
         id={ params.id }
-        type={ formatedType }
+        type={ type }
         ingredients={ IngredientsAndMeasures }
       />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
@@ -76,7 +82,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
             <div data-testid={ `${index}-recomendation-card` } key={ `rec-${index}` }>
               <RecipeCard
                 index={ index }
-                type={ recommendationsType === 'meals' ? 'Meal' : 'Drink' }
+                type={ recommendationsType }
                 recipe={ recommendation }
                 recommendation
               />
@@ -84,7 +90,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         </div>)}
       <ProgressButton
         id={ params.id }
-        type={ formatedType }
+        type={ type }
         ingredientsLength={ IngredientsAndMeasures.length }
       />
     </section>

@@ -22,6 +22,7 @@ function FoodDetails(props) {
   const [inProgressRecipes,
     setInProgressRecipes] = useState(initialInProgressRecipesValue);
   const [isInProgress, setIsInProgress] = useState(false);
+  const [isDone, setISDone] = useState(false);
 
   const STOP_INDEX = 5;
   const [
@@ -38,6 +39,16 @@ function FoodDetails(props) {
   useEffect(() => {
     setId(id);
   }, [id, setId]);
+  // continuar daqui
+  useEffect(() => {
+    const localData = localStorage.getItem('doneRecipes');
+    const isItDone = localData ? localData.find((each) => each.id === id) : false;
+    if (isItDone) {
+      setISDone(true);
+    } else {
+      setISDone(false);
+    }
+  }, [id]);
 
   useEffect(() => {
     const localData = localStorage.getItem('inProgressRecipes');
@@ -105,6 +116,19 @@ function FoodDetails(props) {
     };
     addFoodInProgress(newFoodInProgress);
     setShouldRedirect(true);
+  }
+
+  function renderButton() {
+    return (
+      <button
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipeClick }
+      >
+        { isInProgress ? 'Continuar Receita' : 'Iniciar' }
+      </button>
+    );
   }
 
   return (
@@ -178,14 +202,13 @@ function FoodDetails(props) {
                 index={ index }
               />
             ))}
-          <button
-            className="start-btn"
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ handleStartRecipeClick }
-          >
-            { isInProgress ? 'Continuar Receita' : 'Iniciar' }
-          </button>
+
+          {
+            isDone
+              ? ''
+              : renderButton()
+          }
+
         </div>
       </div>
     </>

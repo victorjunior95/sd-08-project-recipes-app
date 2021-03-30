@@ -6,8 +6,8 @@ import ShareIcon from '../images/shareIcon.svg';
 function ShareButton({ type, id }) {
   const [copied, setCopied] = useState(false);
 
-  const handleClick = () => {
-    copy(`http://localhost:3000/${type}/${id}`);
+  const handleClick = async () => {
+    await copy(`http://localhost:3000/${type}/${id}`);
     setCopied(true);
   };
 

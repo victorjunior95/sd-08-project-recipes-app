@@ -1,8 +1,11 @@
 import { ADD_TOKEN_DRINK, ADD_TOKEN_MEAL, ADD_USER } from '../actions';
 
+const savedMealsToken = JSON.parse(localStorage.getItem('mealsToken') || '1');
+const savedCocktailsToken = JSON.parse(localStorage.getItem('cocktailsToken') || '1');
+
 const INITIAL_STATE = {
-  mealsToken: '',
-  cocktailsToken: '',
+  mealsToken: savedMealsToken,
+  cocktailsToken: savedCocktailsToken,
   email: '',
 };
 

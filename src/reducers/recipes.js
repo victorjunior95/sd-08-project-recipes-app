@@ -2,9 +2,9 @@ import { ADD_CATEGORIES, ADD_FAVORITE, ADD_FILTER, ADD_RECIPES,
   ADD_RECOMMENDATIONS, END_RECIPE, REQUEST_RECIPES, RM_FAVORITE,
   START_RECIPE, ADD_BYINGREDIENT } from '../actions';
 
-const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
+const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
 
 const INITIAL_STATE = {
   list: [],
@@ -12,8 +12,8 @@ const INITIAL_STATE = {
   categories: [],
   filter: '',
   recommendations: [],
-  start: { Meal: inProgressRecipes.meals || {},
-    Drink: inProgressRecipes.cocktails || {} },
+  start: { comidas: inProgressRecipes.meals || {},
+    bebidas: inProgressRecipes.cocktails || {} },
   done: doneRecipes,
   favorite: favoriteRecipes,
   byIngredient: '',

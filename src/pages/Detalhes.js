@@ -10,6 +10,33 @@ import { getDoneRecipes, inProgressRecipes } from '../utils';
 
 import { fetchProductDetailsById } from '../services';
 
+const saveFavoriteRecipes = (isMeal, foodDetails) => {
+  let results = {};
+  if (isMeal) {
+    results = {
+      id: foodDetails.idMeal,
+      type: 'comida',
+      area: foodDetails.strArea,
+      category: foodDetails.strCategory,
+      alcoholicOrNot: '',
+      name: foodDetails.strMeal,
+      image: foodDetails.strMealThumb,
+    };
+  } else {
+    results = {
+      id: foodDetails.idDrink,
+      type: 'bebida',
+      area: '',
+      category: foodDetails.strCategory,
+      alcoholicOrNot: foodDetails.strAlcoholic,
+      name: foodDetails.strCategory,
+      image: foodDetails.strDrinkThumb,
+    };
+  }
+  return results;
+  // setFavoriteRecipe(results);
+};
+
 const Detalhes = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMeal, setIsMeal] = useState(true);
@@ -36,7 +63,6 @@ const Detalhes = () => {
       const productType = { comidas: 'meals', bebidas: 'drinks' };
 
       const foodDetailRequest = await fetchProductDetailsById(id, type);
-      console.log(foodDetailRequest);
       const foodDetail = foodDetailRequest[productType[type]][0];
 
       const ingredientFilter = Object
@@ -62,35 +88,9 @@ const Detalhes = () => {
     fetchInProgress();
   }, [location.pathname, isMeal]);
 
-  const saveFavoriteRecipes = () => {
-    let results = {};
-    if (isMeal) {
-      results = {
-        id: foodDetails.idMeal,
-        type: 'comida',
-        area: foodDetails.strArea,
-        category: foodDetails.strCategory,
-        alcoholicOrNot: '',
-        name: foodDetails.strMeal,
-        image: foodDetails.strMealThumb,
-      };
-    } else {
-      results = {
-        id: foodDetails.idDrink,
-        type: 'bebida',
-        area: '',
-        category: foodDetails.strCategory,
-        alcoholicOrNot: foodDetails.strAlcoholic,
-        name: foodDetails.strCategory,
-        image: foodDetails.strDrinkThumb,
-      };
-    }
-    return results;
-    // setFavoriteRecipe(results);
-  };
   const handleIsFavorite = (favorite) => {
     // const [,, id] = location.pathname.split('/');
-    const favoriteRecipe = saveFavoriteRecipes();
+    const favoriteRecipe = saveFavoriteRecipes(isMeal, foodDetails);
     localStorage.setItem('isFavorite', favorite);
     setIsFavorite(favorite);
     const recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];

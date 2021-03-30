@@ -8,10 +8,10 @@ function Explorar() {
     <div>
       <Header title="Explorar" />
       <Link to="/explorar/comidas">
-        <div data-testids="explore-food">Explorar Comidas</div>
+        <div data-testid="explore-food">Explorar Comidas</div>
       </Link>
       <Link to="/explorar/bebidas">
-        <div data-testids="explore-drinks">Explorar Bebidas</div>
+        <div data-testid="explore-drinks">Explorar Bebidas</div>
       </Link>
       <Footer />
     </div>

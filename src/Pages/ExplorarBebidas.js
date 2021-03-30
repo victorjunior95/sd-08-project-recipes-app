@@ -30,6 +30,7 @@ function ExplorarBebidas() {
         <Row>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-by-ingredient"
               onClick={ () => history.push('/explorar/bebidas/ingredientes') }
             >
@@ -38,6 +39,7 @@ function ExplorarBebidas() {
           </Col>
           <Col xl="8">
             <Button
+              variant="secondary"
               data-testid="explore-surprise"
               onClick={ () => surpriseButton() }
             >

@@ -1,9 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory, useRouteMatch } from 'react-router';
 import { Card } from 'react-bootstrap';
 import './styles.css';
-import { useHistory, useRouteMatch } from 'react-router';
 
 function Cards(props) {
   const { name, thumbSrc, index, id } = props;
@@ -20,7 +19,7 @@ function Cards(props) {
     <Card
       className="card mb-3"
       data-testid={ `${index}-recipe-card` }
-      onClick={ handleClink }
+      onClick={ goToDetailsPage }
       style={ { cursor: 'pointer' } }
     >
       <Card.Img
@@ -51,6 +50,4 @@ Cards.propTypes = {
   name: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   thumbSrc: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  handleFunc: PropTypes.string.isRequired,
 };

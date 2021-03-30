@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
-export default function HeaderFoodDrinks({ item, shareIcon, whiteHeartIcon }) {
+export default function HeaderItemPage({ item }) {
   return (
     <>
       <img
         src={ item.strMealThumb }
-        alt={ item.trArea }
+        alt={ item.strArea }
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">
@@ -21,3 +24,12 @@ export default function HeaderFoodDrinks({ item, shareIcon, whiteHeartIcon }) {
     </>
   );
 }
+
+HeaderItemPage.propTypes = {
+  item: PropTypes.shape({
+    strMealThumb: PropTypes.string.isRequired,
+    strArea: PropTypes.string.isRequired,
+    strMeal: PropTypes.string.isRequired,
+    strCategory: PropTypes.string.isRequired,
+  }).isRequired,
+};

@@ -10,17 +10,6 @@ function CardsArea({ type }) {
   const { drinks } = useSelector((state) => state.drinks);
   const TWELVE_CARDS = 12;
 
-  const foodDrinks = (name) => {
-    let nameString = '';
-    if (name === 'comidas') {
-      nameString = 'comidas';
-    }
-    if (name === 'bebidas') {
-      nameString = 'bebidas';
-    }
-    return nameString;
-  };
-
   if (type === 'foods') {
     return (
       <Container

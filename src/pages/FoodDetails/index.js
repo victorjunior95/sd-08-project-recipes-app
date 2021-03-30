@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import { useParams } from 'react-router';
 import Loading from '../../components/Loading';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import shareIcon from '../../images/shareIcon.svg';
-import HeaderFoodDrinks from '../../components/HeaderFoodDrinks';
+import HeaderDetails from '../../components/HeaderDetails';
 
-function FoodDetails(props) {
-  const [iddMeals, setIddMeals] = useState({ meals: [] });
+function FoodDetails() {
+  const [idMeals, setIdMeals] = useState({ meals: [] });
   const [loading, setLoading] = useState(true);
-
-  const { match: { params: receitaID } } = props;
-  const numberMeals = Object.values(receitaID);
+  const { id } = useParams();
 
   useEffect(() => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${Number(numberMeals)}`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
-      .then((data) => setIddMeals(data));
+      .then((data) => setIdMeals(data));
     setLoading(false);
-  }, []);
+  }, [id]);
 
-  const onfilter = (item1) => {
-    item1.filter((item2) => Object.keys(item2));
-  };
   return (
-    //
     <Container>
 
-      {loading ? <Loading /> : iddMeals.meals.map((item) => (
+      {loading ? <Loading /> : idMeals.meals.map((item) => (
         <div key={ item.idMeal }>
-          <HeaderFoodDrinks
+          <HeaderDetails
             item={ item }
-            shareIcon={ shareIcon }
-            whiteHeartIcon={ whiteHeartIcon }
           />
           { item.strIngredient1}
         </div>

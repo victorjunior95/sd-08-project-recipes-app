@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,12 +18,14 @@ import RecipeInstructions from '../components/RecipeInstructions';
 import styles from '../styles/pages/CocktailDetails.module.css';
 import MealRecipeRecommendations from '../components/MealRecipeRecommendations';
 
-const CocktailDetails = ({ addCocktail }) => {
+const CocktailDetails = ({ addCocktail, cocktails }) => {
   const { id } = useParams();
   const [cocktail, setCocktail] = useState({});
   const [isFetching, setIsFetching] = useState(true);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+  const [recipeInProgress, setRecipeInProgress] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     cocktailApi.getById(id).then((response) => {
@@ -31,6 +33,10 @@ const CocktailDetails = ({ addCocktail }) => {
       setIsFetching(false);
     });
   }, []);
+
+  useEffect(() => {
+    setRecipeInProgress(cocktails[id]);
+  });
 
   useEffect(() => {
     const ingredientKeys = Object.keys(cocktail)
@@ -43,6 +49,11 @@ const CocktailDetails = ({ addCocktail }) => {
     setIngredients(ingredientList);
     setMeasures(measureList);
   }, [cocktail]);
+
+  function handleStartRecipe() {
+    addCocktail(cocktail);
+    history.push(`/bebidas/${cocktail.idDrink}/in-progress`);
+  }
 
   if (isFetching) return <LoadingScreen />;
 
@@ -66,9 +77,9 @@ const CocktailDetails = ({ addCocktail }) => {
         <MealRecipeRecommendations />
         <div data-testid="start-recipe-btn" className={ styles.floatButton }>
           <PrimaryButton
-            onClick={ () => addCocktail(cocktail) }
+            onClick={ handleStartRecipe }
           >
-            Iniciar Receita
+            { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
           </PrimaryButton>
         </div>
       </div>
@@ -78,6 +89,7 @@ const CocktailDetails = ({ addCocktail }) => {
 
 CocktailDetails.propTypes = {
   addCocktail: PropTypes.func.isRequired,
+  cocktails: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = ({ inProgressRecipes }) => ({

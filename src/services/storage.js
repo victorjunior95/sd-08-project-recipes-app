@@ -17,6 +17,8 @@ export const clearDoneRecipes = () => localStorage.removeItem('doneRecipes');
 export const clearFavoriteRecipes = () => localStorage.removeItem('favoriteRecipes');
 export const clearInProgressRecipes = () => localStorage.removeItem('inProgressRecipes');
 
+export const getInProgress = () => localStorage.getItem('inProgressRecipes');
+
 export const clear = () => {
   clearUser();
   clearMealsToken();

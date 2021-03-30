@@ -6,31 +6,41 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  meals: [],
-  cocktails: [],
+  meals: {},
+  cocktails: {},
 };
 
-const addMeal = (state, action) => ({
+const addMeal = (state, { payload }) => ({
   ...state,
-  meals: [...state.meals, action.payload],
+  meals: {
+    ...state.meals,
+    [payload.idMeal]: payload,
+  },
 });
 
-const removeMeal = (state, action) => ({
+const removeMeal = (state, { payload }) => {
+  const { [payload.idMeal]: itemToRemove, ...rest } = state.meals;
+  return {
+    ...state,
+    ...rest,
+  };
+};
+
+const addCocktail = (state, { payload }) => ({
   ...state,
-  meals: state.meals.filter((meal) => (
-    meal.id !== action.payload)),
+  cocktails: {
+    ...state.cocktails,
+    [payload.idDrink]: payload,
+  },
 });
 
-const addCocktail = (state, action) => ({
-  ...state,
-  cocktails: [...state.cocktails, action.payload],
-});
-
-const removeCocktail = (state, action) => ({
-  ...state,
-  cocktails: state.meals.filter((cocktail) => (
-    cocktail.id !== action.payload)),
-});
+const removeCocktail = (state, { payload }) => {
+  const { [payload.idDrink]: itemToRemove, ...rest } = state.cocktails;
+  return {
+    ...state,
+    ...rest,
+  };
+};
 
 const inProgressRecipes = (state = INITIAL_STATE, action) => {
   switch (action.type) {

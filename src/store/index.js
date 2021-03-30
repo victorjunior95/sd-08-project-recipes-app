@@ -9,10 +9,19 @@ const INITIAL_USER_STATE = {
   isAuthenticated: false,
 };
 
+const INITIAL_IN_PROGRESS_STATE = {
+  meals: {},
+  cocktails: {},
+};
+
 const INITIAL_STATE = {
   user: {
     ...INITIAL_USER_STATE,
     ...JSON.parse(storage.getUser()),
+  },
+  inProgressRecipes: {
+    ...INITIAL_IN_PROGRESS_STATE,
+    ...JSON.parse(storage.getInProgress()),
   },
 };
 

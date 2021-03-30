@@ -36,9 +36,7 @@ const MealsDetails = ({ addMeal, meals }) => {
   }, []);
 
   useEffect(() => {
-    console.log('changing meal', meal, meals);
-    setRecipeInProgress(meals.some((currentMeal) => (
-      meal.idMeal === currentMeal.idMeal)));
+    setRecipeInProgress(meals[id]);
   });
 
   useEffect(() => {
@@ -93,7 +91,7 @@ const MealsDetails = ({ addMeal, meals }) => {
 
 MealsDetails.propTypes = {
   addMeal: PropTypes.func.isRequired,
-  meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  meals: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = ({ inProgressRecipes }) => ({

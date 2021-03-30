@@ -7,9 +7,6 @@ import { Creators as InProgressRecipesActions } from '../store/ducks/inProgressR
 
 import styles from '../styles/pages/ProgressRecipe.module.css';
 
-// import RecipeHeader from '../styles/components/RecipeHeader';
-import RecipeIngredients from '../components/RecipeIngredients';
-import RecipeInstructions from '../components/RecipeInstructions';
 import PrimaryButton from '../components/PrimaryButton';
 
 const ProgressRecipe = ({ meals, cocktails }) => {
@@ -17,13 +14,12 @@ const ProgressRecipe = ({ meals, cocktails }) => {
   const [recipe, setRecipe] = useState({});
 
   useEffect(() => {
-    const result = meals.concat(cocktails).find((meal) => meal.idMeal === id);
-    setRecipe(result || {});
+    const result = meals[id] || cocktails[id] || {};
+    setRecipe(result);
   }, []);
 
   return (
     <div>
-      { console.log(recipe) }
       <img
         src={ recipe.strMealThumb || recipe.strDrinkThumb }
         alt={ recipe.strMeal || recipe.strDrink }
@@ -42,8 +38,8 @@ const ProgressRecipe = ({ meals, cocktails }) => {
 };
 
 ProgressRecipe.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  cocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
+  meals: PropTypes.objectOf(PropTypes.object).isRequired,
+  cocktails: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = ({ inProgressRecipes }) => ({

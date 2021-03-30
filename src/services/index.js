@@ -9,6 +9,8 @@ export {
   deleteKeyLocalStorage,
   setProgressDrink,
   getArrayIngredients,
+  getLocalDrink,
+
 } from './localStorage';
 
 export {

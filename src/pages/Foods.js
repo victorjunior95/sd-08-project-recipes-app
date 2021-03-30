@@ -17,7 +17,6 @@ class Foods extends Component {
 
   render() {
     const { meals, renderOnlyCardByFilter } = this.props;
-    console.log(meals);
     if (meals && meals.length === 1 && renderOnlyCardByFilter) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }

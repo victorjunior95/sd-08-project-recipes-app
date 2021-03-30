@@ -37,6 +37,7 @@ export default ProgressRecipesDrink;
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
@@ -44,6 +45,7 @@ import favIconEnabled from '../../images/blackHeartIcon.svg';
 import filterFood from '../../utils/filterDetailsRecipes';
 
 import { fetchDrinkDetails, getArrayIngredients } from '../../services';
+import { fetchDrinksLocalStorage } from '../../store/actions';
 
 const INITIAL_STATE_RECIPE_DRINK = {
   idDrink: '',
@@ -73,15 +75,25 @@ class ProgressRecipesDrink extends Component {
 
   componentDidMount() {
     this.handleRequestDrink();
+    const { localStorageLoad } = this.props;
+    localStorageLoad();
+  }
+
+  componentDidUpdate() {
+    const { inProgress } = this.props;
   }
 
   handleLocalStorage() {
     const { cocktails: currentCocktails, idDrink } = this.state;
     getArrayIngredients(idDrink, currentCocktails);
+
+    const { localStorageLoad } = this.props;
+    localStorageLoad();
   }
 
   handleIndredients(target, newValue) {
     const { cocktails } = this.state;
+
     if (target.checked) {
       this.setState((state) => ({ ...state, cocktails: [...state.cocktails, newValue] }),
         this.handleLocalStorage);
@@ -119,6 +131,9 @@ class ProgressRecipesDrink extends Component {
       ingredients,
       measures,
     } = this.state;
+    const { inProgress } = this.props;
+    const verifyCheckBox = inProgress.cocktails[idDrink];
+    console.log(verifyCheckBox);
 
     return (
       <div className="recipe-details">
@@ -170,6 +185,7 @@ class ProgressRecipesDrink extends Component {
                   onChange={ ({ target }) => this.handleIndredients(target, ingredient) }
                   id={ `${ingredient}-id` }
                   type="checkbox"
+                  checked={ verifyCheckBox && verifyCheckBox.includes(ingredient) }
                 />
                 {`${ingredient} - ${measures[index]}`}
               </label>
@@ -204,5 +220,16 @@ ProgressRecipesDrink.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+ProgressRecipesDrink.defaultProps = {
+  inProgress: {},
+};
 
-export default ProgressRecipesDrink;
+const mapStateToProps = ({ drinksReducer: { inProgress } }) => ({
+  inProgress,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  localStorageLoad: () => dispatch(fetchDrinksLocalStorage()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProgressRecipesDrink);

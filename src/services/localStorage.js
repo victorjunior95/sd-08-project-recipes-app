@@ -28,10 +28,18 @@ export const deleteKeyLocalStorage = (key) => localStorage.clear(key);
 
 export const getArrayIngredients = (idDrink, ingredientes) => {
   const current = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log(current, 'entrada');
   const newValue = {
-    ...current,
+    meals: { ...current.meals },
     cocktails:
       { ...current.cocktails, [idDrink]: ingredientes },
   };
+  console.log(newValue, 'saida');
+
   localStorage.setItem('inProgressRecipes', JSON.stringify(newValue));
+};
+
+export const getLocalDrink = () => {
+  const current = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  return current;
 };

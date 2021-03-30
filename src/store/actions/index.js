@@ -5,7 +5,8 @@ export {
   toggleHeaderTitle,
   fetchFoodCategory,
   fetchDrinkCategory,
+
 } from './headerAction';
 
-export { fetchDrinksRandom, fetchDrink } from './drinksActions';
+export { fetchDrinksRandom, fetchDrink, fetchDrinksLocalStorage } from './drinksActions';
 export { fetchFoodsRandom, fetchFood } from './foodsActions';

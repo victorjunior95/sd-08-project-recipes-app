@@ -48,12 +48,12 @@ function Comidas() {
   }
 
   function renderCards() {
-    if (apiResult !== null && apiResult.length > 1) {
-      return <CartaoReceitaComidas resultadoApi={ apiResult } />;
+    if (comidas && toggle) {
+      return <CartaoReceitaComidas resultadoApi={ comidas } />;
     } if (comidas && !toggle && listaDeCategoria !== undefined) {
       return <CartaoReceitaComidas resultadoApi={ listaDeCategoria } />;
-    } if (comidas && toggle) {
-      return <CartaoReceitaComidas resultadoApi={ comidas } />;
+    } if (apiResult !== null && apiResult.length > 1) {
+      return <CartaoReceitaComidas resultadoApi={ apiResult } />;
     }
   }
 

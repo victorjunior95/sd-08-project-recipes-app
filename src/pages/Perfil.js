@@ -8,10 +8,12 @@ export default function Perfil() {
   const handleButton = (target) => {
     history.push(`/${target}`);
   };
+  const user = localStorage.getItem('user');
+  const username = JSON.parse(user);
   return (
     <div>
       <Header pageTitle="Perfil" />
-      <div data-testid="profile-email">Aqui vem um E-mail</div>
+      <div data-testid="profile-email">{ Object.values(username) }</div>
       <button
         className="g6-header-button"
         type="button"
@@ -34,6 +36,7 @@ export default function Perfil() {
         className="g6-header-button"
         type="button"
         data-testid="profile-logout-btn"
+        onClick={ () => { localStorage.clear(); handleButton(''); } }
       >
         Sair
 

@@ -9,10 +9,14 @@
 
 .recommendationList li {
   display: inline-block;
-  width: 50%;
+  width: 48%;
 }
 
-.recommendationList li:nth-child( 3 ) {
+.recommendationList li:not(:last-child) {
+  margin-right: 10px;
+}
+
+/* .recommendationList li:nth-child( 3 ) {
   display: none;
 }
 
@@ -26,7 +30,7 @@
 
 .recommendationList li:nth-child( 6 ) {
   display: none;
-}
+} */
 
 .carouselImage {
   width: 50%;

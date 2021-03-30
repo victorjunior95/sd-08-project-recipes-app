@@ -32,16 +32,16 @@ const FavoriteButton = (props) => {
     image: currentFood.strMealThumb || currentFood.strDrinkThumb,
   };
 
-  function favRecipesBtn() {
+  async function favRecipesBtn() {
     console.log(favRecipes);
     const favoriteList = favRecipes;
     if (changeButton === true) {
       favoriteList.splice(favoriteList.indexOf(objList), 1);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
+      await localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
       setChangeButton(false);
     } else {
       favoriteList.concat(objList);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
+      await localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
       setChangeButton(true);
     }
   }

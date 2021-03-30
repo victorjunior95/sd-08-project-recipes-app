@@ -13,6 +13,8 @@ import ReceitasFeitas from './Pages/ReceitasFeitas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from './Pages/NotFound';
 
+import './App.css';
+
 function App() {
   return (
     <Provider>

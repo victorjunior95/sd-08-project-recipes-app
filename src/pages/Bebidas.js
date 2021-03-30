@@ -3,7 +3,6 @@ import Footer from '../components/Footer';
 import HeaderPS from '../components/HeaderPS';
 import RecipeList from '../components/RecipeList';
 import RecipeCategory from '../components/RecipeCategory';
-import '../styles/RecipeList.css';
 
 import '../styles/RecipeList.css';
 

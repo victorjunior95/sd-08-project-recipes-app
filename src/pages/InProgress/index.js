@@ -45,11 +45,7 @@ function Details() {
   }
 
   function isDone(actualIngredients) {
-    if (actualIngredients.includes(false)) {
-      setDone(false);
-    } else {
-      setDone(true);
-    }
+    setDone(!actualIngredients.includes(false));
   }
 
   function favConstructor() {

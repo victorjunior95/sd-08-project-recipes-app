@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function DetailsButtons({ route, id, page }) {
-  // https://stackoverflow.com/questions/16083919/push-json-objects-to-array-in-localstorage
+  const ids = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  console.log(ids);
+  // const { ids, setaIds } = useContext(Context);
+
+  useEffect(() => {
+    if (!Object.values(ids).includes(id)
+    && window.location.href === `/${route}/${id}/`) {
+      document.getElementById('start-recipe-btn').innerText = 'Iniciar Receita';
+    }
+  }, []);
+
   function SaveProgressRecipes(data) {
     let a = [];
     a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
@@ -26,16 +36,18 @@ function DetailsButtons({ route, id, page }) {
             to={ `/${route}/${id}/in-progress` }
             className="last-btn"
             data-testid="start-recipe-btn"
-            id="start-recipe-btn"
             style={ { display: 'none' } }
+            id="start-recipe-btn"
             onClick={ () => {
+              ids.push(id);
+              localStorage.setItem('inProgressRecipes', JSON.stringify(ids));
               SaveProgressRecipes(id);
             } }
           >
-            { localStorage.getItem('inProgressRecipes')
-              && JSON.parse(localStorage.getItem('inProgressRecipes'))
-                .some((item) => item === id)
-              ? 'Continuar Receita' : 'Iniciar Receita' }
+            Continuar Receita
+            {/* { (Object.values(ids).includes(id))
+              ? 'Continuar Receita'
+              : 'Iniciar Receita' } */}
           </Link>
 
         ) : (
@@ -45,6 +57,7 @@ function DetailsButtons({ route, id, page }) {
             className="last-btn"
             data-testid="finish-recipe-btn"
             onClick={ () => {
+              localStorage.setItem('finishedRecipes', JSON.stringify(ids));
               SaveFinishedRecipes(id);
             } }
             // disabled={ document.querySelectorAll('.checkbox').checked }

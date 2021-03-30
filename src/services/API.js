@@ -11,7 +11,6 @@ const endPointDrinkById = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.ph
 
 const endPointFoodRandom = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
-
 const returnAlert = () => {
   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   return null;
@@ -22,8 +21,6 @@ export const getFoodIngredients = async (ingredient) => (
     .then((response) => response.json())
     .then(({ meals }) => (meals || returnAlert()))
 );
-
-// export default getFoodIngredients;
 
 export const getFoodName = async (name) => (
   fetch(`${endpointFoodName}${name}`)
@@ -72,4 +69,3 @@ export const getFoodRandom = async () => {
   const { meals } = results;
   return meals;
 };
-

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export default function Login() {
@@ -35,6 +35,23 @@ export default function Login() {
     saveLocalStorage();
     history.push('/comidas');
   };
+
+  useEffect(() => {
+    const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!getFavsFromLocal) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([{
+        id: 0,
+        type: '',
+        area: '',
+        category: '',
+        alcoholicOrNot: '',
+        name: '',
+        image: '',
+        doneDate: '',
+        tags: [],
+      }]));
+    }
+  });
 
   return (
     <form>

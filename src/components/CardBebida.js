@@ -6,7 +6,7 @@ function CardBebida(props) {
   return (
     <section
       data-testid={ `${id}-recipe-card` }
-      className="g6-card-bebida"
+      className="g6-card"
     >
       <h3
         data-testid={ `${id}-card-name` }

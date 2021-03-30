@@ -1,22 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import { getDrinkById } from '../services/API';
+import RecipesContext from '../context/RecipesContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function DetalhesBebida() {
   const history = useHistory();
   const { location } = history;
   const POS_IN_PATHNAME = 3;
   const ARR_POS = 2;
+  const MEAL_LIMITER = 6;
   const id = location.pathname.split('/', POS_IN_PATHNAME)[ARR_POS];
+
+  const [fav, setFav] = useState(false);
   const [drink, setDrink] = useState({});
   const [toRender, setToRender] = useState(false);
+
   const ingredients = [];
   const measure = [];
+
+  const { foodRandom, data } = useContext(RecipesContext);
 
   useEffect(() => {
     getDrinkById(id).then(({ drinks }) => {
       setDrink(drinks[0]);
+      foodRandom();
       setToRender(true);
+      const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (getFavsFromLocal.some((recipe) => recipe.id === Number(id))) {
+        setFav(true);
+      } else {
+        setFav(false);
+      }
     });
   }, []);
 
@@ -24,9 +41,7 @@ function DetalhesBebida() {
 
   if (toRender) {
     for (let i = 1; i <= PROP_LIMITER; i += 1) {
-      if (drink[`strIngredient${i}`] !== null
-      && drink[`strIngredient${i}`] !== undefined
-      && drink[`strIngredient${i}`] !== '') {
+      if (drink[`strIngredient${i}`]) {
         ingredients.push(drink[`strIngredient${i}`]);
         measure.push(drink[`strMeasure${i}`]);
       }
@@ -37,6 +52,39 @@ function DetalhesBebida() {
     history.push(`/bebidas/${id}/in-progress`);
   };
 
+  const share = (e) => {
+    e.target.innerText = 'Link copiado!';
+    copy(`http://localhost:3000${location.pathname}`);
+  };
+
+  const favorite = () => {
+    const recipe = {
+      id: Number(drink.idDrink),
+      type: 'bebida',
+      area: '',
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+      doneDate: '',
+      tags: [],
+    };
+
+    const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (getFavsFromLocal.some((r) => r.id === Number(drink.idDrink))) {
+      setFav(false);
+      return localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(getFavsFromLocal.filter((r) => r.id !== Number(drink.idDrink))),
+      );
+    }
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([...getFavsFromLocal, recipe]),
+    );
+    return setFav(true);
+  };
+
   return toRender && (
     <div>
       <h1 data-testid="recipe-title">{ drink.strDrink }</h1>
@@ -45,10 +93,24 @@ function DetalhesBebida() {
         src={ drink.strDrinkThumb }
         data-testid="recipe-photo"
         alt={ drink.strdrink }
+        className="g6-img-detail"
       />
       <div className="g6-group-buttons">
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <button
+          onClick={ (e) => share(e) }
+          type="button"
+          data-testid="share-btn"
+        >
+          Compartilhar
+        </button>
+        <button onClick={ () => favorite() } type="button">
+          <img
+            id="fav"
+            src={ fav ? blackHeartIcon : whiteHeartIcon }
+            alt="favoritar"
+            data-testid="favorite-btn"
+          />
+        </button>
       </div>
       <h3>Lista de Ingredientes:</h3>
       <ul>
@@ -70,12 +132,26 @@ function DetalhesBebida() {
       </button>
       <h3>Receitas Recomendadas</h3>
       <div className="g6-caroussel">
-        <section data-testid="0-recomendation-card">Oi</section>
-        <section data-testid="1-recomendation-card">Oi</section>
-        <section data-testid="2-recomendation-card">Oi</section>
-        <section data-testid="3-recomendation-card">Oi</section>
-        <section data-testid="4-recomendation-card">Oi</section>
-        <section data-testid="5-recomendation-card">Oi</section>
+        { data.food.map((f, i) => (
+          i < MEAL_LIMITER && (
+            <section
+              key={ i }
+              data-testid={ `${i}-recomendation-card` }
+              className="g6-card"
+            >
+              <h3
+                data-testid={ `${i}-recomendation-title` }
+              >
+                { f.strMeal }
+              </h3>
+              <img
+                data-testid={ `${i}-card-img` }
+                src={ f.strMealThumb }
+                alt={ f.strMeal }
+              />
+            </section>
+          )
+        ))}
       </div>
     </div>
   );

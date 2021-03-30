@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, CardDeck, Nav } from 'react-bootstrap';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Button, Card, CardDeck, Nav, Overlay, Popover } from 'react-bootstrap';
 
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
@@ -11,6 +11,8 @@ const ReceitasFeitas = () => {
   const { setHeaderInfo } = useContext(ContextRecipes);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [renderMSG, setRenderMSG] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     const doneRecipesFromLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -38,9 +40,10 @@ const ReceitasFeitas = () => {
   };
 
   const msgTime = 5000;
-  const copiarURL = (tipo, id) => {
+  const copiarURL = (tipo, id, e) => {
     copy(`http://localhost:3000/${tipo}/${id}`);
     setRenderMSG(true);
+    setTarget(e.target);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
   const NUMERO_DE_CARDS_MAX = 4;
@@ -102,7 +105,10 @@ const ReceitasFeitas = () => {
                     </Nav.Link>
                   </Card.Body>
                   <Card.Body className="p-1 w-50">
-                    <div className="d-flex flex-row justify-content-between mb-3">
+                    <div
+                      className="d-flex flex-row justify-content-between mb-3"
+                      ref={ ref }
+                    >
                       <Card.Text
                         data-testid={ `${index}-horizontal-top-text` }
                         className="m-0"
@@ -123,15 +129,21 @@ const ReceitasFeitas = () => {
                         alt="Botão Compartilhar"
                         data-testid={ `${index}-horizontal-share-btn` }
                         className="share"
-                        onClick={ () => copiarURL(
-                          `${doneRecipe.type}s`, doneRecipe.id,
+                        onClick={ (e) => copiarURL(
+                          `${doneRecipe.type}s`, doneRecipe.id, e,
                         ) }
                       />
+                      <Overlay
+                        show={ renderMSG }
+                        target={ target }
+                        placement="bottom"
+                        container={ ref.current }
+                      >
+                        <Popover id="popover-contained">
+                          Link copiado!
+                        </Popover>
+                      </Overlay>
                     </div>
-                    {
-                      renderMSG ? <h2>Link copiado!</h2>
-                        : <h2 hidden>Link copiado!</h2>
-                    }
                     <Nav.Link href={ `http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}` } className="m-0 p-0 mb-3">
                       <Card.Text
                         data-testid={ `${index}-horizontal-name` }

@@ -80,7 +80,7 @@ function CategoriesBar(props) {
         display: title === 'Comidas' || title === 'Bebidas' ? 'inline' : 'none',
       } }
     >
-      {meals.length === 1 && (
+      {meals.length === 1 && (meals[0].idMeal !== '52968') && (
         <Redirect
           to={ { pathname: `/comidas/${meals[0].idMeal}` } }
         />
@@ -95,6 +95,8 @@ function CategoriesBar(props) {
           className="category-item"
           type="button"
           name={ ALL }
+          data-testid="All-category-filter"
+          onClick={ (event) => handleClick(event, props) }
         >
           All
         </button>

@@ -6,6 +6,18 @@ import {
   getLocalStorageRecipesInProgress,
 } from '../localStorage/recipeProgressStorage';
 
+function setInitStateRecipe(id, type) {
+  const local = getLocalStorageRecipesInProgress();
+  const mealOrDrink = type === 'drink' ? 'cocktails' : 'meals';
+  if (!local[mealOrDrink].id) {
+    const result = {
+      ...local,
+      [mealOrDrink]: { ...local[mealOrDrink], [id]: [] },
+    };
+    saveRecipeInProgressStorage(result);
+  }
+}
+
 function setIngredientsStorage(idIngredient, id, recipe) {
   if (recipe[id]) {
     const currentRecipe = recipe[id];
@@ -29,7 +41,7 @@ function setIngredientsStorage(idIngredient, id, recipe) {
 function setDrinkChecked(cocktails, id, acc) {
   if (cocktails[id]) {
     const drink = cocktails[id];
-    const result = drink.includes((acc.length).toString());
+    const result = drink.includes(acc.length.toString());
     return acc.concat(result);
   }
   return acc.concat(false);
@@ -38,7 +50,7 @@ function setDrinkChecked(cocktails, id, acc) {
 function setMealChecked(meals, id, acc) {
   if (meals[id]) {
     const food = meals[id];
-    const result = food.includes((acc.length).toString());
+    const result = food.includes(acc.length.toString());
     return acc.concat(result);
   }
   return acc.concat(false);
@@ -69,7 +81,11 @@ function ListIngredients({ recipe, type }) {
     }
   };
 
-  const handleChange = ({ target: { dataset: { idingredient } } }) => {
+  const handleChange = ({
+    target: {
+      dataset: { idingredient },
+    },
+  }) => {
     const newArr = isChecked.map((el, index) => {
       if (Number(idingredient) === index) return !el;
       return el;
@@ -80,8 +96,8 @@ function ListIngredients({ recipe, type }) {
 
   const setCheckIngredient = useCallback(() => {
     const { cocktails, meals } = getLocalStorageRecipesInProgress();
-    const ingredientChecked = Object.entries(recipe)
-      .reduce((acc, [key, value]) => {
+    const ingredientChecked = Object.entries(recipe).reduce(
+      (acc, [key, value]) => {
         if (key.includes('strIngredient') && value) {
           if (type === 'drink') {
             return setDrinkChecked(cocktails, id, acc);
@@ -92,7 +108,9 @@ function ListIngredients({ recipe, type }) {
           }
         }
         return acc;
-      }, []);
+      },
+      [],
+    );
     return ingredientChecked;
   }, [id, recipe, type]);
 
@@ -101,21 +119,24 @@ function ListIngredients({ recipe, type }) {
   }, [setCheckIngredient]);
 
   useEffect(() => {
+    if (id) {
+      setInitStateRecipe(id, type);
+    }
+  }, [id, type]);
+
+  useEffect(() => {
     verifyRecipeCompleted();
   }, [verifyRecipeCompleted]);
 
   return (
     <ul>
-      { Object.entries(recipe).reduce((acc, [key, value], index) => {
+      {Object.entries(recipe).reduce((acc, [key, value], index) => {
         if (key.includes('strIngredient') && value) {
           return acc.concat(
-            <li
-              data-testid={ `${acc.length}-ingredient-step` }
-              key={ index }
-            >
+            <li data-testid={ `${acc.length}-ingredient-step` } key={ index }>
               <label htmlFor={ `${acc.length + 1}-ingredient` }>
-                { `${value} ${recipe[`strMeasure${acc.length + 1}`]}` }
-                { value }
+                {`${value} ${recipe[`strMeasure${acc.length + 1}`]}`}
+                {value}
               </label>
               <input
                 defaultChecked={ isChecked[acc.length] }
@@ -136,9 +157,11 @@ function ListIngredients({ recipe, type }) {
 }
 
 ListIngredients.propTypes = {
-  recipe: PropTypes.oneOfType(
-    [PropTypes.string, PropTypes.object, PropTypes.array],
-  ).isRequired,
+  recipe: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
   type: PropTypes.string.isRequired,
 };
 

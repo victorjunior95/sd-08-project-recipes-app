@@ -14,7 +14,7 @@ const Detalhes = () => {
   const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [hidden, setHidden] = useState(false);
-  const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(false);
   const [usedIngri, setUseIngri] = useState([]);
 
   const location = useLocation();
@@ -45,7 +45,7 @@ const Detalhes = () => {
     const index = usedIngredients.indexOf(name);
     console.log(name, index);
     if (index >= 0) {
-      usedIngredients = usedIngredients.slice(index, 0);
+      usedIngredients.splice(index, 1);
     } else {
       usedIngredients = [...usedIngredients, name];
     }
@@ -95,11 +95,14 @@ const Detalhes = () => {
 
           return (
             <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
-              {`${ingredientName} - ${ingMeasure}`}
-              { usedIngri.indexOf(ingredientName) >= 0 ? 'true' : 'false'}
+              {/* { usedIngri.indexOf(ingredientName) >= 0 && '<s>' }
+              {`${ingredientName} - ${ingMeasure}`} */}
+              { usedIngri.indexOf(ingredientName) >= 0
+                ? <s>{`${ingredientName} - ${ingMeasure}`}</s>
+                : `${ingredientName} - ${ingMeasure}` }
 
               <input
-                onChange={ ({ target }) => { setCheck(target.value); handleCheckBox((target.value)); } }
+                onChange={ ({ target }) => { handleCheckBox((target.value)); } }
                 type="checkbox"
                 value={ `${ingredientName}` }
               />

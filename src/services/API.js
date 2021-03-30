@@ -10,12 +10,9 @@ const endPointFoodById = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i='
 const endPointDrinkById = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 const endPointFoodRandom = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
 const endPointDrinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-
 const filterFoodCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const filterDrinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
-
 const returnAlert = () => {
   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   return null;

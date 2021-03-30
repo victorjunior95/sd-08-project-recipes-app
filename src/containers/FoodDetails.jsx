@@ -151,7 +151,12 @@ const FoodDetails = () => {
         ) : (
           <div>
             <div>
-              <img src={ food[0].strMealThumb } alt="data" data-testid="recipe-photo" className="image-details" />
+              <img
+                src={ food[0].strMealThumb }
+                alt="data"
+                data-testid="recipe-photo"
+                className="image-details"
+              />
             </div>
             <div className="title-details-container">
               <h3 data-testid="recipe-title">{food[0].strMeal}</h3>
@@ -203,7 +208,12 @@ const FoodDetails = () => {
               {filterIngredientsAndMeasures(food[0])}
             </ul>
             <h5>Instructions</h5>
-            <p className="instructions-recipes" data-testid="instructions">{food[0].strInstructions}</p>
+            <p
+              className="instructions-recipes"
+              data-testid="instructions"
+            >
+              {food[0].strInstructions}
+            </p>
             <div>
               <iframe
                 src={ food[0].strYouTube }

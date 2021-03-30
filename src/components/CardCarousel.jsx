@@ -42,7 +42,12 @@ const CardCarousel = (props) => {
               className={ NOT_VISIBLE }
             >
               <div>
-                <img className="recomendation-image" src={ recipe[thumb] } alt="data" data-testid="recipe-photo" />
+                <img
+                  className="recomendation-image"
+                  src={ recipe[thumb] }
+                  alt="data"
+                  data-testid="recipe-photo"
+                />
                 <h3 data-testid={ `${index}-recomendation-title` }>{recipe[title]}</h3>
                 <p
                   data-testid={ `${index}-recomendation-category` }
@@ -58,7 +63,12 @@ const CardCarousel = (props) => {
               className={ VISIBLE }
             >
               <div className="recomendation-cards">
-                <img className="recomendation-image" src={ recipe[thumb] } alt="data" data-testid="recipe-photo" />
+                <img
+                  className="recomendation-image"
+                  src={ recipe[thumb] }
+                  alt="data"
+                  data-testid="recipe-photo"
+                />
                 <h3 data-testid={ `${index}-recomendation-title` }>{recipe[title]}</h3>
                 <p
                   data-testid={ `${index}-recomendation-category` }

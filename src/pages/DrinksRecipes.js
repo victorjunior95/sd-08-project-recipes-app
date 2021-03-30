@@ -38,8 +38,8 @@ function DrinksRecipes() {
 
   return (
     <main>
-      {/* { drinks && drinks.length === 1 && filter === ''
-        && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />} */}
+      { drinks && drinks.length === 1
+        && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Header />
       <DrinkCatsButtons />
       { drinks && drinks.map((elem, index) => (

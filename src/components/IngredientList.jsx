@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { findKey } from '../services';
 
 const IngredientList = () => {
-  const recipes = useSelector((state) => state.recipes.recipes);
+  const recipes = useSelector((state) => state.recipes.singleRecipe);
   const recipe = recipes[0];
   const ingredient = findKey(recipe, 'strIngredient');
   const measure = findKey(recipe, 'strMeasure');

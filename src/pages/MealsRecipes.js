@@ -27,14 +27,13 @@ function MealsRecipes() {
     if (ifilter && !filter) ingredientFilter(ifilter);
   }, [input, type, filter, ifilter]);
 
-  // useEffect(() => () => {
-  //   const clearDispatch = () => {
-  //     dispatch(clearRecipesAction());
-  //     dispatch(clearSearchAction());
-  //   };
-  //   clearDispatch();
-  //   console.log('comidas unmount');
-  // }, []);
+  useEffect(() => () => {
+    const clearDispatch = () => {
+      dispatch(clearRecipesAction());
+      dispatch(clearSearchAction());
+    };
+    clearDispatch();
+  }, []);
 
   useEffect(() => {
     if (meals.length === 1) return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
@@ -44,8 +43,8 @@ function MealsRecipes() {
 
   return (
     <main>
-      {/* {(meals && meals.length === 1)
-      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />} */}
+      {(meals && meals.length === 1 && filter === '')
+      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />
       { meals && meals.map((elem, index) => (

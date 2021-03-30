@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   recipes: [],
   categories: [],
   ingredients: [],
-  singleRecipe: '',
+  singleRecipe: [],
 };
 
 export default function recipesReducer(state = INITIAL_STATE, action) {

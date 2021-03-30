@@ -2,10 +2,10 @@ import { fetchMealId } from '../../services/MealAPI';
 
 import { FETCH_RECIPE_ID } from './index';
 
-const fetchMealAction = (recipes) => ({
+const fetchMealAction = (recipe) => ({
   type: FETCH_RECIPE_ID,
   payload: {
-    recipes,
+    recipe,
   },
 });
 

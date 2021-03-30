@@ -27,11 +27,7 @@ function ExplorarBebidas({ endpoint }) {
       <HeaderP title="Explorar Bebidas" />
       <main className="explore-main-container">
         <LinkButton
-<<<<<<< HEAD
           className="explore-button"
-=======
-          clas="explore-button"
->>>>>>> main-group-7
           path="/explorar/bebidas/ingredientes"
           attribute="explore-by-ingredient"
           name="Por Ingredientes"

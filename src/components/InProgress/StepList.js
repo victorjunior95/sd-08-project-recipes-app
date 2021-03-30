@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { useIsMeal } from '../../services/customHooks';
 import { loadFromStorage, saveOnStorage, makeListWithObj } from '../../services/utils';
 
-import './StepList.css';
-
-export default function StepList() {
+export default function StepList({ isDone }) {
   const isMeal = useIsMeal();
   const actualRecipe = useSelector((state) => state.detailsReducer.actualRecipe);
   const strIngredient = 'strIngredient';
@@ -26,11 +25,17 @@ export default function StepList() {
 
   function initialCheck() {
     const inProgressStorage = loadFromStorage('inProgressRecipes');
-    if (inProgressStorage === null
-      || inProgressStorage[mealCocktail][actualId] === undefined) {
+    if (inProgressStorage === null) {
       return arrayIngredients.map(() => false);
     }
-    return inProgressStorage[mealCocktail][actualId];
+    const includeCurrent = Object.keys(inProgressStorage).includes(mealCocktail);
+    if (includeCurrent) {
+      const includeId = Object.keys(inProgressStorage[mealCocktail]).includes(actualId);
+      if (includeId) {
+        return inProgressStorage[mealCocktail][actualId];
+      }
+    }
+    return arrayIngredients.map(() => false);
   }
   const [checked, setChecked] = useState(initialCheck());
 
@@ -58,6 +63,9 @@ export default function StepList() {
 
   useEffect(() => {
     refreshStorage();
+    const progress = loadFromStorage('inProgressRecipes');
+    const arrayOfIngredients = progress[mealCocktail][actualId];
+    isDone(arrayOfIngredients);
   }, [checked]);
 
   function addProgress(i) {
@@ -93,3 +101,7 @@ export default function StepList() {
     </div>
   );
 }
+
+StepList.propTypes = {
+  isDone: PropTypes.func.isRequired,
+};

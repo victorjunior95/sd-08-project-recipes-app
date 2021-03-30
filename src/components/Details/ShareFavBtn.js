@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import copy from 'clipboard-copy';
 import { useIsMeal } from '../../services/customHooks';
 import { loadFromStorage, saveOnStorage } from '../../services/utils';
@@ -8,7 +9,6 @@ import { saveFavorites } from '../../redux/actions/details';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import { useParams } from 'react-router';
 
 function favConstructor(actualRecipe, isMeal) {
   if (isMeal) {
@@ -79,7 +79,6 @@ function favoriting(actualRecipe, favorites, isMeal, dispatch) {
 
 export default function ShareFavBtn() {
   const { id } = useParams();
-  console.log(id);
   const { actualRecipe, favorites } = useSelector((state) => state.detailsReducer);
   const isMeal = useIsMeal();
   const [copied, setCopied] = useState(false);

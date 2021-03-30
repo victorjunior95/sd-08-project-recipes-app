@@ -11,8 +11,11 @@ function continueRecipe(id, isMeal) {
   } else {
     mealsCocktails = 'cocktails';
   }
-  if (inProgressRecipes !== null && inProgressRecipes[mealsCocktails][id] !== undefined) {
-    return true;
+  if (inProgressRecipes !== null) {
+    const includeCurrent = Object.keys(inProgressRecipes).includes(mealsCocktails);
+    if (includeCurrent) {
+      return Object.keys(inProgressRecipes[mealsCocktails]).includes(id);
+    }
   }
   return false;
 }

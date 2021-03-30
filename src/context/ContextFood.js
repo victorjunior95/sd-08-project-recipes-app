@@ -20,7 +20,6 @@ function ContextFood(props) {
       }
       if (key === 'name') {
         const n = await filterName(value, 'Foods');
-        console.log('name');
         return setFoodApi(n);
       }
       if (key === 'first') {

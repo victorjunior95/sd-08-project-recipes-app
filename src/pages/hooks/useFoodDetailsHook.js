@@ -13,8 +13,6 @@ function useFoodDetailsHook() {
       ingredientList = [...ingredientList, receita[`strIngredient${i}`]];
       quantitiesList = [...quantitiesList, receita[`strMeasure${i}`]];
     }
-    console.log('ingredientes comida', ingredientList);
-    console.log('quantidades comida', quantitiesList);
     const ingredientAndMeasure = quantitiesList
       .filter((qua) => qua && qua !== '')
       .map((mes, index) => `${mes} ${ingredientList[index]}`);
@@ -33,7 +31,6 @@ function useFoodDetailsHook() {
     }
     fetchRecipe(id);
   }, [id]);
-  console.log(recipe);
 
   const {
     strMealThumb,

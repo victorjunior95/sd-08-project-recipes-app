@@ -63,7 +63,6 @@ function DrinkDetails(props) {
   };
 
   useEffect(() => {
-    console.log('favoritos:', favorites);
     function checkIsFavorite() {
       return favorites
         .find((fav) => fav.id === id)
@@ -77,7 +76,6 @@ function DrinkDetails(props) {
     function checkIsInProgress(idNumber) {
       const { cocktails } = inProgressRecipes;
       const newMeals = inProgressRecipes.meals;
-      console.log('new melas: ', newMeals);
       if (Object.keys(newMeals).includes(idNumber)
       || Object.keys(cocktails).includes(idNumber)) {
         return setIsInProgress(true);

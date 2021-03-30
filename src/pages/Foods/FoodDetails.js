@@ -63,7 +63,6 @@ function FoodDetails(props) {
 
   const addFoodInProgress = (recipe) => {
     const { meals, cocktails } = inProgressRecipes;
-    console.log('em progresso: ', inProgressRecipes);
     const newFoodInProgress = {
       cocktails,
       meals: Object.assign(meals, recipe),
@@ -72,7 +71,6 @@ function FoodDetails(props) {
   };
 
   useEffect(() => {
-    console.log('favoritos:', favorites);
     function checkIsFavorite() {
       return favorites
         .find((fav) => fav.id === id)

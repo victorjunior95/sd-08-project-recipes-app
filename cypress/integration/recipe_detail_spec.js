@@ -304,7 +304,7 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
     cy.get('[data-testid="start-recipe-btn"]').contains('Continuar Receita');
   });
 
-  it('Verifica botão de "Continuar Receita" na tela de detalhes de uma bebida', () => {
+  it.only('Verifica botão de "Continuar Receita" na tela de detalhes de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         const inProgressRecipes = {

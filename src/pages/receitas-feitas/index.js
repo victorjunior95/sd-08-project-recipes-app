@@ -83,11 +83,11 @@ function ReceitasFeitas() {
             <p data-testid={ `${index}-horizontal-done-date` }>
               { recipe.doneDate }
             </p>
-            {/* {recipe.tags.map((tag) => (
+            {recipe.tags.map((tag) => (
               <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
                 { tag }
               </span>
-            ))} */}
+            ))}
           </section>
         ))}
       </section>

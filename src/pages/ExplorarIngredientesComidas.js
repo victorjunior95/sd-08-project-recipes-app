@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { buscarIngredientesComidas } from '../services/buscarIngredientes';
 
-function ExplorarIngredientesComidas(props) {
+function ExplorarIngredientesComidas() {
+  const history = useHistory();
   const [ingredientes, setIngredientes] = useState([]);
   const {
     setSearch,
@@ -27,7 +28,7 @@ function ExplorarIngredientesComidas(props) {
   function handleRedireciona({ target: { alt } }) {
     console.log('olá');
     console.log(alt);
-    const { history } = props;
+    // const { history } = props;
     history.push('/comidas');
     setSearch({ type: 'i', search: alt });
   }
@@ -44,11 +45,12 @@ function ExplorarIngredientesComidas(props) {
             type="button"
             key={ element.strIngredient }
             data-testid={ `${index}-ingredient-card` }
+            to="/comidas"
+            onClick={ handleRedireciona }
           >
             <img
               src={ `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png` }
               alt={ element.strIngredient }
-              onClick={ handleRedireciona }
               value={ element.strIngredient }
               data-testid={ `${index}-card-img` }
             />

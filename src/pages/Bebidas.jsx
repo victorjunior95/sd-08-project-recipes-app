@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CartaoReceitaBebidas from '../components/CartaoReceitaBebidas';
 
-// const CINQUENTA = 50;
+const CINQUENTA = 50;
 function Bebidas() {
   const {
     apiResult,
@@ -14,7 +14,7 @@ function Bebidas() {
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,
     categoriasBebidas,
-    // bebidas,
+    bebidas,
     setBebidas,
   } = useContext(ContextReceitas);
 

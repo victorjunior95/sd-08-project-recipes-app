@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ContextReceitas from '../context/ContextReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { buscarIngredientesBebidas } from '../services/buscarIngredientes';
 
-function ExplorarIngredientesBebidas(props) {
+function ExplorarIngredientesBebidas() {
+  const history = useHistory();
   const [ingredientes, setIngredientes] = useState([]);
   const {
     enviarTituloDaPagina,
@@ -27,7 +28,7 @@ function ExplorarIngredientesBebidas(props) {
   function handleRedireciona({ target: { alt } }) {
     console.log('olá');
     console.log(alt);
-    const { history } = props;
+    // const { history } = props;
     history.push('/bebidas');
     setSearch({ type: 'i', search: alt });
   }
@@ -39,22 +40,22 @@ function ExplorarIngredientesBebidas(props) {
       <Header />
       <div>
         {ingredientes.map((element, index) => (
-          <div
-            key={ index }
+
+          <Link
+            type="button"
+            key={ element.strIngredient1 }
             data-testid={ `${index}-ingredient-card` }
+            to="/bebidas"
+            onClick={ handleRedireciona }
           >
-            <button
-              type="button"
-              onClick={ handleRedireciona }
-            >
-              <img
-                src={ `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png` }
-                data-testid={ `${index}-card-img` }
-                alt={ element.strIngredient1 }
-              />
-            </button>
-            <h1 data-testid={ `${index}-card-name` }>{element.strIngredient1}</h1>
-          </div>
+            <img
+              src={ `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png` }
+              alt={ element.strIngredient1 }
+              value={ element.strIngredient1 }
+              data-testid={ `${index}-card-img` }
+            />
+            <div data-testid={ `${index}-card-name` }>{element.strIngredient1}</div>
+          </Link>
 
           // <button
           //   type="button"

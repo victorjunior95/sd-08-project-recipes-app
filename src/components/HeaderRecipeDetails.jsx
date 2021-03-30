@@ -1,16 +1,41 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { shareIcon, whiteHeartIcon } from '../common/svgStore';
+import { shareIcon, whiteHeartIcon, blackHeartIcon } from '../common/svgStore';
+import { setFavoriteRecipes } from '../services/setLocalStorage';
+import { getHeartType } from '../services/getLocalStorage';
 
-const HeaderRecipeDetails = ({ imgPath, title, category, page, id }) => {
+const HeaderRecipeDetails = ({
+  imgPath,
+  title,
+  category,
+  page,
+  id,
+  area,
+  drinkCategory,
+}) => {
   const [isCopied, setIsCopied] = useState(false);
+  const toFavorite = {
+    id,
+    type: page,
+    area,
+    category,
+    alcoholicOrNot: drinkCategory,
+    name: title,
+    image: imgPath,
+  };
+
   const twoSecond = 2000;
   const handleClick = () => {
     setIsCopied(true);
     setTimeout(() => {
       setIsCopied(false);
     }, twoSecond);
+  };
+
+  const handleClickHeart = () => {
+    setFavoriteRecipes(toFavorite);
+    setIsCopied(!isCopied);
   };
   return (
     <section>
@@ -22,7 +47,10 @@ const HeaderRecipeDetails = ({ imgPath, title, category, page, id }) => {
       />
       <h3 data-testid="recipe-title">{title}</h3>
       <h5 data-testid="recipe-category">{category}</h5>
-      <CopyToClipboard text={ `http://localhost:3000/${page}/${id}` } onCopy={ handleClick }>
+      <CopyToClipboard
+        text={ `http://localhost:3000/${page}/${id}` }
+        onCopy={ handleClick }
+      >
         <input
           type="image"
           src={ shareIcon }
@@ -32,9 +60,10 @@ const HeaderRecipeDetails = ({ imgPath, title, category, page, id }) => {
       </CopyToClipboard>
       <input
         type="image"
-        src={ whiteHeartIcon }
+        src={ getHeartType(id) ? blackHeartIcon : whiteHeartIcon }
         alt="white heart icon"
         data-testid="favorite-btn"
+        onClick={ handleClickHeart }
       />
       {isCopied ? <p>Link copiado!</p> : ''}
     </section>
@@ -47,6 +76,8 @@ HeaderRecipeDetails.propTypes = {
   category: PropTypes.string.isRequired,
   page: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  area: PropTypes.string.isRequired,
+  drinkCategory: PropTypes.string.isRequired,
 };
 
 export default HeaderRecipeDetails;

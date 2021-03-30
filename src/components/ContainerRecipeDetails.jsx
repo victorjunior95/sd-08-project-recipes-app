@@ -42,6 +42,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       strInstructions: instructions,
       strYoutube: video,
       strDrinkAlternate: aternateRecipe,
+      strArea: area,
     } = recipe;
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
@@ -54,6 +55,8 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       video,
       aternateRecipe,
       arrayIngredients,
+      drinkCategory: '',
+      area,
       route: `/comidas/${id}/in-progress`,
     });
   };
@@ -67,6 +70,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       strInstructions: instructions,
       strVideo: video,
       strDrinkAlternate: aternateRecipe,
+      strCategory: drinkCategory,
     } = recipe;
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
@@ -79,6 +83,8 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       video,
       aternateRecipe,
       arrayIngredients,
+      drinkCategory,
+      area: '',
       route: `/bebidas/${id}/in-progress`,
     });
   };
@@ -109,7 +115,10 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     video,
     arrayIngredients,
     route,
+    area,
+    drinkCategory,
   } = recipeInfo;
+
   return (
     <div>
       {isLoading ? (
@@ -122,6 +131,8 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             imgPath={ image }
             page={ page.toLowerCase() }
             id={ id }
+            area={ area }
+            drinkCategory={ drinkCategory }
           />
           <IngredientsRecipeDetails ingredients={ arrayIngredients } />
           <InstructionsRecipeDetails instruction={ instructions } />
@@ -159,6 +170,7 @@ ContainerRecipeDetails.propTypes = {
     strAlcoholic: PropTypes.string.isRequired,
     idMeal: PropTypes.string.isRequired,
     idDrink: PropTypes.string.isRequired,
+    strArea: PropTypes.string.isRequired,
   }).isRequired,
 };
 

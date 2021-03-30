@@ -37,3 +37,17 @@ export const nameButtonRecipe = (id, type) => {
     return Object.keys(drinks).includes(id) ? continueRecipe : startRecipe;
   }
 };
+
+export const getFavoriteRecipes = () => {
+  if (localStorage.favoriteRecipes) {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    return favoriteRecipes;
+  }
+  return null;
+};
+
+export const getHeartType = (id) => {
+  const favoriteRecipes = getFavoriteRecipes();
+  if (favoriteRecipes === null) return false;
+  return favoriteRecipes.some((favorite) => favorite.id === id);
+};

@@ -74,11 +74,11 @@ function RecipesProvider({ children }) {
 
   useEffect(() => {
     fetchCategories().then((data) => setCategories(data));
-  });
+  }, []);
 
   useEffect(() => {
     fetchCocktailCategories().then((data) => setDrinkCategories(data));
-  });
+  }, []);
 
   const provide = {
     email,
@@ -88,7 +88,9 @@ function RecipesProvider({ children }) {
     searchParam,
     setSearchParam,
     recipes,
+    setRecipes,
     cocktails,
+    setCocktails,
     FoodCategories,
     DrinkCategories,
   };

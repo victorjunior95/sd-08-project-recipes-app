@@ -14,15 +14,14 @@ function Main({ location: { pathname } }) {
     list, isFetching, categories, byIngredient,
   } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
-  // const selectType = { '/comidas': 'meals', '/bebidas': 'drinks' };
   const type = pathname.slice(1);
   const token = 1;
 
   useEffect(() => {
+    const reqType = { request: 'filter', key: 'i', parameter: byIngredient };
     dispatch(fetchCategories(token, type));
     if (byIngredient) {
-      dispatch(fetchRecipes(token, type,
-        { request: 'filter', key: 'i', parameter: byIngredient }));
+      dispatch(fetchRecipes(token, type, reqType));
       dispatch(byAddIngredient(''));
     } else {
       dispatch(fetchRecipes(token, type));

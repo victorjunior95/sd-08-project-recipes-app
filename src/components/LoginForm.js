@@ -32,7 +32,7 @@ function LoginForm() {
         Descubra as melhores receitas do mundo
       </Card.Title>
       <Card.Body className="d-flex flex-column align-items-center w-100">
-        <Form.Group controlId="formBasicEmail" className="w-75">
+        <Form.Group className="w-75">
           <Form.Control
             data-testid="email-input"
             type="email"
@@ -43,7 +43,7 @@ function LoginForm() {
             onChange={ (e) => setEmail(e.target.value) }
           />
         </Form.Group>
-        <Form.Group controlId="formBasicPassword" className="w-75">
+        <Form.Group className="w-75">
           <Form.Control
             data-testid="password-input"
             type="password"

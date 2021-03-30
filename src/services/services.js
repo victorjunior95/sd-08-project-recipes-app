@@ -18,23 +18,24 @@ export const removerIngredienteDoArray = (
   arrayIngredientes,
 ) => arrayIngredientes.filter((item) => item !== ingrediente);
 
-export const checkIngrediente = (ingrediente, tipoReceitaAtual, receitaItemId) => {
+export const checkIngrediente = (ingrediente, tipoReceita, receitaItemId) => {
   const listaReceitas = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (listaReceitas) {
-    if (listaReceitas[tipoReceitaAtual][receitaItemId]) {
-      if (listaReceitas[tipoReceitaAtual][receitaItemId].includes(ingrediente)) {
+    if (listaReceitas[tipoReceita][receitaItemId]) {
+      if (listaReceitas[tipoReceita][receitaItemId].includes(ingrediente)) {
         const novoArrayIngredientes = removerIngredienteDoArray(
           ingrediente,
-          listaReceitas[tipoReceitaAtual][receitaItemId],
+          listaReceitas[tipoReceita][receitaItemId],
         );
-        listaReceitas[tipoReceitaAtual][receitaItemId] = novoArrayIngredientes;
+        listaReceitas[tipoReceita][receitaItemId] = novoArrayIngredientes;
+        listaReceitas[tipoReceita][receitaItemId] = novoArrayIngredientes;
         localStorage.setItem('inProgressRecipes', JSON.stringify(listaReceitas));
       } else {
-        listaReceitas[tipoReceitaAtual][receitaItemId].push(ingrediente);
+        listaReceitas[tipoReceita][receitaItemId].push(ingrediente);
         localStorage.setItem('inProgressRecipes', JSON.stringify(listaReceitas));
       }
     } else {
-      listaReceitas[tipoReceitaAtual][receitaItemId] = [ingrediente];
+      listaReceitas[tipoReceita][receitaItemId] = [ingrediente];
       localStorage.setItem('inProgressRecipes', JSON.stringify(listaReceitas));
     }
   } else {
@@ -44,8 +45,22 @@ export const checkIngrediente = (ingrediente, tipoReceitaAtual, receitaItemId) =
       meals: {
       },
     };
-    novaListaReceita[tipoReceitaAtual][receitaItemId] = [ingrediente];
+    novaListaReceita[tipoReceita][receitaItemId] = [ingrediente];
     localStorage.setItem('inProgressRecipes', JSON.stringify(novaListaReceita));
+  }
+
+  const listaReceitasFeitas = JSON.parse(localStorage.getItem('doneRecipes'));
+  const tipoReceitaAtual = tipoReceita === 'meals' ? 'comida' : 'bebida';
+
+  if (listaReceitasFeitas
+    && listaReceitasFeitas
+      .find((item) => (`${item.id}${item.type}`
+      === `${receitaItemId}${tipoReceitaAtual}`))) {
+    const listaReceitasFeitasFiltrada = listaReceitasFeitas
+      .filter(
+        (item) => `${item.id}${item.type}` !== `${receitaItemId}${tipoReceitaAtual}`,
+      );
+    localStorage.setItem('doneRecipes', JSON.stringify(listaReceitasFeitasFiltrada));
   }
 };
 
@@ -147,5 +162,12 @@ export const salvarReceitaFeita = (
     }
   } else {
     localStorage.setItem('doneRecipes', JSON.stringify([data]));
+  }
+};
+
+export const checkReceitaCompleta = (receitaItemId, setExibirBotaoIniciarReceita) => {
+  const list = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (list !== null && list.filter((item) => item.id === receitaItemId).length > 0) {
+    setExibirBotaoIniciarReceita('hidden');
   }
 };

@@ -27,6 +27,7 @@ function FavoriteBtn({ objDetail, urlText, id }) {
 
   return (
     <input
+      className="favorite-btn"
       onClick={ onClickFavorite }
       type="image"
       data-testid="favorite-btn"

@@ -8,11 +8,13 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-const filterIngredients = (recipe) => Object.entries(recipe)
-  .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
-  .filter((ingredientIndex) => ingredientIndex[1] !== '')
-  .filter((ingredientIndex) => ingredientIndex[1] !== null)
-  .map((ingredientIndex) => ingredientIndex[1]);
+const NUMBER_9 = 9;
+
+// const filterIngredients = (recipe) => Object.entries(recipe)
+//   .filter((ingredientIndex) => ingredientIndex[0].startsWith('strIngredient'))
+//   .filter((ingredientIndex) => ingredientIndex[1] !== '')
+//   .filter((ingredientIndex) => ingredientIndex[1] !== null)
+//   .map((ingredientIndex) => ingredientIndex[1]);
 
 const filterIngredientsAndMeasures = (recipe) => {
   const arrayFromObject = Object.entries(recipe)
@@ -34,7 +36,7 @@ const filterIngredientsAndMeasures = (recipe) => {
   )));
 };
 
-const initLocalStorage = () => {
+const initLocalStorage = (id) => {
   const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
   console.log(isFavorite);
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -42,7 +44,7 @@ const initLocalStorage = () => {
 
   if (inProgessRecipes === null) {
     localStorage.setItem('inProgressRecipes',
-      JSON.stringify({ cocktails: {}, meals: {} }));
+      JSON.stringify([{ meals: { [id]: [] } }]));
   }
   if (isFavorite === null) {
     localStorage.setItem('favoriteRecipes',
@@ -51,24 +53,24 @@ const initLocalStorage = () => {
   return { isFavorite, inProgessRecipes };
 };
 
-const setLocalStorage = (recipe) => {
-  const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const { cocktails, meals } = inProgessRecipes;
-  const ingredients = filterIngredients(recipe);
-  if (inProgessRecipes) {
-    localStorage.setItem('inProgressRecipes',
-      JSON.stringify({
-        cocktails,
-        meals: { ...meals,
-          [recipe.idMeal]: ingredients } }));
-  }
-  localStorage.setItem('inProgressRecipes',
-    JSON.stringify({
-      cocktails: {},
-      meals: {
-        ...meals, [recipe.idMeal]: ingredients } }));
-};
+// const setLocalStorage = (recipe) => {
+//   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+//   // const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+//   const { cocktails, meals } = inProgessRecipes;
+//   const ingredients = filterIngredients(recipe);
+//   if (inProgessRecipes) {
+//     localStorage.setItem('inProgressRecipes',
+//       JSON.stringify({
+//         cocktails,
+//         meals: { ...meals,
+//           [recipe.idMeal]: ingredients } }));
+//   }
+//   localStorage.setItem('inProgressRecipes',
+//     JSON.stringify({
+//       cocktails: {},
+//       meals: {
+//         ...meals, [recipe.idMeal]: ingredients } }));
+// };
 
 const handleFavorite = (recipe, iFavorite) => {
   console.log('entrou no favorite useEffect');
@@ -101,18 +103,19 @@ const DrinkDetails = () => {
   const [start, setStart] = useState(false);
   const [copied, setCopy] = useState(false);
   const [favorite, setFavorite] = useState(false);
-
+  const id = history.location.pathname.slice(NUMBER_9);
+  console.log(id);
   useEffect(() => {
-    api.fetchDrinkById('178319')
+    api.fetchDrinkById(id)
       .then((response) => response.json()).then((result) => setDrink(result.drinks));
     api.fetchMeals()
       .then((response) => response.json()).then((result) => setFoods(result.meals));
-    console.log(initLocalStorage());
-    const { isFavorite } = initLocalStorage();
+    console.log(initLocalStorage(id));
+    const { isFavorite } = initLocalStorage(id);
     if (isFavorite.length > 0) {
       setFavorite(true);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (drink.length > 0 && foods.length > 0) {
@@ -123,7 +126,7 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     if (start) {
-      setLocalStorage(drink[0]);
+      // setLocalStorage(drink[0]);
       return history.push(`/bebidas/${drink[0].idDrink}/in-progress`);
     }
   }, [start, drink, history]);

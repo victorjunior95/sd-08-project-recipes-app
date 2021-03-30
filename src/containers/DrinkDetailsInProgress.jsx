@@ -20,10 +20,11 @@ const DrinkDetailsInProgress = () => {
       className="home-container"
     >
       {data && data.map((
-        { strDrink, strDrinkThumb, strCategory, strInstructions }, index, object,
+        { strDrink, strDrinkThumb, strCategory, strInstructions, idDrink }, index, object,
       ) => (
         <div key={ index }>
           <components.FoodInProgressCard
+            idDrink={ idDrink }
             data={ object }
             img={ strDrinkThumb }
             meal={ strDrink }

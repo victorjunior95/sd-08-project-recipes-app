@@ -25,7 +25,7 @@ function ComponentPerfil() {
     <section className="w-100 bg-dark cardHeigth cardBody">
       <h1
         data-testid="profile-email"
-        className="p-5"
+        className="p-5 text-white"
       >
         { userEmail }
       </h1>

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import { Button, CardDeck, Card, Nav } from 'react-bootstrap';
+import { Button, CardDeck, Card, Nav, Overlay, Popover } from 'react-bootstrap';
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
 import ShareIcon from '../images/shareIcon.svg';
@@ -14,6 +14,8 @@ const ReceitasFavoritas = () => {
   } = useContext(ContextRecipes);
 
   const [renderMSG, setRenderMSG] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     const favoriteRecipesFromLocalStorage = JSON
@@ -52,9 +54,10 @@ const ReceitasFavoritas = () => {
   };
 
   const msgTime = 5000;
-  const copiarURL = (tipo, id) => {
+  const copiarURL = (tipo, id, e) => {
     copy(`http://localhost:3000/${tipo}/${id}`);
     setRenderMSG(true);
+    setTarget(e.target);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
   };
   const NUMERO_DE_CARDS_MAX = 4;
@@ -141,21 +144,30 @@ const ReceitasFavoritas = () => {
                     >
                       { favoriteArray.name }
                     </Nav.Link>
-                    <div className="d-flex flex-row justify-content-evenly mb-1">
+                    <div
+                      className="d-flex flex-row justify-content-evenly mb-1"
+                      ref={ ref }
+                    >
                       <input
                         type="image"
                         src={ ShareIcon }
                         alt="Botão Compartilhar"
                         data-testid={ `${index}-horizontal-share-btn` }
                         className="share"
-                        onClick={ () => copiarURL(
-                          `${favoriteArray.type}s`, favoriteArray.id,
+                        onClick={ (e) => copiarURL(
+                          `${favoriteArray.type}s`, favoriteArray.id, e,
                         ) }
                       />
-                      {
-                        renderMSG ? <h2>Link copiado!</h2>
-                          : <h2 hidden>Link copiado!</h2>
-                      }
+                      <Overlay
+                        show={ renderMSG }
+                        target={ target }
+                        placement="bottom"
+                        container={ ref.current }
+                      >
+                        <Popover id="popover-contained">
+                          Link copiado!
+                        </Popover>
+                      </Overlay>
                       <input
                         type="image"
                         src={ BlackHeartIcon }

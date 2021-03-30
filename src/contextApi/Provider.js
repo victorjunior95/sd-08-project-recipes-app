@@ -44,11 +44,10 @@ function Login({ children }) {
     checkbox,
     setCheckbox,
     ingredients,
-    setIngredients
+    setIngredients,
     favoriteRecipes,
     setFavoriteRecipes
   };
-  // teste para o lint
   return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;
 }
 

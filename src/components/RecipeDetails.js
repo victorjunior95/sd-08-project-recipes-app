@@ -19,7 +19,7 @@ function RecipeDetails({ recipeType, page }) {
   } = useContext(Context);
 
   function shareLink() {
-    copy((window.location.href).replace('/in-progress', ''));
+    copy((window.location.href));
     setCopyURL(true);
     // https://github.com/feross/clipboard-copy
   }
@@ -72,6 +72,7 @@ function RecipeDetails({ recipeType, page }) {
         >
           <img alt="Share" src={ shareIcon } />
         </button>
+        { copyURL ? <p>Link copiado!</p> : null }
         <button
           type="button"
           data-testid="favorite-btn"
@@ -84,7 +85,6 @@ function RecipeDetails({ recipeType, page }) {
             src={ favorite ? blackHeartIcon : whiteHeartIcon }
           />
         </button>
-        { copyURL ? <p>Link copiado!</p> : null }
         <h5 data-testid="recipe-category">
           { recipe.strCategory }
           {recipeType === 'Drink' ? recipe.strAlcoholic : null}
@@ -110,7 +110,7 @@ function RecipeDetails({ recipeType, page }) {
   }
 
   return (
-    recipeDetails && (isFetching
+    recipeDetails.length && (isFetching
       ? <p>Loading...</p>
       : renderDetails())
   );

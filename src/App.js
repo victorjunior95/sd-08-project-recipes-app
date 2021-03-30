@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import NotFound from './pages/NotFound';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import ExplorarComidas from './pages/ExplorarComidas';
@@ -49,6 +50,7 @@ function App() {
           <Route exact path="/bebidas/:id/in-progress" component={ ProgressoBebida } />
           <Route path="/comidas/:id" component={ DetalhesComida } />
           <Route path="/bebidas/:id" component={ DetalhesBebida } />
+          <Route component={ NotFound } />
         </Switch>
       </RecipesProvider>
     </Router>

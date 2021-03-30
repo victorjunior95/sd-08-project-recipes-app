@@ -4,6 +4,16 @@ const FOOD_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const FILTER_FOODS_API = 'https://www.themealdb.com/api/json/v1/1/filter.php';
 const FILTER_DRINKS_API = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
+const FILTER_DRINK_ID = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+
+export const getDrinkFiltredById = async (id) => {
+  const api = await fetch(FILTER_DRINK_ID + id, { 'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true });
+  const { drinks } = await api.json();
+  console.log('dr', drinks);
+  const res = { ...drinks[0] };
+  return res;
+};
 
 export const getRandomRecipe = async (query, currentPage) => {
   // lists:

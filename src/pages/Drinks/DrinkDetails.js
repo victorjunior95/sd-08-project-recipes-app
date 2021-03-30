@@ -1,25 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import copy from 'clipboard-copy';
 import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
-import { FoodCtx } from '../../context/ContextFood';
-import CarouselCard from '../../components/Card/CarouselCard';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFavoritesHook from '../hooks/useFavoritesHook';
-import useInProgressRecipeHook from '../hooks/useInProgressRecipeHook';
+import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
+
+const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
 
 function DrinkDetails(props) {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const { match: { params: { id } } } = props;
-  const { foodApi: { meals } } = useContext(FoodCtx);
   const [favorites, updateFavorites] = useFavoritesHook();
-  const [addDrinkInProgress] = useInProgressRecipeHook();
-  const STOP_INDEX = 5;
+  const [inProgressRecipes,
+    setInProgressRecipes] = useState(initialInProgressRecipesValue);
+  const [isInProgress, setIsInProgress] = useState(false);
+
   const [
     setId,
     strDrinkThumb,
@@ -27,6 +25,7 @@ function DrinkDetails(props) {
     strCategory,
     strInstructions,
     strAlcoholic,
+    isDone,
     ingredientsAndMeasuresList,
   ] = useDrinkDetailsHook();
 
@@ -38,13 +37,38 @@ function DrinkDetails(props) {
     setId(id);
   }, [id, setId]);
 
-  function handleClick() {
-    copy(window.location.href);
-    setCopied(true);
-  }
+  useEffect(() => {
+    const localData = localStorage.getItem('inProgressRecipes');
+    const inProgress = localData ? JSON.parse(localData) : initialInProgressRecipesValue;
+    setInProgressRecipes(inProgress);
+  }, []);
 
   useEffect(() => {
-    console.log('favoritos:', favorites);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
+
+  // effect In Progress => voltar para ca caso de errado
+  const addDrinkInProgress = (recipe) => {
+    const { cocktails } = inProgressRecipes;
+    const newFoodInProgress = {
+      cocktails: Object.assign(cocktails, recipe),
+      meals: inProgressRecipes.meals,
+    };
+    return setInProgressRecipes(newFoodInProgress);
+  };
+
+  useEffect(() => {
+    function checkIsInProgress(idNumber) {
+      const { cocktails } = inProgressRecipes;
+      if (Object.keys(cocktails).includes(idNumber)) {
+        return setIsInProgress(true);
+      }
+      return setIsInProgress(false);
+    }
+    checkIsInProgress(id);
+  });
+
+  useEffect(() => {
     function checkIsFavorite() {
       return favorites
         .find((fav) => fav.id === id)
@@ -53,6 +77,11 @@ function DrinkDetails(props) {
     }
     checkIsFavorite();
   }, [id, favorites]);
+
+  function handleClick() {
+    copy(window.location.href);
+    setCopied(true);
+  }
 
   function handleFavorite() {
     const newRecipe = {
@@ -76,72 +105,37 @@ function DrinkDetails(props) {
     setShouldRedirect(true);
   }
 
+  function renderButton() {
+    return (
+      <button
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipeClick }
+      >
+        { isInProgress ? 'Continuar Receita' : 'Iniciar' }
+      </button>
+    );
+  }
+
   return (
     <>
       { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
-      <div className="recipe-container">
-        <h2 data-testid="recipe-title">{ strDrink }</h2>
-        <span data-testid="recipe-category">
-          { strCategory }
-          <span>{ strAlcoholic }</span>
-        </span>
-        <div className="icons">
-          <button type="button" data-testid="share-btn" onClick={ handleClick }>
-            <img src={ shareIcon } alt="Compartilhar" />
-            {copied && 'Link copiado!'}
-          </button>
-          <button
-            type="button"
-            onClick={ handleFavorite }
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="Compartilhar"
-            />
-          </button>
-        </div>
-        <img
-          className="detail-image"
-          data-testid="recipe-photo"
-          src={ strDrinkThumb }
-          alt="Recipe pic"
-        />
-        <ul>
-          { ingredientsAndMeasuresList
-            .filter((ingr) => ingr !== '' && ingr !== null)
-            .map(
-              (ing, index) => (
-                <li
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {ing}
-                </li>),
-            ) }
-        </ul>
-        <p data-testid="instructions">{ strInstructions }</p>
-        {meals && meals
-          .filter((meal, index) => index <= STOP_INDEX)
-          .map((item, index) => (
-            <CarouselCard
-              key={ item.idMeal }
-              id={ item.idMeal }
-              name={ item.strMeal }
-              img={ item.strMealThumb }
-              index={ index }
-            />
+      {strDrink && <DrinkDetailsInfo
+        copied={ copied }
+        strCategory={ strCategory }
+        strAlcoholic={ strAlcoholic }
+        handleFavorite={ handleFavorite }
+        isFavorite={ isFavorite }
+        strDrink={ strDrink }
+        strDrinkThumb={ strDrinkThumb }
+        handleClick={ handleClick }
+        ingredientsAndMeasuresList={ ingredientsAndMeasuresList }
+        strInstructions={ strInstructions }
 
-          ))}
-        <button
-          className="start-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleStartRecipeClick }
-        >
-          Iniciar
-        </button>
-      </div>
+      />}
+      { isDone ? '' : renderButton() }
+
     </>
   );
 }

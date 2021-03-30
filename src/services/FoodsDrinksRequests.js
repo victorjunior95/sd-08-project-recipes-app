@@ -13,6 +13,10 @@ const filterDrinksCategories =
 const drinksRecomended =
   'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const foodsRecomended = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const mealIngredients = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const drinkIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+const mealsByIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i='
+const drinksByIngredients =  'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i='
 
 export const filterRecipes = async (title, filter, query) => {
   const URL = title === 'Comidas' ? baseURLFoods : baseURLDrinks;
@@ -27,9 +31,9 @@ export const filterRecipes = async (title, filter, query) => {
 };
 
 export const getAllRecipes = async (title) => {
-  const URL = title === 'Comidas' ? allMeals : allDrinks;
+  const URL = (title === 'Comidas' || title ==='Explorar Ingredientes de Comidas') ? allMeals : allDrinks;
   const response = await fetch(URL);
-  if (title === 'Comidas') {
+  if (title === 'Comidas' || title ==='Explorar Ingredientes de Comidas') {
     const { meals } = await response.json();
     return meals;
   }
@@ -69,4 +73,27 @@ export const recomendedRecipes = async (title) => {
   }
   const { meals } = await response.json();
   return meals;
+};
+
+export const getAllIngredients = async (title) => {
+  const URL = title === 'Explorar Ingredientes de Comidas' ? mealIngredients : drinkIngredients;
+  const response = await fetch(URL);
+  if (title === 'Explorar Ingredientes de Comidas') {
+    const { meals } = await response.json();
+  return meals;
+  }
+  const { drinks } = await response.json();
+    return drinks;
+};
+
+
+export const getRecipesByIngredient = async (title, ingredient) => {
+  const URL = (title ==='Explorar Ingredientes de Comidas') ? mealsByIngredient + ingredient : drinksByIngredients + ingredient;
+  const response = await fetch(URL);
+  if (title ==='Explorar Ingredientes de Comidas') {
+    const { meals } = await response.json();
+    return meals;
+  }
+  const { drinks } = await response.json();
+  return drinks;
 };

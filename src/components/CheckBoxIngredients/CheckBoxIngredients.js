@@ -45,7 +45,7 @@ const CheckBoxIngredients = ({ object, title }) => {
     if (objectSaved === null || !existSpecificId) {
       console.log('Entra na primeira condição')
       setProgressRecipes({
-        ... inProgressRecipes, ...objectSaved, [recipe]: {
+        ...inProgressRecipes, ...objectSaved, [recipe]: {
           ...inProgressRecipes[recipe], ...objectSaved[recipe], [id] : [],
         }
       })

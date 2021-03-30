@@ -4,8 +4,11 @@ import Footer from '../components/Footer';
 import HeaderP from '../components/HeaderP';
 import Context from '../context/Context';
 import { fetchListByFilter } from '../services/RequisicaoApi';
+<<<<<<< HEAD
 // import '../styles/Ingredientes.css';
 
+=======
+>>>>>>> main-group-7
 import '../styles/ExplorarIngredientes.css';
 
 const TWELVE_INGREDIENTS = 12;

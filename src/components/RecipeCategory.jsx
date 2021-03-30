@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
-import '../styles/RecipeList.css';
 
 const FIRST_FIVE_CATEGORY = 5;
 

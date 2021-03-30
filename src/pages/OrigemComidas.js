@@ -77,7 +77,10 @@ function OrigemComidas() {
                 <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
                 <img
                   alt="ingredient"
+<<<<<<< HEAD
                   // className="ingredient-img"
+=======
+>>>>>>> main-group-7
                   className="recipe-img"
                   data-testid={ `${index}-card-img` }
                   src={ recipe.strMealThumb }

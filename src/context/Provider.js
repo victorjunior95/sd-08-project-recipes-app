@@ -59,7 +59,7 @@ const Provider = ({ children }) => {
     }
   };
 
-  console.log(drink);
+  // console.log(drink);
 
   const context = {
     handleHeaderSearch,

@@ -19,15 +19,18 @@ const Drinks = () => {
   const [currentCategory, setCurrentCategory] = useState('All');
 
   useEffect(() => {
+    console.log('useEffect1');
     setFilteredDrinks(drink);
     // console.log(drink);
   }, [drink]);
 
   useEffect(() => {
+    console.log('useEffect2');
     function fetchFetch() {
       recipesFetch(false);
     }
     function fetchCategory() {
+      console.log('fetchCategory');
       categoryDrink()
         .then((response) => setCategory(response));
       // console.log(categoryFood());
@@ -38,9 +41,10 @@ const Drinks = () => {
     fetchFetch();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipesFetch]);
+  }, []);
 
   useEffect(() => {
+    console.log('useEffect3');
     // console.log(food);
     const mapDrinks = () => (
       setMapCards(
@@ -65,6 +69,7 @@ const Drinks = () => {
   }, [filteredDrinks]);
 
   const fetchDrinkByCategory = async (cat) => {
+    console.log('fetchDrinkByCategory');
     // console.log(` ${currentCategory}  <=>  ${cat} `);
     if (currentCategory === cat) {
       setFilteredDrinks(drink);
@@ -77,8 +82,9 @@ const Drinks = () => {
     }
   };
 
-  const mapCategory = () => (
-    category.slice(0, MAX_CATEGORY).map((drinks, index) => (
+  const mapCategory = () => {
+    console.log('mapCategory');
+    return category.slice(0, MAX_CATEGORY).map((drinks, index) => (
       <label key={ drinks.strCategory } htmlFor={ drinks.strCategory }>
         {drinks.strCategory}
         <input
@@ -89,15 +95,17 @@ const Drinks = () => {
           checked={ currentCategory === drinks.strCategory }
         />
       </label>
-    ))
-  );
+    ));
+  };
 
   useEffect(() => {
+    console.log('useEffect');
     if (nameIngredient) {
       handleHeaderSearch(nameIngredient, 'ingredients', 'Bebidas');
       setNameIngredient('');
     }
-  }, [nameIngredient]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -109,7 +117,7 @@ const Drinks = () => {
           type="radio"
           data-testid="All-category-filter"
           onClick={ () => setFilteredDrinks(drink) }
-          checked={ currentCategory === 'All' }
+          // checked={ currentCategory === 'All' }
         />
       </label>
       {mapCards}

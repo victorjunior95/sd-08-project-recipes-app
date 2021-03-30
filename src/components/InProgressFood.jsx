@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import Button from './Button';
+import ShareButton from './ShareButton';
 import '../css/InProgressFood.css';
 import updateLocalStorage from '../services/updateLocalStorage';
 import readLocalStorage from '../services/readLocalStorage';
@@ -8,9 +9,8 @@ import getResultFromAPI from '../api/getResultFromAPI';
 import createIngredientsArray from '../services/createIngredientsArray';
 
 function InProgressFood() {
-  const { id } = useParams();
   const { pathname } = useLocation();
-  const EIGHT_CHARS = 8;
+  const pathAndId = pathname.match(/(\/[comidas||bebidas]+)\/([0-9]+)+/);
   const [checked, setChecked] = useState([]);
   const [currentFood, setCurrentFood] = useState({});
   const [ingredients, setIngredients] = useState([]);
@@ -22,16 +22,16 @@ function InProgressFood() {
 
   useEffect(() => {
     async function getFood() {
-      const food = await getResultFromAPI(pathname.slice(0, EIGHT_CHARS), 'lookup', id);
+      const food = await getResultFromAPI(pathAndId[1], 'lookup', pathAndId[2]);
       setCurrentFood(food[0]);
       setIngredients(createIngredientsArray(food[0]));
     }
     getFood();
-    setChecked(readLocalStorage(pathname.slice(0, EIGHT_CHARS), id));
+    setChecked(readLocalStorage([pathAndId[1], pathAndId[2]]));
   }, []);
 
   useEffect(() => {
-    updateLocalStorage(pathname.slice(0, EIGHT_CHARS), checked, id);
+    updateLocalStorage([pathAndId[1], pathAndId[2]], checked);
   }, [checked]);
 
   function loadingScreen() {
@@ -52,7 +52,7 @@ function InProgressFood() {
         <h1 data-testid="recipe-title">
           { currentFood.strMeal || currentFood.strDrink }
         </h1>
-        <p data-testid="share-btn">btnCompartilhar</p>
+        <ShareButton path={ `${pathAndId[0]}` } />
         <p data-testid="favorite-btn">btnFavorito</p>
         <h6
           data-testid="recipe-category"
@@ -63,11 +63,14 @@ function InProgressFood() {
         <h2>Ingredientes</h2>
         <div className="ingredientsSteps">
           { ingredients.map((curr, index) => (
-            <div className="ingredientStep" key={ index }>
+            <div
+              className="ingredientStep"
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+            >
               <input
                 checked={ checked.includes(index) }
                 type="checkbox"
-                data-testid={ `${index}-ingredient-step` }
                 name={ curr }
                 value={ curr }
                 id={ curr }

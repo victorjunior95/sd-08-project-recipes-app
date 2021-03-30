@@ -3,7 +3,7 @@ const options = {
   '/bebidas': 'cocktails',
 };
 
-function updateLocalStorage(path, array, id) {
+function updateLocalStorage([path, id], array) {
   const englishPath = options[path];
   let currentLocal = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
   if (currentLocal[englishPath]) {

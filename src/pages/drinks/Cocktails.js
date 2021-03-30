@@ -3,6 +3,7 @@ import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 import RecipesContext from '../../ContextApi/RecipesContext';
 import CocktailCard from '../../components/CocktailCard';
+import DrinkCategoryButton from '../../components/DrinkCategoryButton';
 
 function Cocktails() {
   const { cocktails } = useContext(RecipesContext);
@@ -12,11 +13,12 @@ function Cocktails() {
   return (
     <>
       <Header title="Bebidas" search="" />
+      <DrinkCategoryButton />
       {
         cocktailsRecipes
         && cocktailsRecipes.map((recipe, i) => (
           i < cardMaximun
-           && <CocktailCard key={ i } recipes={ recipe } />
+           && <CocktailCard key={ i } order={ i } recipes={ recipe } />
         ))
       }
       <Footer />

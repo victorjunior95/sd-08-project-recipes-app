@@ -15,8 +15,9 @@ function useFoodDetailsHook() {
       quantitiesList = [...quantitiesList, receita[`strMeasure${i}`]];
     }
     const ingredientAndMeasure = quantitiesList
-      .filter((qua) => qua && qua !== '')
+      .filter((qua) => qua && qua !== ' ' && qua !== null)
       .map((mes, index) => `${mes} ${ingredientList[index]}`);
+    console.log('lista de ing: ', ingredientAndMeasure);
     return setIngredientsAndMeasuresList(ingredientAndMeasure);
   }
 

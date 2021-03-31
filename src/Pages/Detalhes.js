@@ -102,19 +102,20 @@ function Detalhes() {
         src={ objDetail[0].strDrinkThumb }
         alt={ objDetail[0].strDrink }
       />
-      <div>
+      <div className="icons">
+        <LinkCopiado />
         <CopyToClipboard
           text={ `http://localhost:3000${urlText}` }
           onCopy={ handleCopied }
         >
           <input
+            className="share-btn"
             type="image"
             data-testid="share-btn"
             src={ shareIcon }
             alt={ objDetail[0].strDrink }
           />
         </CopyToClipboard>
-        <LinkCopiado />
         <FavoriteBtn urlText={ urlText } objDetail={ objDetail } id={ id } />
       </div>
       <ol className="ingredient-list">

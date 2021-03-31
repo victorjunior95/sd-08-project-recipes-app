@@ -8,15 +8,19 @@ import RecipeContext from '../context/RecipeContext';
 function Comidas() {
   const { isDrinkLoading, directRequestFood } = useContext(RecipeContext);
   useEffect(() => {
-    directRequestFood();
+    if (!document.referrer.includes('explorar')) {
+      directRequestFood();
+    }
   }, []);
 
   return (
-    <div>
+    <div className="comidas-body">
       <Header title="Comidas" />
+      <div className="recipes-background-color" />
       <CategoriasFood />
       {!isDrinkLoading ? (
         <div>
+          {console.log(document.referrer)}
           <RecipesList />
         </div>) : <p>Carregando</p>}
       <Footer />

@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import RecipeContext from '../../context/RecipeContext';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
-function ExplorarBebidasIngredientes() {
+function ExplorarBebidasIngredientes({ history }) {
+  const {
+    setMeals, setIsDrinkLoading, setCameFromIngredients } = useContext(RecipeContext);
   const [ingredientes, setIngredientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const TWELVE_INGREDIENTS = 12;
@@ -19,27 +24,33 @@ function ExplorarBebidasIngredientes() {
     setLoading(false);
   };
 
-  // const redirectIngredientes = async (param) => {
-  //   console.log(param);
-  // };
+  const fetchAndRedirect = async ({ target }) => {
+    setIsDrinkLoading(true);
+    setCameFromIngredients(true);
+    const ingredientName = target.parentNode.firstChild.innerText;
+    console.log(ingredientName);
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredientName}`)
+      .then((response) => response.json())
+      .then((data) => setMeals(data.drinks))
+      .then(() => history.push('/bebidas'))
+      .then(() => {
+        setIsDrinkLoading(false);
+        setCameFromIngredients(true);
+      });
+  };
+
   useEffect(() => {
     fetchIngredients();
   }, []);
 
   return (
     <div>
+      <Header title="Explorar Ingredientes" search={ false } />
       {!loading && ingredientes.map((elem, index) => (
         <label
           htmlFor={ `${index}-checkbox` }
           key={ `${elem.idIngredient1}, ${index} ` }
         >
-          <input
-            name={ elem.idIngredient1 }
-            value={ elem.idIngredient1 }
-            type="checkbox"
-            id={ `${index}-checkbox` }
-            // onChange={ ({ target }) => console.log(target.parentNode.children[1].firstChild.innerText) }
-          />
           <div
             key={ `${elem.idIngredient1}, ${index} ` }
             data-testid={ `${index}-ingredient-card` }
@@ -47,10 +58,20 @@ function ExplorarBebidasIngredientes() {
             <h1 data-testid={ `${index}-card-name` }>
               {elem.strIngredient1}
             </h1>
-            <img data-testid={ `${index}-card-img` } src={ `https://www.thecocktaildb.com/images/ingredients/${elem.strIngredient1}-Small.png` } alt={ elem.strIngredient1 } />
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${elem.strIngredient1}-Small.png` }
+              alt={ elem.strIngredient1 }
+            />
           </div>
+          <input
+            type="checkbox"
+            id={ `${index}-checkbox` }
+            onChange={ fetchAndRedirect }
+          />
         </label>
       ))}
+      <Footer />
     </div>
   );
 }

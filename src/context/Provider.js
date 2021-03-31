@@ -15,6 +15,8 @@ function Provider({ children }) {
   const [copied, setCopied] = useState(false);
   const [verifyCheckbox, setVerifyCheckbox] = useState([false]);
   const [receitasFav, setReceitasFav] = useState([]);
+  const [cameFromIngredients, setCameFromIngredients] = useState(false);
+  const [filterByArea, setFilterByArea] = useState('All');
 
   const searchBarRequestFood = async (type, inputvalue) => {
     try {
@@ -134,6 +136,10 @@ function Provider({ children }) {
     setVerifyCheckbox,
     setReceitasFav,
     receitasFav,
+    cameFromIngredients,
+    setCameFromIngredients,
+    filterByArea,
+    setFilterByArea,
   };
 
   return (

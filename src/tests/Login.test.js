@@ -41,14 +41,14 @@ describe('Testes dos elemntos da tela de login', () => {
     expect(getByTestId(LOGIN_SUBMIT_BTN)).toHaveAttribute('disabled');
   });
 
-  it('O botão de entrar estar ativado se o email e a senha forem preenchidos e válidos', () => {
-    const { getByTestId } = renderWithRouter(<App />);
+  it('O botão de entrar estar ativado se o email e a senha forem preenchidos e válidos',
+    () => {
+      const { getByTestId } = renderWithRouter(<App />);
+      const emailInput = getByTestId(EMAIL_INPUT);
+      const passwordInput = getByTestId(PASSWORD_INPUT);
+      fireEvent.change(emailInput, { target: { value: 'email@mail.com' } });
+      fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
-    const emailInput = getByTestId(EMAIL_INPUT);
-    const passwordInput = getByTestId(PASSWORD_INPUT);
-    fireEvent.change(emailInput, { target: { value: 'email@mail.com' } });
-    fireEvent.change(passwordInput, { target: { value: '1234567' } });
-
-    expect(getByTestId(LOGIN_SUBMIT_BTN)).toHaveProperty('disabled', false);
-  });
+      expect(getByTestId(LOGIN_SUBMIT_BTN)).toHaveProperty('disabled', false);
+    });
 });

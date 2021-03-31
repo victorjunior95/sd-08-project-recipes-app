@@ -4,6 +4,25 @@ import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
 // import { saveState } from '../services/LocalStorage';
 
+function SaveProgressRecipes(idRecipe, route) {
+  // const recipe = Object.values(recipeDetails[0])[0][0];
+  let a = [];
+  a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  if (route === 'comidas') {
+    a.push({
+      idRecipe,
+      type: route,
+    });
+  }
+  if (route === 'bebidas') {
+    a.push({
+      idRecipe,
+      type: route,
+    });
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(a));
+}
+
 function DetailsButtons({ route, id, page }) {
   const {
     disableButton,
@@ -20,25 +39,6 @@ function DetailsButtons({ route, id, page }) {
       document.getElementById('start-recipe-btn').innerText = 'Iniciar Receita';
     }
   }, []);
-
-  function SaveProgressRecipes(idRecipe) {
-    // const recipe = Object.values(recipeDetails[0])[0][0];
-    let a = [];
-    a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    if (route === 'comidas') {
-      a.push({
-        idRecipe,
-        type: route,
-      });
-    }
-    if (route === 'bebidas') {
-      a.push({
-        idRecipe,
-        type: route,
-      });
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(a));
-  }
 
   function SaveFinishedRecipes(idRecipe) {
     const recipe = Object.values(recipeDetails[0])[0][0];
@@ -90,7 +90,7 @@ function DetailsButtons({ route, id, page }) {
             onClick={ () => {
               idsP.push(id);
               // localStorage.setItem('inProgressRecipes', JSON.stringify(idsP));
-              SaveProgressRecipes(id);
+              SaveProgressRecipes(id, route);
             } }
           >
             Continuar Receita

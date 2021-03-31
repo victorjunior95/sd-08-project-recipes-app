@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 // import FoodDetailsInfo from '../../components/FoodDetailsInfo';
 // import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
 import shareIcon from '../../images/shareIcon.svg';
+import './DoneRecipes.css';
 
 function DoneRecipes() {
   const [doneRecipesList, setDoneRecipesList] = useState([]);
@@ -27,8 +28,7 @@ function DoneRecipes() {
     setCopied(true);
   }
 
-  function filterDoneRecipes({ target : { innerText: name } }) {
-    console.log('valor do click', name);
+  function filterDoneRecipes({ target: { innerText: name } }) {
     if (name === 'All') {
       setFilteredDoneRecipes(doneRecipesList);
     }
@@ -47,9 +47,30 @@ function DoneRecipes() {
   return (
     <div>
       <Header name="Receitas Feitas" icon="false" />
-      <button type="button" data-testid="filter-by-all-btn" onClick={ (e) => filterDoneRecipes(e) }>All</button>
-      <button type="button" data-testid="filter-by-food-btn" onClick={ (e) => filterDoneRecipes(e) }>Food</button>
-      <button type="button" data-testid="filter-by-drink-btn" onClick={ (e) => filterDoneRecipes(e) }>Drinks</button>
+      <button
+        type="button"
+        className="filter-btn"
+        data-testid="filter-by-all-btn"
+        onClick={ (e) => filterDoneRecipes(e) }
+      >
+        All
+      </button>
+      <button
+        type="button"
+        className="filter-btn"
+        data-testid="filter-by-food-btn"
+        onClick={ (e) => filterDoneRecipes(e) }
+      >
+        Food
+      </button>
+      <button
+        type="button"
+        className="filter-btn"
+        data-testid="filter-by-drink-btn"
+        onClick={ (e) => filterDoneRecipes(e) }
+      >
+        Drinks
+      </button>
 
       { filteredDoneRecipes.length > 0 && filteredDoneRecipes
         .map((recipe, index) => (
@@ -64,7 +85,7 @@ function DoneRecipes() {
             >
               { recipe.category }
             </span>
-            <h2 data-testid={ `${index}-horizontal-name"` }>{ recipe.name }</h2>
+            <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
             <span
               data-testid={ `${index}-horizontal-done-date` }
             >
@@ -79,10 +100,10 @@ function DoneRecipes() {
               {copied && 'Link copiado!'}
             </button>
             { recipe.tags
-              .map((tag, idx) => (
+              .map((tag) => (
                 <span
                   key={ tag }
-                  data-testid={ `${idx}-${tag}-horizontal-tag` }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
                 />
               )) }
           </div>))}

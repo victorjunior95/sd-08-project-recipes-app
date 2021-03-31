@@ -2,31 +2,77 @@ import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
+// import { saveState } from '../services/LocalStorage';
+
+function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
+  const recipe = Object.values(recipeDetails[0])[0][0];
+  let a = [];
+  a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+  if (route === 'comidas') {
+    a.push({
+      idRecipe,
+      type: route,
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: '',
+      tags: '',
+    });
+  }
+  if (route === 'bebidas') {
+    a.push({
+      idRecipe,
+      type: route,
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: '',
+      tags: '',
+    });
+  }
+  localStorage.setItem('doneRecipes', JSON.stringify(a));
+  // saveState('doneRecipes', [...a]);
+}
 
 function DetailsButtons({ route, id, page }) {
-  const { disableButton, shouldRedirect, setShouldRedirect } = useContext(Context);
-  const ids = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  const {
+    disableButton,
+    shouldRedirect,
+    setShouldRedirect,
+    recipeDetails,
+  } = useContext(Context);
+  const idsP = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  const idsF = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   useEffect(() => {
-    if (!Object.values(ids).includes(id)
-      && (window.location.href.endsWith(`/${route}/${id}`)
-      || window.location.href.endsWith(`/${route}/${id}/`))) {
+    if (!Object.values(idsP).includes(id)
+    && window.location.href === `/${route}/${id}/`) {
       document.getElementById('start-recipe-btn').innerText = 'Iniciar Receita';
     }
   }, []);
 
-  function SaveProgressRecipes(data) {
+  function SaveProgressRecipes(idRecipe) {
+    // const recipe = Object.values(recipeDetails[0])[0][0];
     let a = [];
     a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    a.push(data);
+    if (route === 'comidas') {
+      a.push({
+        idRecipe,
+        type: route,
+      });
+    }
+    if (route === 'bebidas') {
+      a.push({
+        idRecipe,
+        type: route,
+      });
+    }
     localStorage.setItem('inProgressRecipes', JSON.stringify(a));
-  }
-
-  function SaveFinishedRecipes(data) {
-    let a = [];
-    a = JSON.parse(localStorage.getItem('finishedRecipes')) || [];
-    a.push(data);
-    localStorage.setItem('finishedRecipes', JSON.stringify(a));
   }
 
   if (shouldRedirect === id) return <Redirect to="/receitas-feitas" />;
@@ -42,8 +88,8 @@ function DetailsButtons({ route, id, page }) {
             style={ { display: 'none' } }
             id="start-recipe-btn"
             onClick={ () => {
-              ids.push(id);
-              localStorage.setItem('inProgressRecipes', JSON.stringify(ids));
+              idsP.push(id);
+              // localStorage.setItem('inProgressRecipes', JSON.stringify(idsP));
               SaveProgressRecipes(id);
             } }
           >
@@ -58,8 +104,9 @@ function DetailsButtons({ route, id, page }) {
             id="finish-recipe-btn"
             disabled={ disableButton }
             onClick={ () => {
-              localStorage.setItem('finishedRecipes', JSON.stringify(ids));
-              SaveFinishedRecipes(id);
+              idsF.push(id);
+              // localStorage.setItem('doneRecipes', JSON.stringify(idsF));
+              SaveFinishedRecipes(id, recipeDetails, route);
               setShouldRedirect(id);
             } }
           >

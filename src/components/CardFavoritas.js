@@ -63,35 +63,35 @@ function CardFavoritas({ objDetail, index }) {
             </p>
 
           </h3>
-          <div>
-
-            <CopyToClipboard
-              text={ `http://localhost:3000/${objDetail.type}s/${objDetail.id}` }
-              onCopy={ () => {
-                handleCopied();
-              } }
-            >
-
-              <input
-                className="share-btn"
-                type="image"
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-                alt={ objDetail.id }
-              />
-            </CopyToClipboard>
-            <LinkCopiado />
-            <input
-              className="favorite-btn"
-              onClick={ () => removeFavorite() }
-              type="image"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src={ blackHeartIcon }
-              alt="foto do item"
-            />
-          </div>
 
         </section>
+        <div>
+
+          <CopyToClipboard
+            text={ `http://localhost:3000/${objDetail.type}s/${objDetail.id}` }
+            onCopy={ () => {
+              handleCopied();
+            } }
+          >
+
+            <input
+              className="share-btn"
+              type="image"
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt={ objDetail.id }
+            />
+          </CopyToClipboard>
+          <LinkCopiado />
+          <input
+            className="favorite-btn"
+            onClick={ () => removeFavorite() }
+            type="image"
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ blackHeartIcon }
+            alt="foto do item"
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-// import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import components from '../components/index';
-import MainDrinksCard from '../components/MainDrinksCard';
+import MainCard from '../components/MainCard';
 import api from '../services';
 import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
 import RecipesContext from '../core/RecipesContext';
@@ -87,24 +87,24 @@ function Drinks() {
       <div className="home-container">
         {drinkData.length && !selectedDrink
           ? drinkData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
-            <MainDrinksCard
+            <MainCard
               key={ index }
-              dataDrinks={ curr }
+              data={ curr }
               index={ index }
               id={ curr.idDrink }
             />
           ))
 
           : dataDrinks.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((drink, index) => (
-            <MainDrinksCard
+            <MainCard
               key={ index }
-              dataDrinks={ drink }
+              data={ drink }
               index={ index }
               id={ drink.idDrink }
             />
           ))}
-        {/* { drinkData.length && !selectedDrink && drinkData.length === 1
-          ? <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } /> : null } */}
+        { drinkData.length && !selectedDrink && drinkData.length === 1
+          ? <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } /> : null }
         <components.Footer />
       </div>
     </div>

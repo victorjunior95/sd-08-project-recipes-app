@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import RecipesContext from '../core/RecipesContext';
 import components from '../components/index';
 
 import api from '../services/index';
 import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
-import MainFoodsCard from '../components/MainFoodsCard';
+import MainCard from '../components/MainCard';
 //  import loading from '../assets/oval.svg';
 // <img className="loading-img" src={ loading } alt="loading icon" />
 
@@ -85,23 +85,23 @@ function Home() {
       <div className="home-container">
         {mealData.length && !selected && mealData.length !== 1
           ? mealData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
-            <MainFoodsCard
+            <MainCard
               key={ index }
-              dataFoods={ curr }
+              data={ curr }
               index={ index }
-              id={ curr }
+              id={ curr.idMeal }
             />
           ))
           : dataFoods.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((food, index) => (
-            <MainFoodsCard
+            <MainCard
               key={ index }
-              dataFoods={ food }
+              data={ food }
               index={ index }
               id={ food.idMeal }
             />
           ))}
-        {/* { mealData.length && !selected && mealData.length === 1
-          ? <Redirect to={ `/comidas/${mealData[0].idMeal}` } /> : null } */}
+        { mealData.length && !selected && mealData.length === 1
+          ? <Redirect to={ `/comidas/${mealData[0].idMeal}` } /> : null }
         <components.Footer />
       </div>
     </div>

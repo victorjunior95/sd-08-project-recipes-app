@@ -2,12 +2,13 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function MainFoodsCard(props) {
-  const { dataFoods, index, id } = props;
-  const { strMeal, strMealThumb } = dataFoods;
+function MainCard(props) {
+  const { data, index, id } = props;
+  const { strMeal, strMealThumb, strDrink, strDrinkThumb } = data;
   const location = useLocation();
+  const path = `${location.pathname}/${id}`;
   return (
-    <Link to={ `${location.pathname}/${id}` }>
+    <Link to={ path }>
       <div
         src="strMealThumb"
         data-testid={ `${index}-recipe-card` }
@@ -16,17 +17,17 @@ function MainFoodsCard(props) {
         <img
           data-testid={ `${index}-card-img` }
           className="img"
-          src={ strMealThumb }
-          alt={ strMeal }
+          src={ strMealThumb || strDrinkThumb }
+          alt={ strMeal || strDrink }
         />
-        <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+        <p data-testid={ `${index}-card-name` }>{strMeal || strDrink}</p>
       </div>
     </Link>
   );
 }
-MainFoodsCard.propTypes = {
-  dataFoods: PropTypes.objectOf(PropTypes.string).isRequired,
+MainCard.propTypes = {
+  data: PropTypes.objectOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
 };
-export default MainFoodsCard;
+export default MainCard;

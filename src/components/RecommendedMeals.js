@@ -26,9 +26,15 @@ function RecommendedMeals() {
         recommended.map((meal, index) => {
           if (index <= MAX_LENGTH) {
             return (
-              <h1 data-testid={ `${index}-recomendation-card` } key={ index }>
-                {meal.strMeal}
-              </h1>
+              <li
+                data-testid={ `${index}-recomendation-card` }
+                key={ index }
+                className="recommended"
+              >
+                <h1 data-testid={ `${index}-recomendation-title` }>
+                  {meal.strMeal}
+                </h1>
+              </li>
             );
           }
           return '';

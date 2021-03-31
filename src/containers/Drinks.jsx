@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, useLocation } from 'react-router';
 import components from '../components/index';
 import MainCard from '../components/MainCard';
 import api from '../services';
@@ -17,6 +17,7 @@ function Drinks() {
   const [dataDrinksCategories, setDataDrinksCategories] = useState([]);
   const [drinkCategorySelected, setDrinkCategorySelected] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState(false);
+  const location = useLocation();
 
   function handleClick({ target }) {
     setDrinkCategorySelected(target.value);
@@ -88,6 +89,7 @@ function Drinks() {
         {drinkData.length && !selectedDrink
           ? drinkData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
             <MainCard
+              path={ `${location.pathname}/${curr.idDrink}` }
               key={ index }
               data={ curr }
               index={ index }
@@ -97,6 +99,7 @@ function Drinks() {
 
           : dataDrinks.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((drink, index) => (
             <MainCard
+              path={ `${location.pathname}/${drink.idDrink}` }
               key={ index }
               data={ drink }
               index={ index }

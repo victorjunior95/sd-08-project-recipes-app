@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function MainCard(props) {
-  const { data, index, id } = props;
+  const { data, index, path } = props;
   const { strMeal, strMealThumb, strDrink, strDrinkThumb } = data;
-  const location = useLocation();
-  const path = `${location.pathname}/${id}`;
   return (
     <Link to={ path }>
       <div
-        src="strMealThumb"
         data-testid={ `${index}-recipe-card` }
         className="MainCard"
       >
@@ -28,6 +25,6 @@ function MainCard(props) {
 MainCard.propTypes = {
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
 };
 export default MainCard;

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import RecipesContext from '../core/RecipesContext';
 import components from '../components/index';
 
@@ -16,7 +16,7 @@ function Home() {
   const [dataFoodsCategories, setDataFoodCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
   const [selected, setSelected] = useState(false);
-
+  const location = useLocation();
   function handleClick({ target }) {
     setCategorySelected(target.value);
     if (categorySelected !== target.value && categorySelected.length > 0) {
@@ -86,6 +86,7 @@ function Home() {
         {mealData.length && !selected && mealData.length !== 1
           ? mealData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
             <MainCard
+              path={ `${location.pathname}/${curr.idMeal}` }
               key={ index }
               data={ curr }
               index={ index }
@@ -94,6 +95,7 @@ function Home() {
           ))
           : dataFoods.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((food, index) => (
             <MainCard
+              path={ `${location.pathname}/${food.idMeal}` }
               key={ index }
               data={ food }
               index={ index }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import CardCarousel from '../components/CardCarousel';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import CardCarousel from '../components/CardCarousel';
 import api from '../services/index';
+import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -102,7 +102,6 @@ const FoodDetails = () => {
     // });
 
   const inProgessRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
   return (
     <div style={ { padding: 10 } }>
       {loading

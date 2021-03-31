@@ -6,7 +6,11 @@ import { getMealRecipesDetails } from '../services/getAPIs';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getRecipeById } from '../localStorage/recipeProgressStorage';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import {
+  saveRecipeFavorites,
+  getRecipeFavoriteById,
+} from '../localStorage/recipeFavorite';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './DetailsMeal.css';
 
 function DetailsMeal() {
@@ -16,13 +20,18 @@ function DetailsMeal() {
   const [mealDetail, setMealDetail] = useState([]);
   const [startRecipeBtnVisible, setStartRecipeBtnVisible] = useState(true);
   const [continueRecipe, setContinueRecipe] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [copyLink, setCopyLink] = useState(false);
 
-  const isContinue = useCallback(() => {
-    if (getRecipeById('meals', Params.id)) {
-      setContinueRecipe(true);
-    }
-  }, [Params.id]);
+  const isFavorite = useCallback(
+    () => getRecipeFavoriteById(Params.id) && setFavoriteRecipe(true),
+    [Params.id],
+  );
+
+  const isContinue = useCallback(
+    () => getRecipeById('meals', Params.id) && setContinueRecipe(true),
+    [Params.id],
+  );
 
   useEffect(() => {
     async function fetchDetails() {
@@ -31,10 +40,14 @@ function DetailsMeal() {
       JSON.parse(localStorage.doneRecipes).filter(
         (item) => item.id === Params.id && setStartRecipeBtnVisible(false),
       );
+      JSON.parse(localStorage.favoriteRecipes).filter(
+        (item) => item.id === Params.id && setFavoriteRecipe(true),
+      );
     }
+    isFavorite();
     isContinue();
     fetchDetails();
-  }, [Params.id, isContinue]);
+  }, [Params.id, isContinue, isFavorite]);
 
   const sizeOfLength = 2;
   const startOfSlice = 0;
@@ -51,7 +64,6 @@ function DetailsMeal() {
     setCopyLink(true);
     Copy(`http://localhost:3000/comidas/${Params.id}`);
   };
-
   return (
     <div>
       <div className="container-card-meal-details">
@@ -128,10 +140,17 @@ function DetailsMeal() {
         >
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
         </button>
-        <button type="button" variant="danger">
+        <button
+          onClick={ () => {
+            saveRecipeFavorites(mealDetail);
+            setFavoriteRecipe(!favoriteRecipe);
+          } }
+          type="button"
+          variant="danger"
+        >
           <img
             data-testid="favorite-btn"
-            src={ whiteHeartIcon }
+            src={ favoriteRecipe ? blackHeartIcon : whiteHeartIcon }
             alt="favorite-icon"
           />
         </button>

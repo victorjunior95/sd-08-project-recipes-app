@@ -5,7 +5,10 @@ import { getDrinkRecipesDetails, getMealByName } from '../services/getAPIs';
 import { LoginAndFoodContext } from '../context/ContextFood';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getRecipeById } from '../localStorage/recipeProgressStorage';
+import { saveRecipeFavorites,
+  getRecipeFavoriteById } from '../localStorage/recipeFavorite';
 import './DetailsDrink.css';
 
 function DetailsDrink() {
@@ -14,14 +17,19 @@ function DetailsDrink() {
   const Params = useParams();
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [continueRecipe, setContinueRecipe] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [startRecipeBtnVisible, setStartRecipeBtnVisible] = useState(true);
   const [copyLink, setCopyLink] = useState(false);
 
-  const isContinue = useCallback(() => {
-    if (getRecipeById('cocktails', Params.id)) {
-      setContinueRecipe(true);
-    }
-  }, [Params.id]);
+  const isFavorite = useCallback(
+    () => getRecipeFavoriteById(Params.id) && setFavoriteRecipe(true),
+    [Params.id],
+  );
+
+  const isContinue = useCallback(
+    () => getRecipeById('cocktails', Params.id) && setContinueRecipe(true),
+    [Params.id],
+  );
 
   useEffect(() => {
     async function fetchDetails() {
@@ -32,9 +40,10 @@ function DetailsDrink() {
       );
     }
     isContinue();
+    isFavorite();
     getMealByName('');
     fetchDetails();
-  }, [Params.id, isContinue]);
+  }, [Params.id, isContinue, isFavorite]);
 
   const sizeOfLength = 2;
   const startOfSlice = 0;
@@ -128,10 +137,17 @@ function DetailsDrink() {
         >
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
         </button>
-        <button type="button" variant="danger">
+        <button
+          onClick={ () => {
+            saveRecipeFavorites(drinkDetail);
+            setFavoriteRecipe(!favoriteRecipe);
+          } }
+          type="button"
+          variant="danger"
+        >
           <img
             data-testid="favorite-btn"
-            src={ whiteHeartIcon }
+            src={ favoriteRecipe ? blackHeartIcon : whiteHeartIcon }
             alt="favorite-icon"
           />
         </button>

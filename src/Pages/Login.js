@@ -26,14 +26,19 @@ function Login({ history }) {
   return (
     <div className="login-body">
       <div className="login-content">
+        <div className="title">
+          <h1>  `Nome do app`  </h1>
+        </div>
         <input
           type="text"
+          placeholder="Email"
           data-testid="email-input"
           value={ email }
           onChange={ (e) => setEmail(e.target.value) }
         />
         <input
           type="password"
+          placeholder="Senha"
           data-testid="password-input"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }

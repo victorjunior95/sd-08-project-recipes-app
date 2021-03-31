@@ -12,15 +12,17 @@
 .explorar-body .options.food {
   background-image: url('../images/comidas.jpg');
   background-size: cover;
+  border-bottom: 2px white solid;
 }
 
 .explorar-body .options.drink {
   background-image: url('../images/bebidas.jpeg');
   background-size: cover;
+  border-top: 2px white solid;
 }
 
 .explorar-body .options .button {
-  background: rgba(2, 2, 2, 0.61);
+  background: rgba(2, 2, 2, 0.795);
   border: white 4px solid;
   color: white;
   font-size: 30px;

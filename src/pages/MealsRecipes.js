@@ -4,7 +4,7 @@ import { Redirect, useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchMealThunk from '../redux/actions/fetchMealAction';
-import clearRecipesAction from '../redux/actions/clearRecipesAction';
+import { clearRecipesAction } from '../redux/actions/clearRecipesAction';
 import clearSearchAction from '../redux/actions/clearSearchAction';
 import MealCatsButtons from '../components/MealCatsButton';
 import fetchRecipesMealCatsThunk from '../redux/actions/fetchMealCatRecipesAction';

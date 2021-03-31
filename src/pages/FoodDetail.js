@@ -6,6 +6,7 @@ import fetchDrinkActionId from '../redux/actions/fetchDrink';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import Recomendation from '../components/Recomendation';
+import { clearSingleRecipe } from '../redux/actions/clearRecipesAction';
 import IngredientList from '../components/IngredientList';
 
 function FoodDetail() {
@@ -16,15 +17,13 @@ function FoodDetail() {
   const recipes = useSelector((state) => state.recipes.singleRecipe);
 
   useEffect(() => {
-    let fetchData = '';
-    if (arrayRecipes === 'comidas') {
-      fetchData = (id) => dispatch(fetchMealActionId(id));
-    }
-    if (arrayRecipes === 'bebidas') {
-      fetchData = (id) => dispatch(fetchDrinkActionId(id));
-    }
-    fetchData(arrayId);
+    const fetchMeal = (id) => dispatch(fetchMealActionId(id));
+    const fetchDrink = (id) => dispatch(fetchDrinkActionId(id));
+    if (arrayRecipes === 'comidas' && recipes.length === 0) fetchMeal(arrayId);
+    if (arrayRecipes === 'bebidas' && recipes.length === 0) fetchDrink(arrayId);
   }, []);
+
+  useEffect(() => () => dispatch(clearSingleRecipe()), []);
 
   const recipe = recipes && recipes[0];
 

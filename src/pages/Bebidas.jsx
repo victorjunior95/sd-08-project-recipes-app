@@ -21,7 +21,6 @@ function Bebidas() {
     setToggle,
     toggle,
     showDefault,
-    setsShowDefault,
   } = useContext(ContextReceitas);
 
   const [clickInfo, setClickInfo] = useState('Primeira Vez');

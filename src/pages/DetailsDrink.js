@@ -20,7 +20,6 @@ function DetailsDrink() {
   const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [startRecipeBtnVisible, setStartRecipeBtnVisible] = useState(true);
   const [copyLink, setCopyLink] = useState(false);
-
   const isFavorite = useCallback(
     () => getRecipeFavoriteById(Params.id) && setFavoriteRecipe(true),
     [Params.id],

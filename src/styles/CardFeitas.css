@@ -57,13 +57,14 @@
   padding: 2px 10px;
 }
 
+/*
 .done-card-body .share-btn {
   position: absolute;
   right: 10px;
   top: 10px;
-}
+} */
 
-.done-card-body .copied-link {
+/* .done-card-body .copied-link {
   background: rgb(226, 226, 226);
   font-size: 15px;
   padding-bottom: 20px;
@@ -71,7 +72,7 @@
   right: 5px;
   top: 5px;
   z-index: 999;
-}
+} */
 
 .done-card-body .finish-date {
   bottom: 0;

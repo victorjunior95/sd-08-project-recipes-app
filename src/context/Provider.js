@@ -24,6 +24,7 @@ function Provider({ children }) {
   const [renderButtonComparison, setRenderButtonComparison] = useState(false);
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [checkedStatus, setCheckedStatus] = useState(false);
   const contextValue = {
     userEmail,
     setEmail,
@@ -63,6 +64,8 @@ function Provider({ children }) {
     setCopied,
     favorite,
     setFavorite,
+    checkedStatus,
+    setCheckedStatus,
   };
 
   useEffect(async () => {

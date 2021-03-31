@@ -97,13 +97,6 @@ function Bebida() {
       <button
         type="button"
         onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
-        // onClick={ () => {
-        //   if (favorite) {
-        //     setFavorite(false);
-        //   } else {
-        //     setFavorite(true);
-        //   }
-        // } }
       >
         <img
           data-testid="favorite-btn"

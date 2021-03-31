@@ -97,7 +97,7 @@ function ComidasEmProgresso() {
         />
       </button>
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
-      <IngredientesEmProcesso />
+      <IngredientesEmProcesso id={ id } type="meal" />
       <p data-testid="instructions">{recipe.strInstructions}</p>
       {renderButton()}
     </div>

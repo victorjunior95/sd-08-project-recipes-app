@@ -11,7 +11,7 @@ import verifyInFavorite from '../services/verifyInFavorite';
 import verifyStorage from '../services/verifyStorage';
 import IngredientesEmProcesso from '../components/IngredientesEmProcesso';
 
-function Bebida() {
+function BebidasEmProgresso() {
   const history = useHistory();
   const id = history.location.pathname.split('/')[2];
 
@@ -90,13 +90,6 @@ function Bebida() {
       <button
         type="button"
         onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
-        // onClick={ () => {
-        //   if (favorite) {
-        //     setFavorite(false);
-        //   } else {
-        //     setFavorite(true);
-        //   }
-        // } }
       >
         <img
           data-testid="favorite-btn"
@@ -112,4 +105,4 @@ function Bebida() {
   );
 }
 
-export default Bebida;
+export default BebidasEmProgresso;

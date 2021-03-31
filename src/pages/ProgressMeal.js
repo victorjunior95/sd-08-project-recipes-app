@@ -96,7 +96,6 @@ function ProgressMeal() {
 
   return (
     <div>
-
       {renderMeal()}
     </div>
   );

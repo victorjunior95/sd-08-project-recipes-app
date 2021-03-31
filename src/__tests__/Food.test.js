@@ -30,4 +30,9 @@ describe('Test Page Food', () => {
     const { header } = setup();
     expect(header).toBeInTheDocument();
   });
+  it('shou title tobe Comidas', () => {
+    const { title } = setup();
+
+    expect(title.innerHTML).toMatch(/comidas/gi);
+  });
 });

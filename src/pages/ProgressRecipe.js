@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as InProgressRecipesActions } from '../store/ducks/inProgressRecipes';
+import { Creators as FavoriteRecipesActions } from '../store/ducks/favoriteRecipes';
 import * as mealApi from '../services/mealApi';
 import * as cocktailApi from '../services/cocktailApi';
 
@@ -30,10 +30,11 @@ function getMeasures(recipe) {
   return measureList;
 }
 
-const ProgressRecipe = ({ isMeal }) => {
-  // console.log(rest);
+const ProgressRecipe = ({ isMeal, addRecipe }) => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     async function getRecipe() {
@@ -61,22 +62,25 @@ const ProgressRecipe = ({ isMeal }) => {
 
       <div className={ styles.progressRecipe }>
         <RecipeHeader
-          handleFavorite={ recipe.strMeal ? () => {} : () => {} }
+          handleFavorite={ () => addRecipe(recipe) }
           title={ recipe.strMeal || recipe.strDrink }
           category={ recipe.strCategory }
-          id={ recipe.strMeal || recipe.strDrink }
+          id={ recipe.idMeal || recipe.idDrink }
         />
 
         <RecipeIngredientsWithStep
           ingredients={ getIngredients(recipe) }
           measures={ getMeasures(recipe) }
           id={ recipe.idMeal || recipe.idDrink }
+          setIsButtonDisabled={ setIsButtonDisabled }
         />
 
         <RecipeInstructions instructions={ recipe.strInstructions } />
 
         <PrimaryButton
           data-testid="finish-recipe-btn"
+          disabled={ isButtonDisabled }
+          onClick={ () => history.push('/receitas-feitas') }
         >
           Finalizar Receita
         </PrimaryButton>
@@ -86,17 +90,11 @@ const ProgressRecipe = ({ isMeal }) => {
 };
 
 ProgressRecipe.propTypes = {
-  // meals: PropTypes.objectOf(PropTypes.object).isRequired,
-  // cocktails: PropTypes.objectOf(PropTypes.object).isRequired,
+  addRecipe: PropTypes.func.isRequired,
   isMeal: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ inProgressRecipes }) => ({
-  meals: inProgressRecipes.meals,
-  cocktails: inProgressRecipes.cocktails,
-});
-
 const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(InProgressRecipesActions, dispatch));
+  bindActionCreators(FavoriteRecipesActions, dispatch));
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProgressRecipe);
+export default connect(null, mapDispatchToProps)(ProgressRecipe);

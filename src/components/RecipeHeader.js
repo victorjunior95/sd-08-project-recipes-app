@@ -23,7 +23,7 @@ const RecipeHeader = ({ title, category, handleFavorite,
   });
 
   function handleShowCopiedAlert() {
-    copy(window.location.href);
+    copy(window.location.href.replace('/in-progress', ''));
     copiedLink.current.style.display = 'block';
     setTimeout(() => {
       copiedLink.current.style.display = 'none';

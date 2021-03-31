@@ -9,7 +9,7 @@ const Card = ({ name, thumbnail, index, category, recommendation, ...rest }) => 
   >
     <img
       data-testid={ `${index}-card-img` }
-      src={ `${thumbnail}/preview` }
+      src={ `${thumbnail}` }
       alt={ name }
     />
     <div className={ styles.cardBody }>

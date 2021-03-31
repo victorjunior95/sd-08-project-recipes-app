@@ -1,18 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as storage from '../services/storage';
 
-import styles from '../styles/components/RenderIngredientsWithStep.module.css';
+import styles from '../styles/components/RecipeIngredientsWithStep.module.css';
 
-const RenderIngredients = ({ ingredients, measures, id }) => {
+const RecipeIngredients = ({ ingredients, measures, id, setIsButtonDisabled }) => {
   const form = useRef();
-  const [checkedIngredients, setCheckedIngredients] = useState([]);
-
-  useEffect(() => {
-    const recipeIngredients = (JSON.parse(storage.getInProgress()) || [])[id];
-    console.log('inside useeffect', recipeIngredients);
-    setCheckedIngredients(recipeIngredients || []);
-  }, []);
+  const [checkedIngredients, setCheckedIngredients] = useState(() => (
+    (JSON.parse(storage.getInProgress()) || [])[id] || []
+  ));
 
   function handleChange() {
     const inputs = form.current.querySelectorAll('[type="checkbox"');
@@ -21,7 +17,12 @@ const RenderIngredients = ({ ingredients, measures, id }) => {
       .map((input) => (input.parentElement.textContent));
     storage.saveInProgressRecipe({ id, ingredients: formatedIngredients });
     setCheckedIngredients(formatedIngredients);
+    setIsButtonDisabled(inputs.length !== formatedIngredients.length);
   }
+
+  useEffect(() => {
+    handleChange();
+  }, []);
 
   return (
     <div className={ styles.ingredientsContainer }>
@@ -31,7 +32,6 @@ const RenderIngredients = ({ ingredients, measures, id }) => {
         className={ styles.ingredients }
         onChange={ handleChange }
       >
-        { console.log(checkedIngredients)}
         {ingredients
           .map((ingredient, index) => (
             <label
@@ -54,10 +54,11 @@ const RenderIngredients = ({ ingredients, measures, id }) => {
   );
 };
 
-RenderIngredients.propTypes = {
+RecipeIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   measures: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setIsButtonDisabled: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
 
-export default RenderIngredients;
+export default RecipeIngredients;

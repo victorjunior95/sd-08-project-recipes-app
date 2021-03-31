@@ -35,7 +35,7 @@ function Header() {
   }
 
   return (
-    <div className="w-100 fixedHeader">
+    <div className="w-100 fixedHeader" name="header">
       <Navbar
         className="d-flex bg-warning justify-content-between align-items-center w-100"
       >

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 
 import RecipeContext from '../../context/RecipeContext';
 
@@ -72,5 +73,11 @@ function ExplorarComidasIngredientes({ history }) {
     </div>
   );
 }
+
+ExplorarComidasIngredientes.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default ExplorarComidasIngredientes;

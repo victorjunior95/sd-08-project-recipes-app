@@ -20,6 +20,13 @@
   width: 40%;
 }
 
+.fav-card-body .card-btn {
+  align-items: center;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
+
 .fav-card-body .card-content {
   align-items: space;
   display: flex;

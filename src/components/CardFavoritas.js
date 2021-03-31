@@ -65,7 +65,7 @@ function CardFavoritas({ objDetail, index }) {
           </h3>
 
         </section>
-        <div>
+        <div className="card-btn">
 
           <CopyToClipboard
             text={ `http://localhost:3000/${objDetail.type}s/${objDetail.id}` }

@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import HeaderWithSearch from '../components/HeaderWithSearch';
 import Context from '../context/Context';
 import Loading from '../components/Loading';
+import MealsButtonsFilter from '../components/MealsButtonsFilter';
 
 function Comidas() {
   const { isLoading } = useContext(Context);
@@ -15,6 +16,7 @@ function Comidas() {
           ? <Loading />
           : ''
       }
+      <MealsButtonsFilter />
       <RecipesList />
       <Footer />
     </div>

@@ -50,6 +50,7 @@ function Perfil() {
         type="button"
         data-testid="profile-logout-btn"
         onClick={ () => {
+          // window.localStorage.clear();
           localStorage.clear();
           history.push('/');
         } }

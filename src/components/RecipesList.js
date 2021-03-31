@@ -3,6 +3,7 @@ import {
   requestRecipesList,
   requestRecipesByIngredient,
   requestRecipesByNameOrFirstLetter,
+  requestMealsByCategorie,
 } from '../services/apiRequests';
 import RecipesCard from './RecipesCard';
 import Context from '../context/Context';
@@ -22,6 +23,9 @@ function RecipesList() {
         setAllMeals(meals);
       } else if (searchFilter === 'primeira-letra') {
         const meals = await requestRecipesByNameOrFirstLetter('f', value);
+        setAllMeals(meals);
+      } else if (searchFilter === 'categorie') {
+        const meals = await requestMealsByCategorie(value);
         setAllMeals(meals);
       } else {
         const meals = await requestRecipesByNameOrFirstLetter('s', value);

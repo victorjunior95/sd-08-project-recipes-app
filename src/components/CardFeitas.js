@@ -39,7 +39,7 @@ function CardFeitas({ objDetail, index }) {
 
   const render = () => (
     <div className="done-card-body">
-
+      <div className="bg" />
       <h1
         data-testid={ `${index}-horizontal-name` }
       >

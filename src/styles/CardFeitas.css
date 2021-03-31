@@ -1,7 +1,7 @@
 .done-card-body {
   align-items: center;
   backdrop-filter: blur(10px);
-  background-color: rgba(226, 226, 226, 0.479);
+  background: rgba(231, 231, 231, 0.6);
   border-radius: 10px;
   box-shadow: 2px 3px 10px;
   display: flex;

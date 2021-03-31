@@ -6,33 +6,6 @@ import Header from '../components/Header';
 import Loading from '../components/Loading';
 import RecipeCard from '../components/RecipeCard';
 
-// const areas = [
-//   { strArea: 'American' },
-//   { strArea: 'British' },
-//   { strArea: 'Canadian' },
-//   { strArea: 'Chinese' },
-//   { strArea: 'Dutch' },
-//   { strArea: 'Egyptian' },
-//   { strArea: 'French' },
-//   { strArea: 'Greek' },
-//   { strArea: 'Indian' },
-//   { strArea: 'Irish' },
-//   { strArea: 'Italian' },
-//   { strArea: 'Jamaican' },
-//   { strArea: 'Japanese' },
-//   { strArea: 'Kenyan' },
-//   { strArea: 'Malaysian' },
-//   { strArea: 'Mexican' },
-//   { strArea: 'Moroccan' },
-//   { strArea: 'Russian' },
-//   { strArea: 'Spanish' },
-//   { strArea: 'Thai' },
-//   { strArea: 'Tunisian' },
-//   { strArea: 'Turkish' },
-//   { strArea: 'Unknown' },
-//   { strArea: 'Vietnamese' },
-// ];
-
 function ExploreOrigin() {
   const { list = [], isFetching, areas } = useSelector((state) => state.recipes);
   const { mealsToken } = useSelector((state) => state.login);
@@ -53,7 +26,6 @@ function ExploreOrigin() {
   return (
     <>
       <Header />
-      <h1>Explorar</h1>
       <select
         data-testid="explore-by-area-dropdown"
         onChange={ handleChange }

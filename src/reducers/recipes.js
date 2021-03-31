@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   done: doneRecipes,
   favorite: favoriteRecipes,
   byIngredient: '',
-  areas: [],
+  areas: {},
 };
 
 const MAX_RECIPES = 12;

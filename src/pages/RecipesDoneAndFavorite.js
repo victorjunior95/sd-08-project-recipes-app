@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ShareButton from '../components/ShareButton';
 import FavButton from '../components/FavButton';
+import Header from '../components/Header';
 
 function RecipesDoneAndFavorite({ location: { pathname } }) {
   const { done, favorite } = useSelector((state) => state.recipes);
@@ -23,6 +24,7 @@ function RecipesDoneAndFavorite({ location: { pathname } }) {
 
   return (
     <div>
+      <Header />
       <button
         type="button"
         data-testid="filter-by-all-btn"
@@ -47,6 +49,7 @@ function RecipesDoneAndFavorite({ location: { pathname } }) {
       {recipes.filter(({ type }) => type === filter || filter === 'todos')
         .map((recipe, index) => (
           <div key={ recipe.id }>
+            { console.log(recipe) }
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 src={ recipe.image }

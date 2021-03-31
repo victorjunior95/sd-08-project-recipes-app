@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipes, fetchRecommendations } from '../actions/recipes';
@@ -27,16 +27,24 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   const token = 1;
   const inProgress = pathname.split('/')[3] === 'in-progress';
   // const inProgress = pathname.split('/')[3] === 'in-progress';
-  const type = pathname.split('/')[1];
-  const recommendationsType = type === 'comidas' ? 'bebidas' : 'comidas';
+  const type = useRef(pathname.split('/')[1]);
+  console.log(type.current);
+  const recommendationsType = useRef(type.current === 'comidas' ? 'bebidas' : 'comidas');
 
   useEffect(() => {
     // console.log(recommendationsType);
-    dispatch(fetchRecipes(token, type,
+    setShouldFetch(true);
+    console.log('aqui', type.current);
+    dispatch(fetchRecipes(token, type.current,
       { request: 'lookup', key: 'i', parameter: params.id }));
-    dispatch(fetchRecommendations(token, recommendationsType));
+    dispatch(fetchRecommendations(token, recommendationsType.current));
     setShouldFetch(false);
   }, [params]);
+
+  useEffect(() => {
+    type.current = pathname.split('/')[1];
+    recommendationsType.current = type.current === 'comidas' ? 'bebidas' : 'comidas';
+  }, [pathname]);
 
   if (isFetching || shouldFetch) return <Loading />;
 
@@ -59,14 +67,14 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         alt={ recipe.name }
       />
       <h1 data-testid="recipe-title">{ recipe.name }</h1>
-      <ShareButton type={ type } id={ params.id } />
-      <FavButton type={ type } recipe={ recipe } />
+      <ShareButton type={ type.current } id={ params.id } />
+      <FavButton type={ type.current } recipe={ recipe } />
       <h2 data-testid="recipe-category">
         { `${recipe.alcoholicOrNot} ${recipe.category}` }
       </h2>
       <IngredientsList
         id={ params.id }
-        type={ type }
+        type={ type.current }
         ingredients={ IngredientsAndMeasures }
       />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
@@ -82,7 +90,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
             <div data-testid={ `${index}-recomendation-card` } key={ `rec-${index}` }>
               <RecipeCard
                 index={ index }
-                type={ recommendationsType }
+                type={ recommendationsType.current }
                 recipe={ recommendation }
                 recommendation
               />
@@ -90,7 +98,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         </div>)}
       <ProgressButton
         id={ params.id }
-        type={ type }
+        type={ type.current }
         ingredientsLength={ IngredientsAndMeasures.length }
       />
     </section>

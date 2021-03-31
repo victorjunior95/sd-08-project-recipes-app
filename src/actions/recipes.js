@@ -53,9 +53,13 @@ export const fetchRecipes = (token, type = 'comidas',
     const domains = { comidas: 'themealdb', bebidas: 'thecocktaildb' };
     let url = `https://www.${domains[type]}.com/api/json/v1/${token}/${request}.php?${key}=${parameter}`;
     if (!key) url = `https://www.${domains[type]}.com/api/json/v1/${token}/${request}.php`;
-    const data = await fetch(url);
-    const { [typeApi]: recipes } = await data.json();
-    dispatch(addRecipes(recipes.map((recipe) => formatedObject(recipe, type))));
+    try {
+      const data = await fetch(url);
+      const { [typeApi]: recipes } = await data.json();
+      dispatch(addRecipes(recipes.map((recipe) => formatedObject(recipe, type))));
+    } catch (error) {
+      dispatch(addRecipes([]));
+    }
   }
 );
 

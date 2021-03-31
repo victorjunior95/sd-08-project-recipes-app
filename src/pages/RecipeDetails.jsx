@@ -42,7 +42,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   }, [params]);
 
   useEffect(() => {
-    type.current = pathname.split('/')[1];
+    [_, type.current] = pathname.split('/');
     recommendationsType.current = type.current === 'comidas' ? 'bebidas' : 'comidas';
   }, [pathname]);
 

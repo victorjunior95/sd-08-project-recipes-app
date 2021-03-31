@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useHistory } from 'react-router';
 import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
 import CategoryButton from '../components/CategoryButton';
@@ -14,8 +15,27 @@ function Main({ location: { pathname } }) {
     list, isFetching, categories, byIngredient,
   } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
+  const history = useHistory();
   const type = pathname.slice(1);
   const token = 1;
+
+  const renderRecipes = () => {
+    if (list.length === 0) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return;
+    }
+    if (list.length === 1) {
+      history.push(`${pathname}/${list[0].id}`);
+      return;
+    }
+    return list.map((recipe, index) => (
+      <RecipeCard
+        type={ type }
+        index={ index }
+        recipe={ recipe }
+        key={ `recipe-${index}` }
+      />));
+  };
 
   useEffect(() => {
     const reqType = { request: 'filter', key: 'i', parameter: byIngredient };
@@ -35,13 +55,7 @@ function Main({ location: { pathname } }) {
         .map((category) => (
           <CategoryButton name={ category } key={ `btn-${category}` } type={ type } />))}
       <CategoryButton name="All" type={ type } />
-      { isFetching ? <Loading /> : list.map((recipe, index) => (
-        <RecipeCard
-          type={ type }
-          index={ index }
-          recipe={ recipe }
-          key={ `recipe-${index}` }
-        />))}
+      { isFetching ? <Loading /> : renderRecipes() }
       <Footer />
     </>
   );

@@ -62,10 +62,9 @@ describe('Tests functionality and routes', () => {
     expect(buttonLogin).toBeDisabled();
   });
   test('should type email and password Button to UnDisabled', () => {
-    const { buttonLogin, emailInput, passwordInput, history } = setup();
+    const { buttonLogin, emailInput, passwordInput } = setup();
     fireEvent.change(emailInput, { target: { value: 'rafa@rafa.com' } });
     fireEvent.change(passwordInput, { target: { value: '1234567' } });
-    console.log(history.location);
     expect(buttonLogin).not.toBeDisabled();
   });
 

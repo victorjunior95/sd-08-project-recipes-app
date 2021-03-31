@@ -4,6 +4,7 @@ function useFoodDetailsHook() {
   const [id, setId] = useState();
   const [recipe, setRecipe] = useState({});
   const [ingredientsAndMeasuresList, setIngredientsAndMeasuresList] = useState([]);
+  const [isDone, setISDone] = useState(false);
 
   function createIngredientList(receita) {
     const ING_INDEX = 20;
@@ -13,11 +14,10 @@ function useFoodDetailsHook() {
       ingredientList = [...ingredientList, receita[`strIngredient${i}`]];
       quantitiesList = [...quantitiesList, receita[`strMeasure${i}`]];
     }
-    console.log('ingredientes comida', ingredientList);
-    console.log('quantidades comida', quantitiesList);
     const ingredientAndMeasure = quantitiesList
-      .filter((qua) => qua && qua !== '')
+      .filter((qua) => qua && qua !== ' ' && qua !== null)
       .map((mes, index) => `${mes} ${ingredientList[index]}`);
+    console.log('lista de ing: ', ingredientAndMeasure);
     return setIngredientsAndMeasuresList(ingredientAndMeasure);
   }
 
@@ -33,7 +33,24 @@ function useFoodDetailsHook() {
     }
     fetchRecipe(id);
   }, [id]);
-  console.log(recipe);
+
+  useEffect(() => {
+    function checkDoneRecipes() {
+      const localData = localStorage.getItem('doneRecipes');
+      const doneRecipesList = localData ? JSON.parse(localData) : [];
+      console.log('doneRecipes localStorage: ', localData);
+      if (doneRecipesList.length > 0) {
+        return doneRecipesList.find((each) => each.id === id);
+      }
+      return false;
+    }
+    const isItDone = checkDoneRecipes();
+    if (isItDone) {
+      setISDone(true);
+    } else {
+      setISDone(false);
+    }
+  }, [id]);
 
   const {
     strMealThumb,
@@ -52,6 +69,7 @@ function useFoodDetailsHook() {
     strInstructions,
     strYoutube,
     strArea,
+    isDone,
     ingredientsAndMeasuresList,
   ];
 }

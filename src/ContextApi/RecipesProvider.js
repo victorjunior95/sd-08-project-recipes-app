@@ -50,6 +50,8 @@ function RecipesProvider({ children }) {
     }
   }, [searchParam]);
 
+  console.log(recipes);
+
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
 
@@ -71,6 +73,8 @@ function RecipesProvider({ children }) {
       break;
     }
   }, [searchParam]);
+
+  console.log(cocktails);
 
   useEffect(() => {
     fetchCategories().then((data) => setCategories(data));

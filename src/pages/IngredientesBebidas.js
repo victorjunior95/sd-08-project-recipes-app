@@ -40,7 +40,7 @@ function IngredientesBebidas() {
     <>
       <HeaderP title="Explorar Ingredientes" />
       <main className="ingredients-main-container">
-        { ingredients && ingredients.length && (
+        { ingredients && (
           ingredients.drinks.slice(0, TWELVE_INGREDIENTS).map((ingredient, index) => (
             <button
               className="ingredient-card"

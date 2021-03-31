@@ -9,6 +9,7 @@ import { resultadoApiBebidas } from '../services/fetchBebidas';
 function ProviderReceitas({ children }) {
   const [deveriaRedirecionar, setDeveriaRedirecionar] = useState(false);
   const [toggle, setToggle] = useState(true);
+  const [showDefault, setShowDefault] = useState(true);
   const [logedIn, setLoged] = useState(0);
   const [bebidas, setBebidas] = useState();
   const [comidas, setComidas] = useState();
@@ -59,6 +60,8 @@ function ProviderReceitas({ children }) {
     setToggle,
     deveriaRedirecionar,
     setDeveriaRedirecionar,
+    showDefault,
+    setShowDefault,
   };
 
   useEffect(() => {

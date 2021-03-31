@@ -13,6 +13,7 @@ function ExplorarIngredientesBebidas() {
     mudarStatusBotaoPesquisa,
     // tituloDaPagina,
     setSearch,
+    setShowDefault,
   } = useContext(ContextReceitas);
   useEffect(() => {
     async function listaIngredientesAPI() {
@@ -29,6 +30,7 @@ function ExplorarIngredientesBebidas() {
     console.log(alt);
     history.push('/bebidas');
     setSearch({ type: 'i', search: alt });
+    setShowDefault(false);
   }
 
   return (

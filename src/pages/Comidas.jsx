@@ -48,9 +48,9 @@ function Comidas() {
   }
 
   function renderCards() {
-    if (comidas && toggle) {
+    if (comidas && toggle && apiResult === null) {
       return <CartaoReceitaComidas resultadoApi={ comidas } />;
-    } if (comidas && !toggle && listaDeCategoria !== undefined) {
+    } if (!toggle && listaDeCategoria !== undefined) {
       return <CartaoReceitaComidas resultadoApi={ listaDeCategoria } />;
     } if (apiResult !== null && apiResult.length > 1) {
       return <CartaoReceitaComidas resultadoApi={ apiResult } />;

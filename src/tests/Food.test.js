@@ -6,7 +6,6 @@ import Food from '../pages/Food';
 
 const ALL_CATEGORY_FILTER = 'All-category-filter';
 const PAGE_TITLE = 'page-title';
-// const LOGIN_SUBMIT_BTN = 'login-submit-btn';
 
 describe('Testes dos elemntos da tela de comidas', () => {
   it('existe um botão com todas as categorias', () => {
@@ -17,5 +16,6 @@ describe('Testes dos elemntos da tela de comidas', () => {
 
     expect(getByTestId(ALL_CATEGORY_FILTER)).toBeInTheDocument();
     expect(getByTestId(PAGE_TITLE)).toBeInTheDocument();
+    // expect(getByTestId(CONTAINER_HEADER_SEARCH)).toBeInTheDocument();
   });
 });

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import { byAddIngredient, fetchRecipes } from '../actions/recipes';
 
 function ExploreIngredients({ location: { pathname } }) {
@@ -31,7 +32,7 @@ function ExploreIngredients({ location: { pathname } }) {
   if (isFetching) return (<Loading />);
   return (
     <>
-      <h1>Explorar</h1>
+      <Header />
       { type === 'comidas'
         ? list.map(({ idIngredient, strIngredient }, index) => {
           const url = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`;

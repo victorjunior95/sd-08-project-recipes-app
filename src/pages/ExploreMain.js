@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import { fetchRecipes } from '../actions/recipes';
 
 function ExploreMain({ location: { pathname } }) {
@@ -42,7 +43,7 @@ function ExploreMain({ location: { pathname } }) {
 
   return (
     <>
-      <h1>{ `Explorar ${type}` }</h1>
+      <Header />
       <Link data-testid="explore-by-ingredient" to={ `${pathname}/ingredientes` }>
         Por Ingredientes
       </Link>

@@ -1,39 +1,40 @@
-// import React, { useState, useEffect } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import { NavLink } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
-// import { loadState } from '../services/LocalStorage';
+import { loadState } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 
 import '../styles/ReceitasFeitas.css';
 
 function ReceitasFeitas() {
-  // const [recipesCompleted, setRecipesCompleted] = useState('All');
+  const [recipesCompleted, setRecipesCompleted] = useState('All');
   // const [filterRecipesCompleted, setFilterRecipesCompleted] = useState([]);
 
-  // const updateRecipesCompleted = () => {
-  //   const loadDoneRecipes = loadState('doneRecipes', []);
-  //   switch (recipesCompleted) {
-  //   case 'All':
-  //     return loadDoneRecipes;
-  //   case 'Food':
-  //     return loadDoneRecipes.filter((recipe) => recipe.type === 'comida');
-  //   case 'Drinks':
-  //     return loadDoneRecipes.filter((recipe) => recipe.type === 'bebida');
-  //   default:
-  //     console.log('');
-  //   }
-  // };
+  const updateRecipesCompleted = () => {
+    const loadDoneRecipes = loadState('finishedRecipes', []);
+    switch (recipesCompleted) {
+    case 'All':
+      return loadDoneRecipes;
+    case 'Food':
+      return loadDoneRecipes.filter((recipes) => recipes.type === 'comida');
+    case 'Drinks':
+      return loadDoneRecipes.filter((recipes) => recipes.type === 'bebida');
+    default:
+      console.log('Selecione uma categoria');
+    }
+  };
+
+  // const urlRecipe = (type, id) => `http://localhost:3000/${type}s/${id}`;
+
+  const changeFilter = (value) => {
+    console.log(value);
+    if (value === recipesCompleted) setRecipesCompleted('All');
+    else setRecipesCompleted(value);
+  };
 
   // useEffect(() => {
   //   setFilterRecipesCompleted(updateRecipesCompleted());
   // }, [recipesCompleted]);
-
-  const changeFilter = (value) => {
-    console.log(value);
-    // if (value === recipesCompleted) setRecipesCompleted('All');
-    // else setRecipesCompleted(value);
-  };
 
   return (
     <div>
@@ -73,6 +74,7 @@ function ReceitasFeitas() {
       <p data-testid="0-horizontal-top-text">Top Text 0</p>
       <p data-testid="1-horizontal-top-text">Top Text 1</p>
       <p data-testid="0-horizontal-done-date">Done Date</p>
+      <p data-testid="1-horizontal-done-date">Done Date 1</p>
       <p data-testid="0-Curry-horizontal-tag">CurryTag</p>
       <p data-testid="0-Pasta-horizontal-tag">PastaTag</p>
       <div>

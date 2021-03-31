@@ -8,12 +8,17 @@ export default function Perfil() {
   const handleButton = (target) => {
     history.push(`/${target}`);
   };
-  const user = localStorage.getItem('user');
-  const username = JSON.parse(user);
+  const findEmail = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user === null) {
+      return null;
+    }
+    return user.email;
+  };
   return (
     <div>
       <Header pageTitle="Perfil" />
-      <div data-testid="profile-email">{ Object.values(username) }</div>
+      <div data-testid="profile-email">{ findEmail()}</div>
       <button
         className="g6-header-button"
         type="button"

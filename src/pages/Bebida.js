@@ -8,9 +8,11 @@ import requestById from '../services/requestById';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import '../styles/Bebida.css';
 import verifyInProgress from '../services/verifyInProgress';
 import verifyText from '../services/verifyText';
+import '../styles/Bebida.css';
+import verifyInFavorite from '../services/verifyInFavorite';
+import verifyStorage from '../services/verifyStorage';
 
 function Bebida() {
   const INICIO_CORTE = 9;
@@ -36,18 +38,12 @@ function Bebida() {
   }
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (storage && storage.length) {
-      storage.find((item) => {
-        if (item.id === id) {
-          setRenderButtonComparison(false);
-        }
-        return null;
-      });
-    } else {
-      setRenderButtonComparison(true);
-    }
+    setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
   }, [renderButtonComparison]);
+
+  useEffect(() => {
+    setFavorite(verifyStorage(id, 'favoriteRecipes'));
+  }, [favorite]);
 
   function iniciarReceita() {
     verifyInProgress(id, 'cocktails');
@@ -55,7 +51,7 @@ function Bebida() {
   }
 
   function renderButton() {
-    const textButton = verifyText(id);
+    const textButton = verifyText(id, 'cocktails');
 
     return (
       <button
@@ -67,6 +63,11 @@ function Bebida() {
         { textButton }
       </button>
     );
+  }
+
+  function favoriteRecipe(status) {
+    verifyInFavorite(recipe, 'Drink', status);
+    setFavorite(status);
   }
 
   useEffect(() => {
@@ -95,17 +96,18 @@ function Bebida() {
       </button>
       <button
         type="button"
-        onClick={ () => {
-          if (favorite) {
-            setFavorite(false);
-          } else {
-            setFavorite(true);
-          }
-        } }
+        onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
+        // onClick={ () => {
+        //   if (favorite) {
+        //     setFavorite(false);
+        //   } else {
+        //     setFavorite(true);
+        //   }
+        // } }
       >
         <img
           data-testid="favorite-btn"
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          src={ favorite ? whiteHeartIcon : blackHeartIcon }
           alt="favoriteIcon"
         />
       </button>

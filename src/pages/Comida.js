@@ -8,6 +8,10 @@ import requestById from '../services/requestById';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import verifyText from '../services/verifyText';
+import verifyInProgress from '../services/verifyInProgress';
+import verifyStorage from '../services/verifyStorage';
+import verifyInFavorite from '../services/verifyInFavorite';
 import '../styles/Comida.css';
 
 function Comida() {
@@ -28,18 +32,12 @@ function Comida() {
   } = useContext(MyContext);
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (storage && storage.length) {
-      storage.find((item) => {
-        if (item.id === id) {
-          setRenderButtonComparison(false);
-        }
-        return null;
-      });
-    } else {
-      setRenderButtonComparison(true);
-    }
+    setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
   }, [renderButtonComparison]);
+
+  useEffect(() => {
+    setFavorite(verifyStorage(id, 'favoriteRecipes'));
+  }, [favorite]);
 
   let urlVideo;
   if (recipe.strYoutube) {
@@ -53,29 +51,12 @@ function Comida() {
   }
 
   function iniciarReceita() {
-    const startRecipe = {
-      id: recipe.idMeal,
-      type: 'bebida',
-      area: recipe.strArea,
-      category: recipe.strCategory,
-      alcoholicOrNor: '',
-      name: recipe.strMeal,
-      image: recipe.strMealThumb,
-      doneDate: '',
-      tags: recipe.strTags,
-    };
-    let savedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!savedRecipes) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify([]));
-      savedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    }
-    localStorage.setItem('inProgressRecipes',
-      JSON.stringify(savedRecipes.concat(startRecipe)));
-    setRenderButtonComparison(false);
+    verifyInProgress(id, 'meals');
     history.push(`/comidas/${id}/in-progress`);
   }
 
   function renderButton() {
+    const textButton = verifyText(id, 'meals');
     return (
       <button
         className="iniciar-receita-btn"
@@ -83,9 +64,14 @@ function Comida() {
         data-testid="start-recipe-btn"
         onClick={ iniciarReceita }
       >
-        Iniciar Receita
+        { textButton }
       </button>
     );
+  }
+
+  function favoriteRecipe(status) {
+    verifyInFavorite(recipe, 'Meal', status);
+    setFavorite(status);
   }
 
   useEffect(() => {
@@ -113,17 +99,11 @@ function Comida() {
       </button>
       <button
         type="button"
-        onClick={ () => {
-          if (favorite) {
-            setFavorite(false);
-          } else {
-            setFavorite(true);
-          }
-        } }
+        onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
       >
         <img
           data-testid="favorite-btn"
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          src={ favorite ? whiteHeartIcon : blackHeartIcon }
           alt="favoriteIcon"
         />
       </button>

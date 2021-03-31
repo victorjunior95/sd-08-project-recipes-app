@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import '../styles/RecomendedCards.css';
 
@@ -50,5 +51,9 @@ function RecomendedCards({ title }) {
     </div>
   );
 }
+
+RecomendedCards.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default RecomendedCards;

@@ -1,24 +1,24 @@
 .exploreContainer {
-  background-color: rgb(255, 165, 0);
+  background-color: orange;
   display: flex;
   flex-direction: column;
-  width: 317px;
   margin-right: 110%;
   margin-top: 5%;
+  width: 317px;
 }
 
-.exploreContainer input[type=text] {
-  background-color: rgb(255, 165, 0);
-  border-color: rgb(255,0,0);
-  color: rgb(255, 0, 0);
+.exploreContainer input [ type = 'text' ] {
+  background-color: orange;
+  border-color: red;
+  color: red;
   outline: none;
   padding-left: 1rem;
   width: 150%;
 }
 
-.exploreContainer input[type=text]:focus {
-  background-color: rgba(255, 0, 0);
-  color:  rgb(255, 165, 0);  
+.exploreContainer input [ type = 'text' ]:focus {
+  background-color: red;
+  color: orange;
 }
 
 .exploreContainer label {
@@ -30,8 +30,8 @@
 }
 
 .exploreContainer label:hover {
-  background-color: rgba(255, 0, 0);
-  color:  rgb(255, 165, 0);  
+  background-color: red;
+  color: orange;
 }
 
 .exploreContainer input {
@@ -39,16 +39,15 @@
 }
 
 .exploreContainer button {
-  background-color: rgb(255, 165, 0);
-  color: rgb(255, 0, 0);
+  background-color: orange;
+  color: red;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 500;
   transition: 1s;
   width: 80%;
 }
 
 .exploreContainer button:hover {
-  background-color: rgb(255, 0, 0) !important;
-  color: rgb(255, 165, 0);
+  background-color: red;
+  color: orange;
 }
-

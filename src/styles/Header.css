@@ -1,9 +1,9 @@
 .headerContainer {
   align-items: center;
-  background-color: rgb(255, 165, 0);
-  color: rgb(255, 0, 0);
+  background-color: orange;
+  color: red;
   display: flex;
-  flex-wrap: nowrap;  
+  flex-wrap: nowrap;
   justify-content: center;
 }
 

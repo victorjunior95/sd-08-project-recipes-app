@@ -81,3 +81,26 @@ export async function requestMealsByAreaList(area) {
   const { meals } = response;
   return meals;
 }
+
+export async function requestMealsCategoriesList() {
+  const response = await ((await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')).json());
+  const { meals } = response;
+  return meals;
+}
+
+export async function requestMealsByCategorie(categorie) {
+  const response = await ((await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`)).json());
+  const { meals } = response;
+  return meals;
+}
+
+export async function requestDrinksCategoriesList() {
+  const response = await ((await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')).json());
+  const { drinks } = response;
+  return drinks;
+}
+export async function requestDrinksByCategorie(categorie) {
+  const response = await ((await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`)).json());
+  const { drinks } = response;
+  return drinks;
+}

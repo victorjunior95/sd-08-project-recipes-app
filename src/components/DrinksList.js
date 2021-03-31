@@ -4,6 +4,7 @@ import {
   requestDrinksList,
   requestDrinksByIngredient,
   requestDrinksByNameOrFirstLetter,
+  requestDrinksByCategorie,
 } from '../services/apiRequests';
 import Context from '../context/Context';
 
@@ -22,6 +23,9 @@ function DrinksList() {
         setAllDrinks(drinks);
       } else if (searchFilter === 'primeira-letra') {
         const drinks = await requestDrinksByNameOrFirstLetter('f', value);
+        setAllDrinks(drinks);
+      } else if (searchFilter === 'categorie') {
+        const drinks = await requestDrinksByCategorie(value);
         setAllDrinks(drinks);
       } else {
         const drinks = await requestDrinksByNameOrFirstLetter('s', value);

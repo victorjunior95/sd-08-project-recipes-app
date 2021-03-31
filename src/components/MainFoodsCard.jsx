@@ -1,28 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function MainFoodsCard(props) {
   const { dataFoods, index, id } = props;
   const { strMeal, strMealThumb } = dataFoods;
+  const location = useLocation();
   return (
-    <div src="strMealThumb" data-testid={ `${index}-recipe-card` } className="MainCard">
-      <Link to={ `/comidas/${id}` }>
+    <Link to={ `${location.pathname}/${id}` }>
+      <div
+        src="strMealThumb"
+        data-testid={ `${index}-recipe-card` }
+        className="MainCard"
+      >
         <img
           data-testid={ `${index}-card-img` }
           className="img"
           src={ strMealThumb }
           alt={ strMeal }
         />
-      </Link>
-      <Link to={ `/comidas/${id}` }>
-        <p
-          data-testid={ `${index}-card-name` }
-        >
-          {strMeal}
-        </p>
-      </Link>
-    </div>
+        <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+      </div>
+    </Link>
   );
 }
 MainFoodsCard.propTypes = {

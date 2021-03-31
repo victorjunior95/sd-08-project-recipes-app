@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import RecipesContext from '../core/RecipesContext';
 import components from '../components/index';
 
@@ -52,7 +52,9 @@ function Home() {
       <div className="main-foods-buttons-container">
         <button
           className="btn btn-primary"
-          style={ { marginTop: 5, marginBottom: 5, width: 106 } }
+          style={ { marginTop: 5,
+            marginBottom: 5,
+            width: 106 } }
           onClick={ () => {
             setCategorySelected([]);
             setSelected(false);
@@ -66,7 +68,9 @@ function Home() {
           ({ strCategory }, index) => (
             <button
               className="btn btn-primary"
-              style={ { marginTop: 5, marginBottom: 5, width: 106 } }
+              style={ { marginTop: 5,
+                marginBottom: 5,
+                width: 106 } }
               onClick={ handleClick }
               value={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
@@ -96,8 +100,8 @@ function Home() {
               id={ food.idMeal }
             />
           ))}
-        { mealData.length && !selected && mealData.length === 1
-          ? <Redirect to={ `/comidas/${mealData[0].idMeal}` } /> : null }
+        {/* { mealData.length && !selected && mealData.length === 1
+          ? <Redirect to={ `/comidas/${mealData[0].idMeal}` } /> : null } */}
         <components.Footer />
       </div>
     </div>

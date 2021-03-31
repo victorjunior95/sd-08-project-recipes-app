@@ -71,3 +71,17 @@ export const requestIngredientsMeals = async () => {
   const data = await response.json();
   return data.meals.slice(0, TAG_ARRAY_LENGTH_TWELVE);
 };
+
+export const requestAreasMeals = async () => {
+  const path = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals;
+};
+
+export const requestFoodsByArea = async (area) => {
+  const path = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const response = await fetch(path);
+  const data = await response.json();
+  return data.meals;
+};

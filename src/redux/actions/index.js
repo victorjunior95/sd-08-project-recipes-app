@@ -13,6 +13,7 @@ import {
   requestMainFoods,
   requestCategoriesMeals,
   requestFoodByCategory,
+  requestFoodsByArea,
 } from '../../services/requestFoodsAPI';
 
 // ACTION DE LOGIN
@@ -185,5 +186,12 @@ export const actionThunkIngredientsDrinks = (ingredient) => async (dispatch) => 
   dispatch(actionIsLoading(true));
   const filterByIngredient = await requestDrinkByIngredient(ingredient);
   dispatch(actionFilterByIngredientsDrinks(filterByIngredient));
+  dispatch(actionIsLoading(false));
+};
+
+export const actionThunkAreaFoods = (area) => async (dispatch) => {
+  dispatch(actionIsLoading(true));
+  const areaFoods = await requestFoodsByArea(area);
+  dispatch(actionMainFoods(areaFoods));
   dispatch(actionIsLoading(false));
 };

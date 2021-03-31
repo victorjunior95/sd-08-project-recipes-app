@@ -44,7 +44,7 @@ function ExplorarBebidasIngredientes({ history }) {
   }, []);
 
   return (
-    <div>
+    <div className="explore-big">
       <Header title="Explorar Ingredientes" search={ false } />
       {!loading && ingredientes.map((elem, index) => (
         <label

@@ -24,7 +24,7 @@ function Comidas() {
         <div>
           {console.log(document.referrer)}
           <RecipesList />
-        </div>) : <p>Carregando</p>}
+        </div>) : <div className="loading" />}
       <Footer />
     </div>
   );

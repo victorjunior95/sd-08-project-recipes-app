@@ -1,12 +1,60 @@
-.header {
-  background-color: rgba(255, 255, 0, 0.582);
+.comidas-body .header, .bebidas-body .header, .explore .header {
+  background-color: rgb(255, 255, 102);
   display: flex;
   flex-direction: column;
 }
 
-.header-content {
+.comidas-body .header-content, .bebidas-body .header-content, .explore .header-content {
   align-items: center;
   display: flex;
   justify-content: space-between;
   padding: 5px 20px;
+}
+
+.explore-big .header {
+  background-color: rgb(255, 255, 102);
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-big .header-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 0 25px 10px;
+}
+
+.explore-big .header h1 {
+  background: none;
+  color: rgb(44, 44, 44);
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+  font-weight: 900;
+  margin: 0 10px 0 0;
+  text-align: center;
+}
+
+.done-recipes-body .header {
+  background-color: rgb(236, 83, 83);
+  display: flex;
+  flex-direction: column;
+}
+
+.done-recipes-body .header-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0 15px 10px;
+}
+
+.done-recipes-body .header h1 {
+  background: none;
+  color: rgb(44, 44, 44);
+  display: flex;
+  flex-direction: column;
+  font-size: 33px;
+  font-weight: 900;
+  margin: 0 10px 0 0;
+  text-align: end;
 }

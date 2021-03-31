@@ -35,7 +35,7 @@ function ExpComidasArea() {
   }, []);
 
   return (
-    <div className="comidas-body">
+    <div className="comidas-body explore-big">
       <Header title="Explorar Origem" />
       <select
         value={ filterByArea }

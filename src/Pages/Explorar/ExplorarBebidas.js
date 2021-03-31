@@ -14,7 +14,7 @@ function ExplorarBebidas({ history }) {
   };
 
   return (
-    <div>
+    <div className="explore-big">
       <Header title="Explorar Bebidas" search={ false } />
       <div>
         <Link to="/explorar/bebidas/ingredientes">

@@ -10,7 +10,7 @@
 
 
 .loading {
-  animation: loading 2s linear infinite;
+  animation: loading 1s linear infinite;
   border-left: 2px solid black;
   border-radius: 50%;
   height: 50px;
@@ -23,4 +23,9 @@
     transform: rotate(360deg);
   }
 
+}
+
+.comidas-body .loading {
+  margin: auto;
+  margin-top: 150px;
 }

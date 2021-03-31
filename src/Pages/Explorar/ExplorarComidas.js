@@ -13,7 +13,7 @@ function ExplorarComidas({ history }) {
   };
 
   return (
-    <div>
+    <div className="explore-big">
       <Header title="Explorar Comidas" search={ false } />
       <div>
         <Link to="/explorar/comidas/ingredientes">

@@ -7,7 +7,7 @@ import '../../styles/Explorar.css';
 
 function Explorar() {
   return (
-    <div>
+    <div className="explore">
       <Header title="Explorar" search={ false } />
       <div className="explorar-body">
         <Link to="/explorar/comidas">

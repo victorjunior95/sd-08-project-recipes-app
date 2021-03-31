@@ -12,15 +12,11 @@ function Cocktails() {
   const cocktailsRecipes = cocktails.drinks;
   const cardMaximun = 12;
 
-  const isCockatailsNull = () => {
-    if (isNull(cocktails)) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-  };
-
+  if (isNull(cocktailsRecipes)) {
+    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
   return (
-    <>
-      { isCockatailsNull }
+    <div>
       <Header title="Bebidas" search="" />
       <DrinkCategoryButton />
       { cocktailsRecipes
@@ -29,7 +25,7 @@ function Cocktails() {
            && <CocktailCard key={ i } order={ i } recipes={ recipe } />
         ))}
       <Footer />
-    </>
+    </div>
   );
 }
 

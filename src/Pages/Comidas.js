@@ -6,9 +6,11 @@ import RecipesList from '../components/RecipesList';
 import RecipeContext from '../context/RecipeContext';
 
 function Comidas() {
-  const { isDrinkLoading, directRequestFood } = useContext(RecipeContext);
+  const {
+    directRequestFood, isDrinkLoading, cameFromIngredients } = useContext(RecipeContext);
+
   useEffect(() => {
-    if (!document.referrer.includes('explorar')) {
+    if (!cameFromIngredients) {
       directRequestFood();
     }
   }, []);

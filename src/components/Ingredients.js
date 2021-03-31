@@ -4,7 +4,7 @@ import Context from '../context/Context';
 import '../styles/Ingredients.css';
 
 function Ingredients({ page, id }) {
-  const { recipeDetails } = useContext(Context);
+  const { recipeDetails, setDisableButton } = useContext(Context);
 
   const details = Object.values(recipeDetails[0])[0];
   const recipe = Object.values(recipeDetails[0])[0][0];
@@ -30,6 +30,10 @@ function Ingredients({ page, id }) {
     console.log(saveCheck);
     localStorage.setItem('usedIngredients', JSON.stringify(saveCheck));
     // https://www.sitepoint.com/quick-tip-persist-checkbox-checked-state-after-page-reload/
+
+    if (checks.every((item) => item.checked === true)) {
+      setDisableButton(false);
+    }
   }
 
   return (

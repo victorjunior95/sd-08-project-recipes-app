@@ -5,7 +5,7 @@ import Context from '../context/Context';
 
 function Recommended({ recipeType }) {
   const { recommendations } = useContext(Context);
-  const SIX = 6;
+  const SIX_RECOMMENDATIONS = 6;
 
   return (
     <section>
@@ -13,7 +13,7 @@ function Recommended({ recipeType }) {
       <Carousel>
         { recipeType === 'Drink' ? (
           recommendations[0].meals && recommendations[0].meals.map((item, index) => (
-            index < SIX ? (
+            index < SIX_RECOMMENDATIONS ? (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img
                   className="d-block w-100"
@@ -33,7 +33,7 @@ function Recommended({ recipeType }) {
             ) : null))
         ) : (
           recommendations[0].drinks && recommendations[0].drinks.map((item, index) => (
-            index < SIX ? (
+            index < SIX_RECOMMENDATIONS ? (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img
                   alt="Recipe thumbnail"

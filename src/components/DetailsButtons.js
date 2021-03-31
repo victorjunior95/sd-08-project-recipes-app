@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import Context from '../context/Context';
 
 function DetailsButtons({ route, id, page }) {
-  // https://stackoverflow.com/questions/16083919/push-json-objects-to-array-in-localstorage
+  const { disableButton, shouldRedirect, setShouldRedirect } = useContext(Context);
+  const ids = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+
+  useEffect(() => {
+    if (!Object.values(ids).includes(id)
+    && window.location.href === `/${route}/${id}/`) {
+      document.getElementById('start-recipe-btn').innerText = 'Iniciar Receita';
+    }
+  }, []);
+
   function SaveProgressRecipes(data) {
     let a = [];
     a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
@@ -18,6 +28,8 @@ function DetailsButtons({ route, id, page }) {
     localStorage.setItem('finishedRecipes', JSON.stringify(a));
   }
 
+  if (shouldRedirect === id) return <Redirect to="/receitas-feitas" />;
+
   return (
     <div>
       {
@@ -26,29 +38,35 @@ function DetailsButtons({ route, id, page }) {
             to={ `/${route}/${id}/in-progress` }
             className="last-btn"
             data-testid="start-recipe-btn"
-            id="start-recipe-btn"
             style={ { display: 'none' } }
+            id="start-recipe-btn"
             onClick={ () => {
+              ids.push(id);
+              localStorage.setItem('inProgressRecipes', JSON.stringify(ids));
               SaveProgressRecipes(id);
             } }
           >
-            { (id.includes(id))
-              ? 'Continuar Receita' : 'Iniciar Receita' }
+            Continuar Receita
+            {/* { (Object.values(ids).includes(id))
+              ? 'Continuar Receita'
+              : 'Iniciar Receita' } */}
           </Link>
-
         ) : (
-          <Link
+          <button
             to="/receitas-feitas"
             type="submit"
-            className="last-btn"
+            className={ disableButton ? 'last-btn disable' : 'last-btn' }
             data-testid="finish-recipe-btn"
+            id="finish-recipe-btn"
+            disabled={ disableButton }
             onClick={ () => {
+              localStorage.setItem('finishedRecipes', JSON.stringify(ids));
               SaveFinishedRecipes(id);
+              setShouldRedirect(id);
             } }
-            // disabled={ document.querySelectorAll('.checkbox').checked }
           >
             Finalizar Receita
-          </Link>
+          </button>
         )
       }
     </div>

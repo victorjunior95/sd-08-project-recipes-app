@@ -54,7 +54,9 @@ function handleFavorite(checkFavorite, setCheckFavorite, data) {
   }
 }
 
-function FoodInProgressCard({ data, img, meal, category, instructions, idMeal, idDrink }) {
+function FoodInProgressCard({
+  data, img, meal, category,
+  instructions, idMeal, idDrink }) {
   const values = ingredients(data);
   const history = useHistory();
   const [checkFavorite, setCheckFavorite] = useState(() => {

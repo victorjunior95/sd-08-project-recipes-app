@@ -9,19 +9,15 @@ import { byAddIngredient, fetchRecipes } from '../actions/recipes';
 
 function ExploreIngredients({ location: { pathname } }) {
   const type = pathname.split('/')[2];
-  // const selectType = { comidas: 'meals', bebidas: 'drinks' };
-  // const type = selectType[select];
-  // const token = 1;
   const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
-
-  const { list, isFetching } = useSelector((state) => state.recipes);
+  const { list = [], isFetching } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
-
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
+    const reqType = { request: 'list', key: 'i', parameter: 'list' };
     const token = type === 'comidas' ? mealsToken : cocktailsToken;
-    dispatch(fetchRecipes(token, type, { request: 'list', key: 'i', parameter: 'list' }));
+    dispatch(fetchRecipes(token, type, reqType));
   }, []);
 
   const handleClick = (ingredient) => {

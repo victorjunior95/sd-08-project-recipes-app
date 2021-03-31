@@ -50,3 +50,20 @@
 .start-btn:hover {
   opacity: 1;
 }
+
+.share-btn, .favorite-btn {
+  background: none;
+  border: none;
+  outline: none;
+  transform: scale(1);
+  transition: all 0.2s ease;
+}
+
+.share-btn:focus, .favorite-btn:focus {
+  background: none;
+  outline: none;
+}
+
+.share-btn:hover, .favorite-btn:hover {
+  transform: scale(1.15);
+}

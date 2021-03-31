@@ -9,7 +9,8 @@ function DetailsButtons({ route, id, page }) {
 
   useEffect(() => {
     if (!Object.values(ids).includes(id)
-    && window.location.href === `/${route}/${id}/`) {
+      && (window.location.href.endsWith(`/${route}/${id}`)
+      || window.location.href.endsWith(`/${route}/${id}/`))) {
       document.getElementById('start-recipe-btn').innerText = 'Iniciar Receita';
     }
   }, []);
@@ -47,9 +48,6 @@ function DetailsButtons({ route, id, page }) {
             } }
           >
             Continuar Receita
-            {/* { (Object.values(ids).includes(id))
-              ? 'Continuar Receita'
-              : 'Iniciar Receita' } */}
           </Link>
         ) : (
           <button

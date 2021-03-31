@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import { NavLink } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
-import { loadState } from '../services/LocalStorage';
+// import { loadState } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 
 import '../styles/ReceitasFeitas.css';
@@ -10,19 +10,19 @@ function ReceitasFeitas() {
   const [recipesCompleted, setRecipesCompleted] = useState('All');
   // const [filterRecipesCompleted, setFilterRecipesCompleted] = useState([]);
 
-  const updateRecipesCompleted = () => {
-    const loadDoneRecipes = loadState('finishedRecipes', []);
-    switch (recipesCompleted) {
-    case 'All':
-      return loadDoneRecipes;
-    case 'Food':
-      return loadDoneRecipes.filter((recipes) => recipes.type === 'comida');
-    case 'Drinks':
-      return loadDoneRecipes.filter((recipes) => recipes.type === 'bebida');
-    default:
-      console.log('Selecione uma categoria');
-    }
-  };
+  // const updateRecipesCompleted = () => {
+  //   const loadDoneRecipes = loadState('finishedRecipes', []);
+  //   switch (recipesCompleted) {
+  //   case 'All':
+  //     return loadDoneRecipes;
+  //   case 'Food':
+  //     return loadDoneRecipes.filter((recipes) => recipes.type === 'comida');
+  //   case 'Drinks':
+  //     return loadDoneRecipes.filter((recipes) => recipes.type === 'bebida');
+  //   default:
+  //     console.log('Selecione uma categoria');
+  //   }
+  // };
 
   // const urlRecipe = (type, id) => `http://localhost:3000/${type}s/${id}`;
 

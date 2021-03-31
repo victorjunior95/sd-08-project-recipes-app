@@ -1,71 +1,72 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../renderWithRouter';
-import LoginForm from '../components/LoginForm';
+import RenderWithRouter from '../renderWithRouter';
+import ComponentPerfil from '../components/ComponentPerfil';
+import Perfil from '../pages/Perfil';
 
-describe('Teste o componente <LoginForm.js /.', () => {
-  const emailDeTeste = 'teste@gmail.com';
-  const emailTexto = 'Digite seu e-mail';
+const emailDefault = 'name@email.com';
+const emailDeTeste = 'teste@gmail.com';
+const stringFeitas = 'Receitas Feitas';
+const stringFavoritas = 'Receitas Favoritas';
+const stringSair = 'Sair';
 
-  it('Teste se a página contém as informações sobre o login', () => {
-    renderWithRouter(<LoginForm />);
+describe('Testando a Tela de Perfil', () => {
+  it('Testando se mostra o e-mail default se for direto pra /perfil', () => {
+    RenderWithRouter(<ComponentPerfil />);
 
-    const loginText = screen.getByText('Descubra as melhores receitas do mundo');
-    expect(loginText).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: emailDefault }))
+      .toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: emailDefault }).textContent)
+      .toBe(emailDefault);
   });
 
-  it('O input de email deve estar na tela', () => {
-    renderWithRouter(<LoginForm />);
+  it('Testando se a página contém o e-mail passado em Login', () => {
+    localStorage.setItem('user', JSON.stringify({ email: emailDeTeste }));
+    RenderWithRouter(<ComponentPerfil />);
 
-    const emailText = screen.getByPlaceholderText(emailTexto);
-    expect(emailText).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: emailDeTeste }))
+      .toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: emailDeTeste }).textContent)
+      .toBe(emailDeTeste);
   });
 
-  it('O input de senha deve estar na tela', () => {
-    renderWithRouter(<LoginForm />);
+  it('Testando se o botão Receitas Feitas existe e se vai pra /receitas-feitas', () => {
+    const { history } = RenderWithRouter(<ComponentPerfil />);
 
-    const senhaText = screen.getByPlaceholderText('Senha');
-    expect(senhaText).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: stringFeitas })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: stringFeitas }).textContent)
+      .toBe(stringFeitas);
+
+    userEvent.click(screen.getByRole('button', { name: stringFeitas }));
+    expect(history.location.pathname).toBe('/receitas-feitas');
   });
 
-  it('O botão Entrar deve estar desabilitado ao abrir a tela', () => {
-    renderWithRouter(<LoginForm />);
+  it('Se o botão Receitas Favoritas existe e se vai pra /receitas-favoritas', () => {
+    const { history } = RenderWithRouter(<ComponentPerfil />);
 
-    const botaoEntrar = screen.getByText('Entrar');
+    expect(screen.getByRole('button', { name: stringFavoritas })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: stringFavoritas }).textContent)
+      .toBe(stringFavoritas);
 
-    expect(botaoEntrar.disabled).toBe(true);
+    userEvent.click(screen.getByRole('button', { name: stringFavoritas }));
+    expect(history.location.pathname).toBe('/receitas-favoritas');
   });
 
-  it('O botão Entrar deve estar habilitado ao digitar email e senha', () => {
-    renderWithRouter(<LoginForm />);
+  it('Se o botão Sair existe e se volta pra Home ("/")', () => {
+    const { history } = RenderWithRouter(<ComponentPerfil />);
 
-    const emailText = screen.getByPlaceholderText(emailTexto);
-    const senhaText = screen.getByPlaceholderText('Senha');
-    const botaoEntrar = screen.getByText('Entrar');
+    expect(screen.getByRole('button', { name: stringSair })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: stringSair }).textContent)
+      .toBe(stringSair);
 
-    userEvent.type(emailText, emailDeTeste);
-    userEvent.type(senhaText, '1234567');
-
-    expect(botaoEntrar.disabled).toBe(false);
+    userEvent.click(screen.getByRole('button', { name: stringSair }));
+    expect(history.location.pathname).toBe('/');
   });
 
-  it(`Ao clicar no botão Entrar, verifica se as informaçẽos estão no localstore
-    e se muda para a página de comida`, () => {
-    const { history } = renderWithRouter(<LoginForm />);
+  it('Testando Perfil.js', () => {
+    const { history } = RenderWithRouter(<Perfil />);
 
-    const emailText = screen.getByPlaceholderText(emailTexto);
-    const senhaText = screen.getByPlaceholderText('Senha');
-    const botaoEntrar = screen.getByText('Entrar');
-
-    userEvent.type(emailText, emailDeTeste);
-    userEvent.type(senhaText, '1234567');
-    userEvent.click(botaoEntrar);
-
-    expect(localStorage.getItem('mealsToken')).toBe('1');
-    expect(localStorage.getItem('cocktailsToken')).toBe('1');
-    expect(JSON.parse(localStorage.getItem('user')))
-      .toStrictEqual({ email: emailDeTeste });
-    expect(history.location.pathname).toBe('/comidas');
+    expect(history.location.pathname).toBe('/');
   });
 });

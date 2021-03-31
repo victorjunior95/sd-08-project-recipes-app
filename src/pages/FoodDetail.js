@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import IngredientList from '../components/IngredientList';
+import ShareButton from '../components/ShareButton';
+import LikeButton from '../components/LikeButton';
 import Recomendation from '../components/Recomendation';
 import { clearSingleRecipe } from '../redux/actions/clearRecipesAction';
+import IngredientList from '../components/IngredientList';
 
 function FoodDetail() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function FoodDetail() {
 
   useEffect(() => () => dispatch(clearSingleRecipe()), []);
 
-  const recipe = recipes[0];
+  const recipe = recipes && recipes[0];
 
   const renderMeal = () => recipe !== undefined && (
     <div>
@@ -34,12 +34,8 @@ function FoodDetail() {
           ? <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />
           : <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="img" />
       }
-      <button type="button" data-testid="share-btn">
-        <img src={ shareIcon } alt="share icon" />
-      </button>
-      <button type="button" data-testid="favorite-btn">
-        <img src={ whiteHeartIcon } alt="favorite" />
-      </button>
+      <ShareButton recipeId={ recipe.idMeal } recipeType="comida" />
+      <LikeButton recipe={ recipe } />
       {
         arrayRecipes === 'comidas'
           ? <h1 data-testid="recipe-title">{recipe.strMeal}</h1>

@@ -22,6 +22,8 @@ function Provider({ children }) {
   const [apiReturnCategory, setApiReturnCategory] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
+  const [shouldRedirect, setShouldRedirect] = useState('');
 
   // async function requestApiData(endpoint) {
   //   const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -91,6 +93,10 @@ function Provider({ children }) {
     requestRandomRecipe,
     favorite,
     setFavorite,
+    disableButton,
+    setDisableButton,
+    shouldRedirect,
+    setShouldRedirect,
   };
 
   return (

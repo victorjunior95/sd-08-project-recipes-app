@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import Context from '../context/Context';
 
 function DetailsButtons({ route, id, page }) {
+  const { disableButton, shouldRedirect, setShouldRedirect } = useContext(Context);
   const ids = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  console.log(ids);
-  // const { ids, setaIds } = useContext(Context);
 
   useEffect(() => {
     if (!Object.values(ids).includes(id)
@@ -28,6 +28,8 @@ function DetailsButtons({ route, id, page }) {
     localStorage.setItem('finishedRecipes', JSON.stringify(a));
   }
 
+  if (shouldRedirect === id) return <Redirect to="/receitas-feitas" />;
+
   return (
     <div>
       {
@@ -49,21 +51,22 @@ function DetailsButtons({ route, id, page }) {
               ? 'Continuar Receita'
               : 'Iniciar Receita' } */}
           </Link>
-
         ) : (
-          <Link
+          <button
             to="/receitas-feitas"
             type="submit"
-            className="last-btn"
+            className={ disableButton ? 'last-btn disable' : 'last-btn' }
             data-testid="finish-recipe-btn"
+            id="finish-recipe-btn"
+            disabled={ disableButton }
             onClick={ () => {
               localStorage.setItem('finishedRecipes', JSON.stringify(ids));
               SaveFinishedRecipes(id);
+              setShouldRedirect(id);
             } }
-            // disabled={ document.querySelectorAll('.checkbox').checked }
           >
             Finalizar Receita
-          </Link>
+          </button>
         )
       }
     </div>

@@ -72,7 +72,7 @@
     ],
     "coverageReporters": [
       "json",
-      "lcovonly",
+      "lcov",
       "text",
       "clover"
     ]

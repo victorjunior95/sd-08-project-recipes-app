@@ -42,12 +42,12 @@ function CardFavoritas({ objDetail, index }) {
 
         <section>
           <Link to={ `/${objDetail.type}s/${objDetail.id}` }>
-            <h1
+            <p
               className="title"
               data-testid={ `${index}-horizontal-name` }
             >
               {objDetail.name}
-            </h1>
+            </p>
           </Link>
           <h3
             data-testid={ `${index}-horizontal-top-text` }

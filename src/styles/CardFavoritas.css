@@ -13,6 +13,13 @@
   position: relative;
 }
 
+.fav-card-body a {
+  align-items: center;
+  display: flex;
+  margin: 10px;
+  width: 40%;
+}
+
 .fav-card-body .card-content {
   align-items: space;
   display: flex;
@@ -26,6 +33,13 @@
   width: 50%;
 }
 
+.fav-card-body .card-content section a {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+}
+
 .fav-card-body:nth-child( odd ) .card-content {
   display: flex;
   flex-direction: row-reverse;
@@ -37,13 +51,6 @@
   width: 100%;
 }
 
-.fav-card-body a {
-  align-items: center;
-  display: flex;
-  margin: 10px;
-  width: 40%;
-}
-
 .fav-card-body p {
   font-size: 18px;
   margin-bottom: 8px;
@@ -53,7 +60,6 @@
   color: black;
   font-size: 30px;
   font-weight: 600;
-  width: 100%;
   z-index: 1000;
 }
 

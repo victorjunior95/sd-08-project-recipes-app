@@ -4,7 +4,7 @@ import InProgressCard from '../../components/Card/InProgressCard';
 import { getFoodFiltredById } from '../../services/api';
 
 function FoodInProgress(props) {
-  const { match: { path, params: { id } } } = props;
+  const { match: { url, params: { id } } } = props;
   const [filteredById, setFilteredById] = useState('');
   const [ingredientsAndMeasuresList, setIngredientsAndMeasuresList] = useState([]);
   const isEmpty = (obj) => Object.keys(obj).length === 0; // verifica se o objeto está vazio;
@@ -41,9 +41,8 @@ function FoodInProgress(props) {
     strMeal, strMealThumb, strInstructions } = filteredById;
   return (
     <div>
-      {console.log(filteredById)}
       {!isEmpty(filteredById) ? <InProgressCard
-        path={ path }
+        url={ url }
         id={ id }
         category={ strCategory }
         title={ strMeal }
@@ -52,6 +51,7 @@ function FoodInProgress(props) {
         // alcohol={ strAlcoholic }
         instructions={ strInstructions }
       /> : <h1>Carregando comida...</h1> }
+      {console.log(window.location.href)}
 
     </div>
   );
@@ -59,7 +59,7 @@ function FoodInProgress(props) {
 
 FoodInProgress.propTypes = {
   match: PropTypes.shape({
-    path: PropTypes.string,
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

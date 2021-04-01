@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 
-const InProgressCard = ({ path,
-  id, category, title, img, ingredients, alcohol, instructions }) => {
+const InProgressCard = (props) => {
+  const { url,
+    id, category, title, img, ingredients, alcohol, instructions } = props;
+  const history = useHistory();
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
 
   useEffect(() => {
-    if (path.includes('/bebidas/:id/in-progress')) {
+    if (url.includes('bebidas')) {
       setIsDrinkOrFood('Drink');
     } else { setIsDrinkOrFood('Food'); }
-  }, [path]);
+  }, [url]);
 
   const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
     if (instructions.split(/,|\. | ;/g).length !== index + 1) {
@@ -29,22 +33,22 @@ const InProgressCard = ({ path,
   });
 
   const ingredientsMapping = ingredients.map((ingredient, index) => {
-    if (ingredient !== '  ') {
-      return (
-        <div key={ `${index}-${ingredient}` }>
-          <input
-            id={ `id-${index}` }
-            type="checkbox"
-            data-testid="ingredient-step"
-            value={ ingredient }
-            // onChange={ ({ target }) => { console.log(target.checked); } }
-          />
-          <label htmlFor={ `id-${index}` }>
-            {ingredient}
-          </label>
-        </div>
-      );
+    if (ingredient === '  ') {
+      return ('');
     }
+    return (
+      <li data-testid={ `${index}-ingredient-step` } key={ `${index}-${ingredient}` }>
+        <input
+          id={ `${index}-ingredient-step` }
+          type="checkbox"
+          value={ ingredient }
+        />
+        <label htmlFor={ `${index}-ingredient-step` }>
+          {ingredient}
+        </label>
+      </li>
+    );
+    // return '';
   });
 
   const renderFood = () => (
@@ -75,8 +79,20 @@ const InProgressCard = ({ path,
       </ol>
       <div>
         <button type="button" data-testid="favorite-btn">Favoritar</button>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => copy(window.location.href) }
+        >
+          Compartilhar
+        </button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Finalizar
+        </button>
       </div>
     </div>);
 
@@ -109,21 +125,34 @@ const InProgressCard = ({ path,
       </ol>
       <div>
         <button type="button" data-testid="favorite-btn">Favoritar</button>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => copy(window.location.href) }
+        >
+          Compartilhar
+        </button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Finalizar
+        </button>
       </div>
     </div>);
 
   return (
     <main>
       {isDrinkOrFood === 'Drink' ? renderDrink() : renderFood()}
-      {console.log(ingredients)}
+      {console.log(props)}
+
     </main>
   );
 };
 
 InProgressCard.propTypes = {
-  path: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

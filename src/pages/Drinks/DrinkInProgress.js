@@ -4,7 +4,7 @@ import InProgressCard from '../../components/Card/InProgressCard';
 import { getDrinkFiltredById } from '../../services/api';
 
 function DrinkInProgress(props) {
-  const { match: { path, params: { id } } } = props;
+  const { match: { url, params: { id } } } = props;
   const [filteredById, setFilteredById] = useState('');
   const [ingredientsAndMeasuresList, setIngredientsAndMeasuresList] = useState([]);
   const isEmpty = (obj) => Object.keys(obj).length === 0; // verifica se o objeto está vazio;
@@ -32,7 +32,6 @@ function DrinkInProgress(props) {
 
   useEffect(() => {
     if (!isEmpty(filteredById)) {
-      console.log('IS NOT EMPTY');
       createIngredientList(filteredById);
     }
   }, [filteredById]);
@@ -42,7 +41,7 @@ function DrinkInProgress(props) {
   return (
     <div>
       {!isEmpty(filteredById) ? <InProgressCard
-        path={ path }
+        url={ url }
         id={ id }
         category={ strCategory }
         title={ strDrink }
@@ -58,7 +57,7 @@ function DrinkInProgress(props) {
 
 DrinkInProgress.propTypes = {
   match: PropTypes.shape({
-    path: PropTypes.string,
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

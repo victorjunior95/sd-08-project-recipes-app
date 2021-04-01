@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import useFavoritesHook from '../../pages/hooks/useFavoritesHook';
 
 const InProgressCard = (props) => {
   const { url,
@@ -10,6 +11,7 @@ const InProgressCard = (props) => {
   const history = useHistory();
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
   const [favorites, updateFavorites] = useFavoritesHook();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     function checkIsFavorite() {
@@ -156,7 +158,7 @@ const InProgressCard = (props) => {
   return (
     <main>
       {isDrinkOrFood === 'Drink' ? renderDrink() : renderFood()}
-      {console.log(props)}
+      {console.log(favorites)}
 
     </main>
   );

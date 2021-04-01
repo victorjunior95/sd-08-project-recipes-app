@@ -51,8 +51,6 @@ function FoodInProgress(props) {
         // alcohol={ strAlcoholic }
         instructions={ strInstructions }
       /> : <h1>Carregando comida...</h1> }
-      {console.log(window.location.href)}
-
     </div>
   );
 }

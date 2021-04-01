@@ -137,7 +137,13 @@ const InProgressCard = (props) => {
         Voilá!
       </ol>
       <div>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ () => console.log('favoritar') }
+        >
+          Favoritar
+        </button>
         <button
           type="button"
           data-testid="share-btn"

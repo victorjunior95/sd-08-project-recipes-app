@@ -25,11 +25,11 @@ function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
   const date = new Date();
   const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   const recipe = Object.values(recipeDetails[0])[0][0];
-  const tag = Array.isArray(recipe.strTags) ? recipe.strTags.split(',') : recipe.strTags;
+  // const tag = Array.isArray(recipe.strTags) ? recipe.strTags.split(',') : recipe.strTags;
 
   // código que passa nos testes mas não renderiza
-  // const tag = Array.isArray(recipe.strTags) ? (
-  //   recipe.strTags.split(',') || recipe.strTags) : null;
+  const tag = Array.isArray(recipe.strTags) ? (
+    recipe.strTags.split(',') || recipe.strTags) : '';
 
   // código que renderiza mas não passa nos testes
   // const tag = recipe.strTags ? recipe.strTags.split(',') : '';

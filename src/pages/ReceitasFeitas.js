@@ -20,9 +20,9 @@ function ReceitasFeitas() {
     case 'All':
       return loadDoneRecipes;
     case 'Food':
-      return loadDoneRecipes.filter((recipes) => recipes.type === 'comidas');
+      return loadDoneRecipes.filter((recipes) => recipes.type === 'comida');
     case 'Drinks':
-      return loadDoneRecipes.filter((recipes) => recipes.type === 'bebidas');
+      return loadDoneRecipes.filter((recipes) => recipes.type === 'bebida');
     default:
       console.log('Selecione uma categoria');
     }
@@ -82,7 +82,7 @@ function ReceitasFeitas() {
               key={ `${index}` }
             >
               <div>
-                <Link to={ `${recipe.type}/${recipe.idRecipe}` }>
+                <Link to={ `${recipe.type}s/${recipe.idRecipe}` }>
                   <img
                     className="recipe-horizontal-image"
                     src={ recipe.image }
@@ -108,7 +108,7 @@ function ReceitasFeitas() {
                   )
                 }
                 <div>
-                  <Link to={ `${recipe.type}/${recipe.idRecipe}` }>
+                  <Link to={ `${recipe.type}s/${recipe.idRecipe}` }>
                     <span
                       data-testid={ `${index}-horizontal-name` }
                     >
@@ -158,7 +158,7 @@ function ReceitasFeitas() {
                 }
               </div>
               <div>
-                <CopyToClipboard text={ `http://localhost:3000/${recipe.type}/${recipe.idRecipe}` }>
+                <CopyToClipboard text={ `http://localhost:3000/${recipe.type}s/${recipe.idRecipe}` }>
                   <button
                     onClick={ () => setCopyClipboard('visible') }
                     type="button"

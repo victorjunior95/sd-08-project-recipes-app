@@ -1,21 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 
 import DrinkCarousel from '../../components/carousel/DrinkCarousel';
+import RecipesContext from '../../ContextApi/RecipesContext';
 
 export default function FoodDetails({ match: { params } }) {
+  const { recipeDetails, setSearchParam } = useContext(RecipesContext);
   const [recipeById, setRecipeById] = useState();
   const { id } = params;
 
+  const storageRecipe = localStorage.getItem('RecipeInProgress') || [];
+
   useEffect(() => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((resp) => resp.json())
-      .then((data) => setRecipeById(data.meals[0]));
-  }, [id]);
+    setSearchParam({
+      selectedParam: 'food-details',
+      id,
+    });
+  }, [id, setSearchParam]);
+
+  useEffect(() => {
+    setRecipeById(recipeDetails);
+  }, [recipeDetails]);
 
   if (!recipeById) return <div>Loading...</div>;
+
+  // Vídeo da receita
 
   const ytVideo = () => (
     recipeById.strYoutube ? <iframe
@@ -28,11 +39,24 @@ export default function FoodDetails({ match: { params } }) {
       : ''
   );
 
+  // Acessando chaves ingredient e measure da receita
+
   const ingredients = Object.keys(recipeById)
-    .filter((item) => item.includes('strIngredient') && recipeById[item]);
+    .filter((item) => item.includes('strIngredient')
+    && recipeById[item])
+    .map((ingredient) => recipeById[ingredient]);
 
   const measures = Object.keys(recipeById)
-    .filter((item) => item.includes('strMeasure') && recipeById[item]);
+    .filter((item) => item.includes('strMeasure')
+    && recipeById[item])
+    .map((measure) => recipeById[measure]);
+
+  // Salvando receita no localStorage
+
+  function setLocalStorage() {
+    const recipe = JSON.stringify(recipeById);
+    localStorage.setItem('RecipeInProgress', recipe);
+  }
 
   return (
     <div style={ { width: '50%' } }>
@@ -55,12 +79,13 @@ export default function FoodDetails({ match: { params } }) {
         </b>
       </h5>
       <h2>Ingredientes</h2>
+      {console.log(recipeById)}
       <ul>
         {
           ingredients
             .map((item, index) => (
               <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                {`${recipeById[item]} - ${recipeById[measures[index]]}`}
+                {`${item} - ${measures[index]}`}
               </li>))
         }
       </ul>
@@ -71,11 +96,12 @@ export default function FoodDetails({ match: { params } }) {
       </section>
       <DrinkCarousel />
       <Link
+        style={ { position: 'fixed', bottom: '0px' } }
         data-testid="start-recipe-btn"
         to={ `/comidas/${id}/in-progress` }
-        style={ { position: 'fixed', bottom: '0px' } }
+        onClick={ setLocalStorage }
       >
-        Iniciar Receita
+        {storageRecipe.length > 0 ? 'Continuar Receita' : 'Iniciar Receita'}
       </Link>
     </div>
   );

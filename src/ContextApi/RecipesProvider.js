@@ -9,6 +9,7 @@ import fetchCocktailCategories from '../services/CocktailCategoriesApi';
 const searchParams = {
   selectedParam: '',
   inputSearch: '',
+  id: '',
 };
 
 function RecipesProvider({ children }) {
@@ -19,6 +20,7 @@ function RecipesProvider({ children }) {
   const [FoodCategories, setCategories] = useState([]);
   const [DrinkCategories, setDrinkCategories] = useState([]);
   const [searchParam, setSearchParam] = useState(searchParams);
+  const [recipeDetails, setRecipeDetails] = useState();
 
   const handleEmail = ({ target: { value } }) => {
     setEmail(value);
@@ -29,7 +31,7 @@ function RecipesProvider({ children }) {
   };
 
   useEffect(() => {
-    const { selectedParam, inputSearch } = searchParam;
+    const { selectedParam, inputSearch, id } = searchParam;
 
     switch (selectedParam) {
     case 'ingredient':
@@ -44,6 +46,10 @@ function RecipesProvider({ children }) {
       fetchFood(`search.php?f=${inputSearch}`)
         .then((response) => setRecipes(response));
       break;
+    case 'food-details':
+      fetchFood(`lookup.php?i=${id}`)
+        .then((response) => setRecipeDetails(response.meals[0]));
+      break;
     default:
       fetchFood('search.php?s=').then((response) => setRecipes(response));
       break;
@@ -51,7 +57,7 @@ function RecipesProvider({ children }) {
   }, [searchParam]);
 
   useEffect(() => {
-    const { selectedParam, inputSearch } = searchParam;
+    const { selectedParam, inputSearch, id } = searchParam;
 
     switch (selectedParam) {
     case 'ingredient':
@@ -65,6 +71,10 @@ function RecipesProvider({ children }) {
     case 'first-letter':
       fetchDrink(`search.php?f=${inputSearch}`)
         .then((response) => setCocktails(response));
+      break;
+    case 'drink-details':
+      fetchDrink(`lookup.php?i=${id}`)
+        .then((response) => setRecipeDetails(response.drinks[0]));
       break;
     default:
       fetchDrink('search.php?s=').then((response) => setCocktails(response));
@@ -93,6 +103,7 @@ function RecipesProvider({ children }) {
     setCocktails,
     FoodCategories,
     DrinkCategories,
+    recipeDetails,
   };
 
   return (

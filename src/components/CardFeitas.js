@@ -41,14 +41,6 @@ function CardFeitas({ objDetail, index }) {
   const render = () => (
     <div className="done-card-body">
       <div className="bg" />
-      <Link to={ `/${objDetail.type}s/${objDetail.id}` }>
-        <h1
-          data-testid={ `${index}-horizontal-name` }
-        >
-          {objDetail.name}
-        </h1>
-      </Link>
-
       <div className="card-content">
         <Link to={ `/${objDetail.type}s/${objDetail.id}` }>
           <img
@@ -59,6 +51,13 @@ function CardFeitas({ objDetail, index }) {
         </Link>
 
         <section>
+          <Link to={ `/${objDetail.type}s/${objDetail.id}` }>
+            <h1
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {objDetail.name}
+            </h1>
+          </Link>
           <h3
             data-testid={ `${index}-horizontal-top-text` }
           >
@@ -73,8 +72,11 @@ function CardFeitas({ objDetail, index }) {
             </p>
 
           </h3>
-
-          {gettingTags()}
+          <div>
+            {gettingTags()}
+          </div>
+        </section>
+        <div>
           <CopyToClipboard
             text={ `http://localhost:3000/${objDetail.type}s/${objDetail.id}` }
             onCopy={ () => {
@@ -96,7 +98,7 @@ function CardFeitas({ objDetail, index }) {
           >
             {objDetail.doneDate}
           </p>
-        </section>
+        </div>
       </div>
     </div>
   );

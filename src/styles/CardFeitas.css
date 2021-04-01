@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   margin: 20px;
-  padding: 20px;
+  padding: 30px 30px 30px 10px;
   position: relative;
 }
 
@@ -21,19 +21,15 @@
 }
 
 .done-card-body .card-content section {
-  padding-top: 12px;
-  text-align: start;
-}
-
-.done-card-body:nth-child( odd ) .card-content {
+  align-items: flex-end;
   display: flex;
-  flex-direction: row-reverse;
-  text-align: left;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
 }
 
-.done-card-body img {
-  border-radius: 6px;
-  width: 100%;
+.done-card-body:nth-child( odd ) .card-content section {
+  align-items: flex-start;
 }
 
 .done-card-body a {
@@ -41,19 +37,36 @@
   width: 40%;
 }
 
+.done-card-body .card-content section a {
+  margin: 0;
+  width: 100%;
+}
+
+.done-card-body:nth-child( odd ) .card-content {
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: start;
+}
+
+.done-card-body img {
+  border-radius: 6px;
+  width: 100%;
+}
+
 .done-card-body p {
-  font-size: 18px;
+  font-size: 15px;
   margin-bottom: 8px;
 }
 
 .done-card-body h1 {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 600;
   z-index: 1000;
 }
 
+
 .done-card-body h3 {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .done-card-body .tags {
@@ -65,22 +78,21 @@
   padding: 2px 10px;
 }
 
-/*
+
 .done-card-body .share-btn {
   position: absolute;
   right: 10px;
   top: 10px;
-} */
+ } 
 
-/* .done-card-body .copied-link {
-  background: rgb(226, 226, 226);
+.done-card-body .copied-link {
   font-size: 15px;
   padding-bottom: 20px;
   position: absolute;
-  right: 5px;
+  right: 50px;
   top: 5px;
   z-index: 999;
-} */
+}
 
 .done-card-body .finish-date {
   bottom: 0;

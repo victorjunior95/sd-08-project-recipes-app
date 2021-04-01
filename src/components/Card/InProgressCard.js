@@ -12,14 +12,14 @@ const InProgressCard = (props) => {
       console.log((instructions.split(/,|\. | ;/g)));
       return (
         <li key={ `instruction-${index}` }>
-          {`${string.charAt(1).toUpperCase()}${string.slice(2)}`}
+          {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
           {' '}
           ;
         </li>);
     }
     return (
       <li key={ `instruction-${index}` }>
-        {`${string.charAt(1).toUpperCase()}${string.slice(2)}`}
+        {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
         {' '}
       </li>);
   });

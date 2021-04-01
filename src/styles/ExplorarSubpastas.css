@@ -1,0 +1,69 @@
+.explore-big .btn-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 79vh;
+  justify-content: center;
+}
+
+.explore-big .btn-content a, .explore-big .btn-content button {
+  background: rgb(255, 255, 99);
+  border: 1px black solid;
+  color: black;
+  font-size: 24px;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: black 2px 3px 10px;
+  width: 90%;
+}
+
+.per-ingredients .list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px 20px 80px;
+  width: 100%;
+}
+
+.per-ingredients .list label {
+  align-items: center;
+  background: rgb(201, 201, 201);
+  border-radius: 10px;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  padding: 0 5px;
+  text-align: center;
+  width: 45%;
+}
+
+.per-ingredients .list label input {
+  display: none;
+}
+
+.explore-area {
+  background: url('../images/seta-select.png') no-repeat right rgb(231, 231, 231);
+  background-position: 95%;
+  background-size: 30px;
+  border: 1px solid #ccc;
+  height: 34px;
+  margin: auto;
+  margin-top: 10px;
+  overflow: hidden;
+  width: 90%;
+}
+
+.explore-area .dropdown-areas {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-size: 16px;
+  height: 34px;
+  line-height: 1;
+  padding: 5px;
+  width: 100%;
+}

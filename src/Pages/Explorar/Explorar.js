@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
 import '../../styles/Explorar.css';
+import '../../styles/ExplorarSubpastas.css';
 
 function Explorar() {
   return (

@@ -46,33 +46,37 @@ function ExplorarComidasIngredientes({ history }) {
   }, []);
 
   return (
-    <div>
+    <div className="explore-big per-ingredients">
       <Header title="Explorar Ingredientes" search={ false } />
-      {!loading && ingredientes.map((elem, index) => (
-        <label
-          htmlFor={ `${index}-checkbox` }
-          key={ `${elem.idIngredient}, ${index} ` }
-        >
-          <div
+      <div className="list">
+
+        {!loading && ingredientes.map((elem, index) => (
+          <label
+            htmlFor={ `${index}-checkbox` }
             key={ `${elem.idIngredient}, ${index} ` }
-            data-testid={ `${index}-ingredient-card` }
           >
-            <h3 data-testid={ `${index}-card-name` }>
-              {elem.strIngredient}
-            </h3>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.themealdb.com/images/ingredients/${elem.strIngredient}-Small.png` }
-              alt={ elem.strIngredient }
+            <div
+              key={ `${elem.idIngredient}, ${index} ` }
+              data-testid={ `${index}-ingredient-card` }
+            >
+              <h5 data-testid={ `${index}-card-name` }>
+                {elem.strIngredient}
+              </h5>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.themealdb.com/images/ingredients/${elem.strIngredient}-Small.png` }
+                alt={ elem.strIngredient }
+              />
+            </div>
+            <input
+              type="checkbox"
+              id={ `${index}-checkbox` }
+              onChange={ fetchAndRedirect }
             />
-          </div>
-          <input
-            type="checkbox"
-            id={ `${index}-checkbox` }
-            onChange={ fetchAndRedirect }
-          />
-        </label>
-      ))}
+          </label>
+        ))}
+      </div>
+
       <Footer />
     </div>
   );

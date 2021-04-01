@@ -37,18 +37,20 @@ function ExpComidasArea() {
   return (
     <div className="comidas-body explore-big">
       <Header title="Explorar Origem" />
-      <select
-        value={ filterByArea }
-        data-testid="explore-by-area-dropdown"
-        className="dropdown-areas"
-        // onChange={ ({ target }) => setFilterByArea(target.value) }
-        onChange={ filterByAreas }
-      >
-        <option data-testid="All-option">All</option>
-        {areas.map(({ strArea }, i) => (
-          <option key={ i } data-testid={ `${strArea}-option` }>{strArea}</option>
-        ))}
-      </select>
+      <div className="explore-area">
+        <select
+          value={ filterByArea }
+          data-testid="explore-by-area-dropdown"
+          className="dropdown-areas"
+          // onChange={ ({ target }) => setFilterByArea(target.value) }
+          onChange={ filterByAreas }
+        >
+          <option data-testid="All-option">All</option>
+          {areas.map(({ strArea }, i) => (
+            <option key={ i } data-testid={ `${strArea}-option` }>{strArea}</option>
+          ))}
+        </select>
+      </div>
       <RecipesList />
       <Footer />
     </div>

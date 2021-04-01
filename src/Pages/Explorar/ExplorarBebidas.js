@@ -16,7 +16,7 @@ function ExplorarBebidas({ history }) {
   return (
     <div className="explore-big">
       <Header title="Explorar Bebidas" search={ false } />
-      <div>
+      <div className="btn-content">
         <Link to="/explorar/bebidas/ingredientes">
           <span data-testid="explore-by-ingredient">
             Por Ingredientes

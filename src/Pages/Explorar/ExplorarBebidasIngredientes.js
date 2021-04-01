@@ -44,33 +44,37 @@ function ExplorarBebidasIngredientes({ history }) {
   }, []);
 
   return (
-    <div className="explore-big">
+    <div className="explore-big per-ingredients">
       <Header title="Explorar Ingredientes" search={ false } />
-      {!loading && ingredientes.map((elem, index) => (
-        <label
-          htmlFor={ `${index}-checkbox` }
-          key={ `${elem.idIngredient1}, ${index} ` }
-        >
-          <div
+      <div className="list">
+
+        {!loading && ingredientes.map((elem, index) => (
+          <label
+            htmlFor={ `${index}-checkbox` }
             key={ `${elem.idIngredient1}, ${index} ` }
-            data-testid={ `${index}-ingredient-card` }
           >
-            <h1 data-testid={ `${index}-card-name` }>
-              {elem.strIngredient1}
-            </h1>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.thecocktaildb.com/images/ingredients/${elem.strIngredient1}-Small.png` }
-              alt={ elem.strIngredient1 }
+            <div
+              key={ `${elem.idIngredient1}, ${index} ` }
+              data-testid={ `${index}-ingredient-card` }
+            >
+              <h5 data-testid={ `${index}-card-name` }>
+                {elem.strIngredient1}
+              </h5>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${elem.strIngredient1}-Small.png` }
+                alt={ elem.strIngredient1 }
+              />
+            </div>
+            <input
+              type="checkbox"
+              id={ `${index}-checkbox` }
+              onChange={ fetchAndRedirect }
             />
-          </div>
-          <input
-            type="checkbox"
-            id={ `${index}-checkbox` }
-            onChange={ fetchAndRedirect }
-          />
-        </label>
-      ))}
+          </label>
+        ))}
+      </div>
+
       <Footer />
     </div>
   );

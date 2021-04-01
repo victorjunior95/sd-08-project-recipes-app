@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 import RecipesContext from '../../ContextApi/RecipesContext';
-import CocktailCard from '../../components/CocktailCard';
+import CocktailCard from '../../components/cards/CocktailCard';
 import DrinkCategoryButton from '../../components/DrinkCategoryButton';
 
 function Cocktails() {

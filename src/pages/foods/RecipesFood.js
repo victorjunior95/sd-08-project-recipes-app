@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import FoodCategoryButton from '../../components/FoodCategoryButton';
-import FoodCard from '../../components/FoodCard';
+import FoodCard from '../../components/cards/FoodCard';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 import RecipesContext from '../../ContextApi/RecipesContext';

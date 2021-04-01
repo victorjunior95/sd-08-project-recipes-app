@@ -28,7 +28,7 @@ function ReceitasFeitas() {
     }
   };
 
-  const urlRecipe = (type, idRecipe) => `http://localhost:3000/${type}s/${idRecipe}`;
+  // const urlRecipe = (type, idRecipe) => `http://localhost:3000/${type}s/${idRecipe}`;
 
   const changeFilter = (value) => {
     // console.log(value);
@@ -79,7 +79,7 @@ function ReceitasFeitas() {
         { filterRecipesCompleted && (
           filterRecipesCompleted.map((recipe, index) => (
             <div
-              key={ index }
+              key={ `${index}` }
             >
               <div>
                 <Link to={ `${recipe.type}/${recipe.idRecipe}` }>
@@ -91,9 +91,9 @@ function ReceitasFeitas() {
                   />
                 </Link>
               </div>
-              <div>
+              <div className="container-done-recipes">
                 {
-                  recipe.type === 'comidas' ? (
+                  recipe.type === 'comida' ? (
                     <span
                       data-testid={ `${index}-horizontal-top-text` }
                     >
@@ -121,19 +121,19 @@ function ReceitasFeitas() {
                 >
                   { `Feita em: ${recipe.doneDate}` }
                 </span>
-                { recipe.lenght > 1 ? (
+                {/* { recipe.lenght > 1 ? (
                   <div>
                     <span
                       key={ recipe.tags }
                       data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
                     >
-                      { recipe.tags }
+                      { recipe.tags[0] }
                     </span>
                     <span
                       key={ recipe.tags }
                       data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
                     >
-                      { recipe.tags }
+                      { recipe.tags[1] }
                     </span>
                   </div>
                 ) : (
@@ -141,12 +141,24 @@ function ReceitasFeitas() {
                     key={ recipe.tags }
                     data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
                   >
-                    { recipe.tags }
+                    { recipe.tags[0] }
                   </span>
-                )}
+                )} */}
+                {
+                  recipe.tags && (
+                    recipe.tags.map((tag) => (
+                      <span
+                        key={ tag }
+                        data-testid={ `${index}-${tag}-horizontal-tag` }
+                      >
+                        { tag }
+                      </span>
+                    ))
+                  )
+                }
               </div>
               <div>
-                <CopyToClipboard text={ urlRecipe(recipe.type, recipe.idRecipe) }>
+                <CopyToClipboard text={ `http://localhost:3000/${recipe.type}/${recipe.idRecipe}` }>
                   <button
                     onClick={ () => setCopyClipboard('visible') }
                     type="button"

@@ -10,7 +10,6 @@ import { buscarBebidasPorCategoria } from '../services/buscarCategoriasBebidas';
 function Bebidas() {
   const {
     apiResult,
-    setApiResult,
     tituloDaPagina,
     enviarTituloDaPagina,
     mudarStatusBotaoPesquisa,

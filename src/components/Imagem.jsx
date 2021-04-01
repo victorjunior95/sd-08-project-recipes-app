@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Imagem({ testid, src, alt }) {
   const CEM = 100;
@@ -13,5 +14,11 @@ function Imagem({ testid, src, alt }) {
 
   );
 }
+
+Imagem.propTypes = {
+  testid: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+};
 
 export default Imagem;

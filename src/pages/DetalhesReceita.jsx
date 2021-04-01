@@ -11,17 +11,22 @@ function DetalhesReceita(props) {
   const { match: { params: { id } } } = props;
   const { match: { path } } = props;
   const { setDetalhesComidas, setDetalhesBebidas } = useContext(ContextReceitas);
-
+  const rota = '/comidas/:id';
+  const { location: { pathname } } = props;
   useEffect(() => {
     async function funcBuscarDetalhes() {
-      const detalhes = path === '/comidas/:id'? await buscarDetalhesComida(id) : await buscarDetalhesBebidas(id);
-      path === '/comidas/:id' ? setDetalhesComidas(detalhes) : setDetalhesBebidas(detalhes);
+      const detalhes = path === rota
+        ? await buscarDetalhesComida(id)
+        : await buscarDetalhesBebidas(id);
+      return path === rota
+        ? setDetalhesComidas(detalhes)
+        : setDetalhesBebidas(detalhes);
     }
     funcBuscarDetalhes();
   }, []);
 
-  if (path === '/comidas/:id') return <CartaoDetalhesComidas />;
-  return <CartaoDetalhesBebidas />;
+  if (path === rota) return <CartaoDetalhesComidas path={ pathname } />;
+  return <CartaoDetalhesBebidas path={ pathname } />;
 }
 
 DetalhesReceita.propTypes = {
@@ -30,6 +35,9 @@ DetalhesReceita.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
 };
 

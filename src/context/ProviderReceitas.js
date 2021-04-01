@@ -10,6 +10,7 @@ function ProviderReceitas({ children }) {
   const [deveriaRedirecionar, setDeveriaRedirecionar] = useState(false);
   const [toggle, setToggle] = useState(true);
   const [logedIn, setLoged] = useState(0);
+  const [receitaEmProgresso, setReceitaEmProgresso] = useState({});
   const [bebidas, setBebidas] = useState();
   const [comidas, setComidas] = useState();
   const [listaDeCategoria, setlistaDeCategoria] = useState();
@@ -66,6 +67,8 @@ function ProviderReceitas({ children }) {
     setDetalhesComidas,
     detalhesBebidas,
     setDetalhesBebidas,
+    receitaEmProgresso,
+    setReceitaEmProgresso,
   };
 
   useEffect(() => {

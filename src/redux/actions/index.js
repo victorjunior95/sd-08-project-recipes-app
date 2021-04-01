@@ -2,7 +2,7 @@ import {
   FecthDrinks,
   FetchDrinksOnMount,
   fetchDrinksCategories,
-} from '../../services/theCocTailDB';
+} from '../../services/theCockTailDB';
 import {
   FecthMeals,
   FetchFoodsCategories,
@@ -54,7 +54,8 @@ export const fetchMealsByFilter = (radio, inputName) => async (dispatch) => {
   dispatch(isFetchingFoods());
   try {
     const apiData = await FecthMeals(radio, inputName);
-    dispatch(setFood(apiData));
+    const data = { meals: apiData, categories: [] };
+    dispatch(setFood(data));
   } catch (error) {
     dispatch(errorFetchingFoods(error));
   }
@@ -64,7 +65,8 @@ export const fetchDrinksByFilter = (radio, inputName) => async (dispatch) => {
   dispatch(isFetchingDrinks());
   try {
     const apiData = await FecthDrinks(radio, inputName);
-    dispatch(setDrinks(apiData));
+    const data = { drinks: apiData, categories: [] };
+    dispatch(setDrinks(data));
   } catch (error) {
     dispatch(errorFetchingDrinks(error));
   }

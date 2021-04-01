@@ -11,7 +11,8 @@ export async function FecthMeals(radio, inputName) {
   }
   const response = await fetch(URL);
   const data = await response.json();
-  return data;
+  const { meals } = data;
+  return meals;
 }
 
 export async function FetchFoodsOnMount() {

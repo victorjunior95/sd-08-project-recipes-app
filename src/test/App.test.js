@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, waitForElementToBeRemoved } from '@testing-library/react';
-import App from './App';
 import { Provider } from 'react-redux';
-import store from './store';
 import userEvent from '@testing-library/user-event';
-import mockFetch from '../cypress/mocks/fetch'
+import App from '../App';
+import store from '../store';
+import mockFetch from '../../cypress/mocks/fetch';
 
 describe('Tests Recipe Application', () => {
   beforeAll(() => {

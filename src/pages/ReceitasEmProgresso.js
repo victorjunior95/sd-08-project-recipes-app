@@ -58,11 +58,10 @@ class ReceitasEmProgresso extends Component {
   }
 
   async fetchDrinkRecipe(drinkId) {
-    const storage = JSON.parse(localStorage.getItem('isDone'));
     const recipe = await fetchDrinkApiById(drinkId);
     const ingredients = getIngredientList(recipe);
     const arrIngredientes = Object.values(ingredients);
-    const isDone = storage || arrIngredientes.reduce((acc, crr) => {
+    const isDone = arrIngredientes.reduce((acc, crr) => {
       acc = { ...acc, [crr.item]: false };
       return acc;
     }, {});
@@ -78,11 +77,10 @@ class ReceitasEmProgresso extends Component {
   }
 
   async fetchFoodRecipe(foodId) {
-    const storage = JSON.parse(localStorage.getItem('isDone'));
     const recipe = await fetchFoodApiById(foodId);
     const ingredients = getIngredientList(recipe);
     const arrIngredientes = Object.values(ingredients);
-    const isDone = storage || arrIngredientes.reduce((acc, crr) => {
+    const isDone = arrIngredientes.reduce((acc, crr) => {
       acc = { ...acc, [crr.item]: false };
       return acc;
     }, {});
@@ -241,9 +239,7 @@ ReceitasEmProgresso.propTypes = {
   history: PropTypes.shape.isRequired,
   addRecipe: PropTypes.func.isRequired,
 };
-
 const mapDispatchToProps = (dispatch) => ({
   addRecipe: (recipe) => dispatch({ type: 'ADD_RECIPE', payload: recipe }),
 });
-
 export default connect(null, mapDispatchToProps)(ReceitasEmProgresso);

@@ -10,18 +10,18 @@ export const setUser = (email) => {
   localStorage.setItem('user', JSON.stringify({ email }));
 };
 
-export const setInProgressRecipes = (id, type, ingredients) => {
+export const setInProgressRecipes = (id, type) => {
   let prevProgressState = {};
   const ingredientsObj = {};
-  ingredientsObj[id] = ingredients;
+  ingredientsObj[id] = [];
   if (localStorage.getItem('inProgressRecipes') !== null) {
     prevProgressState = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (type === 'Comidas') {
+    if (type === 'Comidas' && !prevProgressState.meals[id]) {
       prevProgressState.meals = {
         ...prevProgressState.meals,
         ...ingredientsObj,
       };
-    } else if (type === 'Bebidas') {
+    } else if (type === 'Bebidas' && !prevProgressState.cocktails[id]) {
       prevProgressState.cocktails = {
         ...prevProgressState.cocktails,
         ...ingredientsObj,
@@ -40,6 +40,27 @@ export const setInProgressRecipes = (id, type, ingredients) => {
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObject));
   }
+};
+
+export const updateInProgressRecipes = (id, type, newIngredient) => {
+  let localStorageRecipesProgress = [];
+  if (localStorage.getItem('inProgressRecipes') !== null) {
+    localStorageRecipesProgress = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    if (type === 'Bebidas') {
+      localStorageRecipesProgress.cocktails[id] = [
+        ...localStorageRecipesProgress.cocktails[id],
+        newIngredient,
+      ];
+    } else {
+      localStorageRecipesProgress.meals[id] = [
+        ...localStorageRecipesProgress.meals[id],
+        newIngredient,
+      ];
+    }
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageRecipesProgress));
 };
 
 export const setFavoriteRecipes = (recipeInfo) => {

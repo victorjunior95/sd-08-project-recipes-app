@@ -5,16 +5,31 @@ import './CardFavorite.css';
 import shareIcon from '../../images/shareIcon.svg';
 import favIcon from '../../images/blackHeartIcon.svg';
 
-function CardFavorites({ img, alt, title, desc }) {
+function CardFavorites({ img, index, alt, title, desc }) {
   return (
     <div className="cardFav-container">
-      <img className="imagem-fav" src={ img } alt={ alt } />
+      <img
+        className="imagem-fav"
+        data-testid={ `${index}-horizontal-image` }
+        src={ img }
+        alt={ alt }
+      />
       <div className="cardFav-content">
-        <p>{desc}</p>
-        <h3>{title}</h3>
+        <p data-testid={ `${index}-horizontal-top-text` }>{desc}</p>
+        <h3 data-testid={ `${index}-horizontal-name` }>{title}</h3>
         <div className="iconFav">
-          <img className="favorite-btn icon-fav" src={ shareIcon } alt="share" />
-          <img className="icon-fav share-btn " src={ favIcon } alt="favotire" />
+          <img
+            data-testid={ `${index}-horizontal-share-btn` }
+            className="favorite-btn icon-fav"
+            src={ shareIcon }
+            alt="share"
+          />
+          <img
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            className="icon-fav share-btn "
+            src={ favIcon }
+            alt="favotire"
+          />
         </div>
       </div>
     </div>
@@ -23,6 +38,7 @@ function CardFavorites({ img, alt, title, desc }) {
 
 CardFavorites.propTypes = {
   img: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   alt: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,

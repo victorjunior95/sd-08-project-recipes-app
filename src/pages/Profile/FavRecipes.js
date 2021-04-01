@@ -14,9 +14,27 @@ function FavRecipes() {
         icon="false"
       />
       <div className="filter-btn">
-        <button type="button" onClick={ () => setFilter('') }>All</button>
-        <button type="button" onClick={ () => setFilter('comida') }>Comidas</button>
-        <button type="button" onClick={ () => setFilter('bebida') }>Bebidas</button>
+        <button
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ () => setFilter('') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilter('comida') }
+        >
+          Comidas
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('bebida') }
+        >
+          Bebidas
+        </button>
       </div>
       <main>
         {
@@ -25,16 +43,18 @@ function FavRecipes() {
               if (filter === '') return item;
               return item.type === filter;
             })
-            .map((card) => {
+            .map((card, index) => {
               console.log('o item map', card);
               return (
                 <CardFavorites
                   key={ card.id }
+                  index={ index }
                   img={ card.image }
                   title={ card.name }
                   alt={ card.name }
-                  desc={ card.type === 'bebidas' ? card.alcoholicOrNot
-                    : `${card.category} - ${card.area}` }
+                  desc={ card.type === 'bebida'
+                    ? card.alcoholicOrNot
+                    : `${card.area} - ${card.category}` }
                 />
               );
             })

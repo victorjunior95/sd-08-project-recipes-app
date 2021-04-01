@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { useRouteMatch } from 'react-router';
-// import { fetchDrinksCategories } from '../../services/theCocTailDB';
+import { useRouteMatch } from 'react-router';
 import FilterButton from '../FilterButton';
-
-// import { Container } from './styles';
 
 function FilterButtonsSection() {
   const FIVE_BUTTONS = 5;
-  const { categories } = useSelector((state) => state.foods);
+  const { categories: foods } = useSelector((state) => state.foods);
+  const { categories: drinks } = useSelector((state) => state.drinks);
   const [useCategories, setUseCategories] = useState([{}]);
-  // const { path } = useRouteMatch();
+  const { path } = useRouteMatch();
+
   useEffect(() => {
-    setUseCategories(categories);
-  }, [categories]);
+    if (path === '/comidas') {
+      setUseCategories(foods);
+    }
+  }, [foods]);
+
+  useEffect(() => {
+    if (path === '/bebidas') {
+      setUseCategories(drinks);
+    }
+  }, [drinks]);
+
   return (
     <div>
       { useCategories.map(({ strCategory }, index) => (

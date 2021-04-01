@@ -54,7 +54,7 @@ class Comidas extends Component {
   render() {
     const { categories: { recipesCategories }, meals: { meals }, bool } = this.props;
     const { selectedCategory } = this.state;
-    if (selectedCategory.length === 0 && bool === false) {
+    if (selectedCategory.length === 0) {
       return (
         <div>
           <HeaderLocation />
@@ -63,6 +63,7 @@ class Comidas extends Component {
             onClick={ (event) => this.handleClick(event.target.name) }
             name="All"
             data-testid="All-category-filter"
+            hidden={ bool }
           >
             All
           </button>

@@ -64,6 +64,7 @@ function FavRecipes() {
                   removeFavorite={ removeFavorite }
                   title={ card.name }
                   alt={ card.name }
+                  type={ card.type }
                   desc={ card.type === 'bebida'
                     ? card.alcoholicOrNot
                     : `${card.area} - ${card.category}` }

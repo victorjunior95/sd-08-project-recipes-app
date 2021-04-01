@@ -3,28 +3,33 @@ import PropTypes from 'prop-types';
 import './CardFavorite.css';
 import copy from 'clipboard-copy';
 
+import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 import favIcon from '../../images/blackHeartIcon.svg';
 
-function CardFavorites({ img, id, index, removeFavorite, alt, title, desc }) {
+function CardFavorites({ img, id, type, index, removeFavorite, alt, title, desc }) {
   const [copyLink, setCopyLink] = useState(false);
 
   const copyLinkFn = () => {
     setCopyLink(true);
-    copy(`http://localhost:3000/comidas/${id}`);
+    copy(`http://localhost:3000/${type}s/${id}`);
   };
 
   return (
     <div className="cardFav-container">
-      <img
-        className="imagem-fav"
-        data-testid={ `${index}-horizontal-image` }
-        src={ img }
-        alt={ alt }
-      />
+      <Link to={ `/${type}s/${id}` }>
+        <img
+          className="imagem-fav"
+          data-testid={ `${index}-horizontal-image` }
+          src={ img }
+          alt={ alt }
+        />
+      </Link>
       <div className="cardFav-content">
         <p data-testid={ `${index}-horizontal-top-text` }>{desc}</p>
-        <h4 data-testid={ `${index}-horizontal-name` }>{title}</h4>
+        <Link to={ `/${type}s/${id}` }>
+          <h4 data-testid={ `${index}-horizontal-name` }>{title}</h4>
+        </Link>
         <div className="iconFav">
           <button type="button" className="share-btn" onClick={ () => copyLinkFn() }>
             <img
@@ -55,6 +60,7 @@ function CardFavorites({ img, id, index, removeFavorite, alt, title, desc }) {
 
 CardFavorites.propTypes = {
   id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   alt: PropTypes.string.isRequired,

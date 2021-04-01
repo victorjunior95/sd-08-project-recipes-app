@@ -19,12 +19,25 @@ function MealsRecipes() {
   const filter = useSelector((state) => state.search.mealFilter);
   const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
-    const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
-    const ingredientFilter = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
-    const fetchDataCat = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
-    if (!ifilter && !filter) fetchData(input, type);
-    if (filter) fetchDataCat(filter);
-    if (ifilter && !filter) ingredientFilter(ifilter);
+    let fetchMeal;
+    // const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
+    // const ingredientFilter = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
+    // const fetchDataCat = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
+    // if (!ifilter && !filter) fetchData(input, type);
+    // if (filter) fetchDataCat(filter);
+    // if (ifilter && !filter) ingredientFilter(ifilter);
+    if (!ifilter && !filter) {
+      fetchMeal = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
+      fetchMeal(input, type);
+    }
+    if (filter) {
+      fetchMeal = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
+      fetchMeal(filter);
+    }
+    if (ifilter && !filter) {
+      fetchMeal = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
+      fetchMeal(ifilter);
+    }
   }, [input, type, filter, ifilter]);
 
   useEffect(() => () => {

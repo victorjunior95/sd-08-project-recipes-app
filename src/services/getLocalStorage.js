@@ -51,3 +51,16 @@ export const getHeartType = (id) => {
   if (favoriteRecipes === null) return false;
   return favoriteRecipes.some((favorite) => favorite.id === id);
 };
+
+export const getIngredientsFinished = (type, id) => {
+  let finishedIgredients = {};
+  if (type === 'Comidas') {
+    finishedIgredients = getInProgressMeals();
+  }
+  if (type === 'Bebidas') {
+    finishedIgredients = getInProgressCocktails();
+  }
+  if (finishedIgredients !== null) {
+    return finishedIgredients[id];
+  } return [];
+};

@@ -10,10 +10,10 @@ export const setUser = (email) => {
   localStorage.setItem('user', JSON.stringify({ email }));
 };
 
-export const setInProgressRecipes = (id, type, ingredients) => {
+export const setInProgressRecipes = (id, type) => {
   let prevProgressState = {};
   const ingredientsObj = {};
-  ingredientsObj[id] = ingredients;
+  ingredientsObj[id] = [];
   if (localStorage.getItem('inProgressRecipes') !== null) {
     prevProgressState = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (type === 'Comidas') {
@@ -40,6 +40,29 @@ export const setInProgressRecipes = (id, type, ingredients) => {
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObject));
   }
+};
+
+export const updateInProgressRecipes = (id, type, newIngredient) => {
+  console.log(id, type, newIngredient);
+  let localStorageRecipesProgress = [];
+  if (localStorage.getItem('inProgressRecipes') !== null) {
+    localStorageRecipesProgress = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    console.log(localStorageRecipesProgress.meals[id]);
+    if (type === 'Bebidas') {
+      localStorageRecipesProgress.cocktails[id] = [
+        ...localStorageRecipesProgress.cocktails[id],
+        newIngredient,
+      ];
+    } else {
+      localStorageRecipesProgress.meals[id] = [
+        ...localStorageRecipesProgress.meals[id],
+        newIngredient,
+      ];
+    }
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageRecipesProgress));
 };
 
 export const setFavoriteRecipes = (recipeInfo) => {

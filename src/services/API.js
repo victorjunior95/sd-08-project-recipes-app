@@ -107,6 +107,8 @@ export const fetchApi = async (value, type, api) => {
 
 export const fetchRandom = async (type) => {
   let url = '';
+  const TYPE_RESULT_MEAL = 'meals';
+  const TYPE_RESULT_DRINK = 'drinks';
   switch (type) {
   case 'comidas':
     url = 'https://www.themealdb.com/api/json/v1/1/random.php';
@@ -120,8 +122,8 @@ export const fetchRandom = async (type) => {
 
   const response = await fetch(url);
   const results = await response.json();
-  if (type === 'comidas') return Object.entries(results)[0][1][0].idMeal;
-  return Object.entries(results)[0][1][0].idDrink;
+  if (type === 'comidas') return results[TYPE_RESULT_MEAL][0].idMeal;
+  return results[TYPE_RESULT_DRINK][0].idDrink;
 };
 
 export const fetchByIngredients = async (type) => {
@@ -148,15 +150,23 @@ export const fetchByIngredients = async (type) => {
 export const fetchAreas = async () => {
   const areasBaseUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
   const allAreasResponse = await fetch(areasBaseUrl);
-  const allAreasConverted = await allAreasResponse.json();
-  const allAreas = allAreasConverted.meals.map((area) => area.strArea);
-  allAreas.push('All');
+  const allAreasJSON = await allAreasResponse.json();
+  const allAreas = allAreasJSON.meals.map((area) => area.strArea);
+  allAreas.unshift('All');
   return allAreas;
 };
 
 export const fetchMealsByArea = async (area) => {
+  const MAX_LENGTH = 12;
+  const MIN_LENGTH = 0;
   const mealsByAreaBaseUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const mealsNoFilter = 'https://www.themealdb.com/api/json/v1/1/search.php?s= ';
+  if (area === 'All') {
+    const allRecipesResponse = await fetch(mealsNoFilter);
+    const allRecipesResults = await allRecipesResponse.json();
+    return allRecipesResults.meals.slice(MIN_LENGTH, MAX_LENGTH);
+  }
   const mealsAreaResponse = await fetch(mealsByAreaBaseUrl);
   const allMealsByArea = await mealsAreaResponse.json();
-  return allMealsByArea;
+  return allMealsByArea.meals.slice(MIN_LENGTH, MAX_LENGTH);
 };

@@ -14,7 +14,7 @@ function Comidas({ history }) {
   const meals = useSelector((state) => state.mealsReducer.meals);
 
   useEffect(() => {
-    dispatch(getMeals());
+    if (meals === undefined) dispatch(getMeals());
   }, [dispatch]);
 
   if (meals) mealsFiltred = meals.filter((meal, index) => index < QUANTITY_OF_CARDS);

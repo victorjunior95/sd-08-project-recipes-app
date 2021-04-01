@@ -17,7 +17,6 @@ function SearchBar({ history }) {
   async function getSearch() {
     const typeApi = pathname.split('/')[1];
     const results = await fetchApi(searchInput, typeSearch, typeApi);
-    console.log(results);
     if (results.length === 0) return window.alert(alertMessage);
     if (results.length === 1) {
       if (typeApi === 'comidas') {

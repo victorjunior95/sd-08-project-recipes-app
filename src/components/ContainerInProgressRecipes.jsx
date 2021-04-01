@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import HeaderRecipeDetails from './HeaderRecipeDetails';
 import IngredientsRecipeDetailsInProgress from './IngredientsRecipeDetailsInProgress';
 import InstructionsRecipeDetails from './InstructionsRecipeDetails';
 import Button from './Button';
+import { setInProgressRecipes } from '../services/setLocalStorage';
 
-const ContainerInProgressRecipes = ({ recipe, page }) => {
+const ContainerInProgressRecipes = ({ recipe, page, id }) => {
   const [recipeInfo, setRecipeInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [buttonState, setButtonState] = useState(true);
   const getIngredientsMeasure = (ingredientsSize) => {
     const arrayIngredients = [];
     for (let i = 1; i <= ingredientsSize; i += 1) {
@@ -27,7 +30,7 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
 
   const foodInfo = () => {
     const {
-      idMeal: id,
+      idMeal: idRecipe,
       strMeal: name,
       strCategory: category,
       strMealThumb: image,
@@ -39,7 +42,7 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
-      id,
+      idRecipe,
       name,
       category,
       image,
@@ -54,7 +57,7 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
 
   const drinkInfo = () => {
     const {
-      idDrink: id,
+      idDrink: idRecipe,
       strDrink: name,
       strAlcoholic: category,
       strDrinkThumb: image,
@@ -66,7 +69,7 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
-      id,
+      idRecipe,
       name,
       category,
       image,
@@ -79,22 +82,12 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
     });
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (page === 'Comidas') {
-      foodInfo();
-    } else if (page === 'Bebidas') {
-      drinkInfo();
-    }
-    setIsLoading(false);
-  }, []);
-
-  const finishRecipe = (id) => {
-    console.log(`${id} finished`);
+  const finishRecipe = (idr) => {
+    console.log(`${idr} finished`);
   };
 
   const {
-    id,
+    idRecipe,
     name,
     category,
     image,
@@ -103,6 +96,18 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
     area,
     drinkCategory,
   } = recipeInfo;
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (page === 'Comidas') {
+      foodInfo();
+    } else if (page === 'Bebidas') {
+      drinkInfo();
+    }
+    setInProgressRecipes(id, page);
+    setIsLoading(false);
+  }, []);
+
   return (
     <main>
       {isLoading ? (
@@ -114,22 +119,26 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
             category={ category }
             imgPath={ image }
             page={ page.toLowerCase() }
-            id={ id }
+            id={ idRecipe }
             area={ area }
             drinkCategory={ drinkCategory }
           />
           <IngredientsRecipeDetailsInProgress
             ingredients={ arrayIngredients }
             page={ page }
-            id={ id }
+            id={ idRecipe }
+            callback={ () => setButtonState(false) }
           />
           <InstructionsRecipeDetails instruction={ instructions } />
-          <Button
-            name="Finalizar Receita"
-            data-testid="finish-recipe-btn"
-            className="start-recipe-btn"
-            onClick={ () => finishRecipe(id) }
-          />
+          <Link to="/receitas-feitas">
+            <Button
+              name="Finalizar Receita"
+              data-testid="finish-recipe-btn"
+              className="start-recipe-btn"
+              onClick={ () => finishRecipe(id) }
+              disabled={ buttonState }
+            />
+          </Link>
         </section>
       )}
     </main>
@@ -138,6 +147,7 @@ const ContainerInProgressRecipes = ({ recipe, page }) => {
 
 ContainerInProgressRecipes.propTypes = {
   page: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     strMeal: PropTypes.string.isRequired,
     strCategory: PropTypes.string.isRequired,

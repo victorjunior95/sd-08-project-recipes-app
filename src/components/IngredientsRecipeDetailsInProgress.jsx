@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getIngredientsFinished } from '../services/getLocalStorage';
 import { updateInProgressRecipes } from '../services/setLocalStorage';
 
-const IngredientsRecipeDetailsInProgress = ({ ingredients, page, id }) => {
+const IngredientsRecipeDetailsInProgress = ({
+  ingredients,
+  page,
+  id,
+  callback,
+}) => {
+  const [aux, setAux] = useState(true);
   const handleClick = (ingredient) => {
     updateInProgressRecipes(id, page, ingredient);
+    setAux(!aux);
   };
 
   const showCheckBox = () => {
     const finishedIngredients = getIngredientsFinished(page, id);
-    return ingredients.map((ingredient) => {
-      console.log(ingredient, finishedIngredients);
+    if (ingredients.length === finishedIngredients.length) {
+      callback();
+    }
+    return ingredients.map((ingredient, index) => {
       if (finishedIngredients.includes(ingredient)) {
         return (
-          <section>
+          <section
+            data-testid={ `${index}-ingredient-step` }
+            htmlFor="igredient-checkbox"
+          >
             <input
-              data-testid="ingredient-step"
               type="checkbox"
-              name="igredient"
+              name="igredient-checkbox"
+              id="igredient-checkbox"
               onClick={ () => handleClick(ingredient) }
               checked
             />
@@ -27,12 +39,16 @@ const IngredientsRecipeDetailsInProgress = ({ ingredients, page, id }) => {
         );
       }
       return (
-        <section key={ ingredient }>
+        <section
+          data-testid={ `${index}-ingredient-step` }
+          key={ ingredient }
+          htmlFor="igredient-checkbox"
+        >
           <input
-            key={ ingredient }
-            data-testid="ingredient-step"
             type="checkbox"
-            name="igredient"
+            name="igredient-checkbox"
+            id="igredient-checkbox"
+            key={ ingredient }
             onClick={ () => handleClick(ingredient) }
           />
           {ingredient}
@@ -53,6 +69,7 @@ IngredientsRecipeDetailsInProgress.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   page: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default IngredientsRecipeDetailsInProgress;

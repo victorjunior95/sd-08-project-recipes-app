@@ -16,12 +16,12 @@ export const setInProgressRecipes = (id, type) => {
   ingredientsObj[id] = [];
   if (localStorage.getItem('inProgressRecipes') !== null) {
     prevProgressState = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (type === 'Comidas') {
+    if (type === 'Comidas' && !prevProgressState.meals[id]) {
       prevProgressState.meals = {
         ...prevProgressState.meals,
         ...ingredientsObj,
       };
-    } else if (type === 'Bebidas') {
+    } else if (type === 'Bebidas' && !prevProgressState.cocktails[id]) {
       prevProgressState.cocktails = {
         ...prevProgressState.cocktails,
         ...ingredientsObj,
@@ -43,13 +43,11 @@ export const setInProgressRecipes = (id, type) => {
 };
 
 export const updateInProgressRecipes = (id, type, newIngredient) => {
-  console.log(id, type, newIngredient);
   let localStorageRecipesProgress = [];
   if (localStorage.getItem('inProgressRecipes') !== null) {
     localStorageRecipesProgress = JSON.parse(
       localStorage.getItem('inProgressRecipes'),
     );
-    console.log(localStorageRecipesProgress.meals[id]);
     if (type === 'Bebidas') {
       localStorageRecipesProgress.cocktails[id] = [
         ...localStorageRecipesProgress.cocktails[id],

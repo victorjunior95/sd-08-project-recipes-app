@@ -23,7 +23,7 @@ function DrinkProcess({
       {isLoading ? (
         <h1>Loading</h1>
       ) : (
-        <ContainerInProgressRecipes recipe={ drink[0] } page="Bebidas" />
+        <ContainerInProgressRecipes recipe={ drink[0] } page="Bebidas" id={ id } />
       )}
     </section>
   );

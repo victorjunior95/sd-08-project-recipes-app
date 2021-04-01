@@ -61,6 +61,7 @@ export const getIngredientsFinished = (type, id) => {
     finishedIgredients = getInProgressCocktails();
   }
   if (finishedIgredients !== null) {
+    console.log(finishedIgredients[id]);
     return finishedIgredients[id];
   } return [];
 };

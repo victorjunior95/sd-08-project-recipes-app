@@ -121,12 +121,29 @@ function ReceitasFeitas() {
                 >
                   { `Feita em: ${recipe.doneDate}` }
                 </span>
-                <span
-                  key={ recipe.tags }
-                  data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
-                >
-                  { recipe.tags }
-                </span>
+                { recipe.lenght > 1 ? (
+                  <div>
+                    <span
+                      key={ recipe.tags }
+                      data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
+                    >
+                      { recipe.tags }
+                    </span>
+                    <span
+                      key={ recipe.tags }
+                      data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
+                    >
+                      { recipe.tags }
+                    </span>
+                  </div>
+                ) : (
+                  <span
+                    key={ recipe.tags }
+                    data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
+                  >
+                    { recipe.tags }
+                  </span>
+                )}
               </div>
               <div>
                 <CopyToClipboard text={ urlRecipe(recipe.type, recipe.idRecipe) }>

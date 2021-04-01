@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import copy from 'clipboard-copy';
 import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
@@ -9,6 +10,7 @@ import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
 const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
 
 function DrinkDetails(props) {
+  const history = useHistory();
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -103,6 +105,15 @@ function DrinkDetails(props) {
     };
     addDrinkInProgress(newDrinkInProgress);
     setShouldRedirect(true);
+    // history.push({ pathname: `/bebidas/${id}/in-progress`,
+    //   state: {
+    //     id,
+    //     strCategory,
+    //     strAlcoholic,
+    //     strDrink,
+    //     strDrinkThumb,
+    //     ingredientsAndMeasuresList,
+    //     strInstructions } });
   }
 
   function renderButton() {
@@ -120,7 +131,18 @@ function DrinkDetails(props) {
 
   return (
     <>
-      { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
+      { shouldRedirect && <Redirect
+        to={ { pathname: `/bebidas/${id}/in-progress`,
+          state: {
+            drinkOrFood: 'Drink',
+            id,
+            strCategory,
+            strAlcoholic,
+            strDrink,
+            strDrinkThumb,
+            ingredientsAndMeasuresList,
+            strInstructions } } }
+      /> }
       {strDrink && <DrinkDetailsInfo
         copied={ copied }
         strCategory={ strCategory }

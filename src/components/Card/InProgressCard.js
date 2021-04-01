@@ -1,0 +1,91 @@
+import React, { useEffect, useState } from 'react';
+import './InProgressCard.css';
+import PropTypes from 'prop-types';
+import { propTypes } from 'react-bootstrap/esm/Image';
+
+const InProgressCard = (props) => {
+  const { drinkOrFood, id, category, title, img, ingredients, alcohol, instructions } = props;
+  const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
+
+  const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
+    if (instructions.split(/,|\. | ;/g).length !== index + 1) {
+      console.log((instructions.split(/,|\. | ;/g)));
+      return (
+        <li key={ `instruction-${index}` }>
+          {`${string.charAt(1).toUpperCase()}${string.slice(2)}`}
+          {' '}
+          ;
+        </li>);
+    }
+    return (
+      <li key={ `instruction-${index}` }>
+        {`${string.charAt(1).toUpperCase()}${string.slice(2)}`}
+        {' '}
+      </li>);
+  });
+
+  const ingredientsMapping = ingredients.map((ingredient, index) => (
+    <div key={ ingredient }>
+      <input
+        id={ `id-${index}` }
+        type="checkbox"
+        data-testid={ `${index}-ingredient-step` }
+        value={ ingredient }
+        onChange={ ({ target }) => { console.log(target.checked); } }
+      />
+      <label htmlFor={ `id-${index}` }>
+        {ingredient}
+      </label>
+    </div>));
+
+  useEffect(() => setIsDrinkOrFood(drinkOrFood), [drinkOrFood]);
+
+  const renderDrink = () => (
+    <div
+      name={ id }
+      className="card-container"
+      data-testid="recipe-card"
+      role="button"
+    >
+      <h4 data-testid="recipe-title">{title}</h4>
+      <span data-testid="recipe-category">{`Category => ${category}`}</span>
+      <span>{alcohol}</span>
+      <img src={ img } alt={ title } data-testid="recipe-photo" />
+      <ul>
+        {ingredientsMapping}
+      </ul>
+      <ol style={ { display: 'flex', flexFlow: 'column wrap', textAlign: 'center', listStylePosition: 'inside' } }>
+        {instructionsMapping}
+        Voilá!
+      </ol>
+      <div>
+        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <button type="button" data-testid="share-btn">Compartilhar</button>
+        <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
+      </div>
+      {console.log(instructionsMapping)}
+    </div>);
+
+  return (
+    <main>
+      {isDrinkOrFood === 'Drink' ? renderDrink() : ''}
+    </main>
+  );
+};
+
+InProgressCard.propTypes = {
+  drinkOrFood: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  alcohol: PropTypes.string,
+  instructions: PropTypes.string.isRequired,
+};
+
+InProgressCard.defaultProps = {
+  alcohol: PropTypes.string,
+};
+
+export default InProgressCard;

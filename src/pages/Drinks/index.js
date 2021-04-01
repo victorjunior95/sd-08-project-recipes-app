@@ -5,6 +5,7 @@ import { drinksOnMount } from '../../redux/actions';
 import ContainerDefault from '../../components/ContainerDefault';
 import Loading from '../../components/Loading';
 import CardsArea from '../../components/CardsArea';
+import FilterButtonsSection from '../../components/FilterButtonsSection';
 
 function Drinks() {
   const dispatch = useDispatch();
@@ -18,9 +19,14 @@ function Drinks() {
     <ContainerDefault title="Bebidas">
       {
         isFetching ? <Loading />
-          : <CardsArea type="drinks" />
+          : (
+            <>
+              <FilterButtonsSection />
+              <CardsArea type="drinks" />
+            </>
+          )
       }
-      { oneDrink === 1 && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } /> }
+      { oneDrink === 1 && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
     </ContainerDefault>
   );
 }

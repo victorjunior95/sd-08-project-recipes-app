@@ -21,3 +21,5 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+// Apenas um teste para o GitHub

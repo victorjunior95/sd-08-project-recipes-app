@@ -1,4 +1,4 @@
-import { fetchDrinkId } from '../../services/MealAPI';
+import { fetchDrinkId } from '../../services/CocktailAPI';
 
 import { FETCH_RECIPE_ID } from './index';
 

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import favoriteRecipesAction from '../redux/actions/favoriteRecipeAction';
 import notLikedBtn from '../images/whiteHeartIcon.svg';
 import likedBtn from '../images/blackHeartIcon.svg';
-import favoriteRecipesAction from '../redux/actions/favoriteRecipeAction';
 
 export default function LikeButton() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const recipes = useSelector((state) => state.recipes.singleRecipe);
-  const [likedToogle, setLikedToogle] = useState(false);
+  const [liked, setLiked] = useState();
 
   const type = (pathname.includes('comidas') ? 'Meal' : 'Drink');
   const recipeStorage = (localStorage.getItem('favoriteRecipes'))
@@ -25,23 +25,29 @@ export default function LikeButton() {
     image: recipes[0][`str${type}Thumb`],
   };
 
+  function verifyIfFavorite() {
+    const isLiked = recipeStorage.some((e) => e.id === recipe.id);
+    return isLiked;
+  }
+
   useEffect(() => {
-    if (likedToogle) {
-      dispatch(favoriteRecipesAction(recipeStorage));
-    }
-  }, [likedToogle, recipeStorage]);
+    setLiked((verifyIfFavorite()));
+  }, []);
 
   function handleClick() {
-    if (!likedToogle) {
-      setLikedToogle(true);
+    if (!liked) {
       recipeStorage.push(recipe);
       localStorage.setItem('favoriteRecipes', JSON.stringify(recipeStorage));
+      setLiked(true);
+      dispatch(favoriteRecipesAction(recipeStorage));
     }
-
-    if (likedToogle) {
-      setLikedToogle(false);
+    if (liked) {
+      const removeFavorite = recipeStorage.filter((e) => e.id !== recipe.id);
+      console.log(removeFavorite);
       localStorage.setItem('favoriteRecipes', JSON
-        .stringify(recipeStorage.filter((e) => e.id !== recipe.id)));
+        .stringify(removeFavorite));
+      setLiked(false);
+      dispatch(favoriteRecipesAction(removeFavorite));
     }
   }
 
@@ -52,7 +58,7 @@ export default function LikeButton() {
     >
       <img
         alt="like-icon"
-        src={ (likedToogle) ? likedBtn : notLikedBtn }
+        src={ (liked) ? likedBtn : notLikedBtn }
         data-testid="favorite-btn"
 
       />

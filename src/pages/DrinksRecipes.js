@@ -20,12 +20,6 @@ function DrinksRecipes() {
   const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
     let fetchDrink;
-    // const fetchData = (inputf, typef) => dispatch(fetchDrinkThunk(inputf, typef));
-    // const ingredientFilter = (filteri) => dispatch(fetchDrinkIFilterThunk(filteri));
-    // const fetchDataCat = (filterf) => dispatch(fetchRecipesDrinkCatsThunk(filterf));
-    // if (!ifilter && !filter) fetchData(input, type);
-    // if (filter) fetchDataCat(filter);
-    // if (ifilter && !filter) ingredientFilter(ifilter);
     if (!ifilter && !filter) {
       fetchDrink = (inputf, typef) => dispatch(fetchDrinkThunk(inputf, typef));
       fetchDrink(input, type);

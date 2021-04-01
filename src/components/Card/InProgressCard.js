@@ -3,25 +3,31 @@ import './InProgressCard.css';
 import PropTypes from 'prop-types';
 
 const InProgressCard = (props) => {
-  const { drinkOrFood,
+  const { path,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
 
-  const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
-    if (instructions.split(/,|\. | ;/g).length !== index + 1) {
-      return (
-        <li key={ `instruction-${index}` }>
-          {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
-          {' '}
-          ;
-        </li>);
-    }
-    return (
-      <li key={ `instruction-${index}` }>
-        {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
-        {' '}
-      </li>);
-  });
+  useEffect(() => {
+    if (path.includes('/bebidas/:id/in-progress')) {
+      setIsDrinkOrFood('Drink');
+    } else { setIsDrinkOrFood('Food'); }
+  }, [path]);
+
+  // const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
+  //   if (instructions.split(/,|\. | ;/g).length !== index + 1) {
+  //     return (
+  //       <li key={ `instruction-${index}` }>
+  //         {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
+  //         {' '}
+  //         ;
+  //       </li>);
+  //   }
+  //   return (
+  //     <li key={ `instruction-${index}` }>
+  //       {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
+  //       {' '}
+  //     </li>);
+  // });
 
   const ingredientsMapping = ingredients.map((ingredient, index) => (
     <div key={ ingredient }>
@@ -37,8 +43,6 @@ const InProgressCard = (props) => {
       </label>
     </div>));
 
-  useEffect(() => setIsDrinkOrFood(drinkOrFood), [drinkOrFood]);
-
   const renderDrink = () => (
     <div
       name={ id }
@@ -53,8 +57,16 @@ const InProgressCard = (props) => {
       <ul>
         {ingredientsMapping}
       </ul>
-      <ol style={ { display: 'flex', flexFlow: 'column wrap', textAlign: 'center', listStylePosition: 'inside' } }>
-        {instructionsMapping}
+      <ol
+        style={
+          { display:
+          'flex',
+          flexFlow: 'column wrap',
+          textAlign: 'center',
+          listStylePosition: 'inside' }
+        }
+      >
+        {instructions}
         Voilá!
       </ol>
       <div>
@@ -67,23 +79,24 @@ const InProgressCard = (props) => {
   return (
     <main>
       {isDrinkOrFood === 'Drink' ? renderDrink() : ''}
+      {console.log(instructions)}
     </main>
   );
 };
 
 InProgressCard.propTypes = {
-  drinkOrFood: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-  alcohol: PropTypes.string,
+  alcohol: PropTypes.string.isRequired,
   instructions: PropTypes.string.isRequired,
 };
 
-InProgressCard.defaultProps = {
-  alcohol: PropTypes.string,
-};
+// InProgressCard.defaultProps = {
+//   alcohol: PropTypes.string,
+// };
 
 export default InProgressCard;

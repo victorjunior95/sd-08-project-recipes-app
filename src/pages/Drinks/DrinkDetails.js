@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import copy from 'clipboard-copy';
 import useDrinkDetailsHook from '../hooks/useDrinkDetailsHook';
@@ -10,7 +10,7 @@ import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
 const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
 
 function DrinkDetails(props) {
-  const history = useHistory();
+  // const history = useHistory();
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);

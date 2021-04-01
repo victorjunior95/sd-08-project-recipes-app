@@ -26,7 +26,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
   const renderButtons = firstFive.map(({ strCategory }) => (
     <button
       data-testid={ `${strCategory}-category-filter` }
-      style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
+      className="filter-btn"
       key={ `${strCategory} - key` }
       type="button"
       onClick={ onClickCategory }
@@ -39,7 +39,7 @@ const CategoryButtons = ({ label, onClickAll, onClickCategory }) => {
     <div>
       <button
         data-testid="All-category-filter"
-        style={ { boxSizing: 'content-box', margin: '10px', padding: '5px' } }
+        className="filter-btn"
         key="All - key"
         type="button"
         onClick={ onClickAll }

@@ -13,28 +13,28 @@ const InProgressCard = (props) => {
     } else { setIsDrinkOrFood('Food'); }
   }, [path]);
 
-  // const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
-  //   if (instructions.split(/,|\. | ;/g).length !== index + 1) {
-  //     return (
-  //       <li key={ `instruction-${index}` }>
-  //         {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
-  //         {' '}
-  //         ;
-  //       </li>);
-  //   }
-  //   return (
-  //     <li key={ `instruction-${index}` }>
-  //       {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
-  //       {' '}
-  //     </li>);
-  // });
+  const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
+    if (instructions.split(/,|\. | ;/g).length !== index + 1) {
+      return (
+        <li key={ `instruction-${index}` }>
+          {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
+          {' '}
+          ;
+        </li>);
+    }
+    return (
+      <li key={ `instruction-${index}` }>
+        {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
+        {' '}
+      </li>);
+  });
 
   const ingredientsMapping = ingredients.map((ingredient, index) => (
     <div key={ ingredient }>
       <input
         id={ `id-${index}` }
         type="checkbox"
-        data-testid={ `${index}-ingredient-step` }
+        data-testid="ingredient-step"
         value={ ingredient }
         // onChange={ ({ target }) => { console.log(target.checked); } }
       />
@@ -65,8 +65,9 @@ const InProgressCard = (props) => {
           textAlign: 'center',
           listStylePosition: 'inside' }
         }
+        data-testid="instructions"
       >
-        {instructions}
+        {instructionsMapping}
         Voilá!
       </ol>
       <div>
@@ -79,7 +80,6 @@ const InProgressCard = (props) => {
   return (
     <main>
       {isDrinkOrFood === 'Drink' ? renderDrink() : ''}
-      {console.log(instructions)}
     </main>
   );
 };

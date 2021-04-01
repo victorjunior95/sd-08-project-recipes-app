@@ -50,7 +50,7 @@ function DrinkInProgress(props) {
         ingredients={ ingredientsAndMeasuresList }
         alcohol={ strAlcoholic }
         instructions={ strInstructions }
-      /> : <h1>Carregando...</h1> }
+      /> : <h1>Carregando bebida...</h1> }
 
     </div>
   );

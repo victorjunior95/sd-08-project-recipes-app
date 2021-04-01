@@ -2,11 +2,13 @@ import {
   FecthDrinks,
   FetchDrinksOnMount,
   fetchDrinksCategories,
+  filterDrinksByButton,
 } from '../../services/theCockTailDB';
 import {
   FecthMeals,
   FetchFoodsCategories,
   FetchFoodsOnMount,
+  filterFoodsByButton,
 } from '../../services/theMeadlDB';
 import {
   GET_API_FOOD,
@@ -16,6 +18,8 @@ import {
   ERROR_REQUEST_API_FOODS,
   GET_API_DRINKS,
   ERROR_REQUEST_API_DRINKS,
+  GET_FILTER_BTN_FOOD,
+  GET_FILTER_BTN_DRINK,
 } from './types';
 
 const setFood = (data) => ({
@@ -50,6 +54,15 @@ const errorFetchingDrinks = (error) => ({
   payload: error,
 });
 
+const setByButtonFood = (data) => ({
+  type: GET_FILTER_BTN_FOOD,
+  payload: data,
+});
+
+const setByButtonDrink = (data) => ({
+  type: GET_FILTER_BTN_DRINK,
+  payload: data,
+});
 export const fetchMealsByFilter = (radio, inputName) => async (dispatch) => {
   dispatch(isFetchingFoods());
   try {
@@ -93,5 +106,25 @@ export const foodsOnMount = () => async (dispatch) => {
     dispatch(setFood(data));
   } catch (error) {
     dispatch(errorFetchingFoods(error));
+  }
+};
+
+export const filterBtnFood = (category) => async (dispatch) => {
+  dispatch(isFetchingFoods());
+  try {
+    const apiData = await filterFoodsByButton(category);
+    dispatch(setByButtonFood(apiData));
+  } catch (error) {
+    dispatch(errorFetchingFoods(error));
+  }
+};
+
+export const filterBtnDrink = (category) => async (dispatch) => {
+  dispatch(isFetchingDrinks());
+  try {
+    const apiData = await filterDrinksByButton(category);
+    dispatch(setByButtonDrink(apiData));
+  } catch (error) {
+    dispatch(errorFetchingDrinks(error));
   }
 };

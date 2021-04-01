@@ -14,13 +14,13 @@ function FilterButtonsSection() {
     if (path === '/comidas') {
       setUseCategories(foods);
     }
-  }, [foods]);
+  }, [foods, path]);
 
   useEffect(() => {
     if (path === '/bebidas') {
       setUseCategories(drinks);
     }
-  }, [drinks]);
+  }, [drinks, path]);
 
   return (
     <div>

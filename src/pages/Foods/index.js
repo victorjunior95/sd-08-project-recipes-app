@@ -13,7 +13,7 @@ function Foods() {
     dispatch(foodsOnMount());
   }, [dispatch]);
 
-  const { isFetching, meals } = useSelector((state) => state.foods);
+  const { isFetching, onClickFilter, meals } = useSelector((state) => state.foods);
   const oneMeal = meals ? meals.length : false;
   return (
     <ContainerDefault title="Comidas">
@@ -26,7 +26,8 @@ function Foods() {
             </>
           )
       }
-      { oneMeal === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } /> }
+      { oneMeal === 1 && !onClickFilter
+      && <Redirect to={ `/comidas/${meals[0].idMeal}` } /> }
     </ContainerDefault>
   );
 }

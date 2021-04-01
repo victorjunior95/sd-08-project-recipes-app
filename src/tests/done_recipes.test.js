@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import ReceitasFeitas from '../pages/ReceitasFeitas';
@@ -21,7 +21,7 @@ const doneRecipes = [
     type: 'bebida',
     area: '',
     category: 'Cocktail',
-    alcoholicOrNot:  'Alcoholic',
+    alcoholicOrNot: 'Alcoholic',
     name: 'Aquamarine',
     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
     doneDate: '23/06/2020',
@@ -69,24 +69,25 @@ describe(`Implemente os elementos da tela de receitas feitas respeitando
   });
 });
 
-// describe('Testar o botão de compartilhar', () => {
-//   it('Ao clicar no botão de compartilhar a mensagem "Link copiado!" aparece', () => {
-//     renderWithRouter(<ReceitasFeitas />);
-//     const botaoCompartilhar = screen.queryByTestId('0-horizontal-share-btn');
-//     userEvent.click(botaoCompartilhar);
+describe('Testar o botão de compartilhar', () => {
+  it('Ao clicar no botão de compartilhar a mensagem "Link copiado!" aparece', () => {
+    renderWithRouter(<ReceitasFeitas />);
+    const botaoCompartilhar = screen.queryByTestId('0-horizontal-share-btn');
 
-//     const mensagem = screen.getByRole('textarea', {
-//       'aria-describeBy': 'popover-container',
-//     });
-//     expect(mensagem).toBeInTheDocument();
-//   });
+    userEvent.click(botaoCompartilhar);
 
-//   // it('A URL da tela de detalhes da receita é copiada para o clipboard', () => {
-//   //   cy.get('[data-testid="0-horizontal-share-btn"]').click();
+    const mensagem = screen.getByRole('textarea', {
+      'aria-describeBy': 'popover-container',
+    });
+    expect(mensagem).toBeInTheDocument();
+  });
 
-//   //   cy.window().then((win) => {
-//   //     cy.wrap(win.navigator.clipboard.readText())
-//   //       .should('eq', 'http://localhost:3000/comidas/52771');
-//   //   });
-//   // });
-// });
+  // it('A URL da tela de detalhes da receita é copiada para o clipboard', () => {
+  //   cy.get('[data-testid="0-horizontal-share-btn"]').click();
+
+  //   cy.window().then((win) => {
+  //     cy.wrap(win.navigator.clipboard.readText())
+  //       .should('eq', 'http://localhost:3000/comidas/52771');
+  //   });
+  // });
+});

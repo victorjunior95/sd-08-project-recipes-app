@@ -1,8 +1,17 @@
-import { FecthDrinks, FetchDrinksOnMount } from '../../services/theCocTailDB';
-import { FecthMeals, FetchFoodsOnMount } from '../../services/theMeadlDB';
+import {
+  FecthDrinks,
+  FetchDrinksOnMount,
+  fetchDrinksCategories,
+} from '../../services/theCocTailDB';
+import {
+  FecthMeals,
+  FetchFoodsCategories,
+  FetchFoodsOnMount,
+} from '../../services/theMeadlDB';
 import {
   GET_API_FOOD,
   FETCH_API_FOODS,
+  FETCH_API_CATEGORIES,
   FETCH_API_DRINKS,
   ERROR_REQUEST_API_FOODS,
   GET_API_DRINKS,
@@ -21,6 +30,10 @@ const setDrinks = (data) => ({
 
 const isFetchingFoods = () => ({
   type: FETCH_API_FOODS,
+});
+
+export const isFetchingCategories = () => ({
+  type: FETCH_API_CATEGORIES,
 });
 
 const isFetchingDrinks = () => ({
@@ -61,7 +74,9 @@ export const drinksOnMount = () => async (dispatch) => {
   dispatch(isFetchingDrinks());
   try {
     const apiData = await FetchDrinksOnMount();
-    dispatch(setDrinks(apiData));
+    const apiCategories = await fetchDrinksCategories();
+    const data = { drinks: apiData, categories: apiCategories };
+    dispatch(setDrinks(data));
   } catch (error) {
     dispatch(errorFetchingDrinks(error));
   }
@@ -71,7 +86,9 @@ export const foodsOnMount = () => async (dispatch) => {
   dispatch(isFetchingFoods());
   try {
     const apiData = await FetchFoodsOnMount();
-    dispatch(setFood(apiData));
+    const apiCategories = await FetchFoodsCategories();
+    const data = { meals: apiData, categories: apiCategories };
+    dispatch(setFood(data));
   } catch (error) {
     dispatch(errorFetchingFoods(error));
   }

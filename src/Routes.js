@@ -24,11 +24,11 @@ export default function Routes() {
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Foods } />
-      <Route exact path="/comidas/:receitaID" component={ FoodDetails } />
-      <Route exact path="/comidas/:receitaID/in-progress" component={ FoodProcess } />
+      <Route exact path="/comidas/:id" component={ FoodDetails } />
+      <Route exact path="/comidas/:id/in-progress" component={ FoodProcess } />
       <Route exact path="/bebidas" component={ Drinks } />
-      <Route exact path="/bebidas/:bebidaID" component={ DrinksDetails } />
-      <Route exact path="/bebidas/:bebidaID/in-progress" component={ DrinksProcess } />
+      <Route exact path="/bebidas/:id" component={ DrinksDetails } />
+      <Route exact path="/bebidas/:id/in-progress" component={ DrinksProcess } />
       <Route path="/perfil" component={ Profile } />
       <Route exact path="/explorar" component={ Explorer } />
       <Route exact path="/explorar/comidas" component={ ExploreFoods } />

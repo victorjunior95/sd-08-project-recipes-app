@@ -25,7 +25,7 @@ const Login = () => {
   const history = useHistory();
 
   return (
-    <fieldset>
+    <fieldset className="login-container">
       <Input
         type="text"
         datatestid="email-input"

@@ -24,13 +24,6 @@ class Header extends Component {
     this.submitSearch = this.submitSearch.bind(this);
   }
 
-  componentDidMount() {
-    const { searchIngredient,
-      params: { url: { byName }, defaultSearch } } = this.props;
-    const url = byName + defaultSearch;
-    searchIngredient(url);
-  }
-
   handleChange({ target }) {
     if (target.type === 'radio') this.setState({ searchBy: target.value });
     if (target.type === 'text') this.setState({ text: target.value });

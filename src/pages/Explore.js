@@ -3,10 +3,10 @@ import Footer from '../components/Footer';
 
 import Header from '../components/Header';
 
-export default class Food extends Component {
+export default class Explore extends Component {
   render() {
     const values = {
-      name: 'Perfil',
+      name: 'Explorar',
       url: {
         byIngredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
         byName: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',

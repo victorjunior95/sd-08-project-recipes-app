@@ -7,6 +7,7 @@ import Food from './pages/Food';
 import Drinks from './pages/Drinks';
 import Item from './components/Item';
 import Perfil from './pages/Perfil';
+import Explore from './pages/Explore';
 
 function App() {
   return (
@@ -18,10 +19,10 @@ function App() {
         <Route path="/comidas" render={ (props) => <Food { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
         <Route path="/perfil" component={ Perfil } />
+        <Route path="/explorar" component={ Explore } />
         { /* <Route path="/comidas/{id-da-receita}/in-progress" />
-        <Route path="/bebidas/{id-da-receita}/in-progress" />
-        <Route path="/explorar" />
         <Route path="/explorar/comidas" />
+        <Route path="/bebidas/{id-da-receita}/in-progress" />
         <Route path="/explorar/bebidas" />
         <Route path="/explorar/comidas/ingredientes" />
         <Route path="/explorar/bebidas/ingredientes" />

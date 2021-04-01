@@ -24,6 +24,7 @@ function Provider({ children }) {
   const [toggle, setToggle] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const [shouldRedirect, setShouldRedirect] = useState('');
+  const [copyClipboard, setCopyClipboard] = useState('hidden');
 
   // async function requestApiData(endpoint) {
   //   const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -97,6 +98,8 @@ function Provider({ children }) {
     setDisableButton,
     shouldRedirect,
     setShouldRedirect,
+    copyClipboard,
+    setCopyClipboard,
   };
 
   return (

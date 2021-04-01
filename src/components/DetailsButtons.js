@@ -2,10 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
-// import { saveState } from '../services/LocalStorage';
 
 function SaveProgressRecipes(idRecipe, route) {
-  // const recipe = Object.values(recipeDetails[0])[0][0];
   let a = [];
   a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
   if (route === 'comidas') {
@@ -21,6 +19,44 @@ function SaveProgressRecipes(idRecipe, route) {
     });
   }
   localStorage.setItem('inProgressRecipes', JSON.stringify(a));
+}
+
+function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
+  const date = new Date();
+  const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  const recipe = Object.values(recipeDetails[0])[0][0];
+  // const tag = recipe.strTags ? recipe.strTags.split(',') : null;
+  const tag = recipe.strTags.split(',') || recipe.strTags;
+  let a = [];
+  a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+  if (route === 'comidas') {
+    a.push({
+      idRecipe,
+      type: route,
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: currentDate,
+      tags: tag,
+    });
+  }
+  if (route === 'bebidas') {
+    a.push({
+      idRecipe,
+      type: route,
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: currentDate,
+      tags: tag,
+    });
+  }
+  localStorage.setItem('doneRecipes', JSON.stringify(a));
 }
 
 function DetailsButtons({ route, id, page }) {
@@ -40,41 +76,6 @@ function DetailsButtons({ route, id, page }) {
     }
   }, []);
 
-  function SaveFinishedRecipes(idRecipe) {
-    const recipe = Object.values(recipeDetails[0])[0][0];
-    let a = [];
-    a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
-    if (route === 'comidas') {
-      a.push({
-        idRecipe,
-        type: route,
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: '',
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-        doneDate: '',
-        tags: '',
-      });
-    }
-    if (route === 'bebidas') {
-      a.push({
-        idRecipe,
-        type: route,
-        area: '',
-        category: recipe.strCategory,
-        alcoholicOrNot: recipe.strAlcoholic,
-        name: recipe.strDrink,
-        image: recipe.strDrinkThumb,
-        doneDate: '',
-        tags: '',
-      });
-    }
-    localStorage.setItem('doneRecipes', JSON.stringify(a));
-    // saveState('doneRecipes', [...a]);
-  }
-
   if (shouldRedirect === id) return <Redirect to="/receitas-feitas" />;
 
   return (
@@ -89,14 +90,10 @@ function DetailsButtons({ route, id, page }) {
             id="start-recipe-btn"
             onClick={ () => {
               idsP.push(id);
-              // localStorage.setItem('inProgressRecipes', JSON.stringify(idsP));
               SaveProgressRecipes(id, route);
             } }
           >
             Continuar Receita
-            {/* { (Object.values(ids).includes(id))
-              ? 'Continuar Receita'
-              : 'Iniciar Receita' } */}
           </Link>
         ) : (
           <button
@@ -108,8 +105,7 @@ function DetailsButtons({ route, id, page }) {
             disabled={ disableButton }
             onClick={ () => {
               idsF.push(id);
-              // localStorage.setItem('doneRecipes', JSON.stringify(idsF));
-              SaveFinishedRecipes(id);
+              SaveFinishedRecipes(id, recipeDetails, route);
               setShouldRedirect(id);
             } }
           >

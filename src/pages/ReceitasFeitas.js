@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
-// import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { NavLink } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
-// import { loadState } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
+import Context from '../context/Context';
 
 import '../styles/ReceitasFeitas.css';
 
 function ReceitasFeitas() {
   const [recipesCompleted, setRecipesCompleted] = useState('All');
-  // const [filterRecipesCompleted, setFilterRecipesCompleted] = useState([]);
+  const [filterRecipesCompleted, setFilterRecipesCompleted] = useState([]);
 
-  // const updateRecipesCompleted = () => {
-  //   const loadDoneRecipes = loadState('finishedRecipes', []);
-  //   switch (recipesCompleted) {
-  //   case 'All':
-  //     return loadDoneRecipes;
-  //   case 'Food':
-  //     return loadDoneRecipes.filter((recipes) => recipes.type === 'comida');
-  //   case 'Drinks':
-  //     return loadDoneRecipes.filter((recipes) => recipes.type === 'bebida');
-  //   default:
-  //     console.log('Selecione uma categoria');
-  //   }
-  // };
+  const { copyClipboard, setCopyClipboard } = useContext(Context);
 
-  // const urlRecipe = (type, id) => `http://localhost:3000/${type}s/${id}`;
+  const updateRecipesCompleted = () => {
+    const loadDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    console.log(loadDoneRecipes);
+    switch (recipesCompleted) {
+    case 'All':
+      return loadDoneRecipes;
+    case 'Food':
+      return loadDoneRecipes.filter((recipes) => recipes.type === 'comidas');
+    case 'Drinks':
+      return loadDoneRecipes.filter((recipes) => recipes.type === 'bebidas');
+    default:
+      console.log('Selecione uma categoria');
+    }
+  };
+
+  const urlRecipe = (type, idRecipe) => `http://localhost:3000/${type}s/${idRecipe}`;
 
   const changeFilter = (value) => {
     console.log(value);
@@ -32,9 +36,9 @@ function ReceitasFeitas() {
     else setRecipesCompleted(value);
   };
 
-  // useEffect(() => {
-  //   setFilterRecipesCompleted(updateRecipesCompleted());
-  // }, [recipesCompleted]);
+  useEffect(() => {
+    setFilterRecipesCompleted(updateRecipesCompleted());
+  }, [recipesCompleted]);
 
   return (
     <div>
@@ -71,53 +75,16 @@ function ReceitasFeitas() {
       </div>
       <br />
       <br />
-      <p data-testid="0-horizontal-top-text">Top Text 0</p>
-      <p data-testid="1-horizontal-top-text">Top Text 1</p>
-      <p data-testid="0-horizontal-done-date">Done Date</p>
-      <p data-testid="1-horizontal-done-date">Done Date 1</p>
-      <p data-testid="0-Curry-horizontal-tag">CurryTag</p>
-      <p data-testid="0-Pasta-horizontal-tag">PastaTag</p>
       <div>
-        <img
-          src="{ recipe.image }"
-          alt="{ recipe.name }"
-          data-testid="0-horizontal-image"
-        />
-        <img
-          src="{ recipe.image }"
-          alt="{ recipe.name }"
-          data-testid="1-horizontal-image"
-        />
-        <img
-          src={ shareIcon }
-          alt="Share Recipe"
-          data-testid="0-horizontal-share-btn"
-        />
-        <img
-          src={ shareIcon }
-          alt="Share Recipe"
-          data-testid="1-horizontal-share-btn"
-        />
-        <span
-          data-testid="0-horizontal-name"
-        >
-          Name0
-        </span>
-        <span
-          data-testid="1-horizontal-name"
-        >
-          Name1
-        </span>
-      </div>
-      <div>
-        {/* {
+        { filterRecipesCompleted && (
           filterRecipesCompleted.map((recipe, index) => (
             <div
-              key={ index }
+              key={ `${index}-${recipe.name}` }
             >
               <div>
-                <NavLink to={ `${recipe.type}s/${recipe.id}` }>
+                <NavLink to={ `${recipe.type}/${recipe.idRecipe}` }>
                   <img
+                    className="recipe-horizontal-image"
                     src={ recipe.image }
                     alt={ recipe.name }
                     data-testid={ `${index}-horizontal-image` }
@@ -126,7 +93,7 @@ function ReceitasFeitas() {
               </div>
               <div>
                 {
-                  recipe.type === 'comida' ? (
+                  recipe.type === 'comidas' ? (
                     <span
                       data-testid={ `${index}-horizontal-top-text` }
                     >
@@ -141,7 +108,7 @@ function ReceitasFeitas() {
                   )
                 }
                 <div>
-                  <NavLink to={ `${recipe.type}s/${recipe.id}` }>
+                  <NavLink to={ `${recipe.type}/${recipe.idRecipe}` }>
                     <span
                       data-testid={ `${index}-horizontal-name` }
                     >
@@ -155,22 +122,30 @@ function ReceitasFeitas() {
                   { `Feita em: ${recipe.doneDate}` }
                 </span>
                 <span
-                  key={ recipe.tag }
-                  data-testid={ `${index}-${recipe.tag}-horizontal-tag` }
+                  key={ recipe.tags }
+                  data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
                 >
-                  { recipe.tag }
+                  { recipe.tags }
                 </span>
               </div>
               <div>
-                <img
-                  src={ shareIcon }
-                  alt="Share Recipe"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />
+                <CopyToClipboard text={ urlRecipe(recipe.type, recipe.idRecipe) }>
+                  <button
+                    onClick={ () => setCopyClipboard('visible') }
+                    type="button"
+                  >
+                    <img
+                      src={ shareIcon }
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      alt="share button"
+                    />
+                  </button>
+                </CopyToClipboard>
               </div>
+              <small style={ { visibility: copyClipboard } }>Link copiado!</small>
             </div>
           ))
-        } */}
+        )}
       </div>
     </div>
   );

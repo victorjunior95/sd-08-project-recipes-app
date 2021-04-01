@@ -1,6 +1,5 @@
-import { fetchIngridients, fetchMealIngridientsFilter } from '../../services/MealAPI';
-import { fetchDrinkIngridients,
-  fetchDrinkIngridientsFilter } from '../../services/CocktailAPI';
+import { fetchMealByFilter, fetchMealByList } from '../../services/MealAPI';
+import { fetchDrinkByList, fetchDrinkByFilter } from '../../services/CocktailAPI';
 import { FETCH_INGREDIENTS, FILTER_INGREDIENT } from './index';
 import { fetchMealAction } from './fetchMealAction';
 import { fetchDrinkAction } from './fetchDrinkAction';
@@ -27,25 +26,25 @@ export const IngridientFilterAction = (ingredient) => ({
 });
 
 export const fetchIngredientThunk = () => async (dispatch) => {
-  const { meals } = await fetchIngridients();
+  const { meals } = await fetchMealByList('i');
   const result = filterToTwelve(meals);
   dispatch(fetchIngridientsAction(result));
 };
 
 export const fetchDrinkIngredientThunk = () => async (dispatch) => {
-  const { drinks } = await fetchDrinkIngridients();
+  const { drinks } = await fetchDrinkByList('i');
   const result = filterToTwelve(drinks);
   dispatch(fetchIngridientsAction(result));
 };
 
 export const fetchMealIFilterThunk = (meal) => async (dispatch) => {
-  const { meals } = await fetchMealIngridientsFilter(meal);
+  const { meals } = await fetchMealByFilter(meal, 'i');
   const result = filterToTwelve(meals);
   dispatch(fetchMealAction(result));
 };
 
 export const fetchDrinkIFilterThunk = (drink) => async (dispatch) => {
-  const { drinks } = await fetchDrinkIngridientsFilter(drink);
+  const { drinks } = await fetchDrinkByFilter(drink, 'i');
   const result = filterToTwelve(drinks);
   dispatch(fetchDrinkAction(result));
 };

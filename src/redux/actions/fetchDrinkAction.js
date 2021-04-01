@@ -1,5 +1,4 @@
-import { fetchCocktailByFirstLetter,
-  fetchCocktailByIngredients, fetchCocktailByName } from '../../services/CocktailAPI';
+import { fetchDrinkByFilter, fetchDrinkBySearch } from '../../services/CocktailAPI';
 import { FETCH_API } from './index';
 
 export const fetchDrinkAction = (recipes) => ({
@@ -29,24 +28,24 @@ const alertIfNull = (list) => {
 
 const fetchDrinkThunk = (input, type) => async (dispatch) => {
   if (!type && !input) {
-    const { drinks } = await fetchCocktailByName(input);
+    const { drinks } = await fetchDrinkBySearch(input, 's');
     const result = filterToTwelve(drinks);
     dispatch(fetchDrinkAction(result));
   }
   if (type === 'name') {
-    const { drinks } = await fetchCocktailByName(input);
+    const { drinks } = await fetchDrinkBySearch(input, 's');
     const verifiedDrink = alertIfNull(drinks);
     const result = filterToTwelve(verifiedDrink);
     dispatch(fetchDrinkAction(result));
   }
   if (type === 'ingredient') {
-    const { drinks } = await fetchCocktailByIngredients(input);
+    const { drinks } = await fetchDrinkByFilter(input, 'i');
     const verifiedDrink = alertIfNull(drinks);
     const result = filterToTwelve(verifiedDrink);
     dispatch(fetchDrinkAction(result));
   }
   if (type === 'first-letter') {
-    const { drinks } = await fetchCocktailByFirstLetter(input);
+    const { drinks } = await fetchDrinkBySearch(input, 'f');
     const verifiedDrink = alertIfNull(drinks);
     const result = filterToTwelve(verifiedDrink);
     dispatch(fetchDrinkAction(result));

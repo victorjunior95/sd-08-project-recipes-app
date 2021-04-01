@@ -1,26 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import FoodCarousel from '../../components/carousel/FoodCarousel';
+import RecipesContext from '../../ContextApi/RecipesContext';
 
 export default function CocktailDetails({ match: { params } }) {
+  const { recipeDetails, setSearchParam } = useContext(RecipesContext);
+
   const [recipeById, setRecipeById] = useState();
   const { id } = params;
 
+  // useEffect(() => {
+  //   fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+  //     .then((resp) => resp.json())
+  //     .then((data) => setRecipeById(data.drinks[0]));
+  // }, [id]);
+
   useEffect(() => {
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((resp) => resp.json())
-      .then((data) => setRecipeById(data.drinks[0]));
-  }, [id]);
+    setSearchParam({
+      selectedParam: 'drink-details',
+      id,
+    });
+  }, [id, setSearchParam]);
+
+  useEffect(() => {
+    setRecipeById(recipeDetails);
+  }, [recipeDetails]);
 
   if (!recipeById) return <div>Loading...</div>;
 
   const ingredients = Object.keys(recipeById)
-    .filter((item) => item.includes('strIngredient') && recipeById[item]);
+    .filter((item) => item.includes('strIngredient')
+    && recipeById[item])
+    .map((ingredient) => recipeById[ingredient]);
 
   const measures = Object.keys(recipeById)
-    .filter((item) => item.includes('strMeasure') && recipeById[item]);
+    .filter((item) => item.includes('strMeasure')
+    && recipeById[item])
+    .map((measure) => recipeById[measure]);
 
   return (
     <div style={ { width: '50%' } }>
@@ -48,7 +66,7 @@ export default function CocktailDetails({ match: { params } }) {
           ingredients
             .map((item, index) => (
               <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                {`${recipeById[item]} - ${recipeById[measures[index]]}`}
+                {`${item} - ${measures[index]}`}
               </li>))
         }
       </ul>

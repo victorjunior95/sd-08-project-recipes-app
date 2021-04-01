@@ -11,7 +11,8 @@ export default function FoodDetails({ match: { params } }) {
   const [recipeById, setRecipeById] = useState();
   const { id } = params;
 
-  const storageRecipe = localStorage.getItem('RecipeInProgress') || [];
+  const storageRecipe = JSON.parse(localStorage.getItem('RecipeInProgress'));
+  const progressRecipe = storageRecipe && storageRecipe.includes(id);
 
   useEffect(() => {
     setSearchParam({
@@ -54,7 +55,7 @@ export default function FoodDetails({ match: { params } }) {
   // Salvando receita no localStorage
 
   function setLocalStorage() {
-    const recipe = JSON.stringify(recipeById);
+    const recipe = JSON.stringify(id);
     localStorage.setItem('RecipeInProgress', recipe);
   }
 
@@ -101,7 +102,7 @@ export default function FoodDetails({ match: { params } }) {
         to={ `/comidas/${id}/in-progress` }
         onClick={ setLocalStorage }
       >
-        {storageRecipe.length > 0 ? 'Continuar Receita' : 'Iniciar Receita'}
+        {progressRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
       </Link>
     </div>
   );

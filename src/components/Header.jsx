@@ -40,6 +40,10 @@ const Header = () => {
       setHeaderTitle('Explorar Ingredientes');
       setSearchIcon(false);
       return;
+    case '/explorar/comidas/area':
+      setHeaderTitle('Explorar Origem');
+      setSearchIcon(true);
+      return;
     case '/perfil':
       setHeaderTitle('Perfil');
       return;

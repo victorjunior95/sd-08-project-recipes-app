@@ -12,7 +12,7 @@ import { byAddIngredient, fetchCategories, fetchRecipes } from '../actions/recip
 
 function Main({ location: { pathname } }) {
   const {
-    list, isFetching, categories, byIngredient,
+    list, isFetching, categories, byIngredient, filter,
   } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -24,7 +24,7 @@ function Main({ location: { pathname } }) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return;
     }
-    if (list.length === 1) {
+    if (list.length === 1 && filter === '') {
       history.push(`${pathname}/${list[0].id}`);
       return;
     }

@@ -106,14 +106,7 @@ function DrinkDetails(props) {
     addDrinkInProgress(newDrinkInProgress);
     setShouldRedirect(true);
     // history.push({ pathname: `/bebidas/${id}/in-progress`,
-    //   state: {
-    //     id,
-    //     strCategory,
-    //     strAlcoholic,
-    //     strDrink,
-    //     strDrinkThumb,
-    //     ingredientsAndMeasuresList,
-    //     strInstructions } });
+    // });
   }
 
   function renderButton() {
@@ -133,15 +126,7 @@ function DrinkDetails(props) {
     <>
       { shouldRedirect && <Redirect
         to={ { pathname: `/bebidas/${id}/in-progress`,
-          state: {
-            drinkOrFood: 'Drink',
-            id,
-            strCategory,
-            strAlcoholic,
-            strDrink,
-            strDrinkThumb,
-            ingredientsAndMeasuresList,
-            strInstructions } } }
+        } }
       /> }
       {strDrink && <DrinkDetailsInfo
         copied={ copied }

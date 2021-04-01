@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
-import { propTypes } from 'react-bootstrap/esm/Image';
 
 const InProgressCard = (props) => {
-  const { drinkOrFood, id, category, title, img, ingredients, alcohol, instructions } = props;
+  const { drinkOrFood,
+    id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
 
   const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
     if (instructions.split(/,|\. | ;/g).length !== index + 1) {
-      console.log((instructions.split(/,|\. | ;/g)));
       return (
         <li key={ `instruction-${index}` }>
           {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
@@ -31,7 +30,7 @@ const InProgressCard = (props) => {
         type="checkbox"
         data-testid={ `${index}-ingredient-step` }
         value={ ingredient }
-        onChange={ ({ target }) => { console.log(target.checked); } }
+        // onChange={ ({ target }) => { console.log(target.checked); } }
       />
       <label htmlFor={ `id-${index}` }>
         {ingredient}
@@ -63,7 +62,6 @@ const InProgressCard = (props) => {
         <button type="button" data-testid="share-btn">Compartilhar</button>
         <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
       </div>
-      {console.log(instructionsMapping)}
     </div>);
 
   return (

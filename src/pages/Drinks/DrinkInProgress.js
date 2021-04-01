@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import InProgressCard from '../../components/Card/InProgressCard';
+import { getDrinkFiltredById } from '../../services/api';
 
-function DrinkInProgress({ location: { state } }) {
-  const {
-    drinkOrFood, id,
-    strCategory, strDrink, strDrinkThumb, ingredientsAndMeasuresList,
-    strInstructions, strAlcoholic } = state;
+function DrinkInProgress({ match: { params: { id } } }) {
+  const [filteredById, setFilteredById] = useState({});
+  //   const {
+  //     drinkOrFood, id,
+  //     strCategory, strDrink, strDrinkThumb, ingredientsAndMeasuresList,
+  //     strInstructions, strAlcoholic } = state;
+
+  useEffect(() => {
+    const requestingAPI = async () => {
+      const fetchById = await getDrinkFiltredById(id);
+      setFilteredById(fetchById);
+    }; requestingAPI();
+  }, [id]);
+
   return (
     <div>
-      {console.log('drinkINProgress', state)}
-      <InProgressCard
-        drinkOrFood={ drinkOrFood }
-        id={ id }
-        category={ strCategory }
-        title={ strDrink }
-        img={ strDrinkThumb }
-        ingredients={ ingredientsAndMeasuresList }
-        alcohol={ strAlcoholic }
-        instructions={ strInstructions }
-      />
+      {console.log(filteredById)}
     </div>
   );
+//     <div>
+//       {console.log('drinkINProgress', state)}
+//       { console.log(props)}
+//       <InProgressCard
+//         drinkOrFood={ drinkOrFood }
+//         id={ id }
+//         category={ strCategory }
+//         title={ strDrink }
+//         img={ strDrinkThumb }
+//         ingredients={ ingredientsAndMeasuresList }
+//         alcohol={ strAlcoholic }
+//         instructions={ strInstructions }
+//       />
+//     </div>
+//   );
 }
 
 DrinkInProgress.propTypes = {

@@ -26,10 +26,9 @@ function getTags(recipe, index) {
 
 function FinishedRecipes() {
   const finishedRecipesStorage = (localStorage.getItem('doneRecipes'))
-    ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+    ? JSON.parse(localStorage.getItem('doneRecipes'))
     : [];
   const [filterSelector, setFilterSelector] = useState('all');
-  // const [reRender, setReRender] = useState(false);
 
   function handleSelector({ target }) {
     const { value } = target;
@@ -72,7 +71,7 @@ function FinishedRecipes() {
   function generateListOfCards() {
     if (finishedRecipesStorage.length === 0) {
       return (
-        <div>No favorite recipes yet!</div>
+        <div>No done recipes yet!</div>
       );
     }
     if (filterSelector === 'all' && finishedRecipesStorage) {

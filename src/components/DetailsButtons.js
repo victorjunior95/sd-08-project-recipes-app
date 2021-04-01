@@ -28,11 +28,11 @@ function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
   // const tag = Array.isArray(recipe.strTags) ? recipe.strTags.split(',') : recipe.strTags;
 
   // código que passa nos testes mas não renderiza
-  const tag = Array.isArray(recipe.strTags) ? (
-    recipe.strTags.split(',') || recipe.strTags) : null;
+  // const tag = Array.isArray(recipe.strTags) ? (
+  //   recipe.strTags.split(',') || recipe.strTags) : null;
 
   // código que renderiza mas não passa nos testes
-  // const tag = recipe.strTags ? recipe.strTags.split(',') : '';
+  const tag = recipe.strTags ? recipe.strTags.split(',') : '';
 
   let a = [];
   a = JSON.parse(localStorage.getItem('doneRecipes')) || [];

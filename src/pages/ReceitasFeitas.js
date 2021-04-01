@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
 import shareIcon from '../images/shareIcon.svg';
 import Context from '../context/Context';
@@ -15,7 +15,7 @@ function ReceitasFeitas() {
 
   const updateRecipesCompleted = () => {
     const loadDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    console.log(loadDoneRecipes);
+    // console.log(loadDoneRecipes);
     switch (recipesCompleted) {
     case 'All':
       return loadDoneRecipes;
@@ -31,7 +31,7 @@ function ReceitasFeitas() {
   const urlRecipe = (type, idRecipe) => `http://localhost:3000/${type}s/${idRecipe}`;
 
   const changeFilter = (value) => {
-    console.log(value);
+    // console.log(value);
     if (value === recipesCompleted) setRecipesCompleted('All');
     else setRecipesCompleted(value);
   };
@@ -79,17 +79,17 @@ function ReceitasFeitas() {
         { filterRecipesCompleted && (
           filterRecipesCompleted.map((recipe, index) => (
             <div
-              key={ `${index}-${recipe.name}` }
+              key={ index }
             >
               <div>
-                <NavLink to={ `${recipe.type}/${recipe.idRecipe}` }>
+                <Link to={ `${recipe.type}/${recipe.idRecipe}` }>
                   <img
                     className="recipe-horizontal-image"
                     src={ recipe.image }
                     alt={ recipe.name }
                     data-testid={ `${index}-horizontal-image` }
                   />
-                </NavLink>
+                </Link>
               </div>
               <div>
                 {
@@ -108,13 +108,13 @@ function ReceitasFeitas() {
                   )
                 }
                 <div>
-                  <NavLink to={ `${recipe.type}/${recipe.idRecipe}` }>
+                  <Link to={ `${recipe.type}/${recipe.idRecipe}` }>
                     <span
                       data-testid={ `${index}-horizontal-name` }
                     >
                       { recipe.name }
                     </span>
-                  </NavLink>
+                  </Link>
                 </div>
                 <span
                   data-testid={ `${index}-horizontal-done-date` }

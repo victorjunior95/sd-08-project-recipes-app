@@ -9,6 +9,17 @@ const InProgressCard = (props) => {
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const history = useHistory();
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
+  const [favorites, updateFavorites] = useFavoritesHook();
+
+  useEffect(() => {
+    function checkIsFavorite() {
+      return favorites
+        .find((fav) => fav.id === id)
+        ? setIsFavorite(true)
+        : setIsFavorite(false);
+    }
+    checkIsFavorite();
+  }, [id, favorites]);
 
   useEffect(() => {
     if (url.includes('bebidas')) {

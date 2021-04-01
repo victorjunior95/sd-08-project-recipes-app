@@ -3,7 +3,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 import shareIcon from '../images/shareIcon.svg';
-import LinkCopiado from './LinkCopiado';
 
 import '../styles/CardFeitas.css';
 
@@ -91,7 +90,6 @@ function CardFeitas({ objDetail, index }) {
               alt={ objDetail.id }
             />
           </CopyToClipboard>
-          <LinkCopiado />
           <p
             className="finish-date"
             data-testid={ `${index}-horizontal-done-date` }

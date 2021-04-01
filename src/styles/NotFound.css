@@ -22,11 +22,12 @@
   opacity: 0.4;
 }
 
-.message p {
-  font-size: 30px;
-  opacity: 0.5;
-  text-align: center;
-  width: 70%;
+.message .not-found {
+  animation: blur 4s linear infinite;
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  opacity: 1;
 }
 
 .message button {

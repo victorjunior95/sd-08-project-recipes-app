@@ -3,6 +3,7 @@ import CardFavoritas from '../components/CardFavoritas';
 import Header from '../components/Header';
 import RecipeContext from '../context/RecipeContext';
 import getInformation from '../services/getInformation';
+import LinkCopiado from '../components/LinkCopiado';
 
 function ReceitasFavoritas() {
   const [filterType, setFilterType] = useState('All');
@@ -57,6 +58,7 @@ function ReceitasFavoritas() {
           </button>
         </div>
       </div>
+      <LinkCopiado />
       {verify().map((elem, index) => (
         <CardFavoritas key={ index } objDetail={ elem } index={ index } />
       ))}

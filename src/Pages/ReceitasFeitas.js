@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CardFeitas from '../components/CardFeitas';
 import Header from '../components/Header';
+import LinkCopiado from '../components/LinkCopiado';
 
 import '../styles/ReceitasFeitas.css';
 
@@ -59,6 +60,7 @@ function ReceitasFeitas() {
           </button>
         </div>
       </div>
+      <LinkCopiado />
       {verify()}
 
     </div>

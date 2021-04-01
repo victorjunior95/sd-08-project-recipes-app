@@ -3,7 +3,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 import shareIcon from '../images/shareIcon.svg';
-import LinkCopiado from './LinkCopiado';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 import '../styles/CardFavoritas.css';
@@ -82,7 +81,6 @@ function CardFavoritas({ objDetail, index }) {
               alt={ objDetail.id }
             />
           </CopyToClipboard>
-          <LinkCopiado />
           <input
             className="favorite-btn"
             onClick={ () => removeFavorite() }

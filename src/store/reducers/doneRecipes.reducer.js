@@ -38,6 +38,7 @@ function isDone(par) {
     alcoholicOrNot = '';
     image = '';
   }
+  console.log(newArr);
   localStorage.setItem('doneRecipes', JSON.stringify(newArr));
 }
 
@@ -50,6 +51,8 @@ const doneRecipes = (state = initialState, action) => {
       doneRecipes: [...state.doneRecipes, action.payload],
     };
     isDone(a.doneRecipes);
+    console.log(a.doneRecipes);
+    console.log(a);
     return a;
   default:
     return state;

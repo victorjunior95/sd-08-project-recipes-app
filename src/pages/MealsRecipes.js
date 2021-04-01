@@ -13,26 +13,32 @@ import { fetchMealIFilterThunk } from '../redux/actions/fetchIngridientsAction';
 function MealsRecipes() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const input = useSelector((state) => state.search.inputValue);
-  const type = useSelector((state) => state.search.inputType);
+  const {
+    inputValue,
+    inputType,
+    mealFilter,
+    ingredientFilter,
+  } = useSelector((state) => state.search);
   const meals = useSelector((state) => state.recipes.recipes);
-  const filter = useSelector((state) => state.search.mealFilter);
-  const ifilter = useSelector((state) => state.search.ingredientFilter);
+  // const input = useSelector((state) => state.search.inputValue);
+  // const type = useSelector((state) => state.search.inputType);
+  // const filter = useSelector((state) => state.search.mealFilter);
+  // const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
     let fetchMeal;
-    if (!ifilter && !filter) {
+    if (!ingredientFilter && !mealFilter) {
       fetchMeal = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
-      fetchMeal(input, type);
+      fetchMeal(inputValue, inputType);
     }
-    if (filter) {
+    if (mealFilter) {
       fetchMeal = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
-      fetchMeal(filter);
+      fetchMeal(mealFilter);
     }
-    if (ifilter && !filter) {
+    if (ingredientFilter && !mealFilter) {
       fetchMeal = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
-      fetchMeal(ifilter);
+      fetchMeal(ingredientFilter);
     }
-  }, [input, type, filter, ifilter]);
+  }, [inputValue, inputType, mealFilter, ingredientFilter]);
 
   useEffect(() => () => {
     const clearDispatch = () => {
@@ -48,7 +54,7 @@ function MealsRecipes() {
 
   return (
     <main>
-      {(meals && meals.length === 1 && filter === '')
+      {(meals && meals.length === 1 && mealFilter === '')
       && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />

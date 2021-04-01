@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearRecipesAction } from '../redux/actions/clearRecipesAction';
+import clearSearchAction from '../redux/actions/clearSearchAction';
 import fetchDrinkCatsThunk from '../redux/actions/fetchDrinkCatsAction';
 import filterDrinkCatsAction from '../redux/actions/filterDrinkCatAction';
 
@@ -31,7 +33,10 @@ function DrinkCatsButtons() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => dispatch(filterDrinkCatsAction('')) }
+        onClick={ () => {
+          dispatch(clearRecipesAction());
+          dispatch(clearSearchAction());
+        } }
       >
         All
       </button>

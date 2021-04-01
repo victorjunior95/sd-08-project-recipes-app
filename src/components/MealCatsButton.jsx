@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearRecipesAction } from '../redux/actions/clearRecipesAction';
+import clearSearchAction from '../redux/actions/clearSearchAction';
 import fetchMealCatsThunk from '../redux/actions/fetchMealCatsAction';
 import filterMealCatsAction from '../redux/actions/filterMealCatAction';
 
 function MealCatsButtons() {
-  const categories = useSelector((state) => state.recipes.categories);
-  const { meals } = categories;
+  const { meals } = useSelector((state) => state.recipes.categories);
+  // const { meals } = categories;
   const FIVE = 5;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,7 +33,10 @@ function MealCatsButtons() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => dispatch(filterMealCatsAction('')) }
+        onClick={ () => {
+          dispatch(clearRecipesAction());
+          dispatch(clearSearchAction());
+        } }
       >
         All
       </button>

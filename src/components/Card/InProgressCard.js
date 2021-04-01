@@ -12,6 +12,13 @@ const InProgressCard = (props) => {
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
   const [favorites, updateFavorites] = useFavoritesHook();
   const [isFavorite, setIsFavorite] = useState(false);
+  const [testOnClick, setTestOnClick] = useState(false);
+
+  const copyFunction = () => {
+    copy(window.location.href);
+    setTestOnClick(!testOnClick);
+    console.log('mudou');
+  };
 
   useEffect(() => {
     function checkIsFavorite() {
@@ -95,10 +102,11 @@ const InProgressCard = (props) => {
         <button
           type="button"
           data-testid="share-btn"
-          onClick={ () => copy(window.location.href) }
+          onClick={ copyFunction }
         >
-          Compartilhar
+          {testOnClick ? 'Link copiado!' : 'Compartilhar'}
         </button>
+
         <button
           type="button"
           data-testid="finish-recipe-btn"
@@ -144,10 +152,11 @@ const InProgressCard = (props) => {
         >
           Favoritar
         </button>
+        {testOnClick ? <span>Link copiado!</span> : ''}
         <button
           type="button"
           data-testid="share-btn"
-          onClick={ () => copy(window.location.href) }
+          onClick={ copyFunction }
         >
           Compartilhar
         </button>
@@ -164,7 +173,6 @@ const InProgressCard = (props) => {
   return (
     <main>
       {isDrinkOrFood === 'Drink' ? renderDrink() : renderFood()}
-      {console.log(favorites)}
 
     </main>
   );

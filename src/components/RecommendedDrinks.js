@@ -21,22 +21,26 @@ function RecommendedDrinks() {
     );
   }
   return (
-    <div className="scroll-menu">
+    <ul className="scroll-menu">
       {
         recommended.map((drink, index) => {
           if (index <= MAX_LENGTH) {
             return (
-              <div data-testid={ `${index}-recomendation-card` }>
-                <h1 data-testid={ `${index}-recomendation-title` } key={ index }>
+              <li
+                data-testid={ `${index}-recomendation-card` }
+                key={ index }
+                className="recommended"
+              >
+                <h1 data-testid={ `${index}-recomendation-title` }>
                   {drink.strDrink}
                 </h1>
-              </div>
+              </li>
             );
           }
           return '';
         })
       }
-    </div>
+    </ul>
   );
 }
 

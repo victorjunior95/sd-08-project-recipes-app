@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import LikeButton from '../components/LikeButton';
+import ShareButton from '../components/ShareButton';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
 
 function ProgressDrink() {
@@ -53,13 +53,12 @@ function ProgressDrink() {
     arrayDrink !== undefined && (
       <div>
         <img data-testid="recipe-photo" src={ arrayDrink.strDrinkThumb } alt="recipe" />
-        <h1 data-testid="recipe-title">{arrayDrink.strDrink}</h1>
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="favorite" />
-        </button>
+        <h1 data-testid="recipe-title">{ arrayDrink.strDrink }</h1>
+        <ShareButton
+          recipeId={ arrayDrink.idDrink }
+          recipeType="bebida"
+        />
+        <LikeButton />
         <p data-testid="recipe-category">{arrayDrink.strAlcoholic}</p>
         <p data-testid="recipe-category">{arrayDrink.strCategory}</p>
         Ingredients

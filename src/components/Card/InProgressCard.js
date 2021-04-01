@@ -31,11 +31,10 @@ const InProgressCard = ({ path,
   const ingredientsMapping = ingredients.map((ingredient, index) => {
     if (ingredient !== '  ') {
       return (
-        <div key={ `${index}-${ingredient}` }>
+        <div key={ `${index}-${ingredient}` } data-testid="ingredient-step">
           <input
             id={ `id-${index}` }
             type="checkbox"
-            data-testid="ingredient-step"
             value={ ingredient }
             // onChange={ ({ target }) => { console.log(target.checked); } }
           />
@@ -61,13 +60,10 @@ const InProgressCard = ({ path,
         {ingredientsMapping}
       </ul>
       <ol
-        style={
-          { display:
-          'flex',
-          flexFlow: 'column wrap',
-          textAlign: 'center',
-          listStylePosition: 'inside' }
-        }
+        style={ { display: 'flex',
+    flexFlow: 'column wrap',
+    textAlign: 'center',
+    listStylePosition: 'inside' } }
         data-testid="instructions"
       >
         {instructionsMapping}
@@ -96,11 +92,10 @@ const InProgressCard = ({ path,
       </ul>
       <ol
         style={
-          { display:
-          'flex',
-          flexFlow: 'column wrap',
-          textAlign: 'center',
-          listStylePosition: 'inside' }
+    { display: 'flex',
+      flexFlow: 'column wrap',
+      textAlign: 'center',
+      listStylePosition: 'inside' }
         }
         data-testid="instructions"
       >

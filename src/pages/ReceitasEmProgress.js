@@ -7,7 +7,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { fetchProductDetailsById } from '../services';
-// import { handleIsFavorite } from './Detalhes';
+import handleIsFavorite from './Detalhes';
 
 const Detalhes = () => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -15,14 +15,12 @@ const Detalhes = () => {
   const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [hidden, setHidden] = useState(false);
-  // const [check, setCheck] = useState(false);
   const [usedIngri, setUseIngri] = useState([]);
   const [inProgress, setInProgress] = useState({});
   const location = useLocation();
-  // const history = useHistory();
-  // console.log(history, 'oiss');
+  const history = useHistory();
 
-  const handleInProgress = (idCurrentRecipe) => {
+  const handleInProgress = (idCurrentRecipe, isFood) => {
     if (localStorage.getItem('inProgressRecipes') === null) {
       const recipesInProgress = {
         cocktails: {},
@@ -34,15 +32,20 @@ const Detalhes = () => {
         JSON.parse(localStorage.getItem('inProgressRecipes')));
       setInProgress(storageProgessRecipes);
       console.log(storageProgessRecipes, 'iii');
-      if (isMeal) {
+      if (isFood) {
         const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
         if (result >= 0) {
-          console.log(result, storageProgessRecipes.meals[idCurrentRecipe]);
+          console.log(result, 'ingrediente');
           setUseIngri(storageProgessRecipes.meals[idCurrentRecipe]);
         }
         console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.meals), 'recipes');
       } else {
-        console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.cocktails), 'recipes');
+        const result = Object.keys(storageProgessRecipes.cocktails).indexOf(idCurrentRecipe);
+        if (result >= 0) {
+          setUseIngri(storageProgessRecipes.cocktails[idCurrentRecipe]);
+
+          console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.cocktails), 'recipes');
+        }
       }
     }
   };
@@ -63,7 +66,7 @@ const Detalhes = () => {
       setFoodDetails(foodDetail);
       setIngredients(ingredientFilter);
 
-      handleInProgress(id);
+      handleInProgress(id, type === 'comidas');
       console.log(() => handleInProgress(), 'test');
     };
 
@@ -75,13 +78,15 @@ const Detalhes = () => {
 
     if (!isMeal) {
       result = {
-        cocktails: { ...inProgress.cocktails, [foodDetails.idDrink]: [...usedIngridients] },
+        cocktails: { ...inProgress.cocktails,
+          [foodDetails.idDrink]: [...usedIngridients] },
         meals: { ...inProgress.meals },
       };
       // result.cocktails[foodDetails.idDrink] = [...usedIngridients];
     } else {
       result = {
-        meals: { ...inProgress.meals, [foodDetails.idMeal]: [...usedIngridients] },
+        meals: { ...inProgress.meals,
+          [foodDetails.idMeal]: [...usedIngridients] },
         cocktails: { ...inProgress.cocktails },
       };
     } console.log(inProgress.cocktails, 'drinks');
@@ -149,11 +154,10 @@ const Detalhes = () => {
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
-
                 onChange={ ({ target }) => { handleCheckBox((target.value)); } }
                 type="checkbox"
                 value={ `${ingredientName}` }
-                checked={ usedIngri.indexOf(ingredientName) >= 0 && 'checked' }
+                checked={ usedIngri.indexOf(ingredientName) >= 0 }
               />
             </div>
           );
@@ -161,7 +165,14 @@ const Detalhes = () => {
       }
       <p data-testid="instructions">{foodDetails.strInstructions}</p>
 
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        type="button"
+        onClick={ () => history.push('/receitas-feitas') }
+        data-testid="finish-recipe-btn"
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 };

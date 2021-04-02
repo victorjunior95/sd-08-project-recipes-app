@@ -4,7 +4,9 @@ import MyContext from '../context/MyContext';
 import '../styles/Cards.css';
 
 function Cards({ title }) {
+  let array = [];
   const history = useHistory();
+  const LIMIT = 11;
   const {
     type,
     comidas,
@@ -12,11 +14,10 @@ function Cards({ title }) {
     setType,
     setRecipe,
   } = useContext(MyContext);
-  const LIMIT = 11;
-  let array = [];
-  if (title === 'Comidas') {
+
+  if (title === 'Comidas' && comidas !== null) {
     array = comidas;
-  } else {
+  } else if (title === 'Bebias' && bebidas !== null) {
     array = bebidas;
   }
 

@@ -50,10 +50,11 @@ function ExploreButton({ title }) {
       setBebidas(terminatedRequest.drinks);
     }
 
+    console.log(!tamanhoResposta || !terminatedRequest[url.type]);
     if (!tamanhoResposta || !terminatedRequest[url.type]) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (terminatedRequest[url.type].length === 1) {
-      console.log(terminatedRequest[url.type][0][url.id]);
+      // console.log(terminatedRequest[url.type][0][url.id]);
       history.push(`/${title.toLowerCase()}/${terminatedRequest[url.type][0][url.id]}`);
     } else {
       setCreateCards(true);

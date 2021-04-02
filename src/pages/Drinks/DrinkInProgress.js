@@ -99,6 +99,7 @@ function DrinkInProgress(props) {
       {!isEmpty(filteredById)
         ? (
           <section style={ { display: 'flex', flexFlow: 'column wrap' } }>
+            {buttonsDiv}
             <InProgressCard
               url={ url }
               id={ id }
@@ -109,7 +110,6 @@ function DrinkInProgress(props) {
               alcohol={ strAlcoholic }
               instructions={ strInstructions }
             />
-            {buttonsDiv}
           </section>)
         : <h1>Carregando bebida...</h1> }
     </main>

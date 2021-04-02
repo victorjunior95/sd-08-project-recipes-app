@@ -99,7 +99,7 @@ function FoodInProgress(props) {
       {!isEmpty(filteredById)
         ? (
           <section style={ { display: 'flex', flexFlow: 'column wrap' } }>
-            {' '}
+            {buttonsDiv}
             <InProgressCard
               url={ url }
               id={ id }
@@ -110,8 +110,6 @@ function FoodInProgress(props) {
               // alcohol={ strAlcoholic }
               instructions={ strInstructions }
             />
-            {' '}
-            {buttonsDiv}
           </section>) : <h1>Carregando comida...</h1> }
     </div>
   );

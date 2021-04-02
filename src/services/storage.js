@@ -21,6 +21,8 @@ export const getInProgress = () => localStorage.getItem('inProgressRecipes');
 
 export const getFavoriteRecipes = () => localStorage.getItem('favoriteRecipes');
 
+export const getDoneRecipes = () => localStorage.getItem('doneRecipes');
+
 export const saveInProgressRecipe = (recipe) => {
   const oldState = JSON.parse(getInProgress());
   const newState = { ...oldState, [recipe.id]: recipe.ingredients };

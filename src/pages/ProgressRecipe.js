@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Creators as FavoriteRecipesActions } from '../store/ducks/favoriteRecipes';
+import { Creators as DoneRecipesActions } from '../store/ducks/doneRecipes';
 import * as mealApi from '../services/mealApi';
 import * as cocktailApi from '../services/cocktailApi';
+import mapRecipe from '../helpers/utils';
 
 import styles from '../styles/pages/ProgressRecipe.module.css';
 
@@ -30,7 +31,8 @@ function getMeasures(recipe) {
   return measureList;
 }
 
-const ProgressRecipe = ({ isMeal, addRecipe }) => {
+const ProgressRecipe = ({ isMeal, addFavoriteRecipe, removeFavoriteRecipe,
+  addDoneRecipe }) => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -49,6 +51,16 @@ const ProgressRecipe = ({ isMeal, addRecipe }) => {
     getRecipe();
   }, []);
 
+  function handleFinishRecipe() {
+    removeFavoriteRecipe(id);
+    addDoneRecipe({
+      ...mapRecipe(recipe),
+      doneDate: new Date().toLocaleDateString('pt-br'),
+      tags: recipe.strTags ? recipe.strTags.split(',') : [],
+    });
+    history.push('/receitas-feitas');
+  }
+
   if (!recipe) return <p>Loading...</p>;
 
   return (
@@ -62,7 +74,7 @@ const ProgressRecipe = ({ isMeal, addRecipe }) => {
 
       <div className={ styles.progressRecipe }>
         <RecipeHeader
-          handleFavorite={ () => addRecipe(recipe) }
+          handleFavorite={ () => addFavoriteRecipe(recipe) }
           title={ recipe.strMeal || recipe.strDrink }
           category={ recipe.strCategory }
           id={ recipe.idMeal || recipe.idDrink }
@@ -80,7 +92,7 @@ const ProgressRecipe = ({ isMeal, addRecipe }) => {
         <PrimaryButton
           data-testid="finish-recipe-btn"
           disabled={ isButtonDisabled }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ handleFinishRecipe }
         >
           Finalizar Receita
         </PrimaryButton>
@@ -90,11 +102,16 @@ const ProgressRecipe = ({ isMeal, addRecipe }) => {
 };
 
 ProgressRecipe.propTypes = {
-  addRecipe: PropTypes.func.isRequired,
+  addFavoriteRecipe: PropTypes.func.isRequired,
+  removeFavoriteRecipe: PropTypes.func.isRequired,
+  addDoneRecipe: PropTypes.func.isRequired,
   isMeal: PropTypes.bool.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => (
-  bindActionCreators(FavoriteRecipesActions, dispatch));
+const mapDispatchToProps = (dispatch) => ({
+  addFavoriteRecipe: (recipe) => dispatch(FavoriteRecipesActions.addRecipe(recipe)),
+  removeFavoriteRecipe: (id) => dispatch(FavoriteRecipesActions.removeRecipe(id)),
+  addDoneRecipe: (recipe) => dispatch(DoneRecipesActions.addRecipe(recipe)),
+});
 
 export default connect(null, mapDispatchToProps)(ProgressRecipe);

@@ -1,0 +1,26 @@
+.bigCardHeader {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.name {
+  font-size: 1.3rem;
+}
+
+.category {
+  margin-bottom: 2px;
+  opacity: 0.5;
+}
+
+.shareButton {
+  cursor: pointer;
+  font-size: 0;
+  position: absolute;
+  right: 2px;
+  top: -2px;
+}
+
+.shareButton img {
+  width: 25px;
+}

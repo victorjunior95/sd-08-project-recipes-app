@@ -68,7 +68,7 @@ class ExplorarBebidasIngredientescopy extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   filterIngrediente:
-   (ingredient) => dispatch({ type: 'INGREDIENT_FILTER', payload: ingredient }),
+   (ingredient) => dispatch({ type: 'DRINKS_INGREDIENT_FILTER', payload: ingredient }),
 });
 
 ExplorarBebidasIngredientescopy.propTypes = {

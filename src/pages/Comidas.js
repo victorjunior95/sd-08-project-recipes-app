@@ -81,7 +81,7 @@ class Comidas extends Component {
   }
 
   render() {
-    const { categories: { recipesCategories }, meals, bool } = this.props;
+    const { meals, bool } = this.props;
     const { selectedCategory } = this.state;
     let cards = '';
     if (!meals.ingredienteFilter) {
@@ -102,23 +102,6 @@ class Comidas extends Component {
           >
             All
           </button>
-          {/* {
-            recipesCategories.map((category, index) => {
-              if (index < MAX_CATEGORIES && bool === false) {
-                return (
-                  <button
-                    key={ index }
-                    type="button"
-                    onClick={ () => this.handleClick(category.strCategory) }
-                    data-testid={ `${category.strCategory}-category-filter` }
-                  >
-                    {category.strCategory}
-                  </button>
-                );
-              }
-              return null;
-            })
-          } */}
           {this.inputButtons()}
           {
 
@@ -158,25 +141,8 @@ class Comidas extends Component {
         >
           All
         </button>
+        {this.inputButtons()}
         {
-          recipesCategories.map((category, index) => {
-            if (index < MAX_CATEGORIES && bool === false) {
-              return (
-                <button
-                  type="button"
-                  onClick={ () => this.handleClick(category.strCategory) }
-                  data-testid={ `${category.strCategory}-category-filter` }
-                >
-                  {category.strCategory}
-                </button>
-              );
-            }
-            return null;
-          })
-        }
-
-        {
-
           selectedCategory.map((meal, index) => {
             if (index < MAX_CARDS && bool === false) {
               console.log(meal);

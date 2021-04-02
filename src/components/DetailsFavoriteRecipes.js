@@ -113,7 +113,7 @@ const DetailsFavoriteRecipes = () => {
               { copyURL ? <p>Link copiado!</p> : null }
             </div>
           )) : bebidas.map((recipe, index) => (
-            <div className="bebidasFavoritas" key={ index + 1}>
+            <div className="bebidasFavoritas" key={ index + 1 }>
               <Link to={ `${recipe.type}s/${recipe.id}` }>
                 <img
                   className="ingredient-img"

@@ -16,11 +16,10 @@ export default function FavoritePageLikeBtn({
     : [];
 
   function handleClick() {
-    const removeFavorite = recipeStorage.filter((e) => e.id !== recipeId);
     localStorage.setItem('favoriteRecipes', JSON
-      .stringify(removeFavorite));
+      .stringify(recipeStorage.filter((e) => e.id !== recipeId)));
     setReRender(!reRender);
-    dispatch(favoriteRecipesAction(removeFavorite));
+    dispatch(favoriteRecipesAction(recipeStorage.filter((e) => e.id !== recipeId)));
   }
 
   return (

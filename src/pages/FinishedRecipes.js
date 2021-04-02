@@ -5,13 +5,12 @@ import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
 import '../CSS/Cards.css';
 
-function getTags(recipe, index) {
-  const tag = recipe.tags;
-  if (!tag) return null;
-  if (tag) {
+function getTags({ tags }, index) {
+  if (!tags) return null;
+  if (tags) {
     return (
       <>
-        { tag.map((e) => (
+        { tags.map((e) => (
           <span
             key={ `${index}${e}` }
             data-testid={ `${index}-${e}-horizontal-tag` }
@@ -31,8 +30,7 @@ function FinishedRecipes() {
   const [filterSelector, setFilterSelector] = useState('all');
 
   function handleSelector({ target }) {
-    const { value } = target;
-    setFilterSelector(value);
+    setFilterSelector(target.value);
   }
 
   function generateCard(recipe, index) {

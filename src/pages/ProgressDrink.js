@@ -4,32 +4,25 @@ import { useLocation } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
+import { findKey } from '../services/index';
 
 function ProgressDrink() {
-  const drink = useSelector((state) => state.recipes.singleRecipe);
+  const { singleRecipe } = useSelector((state) => state.recipes);
 
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const arrayId = pathname.split('/')[2];
 
-  const arrayDrink = drink[0];
-  console.log(arrayDrink);
+  const arrayDrink = singleRecipe[0];
 
   useEffect(() => {
     const fetchData = ((id) => dispatch(fetchDrinkActionId(id)));
     fetchData(arrayId);
   }, []);
 
-  const findKey = (value) => Object.entries(arrayDrink).map((nome) => {
-    if (nome[0].includes(value)) {
-      return nome[1];
-    }
-    return undefined;
-  }).filter((element) => element !== undefined);
-
   const createIngrediets = () => {
-    const ingredient = findKey('strIngredient');
-    const measure = findKey('strMeasure');
+    const ingredient = findKey(arrayDrink, 'strIngredient');
+    const measure = findKey(arrayDrink, 'strMeasure');
 
     return ingredient.map((nome, index) => {
       if (nome) {

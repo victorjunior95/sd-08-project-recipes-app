@@ -15,20 +15,25 @@ function FoodDetail() {
   const { pathname } = useLocation();
   const arrayId = pathname.split('/')[2];
   const arrayRecipes = pathname.split('/')[1];
-  const recipes = useSelector((state) => state.recipes.singleRecipe);
+  const { singleRecipe } = useSelector((state) => state.recipes);
 
   const history = useHistory();
 
   useEffect(() => {
-    const fetchMeal = (id) => dispatch(fetchMealActionId(id));
-    const fetchDrink = (id) => dispatch(fetchDrinkActionId(id));
-    if (arrayRecipes === 'comidas' && recipes.length === 0) fetchMeal(arrayId);
-    if (arrayRecipes === 'bebidas' && recipes.length === 0) fetchDrink(arrayId);
+    let fetchData;
+    if (arrayRecipes === 'comidas' && singleRecipe.length === 0) {
+      fetchData = (id) => dispatch(fetchMealActionId(id));
+      fetchData(arrayId);
+    }
+    if (arrayRecipes === 'bebidas' && singleRecipe.length === 0) {
+      fetchData = (id) => dispatch(fetchDrinkActionId(id));
+      fetchData(arrayId);
+    }
   }, []);
 
   useEffect(() => () => dispatch(clearSingleRecipe()), []);
 
-  const recipe = recipes && recipes[0];
+  const recipe = singleRecipe && singleRecipe[0];
 
   const renderMeal = () => recipe !== undefined && (
     <div>

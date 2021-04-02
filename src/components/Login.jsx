@@ -12,12 +12,10 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    const user = { email, password };
-    dispatch(userAction(user));
+    dispatch(userAction({ email, password }));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    const userEmail = { email };
-    localStorage.setItem('user', JSON.stringify(userEmail));
+    localStorage.setItem('user', JSON.stringify({ email }));
     setRedirect(true);
   };
 

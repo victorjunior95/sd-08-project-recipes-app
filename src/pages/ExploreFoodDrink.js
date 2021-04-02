@@ -14,26 +14,26 @@ function ExploreFoodDrink() {
   const { random } = useSelector((state) => state.recipes);
   const { singleRecipe } = useSelector((state) => state.recipes);
   const { pathname } = history.location;
-  const foodDrinks = history.location.pathname.split('/');
 
   const randomClick = () => {
     dispatch({ type: RANDOM_RECIPE });
   };
 
   useEffect(() => {
-    const dispatchMeal = () => dispatch(fetchRandomMealAction());
-    const dispatchDrink = () => dispatch(fetchRandomDrinkAction());
-    if (foodDrinks[2] === 'comidas' && singleRecipe.length === 0 && random) {
-      dispatchMeal();
+    let dispatchRecipes;
+    if (pathname.split('/')[2] === 'comidas' && singleRecipe.length === 0 && random) {
+      dispatchRecipes = () => dispatch(fetchRandomMealAction());
+      dispatchRecipes();
     }
-    if (foodDrinks[2] === 'bebidas' && singleRecipe.length === 0 && random) {
-      dispatchDrink();
+    if (pathname.split('/')[2] === 'bebidas' && singleRecipe.length === 0 && random) {
+      dispatchRecipes = () => dispatch(fetchRandomDrinkAction());
+      dispatchRecipes();
     }
-    if (singleRecipe.length === 1 && foodDrinks[2] === 'comidas' && random) {
-      history.push(`/${foodDrinks[2]}/${singleRecipe[0].idMeal}`);
+    if (singleRecipe.length === 1 && pathname.split('/')[2] === 'comidas' && random) {
+      history.push(`/${pathname.split('/')[2]}/${singleRecipe[0].idMeal}`);
     }
-    if (singleRecipe.length === 1 && foodDrinks[2] === 'bebidas' && random) {
-      history.push(`/${foodDrinks[2]}/${singleRecipe[0].idDrink}`);
+    if (singleRecipe.length === 1 && pathname.split('/')[2] === 'bebidas' && random) {
+      history.push(`/${pathname.split('/')[2]}/${singleRecipe[0].idDrink}`);
     }
   }, [random, singleRecipe]);
 
@@ -44,7 +44,7 @@ function ExploreFoodDrink() {
       <Header />
       { pathname === '/explorar/comidas' && <Button /> }
       <button
-        onClick={ () => history.push(`/explorar/${foodDrinks[2]}/ingredientes`) }
+        onClick={ () => history.push(`/explorar/${pathname.split('/')[2]}/ingredientes`) }
         data-testid="explore-by-ingredient"
         type="button"
       >

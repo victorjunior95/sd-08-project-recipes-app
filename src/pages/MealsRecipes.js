@@ -13,17 +13,15 @@ import { fetchMealIFilterThunk } from '../redux/actions/fetchIngridientsAction';
 function MealsRecipes() {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const {
     inputValue,
     inputType,
     mealFilter,
     ingredientFilter,
   } = useSelector((state) => state.search);
-  const meals = useSelector((state) => state.recipes.recipes);
-  // const input = useSelector((state) => state.search.inputValue);
-  // const type = useSelector((state) => state.search.inputType);
-  // const filter = useSelector((state) => state.search.mealFilter);
-  // const ifilter = useSelector((state) => state.search.ingredientFilter);
+  const { recipes } = useSelector((state) => state.recipes);
+
   useEffect(() => {
     let fetchMeal;
     if (!ingredientFilter && !mealFilter) {
@@ -49,16 +47,16 @@ function MealsRecipes() {
   }, []);
 
   useEffect(() => {
-    if (meals.length === 1) return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+    if (recipes.length === 1) return <Redirect to={ `/comidas/${recipes[0].idMeal}` } />;
   }, []);
 
   return (
     <main>
-      {(meals && meals.length === 1 && mealFilter === '')
-      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+      {(recipes && recipes.length === 1 && mealFilter === '')
+      && <Redirect to={ `/comidas/${recipes[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />
-      { meals && meals.map((elem, index) => (
+      { recipes && recipes.map((elem, index) => (
         <button
           key={ elem.idMeal }
           type="button"

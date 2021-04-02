@@ -7,7 +7,6 @@ import filterMealCatsAction from '../redux/actions/filterMealCatAction';
 
 function MealCatsButtons() {
   const { meals } = useSelector((state) => state.recipes.categories);
-  // const { meals } = categories;
   const FIVE = 5;
   const dispatch = useDispatch();
   useEffect(() => {

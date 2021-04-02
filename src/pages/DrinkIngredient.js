@@ -7,12 +7,13 @@ import { fetchDrinkIngredientThunk } from '../redux/actions/fetchIngridientsActi
 
 function DrinkIngredient() {
   const dispatch = useDispatch();
-  const ingredients = useSelector((state) => state.recipes.ingredients);
+  const { ingredients } = useSelector((state) => state.recipes);
 
   useEffect(() => {
     const dataDispatch = () => dispatch(fetchDrinkIngredientThunk());
     dataDispatch();
   }, []);
+
   return (
     <main>
       <Header />

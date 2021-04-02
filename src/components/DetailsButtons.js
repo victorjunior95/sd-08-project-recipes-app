@@ -4,59 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
 // import { saveState } from '../services/LocalStorage';
 
-function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
-  const recipe = Object.values(recipeDetails[0])[0][0];
-  let a = [];
-  a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
-  if (route === 'comidas') {
-    a.push({
-      idRecipe,
-      type: route,
-      area: recipe.strArea,
-      category: recipe.strCategory,
-      alcoholicOrNot: '',
-      name: recipe.strMeal,
-      image: recipe.strMealThumb,
-      doneDate: '',
-      tags: '',
-    });
-  }
-  if (route === 'bebidas') {
-    a.push({
-      idRecipe,
-      type: route,
-      area: '',
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic,
-      name: recipe.strDrink,
-      image: recipe.strDrinkThumb,
-      doneDate: '',
-      tags: '',
-    });
-  }
-  localStorage.setItem('doneRecipes', JSON.stringify(a));
-  // saveState('doneRecipes', [...a]);
-}
-
-function SaveProgressRecipes(id, route) {
-  let a = [];
-  a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  if (route === 'comidas') {
-    a.push({
-      id,
-      type: route,
-    });
-  }
-  if (route === 'bebidas') {
-    a.push({
-      id,
-      type: route,
-    });
-  }
-  localStorage.setItem('inProgressRecipes', JSON.stringify(a));
-}
-
 function SaveFinishedRecipes(id, recipeDetails, route) {
   const date = new Date();
   const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
@@ -153,7 +100,7 @@ function DetailsButtons({ route, id, page }) {
             id="start-recipe-btn"
             onClick={ () => {
               idsP.push(id);
-              SaveProgressRecipes(id, route);
+              SaveProgressRecipes(id);
             } }
           >
             Continuar Receita

@@ -39,7 +39,7 @@ const InProgressCard = (props) => {
   const ingredientsMapping = ingredients.map((ingredient, index) => {
     if (ingredient !== '  ') {
       return (
-        <div key={ `${index}-${ingredient}` } data-testid="ingredient-step">
+        <li key={ `${index}-${ingredient}` } data-testid="ingredient-step">
           <input
             id={ `id-${index}` }
             type="checkbox"
@@ -48,22 +48,22 @@ const InProgressCard = (props) => {
           <label htmlFor={ `id-${index}` }>
             {ingredient}
           </label>
-        </div>
+        </li>
       );
     }
-    return (
-      <li data-testid={ `${index}-ingredient-step` } key={ `${index}-${ingredient}` }>
-        <input
-          id={ `${index}-ingredient-step` }
-          type="checkbox"
-          value={ ingredient }
-        />
-        <label htmlFor={ `${index}-ingredient-step` }>
-          {ingredient}
-        </label>
-      </li>
-    );
-    // return '';
+    // return (
+    //   <li data-testid={ `${index}-ingredient-step` } key={ `${index}-${ingredient}` }>
+    //     <input
+    //       id={ `${index}-ingredient-step` }
+    //       type="checkbox"
+    //       value={ ingredient }
+    //     />
+    //     <label htmlFor={ `${index}-ingredient-step` }>
+    //       {ingredient}
+    //     </label>
+    //   </li>
+    // );
+    return '';
   });
 
   const renderFood = () => (

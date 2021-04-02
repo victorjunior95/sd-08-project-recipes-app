@@ -14,6 +14,17 @@ const InProgressCard = (props) => {
 
   const theButton = <button type="button" onClick={ consoleFunction }>BOTÃO</button>;
 
+  /* Ideia renderização checkbox =>
+ salvar tudo como objeto; const arr => {id1: true, id2:false, id3: true }
+ no localStorage jogar como um array => (
+let newarr = []
+for(prop in arr) {
+  newarr.push({[prop]: arr[prop]})
+}
+)
+ console.log(newarr.map((element, index) => `${Object.keys(element)} => ${element[`id${index + 1}`]}`))
+ */
+
   useEffect(() => {
     if (url.includes('bebidas')) {
       setIsDrinkOrFood('Drink');

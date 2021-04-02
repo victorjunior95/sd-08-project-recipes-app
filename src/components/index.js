@@ -18,6 +18,7 @@ import DoneAndFavoriteButtons from './buttons/DoneAndFavoriteButtons';
 import FavoriteCard from './FavoriteCard/FavoriteCard';
 import FoodInProgressCard from './FoodInProgressCard';
 import DrinkInProgressCard from './DrinkInProgressCard';
+import DoneCard from './DoneCard/DoneCard';
 
 const components = {
   Header,
@@ -40,6 +41,7 @@ const components = {
   FavoriteCard,
   FoodInProgressCard,
   DrinkInProgressCard,
+  DoneCard,
 };
 
 export default components;

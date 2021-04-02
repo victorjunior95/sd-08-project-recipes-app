@@ -12,8 +12,8 @@ const StyledLogin = styled.main`
   width: 260px;
 
   img {
-    width: 100px;
     margin-bottom: 10px;
+    width: 100px;
   }
 
   .search-input {
@@ -30,8 +30,8 @@ const StyledLogin = styled.main`
     color: white;
     opacity: 0.8;
     padding: 4px 16px;
-    width: 100%;
     transition: 0.3s;
+    width: 100%;
 
     &:hover {
       opacity: 1;

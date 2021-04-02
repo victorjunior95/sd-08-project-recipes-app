@@ -16,8 +16,6 @@ export default function Provider({ children }) {
 
   const { searchInput, selectedParameter, location } = searchParams;
 
-  console.log(location);
-
   useEffect(() => {
     let domain = '';
     if (location.includes('comidas')) {
@@ -53,7 +51,6 @@ export default function Provider({ children }) {
       break;
 
     case 'none':
-      console.log(domain);
       if (domain) {
         getApi(domain, 'search.php?s=')
           .then((response) => setRecipes(response));

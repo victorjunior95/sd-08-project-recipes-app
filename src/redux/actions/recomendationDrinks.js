@@ -1,4 +1,4 @@
-import { fetchCocktailByName } from '../../services/CocktailAPI';
+import { fetchDrinkBySearch } from '../../services/CocktailAPI';
 import { FETCH_RECOMENDATION } from './index';
 
 const recomendationAction = (value) => (
@@ -18,7 +18,7 @@ const filterToSix = (list) => {
 };
 
 const recomendationThunkDrinks = () => async (dispatch) => {
-  const { drinks } = await fetchCocktailByName('');
+  const { drinks } = await fetchDrinkBySearch('', 's');
   const result = filterToSix(drinks);
   dispatch(recomendationAction(result));
 };

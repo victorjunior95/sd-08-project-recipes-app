@@ -1,4 +1,4 @@
-import { fetchRecipesMealCats } from '../../services/MealAPI';
+import { fetchMealByFilter } from '../../services/MealAPI';
 import { FETCH_CAT_RECIPES } from './index';
 
 const filterToTwelve = (list) => {
@@ -18,7 +18,7 @@ const fetchRecipesMealCatsAction = (filteredRecipes) => ({
 });
 
 const fetchRecipesMealCatsThunk = (filter) => async (dispatch) => {
-  const { meals } = await fetchRecipesMealCats(filter);
+  const { meals } = await fetchMealByFilter(filter, 'c');
   const result = meals !== null ? filterToTwelve(meals) : meals;
   dispatch(fetchRecipesMealCatsAction(result));
 };

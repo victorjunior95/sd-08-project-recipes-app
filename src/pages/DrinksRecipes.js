@@ -13,19 +13,32 @@ import { fetchDrinkIFilterThunk } from '../redux/actions/fetchIngridientsAction'
 function DrinksRecipes() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const input = useSelector((state) => state.search.inputValue);
-  const type = useSelector((state) => state.search.inputType);
+  const {
+    inputValue,
+    inputType,
+    drinkFilter,
+    ingredientFilter,
+  } = useSelector((state) => state.search);
   const drinks = useSelector((state) => state.recipes.recipes);
-  const filter = useSelector((state) => state.search.drinkFilter);
-  const ifilter = useSelector((state) => state.search.ingredientFilter);
+  // const input = useSelector((state) => state.search.inputValue);
+  // const type = useSelector((state) => state.search.inputType);
+  // const filter = useSelector((state) => state.search.drinkFilter);
+  // const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
-    const fetchData = (inputf, typef) => dispatch(fetchDrinkThunk(inputf, typef));
-    const ingredientFilter = (filteri) => dispatch(fetchDrinkIFilterThunk(filteri));
-    const fetchDataCat = (filterf) => dispatch(fetchRecipesDrinkCatsThunk(filterf));
-    if (!ifilter && !filter) fetchData(input, type);
-    if (filter) fetchDataCat(filter);
-    if (ifilter && !filter) ingredientFilter(ifilter);
-  }, [input, type, filter, ifilter]);
+    let fetchDrink;
+    if (!ingredientFilter && !drinkFilter) {
+      fetchDrink = (inputf, typef) => dispatch(fetchDrinkThunk(inputf, typef));
+      fetchDrink(inputValue, inputType);
+    }
+    if (drinkFilter) {
+      fetchDrink = (filterf) => dispatch(fetchRecipesDrinkCatsThunk(filterf));
+      fetchDrink(drinkFilter);
+    }
+    if (ingredientFilter && !drinkFilter) {
+      fetchDrink = (filteri) => dispatch(fetchDrinkIFilterThunk(filteri));
+      fetchDrink(ingredientFilter);
+    }
+  }, [inputValue, inputType, drinkFilter, ingredientFilter]);
 
   useEffect(() => () => {
     dispatch(clearRecipesAction());

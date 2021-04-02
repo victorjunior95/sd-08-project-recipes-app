@@ -13,19 +13,32 @@ import { fetchMealIFilterThunk } from '../redux/actions/fetchIngridientsAction';
 function MealsRecipes() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const input = useSelector((state) => state.search.inputValue);
-  const type = useSelector((state) => state.search.inputType);
+  const {
+    inputValue,
+    inputType,
+    mealFilter,
+    ingredientFilter,
+  } = useSelector((state) => state.search);
   const meals = useSelector((state) => state.recipes.recipes);
-  const filter = useSelector((state) => state.search.mealFilter);
-  const ifilter = useSelector((state) => state.search.ingredientFilter);
+  // const input = useSelector((state) => state.search.inputValue);
+  // const type = useSelector((state) => state.search.inputType);
+  // const filter = useSelector((state) => state.search.mealFilter);
+  // const ifilter = useSelector((state) => state.search.ingredientFilter);
   useEffect(() => {
-    const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
-    const ingredientFilter = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
-    const fetchDataCat = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
-    if (!ifilter && !filter) fetchData(input, type);
-    if (filter) fetchDataCat(filter);
-    if (ifilter && !filter) ingredientFilter(ifilter);
-  }, [input, type, filter, ifilter]);
+    let fetchMeal;
+    if (!ingredientFilter && !mealFilter) {
+      fetchMeal = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
+      fetchMeal(inputValue, inputType);
+    }
+    if (mealFilter) {
+      fetchMeal = (filterf) => dispatch(fetchRecipesMealCatsThunk(filterf));
+      fetchMeal(mealFilter);
+    }
+    if (ingredientFilter && !mealFilter) {
+      fetchMeal = (filteri) => dispatch(fetchMealIFilterThunk(filteri));
+      fetchMeal(ingredientFilter);
+    }
+  }, [inputValue, inputType, mealFilter, ingredientFilter]);
 
   useEffect(() => () => {
     const clearDispatch = () => {
@@ -41,7 +54,7 @@ function MealsRecipes() {
 
   return (
     <main>
-      {(meals && meals.length === 1 && filter === '')
+      {(meals && meals.length === 1 && mealFilter === '')
       && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />

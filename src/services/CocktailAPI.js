@@ -1,23 +1,19 @@
-export function fetchCocktailByIngredients(ingrediente) {
-  const fetchIngredientsURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
+// refatora substituindo as funções fetch fetchCocktailByIngredients, fetchDrinkIngridientsFilter, fetchRecipesDrinkCats.
 
-  return fetch(fetchIngredientsURL)
+export function fetchDrinkByFilter(str, type) {
+  const customFilterURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${type}=${str}`;
+
+  return fetch(customFilterURL)
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
 
-export function fetchCocktailByName(nome) {
-  const fetchNameURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${nome}`;
+// refatora substituindo as funções fetch fetchCocktailByName, fetchCocktailByFirstLetter.
 
-  return fetch(fetchNameURL)
-    .then((r) => r.json())
-    .then((resolve) => resolve);
-}
+export function fetchDrinkBySearch(str, type) {
+  const customSearchURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${type}=${str}`;
 
-export function fetchCocktailByFirstLetter(primeiraLetra) {
-  const fetchFirstLetter = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeiraLetra}`;
-
-  return fetch(fetchFirstLetter)
+  return fetch(customSearchURL)
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
@@ -30,35 +26,20 @@ export function fetchRandomDrinks() {
     .then((resolve) => resolve);
 }
 
-export function fetchFistDrinkCats() {
-  const drinkCatsURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+export function fetchDrinkId(id) {
+  const fetchDrinkURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
 
-  return fetch(drinkCatsURL)
+  return fetch(fetchDrinkURL)
     .then((r) => r.json())
     .then((resolve) => resolve);
 }
 
-export function fetchRecipesDrinkCats(filter) {
-  const recipesFilteredURL = filter === '' ? `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${''}`
-    : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
+// refatora substituindo as funções fetch fetchFistDrinkCats, fetchDrinkIngridients.
 
-  return fetch(recipesFilteredURL)
-    .then((r) => r.json())
-    .then((resolve) => resolve);
-}
+export function fetchDrinkByList(type) {
+  const customListURL = `https://www.thecocktaildb.com/api/json/v1/1/list.php?${type}=list`;
 
-export function fetchDrinkIngridients() {
-  const fetchURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
-
-  return fetch(fetchURL)
-    .then((r) => r.json())
-    .then((resolve) => resolve);
-}
-
-export function fetchDrinkIngridientsFilter(ingredient) {
-  const recipesFilteredURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-
-  return fetch(recipesFilteredURL)
+  return fetch(customListURL)
     .then((r) => r.json())
     .then((resolve) => resolve);
 }

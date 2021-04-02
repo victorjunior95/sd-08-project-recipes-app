@@ -6,6 +6,7 @@ import { getDrinkFiltredById } from '../../services/api';
 
 function DrinkInProgress(props) {
   const { match: { url, params: { id } } } = props;
+  const history = useHistory();
   const [filteredById, setFilteredById] = useState('');
   const [ingredientsAndMeasuresList, setIngredientsAndMeasuresList] = useState([]);
   const isEmpty = (obj) => Object.keys(obj).length === 0; // verifica se o objeto está vazio;
@@ -94,6 +95,7 @@ function DrinkInProgress(props) {
               alcohol={ strAlcoholic }
               instructions={ strInstructions }
             />
+            {buttonsDiv}
           </section>)
         : <h1>Carregando bebida...</h1> }
     </main>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
@@ -8,7 +8,6 @@ import useFavoritesHook from '../../pages/hooks/useFavoritesHook';
 const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
-  const history = useHistory();
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
   const [favorites, updateFavorites] = useFavoritesHook();
   const [isFavorite, setIsFavorite] = useState(false);
@@ -19,11 +18,6 @@ const InProgressCard = (props) => {
   };
 
   const theButton = <button onClick={ consoleFunction }>BOTÃO</button>;
-
-  const copyFunction = () => {
-    copy(window.location.href.replace('/in-progress', ''));
-    setCopied(!copied);
-  };
 
   useEffect(() => {
     function checkIsFavorite() {
@@ -102,24 +96,7 @@ const InProgressCard = (props) => {
         {instructionsMapping}
         Voilá!
       </ol>
-      <div className="button-container">
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ copyFunction }
-        >
-          {copied ? 'Link copiado!' : 'Compartilhar'}
-        </button>
 
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          onClick={ () => history.push('/receitas-feitas') }
-        >
-          Finalizar
-        </button>
-      </div>
     </div>);
 
   const renderDrink = () => (
@@ -149,30 +126,6 @@ const InProgressCard = (props) => {
         {instructionsMapping}
         Voilá!
       </ol>
-      <div>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ () => console.log('favoritar') }
-        >
-          Favoritar
-        </button>
-        {copied ? <span>Link copiado!</span> : ''}
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ copyFunction }
-        >
-          Compartilhar
-        </button>
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          onClick={ () => history.push('/receitas-feitas') }
-        >
-          Finalizar
-        </button>
-      </div>
     </div>);
 
   return (

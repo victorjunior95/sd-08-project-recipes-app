@@ -1,8 +1,34 @@
-body {
-  padding-bottom: 28px;
-}
-
 .iniciar-receita-btn {
   bottom: 0;
+  padding: 10px 20px;
   position: fixed;
+}
+
+.nomeEbotões {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nomeEbotões img {
+  height: 35px;
+  padding: 5px;
+  width: 40px;
+}
+
+.nomeEbotões button {
+  background-color: transparent;
+}
+
+.recomendadas {
+  padding-bottom: 50px;
+}
+
+.finish-recipe-btn {
+  bottom: 0;
+  padding: 10px 20px;
+  position: fixed;
+}
+
+.instruções {
+  padding-bottom: 50px;
 }

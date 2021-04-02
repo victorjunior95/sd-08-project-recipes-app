@@ -46,7 +46,6 @@ function Comida() {
 
   async function requestRecipe() {
     const recipeFromApi = await requestById(id, 'comidas');
-    console.log(recipeFromApi.meals[0]);
     setRecipe(recipeFromApi.meals[0]);
   }
 
@@ -85,33 +84,46 @@ function Comida() {
         src={ recipe.strMealThumb }
         alt={ recipe.strMeal }
       />
-      <h3 data-testid="recipe-title">{recipe.strMeal}</h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => {
-          Copy(`http://localhost:3000${history.location.pathname}`);
-          setCopied(true);
-        } }
-      >
-        {copied && 'Link copiado!'}
-        <img src={ shareIcon } alt="shareIcon" />
-      </button>
-      <button
-        type="button"
-        onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ favorite ? whiteHeartIcon : blackHeartIcon }
-          alt="favoriteIcon"
-        />
-      </button>
+      <div className="nomeEbotões">
+        <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              Copy(`http://localhost:3000${history.location.pathname}`);
+              setCopied(true);
+            } }
+          >
+            {copied && 'Link copiado!'}
+            <img src={ shareIcon } alt="shareIcon" />
+          </button>
+          <button
+            type="button"
+            onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ favorite ? whiteHeartIcon : blackHeartIcon }
+              alt="favoriteIcon"
+            />
+          </button>
+        </div>
+      </div>
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
       <Ingredientes />
-      <iframe src={ urlVideo } title={ recipe.strMeal } data-testid="video" />
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      <RecomendedCards title="bebidas" />
+      <div>
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
+      <div>
+        <h2>Vídeo</h2>
+        <iframe src={ urlVideo } title={ recipe.strMeal } data-testid="video" />
+      </div>
+      <div className="recomendadas">
+        <h2>Recomendadas</h2>
+        <RecomendedCards title="bebidas" />
+      </div>
       {renderButtonComparison && renderButton()}
     </div>
   );

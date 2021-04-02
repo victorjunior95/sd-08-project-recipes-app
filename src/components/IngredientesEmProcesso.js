@@ -39,48 +39,50 @@ function IngredientesEmProcesso({ id, type }) {
   }, []);
 
   function handleClick({ target }) {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.parentNode.classList.contains('riscado')) {
-
       target.parentNode.classList.remove('riscado');
-      const filteredStorage = inProgress[type][id]
-        .filter((item) => item !== target.value);
-      inProgress[type][id] = filteredStorage;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      // const filteredStorage = inProgress[type][id]
+      //   .filter((item) => item !== target.value);
+      // inProgress[type][id] = filteredStorage;
+      // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     } else {
       target.parentNode.classList.add('riscado');
-      target.classList.add('teste');
-      if (inProgress[type][id].some((item) => item === target.value)) {
-        return null;
-      }
-      inProgress[type][id].push(target.value);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      // target.classList.add('teste');
+      // if (inProgress[type][id].some((item) => item === target.value)) {
+      //   return null;
+      // }
+      // inProgress[type][id].push(target.value);
+      // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     }
   }
 
-  function inputChecked(name) {
-    const storageAtual = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    const retorno = storageAtual[type][id].some((item) => item === name);
-    return retorno;
-  }
+  // function inputChecked(name) {
+  //   const storageAtual = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  //   const retorno = storageAtual[type][id].some((item) => item === name);
+  //   return retorno;
+  // }
 
   return (
-    <ul>
-      {objPronto.map((ingrediente, index) => (
-        <li key={ index } data-testid={ `${index}-ingredient-step` }>
-          <label htmlFor={ ingrediente }>
-            <input
-              type="checkbox"
-              name={ ingrediente }
-              value={ ingrediente }
-              onClick={ handleClick }
-              checked={ inputChecked(ingrediente) }
-            />
-            {ingrediente}
-          </label>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <h2>Ingredientes</h2>
+      <ul>
+        {objPronto.map((ingrediente, index) => (
+          <li key={ index } data-testid={ `${index}-ingredient-step` }>
+            <label htmlFor={ ingrediente }>
+              <input
+                type="checkbox"
+                name={ ingrediente }
+                value={ ingrediente }
+                onClick={ handleClick }
+                // checked={ inputChecked(ingrediente) }
+              />
+              {ingrediente}
+            </label>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

@@ -29,16 +29,19 @@ function Ingredientes() {
   }, []);
 
   return (
-    <ul>
-      {objPronto.map((ingrediente, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingrediente}
-        </li>
-      ))}
-    </ul>
+    <div className="ingredientes">
+      <h2>Ingredientes</h2>
+      <ul>
+        {objPronto.map((ingrediente, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingrediente}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

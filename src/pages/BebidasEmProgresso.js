@@ -6,10 +6,10 @@ import requestById from '../services/requestById';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import '../styles/Bebida.css';
 import verifyInFavorite from '../services/verifyInFavorite';
 import verifyStorage from '../services/verifyStorage';
 import IngredientesEmProcesso from '../components/IngredientesEmProcesso';
+import '../styles/Bebida.css';
 
 function BebidasEmProgresso() {
   const history = useHistory();
@@ -28,7 +28,6 @@ function BebidasEmProgresso() {
 
   async function requestRecipe() {
     const recipeFromApi = await requestById(id, 'bebidas');
-    console.log(recipeFromApi.drinks[0]);
     setRecipe(recipeFromApi.drinks[0]);
   }
 
@@ -65,7 +64,6 @@ function BebidasEmProgresso() {
 
   useEffect(() => {
     requestRecipe();
-    console.log('effect Bebida');
   }, []);
 
   return (
@@ -75,31 +73,38 @@ function BebidasEmProgresso() {
         src={ recipe.strDrinkThumb }
         alt={ recipe.strDrink }
       />
-      <h3 data-testid="recipe-title">{recipe.strDrink}</h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => {
-          Copy(`http://localhost:3000${history.location.pathname}`);
-          setCopied(true);
-        } }
-      >
-        {copied && 'Link copiado!'}
-        <img src={ shareIcon } alt="shareIcon" />
-      </button>
-      <button
-        type="button"
-        onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ favorite ? whiteHeartIcon : blackHeartIcon }
-          alt="favoriteIcon"
-        />
-      </button>
+      <div className="nomeEbotões">
+        <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              Copy(`http://localhost:3000${history.location.pathname}`);
+              setCopied(true);
+            } }
+          >
+            {copied && 'Link copiado!'}
+            <img src={ shareIcon } alt="shareIcon" />
+          </button>
+          <button
+            type="button"
+            onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ favorite ? whiteHeartIcon : blackHeartIcon }
+              alt="favoriteIcon"
+            />
+          </button>
+        </div>
+      </div>
       <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
       <IngredientesEmProcesso id={ id } type="cocktails" />
-      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <div className="instruções">
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
       {renderButton()}
     </div>
   );

@@ -14,12 +14,9 @@ function verifyInProgress(id, type) {
     };
   }
   const savedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(savedRecipes);
-  console.log(type);
   if (!savedRecipes) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(startRecipe));
   } else {
-    console.log(savedRecipes[type][id]);
     savedRecipes[type][id] = [];
     localStorage.setItem('inProgressRecipes', JSON.stringify(savedRecipes));
   }

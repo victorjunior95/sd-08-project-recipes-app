@@ -10,9 +10,9 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import verifyInProgress from '../services/verifyInProgress';
 import verifyText from '../services/verifyText';
-import '../styles/Bebida.css';
 import verifyInFavorite from '../services/verifyInFavorite';
 import verifyStorage from '../services/verifyStorage';
+import '../styles/Bebida.css';
 
 function Bebida() {
   const INICIO_CORTE = 9;
@@ -33,7 +33,6 @@ function Bebida() {
 
   async function requestRecipe() {
     const recipeFromApi = await requestById(id, 'bebidas');
-    console.log(recipeFromApi.drinks[0]);
     setRecipe(recipeFromApi.drinks[0]);
   }
 
@@ -72,7 +71,6 @@ function Bebida() {
 
   useEffect(() => {
     requestRecipe();
-    console.log('effect Bebida');
   }, []);
 
   return (
@@ -82,32 +80,42 @@ function Bebida() {
         src={ recipe.strDrinkThumb }
         alt={ recipe.strDrink }
       />
-      <h3 data-testid="recipe-title">{recipe.strDrink}</h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => {
-          Copy(`http://localhost:3000${history.location.pathname}`);
-          setCopied(true);
-        } }
-      >
-        {copied && 'Link copiado!'}
-        <img src={ shareIcon } alt="shareIcon" />
-      </button>
-      <button
-        type="button"
-        onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ favorite ? whiteHeartIcon : blackHeartIcon }
-          alt="favoriteIcon"
-        />
-      </button>
+      <div className="nomeEbotões">
+        <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              Copy(`http://localhost:3000${history.location.pathname}`);
+              setCopied(true);
+            } }
+          >
+            {copied && 'Link copiado!'}
+            <img src={ shareIcon } alt="shareIcon" />
+          </button>
+          <button
+            type="button"
+            onClick={ () => (favorite ? favoriteRecipe(false) : favoriteRecipe(true)) }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ favorite ? whiteHeartIcon : blackHeartIcon }
+              alt="favoriteIcon"
+            />
+          </button>
+        </div>
+      </div>
       <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
       <Ingredientes />
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      <RecomendedCards title="comidas" />
+      <div>
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
+      <div className="recomendadas">
+        <h2>Recomendadas</h2>
+        <RecomendedCards title="comidas" />
+      </div>
       {renderButtonComparison && renderButton()}
     </div>
   );

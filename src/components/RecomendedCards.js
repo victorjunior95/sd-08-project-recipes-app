@@ -26,13 +26,6 @@ function RecomendedCards({ title }) {
               <div
                 key={ index }
                 data-testid={ `${index}-recomendation-card` }
-                // onClick={ () => {
-                //   setObjFiltrado(item);
-                //   redirectToDetails(item[`id${type.palavra}`]);
-                // } }
-                // onKeyPress={ () => console.log('clicou') }
-                // role="button"
-                // tabIndex={ index }
               >
                 <h3 data-testid={ `${index}-recomendation-title` }>
                   { item[`str${type}`] }

@@ -30,3 +30,11 @@ export async function FetchFoodsCategories() {
   const { meals: categories } = data;
   return categories;
 }
+
+export async function filterFoodsByButton(category) {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { meals } = data;
+  return meals;
+}

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-const StyledCategoryFilter = styled.header`
-  align-items: center;
-  /* background-color: #F8C365; */
+const StyledCategoryFilter = styled.div`
   border-radius: 5px;
   display: flex;
   justify-content: space-evenly;
@@ -17,6 +15,7 @@ const StyledCategoryFilter = styled.header`
     margin: 2px 0;
     width: 30%;
     opacity: 0.8;
+    word-wrap: break-word;
 
     &:hover {
       opacity: 1;

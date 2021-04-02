@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { RecipeCards } from '.';
 import Context from '../context/Context';
+import StyledRecommendations from '../styles/component/Recommendations';
 
 const SHOW_SIX_RECOMMENDATIONS = 6;
 
@@ -28,7 +29,7 @@ export default function Recommendations() {
   }, [recipes, setRecommendations]);
 
   return (
-    <>
+    <StyledRecommendations>
       <span>Recomendadas</span>
       <div style={ { overflowX: 'auto', whiteSpace: 'nowrap' } }>
         {recommendations.map((recipe, index) => (
@@ -50,6 +51,6 @@ export default function Recommendations() {
 
         ))}
       </div>
-    </>
+    </StyledRecommendations>
   );
 }

@@ -24,6 +24,8 @@ function Provider({ children }) {
   const [toggle, setToggle] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const [shouldRedirect, setShouldRedirect] = useState('');
+  const [comidas, setComidas] = useState([]);
+  const [bebidas, setBebidas] = useState([]);
 
   // async function requestApiData(endpoint) {
   //   const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -97,6 +99,10 @@ function Provider({ children }) {
     setDisableButton,
     shouldRedirect,
     setShouldRedirect,
+    comidas,
+    setComidas,
+    bebidas,
+    setBebidas,
   };
 
   return (

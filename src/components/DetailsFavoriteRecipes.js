@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { PropTypes } from 'prop-types';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Context from '../context/Context';
@@ -154,10 +153,5 @@ const DetailsFavoriteRecipes = () => {
     </>
   );
 };
-
-// DetailsFavoriteRecipes.propTypes = {
-//   comidas: PropTypes.string.isRequired,
-//   bebidas: PropTypes.string.isRequired,
-// };
 
 export default DetailsFavoriteRecipes;

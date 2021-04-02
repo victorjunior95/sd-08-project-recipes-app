@@ -2,31 +2,17 @@ import React, { useEffect, useState } from 'react';
 
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
-import useFavoritesHook from '../../pages/hooks/useFavoritesHook';
 
 const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
-  const [favorites, updateFavorites] = useFavoritesHook();
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const consoleFunction = () => {
-    console.log(id, favorites);
+    console.log(id);
   };
 
-  const theButton = <button onClick={ consoleFunction }>BOTÃO</button>;
-
-  useEffect(() => {
-    function checkIsFavorite() {
-      return favorites
-        .find((fav) => fav.id === id)
-        ? setIsFavorite(true)
-        : setIsFavorite(false);
-    }
-    checkIsFavorite();
-  }, [id, favorites]);
+  const theButton = <button type="button" onClick={ consoleFunction }>BOTÃO</button>;
 
   useEffect(() => {
     if (url.includes('bebidas')) {

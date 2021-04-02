@@ -82,7 +82,7 @@ function ReceitasFeitas() {
               key={ `${index}` }
             >
               <div>
-                <Link to={ `${recipe.type}s/${recipe.idRecipe}` }>
+                <Link to={ `${recipe.type}s/${recipe.id}` }>
                   <img
                     className="recipe-horizontal-image"
                     src={ recipe.image }
@@ -108,7 +108,7 @@ function ReceitasFeitas() {
                   )
                 }
                 <div>
-                  <Link to={ `${recipe.type}s/${recipe.idRecipe}` }>
+                  <Link to={ `${recipe.type}s/${recipe.id}` }>
                     <span
                       data-testid={ `${index}-horizontal-name` }
                     >
@@ -158,7 +158,7 @@ function ReceitasFeitas() {
                 }
               </div>
               <div>
-                <CopyToClipboard text={ `http://localhost:3000/${recipe.type}s/${recipe.idRecipe}` }>
+                <CopyToClipboard text={ `http://localhost:3000/${recipe.type}s/${recipe.id}` }>
                   <button
                     onClick={ () => setCopyClipboard('visible') }
                     type="button"

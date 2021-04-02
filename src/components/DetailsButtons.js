@@ -3,25 +3,25 @@ import { PropTypes } from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
 
-function SaveProgressRecipes(idRecipe, route) {
+function SaveProgressRecipes(id, route) {
   let a = [];
   a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
   if (route === 'comidas') {
     a.push({
-      idRecipe,
+      id,
       type: route,
     });
   }
   if (route === 'bebidas') {
     a.push({
-      idRecipe,
+      id,
       type: route,
     });
   }
   localStorage.setItem('inProgressRecipes', JSON.stringify(a));
 }
 
-function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
+function SaveFinishedRecipes(id, recipeDetails, route) {
   const date = new Date();
   const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   const recipe = Object.values(recipeDetails[0])[0][0];
@@ -39,8 +39,8 @@ function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
 
   if (route === 'comidas') {
     a.push({
-      idRecipe,
-      type: route,
+      id,
+      type: 'comida',
       area: recipe.strArea,
       category: recipe.strCategory,
       alcoholicOrNot: '',
@@ -52,8 +52,8 @@ function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
   }
   if (route === 'bebidas') {
     a.push({
-      idRecipe,
-      type: route,
+      id,
+      type: 'bebida',
       area: '',
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,

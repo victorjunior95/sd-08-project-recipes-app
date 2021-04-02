@@ -11,6 +11,7 @@ export default function Comidas() {
   const [card, setCard] = useState(false);
   const [listFoodCategories, setListFoodCategories] = useState([]);
   const [arrayOfFoodCategories, setArrayOfFoodCategories] = useState([]);
+  const [showBtn, setShowBtn] = useState(null);
   const LIMITER = 12;
   const FIVE = 5;
 
@@ -29,9 +30,17 @@ export default function Comidas() {
   }, []);
 
   const handleCLickFood = async ({ target: { value } }) => {
-    const foodCategories = await getFoodCategory(value);
-    setArrayOfFoodCategories(foodCategories);
-    setCard(true);
+    if (showBtn === null) {
+      const foodCategories = await getFoodCategory(value);
+      setArrayOfFoodCategories(foodCategories);
+      setCard(true);
+      setShowBtn(value);
+    } else if (showBtn === value) {
+      const newFoodCategories = await foodRandom();
+      setArrayOfFoodCategories(newFoodCategories);
+      setCard(true);
+      setShowBtn(null);
+    }
   };
 
   useEffect(() => {

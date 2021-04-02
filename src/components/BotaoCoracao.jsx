@@ -10,11 +10,11 @@ function BotaoCoracao({ testid, src, func }) {
       onClick={ func }
       src={ src }
       style={ { background: `url(${src})`,
-        backgroundClip: 'content-box',
+        backgroundSize: 'cover',
         width: '50px',
         height: '50px' } }
     >
-      Butao
+      { ' ' }
     </button>
 
   );

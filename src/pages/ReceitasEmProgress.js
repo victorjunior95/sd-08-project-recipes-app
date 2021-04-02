@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { fetchProductDetailsById } from '../services';
+// import { handleIsFavorite } from './Detalhes';
 
 const Detalhes = () => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -16,8 +17,35 @@ const Detalhes = () => {
   const [hidden, setHidden] = useState(false);
   // const [check, setCheck] = useState(false);
   const [usedIngri, setUseIngri] = useState([]);
-
+  const [inProgress, setInProgress] = useState({});
   const location = useLocation();
+  // const history = useHistory();
+  // console.log(history, 'oiss');
+
+  const handleInProgress = (idCurrentRecipe) => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const recipesInProgress = {
+        cocktails: {},
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+    } else {
+      const storageProgessRecipes = (
+        JSON.parse(localStorage.getItem('inProgressRecipes')));
+      setInProgress(storageProgessRecipes);
+      console.log(storageProgessRecipes, 'iii');
+      if (isMeal) {
+        const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
+        if (result >= 0) {
+          console.log(result, storageProgessRecipes.meals[idCurrentRecipe]);
+          setUseIngri(storageProgessRecipes.meals[idCurrentRecipe]);
+        }
+        console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.meals), 'recipes');
+      } else {
+        console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.cocktails), 'recipes');
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,22 +62,43 @@ const Detalhes = () => {
       setIsMeal(type === 'comidas');
       setFoodDetails(foodDetail);
       setIngredients(ingredientFilter);
+
+      handleInProgress(id);
+      console.log(() => handleInProgress(), 'test');
     };
 
     fetchData();
   }, [location.pathname]);
 
+  const creatLocalObj = (usedIngridients) => {
+    let result = { ...inProgress };
+
+    if (!isMeal) {
+      result = {
+        cocktails: { ...inProgress.cocktails, [foodDetails.idDrink]: [...usedIngridients] },
+        meals: { ...inProgress.meals },
+      };
+      // result.cocktails[foodDetails.idDrink] = [...usedIngridients];
+    } else {
+      result = {
+        meals: { ...inProgress.meals, [foodDetails.idMeal]: [...usedIngridients] },
+        cocktails: { ...inProgress.cocktails },
+      };
+    } console.log(inProgress.cocktails, 'drinks');
+    console.log(result, 'oi');
+    localStorage.setItem('inProgressRecipes', JSON.stringify(result));
+  };
+
   const handleCheckBox = (name) => {
     let usedIngredients = [...usedIngri];
     const index = usedIngredients.indexOf(name);
-    console.log(name, index);
     if (index >= 0) {
       usedIngredients.splice(index, 1);
     } else {
       usedIngredients = [...usedIngredients, name];
     }
     setUseIngri(usedIngredients);
-    console.log(usedIngredients);
+    creatLocalObj(usedIngredients);
   };
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
@@ -95,16 +144,16 @@ const Detalhes = () => {
 
           return (
             <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
-              {/* { usedIngri.indexOf(ingredientName) >= 0 && '<s>' }
-              {`${ingredientName} - ${ingMeasure}`} */}
               { usedIngri.indexOf(ingredientName) >= 0
                 ? <s>{`${ingredientName} - ${ingMeasure}`}</s>
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
+
                 onChange={ ({ target }) => { handleCheckBox((target.value)); } }
                 type="checkbox"
                 value={ `${ingredientName}` }
+                checked={ usedIngri.indexOf(ingredientName) >= 0 && 'checked' }
               />
             </div>
           );

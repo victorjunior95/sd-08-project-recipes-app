@@ -1,13 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import InProgressCard from '../../components/Card/InProgressCard';
 import { getFoodFiltredById } from '../../services/api';
+import useFavoritesHook from '../hooks/useFavoritesHook';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FoodInProgress(props) {
   const { match: { url, params: { id } } } = props;
   const [filteredById, setFilteredById] = useState('');
+  const history = useHistory();
+  const [favorites, updateFavorites] = useFavoritesHook();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [ingredientsAndMeasuresList, setIngredientsAndMeasuresList] = useState([]);
   const isEmpty = (obj) => Object.keys(obj).length === 0; // verifica se o objeto está vazio;
+
+  const { strCategory,
+    strMeal, strMealThumb, strInstructions } = filteredById;
+
+  const copyFunction = () => {
+    copy(window.location.href.replace('/in-progress', ''));
+    setCopied(!copied);
+  };
+
+  function handleFavorite() {
+    const newRecipe = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      name: strMeal,
+      image: strMealThumb,
+    };
+    updateFavorites(newRecipe, isFavorite);
+    setIsFavorite(!isFavorite);
+  }
+
+  const buttonsDiv = (
+    <div className="icons">
+      <button type="button" data-testid="share-btn" onClick={ copyFunction }>
+        <img src={ shareIcon } alt="Compartilhar" />
+        {copied && 'Link copiado!'}
+      </button>
+      <button
+        type="button"
+        onClick={ handleFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Compartilhar"
+        />
+      </button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ () => history.push('/receitas-feitas') }
+      >
+        Finalizar
+      </button>
+    </div>
+  );
 
   function createIngredientList(receita) {
     const ING_INDEX = 15;
@@ -37,20 +94,25 @@ function FoodInProgress(props) {
     }
   }, [filteredById]);
 
-  const { strCategory,
-    strMeal, strMealThumb, strInstructions } = filteredById;
   return (
     <div>
-      {!isEmpty(filteredById) ? <InProgressCard
-        url={ url }
-        id={ id }
-        category={ strCategory }
-        title={ strMeal }
-        img={ strMealThumb }
-        ingredients={ ingredientsAndMeasuresList }
-        // alcohol={ strAlcoholic }
-        instructions={ strInstructions }
-      /> : <h1>Carregando comida...</h1> }
+      {!isEmpty(filteredById)
+        ? (
+          <section style={ { display: 'flex', flexFlow: 'column wrap' } }>
+            {' '}
+            <InProgressCard
+              url={ url }
+              id={ id }
+              category={ strCategory }
+              title={ strMeal }
+              img={ strMealThumb }
+              ingredients={ ingredientsAndMeasuresList }
+              // alcohol={ strAlcoholic }
+              instructions={ strInstructions }
+            />
+            {' '}
+            {buttonsDiv}
+          </section>) : <h1>Carregando comida...</h1> }
     </div>
   );
 }

@@ -5,6 +5,9 @@ import copy from 'clipboard-copy';
 import InProgressCard from '../../components/Card/InProgressCard';
 import { getDrinkFiltredById } from '../../services/api';
 import useFavoritesHook from '../hooks/useFavoritesHook';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function DrinkInProgress(props) {
   const { match: { url, params: { id } } } = props;
@@ -24,17 +27,36 @@ function DrinkInProgress(props) {
     setCopied(!copied);
   };
 
+  function handleFavorite() {
+    const newRecipe = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    updateFavorites(newRecipe, isFavorite);
+    setIsFavorite(!isFavorite);
+  }
+
   const buttonsDiv = (
-    <div className="button-container">
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+    <div className="icons">
+      <button type="button" data-testid="share-btn" onClick={ copyFunction }>
+        <img src={ shareIcon } alt="Compartilhar" />
+        {copied && 'Link copiado!'}
+      </button>
       <button
         type="button"
-        data-testid="share-btn"
-        onClick={ copyFunction }
+        onClick={ handleFavorite }
       >
-        {copied ? 'Link copiado!' : 'Compartilhar'}
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Compartilhar"
+        />
       </button>
-
       <button
         type="button"
         data-testid="finish-recipe-btn"
@@ -42,7 +64,8 @@ function DrinkInProgress(props) {
       >
         Finalizar
       </button>
-    </div>);
+    </div>
+  );
 
   const createIngredientList = (receita) => {
     const ING_INDEX = 15;
@@ -64,20 +87,6 @@ function DrinkInProgress(props) {
       setFilteredById(fetchById);
     }; requestingAPI();
   }, [id]);
-
-  function handleFavorite() {
-    const newRecipe = {
-      id,
-      type: 'bebida',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-    };
-    updateFavorites(newRecipe, isFavorite);
-    setIsFavorite(!isFavorite);
-  }
 
   useEffect(() => {
     if (!isEmpty(filteredById)) {

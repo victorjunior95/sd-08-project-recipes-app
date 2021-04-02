@@ -41,6 +41,16 @@ function DrinkInProgress(props) {
     setIsFavorite(!isFavorite);
   }
 
+  useEffect(() => {
+    function checkIsFavorite() {
+      return favorites
+        .find((fav) => fav.id === id)
+        ? setIsFavorite(true)
+        : setIsFavorite(false);
+    }
+    checkIsFavorite();
+  }, [id, favorites]);
+
   const buttonsDiv = (
     <div className="icons">
       <button type="button" data-testid="share-btn" onClick={ copyFunction }>

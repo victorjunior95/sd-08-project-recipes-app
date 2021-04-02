@@ -20,7 +20,7 @@ function FoodInProgress(props) {
   const isEmpty = (obj) => Object.keys(obj).length === 0; // verifica se o objeto está vazio;
 
   const { strCategory,
-    strMeal, strMealThumb, strInstructions } = filteredById;
+    strMeal, strMealThumb, strInstructions, strArea } = filteredById;
 
   const copyFunction = () => {
     copy(window.location.href.replace('/in-progress', ''));
@@ -30,15 +30,26 @@ function FoodInProgress(props) {
   function handleFavorite() {
     const newRecipe = {
       id,
-      type: 'bebida',
-      area: '',
+      type: 'comida',
+      area: strArea,
       category: strCategory,
+      alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
     };
     updateFavorites(newRecipe, isFavorite);
     setIsFavorite(!isFavorite);
   }
+
+  useEffect(() => {
+    function checkIsFavorite() {
+      return favorites
+        .find((fav) => fav.id === id)
+        ? setIsFavorite(true)
+        : setIsFavorite(false);
+    }
+    checkIsFavorite();
+  }, [id, favorites]);
 
   const buttonsDiv = (
     <div className="icons">

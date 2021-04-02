@@ -44,7 +44,6 @@ const InProgressCard = (props) => {
             id={ `id-${index}` }
             type="checkbox"
             value={ ingredient }
-            // onChange={ ({ target }) => { console.log(target.checked); } }
           />
           <label htmlFor={ `id-${index}` }>
             {ingredient}

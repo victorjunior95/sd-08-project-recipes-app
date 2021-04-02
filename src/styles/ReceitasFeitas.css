@@ -33,3 +33,15 @@
   box-shadow: none;
   outline: none;
 }
+
+.recipe-horizontal-image {
+  border-radius: 5px;
+  margin: 10px;
+  position: relative;
+  text-align: center;
+  width: 100px;
+}
+
+.container-done-recipes {
+  margin-left: 10px;
+}

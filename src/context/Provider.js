@@ -24,6 +24,7 @@ function Provider({ children }) {
   const [toggle, setToggle] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const [shouldRedirect, setShouldRedirect] = useState('');
+  // const [copyClipboard, setCopyClipboard] = useState('hidden');
   const [comidas, setComidas] = useState([]);
   const [bebidas, setBebidas] = useState([]);
 
@@ -99,6 +100,8 @@ function Provider({ children }) {
     setDisableButton,
     shouldRedirect,
     setShouldRedirect,
+    // copyClipboard,
+    // setCopyClipboard,
     comidas,
     setComidas,
     bebidas,

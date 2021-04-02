@@ -16,9 +16,31 @@ class Comidas extends Component {
     this.state = {
       selectedCategory: [],
       categoryName: '',
+      filter: [],
     };
 
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.setFilter();
+  }
+
+  setFilter() {
+    const { meals, bool } = this.props;
+    console.log(meals);
+    let cards;
+    if (!meals.ingredienteFilter) {
+      console.log('oi');
+      cards = meals.meals;
+    } else {
+      console.log('shau');
+
+      cards = meals.ingredienteFilter;
+    }
+    console.log(cards);
+
+    this.setState({ filter: cards });
   }
 
   handleClick(category) {
@@ -52,8 +74,9 @@ class Comidas extends Component {
   }
 
   render() {
-    const { categories: { recipesCategories }, meals: { meals }, bool } = this.props;
-    const { selectedCategory } = this.state;
+    const { categories: { recipesCategories }, bool } = this.props;
+    const { selectedCategory, filter } = this.state;
+
     if (selectedCategory.length === 0) {
       return (
         <div>
@@ -86,7 +109,7 @@ class Comidas extends Component {
           }
           {
 
-            meals.map((meal, index) => {
+            filter.map((meal, index) => {
               if (index < MAX_CARDS && bool === false) {
                 return (
                   <Link

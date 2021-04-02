@@ -25,6 +25,8 @@ function Provider({ children }) {
   const [disableButton, setDisableButton] = useState(true);
   const [shouldRedirect, setShouldRedirect] = useState('');
   // const [copyClipboard, setCopyClipboard] = useState('hidden');
+  const [comidas, setComidas] = useState([]);
+  const [bebidas, setBebidas] = useState([]);
 
   // async function requestApiData(endpoint) {
   //   const searchType = radioValue === 'i' ? 'filter' : 'search';
@@ -100,6 +102,10 @@ function Provider({ children }) {
     setShouldRedirect,
     // copyClipboard,
     // setCopyClipboard,
+    comidas,
+    setComidas,
+    bebidas,
+    setBebidas,
   };
 
   return (

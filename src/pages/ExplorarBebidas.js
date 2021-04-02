@@ -33,6 +33,7 @@ function ExplorarBebidas({ endpoint }) {
           name="Por Ingredientes"
         />
         <button
+          className="explore-button"
           data-testid="explore-surprise"
           onClick={ handleClick }
           type="button"

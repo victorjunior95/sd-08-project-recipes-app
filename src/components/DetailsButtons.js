@@ -2,6 +2,42 @@ import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
+// import { saveState } from '../services/LocalStorage';
+
+function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
+  const recipe = Object.values(recipeDetails[0])[0][0];
+  let a = [];
+  a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+  if (route === 'comidas') {
+    a.push({
+      idRecipe,
+      type: route,
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: '',
+      tags: '',
+    });
+  }
+  if (route === 'bebidas') {
+    a.push({
+      idRecipe,
+      type: route,
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: '',
+      tags: '',
+    });
+  }
+  localStorage.setItem('doneRecipes', JSON.stringify(a));
+  // saveState('doneRecipes', [...a]);
+}
 
 function SaveProgressRecipes(id, route) {
   let a = [];
@@ -84,6 +120,25 @@ function DetailsButtons({ route, id, page }) {
     }
   }, []);
 
+  function SaveProgressRecipes(idRecipe) {
+    // const recipe = Object.values(recipeDetails[0])[0][0];
+    let a = [];
+    a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    if (route === 'comidas') {
+      a.push({
+        idRecipe,
+        type: route,
+      });
+    }
+    if (route === 'bebidas') {
+      a.push({
+        idRecipe,
+        type: route,
+      });
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(a));
+  }
+
   if (shouldRedirect === id) return <Redirect to="/receitas-feitas" />;
 
   return (
@@ -113,6 +168,7 @@ function DetailsButtons({ route, id, page }) {
             disabled={ disableButton }
             onClick={ () => {
               idsF.push(id);
+              // localStorage.setItem('doneRecipes', JSON.stringify(idsF));
               SaveFinishedRecipes(id, recipeDetails, route);
               setShouldRedirect(id);
             } }

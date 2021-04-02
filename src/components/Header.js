@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
+import double from '../images/double.svg';
 import Input from './Inputs';
 import Button from './Button';
 import getResultFromAPI from '../api/getResultFromAPI';
@@ -59,10 +60,18 @@ const Header = (props) => {
             onChange={ handleSearchInput }
             value={ userInput }
           />
-          <Button
+          {/* <Button
             datatestid="exec-search-btn"
             type="button"
             label="Buscar"
+            onClick={ handleSearchButton }
+          /> */}
+          <input
+            type="image"
+            className="filter-btn"
+            src={ double }
+            alt="arrow"
+            data-testid="exec-search-btn"
             onClick={ handleSearchButton }
           />
         </div>

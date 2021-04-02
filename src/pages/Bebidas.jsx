@@ -53,7 +53,7 @@ const Bebidas = () => {
   return (
     <>
       <Header title="Bebidas" disableBtn={ BOOLEAN_FALSE } />
-      <section className="filter-buttons-drink">
+      <section className="filter-buttons">
         <Button
           datatestid="All-category-filter"
           label="All"

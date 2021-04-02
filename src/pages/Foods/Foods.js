@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import CategoryFilter from '../../component/CategoryFilter';
 import { Header, RecipeCards, Footer } from '../../component';
 import Context from '../../context/Context';
+import CardsContainer from '../../styles/CardsContainer';
 
 const SHOW_TWELVE_RECIPES = 12;
 
@@ -32,7 +33,7 @@ export default function Foods() {
     <>
       <Header pageTitle="Comidas" />
       <CategoryFilter />
-      <div>
+      <CardsContainer>
         {recipesToRender.map((recipe, index) => (
           <RecipeCards
             key={ index }
@@ -42,7 +43,7 @@ export default function Foods() {
             index={ index }
           />
         ))}
-      </div>
+      </CardsContainer>
 
       <Footer />
     </>

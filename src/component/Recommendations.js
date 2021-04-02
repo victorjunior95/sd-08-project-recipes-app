@@ -30,7 +30,7 @@ export default function Recommendations() {
 
   return (
     <StyledRecommendations>
-      <span>Recomendadas</span>
+      <h4>Recomendadas</h4>
       <div style={ { overflowX: 'auto', whiteSpace: 'nowrap' } }>
         {recommendations.map((recipe, index) => (
 

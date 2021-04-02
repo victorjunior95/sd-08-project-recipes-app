@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledLogin = styled.main`
+const StyledLogin = styled.div`
   align-items: center;
   background-color: white;
   border-radius: 10px;
@@ -16,7 +16,7 @@ const StyledLogin = styled.main`
     width: 100px;
   }
 
-  .search-input {
+  input {
     border: 1px solid #ccc;
     border-radius: 7px;
     margin-bottom: 10px;

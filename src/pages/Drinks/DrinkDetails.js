@@ -5,8 +5,13 @@ import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
 import { FavoriteButton, ShareDisplay } from '../../component';
 import { getRecipesInProgress } from '../../services/localStorage';
+import RecipesDetails from '../../styles/RecipesDetails';
 
-export default function DrinkDetails({ match: { params: { id } } }) {
+export default function DrinkDetails({
+  match: {
+    params: { id },
+  },
+}) {
   const { recipeDetail, setSearchParams } = useContext(Context);
   const history = useHistory();
   const [recipe, setRecipe] = useState();
@@ -25,13 +30,7 @@ export default function DrinkDetails({ match: { params: { id } } }) {
 
   if (!recipe) return <div>Carregando...</div>;
 
-  const {
-    strDrinkThumb,
-    strDrink,
-    strCategory,
-    strInstructions,
-    strAlcoholic,
-  } = recipe;
+  const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
 
   const ingredients = Object.keys(recipe)
     .filter((prop) => prop.includes('strIngredient'))
@@ -44,10 +43,9 @@ export default function DrinkDetails({ match: { params: { id } } }) {
     .filter((measure) => measure);
 
   return (
-    <>
+    <RecipesDetails>
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Recipe Done" />
       <h1 data-testid="recipe-title">{strDrink}</h1>
-      <ShareDisplay />
       <FavoriteButton
         recipeInfo={ {
           id,
@@ -59,33 +57,35 @@ export default function DrinkDetails({ match: { params: { id } } }) {
           image: strDrinkThumb,
         } }
       />
+      <ShareDisplay />
       <h5 data-testid="recipe-category">{`${strCategory} ${strAlcoholic}`}</h5>
-      {ingredients.map((ingredient, index) => (
-        <p
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {`-${ingredient} - ${measures[index]}`}
-
-        </p>
-      ))}
-      <p data-testid="instructions">{strInstructions}</p>
+      <div className="ingredient">
+        {ingredients.map((ingredient, index) => (
+          <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            {`-${ingredient} - ${measures[index]}`}
+          </p>
+        ))}
+      </div>
+      <p data-testid="instructions" className="instructions">
+        {strInstructions}
+      </p>
       <Link
         to={ `/bebidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
-        style={ { position: 'fixed', bottom: '0px' } }
+        className="start-resume-recipe"
         onClick={ () => {
           if (!recipeInProgress) {
-            localStorage.setItem('RecipesInProgress',
-              JSON.stringify([...getRecipesInProgress(), id]));
+            localStorage.setItem(
+              'RecipesInProgress',
+              JSON.stringify([...getRecipesInProgress(), id]),
+            );
           }
         } }
       >
         {recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-
       </Link>
       <Recommendations />
-    </>
+    </RecipesDetails>
   );
 }
 

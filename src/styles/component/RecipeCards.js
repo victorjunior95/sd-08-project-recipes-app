@@ -2,10 +2,13 @@
 import styled from 'styled-components';
 
 const StyledRecipeCards = styled.div`
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 5px 5px 5px grey;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 10px 5vw;
   width: 40vw;
 

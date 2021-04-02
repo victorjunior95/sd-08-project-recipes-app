@@ -15,8 +15,9 @@ const StyledHeader = styled.header`
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.9rem;
     margin: 0;
+    text-align: right;
   }
 `;
 

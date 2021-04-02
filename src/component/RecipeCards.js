@@ -12,7 +12,6 @@ export default function RecipeCards({ recipe, type, index, id, recommendation })
 
   return (
     <StyledRecipeCards
-      // to={ `/${link}/${id}` }
       onClick={ goToLink }
       data-testid={ `${index}-recipe-card` }
     >

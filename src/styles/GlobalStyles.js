@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     background-color: #f9f1c0;
+    margin-bottom: 80px;
   }
 `;
 

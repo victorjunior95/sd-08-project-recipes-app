@@ -5,12 +5,14 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
+import StyledHeader from '../styles/component/Header';
+
 export default function Header({ pageTitle, showSearchButton }) {
   const [showSearchInput, setShowSearchInput] = useState(false);
 
   return (
     <>
-      <header>
+      <StyledHeader>
         <Link to="/perfil">
           <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
         </Link>
@@ -20,7 +22,7 @@ export default function Header({ pageTitle, showSearchButton }) {
             <img src={ searchIcon } alt="Search Icon" data-testid="search-top-btn" />
           </button>
         )}
-      </header>
+      </StyledHeader>
       {showSearchInput && <SearchBar />}
     </>
   );

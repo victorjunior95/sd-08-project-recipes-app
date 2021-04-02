@@ -16,7 +16,7 @@ const StyledLogin = styled.main`
     margin-bottom: 10px;
   }
 
-  input {
+  .search-input {
     border: 1px solid #ccc;
     border-radius: 7px;
     margin-bottom: 10px;

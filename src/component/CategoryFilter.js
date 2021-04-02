@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../context/Context';
+import StyledCategoryFilter from '../styles/component/CategoryFilter';
 
 const SHOW_FIVE_CATEGORIES = 6;
 
@@ -24,7 +25,7 @@ export default function CategoryFilter() {
   };
 
   return (
-    <>
+    <StyledCategoryFilter>
       {categoriesToRender
         .map((category, index) => (
           <button
@@ -36,6 +37,6 @@ export default function CategoryFilter() {
             {category}
           </button>
         ))}
-    </>
+    </StyledCategoryFilter>
   );
 }

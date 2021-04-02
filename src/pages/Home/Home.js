@@ -22,10 +22,12 @@ const Home = ({ title }) => {
 
   return (
     <>
-      <Header title={ title } />
-      {searchBar && <SearchBar title={ title } />}
-      <Categories title={ title } />
-      { results && <List title={ title } results={ results } />}
+      <Header title={title} />
+      {searchBar && <SearchBar title={title} />}
+      <Categories title={title} />
+      {results && (
+        <List title={title} results={results} />
+      )}
       <Footer />
     </>
   );

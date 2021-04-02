@@ -104,7 +104,7 @@ const RecipesFavDone = ({ title, visible }) => {
       {title === 'Receitas Feitas' &&
         doneRecipes.length > 0 &&
         doneRecipes.map((recipe, index) => (
-           <button key={index}  onClick = {()=>redirectTo(recipe.id,recipe.type)}>
+           <button className="btn-recipes" key={index}  onClick = {()=>redirectTo(recipe.id,recipe.type)}>
           <CardRecipe
             key={index}
             id={recipe.id}

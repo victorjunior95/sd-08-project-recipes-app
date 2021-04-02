@@ -78,7 +78,8 @@ function DetailsButtons({ route, id, page }) {
 
   useEffect(() => {
     if (!Object.values(idsP).includes(id)
-    && window.location.href === `/${route}/${id}/`) {
+      && (window.location.href.endsWith(`/${route}/${id}`)
+      || window.location.href.endsWith(`/${route}/${id}/`))) {
       document.getElementById('start-recipe-btn').innerText = 'Iniciar Receita';
     }
   }, []);

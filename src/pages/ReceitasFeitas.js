@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+// import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
 import shareIcon from '../images/shareIcon.svg';
@@ -10,8 +11,9 @@ import '../styles/ReceitasFeitas.css';
 function ReceitasFeitas() {
   const [recipesCompleted, setRecipesCompleted] = useState('All');
   const [filterRecipesCompleted, setFilterRecipesCompleted] = useState([]);
+  const [copyURL, setCopyURL] = useState(false);
 
-  const { copyClipboard, setCopyClipboard } = useContext(Context);
+  // const { copyClipboard, setCopyClipboard } = useContext(Context);
 
   const updateRecipesCompleted = () => {
     const loadDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -39,6 +41,13 @@ function ReceitasFeitas() {
   useEffect(() => {
     setFilterRecipesCompleted(updateRecipesCompleted());
   }, [recipesCompleted]);
+
+  const shareBtn = (type, id) => {
+    copy(window.location.href
+      .replace('receitas-feitas', '')
+      .concat(`${type}s/${id}`));
+    setCopyURL(true);
+  };
 
   return (
     <div>
@@ -158,9 +167,11 @@ function ReceitasFeitas() {
                 }
               </div>
               <div>
-                <CopyToClipboard text={ `http://localhost:3000/${recipe.type}s/${recipe.id}` }>
+                {/* <CopyToClipboard text={ `http://localhost:3000/${recipe.type}s/${recipe.id}` }>
                   <button
-                    onClick={ () => setCopyClipboard('visible') }
+                    onClick={ () => {
+                      setCopyClipboard('visible')
+                    } }
                     type="button"
                   >
                     <img
@@ -169,9 +180,19 @@ function ReceitasFeitas() {
                       alt="share button"
                     />
                   </button>
-                </CopyToClipboard>
+                </CopyToClipboard> */}
+                <input
+                  type="image"
+                  alt="Share image"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  className="share-btn"
+                  id="share-btn"
+                  src={ shareIcon }
+                  onClick={ () => shareBtn(recipe.type, recipe.id) }
+                />
               </div>
-              <small style={ { visibility: copyClipboard } }>Link copiado!</small>
+              { copyURL ? <p>Link copiado!</p> : null }
+              {/* <small style={ { visibility: copyClipboard } }>Link copiado!</small> */}
             </div>
           ))
         )}

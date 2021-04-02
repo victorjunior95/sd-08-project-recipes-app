@@ -18,7 +18,7 @@ const BigCardHeader = ({ recipe, showShare, index }) => {
           data-testid={ `${index}-horizontal-top-text` }
           className={ styles.category }
         >
-          { `${area} - ${category}` }
+          { area ? `${area} - ${category}` : `${category}` }
         </p>
         { showShare && (
           <ShareButton
@@ -37,6 +37,10 @@ const BigCardHeader = ({ recipe, showShare, index }) => {
   );
 };
 
+BigCardHeader.defaultProps = {
+  showShare: false,
+};
+
 BigCardHeader.propTypes = {
   recipe: PropTypes.shape({
     name: PropTypes.string,
@@ -46,7 +50,7 @@ BigCardHeader.propTypes = {
     type: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  showShare: PropTypes.bool.isRequired,
+  showShare: PropTypes.bool,
   index: PropTypes.number.isRequired,
 };
 

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import HeaderP from './HeaderP';
 import DetailsFavoriteRecipes from './DetailsFavoriteRecipes';
+import Context from '../context/Context';
 
 const FavoriteRecipe = () => {
-  const [recipesCompleted, setRecipesCompleted] = useState('All');
+  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const { setComidas, setBebidas } = useContext(Context);
 
-  const changeFilter = (value) => {
-    console.log(value);
-    if (value === recipesCompleted) setRecipesCompleted('All');
-    else setRecipesCompleted(value);
-  };
   return (
     <div>
       <HeaderP title="Receitas Favoritas" />
@@ -17,17 +14,11 @@ const FavoriteRecipe = () => {
       <div className="btns-recipes-completed">
         <button
           type="button"
-          value="All"
-          onClick={ (event) => changeFilter(event.target.value) }
-          data-testid="filter-by-all-btn"
-          className="btn-recipes-completed"
-        >
-          All
-        </button>
-        <button
-          type="button"
           value="Food"
-          onClick={ (event) => changeFilter(event.target.value) }
+          onClick={ () => {
+            setBebidas([]);
+            setComidas(favorite.filter((item) => item.type === 'comida'));
+          } }
           data-testid="filter-by-food-btn"
           className="btn-recipes-completed"
         >
@@ -36,11 +27,26 @@ const FavoriteRecipe = () => {
         <button
           type="button"
           value="Drinks"
-          onClick={(event) => changeFilter(event.target.value)}
+          onClick={ () => {
+            setComidas([]);
+            setBebidas(favorite.filter((item) => item.type === 'bebida'));
+          } }
           data-testid="filter-by-drink-btn"
           className="btn-recipes-completed"
         >
           Drinks
+        </button>
+        <button
+          type="button"
+          value="All"
+          onClick={ () => {
+            setBebidas(favorite.filter((item) => item.type === 'bebida'));
+            setComidas(favorite.filter((item) => item.type === 'comida'));
+          } }
+          data-testid="filter-by-all-btn"
+          className="btn-recipes-completed"
+        >
+          All
         </button>
       </div>
       <br />

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
 import shareIcon from '../images/shareIcon.svg';
-import Context from '../context/Context';
+// import Context from '../context/Context';
 
 import '../styles/ReceitasFeitas.css';
 

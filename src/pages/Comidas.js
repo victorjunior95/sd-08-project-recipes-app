@@ -16,32 +16,18 @@ class Comidas extends Component {
     this.state = {
       selectedCategory: [],
       categoryName: '',
-      filter: [],
     };
 
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    this.setFilter();
-  }
+  // componentDidMount(){
+  //   this.setFilter()
+  // }
 
-  setFilter() {
-    const { meals, bool } = this.props;
-    console.log(meals);
-    let cards;
-    if (!meals.ingredienteFilter) {
-      console.log('oi');
-      cards = meals.meals;
-    } else {
-      console.log('shau');
+  // setFilter(){
 
-      cards = meals.ingredienteFilter;
-    }
-    console.log(cards);
-
-    this.setState({ filter: cards });
-  }
+  // }
 
   handleClick(category) {
     const { meals: { meals, Beef, Breakfast, Chicken, Dessert, Goat } } = this.props;
@@ -73,10 +59,36 @@ class Comidas extends Component {
     }
   }
 
-  render() {
+  inputButtons() {
     const { categories: { recipesCategories }, bool } = this.props;
-    const { selectedCategory, filter } = this.state;
 
+    return (
+
+      recipesCategories.map((category, index) => {
+        if (index < MAX_CATEGORIES && bool === false) {
+          return (
+            <button
+              type="button"
+              onClick={ () => this.handleClick(category.strCategory) }
+              data-testid={ `${category.strCategory}-category-filter` }
+            >
+              {category.strCategory}
+            </button>
+          );
+        }
+        return null;
+      }));
+  }
+
+  render() {
+    const { categories: { recipesCategories }, meals, bool } = this.props;
+    const { selectedCategory } = this.state;
+    let cards = '';
+    if (!meals.ingredienteFilter) {
+      cards = meals.meals;
+    } else {
+      cards = meals.ingredienteFilter;
+    }
     if (selectedCategory.length === 0) {
       return (
         <div>
@@ -90,7 +102,7 @@ class Comidas extends Component {
           >
             All
           </button>
-          {
+          {/* {
             recipesCategories.map((category, index) => {
               if (index < MAX_CATEGORIES && bool === false) {
                 return (
@@ -106,10 +118,11 @@ class Comidas extends Component {
               }
               return null;
             })
-          }
+          } */}
+          {this.inputButtons()}
           {
 
-            filter.map((meal, index) => {
+            cards.map((meal, index) => {
               if (index < MAX_CARDS && bool === false) {
                 return (
                   <Link

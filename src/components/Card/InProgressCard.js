@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
-import copy from 'clipboard-copy';
 import useFavoritesHook from '../../pages/hooks/useFavoritesHook';
 
 const InProgressCard = (props) => {

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import InProgressCard from '../../components/Card/InProgressCard';
 import { getDrinkFiltredById } from '../../services/api';
+import useFavoritesHook from '../hooks/useFavoritesHook';
 
 function DrinkInProgress(props) {
   const { match: { url, params: { id } } } = props;
   const history = useHistory();
+  const [favorites, updateFavorites] = useFavoritesHook();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [filteredById, setFilteredById] = useState('');
   const [ingredientsAndMeasuresList, setIngredientsAndMeasuresList] = useState([]);
   const isEmpty = (obj) => Object.keys(obj).length === 0; // verifica se o objeto está vazio;
@@ -84,7 +89,7 @@ function DrinkInProgress(props) {
     <main>
       {!isEmpty(filteredById)
         ? (
-          <section>
+          <section style={ { display: 'flex', flexFlow: 'column wrap' } }>
             <InProgressCard
               url={ url }
               id={ id }

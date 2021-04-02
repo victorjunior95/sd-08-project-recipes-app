@@ -7,9 +7,20 @@ const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
+  const [test, setTest] = useState('');
+
+  const verifyRender = () => {
+    const obj = { id1: true, id2: false, id3: true };
+    const arr = [];
+    for (key in obj) {
+      arr.push({ [key]: arr[key] });
+    }
+    setTest(arr);
+  };
 
   const consoleFunction = () => {
-    console.log(id);
+    verifyRender();
+    console.log(test);
   };
 
   const theButton = <button type="button" onClick={ consoleFunction }>BOTÃO</button>;
@@ -22,6 +33,7 @@ for(prop in arr) {
   newarr.push({[prop]: arr[prop]})
 }
 )
+renderização condicional no componente
  console.log(newarr.map((element, index) => `${Object.keys(element)} => ${element[`id${index + 1}`]}`))
  */
 

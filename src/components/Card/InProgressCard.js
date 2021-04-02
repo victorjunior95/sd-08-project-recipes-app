@@ -12,12 +12,17 @@ const InProgressCard = (props) => {
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
   const [favorites, updateFavorites] = useFavoritesHook();
   const [isFavorite, setIsFavorite] = useState(false);
-  const [testOnClick, setTestOnClick] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const consoleFunction = () => {
+    console.log(id, favorites);
+  };
+
+  const theButton = <button onClick={ consoleFunction }>BOTÃO</button>;
 
   const copyFunction = () => {
-    copy(window.location.href);
-    setTestOnClick(!testOnClick);
-    console.log('mudou');
+    copy(window.location.href.replace('/in-progress', ''));
+    setCopied(!copied);
   };
 
   useEffect(() => {
@@ -81,7 +86,7 @@ const InProgressCard = (props) => {
       <h4 data-testid="recipe-title">{title}</h4>
       <span data-testid="recipe-category">{`Category => ${category}`}</span>
       <img src={ img } alt={ title } data-testid="recipe-photo" />
-      <ul>
+      <ul className="unordered-list">
         {ingredientsMapping}
       </ul>
       <ol
@@ -97,14 +102,14 @@ const InProgressCard = (props) => {
         {instructionsMapping}
         Voilá!
       </ol>
-      <div>
+      <div className="button-container">
         <button type="button" data-testid="favorite-btn">Favoritar</button>
         <button
           type="button"
           data-testid="share-btn"
           onClick={ copyFunction }
         >
-          {testOnClick ? 'Link copiado!' : 'Compartilhar'}
+          {copied ? 'Link copiado!' : 'Compartilhar'}
         </button>
 
         <button
@@ -152,7 +157,7 @@ const InProgressCard = (props) => {
         >
           Favoritar
         </button>
-        {testOnClick ? <span>Link copiado!</span> : ''}
+        {copied ? <span>Link copiado!</span> : ''}
         <button
           type="button"
           data-testid="share-btn"
@@ -172,6 +177,7 @@ const InProgressCard = (props) => {
 
   return (
     <main>
+      {theButton}
       {isDrinkOrFood === 'Drink' ? renderDrink() : renderFood()}
 
     </main>

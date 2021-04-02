@@ -9,6 +9,7 @@ import { resultadoApiBebidas } from '../services/fetchBebidas';
 function ProviderReceitas({ children }) {
   const [deveriaRedirecionar, setDeveriaRedirecionar] = useState(false);
   const [toggle, setToggle] = useState(true);
+  const [showDefault, setShowDefault] = useState(true);
   const [logedIn, setLoged] = useState(0);
   const [receitaEmProgresso, setReceitaEmProgresso] = useState({});
   const [bebidas, setBebidas] = useState();
@@ -29,7 +30,7 @@ function ProviderReceitas({ children }) {
       if (search.type === 'f' && search.search.length > 1) {
         return window.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      const comidasResultado = tituloDaPagina === 'Comidas'
+      const comidasResultado = tituloDaPagina.includes('Comidas')
         ? await resultadoApiComidas(search.type, search.search)
         : await resultadoApiBebidas(search.type, search.search);
 
@@ -69,6 +70,8 @@ function ProviderReceitas({ children }) {
     setDetalhesBebidas,
     receitaEmProgresso,
     setReceitaEmProgresso,
+    showDefault,
+    setShowDefault,
   };
 
   useEffect(() => {

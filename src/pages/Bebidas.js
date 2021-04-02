@@ -13,6 +13,7 @@ export default function Bebidas() {
   const LIMITER = 12;
   const FIVE = 5;
   const [listDrinkCategories, setListDrinkCategories] = useState([]);
+  const [showBtn, setShowBtn] = useState(null);
 
   useEffect(() => {
     const getListCategories = async () => {
@@ -29,9 +30,17 @@ export default function Bebidas() {
   }, []);
 
   const handleClickDrink = async ({ target: { value } }) => {
-    const drinkCatergories = await getDrinkCategory(value);
-    setArrayOfDrinksCategories(drinkCatergories);
-    setCard(true);
+    if (showBtn === null) {
+      const drinkCatergories = await getDrinkCategory(value);
+      setArrayOfDrinksCategories(drinkCatergories);
+      setCard(true);
+      setShowBtn(value);
+    } else if (showBtn === value) {
+      const newDrinkCategories = await drinkRandom();
+      setArrayOfDrinksCategories(newDrinkCategories);
+      setCard(true);
+      setShowBtn(null);
+    }
   };
 
   useEffect(() => {

@@ -42,7 +42,6 @@ export default function Login() {
         e-mail
         <input
           type="email"
-          autoComplete="username"
           id="email"
           name="email"
           data-testid="email-input"
@@ -56,7 +55,6 @@ export default function Login() {
           type="password"
           id="password"
           name="password"
-          autoComplete="current-password"
           data-testid="password-input"
           value={ login.password }
           onChange={ handleChange }

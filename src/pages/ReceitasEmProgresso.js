@@ -19,7 +19,6 @@ class ReceitasEmProgresso extends Component {
       currentRecipe: '',
       isDone: '',
     };
-
     this.favoriteThisItem = this.favoriteThisItem.bind(this);
   }
 
@@ -61,10 +60,20 @@ class ReceitasEmProgresso extends Component {
     const recipe = await fetchDrinkApiById(drinkId);
     const ingredients = getIngredientList(recipe);
     const arrIngredientes = Object.values(ingredients);
-    const isDone = arrIngredientes.reduce((acc, crr) => {
+    const storage = JSON.parse(localStorage.getItem('isDone'));
+    const obj = arrIngredientes.reduce((acc, crr) => {
       acc = { ...acc, [crr.item]: false };
       return acc;
     }, {});
+    let isDone;
+    if (storage !== null) {
+      if (JSON.stringify(Object.keys(storage)) === JSON.stringify(Object.keys(obj))) {
+        isDone = storage;
+      }
+    } else {
+      console.log('oxi');
+      isDone = obj;
+    }
 
     const isFavorite = isFavoriteRecipe(drinkId);
     this.setState({
@@ -80,10 +89,20 @@ class ReceitasEmProgresso extends Component {
     const recipe = await fetchFoodApiById(foodId);
     const ingredients = getIngredientList(recipe);
     const arrIngredientes = Object.values(ingredients);
-    const isDone = arrIngredientes.reduce((acc, crr) => {
+    const storage = JSON.parse(localStorage.getItem('isDone'));
+    const obj = arrIngredientes.reduce((acc, crr) => {
       acc = { ...acc, [crr.item]: false };
       return acc;
     }, {});
+    let isDone;
+    if (storage !== null) {
+      if (JSON.stringify(Object.keys(storage)) === JSON.stringify(Object.keys(obj))) {
+        isDone = storage;
+      }
+    } else {
+      console.log('oxi');
+      isDone = obj;
+    }
 
     const isFavorite = isFavoriteRecipe(foodId);
     this.setState({

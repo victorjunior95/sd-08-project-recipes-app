@@ -10,3 +10,8 @@
   padding-bottom: 35px;
   width: 100px;
 }
+
+.btn-recipes {
+  background-color: transparent;
+  border: none;
+}

@@ -9,10 +9,10 @@ function IngredientesEmProcesso({ id, type }) {
   const {
     recipe,
   } = useContext(MyContext);
-
   const newObj = [];
   let cont = 1;
   const keys = Object.keys(recipe);
+
   keys.map((key) => {
     if (key.includes('strIngredient')) {
       newObj.push(
@@ -25,10 +25,12 @@ function IngredientesEmProcesso({ id, type }) {
 
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(storage);
     if (!storage) {
+      console.log('entrou no if do effect');
       verifyInProgress(id, type);
     }
-  }, []);
+  }, [id, type]); // []
 
   const objPronto = newObj.reduce((acumulador, valorAtual) => {
     const firstNull = valorAtual.substr(0, FINAL_NULL);

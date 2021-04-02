@@ -34,23 +34,20 @@ function ExploreButton({ title }) {
 
   async function requisitarReceitas() {
     let url = { name: 'thecocktaildb', id: 'idDrink', type: 'drinks' };
-
     if (title === 'Comidas') {
       url = { name: 'themealdb', id: 'idMeal', type: 'meals' };
     }
-
     const {
       tamanhoResposta,
       terminatedRequest,
     } = await requestApi(url, searchFilter, inputSearch);
-
     if (title === 'Comidas') {
       setComidas(terminatedRequest.meals);
     } else {
       setBebidas(terminatedRequest.drinks);
     }
-
     if (!tamanhoResposta || !terminatedRequest[url.type]) {
+      // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (terminatedRequest[url.type].length === 1) {
       history.push(`/${title.toLowerCase()}/${terminatedRequest[url.type][0][url.id]}`);

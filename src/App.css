@@ -29,11 +29,6 @@ img {
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-}
-
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
@@ -42,19 +37,9 @@ img {
   font-weight: 900;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
 }
 
 @keyframes clink {
@@ -69,5 +54,20 @@ img {
 
   100% {
     transform: rotate(-10deg);
+  }
+}
+
+@keyframes shake {
+
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
   }
 }

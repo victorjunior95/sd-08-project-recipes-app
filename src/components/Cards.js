@@ -33,7 +33,7 @@ function Cards({ title }) {
         palavra: 'Drink',
       });
     }
-  }, []);
+  }, [setType, title]); // []
 
   function redirectToDetails(id) {
     history.push(`/${title.toLowerCase()}/${id}`);

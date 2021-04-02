@@ -7,17 +7,17 @@
   justify-content: center;
 }
 
-.headerContainer img {
-  height: 1.5rem;
+.headerContainer button:last-child {
+  background-color: transparent;
+  border: none;
+  margin-left: 1rem;
+  outline: none;
 }
 
 .headerContainer h3 {
   font-size: 2rem;
 }
 
-.headerContainer button:last-child {
-  background-color: transparent;
-  border: none;
-  margin-left: 1rem;
-  outline: none;
+.headerContainer img {
+  height: 1.5rem;
 }

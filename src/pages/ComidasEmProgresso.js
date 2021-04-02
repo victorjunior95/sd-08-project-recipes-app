@@ -1,20 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Copy from 'clipboard-copy';
-import MyContext from '../context/MyContext';
 import IngredientesEmProcesso from '../components/IngredientesEmProcesso';
-import requestById from '../services/requestById';
+import MyContext from '../context/MyContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import verifyStorage from '../services/verifyStorage';
+import requestById from '../services/requestById';
 import verifyInFavorite from '../services/verifyInFavorite';
+import verifyStorage from '../services/verifyStorage';
 import '../styles/Comida.css';
 
 function ComidasEmProgresso() {
   const history = useHistory();
   const id = history.location.pathname.split('/')[2];
-
   const {
     recipe,
     setRecipe,
@@ -28,16 +27,16 @@ function ComidasEmProgresso() {
 
   useEffect(() => {
     setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
-  }, [renderButtonComparison]);
+  }, [id, renderButtonComparison, setRenderButtonComparison]); // renderButtonComparison
 
   useEffect(() => {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
-  }, [favorite]);
+  }, [favorite, id, setFavorite]); // favorite
 
-  async function requestRecipe() {
-    const recipeFromApi = await requestById(id, 'comidas');
-    setRecipe(recipeFromApi.meals[0]);
-  }
+  // async function requestRecipe() {
+  //   const recipeFromApi = await requestById(id, 'comidas');
+  //   setRecipe(recipeFromApi.meals[0]);
+  // }
 
   // function iniciarReceita() {
   //   verifyInProgress(id, 'meals');
@@ -63,8 +62,12 @@ function ComidasEmProgresso() {
   }
 
   useEffect(() => {
+    async function requestRecipe() {
+      const recipeFromApi = await requestById(id, 'comidas');
+      setRecipe(recipeFromApi.meals[0]);
+    }
     requestRecipe();
-  }, []);
+  }, [id, setRecipe]); // []
 
   return (
     <div>

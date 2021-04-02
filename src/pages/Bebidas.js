@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
+import Cards from '../components/Cards';
+import Categorys from '../components/Categorys';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
-import Cards from '../components/Cards';
-import Footer from '../components/Footer';
-import Categorys from '../components/Categorys';
 
 function Bebidas() {
   const {

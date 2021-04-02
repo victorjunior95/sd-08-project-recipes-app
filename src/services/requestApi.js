@@ -10,6 +10,7 @@ const requestApi = async (url, searchFilter, inputSearch) => {
   } else if (searchFilter === 'primeira' && inputSearch.length === 1) {
     endPoint = `https://www.${url.name}.com/api/json/v1/1/search.php?f=${inputSearch}`;
   } else {
+    // eslint-disable-next-line no-alert
     alert('Sua busca deve conter somente 1 (um) caracter');
   }
 

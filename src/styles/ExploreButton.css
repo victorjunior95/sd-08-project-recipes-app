@@ -7,6 +7,24 @@
   width: 317px;
 }
 
+.exploreContainer button {
+  background-color: orange;
+  color: red;
+  font-size: 1.5rem;
+  font-weight: 500;
+  transition: 1s;
+  width: 80%;
+}
+
+.exploreContainer button:hover {
+  background-color: red;
+  color: orange;
+}
+
+.exploreContainer input {
+  width: 100%;
+}
+
 .exploreContainer input [ type = 'text' ] {
   background-color: orange;
   border-color: red;
@@ -30,24 +48,6 @@
 }
 
 .exploreContainer label:hover {
-  background-color: red;
-  color: orange;
-}
-
-.exploreContainer input {
-  width: 100%;
-}
-
-.exploreContainer button {
-  background-color: orange;
-  color: red;
-  font-size: 1.5rem;
-  font-weight: 500;
-  transition: 1s;
-  width: 80%;
-}
-
-.exploreContainer button:hover {
   background-color: red;
   color: orange;
 }

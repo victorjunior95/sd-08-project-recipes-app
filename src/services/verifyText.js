@@ -1,6 +1,8 @@
 function verifyText(id, type) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log(inProgressRecipes);
   let textButton = 'Iniciar Receita';
+
   if (inProgressRecipes) {
     Object.keys(inProgressRecipes[type]).find((progressRecipe) => {
       if (progressRecipe === id) {
@@ -9,6 +11,7 @@ function verifyText(id, type) {
       return null;
     });
   }
+
   return textButton;
 }
 

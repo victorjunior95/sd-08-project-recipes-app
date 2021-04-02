@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Copy from 'clipboard-copy';
-import MyContext from '../context/MyContext';
-import RecomendedCards from '../components/RecomendedCards';
 import Ingredientes from '../components/Ingredientes';
-import requestById from '../services/requestById';
+import RecomendedCards from '../components/RecomendedCards';
+import MyContext from '../context/MyContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import verifyInProgress from '../services/verifyInProgress';
-import verifyText from '../services/verifyText';
+import requestById from '../services/requestById';
 import verifyInFavorite from '../services/verifyInFavorite';
+import verifyInProgress from '../services/verifyInProgress';
 import verifyStorage from '../services/verifyStorage';
+import verifyText from '../services/verifyText';
 import '../styles/Bebida.css';
 
 function Bebida() {
@@ -19,7 +19,6 @@ function Bebida() {
   const history = useHistory();
   const id = history.location.pathname
     .substr(INICIO_CORTE, history.location.pathname.length);
-
   const {
     recipe,
     setRecipe,
@@ -31,18 +30,18 @@ function Bebida() {
     setFavorite,
   } = useContext(MyContext);
 
-  async function requestRecipe() {
-    const recipeFromApi = await requestById(id, 'bebidas');
-    setRecipe(recipeFromApi.drinks[0]);
-  }
+  // async function requestRecipe() {
+  //   const recipeFromApi = await requestById(id, 'bebidas');
+  //   setRecipe(recipeFromApi.drinks[0]);
+  // }
 
   useEffect(() => {
     setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
-  }, [renderButtonComparison]);
+  }, [id, renderButtonComparison, setRenderButtonComparison]); // renderButtonComparison
 
   useEffect(() => {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
-  }, [favorite]);
+  }, [favorite, id, setFavorite]); // favorite
 
   function iniciarReceita() {
     verifyInProgress(id, 'cocktails');
@@ -51,7 +50,6 @@ function Bebida() {
 
   function renderButton() {
     const textButton = verifyText(id, 'cocktails');
-
     return (
       <button
         className="iniciar-receita-btn"
@@ -70,8 +68,12 @@ function Bebida() {
   }
 
   useEffect(() => {
+    async function requestRecipe() {
+      const recipeFromApi = await requestById(id, 'bebidas');
+      setRecipe(recipeFromApi.drinks[0]);
+    }
     requestRecipe();
-  }, []);
+  }, [id, setRecipe]); // []
 
   return (
     <div>

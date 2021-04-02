@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './MyContext';
-import firstRequest from '../services/firstRequest';
 import categoryRequest from '../services/categoryRequest';
+import firstRequest from '../services/firstRequest';
 
 function Provider({ children }) {
   const [userEmail, setEmail] = useState('');
@@ -25,6 +25,7 @@ function Provider({ children }) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [checkedStatus, setCheckedStatus] = useState(false);
+
   const contextValue = {
     userEmail,
     setEmail,
@@ -68,6 +69,7 @@ function Provider({ children }) {
     setCheckedStatus,
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const { comidasApi, bebidasApi } = await firstRequest();
     setComidas(comidasApi.meals);
@@ -84,10 +86,10 @@ function Provider({ children }) {
     </Context.Provider>);
 }
 
-export default Provider;
-
 Provider.propTypes = {
   children: PropTypes.objectOf(
     PropTypes.any,
   ).isRequired,
 };
+
+export default Provider;

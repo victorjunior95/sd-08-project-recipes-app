@@ -6,10 +6,10 @@ function Ingredientes() {
   const {
     recipe,
   } = useContext(MyContext);
-
   const newObj = [];
   let cont = 1;
   const keys = Object.keys(recipe);
+
   keys.map((key) => {
     if (key.includes('strIngredient')) {
       newObj.push(

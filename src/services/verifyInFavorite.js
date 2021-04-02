@@ -3,11 +3,13 @@ function verifyInFavorite(recipe, type, status) {
   let mealOrDrink = 'comida';
   let area = recipe.strArea;
   let alcoholicOrNot = '';
+
   if (type === 'Drink') {
     mealOrDrink = 'bebida';
     area = '';
     alcoholicOrNot = strAlcoholic;
   }
+
   let favoriteRecipes = [{
     id: recipe[`id${type}`],
     type: mealOrDrink,
@@ -18,6 +20,7 @@ function verifyInFavorite(recipe, type, status) {
     image: recipe[`str${type}Thumb`],
   }];
   const favoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
   if (!status) {
     if (!favoriteStorage) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));

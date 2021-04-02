@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Copy from 'clipboard-copy';
-import MyContext from '../context/MyContext';
-import RecomendedCards from '../components/RecomendedCards';
 import Ingredientes from '../components/Ingredientes';
-import requestById from '../services/requestById';
+import RecomendedCards from '../components/RecomendedCards';
+import MyContext from '../context/MyContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import verifyText from '../services/verifyText';
+import requestById from '../services/requestById';
+import verifyInFavorite from '../services/verifyInFavorite';
 import verifyInProgress from '../services/verifyInProgress';
 import verifyStorage from '../services/verifyStorage';
-import verifyInFavorite from '../services/verifyInFavorite';
+import verifyText from '../services/verifyText';
 import '../styles/Comida.css';
 
 function Comida() {
@@ -19,7 +19,6 @@ function Comida() {
   const history = useHistory();
   const id = history.location.pathname
     .substr(INICIO_CORTE, history.location.pathname.length);
-
   const {
     recipe,
     setRecipe,
@@ -33,21 +32,21 @@ function Comida() {
 
   useEffect(() => {
     setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
-  }, [renderButtonComparison]);
+  }, [id, renderButtonComparison, setRenderButtonComparison]); // renderButtonComparison
 
   useEffect(() => {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
-  }, [favorite]);
+  }, [favorite, id, setFavorite]); // favorite
 
   let urlVideo;
   if (recipe.strYoutube) {
     urlVideo = recipe.strYoutube.replace('watch?v=', 'embed/');
   }
 
-  async function requestRecipe() {
-    const recipeFromApi = await requestById(id, 'comidas');
-    setRecipe(recipeFromApi.meals[0]);
-  }
+  // async function requestRecipe() {
+  //   const recipeFromApi = await requestById(id, 'comidas');
+  //   setRecipe(recipeFromApi.meals[0]);
+  // }
 
   function iniciarReceita() {
     verifyInProgress(id, 'meals');
@@ -74,8 +73,12 @@ function Comida() {
   }
 
   useEffect(() => {
+    async function requestRecipe() {
+      const recipeFromApi = await requestById(id, 'comidas');
+      setRecipe(recipeFromApi.meals[0]);
+    }
     requestRecipe();
-  }, []);
+  }, [id, setRecipe]); // []
 
   return (
     <div>

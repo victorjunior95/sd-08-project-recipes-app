@@ -65,8 +65,6 @@ function LoginForm({ props }) {
   );
 }
 
-export default LoginForm;
-
 LoginForm.propTypes = {
   props: PropTypes.objectOf(
     PropTypes.any,
@@ -75,3 +73,5 @@ LoginForm.propTypes = {
     push: PropTypes.func,
   }).isRequired,
 };
+
+export default LoginForm;

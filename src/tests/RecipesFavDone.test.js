@@ -1,9 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import RecipesFavDone from '../pages/RecipesFavDone/RecipesFavDone';
-import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
-import userEvent from '@testing-library/user-event';
 
 describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
   test('Verifica se o título está presente e contém o texto "Receitas Feitas"', () => {

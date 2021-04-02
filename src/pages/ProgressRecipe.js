@@ -14,6 +14,7 @@ import PrimaryButton from '../components/PrimaryButton';
 import RecipeHeader from '../components/RecipeHeader';
 import RecipeIngredientsWithStep from '../components/RecipeIngredientsWithStep';
 import RecipeInstructions from '../components/RecipeInstructions';
+import LoadingScreen from '../components/LoadingScreen';
 
 function getIngredients(recipe) {
   const ingredientKeys = Object.keys(recipe)
@@ -61,7 +62,7 @@ const ProgressRecipe = ({ isMeal, addFavoriteRecipe, removeFavoriteRecipe,
     history.push('/receitas-feitas');
   }
 
-  if (!recipe) return <p>Loading...</p>;
+  if (!recipe) return <LoadingScreen />;
 
   return (
     <div>

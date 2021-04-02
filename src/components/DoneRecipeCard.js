@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import BigCard from './BigCard';
 import BigCardHeader from './BigCardHeader';
@@ -8,11 +9,13 @@ import BigCardTag from './BigCardTag';
 const DoneRecipeCard = ({ recipe, index }) => {
   function renderImage() {
     return (
-      <img
-        src={ recipe.image }
-        alt={ recipe.name }
-        data-testid={ `${index}-horizontal-image` }
-      />
+      <Link to={ `${recipe.type}s/${recipe.id}` }>
+        <img
+          src={ recipe.image }
+          alt={ recipe.name }
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </Link>
     );
   }
 
@@ -20,9 +23,7 @@ const DoneRecipeCard = ({ recipe, index }) => {
     return (
       <>
         <BigCardHeader
-          category={ recipe.alcoholicOrNot || recipe.category }
-          area={ recipe.area }
-          name={ recipe.name }
+          recipe={ recipe }
           index={ index }
           showShare
         />

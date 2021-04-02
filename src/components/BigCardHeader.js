@@ -1,39 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import shareIcon from '../images/shareIcon.svg';
+import { Link } from 'react-router-dom';
+import ShareButton from './ShareButton';
 
 import styles from '../styles/components/BigCardHeader.module.css';
 
-const BigCardHeader = ({ name, category, area, showShare, index }) => (
-  <div className={ styles.bigCardHeader }>
-    { showShare && (
-      <div className={ styles.shareButton }>
-        <img
-          src={ shareIcon }
-          alt={ name }
-          data-testid={ `${index}-horizontal-share-btn` }
-        />
-      </div>)}
-    <p
-      data-testid={ `${index}-horizontal-top-text` }
-      className={ styles.category }
-    >
-      { `${area} - ${category}` }
-    </p>
-    <p
-      data-testid={ `${index}-horizontal-name` }
-      className={ styles.name }
-    >
-      { name }
-    </p>
-  </div>
-);
+const BigCardHeader = ({ recipe, showShare, index }) => {
+  const { area, name } = recipe;
+  const category = recipe.alcoholicOrNot || recipe.category;
+  const link = `http://localhost:3000/${recipe.type}s/${recipe.id}`;
+
+  return (
+    <div className={ styles.bigCardHeader }>
+      <div className={ styles.row }>
+        <p
+          data-testid={ `${index}-horizontal-top-text` }
+          className={ styles.category }
+        >
+          { `${area} - ${category}` }
+        </p>
+        { showShare && (
+          <ShareButton
+            testId={ `${index}-horizontal-share-btn` }
+            link={ link }
+          />)}
+      </div>
+      <Link
+        to={ `${recipe.type}s/${recipe.id}` }
+        data-testid={ `${index}-horizontal-name` }
+        className={ styles.name }
+      >
+        { name }
+      </Link>
+    </div>
+  );
+};
 
 BigCardHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  area: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({
+    name: PropTypes.string,
+    category: PropTypes.string,
+    area: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
+    type: PropTypes.string,
+    id: PropTypes.string,
+  }).isRequired,
   showShare: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
 };

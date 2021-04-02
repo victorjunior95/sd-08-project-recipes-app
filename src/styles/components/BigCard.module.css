@@ -6,7 +6,19 @@
   overflow: hidden;
 }
 
-.bigCardImageContainer > img {
+.bigCardImageContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 10px 5px;
+}
+
+.bigCardImageContainer a {
+  display: flex;
+  justify-content: center;
+}
+
+.bigCardImageContainer img {
   border-radius: 25%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   width: 85%;
@@ -18,11 +30,4 @@
 
 .bigCardInfo > *:not( :last-child ) {
   margin-bottom: 10px;
-}
-
-.bigCardImageContainer {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 10px 5px;
 }

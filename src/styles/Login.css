@@ -26,7 +26,37 @@
 
 .login-content .title h1 {
   font-family: Diplomata , cursive;
+  margin-bottom: 30px;
+  position: relative;
 }
+
+.login-content .slogan {
+  color: rgb(151, 151, 151);
+  font-size: 13px;
+}
+
+.login-content .slogan p {
+  margin: 0;
+  padding: 0 15%;
+}
+
+.login-content .slogan .p1 {
+  text-align: start;}
+
+.login-content .slogan .p2 {
+  text-align: end;}
+
+.login-content .title h1 .by {
+  color: rgb(80, 170, 72);
+}
+
+.login-content .title h1 .yourself {
+  bottom: -40%;
+  font-size: 20px;
+  left: 35%;
+  position: absolute;
+}
+
 
 .login-content input {
   background: none;

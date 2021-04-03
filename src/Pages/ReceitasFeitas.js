@@ -23,7 +23,7 @@ function ReceitasFeitas() {
         ))
       );
     }
-    return <span>Você não tem receitas feitas</span>;
+    return <p className="not-done-recipes">Você não tem receitas feitas.</p>;
   };
 
   const handleClick = (type) => {

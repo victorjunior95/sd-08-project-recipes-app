@@ -27,7 +27,16 @@ function Login({ history }) {
     <div className="login-body">
       <div className="login-content">
         <div className="title">
-          <h1>  `Nome do app`  </h1>
+          <h1>
+            try
+            <span className="by">by</span>
+            {' '}
+            <span className="yourself">yourself</span>
+          </h1>
+          <div className="slogan">
+            <p className="p1">Se quer algo bem feito,</p>
+            <p className="p2">faça voce mesmo!</p>
+          </div>
         </div>
         <input
           type="text"

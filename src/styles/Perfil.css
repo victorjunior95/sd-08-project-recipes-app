@@ -1,0 +1,33 @@
+.perfil .email {
+  background: rgb(255, 255, 100);
+  font-size: 20px;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.perfil .btn-perfil {
+  background: rgb(255, 255, 99);
+  border: 1px black solid;
+  color: black;
+  font-size: 24px;
+  margin: 10px auto;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: black 2px 3px 10px;
+  width: 90%;
+}
+
+.perfil .btn-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  justify-content: center;
+}
+
+.perfil a {
+  text-align: center;
+  width: 100%;
+}

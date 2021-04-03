@@ -65,7 +65,7 @@ function DetalhesInProgress() {
         src={ objDetail[0].strDrinkThumb }
         alt={ objDetail[0].strDrink }
       />
-      <div>
+      <div className="icons">
         <CopyToClipboard
           text={ `http://localhost:3000${urlDetails[0]}` }
           onCopy={ () => {

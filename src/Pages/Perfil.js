@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
+import '../styles/Perfil.css';
+
 function Perfil() {
   const getEmail = () => {
     if (localStorage.getItem('user') !== null) {
@@ -21,22 +23,23 @@ function Perfil() {
   };
 
   return (
-    <div>
+    <div className="comidas-body perfil">
       <Header title="Perfil" search={ false } />
-      <h3 data-testid="profile-email">{getEmail()}</h3>
-      <div>
+      <h3 className="email" data-testid="profile-email">{getEmail()}</h3>
+      <div className="btn-container">
         <Link to="/receitas-feitas">
-          <div data-testid="profile-done-btn">
+          <div className="btn-perfil" data-testid="profile-done-btn">
             Receitas Feitas
           </div>
         </Link>
         <Link to="/receitas-favoritas">
-          <div data-testid="profile-favorite-btn">
+          <div className="btn-perfil" data-testid="profile-favorite-btn">
             Receitas Favoritas
           </div>
         </Link>
         <Link to="/">
           <button
+            className="btn-perfil"
             type="button"
             data-testid="profile-logout-btn"
             onClick={ clearLocalStorage }

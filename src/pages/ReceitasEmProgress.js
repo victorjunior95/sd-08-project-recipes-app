@@ -15,7 +15,7 @@ const Detalhes = () => {
   const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [hidden, setHidden] = useState(false);
-  const [usedIngri, setUseIngri] = useState([]);
+  const [usedIngri, setUseIngri] = useState(['ElisaEumaGenia']);
   const [inProgress, setInProgress] = useState({});
   const location = useLocation();
   const history = useHistory();
@@ -27,6 +27,7 @@ const Detalhes = () => {
         meals: {},
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+      setUseIngri([]);
     } else {
       const storageProgessRecipes = (
         JSON.parse(localStorage.getItem('inProgressRecipes')));
@@ -37,6 +38,8 @@ const Detalhes = () => {
         if (result >= 0) {
           console.log(result, 'ingrediente');
           setUseIngri(storageProgessRecipes.meals[idCurrentRecipe]);
+        } else {
+          setUseIngri([]);
         }
         console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.meals), 'recipes');
       } else {
@@ -45,6 +48,8 @@ const Detalhes = () => {
           setUseIngri(storageProgessRecipes.cocktails[idCurrentRecipe]);
 
           console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.cocktails), 'recipes');
+        } else {
+          setUseIngri([]);
         }
       }
     }
@@ -142,8 +147,8 @@ const Detalhes = () => {
       >
         <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
       </button>
-      {
-        ingredients.map((ingredient, index) => {
+      { (usedIngri[0] !== 'ElisaEumaGenia')
+        && ingredients.map((ingredient, index) => {
           const ingredientName = foodDetails[ingredient];
           const ingMeasure = foodDetails[ingredient.replace('Ingredient', 'Measure')];
 
@@ -161,8 +166,7 @@ const Detalhes = () => {
               />
             </div>
           );
-        })
-      }
+        })}
       <p data-testid="instructions">{foodDetails.strInstructions}</p>
 
       <button

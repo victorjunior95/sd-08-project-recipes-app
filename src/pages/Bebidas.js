@@ -13,7 +13,7 @@ export default function Bebidas() {
   const LIMITER = 12;
   const FIVE = 5;
   const [listDrinkCategories, setListDrinkCategories] = useState([]);
-  const [showBtn, setShowBtn] = useState(null);
+  const [categoryName, setCategoryName] = useState(undefined);
 
   useEffect(() => {
     const getListCategories = async () => {
@@ -30,19 +30,21 @@ export default function Bebidas() {
   }, []);
 
   const handleClickDrink = async ({ target: { value } }) => {
-    if (showBtn === null) {
-      const drinkCatergories = await getDrinkCategory(value);
-      setArrayOfDrinksCategories(drinkCatergories);
+    if (categoryName === undefined) {
       setCard(true);
-      setShowBtn(value);
-    } else if (showBtn === value) {
-      const newDrinkCategories = await drinkRandom();
-      setArrayOfDrinksCategories(newDrinkCategories);
+      setArrayOfDrinksCategories(await getDrinkCategory(value));
+      setCategoryName(value);
+    } else if (categoryName === value) {
+      setArrayOfDrinksCategories(await drinkRandom());
       setCard(true);
-      setShowBtn(null);
+      setCategoryName(undefined);
     }
   };
 
+  const setsCategory = async () => {
+    setCard(true);
+    setArrayOfDrinksCategories(await drinkRandom());
+  };
   useEffect(() => {
     setArrayOfDrinksCategories(data.drink);
     setCard(true);
@@ -55,7 +57,7 @@ export default function Bebidas() {
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ data.drink }
+          onClick={ () => setsCategory() }
         >
           All
         </button>

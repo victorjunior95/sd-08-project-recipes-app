@@ -9,13 +9,13 @@ import fetchMealThunk from '../redux/actions/fetchMealAction';
 function ExploreOrigin() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const meals = useSelector((state) => state.recipes.recipes);
-  const area = useSelector((state) => state.search.areaChoosen);
-  const type = area !== '' ? 'area' : '';
+  const { recipes } = useSelector((state) => state.recipes);
+  const { areaChoosen } = useSelector((state) => state.search);
+  const type = areaChoosen !== '' ? 'area' : '';
   useEffect(() => {
     const fetchData = (inputf, typef) => dispatch(fetchMealThunk(inputf, typef));
-    fetchData(area, type);
-  }, [area, type]);
+    fetchData(areaChoosen, type);
+  }, [areaChoosen, type]);
 
   useEffect(() => () => {
     dispatch(clearRecipesAction());
@@ -25,7 +25,7 @@ function ExploreOrigin() {
     <main>
       <Header />
       <section className="cards">
-        { meals && meals.map((elem, index) => (
+        { recipes && recipes.map((elem, index) => (
           <button
             key={ elem.idMeal }
             type="button"

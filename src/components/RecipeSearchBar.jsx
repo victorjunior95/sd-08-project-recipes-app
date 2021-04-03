@@ -9,12 +9,11 @@ export default function RecipeSearchBar() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    const search = { inputValue, inputType };
     if (inputType === 'first-letter' && inputValue.length !== 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
       setInputValue('');
     } else {
-      dispatch(searchAction(search));
+      dispatch(searchAction({ inputValue, inputType }));
     }
   };
 

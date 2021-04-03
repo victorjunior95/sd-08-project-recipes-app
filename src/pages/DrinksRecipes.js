@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchDrinkThunk from '../redux/actions/fetchDrinkAction';
@@ -9,21 +9,19 @@ import { clearRecipesAction } from '../redux/actions/clearRecipesAction';
 import clearSearchAction from '../redux/actions/clearSearchAction';
 import DrinkCatsButtons from '../components/DrinkCatsButtons';
 import { fetchDrinkIFilterThunk } from '../redux/actions/fetchIngridientsAction';
+import RecipesCards from '../components/RecipesCards';
 
 function DrinksRecipes() {
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const {
     inputValue,
     inputType,
     drinkFilter,
     ingredientFilter,
   } = useSelector((state) => state.search);
-  const drinks = useSelector((state) => state.recipes.recipes);
-  // const input = useSelector((state) => state.search.inputValue);
-  // const type = useSelector((state) => state.search.inputType);
-  // const filter = useSelector((state) => state.search.drinkFilter);
-  // const ifilter = useSelector((state) => state.search.ingredientFilter);
+  const { recipes } = useSelector((state) => state.recipes);
+
   useEffect(() => {
     let fetchDrink;
     if (!ingredientFilter && !drinkFilter) {
@@ -46,36 +44,26 @@ function DrinksRecipes() {
   }, []);
 
   useEffect(() => {
-    if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
+    if (recipes.length === 1) return <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />;
   }, []);
 
   return (
-    <main>
-      { drinks && drinks.length === 1
-        && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
+    <section>
+      { recipes && recipes.length === 1
+        && <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />}
       <Header />
       <DrinkCatsButtons />
-      { drinks && drinks.map((elem, index) => (
-        <button
+      { recipes && recipes.map((elem, index) => (
+        <RecipesCards
           key={ elem.idDrink }
-          type="button"
-          onClick={ () => history.push(`/bebidas/${elem.idDrink}`) }
-          data-testid={ `${index}-recipe-card` }
-        >
-          <div>
-            <h4 data-testid={ `${index}-card-name` }>{ elem.strDrink }</h4>
-            <span>{ elem.idDrink }</span>
-            <img
-              className="card"
-              src={ elem.strDrinkThumb }
-              alt={ elem.strDrink }
-              data-testid={ `${index}-card-img` }
-            />
-          </div>
-        </button>
-      ))}
+          path="/bebidas"
+          elem={ elem }
+          index={ index }
+          type="Drink"
+        />
+      )) }
       <Footer />
-    </main>
+    </section>
   );
 }
 

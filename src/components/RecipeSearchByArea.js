@@ -5,7 +5,7 @@ import selectAreaAction from '../redux/actions/SelectAreaAction';
 
 function RecipeSearchByArea() {
   const [area, setArea] = useState('');
-  const areas = useSelector((state) => state.search.areas);
+  const { areas } = useSelector((state) => state.search);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = () => dispatch(fetchAreaThunk());

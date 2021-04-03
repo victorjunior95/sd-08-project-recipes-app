@@ -11,7 +11,7 @@ function Recomendation() {
   const { pathname } = useLocation();
   const arrayRecipes = pathname.split('/')[1];
 
-  const recomendation = useSelector((state) => state.recomendation.recomendation);
+  const { recomendation } = useSelector((state) => state.recomendation);
 
   useEffect(() => {
     let fetchData = '';

@@ -6,16 +6,16 @@ import PerfilLink from './PerfilLink';
 
 export default function Header() {
   const history = useHistory();
-  const title = history.location.pathname;
-  const aTitle = title.split('/');
+  const { pathname } = history.location;
+  const aTitle = pathname.split('/');
   if (aTitle[3] === 'area') aTitle.splice(aTitle.length - 1, 1, 'origem');
 
-  if (!title.includes('explorar') && !title.includes('perfil')
-    && !title.includes('receitas')) {
+  if (!pathname.includes('explorar') && !pathname.includes('perfil')
+    && !pathname.includes('receitas')) {
     return (
       <header>
         <PerfilLink />
-        <HeaderTitle title={ title } />
+        <HeaderTitle title={ pathname } />
         <ButtonSearch type="search" />
       </header>
     );
@@ -24,7 +24,7 @@ export default function Header() {
     return (
       <header>
         <PerfilLink />
-        <HeaderTitle title={ title } />
+        <HeaderTitle title={ pathname } />
         <ButtonSearch type="origem" />
       </header>
     );
@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <header>
       <PerfilLink />
-      <HeaderTitle title={ title } />
+      <HeaderTitle title={ pathname } />
     </header>
   );
 }

@@ -1,38 +1,29 @@
 import React from 'react';
 import { screen } from '@testing-library/dom';
+import { LocalStorageMock } from '@react-mock/localstorage';
 import userEvent from '@testing-library/user-event';
 import renderWithReduxandRouter from './renderWithReduxandRouter';
 import App from '../App';
-
-let localStorageMock = {};
-
-beforeAll(() => {
-  global.Storage.prototype.setItem = jest.fn((key, value) => {
-    localStorageMock[key] = value;
-  });
-  global.Storage.prototype.getItem = jest.fn((key) => localStorageMock[key]);
-});
-
-beforeEach(() => {
-  localStorageMock = {};
-});
-
-afterAll(() => {
-  global.Storage.prototype.setItem.mockReset();
-  global.Storage.prototype.getItem.mockReset();
-});
 
 const EMAIL_INPUT = 'email@mail.com';
 
 describe('LoginPage.js', () => {
   test('if all the Routes are working', () => {
-    const { history } = renderWithReduxandRouter(<App />);
+    const { history } = renderWithReduxandRouter(
+      <LocalStorageMock items={ {} }>
+        <App />
+      </LocalStorageMock>,
+    );
 
     expect(history.location.pathname).toBe('/');
   });
 
   test('if initial render is the LoginPage', () => {
-    renderWithReduxandRouter(<App />);
+    renderWithReduxandRouter(
+      <LocalStorageMock items={ {} }>
+        <App />
+      </LocalStorageMock>,
+    );
 
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
@@ -44,7 +35,11 @@ describe('LoginPage.js', () => {
   });
 
   test('if Login receive correct inputs from user', () => {
-    renderWithReduxandRouter(<App />);
+    renderWithReduxandRouter(
+      <LocalStorageMock items={ {} }>
+        <App />
+      </LocalStorageMock>,
+    );
 
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
@@ -61,7 +56,11 @@ describe('LoginPage.js', () => {
   });
 
   test('if localStorage is set as the enter button is clicked', () => {
-    const { history } = renderWithReduxandRouter(<App />);
+    const { history } = renderWithReduxandRouter(
+      <LocalStorageMock items={ {} }>
+        <App />
+      </LocalStorageMock>,
+    );
 
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
@@ -74,10 +73,7 @@ describe('LoginPage.js', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/comidas');
 
-    const userToken = JSON.stringify({ email: EMAIL_INPUT });
-
-    expect(localStorageMock.mealsToken).toEqual(1);
-    expect(localStorageMock.cocktailsToken).toEqual(1);
-    expect(localStorageMock.user).toEqual(userToken);
+    const userToken = JSON.parse(localStorage.getItem('user')).email;
+    expect(userToken).toBe(EMAIL_INPUT);
   });
 });

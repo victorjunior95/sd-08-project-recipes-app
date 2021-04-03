@@ -6,8 +6,7 @@ import fetchDrinkCatsThunk from '../redux/actions/fetchDrinkCatsAction';
 import filterDrinkCatsAction from '../redux/actions/filterDrinkCatAction';
 
 function DrinkCatsButtons() {
-  const categories = useSelector((state) => state.recipes.categories);
-  const { drinks } = categories;
+  const { drinks } = useSelector((state) => state.recipes.categories);
   const FIVE = 5;
   const dispatch = useDispatch();
   useEffect(() => {

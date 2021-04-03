@@ -5,11 +5,12 @@ import fetchMealActionId from '../redux/actions/fetchMealId';
 import '../CSS/Completed.css';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
+import { findKey } from '../services/index';
 
 function ProgressMeal() {
-  const meat = useSelector((state) => state.recipes.singleRecipe);
+  const { singleRecipe } = useSelector((state) => state.recipes);
 
-  const arrayMeat = meat[0];
+  const arrayMeat = singleRecipe[0];
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
@@ -20,13 +21,6 @@ function ProgressMeal() {
 
     fetchData(arrayId);
   }, []);
-
-  const findKey = (value) => Object.entries(arrayMeat).map((nome) => {
-    if (nome[0].includes(value)) {
-      return nome[1];
-    }
-    return undefined;
-  }).filter((element) => element !== undefined);
 
   const handleChecked = (event) => {
     const { parentNode } = event.target;
@@ -39,8 +33,8 @@ function ProgressMeal() {
   };
 
   const createIngrediets = () => {
-    const ingredient = findKey('strIngredient');
-    const measure = findKey('strMeasure');
+    const ingredient = findKey(arrayMeat, 'strIngredient');
+    const measure = findKey(arrayMeat, 'strMeasure');
 
     return ingredient.map((nome, index) => {
       if (nome) {

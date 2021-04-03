@@ -11,7 +11,6 @@ export default function ShareButton({ dataTestId, recipeId, recipeType }) {
 
   function handleClick() {
     const path = (recipeId && recipeType) ? `/${recipeType}s/${recipeId}` : pathname;
-    console.log(path);
     copy(`http://localhost:3000${path}`)
       .then(() => setMessage('Link copiado!'))
       .catch(() => setMessage('Não copiou!'));

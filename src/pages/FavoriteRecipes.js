@@ -13,8 +13,7 @@ function FavoriteRecipes() {
   const [reRender, setReRender] = useState(false);
 
   function handleSelector({ target }) {
-    const { value } = target;
-    setFilterSelector(value);
+    setFilterSelector(target.value);
   }
 
   function generateCard(recipe, index) {

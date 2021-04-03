@@ -44,20 +44,17 @@ class ReceitasEmProgresso extends Component {
     });
   }
 
-  fetchApi() {
+  async fetchApi() {
     const { match: { params: { id } } } = this.props;
     const { location } = window;
     const { href } = location;
+    let recipe = '';
     if (href.includes('comida')) {
-      this.fetchFoodRecipe(id);
+      recipe = await fetchFoodApiById(id);
     }
     if (href.includes('bebida')) {
-      this.fetchDrinkRecipe(id);
+      recipe = await fetchDrinkApiById(id);
     }
-  }
-
-  async fetchDrinkRecipe(drinkId) {
-    const recipe = await fetchDrinkApiById(drinkId);
     const ingredients = getIngredientList(recipe);
     const arrIngredientes = Object.values(ingredients);
     const storage = JSON.parse(localStorage.getItem('isDone'));
@@ -66,45 +63,13 @@ class ReceitasEmProgresso extends Component {
       return acc;
     }, {});
     let isDone;
-    if (storage !== null) {
-      if (JSON.stringify(Object.keys(storage)) === JSON.stringify(Object.keys(obj))) {
-        isDone = storage;
-      }
+    if (storage !== null
+          && JSON.stringify(Object.keys(storage)) === JSON.stringify(Object.keys(obj))) {
+      isDone = storage;
     } else {
-      console.log('oxi');
       isDone = obj;
     }
-
-    const isFavorite = isFavoriteRecipe(drinkId);
-    this.setState({
-      isDone,
-      ingredientList: arrIngredientes,
-      currentRecipe: recipe,
-      favoriteRecipe: isFavorite,
-    });
-    this.isDisable();
-  }
-
-  async fetchFoodRecipe(foodId) {
-    const recipe = await fetchFoodApiById(foodId);
-    const ingredients = getIngredientList(recipe);
-    const arrIngredientes = Object.values(ingredients);
-    const storage = JSON.parse(localStorage.getItem('isDone'));
-    const obj = arrIngredientes.reduce((acc, crr) => {
-      acc = { ...acc, [crr.item]: false };
-      return acc;
-    }, {});
-    let isDone;
-    if (storage !== null) {
-      if (JSON.stringify(Object.keys(storage)) === JSON.stringify(Object.keys(obj))) {
-        isDone = storage;
-      }
-    } else {
-      console.log('oxi');
-      isDone = obj;
-    }
-
-    const isFavorite = isFavoriteRecipe(foodId);
+    const isFavorite = isFavoriteRecipe(id);
     this.setState({
       isDone,
       ingredientList: arrIngredientes,

@@ -63,7 +63,7 @@ function OrigemComidas() {
           </select>
         </label>
         <div className="recipes-container">
-          { recipes &&
+          { recipes && (
             recipes.meals.slice(0, TWELVE_RECIPES).map((recipe, index) => (
               <button
                 className="recipe-card"
@@ -81,7 +81,7 @@ function OrigemComidas() {
                   src={ recipe.strMealThumb }
                 />
               </button>
-            ))}
+            )))}
         </div>
       </main>
       <Footer />

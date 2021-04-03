@@ -19,7 +19,7 @@ function Recommended({ recipeType }) {
                   className="d-block w-100"
                   alt="Recipe thumbnail"
                   src={ item.strMealThumb }
-                  height="100"
+                  height="120"
                 />
                 <Carousel.Caption>
                   <h6>

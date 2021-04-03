@@ -15,7 +15,10 @@ function RecipeDetails({ recipeType, page }) {
     const recipe = Object.values(recipeDetails[0])[0][0];
 
     return (
-      <section key={ recipe[`id${recipeType}`] }>
+      <section
+        key={ recipe[`id${recipeType}`] }
+        className="container-recipe-details"
+      >
         <DetailsHeader recipe={ recipe } recipeType={ recipeType } />
         <Ingredients page={ page } id={ recipe[`id${recipeType}`] } />
         { recipeType === 'Meal'
@@ -32,7 +35,9 @@ function RecipeDetails({ recipeType, page }) {
             </div>
           )
           : null }
-        <Recommended recipeType={ recipeType } />
+        <div>
+          <Recommended recipeType={ recipeType } />
+        </div>
       </section>
     );
   }

@@ -37,6 +37,14 @@ export default function RecipeCategory({ recipeType }) {
 
     return (
       <div className="category-container">
+        <button
+          className="category-button"
+          type="button"
+          onClick={ () => setToggle(false) }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
         {typeCategoryPopulated
           && typeCategoryPopulated.length
           && typeCategoryPopulated
@@ -55,14 +63,6 @@ export default function RecipeCategory({ recipeType }) {
                 {category.strCategory}
               </button>
             ))}
-        <button
-          className="category-button"
-          type="button"
-          onClick={ () => setToggle(false) }
-          data-testid="All-category-filter"
-        >
-          All
-        </button>
       </div>
     );
   }

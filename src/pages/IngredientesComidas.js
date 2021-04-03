@@ -15,6 +15,7 @@ function IngredientesComidas() {
 
   const [ingredients, setIngredients] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [test, setTest] = useState(false);
 
   function handleClick(e) {
     setInputText(e.currentTarget.id);
@@ -24,6 +25,7 @@ function IngredientesComidas() {
 
   async function getIngredients() {
     setIngredients(await fetchListByFilter('themealdb', 'i'));
+    setTest(true);
   }
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function IngredientesComidas() {
     <>
       <HeaderP title="Explorar Ingredientes" />
       <main className="ingredients-main-container">
-        { ingredients && ingredients.length && (
+        { test && (
           ingredients.meals.slice(0, TWELVE_INGREDIENTS).map((ingredient, index) => (
             <button
               className="ingredient-card"
@@ -51,12 +53,14 @@ function IngredientesComidas() {
               type="button"
             >
               <p data-testid={ `${index}-card-name` }>{ ingredient.strIngredient }</p>
-              <img
-                alt="ingredient"
-                className="ingredient-img"
-                data-testid={ `${index}-card-img` }
-                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-              />
+              <div className="ingredient-img">
+                <img
+                  className="ingredientImg"
+                  alt="ingredient"
+                  data-testid={ `${index}-card-img` }
+                  src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                />
+              </div>
             </button>
           ))
         )}

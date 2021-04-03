@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import { CopyToClipboard } from 'react-copy-to-clipboard';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import HeaderP from '../components/HeaderP';
 import shareIcon from '../images/shareIcon.svg';
-// import Context from '../context/Context';
 
 import '../styles/ReceitasFeitas.css';
 
@@ -12,8 +10,6 @@ function ReceitasFeitas() {
   const [recipesCompleted, setRecipesCompleted] = useState('All');
   const [filterRecipesCompleted, setFilterRecipesCompleted] = useState([]);
   const [copyURL, setCopyURL] = useState(false);
-
-  // const { copyClipboard, setCopyClipboard } = useContext(Context);
 
   const updateRecipesCompleted = () => {
     const loadDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -29,8 +25,6 @@ function ReceitasFeitas() {
       console.log('Selecione uma categoria');
     }
   };
-
-  // const urlRecipe = (type, idRecipe) => `http://localhost:3000/${type}s/${idRecipe}`;
 
   const changeFilter = (value) => {
     // console.log(value);
@@ -84,23 +78,22 @@ function ReceitasFeitas() {
       </div>
       <br />
       <br />
-      <div>
+      <div className="container-done-recipes">
         { filterRecipesCompleted && (
           filterRecipesCompleted.map((recipe, index) => (
             <div
+              className="done-recipes-one"
               key={ `${index}` }
             >
-              <div>
-                <Link to={ `${recipe.type}s/${recipe.id}` }>
-                  <img
-                    className="recipe-horizontal-image"
-                    src={ recipe.image }
-                    alt={ recipe.name }
-                    data-testid={ `${index}-horizontal-image` }
-                  />
-                </Link>
-              </div>
-              <div className="container-done-recipes">
+              <Link to={ `${recipe.type}s/${recipe.id}` }>
+                <img
+                  className="recipe-horizontal-image"
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </Link>
+              <div className="done-recipes-two">
                 {
                   recipe.type === 'comida' ? (
                     <span
@@ -130,29 +123,6 @@ function ReceitasFeitas() {
                 >
                   { `Feita em: ${recipe.doneDate}` }
                 </span>
-                {/* { recipe.lenght > 1 ? (
-                  <div>
-                    <span
-                      key={ recipe.tags }
-                      data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
-                    >
-                      { recipe.tags[0] }
-                    </span>
-                    <span
-                      key={ recipe.tags }
-                      data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
-                    >
-                      { recipe.tags[1] }
-                    </span>
-                  </div>
-                ) : (
-                  <span
-                    key={ recipe.tags }
-                    data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
-                  >
-                    { recipe.tags[0] }
-                  </span>
-                )} */}
                 {
                   recipe.tags && (
                     recipe.tags.map((tag) => (
@@ -167,25 +137,11 @@ function ReceitasFeitas() {
                 }
               </div>
               <div>
-                {/* <CopyToClipboard text={ `http://localhost:3000/${recipe.type}s/${recipe.id}` }>
-                  <button
-                    onClick={ () => {
-                      setCopyClipboard('visible')
-                    } }
-                    type="button"
-                  >
-                    <img
-                      src={ shareIcon }
-                      data-testid={ `${index}-horizontal-share-btn` }
-                      alt="share button"
-                    />
-                  </button>
-                </CopyToClipboard> */}
                 <input
                   type="image"
                   alt="Share image"
                   data-testid={ `${index}-horizontal-share-btn` }
-                  className="share-btn"
+                  className="share-btn done-recipe"
                   id="share-btn"
                   src={ shareIcon }
                   onClick={ () => shareBtn(recipe.type, recipe.id) }

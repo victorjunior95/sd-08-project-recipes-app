@@ -20,8 +20,12 @@ function DetalhesComida({ match }) {
 
   return (
     <main>
-      <RecipeDetails recipeType="Meal" page="details" />
-      <DetailsButtons route="comidas" id={ id } page="details" />
+      <div>
+        <RecipeDetails recipeType="Meal" page="details" />
+      </div>
+      <div>
+        <DetailsButtons route="comidas" id={ id } page="details" />
+      </div>
     </main>
   );
 }

@@ -25,7 +25,7 @@ function Perfil() {
     } if (localStorage.length !== 0) {
       setEmail(JSON.parse(localStorage.user).email);
     }
-  });
+  }, []);
 
   return (
     <div>

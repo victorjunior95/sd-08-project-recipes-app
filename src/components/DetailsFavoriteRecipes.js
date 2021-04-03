@@ -12,8 +12,10 @@ const DetailsFavoriteRecipes = () => {
   const { comidas, bebidas, setComidas, setBebidas } = useContext(Context);
 
   useEffect(() => {
-    setComidas(favorite.filter((item) => item.type === 'comida'));
-    setBebidas(favorite.filter((item) => item.type === 'bebida'));
+    if (favorite) {
+      setComidas(favorite.filter((item) => item.type === 'comida'));
+      setBebidas(favorite.filter((item) => item.type === 'bebida'));
+    }
   }, []);
 
   const shareBtn = (type, id) => {

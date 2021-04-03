@@ -103,7 +103,7 @@ function ComidasEmProgresso() {
         </div>
       </div>
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
-      <IngredientesEmProcesso id={ id } type="meal" />
+      <IngredientesEmProcesso id={ id } type="meals" />
       <div className="instruções">
         <h2>Instruções</h2>
         <p data-testid="instructions">{recipe.strInstructions}</p>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchMealThunk from '../redux/actions/fetchMealAction';
@@ -9,10 +9,10 @@ import clearSearchAction from '../redux/actions/clearSearchAction';
 import MealCatsButtons from '../components/MealCatsButton';
 import fetchRecipesMealCatsThunk from '../redux/actions/fetchMealCatRecipesAction';
 import { fetchMealIFilterThunk } from '../redux/actions/fetchIngridientsAction';
+import RecipesCards from '../components/RecipesCards';
 
 function MealsRecipes() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const {
     inputValue,
@@ -51,32 +51,22 @@ function MealsRecipes() {
   }, []);
 
   return (
-    <main>
+    <section>
       {(recipes && recipes.length === 1 && mealFilter === '')
       && <Redirect to={ `/comidas/${recipes[0].idMeal}` } />}
       <Header />
       <MealCatsButtons />
       { recipes && recipes.map((elem, index) => (
-        <button
+        <RecipesCards
           key={ elem.idMeal }
-          type="button"
-          onClick={ () => history.push(`/comidas/${elem.idMeal}`) }
-          data-testid={ `${index}-recipe-card` }
-        >
-          <div>
-            <h4 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h4>
-            <span>{ elem.idMeal }</span>
-            <img
-              className="card"
-              src={ elem.strMealThumb }
-              alt={ elem.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
-          </div>
-        </button>
-      ))}
+          path="/comidas"
+          elem={ elem }
+          index={ index }
+          type="Meal"
+        />
+      )) }
       <Footer />
-    </main>
+    </section>
   );
 }
 

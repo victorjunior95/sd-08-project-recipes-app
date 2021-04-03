@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Copy from 'clipboard-copy';
 
 import FoodCarousel from '../../components/carousel/FoodCarousel';
 import RecipesContext from '../../ContextApi/RecipesContext';
+import ShareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function CocktailDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
-
+  const [favorite, setFavorite] = useState(false);
   const [recipeById, setRecipeById] = useState();
+  const [copyLink, setCopyLink] = useState(false);
   const { id } = params;
-
-  // useEffect(() => {
-  //   fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-  //     .then((resp) => resp.json())
-  //     .then((data) => setRecipeById(data.drinks[0]));
-  // }, [id]);
 
   useEffect(() => {
     setSearchParam({
@@ -40,6 +39,30 @@ export default function CocktailDetails({ match: { params } }) {
     && recipeById[item])
     .map((measure) => recipeById[measure]);
 
+  function setLocalStorage() {
+    const recipe = JSON.stringify(id);
+    localStorage.setItem('inProgressRecipes', recipe);
+  }
+
+  function favoriteRecipe() {
+    const recipe = [{
+      id: recipeById.idDrink,
+      type: 'Bebida',
+      area: recipeById.strArea,
+      category: recipeById.strCategory,
+      alcoholicOrNot: recipeById.strAlcoholic || '',
+      name: recipeById.strDrink,
+      image: recipeById.strMealThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
+    setFavorite(!favorite);
+  }
+
+  // function handleCopyLink() {
+  //   Copy(`http://localhost:3000/bebidas/${id}`);
+  //   setCopyLink(true);
+  // }
+
   return (
     <div style={ { width: '50%' } }>
       <img
@@ -50,8 +73,26 @@ export default function CocktailDetails({ match: { params } }) {
       <h1 data-testid="recipe-title">
         {recipeById.strDrink}
       </h1>
-      <p data-testid="share-btn">btnCompartilhar</p>
-      <p data-testid="favorite-btn">btnFavorito</p>
+      <input
+        type="image"
+        data-testid="share-btn"
+        // onClick={ handleCopyLink }
+        onClick={ () => {
+          Copy(window.location.href);
+          setCopyLink(true);
+        } }
+        src={ ShareIcon }
+        alt="share"
+      />
+      <input
+        type="image"
+        data-testid="favorite-btn"
+        onClick={ favoriteRecipe }
+        src={ (favorite) ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite"
+      />
+      <br />
+      {copyLink && <span>Link copiado!</span>}
       <h6 data-testid="recipe-category">
         <b>
           {recipeById.strCategory}
@@ -80,6 +121,7 @@ export default function CocktailDetails({ match: { params } }) {
         data-testid="start-recipe-btn"
         to={ `/bebidas/${id}/in-progress` }
         style={ { position: 'fixed', bottom: '0px' } }
+        onClick={ setLocalStorage }
       >
         Iniciar Receita
       </Link>

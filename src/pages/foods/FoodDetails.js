@@ -2,16 +2,22 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
+import Copy from 'clipboard-copy';
 
 import DrinkCarousel from '../../components/carousel/DrinkCarousel';
 import RecipesContext from '../../ContextApi/RecipesContext';
+import ShareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FoodDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
   const [recipeById, setRecipeById] = useState();
+  const [favorite, setFavorite] = useState(false);
+  const [copyLink, setCopyLink] = useState(false);
   const { id } = params;
 
-  const storageRecipe = JSON.parse(localStorage.getItem('RecipeInProgress'));
+  const storageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const progressRecipe = storageRecipe && storageRecipe.includes(id);
 
   useEffect(() => {
@@ -53,11 +59,29 @@ export default function FoodDetails({ match: { params } }) {
     .map((measure) => recipeById[measure]);
 
   // Salvando receita no localStorage
-
   function setLocalStorage() {
     const recipe = JSON.stringify(id);
-    localStorage.setItem('RecipeInProgress', recipe);
+    localStorage.setItem('inProgressRecipes', recipe);
   }
+
+  function favoriteRecipe() {
+    const recipe = [{
+      id: recipeById.idMeal,
+      type: 'Comida',
+      area: recipeById.strArea,
+      category: recipeById.strCategory,
+      alcoholicOrNot: '',
+      name: recipeById.strMeal,
+      image: recipeById.strMealThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
+    setFavorite(!favorite);
+  }
+
+  // function handleCopyLink() {
+  //   setCopyLink(true);
+  //   Copy(`http://localhost:3000/comidas/${id}`);
+  // }
 
   return (
     <div style={ { width: '50%' } }>
@@ -72,8 +96,26 @@ export default function FoodDetails({ match: { params } }) {
       <h1 data-testid="recipe-title">
         {recipeById.strMeal}
       </h1>
-      <p data-testid="share-btn">btnCompartilhar</p>
-      <p data-testid="favorite-btn">btnFavorito</p>
+      <input
+        type="image"
+        data-testid="share-btn"
+        // onClick={ handleCopyLink }
+        onClick={ () => {
+          Copy(window.location.href);
+          setCopyLink(true);
+        } }
+        src={ ShareIcon }
+        alt="share"
+      />
+      <input
+        type="image"
+        data-testid="favorite-btn"
+        onClick={ favoriteRecipe }
+        src={ (favorite) ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite"
+      />
+      <br />
+      {copyLink && <span>Link copiado!</span>}
       <h5 data-testid="recipe-category">
         <b>
           {recipeById.strCategory}

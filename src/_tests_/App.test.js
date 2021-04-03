@@ -4,6 +4,9 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 
+const meals = require('../../cypress/mocks/meals');
+const mealCategories = require('../../cypress/mocks/mealCategories');
+
 describe('Teste tela de login', () => {
   it('renderiza a pagina inicial de login', () => {
     renderWithRouterAndRedux(<App />);
@@ -26,13 +29,57 @@ describe('Teste tela de login', () => {
     const buttonJoin = screen.getByTestId('login-submit-btn');
 
     userEvent.type(inputEmail, 'email@email.com');
-    userEvent.type(inputPassword, '1234');
+    userEvent.type(inputPassword, '123');
 
     expect(buttonJoin).toBeDisabled();
 
-    // userEvent.type(inputEmail, 'email@email.com');
-    // userEvent.type(inputPassword, '12345678');
+    userEvent.type(inputEmail, 'email@email.com');
+    userEvent.type(inputPassword, '123456');
 
-    // expect(buttonJoin.disabled).toEqual(false);
+    expect(buttonJoin).not.toBeDisabled();
+  });
+
+  it('verifica se a pagina de login está redirecionando para pagina de comidas depois de efetuar o login', () => {
+    const { history } = renderWithRouterAndRedux(
+      <App />,
+      {
+        initialState: {
+          search: { isSearching: false },
+          login: { redirect: false },
+          api: {
+            data: {
+              meals,
+            },
+            recommendData: [],
+            loading: 'idle',
+            recommendLoading: 'idle',
+            explore: '',
+          },
+          categoriesButton: {
+            categories: {
+              mealCategories,
+            },
+            loading: 'idle',
+          },
+          surprise: {
+            surpriseRedirect: false,
+          },
+        },
+      },
+    );
+
+    const inputEmail = screen.getByTestId('email-input');
+    const inputPassword = screen.getByTestId('password-input');
+    const buttonJoin = screen.getByTestId('login-submit-btn');
+
+    userEvent.type(inputEmail, 'email@email.com');
+    userEvent.type(inputPassword, '123456');
+    userEvent.click(buttonJoin);
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/comidas');
+
+    const titleFood = screen.getByTestId('page-title');
+    expect(titleFood).toBeInTheDocument();
   });
 });

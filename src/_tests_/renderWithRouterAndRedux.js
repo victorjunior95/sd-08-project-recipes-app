@@ -9,6 +9,7 @@ const renderWithRouterAndRedux = (
   component,
   {
     initialEntries = ['/'],
+    initialState,
     store = storeRedux,
   } = {},
 ) => {

@@ -10,7 +10,7 @@ import drinks from './reducers/drinks.reducer';
 import favoriteRecipes from './reducers/favoriteRecipes.reducer';
 import doneRecipes from './reducers/doneRecipes.reducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   doneRecipes,
   example,
   user,

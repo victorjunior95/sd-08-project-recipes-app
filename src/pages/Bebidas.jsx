@@ -20,6 +20,7 @@ function Bebidas() {
     listaDeCategoria,
     setToggle,
     toggle,
+    showDefault,
   } = useContext(ContextReceitas);
 
   const [clickInfo, setClickInfo] = useState('Primeira Vez');
@@ -33,7 +34,7 @@ function Bebidas() {
     enviarTituloDaPagina('Bebidas');
     mudarStatusBotaoPesquisa(true);
   }, []);
-
+  console.log(bebidas);
   async function handleClick({ target: { name, id } }) {
     const novasBebidas = await buscarBebidasPorCategoria(name);
     setlistaDeCategoria(novasBebidas);
@@ -45,12 +46,13 @@ function Bebidas() {
 
   function handleClickAll() {
     setToggle(true);
+    // setApiResult(null);
   }
 
   function renderCards() {
-    if (bebidas && toggle) {
+    if (bebidas && toggle && showDefault) {
       return <CartaoReceitaBebidas resultadoApi={ bebidas } />;
-    } if (bebidas && !toggle && listaDeCategoria !== undefined) {
+    } if (!toggle && listaDeCategoria !== undefined) {
       return <CartaoReceitaBebidas resultadoApi={ listaDeCategoria } />;
     } if (apiResult !== null && apiResult.length > 1) {
       return <CartaoReceitaBebidas resultadoApi={ apiResult } />;

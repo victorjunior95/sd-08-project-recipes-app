@@ -9,7 +9,9 @@ import { resultadoApiBebidas } from '../services/fetchBebidas';
 function ProviderReceitas({ children }) {
   const [deveriaRedirecionar, setDeveriaRedirecionar] = useState(false);
   const [toggle, setToggle] = useState(true);
+  const [showDefault, setShowDefault] = useState(true);
   const [logedIn, setLoged] = useState(0);
+  const [receitaEmProgresso, setReceitaEmProgresso] = useState({});
   const [bebidas, setBebidas] = useState();
   const [comidas, setComidas] = useState();
   const [listaDeCategoria, setlistaDeCategoria] = useState();
@@ -20,12 +22,15 @@ function ProviderReceitas({ children }) {
   const [categoriasComidas, setCategoriasComidas] = useState([]);
   const [categoriasBebidas, setCategoriasBebidas] = useState([]);
   const mensagem = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  const [detalhesComidas, setDetalhesComidas] = useState([]);
+  const [detalhesBebidas, setDetalhesBebidas] = useState([]);
+
   useEffect(() => {
     async function fetchComida() {
       if (search.type === 'f' && search.search.length > 1) {
         return window.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      const comidasResultado = tituloDaPagina === 'Comidas'
+      const comidasResultado = tituloDaPagina.includes('Comidas')
         ? await resultadoApiComidas(search.type, search.search)
         : await resultadoApiBebidas(search.type, search.search);
 
@@ -59,6 +64,14 @@ function ProviderReceitas({ children }) {
     setToggle,
     deveriaRedirecionar,
     setDeveriaRedirecionar,
+    detalhesComidas,
+    setDetalhesComidas,
+    detalhesBebidas,
+    setDetalhesBebidas,
+    receitaEmProgresso,
+    setReceitaEmProgresso,
+    showDefault,
+    setShowDefault,
   };
 
   useEffect(() => {

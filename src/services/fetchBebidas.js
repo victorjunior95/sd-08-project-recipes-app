@@ -12,3 +12,10 @@ export async function resultadoApiBebidas(type, search) {
   const resultsJson = await results.json();
   return resultsJson.drinks;
 }
+
+export async function buscarDetalhesBebidas(id) {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const results = await fetch(endpoint);
+  const resultsJson = await results.json();
+  return resultsJson.drinks[0];
+}

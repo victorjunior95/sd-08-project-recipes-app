@@ -1,37 +1,49 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-const ARGUMENT_REQUEST_ALL = { search: '', searchRadio: 'name' };
+import { connect } from 'react-redux';
+import {
+  getDrinksCategoriesFilter,
+  getMealsCategoriesFilter,
+  getDrinks,
+  getMeals,
+} from '../../store/actions';
 
 class CardsButtonsCategories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameState: '',
+      category: 'all',
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    const { getRecipes, strCategory } = this.props;
-    const { nameState } = this.state;
-    if (nameState === strCategory) {
-      getRecipes(ARGUMENT_REQUEST_ALL);
-      this.setState({ nameState: '' });
-    } else {
-      const request = { search: strCategory, searchRadio: 'filterCategory' };
-      getRecipes(request);
-      this.setState({ nameState: strCategory });
-    }
+  handleClick(categoryCurrent) {
+    const { category } = this.state;
+    const {
+      getBtnMealsAll,
+      getBtnDrinksAll,
+      getMealsFilter,
+      getDrinksFilter,
+      title,
+    } = this.props;
+    this.setState({ category: categoryCurrent });
+    const isEqualFilter = categoryCurrent === category;
+    if (isEqualFilter && title === 'Comidas') return getBtnMealsAll();
+    if (title === 'Comidas') return getMealsFilter(categoryCurrent);
+    if (isEqualFilter) return getBtnDrinksAll();
+    return getDrinksFilter(categoryCurrent);
   }
 
   render() {
-    const { strCategory } = this.props;
+    const { strCategory,
+    } = this.props;
     return (
       <button
         data-testid={ `${strCategory}-category-filter` }
         type="button"
-        onClick={ this.handleClick }
+        onClick={
+          () => this.handleClick(strCategory)
+        }
         name={ strCategory }
       >
         {strCategory}
@@ -41,9 +53,20 @@ class CardsButtonsCategories extends Component {
 }
 
 CardsButtonsCategories.propTypes = {
+  title: PropTypes.string.isRequired,
   strCategory: PropTypes.string.isRequired,
-  getRecipes: PropTypes.func.isRequired,
+  getBtnMealsAll: PropTypes.func.isRequired,
+  getBtnDrinksAll: PropTypes.func.isRequired,
+  getDrinksFilter: PropTypes.func.isRequired,
+  getMealsFilter: PropTypes.func.isRequired,
 
 };
 
-export default (CardsButtonsCategories);
+const mapDispatchToProps = (dispatch) => ({
+  getMealsFilter: (category) => dispatch(getMealsCategoriesFilter(category)),
+  getDrinksFilter: (category) => dispatch(getDrinksCategoriesFilter(category)),
+  getBtnMealsAll: () => dispatch(getMeals()),
+  getBtnDrinksAll: () => dispatch(getDrinks()),
+});
+
+export default connect(null, mapDispatchToProps)(CardsButtonsCategories);

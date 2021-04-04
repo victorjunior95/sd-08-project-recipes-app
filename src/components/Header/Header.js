@@ -4,66 +4,31 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
-import { toggleButtonSearch, fetchFood, fetchDrink } from '../../store/actions';
+import {
+  toggleButtonSearch,
+  getDrinks,
+  getMeals,
+  getDrinksCategoriesFilter,
+  getMealsCategoriesFilter,
+} from '../../store/actions';
 import SearchBar from './SearchBar';
 import CardsButtonsCategories from './CardsButtonsCategories';
 
 import '../../styles/components/Header/index.css';
 
 const MAX_LENGTH_NAMES_CATEGORIES = 5;
-const ARGUMENT_REQUEST_ALL = { search: '', searchRadio: 'name' };
+const hasSearch = ['Comidas', 'Bebidas', 'Explorar Origem'];
 class Header extends Component {
-  renderButton(buttons, getRecipes) {
-    const { title, getFood, getDrink } = this.props;
-    return (
-      <>
-        <button
-          data-testid="All-category-filter"
-          type="button"
-          onClick={ () => (title === 'Comidas'
-            ? getFood(ARGUMENT_REQUEST_ALL)
-            : getDrink(ARGUMENT_REQUEST_ALL)
-          ) }
-        >
-          All
-        </button>
-        {buttons.map((button, index) => {
-          if (index < MAX_LENGTH_NAMES_CATEGORIES) {
-            return (
-              <CardsButtonsCategories
-                key={ index }
-                strCategory={ button.strCategory }
-                title={ title }
-                getRecipes={ getRecipes }
-                buttons={ buttons }
-              />
-            );
-          }
-          return false;
-        })}
-      </>
-    );
-  }
-
   render() {
     const {
       title,
+      btnCategories,
+      getBtnMealsAll,
+      getBtnDrinksAll,
       showButtonSearch,
       setToggle,
-      foodButtons,
-      drinkButtons,
-      getDrink,
-      getFood,
     } = this.props;
-    let buttons = [];
-    let getRecipes = () => {};
-    if (title === 'Comidas') {
-      buttons = [...foodButtons];
-      getRecipes = getFood;
-    } else {
-      buttons = [...drinkButtons];
-      getRecipes = getDrink;
-    }
+
     return (
       <header className="headerContainer">
         <div>
@@ -78,15 +43,9 @@ class Header extends Component {
             </Link>
           </div>
           <div>
-            <h1 data-testid="page-title">
-              { title }
-            </h1>
+            <h1 data-testid="page-title">{title}</h1>
           </div>
-          {(
-            title === 'Comidas'
-            || title === 'Bebidas'
-            || title.includes('Origem')
-          ) && (
+          {hasSearch.includes(title) && (
             <div>
               <button
                 className="headerButton"
@@ -102,10 +61,33 @@ class Header extends Component {
             </div>
           )}
         </div>
-        {showButtonSearch && (title === 'Comidas' || title === 'Bebidas')
-         && <SearchBar title={ title } />}
-        {!showButtonSearch && (title === 'Comidas' || title === 'Bebidas')
-         && this.renderButton(buttons, getRecipes)}
+
+        {showButtonSearch && (title === 'Comidas' || title === 'Bebidas') && (
+          <SearchBar title={ title } />
+        )}
+
+        {!showButtonSearch && (title === 'Comidas' || title === 'Bebidas') && (
+          <div>
+            <button
+              data-testid="All-category-filter"
+              type="button"
+              onClick={ () => (title === 'Comidas'
+                ? getBtnMealsAll()
+                : getBtnDrinksAll()) }
+            >
+              All
+            </button>
+            {btnCategories
+              .slice(0, MAX_LENGTH_NAMES_CATEGORIES)
+              .map(({ strCategory }, index) => (
+                <CardsButtonsCategories
+                  key={ index }
+                  strCategory={ strCategory }
+                  title={ title }
+                />
+              ))}
+          </div>
+        )}
       </header>
     );
   }
@@ -114,25 +96,27 @@ class Header extends Component {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   setToggle: PropTypes.func.isRequired,
+  getBtnMealsAll: PropTypes.func.isRequired,
+  getBtnDrinksAll: PropTypes.func.isRequired,
   showButtonSearch: PropTypes.bool.isRequired,
-  foodButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
-  drinkButtons: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
-  getFood: PropTypes.func.isRequired,
-  getDrink: PropTypes.func.isRequired,
+  btnCategories: PropTypes.arrayOf(PropTypes.objectOf),
+};
+
+Header.defaultProps = {
+  btnCategories: [],
 };
 
 const mapStateToProps = (state) => ({
   showButtonSearch: state.headerReducer.showButtonSearch,
   foodButtons: state.headerReducer.foodsButtonsFilter,
-  drinkButtons: state.headerReducer.drinksButtonsFilter,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setToggle: () => dispatch(toggleButtonSearch()),
-  getFood: (value) => dispatch(fetchFood(value)),
-  getDrink: (value) => dispatch(fetchDrink(value)),
-
+  getFoodFilter: (category) => dispatch(getMealsCategoriesFilter(category)),
+  getDrinkFilter: (category) => dispatch(getDrinksCategoriesFilter(category)),
+  getBtnMealsAll: () => dispatch(getMeals()),
+  getBtnDrinksAll: () => dispatch(getDrinks()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

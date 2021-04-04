@@ -12,6 +12,7 @@ import ExplorarComidas from '../pages/ExplorarComidas';
 import ExplorarBebidas from '../pages/ExplorarBebidas';
 import ExplorarArea from '../pages/ExplorarArea';
 import ReceitasInProgress from '../pages/ReceitasEmProgress';
+import NotFound from '../pages/NotFound';
 
 const Routes = () => (
   <Switch>
@@ -31,6 +32,7 @@ const Routes = () => (
       component={ ExplorarIngredientes }
     />
     <Route exact path="/explorar/comidas/area" component={ ExplorarArea } />
+    <Route exact path="/explorar/bebidas/area" component={ NotFound } />
     <Route
       exact
       path="/explorar/bebidas/ingredientes"

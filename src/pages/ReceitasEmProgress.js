@@ -70,10 +70,11 @@ const Detalhes = () => {
       </h3>
       <button
         type="button"
-        onClick={ () => {
+        onClick={ async () => {
           const link = window.location.href.split('/in-progress')[0];
           const one = 1000;
-          copy(link); setHidden(true);
+          copy(link);
+          setHidden(true);
           setTimeout(() => setHidden(false), one);
         } }
         data-testid="share-btn"

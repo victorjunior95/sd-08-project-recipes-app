@@ -33,7 +33,6 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
     } else {
       history.push(`/bebidas/${id}`);
     }
-    console.log(history);
   }
   let urlDetails = '';
   if (isFood) {
@@ -41,7 +40,7 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
   } else {
     urlDetails = `http://localhost:3000/bebidas/${id}`;
   }
-  if (path === '/bebidas' || path === '/comidas') {
+  if (path === '/bebidas' || path === '/comidas' || path === '/explorar/comidas/area') {
     return (
       <button
         type="button"

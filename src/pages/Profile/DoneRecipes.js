@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 // import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
 import shareIcon from '../../images/shareIcon.svg';
 import './DoneRecipes.css';
+import { Link } from 'react-router-dom';
 
 function DoneRecipes() {
   const [doneRecipesList, setDoneRecipesList] = useState([]);
@@ -23,9 +24,9 @@ function DoneRecipes() {
     console.log('lista de receitas filtradas', filteredDoneRecipes);
   }, []);
 
-  function handleClick() {
-    copy(window.location.href);
-    setCopied(true);
+  function copyDetailsPageLink(recipe) {    
+      copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
+      setCopied(true); 
   }
 
   function filterDoneRecipes({ target: { innerText: name } }) {
@@ -39,7 +40,7 @@ function DoneRecipes() {
     }
     if (name === 'Drinks') {
       const filteredByDrink = doneRecipesList
-        .filter((rec) => rec.type === ' bebida');
+        .filter((rec) => rec.type === 'bebida');
       setFilteredDoneRecipes(filteredByDrink);
     }
   }
@@ -48,18 +49,22 @@ function DoneRecipes() {
     if(recipe.type === 'comida') {
       return(
         <div key={ recipe.name }>
+          <Link to={`/comidas/${recipe.id}`} >
         <img
+          style={{'width': '300px'}}
           alt={ recipe.name }
           src={ recipe.image }
           data-testid={ `${index}-horizontal-image` }
         />
+        </Link>
+        <Link to={`/comidas/${recipe.id}`} >
         <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+        </Link>
         <span
           data-testid={ `${index}-horizontal-top-text` }
         >
-          { recipe.category }
-        </span>
-        <span>{recipe.area}</span>
+          { `${recipe.area} - ${recipe.category}` }
+        </span>        
         <span
           data-testid={ `${index}-horizontal-done-date` }
         >
@@ -71,31 +76,40 @@ function DoneRecipes() {
             <span
               key={ tag }
               data-testid={ `${index}-${tag}-horizontal-tag` }
-            />
+              >
+              {tag}
+            </span>
           )) }
         <button
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ handleClick }
+          src={ shareIcon }
+          onClick={ () => copyDetailsPageLink(recipe) }
         >
-          <img src={ shareIcon } alt="Compartilhar" />
+          <img src={ shareIcon } alt="compartilhar" />
           {copied && 'Link copiado!'}
         </button>
       </div>)}
       else if (recipe.type === 'bebida') {
         return(
           <div key={ recipe.name }>
+             <Link to={`/bebidas/${recipe.id}`} >
             <img
+              style={{'width': '300px'}}
               alt={ recipe.name }
               src={ recipe.image }
               data-testid={ `${index}-horizontal-image` }
             />
+            </Link>
+            <Link to={`/bebidas/${recipe.id}`} >
             <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+            </Link>
             <span
               data-testid={ `${index}-horizontal-top-text` }
             >
-              { recipe.category }
+             { `${ recipe.category } - ${recipe.alcoholicOrNot}` }
             </span>
+            <span>{recipe.alcoholicOrNot}</span>
             <span>{recipe.area}</span>            
             <span
               data-testid={ `${index}-horizontal-done-date` }
@@ -105,9 +119,10 @@ function DoneRecipes() {
             <button
               type="button"
               data-testid={ `${index}-horizontal-share-btn` }
-              onClick={ handleClick }
+              src={ shareIcon }
+              onClick={ () => copyDetailsPageLink(recipe) }
             >
-              <img src={ shareIcon } alt="Compartilhar" />
+               <img src={ shareIcon } alt="compartilhar" />
               {copied && 'Link copiado!'}
             </button>
             { recipe.tags
@@ -116,7 +131,9 @@ function DoneRecipes() {
                 <span
                   key={ tag }
                   data-testid={ `${index}-${tag}-horizontal-tag` }
-                />
+                >
+                  {tag}
+                </span>
               )) }
           </div>
         )

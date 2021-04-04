@@ -9,7 +9,6 @@ const ContainerDoneRecipes = ({
     type,
     area,
     category,
-    alcoholicOrNot,
     name,
     image,
     doneDate,
@@ -42,7 +41,7 @@ const ContainerDoneRecipes = ({
         </h5>
       ) : (
         <h5 data-testid={ `${index}-horizontal-top-text` }>
-          {`${alcoholicOrNot}`}
+          {`${category}`}
         </h5>
       )}
       <h5 data-testid={ `${index}-horizontal-done-date` }>{doneDate}</h5>
@@ -59,11 +58,16 @@ const ContainerDoneRecipes = ({
       </CopyToClipboard>
       {isCopied ? <section>Link copiado!</section> : ''}
       <section>
-        {tags.slice(0, 2).map((tag) => (
-          <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
-            {tag}
-          </span>
-        ))}
+        {tags
+          ? tags
+            .split(',')
+            .slice(0, 2)
+            .map((tag) => (
+              <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+                {tag}
+              </span>
+            ))
+          : ''}
       </section>
     </section>
   );
@@ -77,7 +81,6 @@ ContainerDoneRecipes.propTypes = {
     type: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
-    alcoholicOrNot: PropTypes.string.isRequired,
     doneDate: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,

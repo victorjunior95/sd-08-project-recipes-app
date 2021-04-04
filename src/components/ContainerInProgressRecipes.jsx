@@ -120,7 +120,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       name,
       image,
       doneDate: new Date().toLocaleDateString(),
-      tags: strTags.split(','),
+      tags: strTags,
     };
     setDoneRecipes(doneRecipe);
   };

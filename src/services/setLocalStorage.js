@@ -60,7 +60,10 @@ export const updateInProgressRecipes = (id, type, newIngredient) => {
       ];
     }
   }
-  localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageRecipesProgress));
+  localStorage.setItem(
+    'inProgressRecipes',
+    JSON.stringify(localStorageRecipesProgress),
+  );
 };
 
 export const setFavoriteRecipes = (recipeInfo) => {
@@ -91,5 +94,19 @@ export const setFavoriteRecipes = (recipeInfo) => {
         JSON.stringify([...favoriteRecipes, recipeInfo]),
       );
     }
+  }
+};
+
+export const setDoneRecipes = (doneRecipe) => {
+  if (localStorage.getItem('doneRecipes') === null) {
+    localStorage.setItem('doneRecipes', JSON.stringify([doneRecipe]));
+  } else {
+    const prevDoneRecipesState = JSON.parse(
+      localStorage.getItem('doneRecipes'),
+    );
+    localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify([...prevDoneRecipesState, doneRecipe]),
+    );
   }
 };

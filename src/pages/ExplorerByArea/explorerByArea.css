@@ -1,15 +1,17 @@
-@media (min-width: 361px) {
+@media ( min-width : 361px ) {
   .list-area {
     display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(4, 1fr);
     margin: 20px;
   }
+  
 }
+
 .list-select {
-  width: 100%;
   display: flex;
-  justify-content: center;
   height: 50px;
+  justify-content: center;
   margin: 8px 4px;
+  width: 100%;
 }

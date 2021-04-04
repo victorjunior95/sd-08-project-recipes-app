@@ -61,3 +61,19 @@
   display: flex;
   justify-content: space-between;
 }
+
+.carousel-container {
+  width: 100%;
+}
+
+.carousel-container img {
+  height: 200px;
+  width: 100%;
+}
+
+.carousel-caption {
+  bottom: 0;
+  color: black;
+  left: 0;
+  position: relative;
+}

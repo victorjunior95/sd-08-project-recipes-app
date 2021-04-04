@@ -25,9 +25,7 @@ function IngredientesEmProcesso({ id, type }) {
 
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(storage);
     if (!storage) {
-      console.log('entrou no if do effect');
       verifyInProgress(id, type);
     }
   }, [id, type]); // []
@@ -41,29 +39,44 @@ function IngredientesEmProcesso({ id, type }) {
   }, []);
 
   function handleClick({ target }) {
-    // const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (target.parentNode.classList.contains('riscado')) {
-      target.parentNode.classList.remove('riscado');
-      // const filteredStorage = inProgress[type][id]
-      //   .filter((item) => item !== target.value);
-      // inProgress[type][id] = filteredStorage;
-      // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    } else {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const previouslyIngredientsUsed = inProgress[type][id];
+    const ingredientClickedNow = target.id;
+    if (target.checked) {
       target.parentNode.classList.add('riscado');
-      // target.classList.add('teste');
-      // if (inProgress[type][id].some((item) => item === target.value)) {
-      //   return null;
-      // }
-      // inProgress[type][id].push(target.value);
-      // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      if (previouslyIngredientsUsed === []) {
+        previouslyIngredientsUsed.push(ingredientClickedNow);
+      } else if (!previouslyIngredientsUsed
+        .some((ingredient) => ingredient === ingredientClickedNow)) {
+        previouslyIngredientsUsed.push(ingredientClickedNow);
+        console.log();
+      }
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    } else {
+      target.parentNode.classList.remove('riscado');
+      previouslyIngredientsUsed
+        .splice(previouslyIngredientsUsed.indexOf(ingredientClickedNow), 1);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     }
   }
 
-  // function inputChecked(name) {
-  //   const storageAtual = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  //   const retorno = storageAtual[type][id].some((item) => item === name);
-  //   return retorno;
-  // }
+  function inputChecked(index) {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const ingredientsUsed = inProgress[type][id];
+    const input = document.getElementsByTagName('input')[index];
+    console.log(input);
+
+    if (input) {
+      console.log(input.id);
+      if (ingredientsUsed.includes(input.id)) {
+        console.log('contém');
+        input.setAttribute('checked', true);
+      } else {
+        console.log('não contém');
+        input.removeAttribute('checked');
+      }
+    }
+  }
 
   return (
     <div>
@@ -73,11 +86,12 @@ function IngredientesEmProcesso({ id, type }) {
           <li key={ index } data-testid={ `${index}-ingredient-step` }>
             <label htmlFor={ ingrediente }>
               <input
+                id={ index }
                 type="checkbox"
                 name={ ingrediente }
                 value={ ingrediente }
                 onClick={ handleClick }
-                // checked={ inputChecked(ingrediente) }
+                checked={ inputChecked(index) }
               />
               {ingrediente}
             </label>

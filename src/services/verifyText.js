@@ -1,6 +1,5 @@
 function verifyText(id, type) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(inProgressRecipes);
   let textButton = 'Iniciar Receita';
 
   if (inProgressRecipes) {

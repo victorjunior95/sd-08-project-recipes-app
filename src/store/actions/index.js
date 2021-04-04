@@ -1,4 +1,7 @@
-export { loginUserAction, logoutUserAction } from './loginActions';
+export {
+  loginUserAction,
+  logoutUserAction,
+} from './loginActions';
 
 export {
   toggleButtonSearch,
@@ -7,5 +10,29 @@ export {
   fetchDrinkCategory,
 } from './headerAction';
 
-export { fetchDrinksRandom, fetchDrink } from './drinksActions';
-export { fetchFoodsRandom, fetchFood } from './foodsActions';
+export {
+  getDrinksAll,
+  getDrinksCategoriesFilter,
+  getDrinksBySearch,
+  getDrinks,
+} from './drinksActions';
+
+export {
+  getMealsAll,
+  getMealsCategoriesFilter,
+  getMealsBySearch,
+  getMeals,
+} from './foodsActions';
+
+export {
+  getRandomRecipe,
+  getIngredients,
+  getRegionRecipe,
+  getRecipesByingredient,
+  getExploreMealsByRegion,
+  getExploreDrinksByRegion,
+} from './explore.action';
+
+export {
+  default as getDetailsAll,
+} from './details.action';

@@ -5,7 +5,10 @@ import HeaderRecipeDetails from './HeaderRecipeDetails';
 import IngredientsRecipeDetailsInProgress from './IngredientsRecipeDetailsInProgress';
 import InstructionsRecipeDetails from './InstructionsRecipeDetails';
 import Button from './Button';
-import { setInProgressRecipes } from '../services/setLocalStorage';
+import {
+  setInProgressRecipes,
+  setDoneRecipes,
+} from '../services/setLocalStorage';
 
 const ContainerInProgressRecipes = ({ recipe, page, id }) => {
   const [recipeInfo, setRecipeInfo] = useState({});
@@ -38,6 +41,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       strYoutube: video,
       strDrinkAlternate: aternateRecipe,
       strArea: area,
+      strTags,
     } = recipe;
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
@@ -52,6 +56,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       arrayIngredients,
       drinkCategory: '',
       area,
+      strTags,
     });
   };
 
@@ -65,6 +70,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       strVideo: video,
       strDrinkAlternate: aternateRecipe,
       strCategory: drinkCategory,
+      strTags,
     } = recipe;
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
@@ -79,12 +85,18 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       arrayIngredients,
       drinkCategory,
       area: '',
+      strTags,
     });
   };
 
-  const finishRecipe = (idr) => {
-    console.log(`${idr} finished`);
-  };
+  /*
+    category: categoria-da-receita-ou-texto-vazio,
+    alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+    name: nome-da-receita,
+    image: imagem-da-receita,
+    doneDate: quando-a-receita-foi-concluida,
+    tags: array-de-tags-da-receita-ou-array-vazio
+*/
 
   const {
     idRecipe,
@@ -95,7 +107,23 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
     arrayIngredients,
     area,
     drinkCategory,
+    strTags,
   } = recipeInfo;
+
+  const finishRecipe = () => {
+    const doneRecipe = {
+      id: idRecipe,
+      type: page.toLowerCase().replace('s', ''),
+      area,
+      category,
+      alcoholicOrNot: drinkCategory,
+      name,
+      image,
+      doneDate: new Date().toLocaleDateString(),
+      tags: strTags ? strTags.split(',') : '',
+    };
+    setDoneRecipes(doneRecipe);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -135,7 +163,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
               name="Finalizar Receita"
               data-testid="finish-recipe-btn"
               className="start-recipe-btn"
-              onClick={ () => finishRecipe(id) }
+              onClick={ finishRecipe }
               disabled={ buttonState }
             />
           </Link>
@@ -162,6 +190,7 @@ ContainerInProgressRecipes.propTypes = {
     idMeal: PropTypes.string.isRequired,
     idDrink: PropTypes.string.isRequired,
     strArea: PropTypes.string.isRequired,
+    strTags: PropTypes.string.isRequired,
   }).isRequired,
 };
 

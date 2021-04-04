@@ -61,7 +61,15 @@ export const getIngredientsFinished = (type, id) => {
     finishedIgredients = getInProgressCocktails();
   }
   if (finishedIgredients !== null) {
-    console.log(finishedIgredients[id]);
     return finishedIgredients[id];
-  } return [];
+  }
+  return [];
+};
+
+export const getDoneRecipes = () => {
+  if (localStorage.getItem('doneRecipes') === null) {
+    return [];
+  }
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  return doneRecipes;
 };

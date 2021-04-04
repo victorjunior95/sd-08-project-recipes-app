@@ -10,11 +10,27 @@ export const setUser = (email) => {
   localStorage.setItem('user', JSON.stringify({ email }));
 };
 
+const setFirstInprogress = (id, type) => {
+  const ingredientsObj = {};
+  ingredientsObj[id] = [];
+  const inProgressObject = {};
+  if (type === 'Comidas') {
+    inProgressObject.meals = { ...ingredientsObj };
+    inProgressObject.cocktails = {};
+  } else if (type === 'Bebidas') {
+    inProgressObject.cocktails = { ...ingredientsObj };
+    inProgressObject.meals = {};
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObject));
+};
+
 export const setInProgressRecipes = (id, type) => {
   let prevProgressState = {};
   const ingredientsObj = {};
   ingredientsObj[id] = [];
-  if (localStorage.getItem('inProgressRecipes') !== null) {
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    setFirstInprogress(id, type);
+  } else {
     prevProgressState = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (type === 'Comidas' && !prevProgressState.meals[id]) {
       prevProgressState.meals = {
@@ -31,14 +47,6 @@ export const setInProgressRecipes = (id, type) => {
       'inProgressRecipes',
       JSON.stringify(prevProgressState),
     );
-  } else {
-    const inProgressObject = {};
-    if (type === 'Comidas') {
-      inProgressObject.meals = { ...ingredientsObj };
-    } else if (type === 'Bebidas') {
-      inProgressObject.cocktails = { ...ingredientsObj };
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObject));
   }
 };
 
@@ -60,7 +68,10 @@ export const updateInProgressRecipes = (id, type, newIngredient) => {
       ];
     }
   }
-  localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageRecipesProgress));
+  localStorage.setItem(
+    'inProgressRecipes',
+    JSON.stringify(localStorageRecipesProgress),
+  );
 };
 
 export const setFavoriteRecipes = (recipeInfo) => {
@@ -91,5 +102,19 @@ export const setFavoriteRecipes = (recipeInfo) => {
         JSON.stringify([...favoriteRecipes, recipeInfo]),
       );
     }
+  }
+};
+
+export const setDoneRecipes = (doneRecipe) => {
+  if (localStorage.getItem('doneRecipes') === null) {
+    localStorage.setItem('doneRecipes', JSON.stringify([doneRecipe]));
+  } else {
+    const prevDoneRecipesState = JSON.parse(
+      localStorage.getItem('doneRecipes'),
+    );
+    localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify([...prevDoneRecipesState, doneRecipe]),
+    );
   }
 };

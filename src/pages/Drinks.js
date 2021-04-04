@@ -16,7 +16,7 @@ export default class Drinks extends Component {
         byName: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
         byFirstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
       },
-      defaultSearch: 'vodka',
+      defaultSearch: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     };
     const drinks = {
       id: 'idDrink',

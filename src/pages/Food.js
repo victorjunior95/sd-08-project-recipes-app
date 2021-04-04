@@ -16,7 +16,7 @@ export default class Food extends Component {
         byName: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
         byFirstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
       },
-      defaultSearch: 'chicken',
+      defaultSearch: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     };
     const food = {
       id: 'idMeal',

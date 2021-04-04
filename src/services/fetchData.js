@@ -2,19 +2,22 @@ const END_POINTS = {
   FOODS: {
     random: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     category: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
-    region: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
+    region: 'https://www.themealdb.com/api/json/v1/1/filter.php?a=',
+    regions: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
     ingredients: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
     name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-    letter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
+    byLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
     details: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
   },
   DRINKS: {
     random: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     category: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+    region: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=',
+    regions: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     ingredients: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-    letter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
+    byLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
     details: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
   },
@@ -24,39 +27,51 @@ const fetchAPI = (andPoint) => fetch(andPoint).then((response) => response
   .json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const fetchFoodsByRandom = () => fetchAPI(END_POINTS.FOODS.random);
+export const getMealsByName = (name) => fetchAPI(`${END_POINTS.FOODS.name}${name}`);
 
-export const fetchFoodsByCategories = () => fetchAPI(END_POINTS.FOODS.category);
-export const fetchFoodsByRegion = () => fetchAPI(END_POINTS.FOODS.region);
+export const getDrinksByName = (name) => fetchAPI(`${END_POINTS.DRINKS.name}${name}`);
 
-export const fetchFoodsByIngredients = (value) => fetchAPI(`${END_POINTS
+export const getMealsByLetter = (byLetter) => fetchAPI(`${END_POINTS.FOODS
+  .byLetter}${byLetter}`);
+
+export const getDrinksByLetter = (byLetter) => fetchAPI(`${END_POINTS.DRINKS
+  .byLetter}${byLetter}`);
+
+export const getMealsIngredients = (ingredient) => fetchAPI(`${END_POINTS
   .FOODS
-  .ingredients}${value}`);
+  .ingredients}${ingredient}`);
 
-export const fetchFoodsByName = (value) => fetchAPI(`${END_POINTS.FOODS.name}${value}`);
-export const fetchFoodsByLetter = (value) => fetchAPI(`${END_POINTS.FOODS
-  .letter}${value}`);
+export const getDrinksIngredients = (ingredient) => fetchAPI(`${END_POINTS.DRINKS
+  .ingredients}${ingredient}`);
 
-export const fetchFoodDetails = (id) => fetchAPI(`${END_POINTS.FOODS
+export const getMealsByCategories = () => fetchAPI(END_POINTS.FOODS.category);
+
+export const getDrinksByCategories = () => fetchAPI(END_POINTS.DRINKS.category);
+
+export const getMealsDetails = (id) => fetchAPI(`${END_POINTS.FOODS
   .details}${id}`);
 
-export const fetchFilterDrinksByCategories = (value) => fetchAPI(`${END_POINTS
-  .DRINKS
-  .filterCategory}${value}`);
-
-export const fetchDrinksByRandom = () => fetchAPI(END_POINTS.DRINKS.random);
-export const fetchDrinksByCategories = () => fetchAPI(END_POINTS.DRINKS.category);
-export const fetchDrinksByIngredients = (value) => fetchAPI(`${END_POINTS.DRINKS
-  .ingredients}${value}`);
-export const fetchDrinksByName = (value) => fetchAPI(`${END_POINTS.DRINKS.name}${value}`);
-export const fetchDrinksByLetter = (value) => fetchAPI(`${END_POINTS.DRINKS
-  .letter}${value}`);
-
-export const fetchFilterFoodsByCategories = (value) => fetchAPI(`${END_POINTS
-  .FOODS
-  .filterCategory}${value}`);
-
-export const fetchDrinkDetails = (id) => fetchAPI(`${END_POINTS.DRINKS
+export const getDrinksDetails = (id) => fetchAPI(`${END_POINTS.DRINKS
   .details}${id}`);
+
+export const getMealsByRandom = () => fetchAPI(END_POINTS.FOODS.random);
+
+export const getDrinksByRandom = () => fetchAPI(END_POINTS.DRINKS.random);
+
+export const getMealsByRegions = () => fetchAPI(END_POINTS.FOODS.regions);
+
+export const getDrinksByRegions = () => fetchAPI(END_POINTS.FOODS.regions);
+
+export const getMealsByRegion = (region) => fetchAPI(END_POINTS.FOODS.region + region);
+
+export const getDrinksByRegion = (region) => fetchAPI(END_POINTS.FOODS.region + region);
+
+export const getMealsByCategory = (
+  category,
+) => fetchAPI(`${END_POINTS.FOODS.filterCategory}${category}`);
+
+export const getDrinksByCategory = (
+  category,
+) => fetchAPI(`${END_POINTS.DRINKS.filterCategory}${category}`);
 
 export default fetchAPI;

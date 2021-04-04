@@ -1,31 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-import { useRouteMatch } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { filterBtnFood, filterBtnDrink } from '../../redux/actions';
+import { ToggleButton } from 'react-bootstrap';
 
 // import { Container } from './styles';
 function FilterButton(props) {
-  const { name } = props;
-  const { path } = useRouteMatch();
-  const dispatch = useDispatch();
-  function onClickBtn(btnName) {
-    if (path === '/comidas') {
-      dispatch(filterBtnFood(btnName));
-    } else {
-      dispatch(filterBtnDrink(btnName));
-    }
-  }
+  const { name, currentCategory, changeCategory } = props;
+
   return (
-    <Button
+    <ToggleButton
+      type="checkbox"
       variant="light"
       key={ name }
+      checked={ currentCategory === name }
       data-testid={ `${name}-category-filter` }
-      onClick={ () => onClickBtn(name) }
+      onChange={ () => changeCategory(name) }
     >
       { name }
-    </Button>
+    </ToggleButton>
   );
 }
 
@@ -33,8 +24,11 @@ export default FilterButton;
 
 FilterButton.defaultProps = {
   name: ' ',
+  currentCategory: ' ',
 };
 
 FilterButton.propTypes = {
   name: PropTypes.string,
+  changeCategory: PropTypes.func.isRequired,
+  currentCategory: PropTypes.string,
 };

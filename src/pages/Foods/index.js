@@ -18,7 +18,7 @@ function Foods() {
   return (
     <ContainerDefault title="Comidas">
       {
-        isFetching ? <Loading />
+        isFetching && meals.length === 0 ? <Loading />
           : (
             <>
               <FilterButtonsSection />

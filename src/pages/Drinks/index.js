@@ -18,7 +18,7 @@ function Drinks() {
   return (
     <ContainerDefault title="Bebidas">
       {
-        isFetching ? <Loading />
+        isFetching && drinks.length === 0 ? <Loading />
           : (
             <>
               <FilterButtonsSection />

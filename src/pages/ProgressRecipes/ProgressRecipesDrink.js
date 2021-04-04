@@ -1,49 +1,13 @@
-/* import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-
-class ProgressRecipesDrink extends Component {
-  render() {
-    return <div>Eu sou página de ProgressRecipesDrink</div>;
-  }
-}
-
-// Drinks.propTypes = {
-
-// };
-
-export default ProgressRecipesDrink; */
-/* import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-
-class ProgressRecipesDrink extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      foodProgressID: [],
-    };
-  }
-
-  render() {
-    console.log(this.props);
-    return (<div>Eu sou página de ProgressRecipesDrink</div>);
-  }
-}
-
-// Drinks.propTypes = {
-
-// };
-
-export default ProgressRecipesDrink;
- */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
-
+import {
+  getDrinksDetails,
+} from '../../services';
 import filterFood from '../../utils/filterDetailsRecipes';
-
-import { fetchDrinkDetails, getArrayIngredients } from '../../services';
+import '../../styles/pages/Container.css';
 
 const INITIAL_STATE_RECIPE_DRINK = {
   idDrink: '',
@@ -55,9 +19,7 @@ const INITIAL_STATE_RECIPE_DRINK = {
   strDrink: '',
   strDrinkThumb: '',
   strTags: '',
-  strYoutube: '',
-  cocktails: [],
-
+  usedIngredients: [],
 };
 
 class ProgressRecipesDrink extends Component {
@@ -76,19 +38,25 @@ class ProgressRecipesDrink extends Component {
   }
 
   handleLocalStorage() {
-    const { cocktails: currentCocktails, idDrink } = this.state;
-    getArrayIngredients(idDrink, currentCocktails);
+    const { usedIngredients, idDrink } = this.state;
+    console.log(idDrink, usedIngredients);
   }
 
   handleIndredients(target, newValue) {
-    const { cocktails } = this.state;
+    const { usedIngredients } = this.state;
     if (target.checked) {
-      this.setState((state) => ({ ...state, cocktails: [...state.cocktails, newValue] }),
-        this.handleLocalStorage);
+      this.setState((state) => ({
+        ...state, usedIngredients: [...state.usedIngredients, newValue],
+      }),
+      this.handleLocalStorage);
     } else {
-      const filterCocktails = cocktails.filter((ingredient) => ingredient !== newValue);
-      this.setState((state) => ({ ...state, cocktails: [...filterCocktails] }),
-        this.handleLocalStorage);
+      const filterCocktails = usedIngredients.filter(
+        (ingredient) => ingredient !== newValue,
+      );
+      this.setState((state) => ({
+        ...state, usedIngredients: [...filterCocktails],
+      }),
+      this.handleLocalStorage);
     }
   }
 
@@ -99,7 +67,7 @@ class ProgressRecipesDrink extends Component {
       },
     } = this.props;
 
-    fetchDrinkDetails(id).then((response) => {
+    getDrinksDetails(id).then((response) => {
       const drink = filterFood(response, 'drinks');
       this.setState((state) => ({
         ...state,
@@ -115,7 +83,6 @@ class ProgressRecipesDrink extends Component {
       strDrink,
       strCategory,
       strInstructions,
-
       ingredients,
       measures,
     } = this.state;
@@ -123,7 +90,7 @@ class ProgressRecipesDrink extends Component {
     return (
       <div className="recipe-details">
         <img
-          style={ { width: '50%' } }
+          style={ { width: '20%' } }
           src={ strDrinkThumb }
           alt="Drink Thumbnail"
           data-testid="recipe-photo"
@@ -162,6 +129,10 @@ class ProgressRecipesDrink extends Component {
           <div>
             {ingredients.map((ingredient, index) => (
               <label
+              /*                 className={ checkedIngredientsLS('meal', idMeal)
+                  .includes(ingredient)
+                  ? 'textUnderline'
+                  : '' } */
                 key={ ingredient }
                 htmlFor={ `${ingredient}-id` }
                 data-testid={ `${index}-ingredient-step` }
@@ -170,6 +141,8 @@ class ProgressRecipesDrink extends Component {
                   onChange={ ({ target }) => this.handleIndredients(target, ingredient) }
                   id={ `${ingredient}-id` }
                   type="checkbox"
+                  // checked={ checkedIngredientsLS('cocktails', idDrink)
+                  // .includes(ingredient) }
                 />
                 {`${ingredient} - ${measures[index]}`}
               </label>
@@ -187,7 +160,6 @@ class ProgressRecipesDrink extends Component {
             className="start-recipe-btn"
             exact
             to={ `/comidas/${idDrink}/in-progress` }
-
           >
             Finalizar receita
           </Link>

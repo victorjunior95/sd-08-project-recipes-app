@@ -1,36 +1,17 @@
-/* import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-
-class ProgressRecipesFood extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      foodProgressID: [],
-    };
-  }
-
-  render() {
-    console.log(this.props);
-    return (<div>Eu sou página de ProgressRecipesFood</div>);
-  }
-}
-
-// Drinks.propTypes = {
-
-// };
-
-export default ProgressRecipesFood;
- */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
-// import favIconDisabled from '../../images/whiteHeartIcon.svg';
-import filterFood from '../../utils/filterDetailsRecipes';
-import { fetchFoodDetails } from '../../services';
 
-const INITIAL_STATE_RECIPE_FOOD = {
+import filterFood from '../../utils/filterDetailsRecipes';
+import '../../styles/pages/Container.css';
+
+import {
+  getMealsDetails,
+} from '../../services';
+
+const INITIAL_STATE_RECIPE_MEAL = {
   idMeal: '',
   ingredients: [],
   measures: [],
@@ -40,29 +21,50 @@ const INITIAL_STATE_RECIPE_FOOD = {
   strMeal: '',
   strMealThumb: '',
   strTags: '',
-  strYoutube: '',
+  usedIngredients: [],
 };
 
-class ProgressRecipesFood extends Component {
+class ProgressRecipesMeal extends Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE_RECIPE_FOOD;
+    this.state = INITIAL_STATE_RECIPE_MEAL;
 
-    this.handleRequestFood = this.handleRequestFood.bind(this);
+    this.handleRequestMeal = this.handleRequestMeal.bind(this);
+    this.handleIndredients = this.handleIndredients.bind(this);
   }
 
   componentDidMount() {
-    this.handleRequestFood();
+    this.handleRequestMeal();
   }
 
-  handleRequestFood() {
+  handleIndredients(target, newValue) {
+    const { usedIngredients } = this.state;
+
+    if (target.checked) {
+      this.setState(
+        (state) => ({
+          ...state,
+          usedIngredients: [...state.usedIngredients, newValue],
+        }),
+      );
+    } else {
+      const filterMeals = usedIngredients.filter(
+        (ingredient) => ingredient !== newValue,
+      );
+      this.setState(
+        (state) => ({ ...state, usedIngredients: [...filterMeals] }),
+      );
+    }
+  }
+
+  handleRequestMeal() {
     const {
       match: {
         params: { id },
       },
     } = this.props;
 
-    fetchFoodDetails(id).then((response) => {
+    getMealsDetails(id).then((response) => {
       const meal = filterFood(response, 'meals');
       this.setState((state) => ({
         ...state,
@@ -78,7 +80,6 @@ class ProgressRecipesFood extends Component {
       strMeal,
       strCategory,
       strInstructions,
-
       ingredients,
       measures,
     } = this.state;
@@ -86,7 +87,7 @@ class ProgressRecipesFood extends Component {
     return (
       <div className="recipe-details">
         <img
-          style={ { width: '50%' } }
+          style={ { width: '20%' } }
           src={ strMealThumb }
           alt="Meal Thumbnail"
           data-testid="recipe-photo"
@@ -125,14 +126,20 @@ class ProgressRecipesFood extends Component {
           <div>
             {ingredients.map((ingredient, index) => (
               <label
+                /*                 className={ checkedIngredientsLS('meal', idMeal)
+                  .includes(ingredient)
+                  ? 'textUnderline'
+                  : '' } */
                 key={ ingredient }
                 htmlFor={ `${ingredient}-id` }
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
+                  onChange={ ({ target }) => this.handleIndredients(target, ingredient) }
                   id={ `${ingredient}-id` }
                   type="checkbox"
-
+                  /*                   checked={ checkedIngredientsLS('meal', idMeal)
+                    .includes(ingredient) } */
                 />
                 {`${ingredient} - ${measures[index]}`}
               </label>
@@ -150,7 +157,6 @@ class ProgressRecipesFood extends Component {
             className="start-recipe-btn"
             exact
             to={ `/comidas/${idMeal}/in-progress` }
-
           >
             Finalizar receita
           </Link>
@@ -160,7 +166,7 @@ class ProgressRecipesFood extends Component {
   }
 }
 
-ProgressRecipesFood.propTypes = {
+ProgressRecipesMeal.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -168,4 +174,4 @@ ProgressRecipesFood.propTypes = {
   }).isRequired,
 };
 
-export default ProgressRecipesFood;
+export default ProgressRecipesMeal;

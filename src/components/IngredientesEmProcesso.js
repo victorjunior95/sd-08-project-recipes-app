@@ -64,8 +64,6 @@ function IngredientesEmProcesso({ id, type }) {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const ingredientsUsed = inProgress[type][id];
     const input = document.getElementsByTagName('input')[index];
-    console.log(input);
-
     if (input) {
       console.log(input.id);
       if (ingredientsUsed.includes(input.id)) {
@@ -76,6 +74,7 @@ function IngredientesEmProcesso({ id, type }) {
         input.removeAttribute('checked');
       }
     }
+    return null;
   }
 
   return (

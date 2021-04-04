@@ -16,7 +16,7 @@ function Cards(props) {
     }
   };
   return (
-    <Card className="card mb-3" data-testid={ `${index}-recipe-card` }>
+    <Card className="card mb-3" data-testid={ `${index}-recipe-card` } border="primary">
       <Card.Img
         variant="top"
         className="card-img"

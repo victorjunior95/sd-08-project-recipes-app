@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { shareIcon } from '../common/svgStore';
 
 const ContainerDoneRecipes = ({
@@ -13,6 +14,7 @@ const ContainerDoneRecipes = ({
     image,
     doneDate,
     tags,
+    alcoholicOrNot,
   },
   index,
 }) => {
@@ -26,22 +28,38 @@ const ContainerDoneRecipes = ({
     }, twoSecond);
   };
 
+  const showTags = () => {
+    console.log(tags);
+    if (tags.length === 0) {
+      return '';
+    }
+    return tags.slice(0, 2).map((tag) => (
+      <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+        {tag}
+      </span>
+    ));
+  };
+
   return (
     <section>
-      <img
-        src={ image }
-        alt="recipe"
-        className="image-details"
-        data-testid={ `${index}-horizontal-image` }
-      />
-      <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+      <Link key={ id } to={ `/${type.concat('s')}/${id}` }>
+        <img
+          src={ image }
+          alt="recipe"
+          className="image-details"
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </Link>
+      <Link key={ id } to={ `/${type.concat('s')}/${id}` }>
+        <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+      </Link>
       {type === 'comida' ? (
         <h5 data-testid={ `${index}-horizontal-top-text` }>
           {`${area} - ${category}`}
         </h5>
       ) : (
         <h5 data-testid={ `${index}-horizontal-top-text` }>
-          {`${category}`}
+          {`${alcoholicOrNot}`}
         </h5>
       )}
       <h5 data-testid={ `${index}-horizontal-done-date` }>{doneDate}</h5>
@@ -57,18 +75,7 @@ const ContainerDoneRecipes = ({
         />
       </CopyToClipboard>
       {isCopied ? <section>Link copiado!</section> : ''}
-      <section>
-        {tags
-          ? tags
-            .split(',')
-            .slice(0, 2)
-            .map((tag) => (
-              <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
-                {tag}
-              </span>
-            ))
-          : ''}
-      </section>
+      <section>{showTags()}</section>
     </section>
   );
 };
@@ -82,6 +89,7 @@ ContainerDoneRecipes.propTypes = {
     id: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
     doneDate: PropTypes.string.isRequired,
+    alcoholicOrNot: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,

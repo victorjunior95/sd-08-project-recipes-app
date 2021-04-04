@@ -10,33 +10,35 @@ class ExploreFoods extends Component {
     return (
       <div>
         <Header title="Explorar Comidas" />
+        <div className="container">
 
-        <Link to="/explorar/comidas/ingredientes">
-          <button
-            type="button"
-            data-testid="explore-by-ingredient"
-          >
-            Por Ingredientes
-          </button>
-        </Link>
+          <Link to="/explorar/comidas/ingredientes">
+            <button
+              type="button"
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </Link>
 
-        <Link to="/explorar/comidas/area">
-          <button
-            type="button"
-            data-testid="explore-by-area"
-          >
-            Por Local de Origem
-          </button>
-        </Link>
+          <Link to="/explorar/comidas/area">
+            <button
+              type="button"
+              data-testid="explore-by-area"
+            >
+              Por Local de Origem
+            </button>
+          </Link>
 
-        <Link to="/comidas/52771">
-          <button
-            type="button"
-            data-testid="explore-surprise"
-          >
-            Me Surpreenda!
-          </button>
-        </Link>
+          <Link to="/comidas/52771">
+            <button
+              type="button"
+              data-testid="explore-surprise"
+            >
+              Me Surpreenda!
+            </button>
+          </Link>
+        </div>
         <Footer />
 
       </div>

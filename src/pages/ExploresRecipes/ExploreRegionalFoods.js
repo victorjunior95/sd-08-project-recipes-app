@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Footer, Header } from '../../components';
 // import { _ } from '../../store/actions';
+import '../../styles/pages/Container.css';
 
 class ExploreRegionalFoods extends Component {
   render() {
     return (
       <div>
         <Header title="Explorar Origem" />
-        <div>
+        <div className="container">
           <select
             data-testid="explore-by-area-dropdown"
           >

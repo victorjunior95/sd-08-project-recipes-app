@@ -3,13 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Footer, Header } from '../../components';
 // import { _ } from '../../store/actions';
+import '../../styles/pages/Container.css';
 
 class ExploreIngredientsFood extends Component {
   render() {
     return (
       <div>
         <Header title="Explorar Ingredientes" />
-        Eu sou o pagína de Explorar Ingredientes Comidas
+        <div className="container">
+
+          Eu sou o pagína de Explorar Ingredientes Comidas
+        </div>
         <Footer />
       </div>
     );

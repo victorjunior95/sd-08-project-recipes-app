@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { useLocation, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { result } from 'lodash';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import LariContext from '../context/Provider'
 
 import { fetchProductDetailsById } from '../services';
-import handleIsFavorite from './Detalhes';
+
+import LariContext from '../context/Context';
 
 const Detalhes = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isMeal, setIsMeal] = useState(true);
-  const [foodDetails, setFoodDetails] = useState({});
+  const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
+    setFoodDetails, hidden, setHidden,
+    usedIngri, setUseIngri, inProgress, setInProgress } = useContext(LariContext);
   const [ingredients, setIngredients] = useState([]);
-  const [hidden, setHidden] = useState(false);
-  const [usedIngri, setUseIngri] = useState(['ElisaEumaGenia']);
-  const [inProgress, setInProgress] = useState({});
+  const [able, setAble] = useState(false);
+
   const location = useLocation();
   const history = useHistory();
 
@@ -32,7 +34,6 @@ const Detalhes = () => {
       const storageProgessRecipes = (
         JSON.parse(localStorage.getItem('inProgressRecipes')));
       setInProgress(storageProgessRecipes);
-      console.log(storageProgessRecipes, 'iii');
       if (isFood) {
         const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
         if (result >= 0) {
@@ -55,6 +56,14 @@ const Detalhes = () => {
     }
   };
 
+  const verifyButnValidation = () => {
+    const ingredient = foodDetails[`strIngredient${usedIngri.length}`];
+    console.log(ingredient);
+    if (ingredient !== '') {
+      return setAble(true);
+    } return setAble(false);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const [, type, id] = location.pathname.split('/');
@@ -72,7 +81,6 @@ const Detalhes = () => {
       setIngredients(ingredientFilter);
 
       handleInProgress(id, type === 'comidas');
-      console.log(() => handleInProgress(), 'test');
     };
 
     fetchData();
@@ -94,8 +102,7 @@ const Detalhes = () => {
           [foodDetails.idMeal]: [...usedIngridients] },
         cocktails: { ...inProgress.cocktails },
       };
-    } console.log(inProgress.cocktails, 'drinks');
-    console.log(result, 'oi');
+    }
     localStorage.setItem('inProgressRecipes', JSON.stringify(result));
   };
 
@@ -159,7 +166,7 @@ const Detalhes = () => {
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
-                onChange={ ({ target }) => { handleCheckBox((target.value)); } }
+                onChange={ ({ target }) => { handleCheckBox((target.value)); verifyButnValidation(); } }
                 type="checkbox"
                 value={ `${ingredientName}` }
                 checked={ usedIngri.indexOf(ingredientName) >= 0 }
@@ -171,8 +178,9 @@ const Detalhes = () => {
 
       <button
         type="button"
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ () => { history.push('/receitas-feitas'); } }
         data-testid="finish-recipe-btn"
+        disabled={ setAble }
       >
         Finalizar Receita
 

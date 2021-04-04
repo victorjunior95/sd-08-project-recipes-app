@@ -12,6 +12,13 @@ const Provider = ({ children }) => {
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
   const [nameIngredient, setNameIngredient] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isMeal, setIsMeal] = useState(true);
+  const [foodDetails, setFoodDetails] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [hidden, setHidden] = useState(false);
+  const [usedIngri, setUseIngri] = useState(['ElisaEumaGenia']);
+  const [inProgress, setInProgress] = useState({});
 
   const setMeals = async (array) => {
     if (array.meals === null) {
@@ -68,6 +75,19 @@ const Provider = ({ children }) => {
     recipesFetch,
     nameIngredient,
     setNameIngredient,
+    isFavorite,
+    setIsFavorite,
+    isMeal,
+    setIsMeal,
+    foodDetails,
+    setFoodDetails,
+    hidden,
+    setHidden,
+    usedIngri,
+    setUseIngri,
+    inProgress,
+    setInProgress,
+
   };
   return (
     <div>

@@ -44,6 +44,86 @@ function DoneRecipes() {
     }
   }
 
+  function renderRecipe(recipe, index) {
+    if(recipe.type === 'comida') {
+      return(
+        <div key={ recipe.name }>
+        <img
+          alt={ recipe.name }
+          src={ recipe.image }
+          data-testid={ `${index}-horizontal-image` }
+        />
+        <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+        <span
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          { recipe.category }
+        </span>
+        <span>{recipe.area}</span>
+        <span
+          data-testid={ `${index}-horizontal-done-date` }
+        >
+          { recipe.doneDate}
+        </span>
+        { recipe.tags
+          .filter((_tag, ind) => ind < 2)
+          .map((tag) => (
+            <span
+              key={ tag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            />
+          )) }
+        <button
+          type="button"
+          data-testid={ `${index}-horizontal-share-btn` }
+          onClick={ handleClick }
+        >
+          <img src={ shareIcon } alt="Compartilhar" />
+          {copied && 'Link copiado!'}
+        </button>
+      </div>)}
+      else if (recipe.type === 'bebida') {
+        return(
+          <div key={ recipe.name }>
+            <img
+              alt={ recipe.name }
+              src={ recipe.image }
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+            <span
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              { recipe.category }
+            </span>
+            <span>{recipe.area}</span>            
+            <span
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              { recipe.doneDate}
+            </span>
+            <button
+              type="button"
+              data-testid={ `${index}-horizontal-share-btn` }
+              onClick={ handleClick }
+            >
+              <img src={ shareIcon } alt="Compartilhar" />
+              {copied && 'Link copiado!'}
+            </button>
+            { recipe.tags
+              .filter((_tag, ind) => ind < 2)
+              .map((tag) => (
+                <span
+                  key={ tag }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                />
+              )) }
+          </div>
+        )
+      } 
+  }
+  
+
   return (
     <div>
       <Header name="Receitas Feitas" icon="false" />
@@ -73,40 +153,7 @@ function DoneRecipes() {
       </button>
 
       { filteredDoneRecipes.length > 0 && filteredDoneRecipes
-        .map((recipe, index) => (
-          <div key={ recipe.name }>
-            <img
-              alt={ recipe.name }
-              src={ recipe.image }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <span
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { recipe.category }
-            </span>
-            <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              { recipe.doneDate}
-            </span>
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-              onClick={ handleClick }
-            >
-              <img src={ shareIcon } alt="Compartilhar" />
-              {copied && 'Link copiado!'}
-            </button>
-            { recipe.tags
-              .map((tag) => (
-                <span
-                  key={ tag }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                />
-              )) }
-          </div>))}
+        .map((recipe, index) => (renderRecipe(recipe, index)))}
     </div>
   );
 }

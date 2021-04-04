@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
-import { Header, Footer } from '../../component';
-
+import { Header, Footer, ExploreCard } from '../../component';
 import { fetchRandom } from '../../services/apiRequests';
 
 export default function ExploreDrinks() {
@@ -10,7 +7,9 @@ export default function ExploreDrinks() {
 
   useEffect(() => {
     const fetch = async () => {
-      const json = await fetchRandom('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+      const json = await fetchRandom(
+        'https://www.thecocktaildb.com/api/json/v1/1/random.php',
+      );
       const drinkId = json.drinks[0].idDrink;
 
       setId(drinkId);
@@ -22,21 +21,16 @@ export default function ExploreDrinks() {
   return (
     <>
       <Header pageTitle="Explorar Bebidas" showSearchButton={ false } />
-
-      <Link
-        to="/explorar/bebidas/ingredientes"
-        data-testid="explore-by-ingredient"
-      >
-        Por Ingredientes
-      </Link>
-
-      <Link
-        to={ `/bebidas/${id}` }
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </Link>
-
+      <ExploreCard
+        cardName="Por Ingredientes"
+        cardId="by-ingredient"
+        linkTo="/explorar/bebidas/ingredientes"
+      />
+      <ExploreCard
+        cardName="Me Surpreenda!"
+        cardId="surprise"
+        linkTo={ `/bebidas/${id}` }
+      />
       <Footer />
     </>
   );

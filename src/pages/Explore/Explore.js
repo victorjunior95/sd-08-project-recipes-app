@@ -5,8 +5,12 @@ export default function Explore() {
   return (
     <>
       <Header pageTitle="Explorar" showSearchButton={ false } />
-      <ExploreCard cardName="Explorar Comidas" cardId="food" linkTo="comidas" />
-      <ExploreCard cardName="Explorar Bebidas" cardId="drinks" linkTo="bebidas" />
+      <ExploreCard cardName="Explorar Comidas" cardId="food" linkTo="/explorar/comidas" />
+      <ExploreCard
+        cardName="Explorar Bebidas"
+        cardId="drinks"
+        linkTo="/explorar/bebidas"
+      />
       <Footer />
     </>
   );

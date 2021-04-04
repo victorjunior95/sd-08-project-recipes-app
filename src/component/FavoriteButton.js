@@ -8,6 +8,7 @@ import {
   addFavoriteRecipe,
   removeFavoriteRecipe,
 } from '../services/localStorage';
+import StyledFavoriteButton from '../styles/component/FavoriteButton';
 
 export default function FavoriteButton({ recipeInfo }) {
   const { id } = recipeInfo;
@@ -20,7 +21,7 @@ export default function FavoriteButton({ recipeInfo }) {
   );
 
   return (
-    <button
+    <StyledFavoriteButton
       type="button"
       data-testid="favorite-btn"
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -35,7 +36,7 @@ export default function FavoriteButton({ recipeInfo }) {
       } }
     >
       <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="share" />
-    </button>
+    </StyledFavoriteButton>
   );
 }
 

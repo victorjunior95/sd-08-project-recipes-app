@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/dom';
 import { LocalStorageMock } from '@react-mock/localstorage';
 import userEvent from '@testing-library/user-event';
-import renderWithReduxandRouter from './renderWithReduxandRouter';
+import renderWithReduxandRouter from '../renderWithReduxandRouter';
 import App from '../App';
 
 const EMAIL_INPUT = 'email@mail.com';

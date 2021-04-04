@@ -5,8 +5,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-
-import appReducer from '../redux/reducers/index';
+import appReducer from './redux/reducers';
 
 const renderWithRouterAndRedux = (
   component,

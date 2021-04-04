@@ -2,20 +2,27 @@ import React from 'react';
 import { screen } from '@testing-library/dom';
 import { LocalStorageMock } from '@react-mock/localstorage';
 import userEvent from '@testing-library/user-event';
-import renderWithReduxandRouter from './renderWithReduxandRouter';
+import renderWithReduxandRouter from '../renderWithReduxandRouter';
 import App from '../App';
-import { recipes, user } from './mockStates';
-
-const INITIAL_ENTRIES = {
-  initialEntries: ['/comidas'],
-  initialState: {
-    user,
-    recipes,
-  },
-};
+import {
+  user,
+  fetchInitialCategoryMeal,
+  fetchChickenCategoryRecipes,
+  fetchSalmonIngredientRecipes,
+  searchByIngredient,
+} from '../TestsMocks/mockMealrecipes';
 
 describe('MealsRecipes.js', () => {
   test('if the MealsRecipes page render', () => {
+    const recipes = { recipes: [], categories: fetchInitialCategoryMeal };
+    const INITIAL_ENTRIES = {
+      initialEntries: ['/comidas'],
+      initialState: {
+        user,
+        recipes,
+      },
+    };
+
     const { history } = renderWithReduxandRouter(
       <LocalStorageMock items={ {} }>
         <App />
@@ -56,15 +63,60 @@ describe('MealsRecipes.js', () => {
     expect(footer).toContainElement(mealsIcon);
   });
 
-  test('if it filter recipes by the search bar', () => {
+  test('if it filter recipes by categories', () => {
+    const recipes = {
+      recipes: fetchChickenCategoryRecipes,
+      categories: fetchInitialCategoryMeal,
+    };
+    const INITIAL_ENTRIES = {
+      initialEntries: ['/comidas'],
+      initialState: {
+        user,
+        recipes,
+      },
+    };
+
     renderWithReduxandRouter(
       <LocalStorageMock items={ {} }>
         <App />
       </LocalStorageMock>, INITIAL_ENTRIES,
     );
-    // incompleto
-    const searchIcon = screen.getByAltText('search-icon');
-    userEvent.click(searchIcon);
-    expect(searchIcon).toBeInTheDocument();
+
+    const firstCard = screen.getByTestId('0-recipe-card');
+    const firstCardName = screen.getByTestId('0-card-name');
+    expect(firstCard).toBeInTheDocument();
+
+    const chickenCategory = screen.getByTestId('chicken-category-filter');
+    userEvent.click(chickenCategory);
+    expect(firstCard).toBeInTheDocument();
+    expect(firstCardName).toHaveTextContent('Brown Stew Chicken');
+  });
+
+  test('if it filter recipes by ingredients', () => {
+    const recipes = {
+      recipes: fetchSalmonIngredientRecipes,
+      categories: fetchInitialCategoryMeal,
+    };
+    const search = {
+      ...searchByIngredient,
+    };
+    const INITIAL_ENTRIES = {
+      initialEntries: ['/comidas'],
+      initialState: {
+        user,
+        recipes,
+        search,
+      },
+    };
+
+    renderWithReduxandRouter(
+      <LocalStorageMock items={ {} }>
+        <App />
+      </LocalStorageMock>, INITIAL_ENTRIES,
+    );
+
+    const firstCardName = screen.getByTestId('0-card-name');
+    expect(firstCardName).toBeInTheDocument();
+    expect(firstCardName).toHaveTextContent('Baked salmon with fennel & tomatoes');
   });
 });

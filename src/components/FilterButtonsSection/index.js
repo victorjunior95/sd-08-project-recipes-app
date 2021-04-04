@@ -52,13 +52,14 @@ function FilterButtonsSection() {
   };
 
   return (
-    <ButtonGroup toggle className="mb-2">
+    <ButtonGroup toggle className="mb-2 d-flex flex-wrap">
       <ToggleButton
         type="checkbox"
         variant="light"
         checked={ currentCategory === 'All' }
         data-testid="All-category-filter"
         onChange={ () => handleCurrentCategory('All') }
+        className="border-warning"
       >
         All
       </ToggleButton>

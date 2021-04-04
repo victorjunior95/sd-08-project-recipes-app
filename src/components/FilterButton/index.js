@@ -10,10 +10,12 @@ function FilterButton(props) {
     <ToggleButton
       type="checkbox"
       variant="light"
+      className="border-warning"
       key={ name }
       checked={ currentCategory === name }
       data-testid={ `${name}-category-filter` }
       onChange={ () => changeCategory(name) }
+      size="sm"
     >
       { name }
     </ToggleButton>

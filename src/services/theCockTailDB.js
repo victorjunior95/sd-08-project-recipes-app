@@ -1,3 +1,19 @@
+export async function FetchDrinksOnMount() {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { drinks } = data;
+  return drinks;
+}
+
+export async function fetchDrinksCategories() {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { drinks: categories } = data;
+  return categories;
+}
+
 export async function FecthDrinks(radio, inputName) {
   let URL = '';
   if (radio === 'Ingrediente') {
@@ -15,24 +31,16 @@ export async function FecthDrinks(radio, inputName) {
   return drinks;
 }
 
-export async function FetchDrinksOnMount() {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+export async function filterDrinksByButton(category) {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
   const response = await fetch(URL);
   const data = await response.json();
   const { drinks } = data;
   return drinks;
 }
 
-export async function fetchDrinksCategories() {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-  const response = await fetch(URL);
-  const data = await response.json();
-  const { drinks: categories } = data;
-  return categories;
-}
-
-export async function filterDrinksByButton(category) {
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+export async function getDrinkDetails(id) {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const response = await fetch(URL);
   const data = await response.json();
   const { drinks } = data;

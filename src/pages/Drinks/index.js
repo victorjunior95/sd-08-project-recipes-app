@@ -13,7 +13,7 @@ function Drinks() {
     dispatch(drinksOnMount());
   }, [dispatch]);
 
-  const { isFetching, drinks } = useSelector((state) => state.drinks);
+  const { isFetching, onClickFilter, drinks } = useSelector((state) => state.drinks);
   const oneDrink = drinks ? drinks.length : false;
   return (
     <ContainerDefault title="Bebidas">
@@ -26,7 +26,8 @@ function Drinks() {
             </>
           )
       }
-      { oneDrink === 1 && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
+      { oneDrink === 1 && !onClickFilter
+      && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
     </ContainerDefault>
   );
 }

@@ -13,25 +13,35 @@ import { FetchFoodsOnMount } from '../../services/theMeadlDB';
 
 function DrinksDetails() {
   const { id } = useParams();
-  const [mealData, setMealData] = useState([{}]);
+  const [drinkData, setDrinkData] = useState([{}]);
   const [isFetching, setIsFetching] = useState(true);
   const [recomendations, setRecomendations] = useState([{}]);
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const recipe = await getDrinkDetails(id);
-      const currentRecomendations = await FetchFoodsOnMount();
-      setRecomendations(currentRecomendations);
-      setMealData(recipe);
-      setIsFetching(false);
+      try {
+        const recipe = await getDrinkDetails(id);
+        setDrinkData(recipe);
+        const currentRecomendations = await FetchFoodsOnMount();
+        setRecomendations(currentRecomendations);
+        setIsFetching(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchDetails();
   }, [id]);
-
-  const { strDrink, strCategory, strDrinkThumb, strAlcoholic } = mealData[0];
   if (isFetching) return <Loading />;
+  const { strDrink, strCategory, strDrinkThumb, strAlcoholic } = drinkData ? drinkData[0]
+    : {
+      strDrink: ' ',
+      strCategory: ' ',
+      strDrinkThumb: ' ',
+      strAlcoholic: ' ',
+    };
   return (
     <Container className="m-0 p-0 d-flex justify-content-center flex-column" fluid>
+      { console.log({ strDrink })}
       <Container className="m-0 p-0">
         <DetailsHeader
           title={ strDrink }
@@ -40,9 +50,10 @@ function DrinksDetails() {
           alcoholic={ strAlcoholic }
         />
       </Container>
-      <Container>
-        <InstructionsSection fullRecipe={ mealData } />
-      </Container>
+      { drinkData && (
+        <Container>
+          <InstructionsSection fullRecipe={ drinkData } />
+        </Container>)}
       <Recomendations recomendations={ recomendations } />
       <RecipeButton />
     </Container>

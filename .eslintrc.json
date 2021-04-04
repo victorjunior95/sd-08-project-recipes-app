@@ -22,7 +22,6 @@
     "plugins": [
         "react"
     ],
-    "rules": {
-        "react/jsx-no-undef": [2, { "typeof": true }]       
+    "rules": {        
     }
 }

@@ -3,7 +3,7 @@ import renderWithRouter from './helpers/renderWithRouter';
 import Home from '../pages/Home/Home';
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
-global.alert = jest.fn();
+jest.spyOn(window, 'alert').mockImplementation(() => {});
 describe('1 - Verifica os elementos presentes no Header', () => {
   test('Verifica se o título está presente e contém o texto "Comidas"', () => {
     const { getByTestId } = renderWithRouter(<Home title="Comidas" />);

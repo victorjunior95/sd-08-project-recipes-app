@@ -1,23 +1,68 @@
-import React, { useEffect, useState } from 'react';
-
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
 import { fetchProductDetailsById } from '../services';
+import LariContext from '../context/Context';
 
 const Detalhes = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isMeal, setIsMeal] = useState(true);
-  const [foodDetails, setFoodDetails] = useState({});
+  const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
+    setFoodDetails, hidden, setHidden,
+    usedIngri, setUseIngri, inProgress, setInProgress } = useContext(LariContext);
   const [ingredients, setIngredients] = useState([]);
-  const [hidden, setHidden] = useState(false);
-  // const [check, setCheck] = useState(false);
-  const [usedIngri, setUseIngri] = useState([]);
+  const [able, setAble] = useState(true);
 
   const location = useLocation();
+  const history = useHistory();
+
+  const handleInProgress = (idCurrentRecipe, isFood) => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const recipesInProgress = {
+        cocktails: {},
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+      setUseIngri([]);
+    } else {
+      const storageProgessRecipes = (
+        JSON.parse(localStorage.getItem('inProgressRecipes')));
+      setInProgress(storageProgessRecipes);
+      if (isFood) {
+        const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
+        if (result >= 0) {
+          console.log(result, 'ingrediente');
+          setUseIngri(storageProgessRecipes.meals[idCurrentRecipe]);
+        } else {
+          setUseIngri([]);
+        }
+        console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.meals), 'recipes');
+      } else {
+        const result = Object.keys(storageProgessRecipes.cocktails)
+          .indexOf(idCurrentRecipe);
+        if (result >= 0) {
+          setUseIngri(storageProgessRecipes.cocktails[idCurrentRecipe]);
+        } else {
+          setUseIngri([]);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const verifyButnValidation = (ingredient) => {
+      console.log(ingredient.length, usedIngri.length);
+      if (ingredient.length === usedIngri.length) {
+        console.log('terminou');
+        setAble(false);
+      } else {
+        setAble(true);
+        console.log('ainda n terminou');
+      }
+    };
+    verifyButnValidation(ingredients);
+  }, [usedIngri.length]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,22 +79,43 @@ const Detalhes = () => {
       setIsMeal(type === 'comidas');
       setFoodDetails(foodDetail);
       setIngredients(ingredientFilter);
+
+      handleInProgress(id, type === 'comidas');
     };
 
     fetchData();
   }, [location.pathname]);
 
+  const creatLocalObj = (usedIngridients) => {
+    let result = { ...inProgress };
+
+    if (!isMeal) {
+      result = {
+        cocktails: { ...inProgress.cocktails,
+          [foodDetails.idDrink]: [...usedIngridients] },
+        meals: { ...inProgress.meals },
+      };
+      // result.cocktails[foodDetails.idDrink] = [...usedIngridients];
+    } else {
+      result = {
+        meals: { ...inProgress.meals,
+          [foodDetails.idMeal]: [...usedIngridients] },
+        cocktails: { ...inProgress.cocktails },
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(result));
+  };
+
   const handleCheckBox = (name) => {
     let usedIngredients = [...usedIngri];
     const index = usedIngredients.indexOf(name);
-    console.log(name, index);
     if (index >= 0) {
       usedIngredients.splice(index, 1);
     } else {
       usedIngredients = [...usedIngredients, name];
     }
     setUseIngri(usedIngredients);
-    console.log(usedIngredients);
+    creatLocalObj(usedIngredients);
   };
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
@@ -89,31 +155,39 @@ const Detalhes = () => {
       >
         <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
       </button>
-      {
-        ingredients.map((ingredient, index) => {
+      { (usedIngri[0] !== 'ElisaEumaGenia')
+        && ingredients.map((ingredient, index) => {
           const ingredientName = foodDetails[ingredient];
           const ingMeasure = foodDetails[ingredient.replace('Ingredient', 'Measure')];
 
           return (
             <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
-              {/* { usedIngri.indexOf(ingredientName) >= 0 && '<s>' }
-              {`${ingredientName} - ${ingMeasure}`} */}
               { usedIngri.indexOf(ingredientName) >= 0
                 ? <s>{`${ingredientName} - ${ingMeasure}`}</s>
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
-                onChange={ ({ target }) => { handleCheckBox((target.value)); } }
+                onChange={ ({ target }) => {
+                  handleCheckBox((target.value));
+                } }
                 type="checkbox"
                 value={ `${ingredientName}` }
+                checked={ usedIngri.indexOf(ingredientName) >= 0 }
               />
             </div>
           );
-        })
-      }
+        })}
       <p data-testid="instructions">{foodDetails.strInstructions}</p>
 
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        type="button"
+        onClick={ () => { history.push('/receitas-feitas'); } }
+        data-testid="finish-recipe-btn"
+        disabled={ able }
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 };

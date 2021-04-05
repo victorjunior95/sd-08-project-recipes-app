@@ -175,7 +175,9 @@ const Detalhes = () => {
 
       {buttonRecipe && (
         <button
-          onClick={ () => { history.push(`${location.pathname}/in-progress`); } }
+          onClick={ () => {
+            history.push(`${location.pathname}/in-progress`, foodDetails);
+          } }
           type="button"
           className="btnStyle"
           data-testid="start-recipe-btn"

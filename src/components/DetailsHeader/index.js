@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Alert, Col, Container, Row } from 'react-bootstrap';
+import copy from 'clipboard-copy';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
@@ -8,7 +9,15 @@ import shareIcon from '../../images/shareIcon.svg';
 
 function DetailsHeader(props) {
   const { title, imgSrc, category, alcoholic } = props;
+  const [useShow, setUseShow] = useState(false);
 
+  // const url = navigator.clipboard.writeText(urlSite);
+  function onclickUrl() {
+    const urlSite = document.URL;
+    const url = copy(urlSite);
+    setUseShow(true);
+    return url;
+  }
   return (
     <>
       <Container className="fluid p-0">
@@ -31,6 +40,7 @@ function DetailsHeader(props) {
               alt="Share Button"
               className="mr-2"
               data-testid="share-btn"
+              onClick={ onclickUrl }
             />
             <input
               type="image"
@@ -44,6 +54,11 @@ function DetailsHeader(props) {
           {alcoholic || category}
         </h5>
       </Container>
+      { useShow && (
+        <Alert onClick={ () => setUseShow(false) } variant="success">
+          Link copiado!
+        </Alert>
+      )}
     </>
   );
 }

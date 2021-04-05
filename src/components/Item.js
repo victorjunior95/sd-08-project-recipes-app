@@ -23,7 +23,6 @@ export default class Item extends Component {
     const { location: { pathname } } = this.props;
     const id = pathname.split('/')[2];
     const type = pathname.split('/')[1];
-    console.log(id, type);
     if (type === 'comidas') {
       const req = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const { meals } = await req.json();
@@ -40,7 +39,6 @@ export default class Item extends Component {
     const { location: { pathname } } = this.props;
     const type = pathname.split('/')[1];
     const { results } = this.state;
-    console.log(results);
     if (results && results.length === 0) return (<Redirect to={ `/${type}` } />);
     return (
       <div>

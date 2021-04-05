@@ -20,6 +20,8 @@ function RecipesProvider({ children }) {
   const [FoodCategories, setCategories] = useState([]);
   const [DrinkCategories, setDrinkCategories] = useState([]);
   const [searchParam, setSearchParam] = useState(searchParams);
+  const [foodIngredients, setfoodIngredients] = useState([]);
+  const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
   const history = useHistory();
   const pathName = history.location.pathname;
 
@@ -87,6 +89,18 @@ function RecipesProvider({ children }) {
     fetchCocktailCategories().then((data) => setDrinkCategories(data));
   }, []);
 
+  useEffect(() => {
+    async function apiIngredientesFood() {
+      const apiIngredientes = await fetch(urlIngredientesFood)
+        .then((json) => json.json())
+        .then((data) => data.meals)
+        .catch((error) => console.log(error));
+
+      setfoodIngredients(apiIngredientes);
+    }
+    apiIngredientesFood();
+  }, []);
+
   const provide = {
     email,
     password,
@@ -100,6 +114,7 @@ function RecipesProvider({ children }) {
     setCocktails,
     FoodCategories,
     DrinkCategories,
+    foodIngredients,
     history,
   };
 

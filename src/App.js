@@ -13,8 +13,8 @@ import {
   ExplorarComidas,
   ExplorarBebidas,
   ExplorarIngredientesComidas,
-  ExplorarIngredientesBebidas,
   ExplorarPorLocalDeOrigem,
+  ExplorarIngredientesBebidas,
   Perfil,
   ReceitasFeitas,
   ReceitasFavoritas,
@@ -56,7 +56,7 @@ function App() {
           <Route
             exact
             path="/explorar/bebidas/area"
-            component={ ExplorarPorLocalDeOrigem }
+            component={ NotFound }
           />
           <Route exact path="/" component={ Login } />
           <Route exact path="*" component={ NotFound } />

@@ -2,31 +2,56 @@ import React, { useEffect, useState } from 'react';
 
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
-// objeto = [
-//   {id: 2, checkedIngredients: [], ingredients: []}
-// ]
 
 const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
-  // const [forMap, setForMap] = useState([]);
-  const [currentInProgress, setCurrentInProgress] = useState({});
   const [inProgress, setInProgress] = useState([]);
 
   useEffect(() => {
-    const progressStatus = localStorage.getItem('recipeProgressStatus');
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {}, meals: { [id]: [{ idx: 0, name: 'ingrediente', checked: false }] },
+      }));
+  }, []);
+
+  useEffect(() => {
+    const progressStatus = localStorage.getItem('inProgressRecipes');
     const progressList = progressStatus ? JSON.parse(progressStatus) : [];
+    console.log('progress list: ', progressList);
     setInProgress(progressList);
   }, []);
 
-  // useEffect(() => {
-  //   setForMap(ingredients.filter((noTwoSpace) => noTwoSpace !== '  ')
-  //     .map((element) => ({ name: element, checked: false })));
-  // }, [ingredients]);
+  function setLocalStorage() {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+  }
 
-  const onChangeCB = ({ target }) => {
-    console.log('teste id: ', newObject);
+  useEffect(() => {
+    setLocalStorage();
+  }, [inProgress]);
+
+  const onChangeCB = ({ target }, index) => {
+    let novoEstado = {
+      ...inProgress,
+      meals: {
+        ...inProgress.meals,
+        [id]: [
+          ...inProgress.meals[id],
+        ],
+
+      },
+    };
+    if (novoEstado.meals[id][index]) {
+      const Teste = inProgress.meals[id][index].checked;
+      novoEstado.meals[id][index].checked = !Teste;
+    } else {
+      novoEstado.meals[id][index] = { idx: index, name: target.name, checked: true };
+    }
+    setInProgress(novoEstado);
+    // console.log('teste: ', Teste);
+    // inProgress.meals[id][index].checked = !Teste;
+    // console.log('inProgress mudado:', inProgress);
   };
 
   //   localStorage.setItem('recipeProgressStatus', JSON.stringify(inProgress));
@@ -60,7 +85,7 @@ const InProgressCard = (props) => {
           name={ ingredient }
           type="checkbox"
           value={ ingredient }
-          onChange={ onChangeCB }
+          onChange={ (e) => onChangeCB(e, index) }
         />
         <label htmlFor={ `id-${index}` }>
           {ingredient}

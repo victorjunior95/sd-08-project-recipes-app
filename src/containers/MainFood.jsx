@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import RecipesContext from '../core/RecipesContext';
 import components from '../components/index';
 
 import api from '../services/index';
 import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
-import MainFoodsCard from '../components/MainFoodsCard';
+import MainCard from '../components/MainCard';
 //  import loading from '../assets/oval.svg';
 // <img className="loading-img" src={ loading } alt="loading icon" />
 
@@ -16,7 +16,7 @@ function Home() {
   const [dataFoodsCategories, setDataFoodCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
   const [selected, setSelected] = useState(false);
-
+  const location = useLocation();
   function handleClick({ target }) {
     setCategorySelected(target.value);
     if (categorySelected !== target.value && categorySelected.length > 0) {
@@ -52,7 +52,9 @@ function Home() {
       <div className="main-foods-buttons-container">
         <button
           className="btn btn-primary"
-          style={ { marginTop: 5, marginBottom: 5, width: 106 } }
+          style={ { marginTop: 5,
+            marginBottom: 5,
+            width: 106 } }
           onClick={ () => {
             setCategorySelected([]);
             setSelected(false);
@@ -66,7 +68,9 @@ function Home() {
           ({ strCategory }, index) => (
             <button
               className="btn btn-primary"
-              style={ { marginTop: 5, marginBottom: 5, width: 106 } }
+              style={ { marginTop: 5,
+                marginBottom: 5,
+                width: 106 } }
               onClick={ handleClick }
               value={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
@@ -81,17 +85,19 @@ function Home() {
       <div className="home-container">
         {mealData.length && !selected && mealData.length !== 1
           ? mealData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
-            <MainFoodsCard
+            <MainCard
+              path={ `${location.pathname}/${curr.idMeal}` }
               key={ index }
-              dataFoods={ curr }
+              data={ curr }
               index={ index }
-              id={ curr }
+              id={ curr.idMeal }
             />
           ))
           : dataFoods.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((food, index) => (
-            <MainFoodsCard
+            <MainCard
+              path={ `${location.pathname}/${food.idMeal}` }
               key={ index }
-              dataFoods={ food }
+              data={ food }
               index={ index }
               id={ food.idMeal }
             />

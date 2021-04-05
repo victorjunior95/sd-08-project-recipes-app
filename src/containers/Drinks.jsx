@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, useLocation } from 'react-router';
 import components from '../components/index';
-import MainDrinksCard from '../components/MainDrinksCard';
+import MainCard from '../components/MainCard';
 import api from '../services';
 import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
 import RecipesContext from '../core/RecipesContext';
@@ -17,6 +17,7 @@ function Drinks() {
   const [dataDrinksCategories, setDataDrinksCategories] = useState([]);
   const [drinkCategorySelected, setDrinkCategorySelected] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState(false);
+  const location = useLocation();
 
   function handleClick({ target }) {
     setDrinkCategorySelected(target.value);
@@ -54,7 +55,9 @@ function Drinks() {
       <div className="drinks-buttons-container">
         <button
           className="btn btn-primary"
-          style={ { marginTop: 5, marginBottom: 5, width: 163 } }
+          style={ { marginTop: 5,
+            marginBottom: 5,
+            width: 163 } }
           onClick={ () => {
             setDrinkCategorySelected([]);
             setSelectedDrink(false);
@@ -68,7 +71,9 @@ function Drinks() {
           ({ strCategory }, index) => (
             <button
               className="btn btn-primary"
-              style={ { marginTop: 5, marginBottom: 5, width: 163 } }
+              style={ { marginTop: 5,
+                marginBottom: 5,
+                width: 163 } }
               onClick={ handleClick }
               data-testid={ `${strCategory}-category-filter` }
               type="button"
@@ -83,18 +88,20 @@ function Drinks() {
       <div className="home-container">
         {drinkData.length && !selectedDrink
           ? drinkData.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((curr, index) => (
-            <MainDrinksCard
+            <MainCard
+              path={ `${location.pathname}/${curr.idDrink}` }
               key={ index }
-              dataDrinks={ curr }
+              data={ curr }
               index={ index }
               id={ curr.idDrink }
             />
           ))
 
           : dataDrinks.slice(0, MAIN_FOOD_CARD_LENGTH_12).map((drink, index) => (
-            <MainDrinksCard
+            <MainCard
+              path={ `${location.pathname}/${drink.idDrink}` }
               key={ index }
-              dataDrinks={ drink }
+              data={ drink }
               index={ index }
               id={ drink.idDrink }
             />

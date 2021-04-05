@@ -54,7 +54,9 @@ function handleFavorite(checkFavorite, setCheckFavorite, data) {
   }
 }
 
-function FoodInProgressCard({ data, img, meal, category, instructions, idMeal }) {
+function FoodInProgressCard({
+  data, img, meal, category,
+  instructions, idMeal, idDrink }) {
   const values = ingredients(data);
   const history = useHistory();
   const [checkFavorite, setCheckFavorite] = useState(() => {
@@ -69,7 +71,7 @@ function FoodInProgressCard({ data, img, meal, category, instructions, idMeal })
   const [verified, setVerified] = useState(() => {
     const result = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (result) {
-      return result[0].meals[idMeal];
+      return result[0].meals[idMeal || idDrink];
     }
     return [];
   });
@@ -81,13 +83,13 @@ function FoodInProgressCard({ data, img, meal, category, instructions, idMeal })
         return localStorage.setItem(
           'inProgressRecipes', JSON.stringify([{
             meals: {
-              [idMeal]: [...verified],
+              [idMeal || idDrink]: [...verified],
             },
           }]),
         );
       }
     }
-  }, [verifiedCheck, verified, idMeal]);
+  }, [verifiedCheck, verified, idMeal, idDrink]);
 
   return (
     <div className="MainCard">
@@ -152,6 +154,7 @@ FoodInProgressCard.propTypes = {
   category: PropTypes.string.isRequired,
   instructions: PropTypes.string.isRequired,
   idMeal: PropTypes.string.isRequired,
+  idDrink: PropTypes.string.isRequired,
 };
 
 export default FoodInProgressCard;

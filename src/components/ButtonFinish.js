@@ -10,6 +10,7 @@ function ButtonFinish({ objDetail }) {
   const history = useHistory();
   const urlType = history.location.pathname.split('/');
   console.log(urlType);
+  console.log(objDetail[0]);
 
   const handleFinish = () => {
     setDoneRecipes(objDetail[0], urlType[1]);

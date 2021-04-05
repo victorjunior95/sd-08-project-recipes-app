@@ -71,7 +71,7 @@ function CardFeitas({ objDetail, index }) {
             </p>
 
           </h3>
-          <div>
+          <div className="tag-container">
             {gettingTags()}
           </div>
         </section>

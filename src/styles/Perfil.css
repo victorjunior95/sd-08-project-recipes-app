@@ -1,5 +1,6 @@
 .perfil .email {
   background: rgb(255, 255, 100);
+  border-top: white 2px solid;
   font-size: 20px;
   padding: 10px 0;
   text-align: center;
@@ -30,4 +31,9 @@
 .perfil a {
   text-align: center;
   width: 100%;
+}
+
+.perfil .header-content a {
+  width: 10%;
+
 }

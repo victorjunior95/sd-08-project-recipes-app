@@ -140,7 +140,8 @@ function Detalhes() {
         src={ objDetail[0].strMealThumb }
         alt={ objDetail[0].strMeal }
       />
-      <div>
+      <div className="icons">
+        <LinkCopiado />
         <CopyToClipboard
           text={ `http://localhost:3000${urlText}` }
           onCopy={ () => {
@@ -154,7 +155,6 @@ function Detalhes() {
             alt={ objDetail[0].strMeal }
           />
         </CopyToClipboard>
-        <LinkCopiado />
         <FavoriteBtn urlText={ urlText } objDetail={ objDetail } id={ id } />
       </div>
       <ol className="ingredient-list">

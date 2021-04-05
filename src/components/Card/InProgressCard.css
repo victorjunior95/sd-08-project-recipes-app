@@ -15,7 +15,7 @@ ul {
   padding: 5px;
 }
 
-.unordered-list > li::before {
-  content: '➡️'; /* Insert content that looks like bullets */
+/* .unordered-list > li::before {
+  content: '➡️'; Insert content that looks like bullets
   padding-right: 8px;
-}
+} */

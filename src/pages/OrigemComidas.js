@@ -63,9 +63,8 @@ function OrigemComidas() {
           </select>
         </label>
         <div className="recipes-container">
-          { !recipes
-            ? <p>Carregando...</p>
-            : (recipes.meals.slice(0, TWELVE_RECIPES).map((recipe, index) => (
+          { recipes && (
+            recipes.meals.slice(0, TWELVE_RECIPES).map((recipe, index) => (
               <button
                 className="recipe-card"
                 data-testid={ `${index}-recipe-card` }
@@ -77,7 +76,6 @@ function OrigemComidas() {
                 <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
                 <img
                   alt="ingredient"
-                  // className="ingredient-img"
                   className="recipe-img"
                   data-testid={ `${index}-card-img` }
                   src={ recipe.strMealThumb }

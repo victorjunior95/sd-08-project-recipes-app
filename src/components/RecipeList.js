@@ -34,7 +34,7 @@ function RecipeList({ route, recipeType, endpoint }) {
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
-              key={ recipe[`id${recipeType}`] }
+              key={ index }
               onClick={ () => redirectToDetails(recipe[`id${recipeType}`]) }
               onKeyPress={ () => redirectToDetails(recipe[`id${recipeType}`]) }
               role="button"

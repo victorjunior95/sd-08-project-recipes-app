@@ -15,6 +15,7 @@ function IngredientesBebidas() {
 
   const [ingredients, setIngredients] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [teste, setTeste] = useState(false);
 
   function handleClick(e) {
     setInputText(e.currentTarget.id);
@@ -24,6 +25,7 @@ function IngredientesBebidas() {
 
   async function getIngredients() {
     setIngredients(await fetchListByFilter('thecocktaildb', 'i'));
+    setTeste(true);
   }
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function IngredientesBebidas() {
     <>
       <HeaderP title="Explorar Ingredientes" />
       <main className="ingredients-main-container">
-        { ingredients && (
+        { teste && (
           ingredients.drinks.slice(0, TWELVE_INGREDIENTS).map((ingredient, index) => (
             <button
               className="ingredient-card"
@@ -51,12 +53,14 @@ function IngredientesBebidas() {
               type="button"
             >
               <p data-testid={ `${index}-card-name` }>{ ingredient.strIngredient1 }</p>
-              <img
-                alt="ingredient"
-                className="ingredient-img"
-                data-testid={ `${index}-card-img` }
-                src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-              />
+              <div className="ingredient-img">
+                <img
+                  alt="ingredient"
+                  className="ingredientImg"
+                  data-testid={ `${index}-card-img` }
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+                />
+              </div>
             </button>
           ))
         )}

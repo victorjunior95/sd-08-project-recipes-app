@@ -27,12 +27,13 @@ function ExplorarBebidas({ endpoint }) {
       <HeaderP title="Explorar Bebidas" />
       <main className="explore-main-container">
         <LinkButton
-          className="explore-button"
+          clas="explore-button"
           path="/explorar/bebidas/ingredientes"
           attribute="explore-by-ingredient"
           name="Por Ingredientes"
         />
         <button
+          className="explore-button"
           data-testid="explore-surprise"
           onClick={ handleClick }
           type="button"

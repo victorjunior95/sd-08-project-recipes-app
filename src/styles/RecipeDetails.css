@@ -1,3 +1,7 @@
+.container-recipe-details {
+  margin-bottom: 38px;
+}
+
 .last-btn {
   border: none;
   bottom: 0;
@@ -35,10 +39,6 @@
   margin-right: -15px;
   min-width: 360px;
   max-height: 200px;
-}
-
-.recommendations {
-  margin-bottom: 2.2rem;
 }
 
 .instructions {

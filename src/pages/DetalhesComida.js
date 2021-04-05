@@ -4,7 +4,7 @@ import Context from '../context/Context';
 import RecipeDetails from '../components/RecipeDetails';
 import DetailsButtons from '../components/DetailsButtons';
 
-const ids = JSON.parse(localStorage.getItem('finishedRecipes')) || [];
+const idsF = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
 function DetalhesComida({ match }) {
   const { requestRecipeDetails } = useContext(Context);
@@ -13,15 +13,19 @@ function DetalhesComida({ match }) {
   useEffect(() => {
     requestRecipeDetails('themealdb', id, 'thecocktaildb');
     document.getElementById('start-recipe-btn').style.display = 'block';
-    if (ids.includes(id)) {
+    if (idsF.includes(id)) {
       document.getElementById('start-recipe-btn').style.display = 'none';
     }
   }, []);
 
   return (
     <main>
-      <RecipeDetails recipeType="Meal" page="details" />
-      <DetailsButtons route="comidas" id={ id } page="details" />
+      <div>
+        <RecipeDetails recipeType="Meal" page="details" />
+      </div>
+      <div>
+        <DetailsButtons route="comidas" id={ id } page="details" />
+      </div>
     </main>
   );
 }

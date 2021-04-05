@@ -17,7 +17,7 @@ function RecipeDetails({ recipeType, page }) {
     return (
       <section
         key={ recipe[`id${recipeType}`] }
-        className="container-fluid"
+        className="container-recipe-details container-fluid"
       >
         <DetailsHeader recipe={ recipe } recipeType={ recipeType } />
         <Ingredients page={ page } id={ recipe[`id${recipeType}`] } />
@@ -36,7 +36,9 @@ function RecipeDetails({ recipeType, page }) {
             </div>
           )
           : null }
-        <Recommended recipeType={ recipeType } />
+        <div>
+          <Recommended recipeType={ recipeType } />
+        </div>
       </section>
     );
   }

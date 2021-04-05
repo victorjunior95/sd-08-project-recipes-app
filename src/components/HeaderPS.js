@@ -107,6 +107,7 @@ const HeaderPS = ({ title, endpoint }) => {
               Buscar
             </button>
           </div>
+          <hr />
         </div>
       </div>
     </div>

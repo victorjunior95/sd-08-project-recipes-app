@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import FoodContext from '../../context/comidaContext/FoodContext';
+import { setLocalStorageDoneRecipesFoods } from '../../services/LocalStorage';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -57,22 +58,7 @@ function CardFoodInProgress({ alreadyFavorited, idDaReceita }) {
   const [redirect, setRedirect] = useState(false);
 
   const handleClick = () => {
-    const previousDoceRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    localStorage.setItem('doneRecipes', JSON.stringify(
-      [...previousDoceRecipes,
-        {
-          id: detailFoods[0].idMeal,
-          type: 'comida',
-          area: detailFoods[0].strArea,
-          category: detailFoods[0].strCategory,
-          alcoholicOrNot: '',
-          name: detailFoods[0].strMeal,
-          image: detailFoods[0].strMealThumb,
-          doneDate: date,
-          tags: [detailFoods[0].strTags],
-        },
-      ],
-    ));
+    setLocalStorageDoneRecipesFoods(detailFoods, date);
     setDoneRecipe(detailFoods.strMeal);
     setRedirect(true);
   };
@@ -190,7 +176,7 @@ function CardFoodInProgress({ alreadyFavorited, idDaReceita }) {
             data-testid="finish-recipe-btn"
             className="finalizar-receita"
             disabled={ disableButton }
-            onClick={ () => { handleClick(); } }
+            onClick={ () => handleClick() }
           >
             Finalizar Receita
           </button>

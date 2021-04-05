@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Container, Row } from 'react-bootstrap';
+import copy from 'clipboard-copy';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
@@ -9,6 +10,13 @@ import shareIcon from '../../images/shareIcon.svg';
 function DetailsHeader(props) {
   const { title, imgSrc, category, alcoholic } = props;
 
+  const urlSite = document.URL;
+  const url = copy(urlSite);
+  // const url = navigator.clipboard.writeText(urlSite);
+  function onclickUrl() {
+    alert('Link copiado!');
+    return url;
+  }
   return (
     <>
       <Container className="fluid p-0">
@@ -31,6 +39,7 @@ function DetailsHeader(props) {
               alt="Share Button"
               className="mr-2"
               data-testid="share-btn"
+              onClick={ onclickUrl }
             />
             <input
               type="image"

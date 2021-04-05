@@ -75,11 +75,11 @@ function HeaderSearchBar() {
           <div className="search-radios">
             <label htmlFor="ingredient-search-radio">
               <input
-                checked={
-                  location.pathname === '/comidas'
-                    ? ingredientSearchRadio
-                    : ingredientSearchRadioDrink
-                }
+                // checked={
+                //   location.pathname === '/comidas'
+                //     ? ingredientSearchRadio
+                //     : ingredientSearchRadioDrink
+                // }
                 name="ingredient-search-radio"
                 value={
                   location.pathname === '/comidas'

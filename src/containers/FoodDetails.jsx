@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { indexOf } from 'lodash-es';
+// import { indexOf } from 'lodash-es';
 import CardCarousel from '../components/CardCarousel';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -86,8 +86,8 @@ const handleFavorite = (recipe, iFavorite) => {
   if (favoriteArray !== null && favoriteArray.length > 1) {
     console.log('entrou no delete favorite length maior que 1');
     return localStorage.setItem('favoriteRecipes', JSON.stringify([
-      favoriteArray.slice(0, favoriteArray[indexOf(recipe[0])]),
-      favoriteArray.slice(favoriteArray[indexOf(recipe[0])]),
+      // favoriteArray.slice(0, favoriteArray[indexOf(recipe[0])]),
+      // favoriteArray.slice(favoriteArray[indexOf(recipe[0])]),
     ]));
   }
   // localStorage.setItem('favoriteRecipes', JSON.stringify([]));

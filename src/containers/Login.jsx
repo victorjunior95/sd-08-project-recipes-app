@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import * as core from '../core/index';
-import api from '../services/index';
 import rockGlass from '../images/rockGlass.svg';
 import RecipesContext from '../core/RecipesContext';
+
+const TRYBE = 'TRYBE';
 
 const Login = () => {
   const history = useHistory();
@@ -12,20 +13,19 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { data, setUser, setData, setMealData } = useContext(RecipesContext);
+  const { setUser } = useContext(RecipesContext);
 
-  useEffect(() => {
-    api.fetchMeals()
-      .then((response) => response.json()).then((result) => {
-        setData(result.meals);
-        setMealData(result.meals);
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   api.fetchMeals()
+  //     .then((response) => response.json()).then((result) => {
+  //       setData(result.meals);
+  //       setMealData(result.meals);
+  //     });
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const isValidEmail = core.validateEmail(email);
-    console.log('validEmail', isValidEmail);
     if (isValidEmail) {
       setUser(email);
       return setvalidEmail(true);
@@ -35,7 +35,6 @@ const Login = () => {
 
   useEffect(() => {
     const isValidPassword = core.validatePassword(password);
-    console.log('validPassword', isValidPassword);
     if (isValidPassword) {
       return setvalidPassword(true);
     }
@@ -47,11 +46,11 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify({ email }));
       localStorage.setItem('mealsToken', JSON.stringify(1));
       localStorage.setItem('cocktailsToken', JSON.stringify(1));
-      return history.push('/comidas');
+      history.push('/comidas');
+      console.log('fui clicado');
     }
   }, [redirect, history, email]);
-  const TRYBE = 'TRYBE';
-  console.log(data);
+
   return (
     <div data-testid="login">
       <div className="meals">

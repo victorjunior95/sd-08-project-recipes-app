@@ -13,6 +13,7 @@ function Header(props) {
     <>
       <header className="header-container">
         <ProfileButton />
+        <p>olá mundo</p>
         <h2 data-testid="page-title">
           {
             title

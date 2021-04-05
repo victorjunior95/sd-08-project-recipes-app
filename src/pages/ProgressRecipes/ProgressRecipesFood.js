@@ -1,79 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
 
-import filterFood from '../../utils/filterDetailsRecipes';
 import '../../styles/pages/Container.css';
-
-import {
-  getMealsDetails,
-} from '../../services';
-
-const INITIAL_STATE_RECIPE_MEAL = {
-  idMeal: '',
-  ingredients: [],
-  measures: [],
-  strArea: '',
-  strCategory: '',
-  strInstructions: '',
-  strMeal: '',
-  strMealThumb: '',
-  strTags: '',
-  usedIngredients: [],
-};
 
 class ProgressRecipesMeal extends Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE_RECIPE_MEAL;
-
-    this.handleRequestMeal = this.handleRequestMeal.bind(this);
-    this.handleIndredients = this.handleIndredients.bind(this);
+    this.state = JSON.parse(localStorage.getItem('inProgressRecipe'));
+    this.checkLS = this.checkLS.bind(this);
   }
 
-  componentDidMount() {
-    this.handleRequestMeal();
-  }
-
-  handleIndredients(target, newValue) {
-    const { usedIngredients } = this.state;
-
-    if (target.checked) {
-      this.setState(
-        (state) => ({
-          ...state,
-          usedIngredients: [...state.usedIngredients, newValue],
-        }),
-      );
-    } else {
-      const filterMeals = usedIngredients.filter(
-        (ingredient) => ingredient !== newValue,
-      );
-      this.setState(
-        (state) => ({ ...state, usedIngredients: [...filterMeals] }),
-      );
-    }
-  }
-
-  handleRequestMeal() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-
-    getMealsDetails(id).then((response) => {
-      const meal = filterFood(response, 'meals');
-      this.setState((state) => ({
-        ...state,
-        ...meal,
-      }));
-    });
+  checkLS(ingredient) {
+    const { recipe: { idMeal } } = this.props;
+    console.log(idMeal);
+    this.setState((state) => ({
+      ...state,
+      meals: {
+        ...state.meals,
+        [idMeal]: [state.meals[idMeal], ingredient] },
+    }));
   }
 
   render() {
+    const { recipe } = this.props;
     const {
       idMeal,
       strMealThumb,
@@ -82,7 +35,7 @@ class ProgressRecipesMeal extends Component {
       strInstructions,
       ingredients,
       measures,
-    } = this.state;
+    } = recipe;
 
     return (
       <div className="recipe-details">
@@ -135,9 +88,9 @@ class ProgressRecipesMeal extends Component {
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  onChange={ ({ target }) => this.handleIndredients(target, ingredient) }
                   id={ `${ingredient}-id` }
                   type="checkbox"
+                  onChange={ () => this.checkLS(ingredient) }
                   /*                   checked={ checkedIngredientsLS('meal', idMeal)
                     .includes(ingredient) } */
                 />
@@ -155,7 +108,7 @@ class ProgressRecipesMeal extends Component {
             data-testid="finish-recipe-btn"
             className="start-recipe-btn"
             exact
-            to={ `/comidas/${idDrink}/in-progress` }
+            to={ `/comidas/${idMeal}/in-progress` }
           >
             Finalizar receita
           </Link>
@@ -164,13 +117,18 @@ class ProgressRecipesMeal extends Component {
     );
   }
 }
-
 ProgressRecipesMeal.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  recipe: PropTypes.string.isRequired,
+  idMeal: PropTypes.number.isRequired,
 };
 
-export default ProgressRecipesMeal;
+const mapStateToProps = ({ detailsReducers }) => ({
+  recipe: detailsReducers.recipe,
+});
+
+export default connect(mapStateToProps)(ProgressRecipesMeal);

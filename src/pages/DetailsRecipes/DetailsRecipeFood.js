@@ -133,6 +133,7 @@ class DetailsRecipeFood extends Component {
           <Link
             data-testid="start-recipe-btn"
             className="start-btn"
+            exact
             to={ `/comidas/${idMeal}/in-progress` }
 
           >

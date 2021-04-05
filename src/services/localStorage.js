@@ -24,7 +24,7 @@ export const endpointLS = {
   }],
   inProgressRecipes: {
     cocktails: {},
-    meals: {},
+    meals: { },
   },
 };
 

@@ -64,3 +64,9 @@ export default (pathname) => (dispatch) => {
       dispatch(recipeFetchSuccessData(story));
     }).then(() => dispatch(recipeFetch()));
 };
+
+// Ls tem o is da recetias, cada receita tem um array com o checks que foram
+// Pegar a key no LS
+// Check se a receita já existe no LS
+// Se ela existir a gente pegar os dados e retorna
+/// Se não existe a gente retorna os da fetch

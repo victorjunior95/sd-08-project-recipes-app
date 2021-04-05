@@ -66,7 +66,7 @@ const Provider = ({ children }) => {
     }
   };
 
-  const saveFavoriteRecipes = (isMeal, foodDetails) => {
+  const saveFavoriteRecipes = () => {
     let results = {};
     if (isMeal) {
       results = {
@@ -92,15 +92,15 @@ const Provider = ({ children }) => {
     return results;
     // setFavoriteRecipe(results);
   };
-  const handleIsFavorite = (favorite, isMeal, foodDetails, setIsFavorite) => {
+  const handleIsFavorite = (favorite) => {
     // const [,, id] = location.pathname.split('/');
-    const favoriteRecipe = saveFavoriteRecipes(isMeal, foodDetails);
+    const savedFavoriteRecipe = saveFavoriteRecipes();
     localStorage.setItem('isFavorite', favorite);
     setIsFavorite(favorite);
     const recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     let result = '';
     if (favorite) {
-      result = [...recipeFavorite, favoriteRecipe];
+      result = [...recipeFavorite, savedFavoriteRecipe];
     } else if (isMeal) {
       result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
     } else {

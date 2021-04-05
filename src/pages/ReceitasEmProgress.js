@@ -9,8 +9,8 @@ import LariContext from '../context/Context';
 
 const Detalhes = () => {
   const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
-    setFoodDetails, hidden, setHidden,
-    usedIngri, setUseIngri, inProgress, setInProgress, favoriteRecipe, setFavoriteRecipe } = useContext(LariContext);
+    setFoodDetails, hidden, setHidden, usedIngri, setUseIngri,
+    inProgress, setInProgress, handleIsFavorite } = useContext(LariContext);
   const [ingredients, setIngredients] = useState([]);
   const [able, setAble] = useState(true);
 
@@ -64,6 +64,12 @@ const Detalhes = () => {
     verifyButnValidation(ingredients);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usedIngri.length]);
+
+  useEffect(() => {
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const [,, id] = location.pathname.split('/');
+    setIsFavorite(fav.some((result) => result.id === id));
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -149,13 +155,14 @@ const Detalhes = () => {
         <img src={ shareIcon } alt="Share" />
         <span hidden={ !hidden }>Link copiado!</span>
       </button>
-      <button
-        type="button"
+      <input
+        type="image"
         data-testid="favorite-btn"
-        onClick={ () => setIsFavorite(!isFavorite) }
-      >
-        <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
-      </button>
+        onClick={ () => handleIsFavorite(!isFavorite) }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        alt="Favorite"
+      />
+
       { (usedIngri[0] !== 'ElisaEumaGenia')
         && ingredients.map((ingredient, index) => {
           const ingredientName = foodDetails[ingredient];

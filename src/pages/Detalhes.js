@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { useLocation, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import LariContext from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,48 +11,48 @@ import { getDoneRecipes, inProgressRecipes } from '../utils';
 
 import { fetchProductDetailsById } from '../services';
 
-const saveFavoriteRecipes = (isMeal, foodDetails) => {
-  let results = {};
-  if (isMeal) {
-    results = {
-      id: foodDetails.idMeal,
-      type: 'comida',
-      area: foodDetails.strArea,
-      category: foodDetails.strCategory,
-      alcoholicOrNot: '',
-      name: foodDetails.strMeal,
-      image: foodDetails.strMealThumb,
-    };
-  } else {
-    results = {
-      id: foodDetails.idDrink,
-      type: 'bebida',
-      area: '',
-      category: foodDetails.strCategory,
-      alcoholicOrNot: foodDetails.strAlcoholic,
-      name: foodDetails.strDrink,
-      image: foodDetails.strDrinkThumb,
-    };
-  }
-  return results;
-  // setFavoriteRecipe(results);
-};
-const handleIsFavorite = (favorite, isMeal, foodDetails, setIsFavorite) => {
-  // const [,, id] = location.pathname.split('/');
-  const favoriteRecipe = saveFavoriteRecipes(isMeal, foodDetails);
-  localStorage.setItem('isFavorite', favorite);
-  setIsFavorite(favorite);
-  const recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  let result = '';
-  if (favorite) {
-    result = [...recipeFavorite, favoriteRecipe];
-  } else if (isMeal) {
-    result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
-  } else {
-    result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idDrink);
-  }
-  localStorage.setItem('favoriteRecipes', JSON.stringify(result));
-};
+// const saveFavoriteRecipes = (isMeal, foodDetails) => {
+//   let results = {};
+//   if (isMeal) {
+//     results = {
+//       id: foodDetails.idMeal,
+//       type: 'comida',
+//       area: foodDetails.strArea,
+//       category: foodDetails.strCategory,
+//       alcoholicOrNot: '',
+//       name: foodDetails.strMeal,
+//       image: foodDetails.strMealThumb,
+//     };
+//   } else {
+//     results = {
+//       id: foodDetails.idDrink,
+//       type: 'bebida',
+//       area: '',
+//       category: foodDetails.strCategory,
+//       alcoholicOrNot: foodDetails.strAlcoholic,
+//       name: foodDetails.strDrink,
+//       image: foodDetails.strDrinkThumb,
+//     };
+//   }
+//   return results;
+//   // setFavoriteRecipe(results);
+// };
+// const handleIsFavorite = (favorite, isMeal, foodDetails, setIsFavorite) => {
+//   // const [,, id] = location.pathname.split('/');
+//   const favoriteRecipe = saveFavoriteRecipes(isMeal, foodDetails);
+//   localStorage.setItem('isFavorite', favorite);
+//   setIsFavorite(favorite);
+//   const recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+//   let result = '';
+//   if (favorite) {
+//     result = [...recipeFavorite, favoriteRecipe];
+//   } else if (isMeal) {
+//     result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
+//   } else {
+//     result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idDrink);
+//   }
+//   localStorage.setItem('favoriteRecipes', JSON.stringify(result));
+// };
 
 const Detalhes = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -59,7 +60,7 @@ const Detalhes = () => {
   const [inProgress, setProgress] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
-    setFoodDetails, favoriteRecipe, setFavoriteRecipe } = useContext(LariContext);
+    setFoodDetails, handleIsFavorite } = useContext(LariContext);
   const location = useLocation();
   const history = useHistory();
 
@@ -141,7 +142,7 @@ const Detalhes = () => {
         type="image"
         data-testid="favorite-btn"
         onClick={
-          () => handleIsFavorite(!isFavorite, isMeal, foodDetails, setIsFavorite)
+          () => handleIsFavorite(!isFavorite)
         }
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Favorite"

@@ -7,7 +7,11 @@ function RecipesCard(props) {
   const { index, meal, id } = props;
   console.log(id);
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div
+      data-testid={ `${index}-recipe-card` }
+      className="recipe-card"
+      // onClick={ () => history.push(`/comidas/${id}`) }
+    >
       <input
         className="card-image"
         type="image"

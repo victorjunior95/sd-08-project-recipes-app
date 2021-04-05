@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
@@ -10,13 +10,13 @@ function Login() {
   const history = useHistory();
   const { data } = useContext(Context);
 
-  useEffect(() => {
-    localStorage.setItem('mealsToken', data.mealsToken);
-    localStorage.setItem('cocktailsToken', data.cocktailsToken);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-  }, [data.user, data.mealsToken, data.cocktailsToken]);
+  // useEffect(() => {
+  //   localStorage.setItem('mealsToken', data.mealsToken);
+  //   localStorage.setItem('cocktailsToken', data.cocktailsToken);
+  //   localStorage.setItem('user', JSON.stringify(data.user));
+  //   localStorage.setItem('doneRecipes', JSON.stringify([]));
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  // }, [data.user, data.mealsToken, data.cocktailsToken]);
 
   function validEmail(typedEmail) {
     const regex = /\S+@\S+\.\S+/;
@@ -66,7 +66,11 @@ function Login() {
         disabled={ disabled }
         onClick={ async () => {
           await data.setUser({ email });
+          localStorage.setItem('mealsToken', data.mealsToken);
+          localStorage.setItem('cocktailsToken', data.cocktailsToken);
           localStorage.setItem('user', JSON.stringify(data.user));
+          localStorage.setItem('doneRecipes', JSON.stringify([]));
+          localStorage.setItem('favoriteRecipes', JSON.stringify([]));
           history.push('/comidas');
         } }
       >

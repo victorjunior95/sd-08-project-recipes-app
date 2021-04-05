@@ -1,3 +1,10 @@
+.recipe-card {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
 .ingredient-item input:checked + label {
   text-decoration: line-through;
 }
@@ -25,7 +32,7 @@
 }
 
 .recommended li:not( :last-child ) {
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 .start {

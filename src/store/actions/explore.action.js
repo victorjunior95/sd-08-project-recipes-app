@@ -19,12 +19,15 @@ import {
   RECIPES_BY_REGIONS_FETCH,
   RECIPES_BY_REGIONS_FETCH_SUCCESS,
   RECIPES_BY_REGIONS_FETCH_ERROR,
+  INGREDIENTS_FETCH,
+  INGREDIENTS_FETCH_SUCCESS,
+  INGREDIENTS_FETCH_ERROR,
 } from './constants';
 
 export const INGREDIENTS = 'INGREDIENTS';
 export const REGIONS = 'REGIONS';
 export const RECIPES_BY_INGREDIENT = 'RECIPES_BY_INGREDIENT';
-export const EXPLORE_INGREDIENTS = 'EXPLORE_INGREDIENTS';
+export const EXPLORE_INGREDIENTS_BY_FOOD = 'comidas';
 export const RECIPES_BY_REGION = 'RECIPES_BY_REGION';
 
 export const RANDOM_RECIPE_ERROR = 'RANDOM_RECIPE_ERROR';
@@ -53,6 +56,20 @@ const recipeFetchErrored = (error) => ({
   error,
 });
 
+const ingredientsFetch = () => ({
+  type: INGREDIENTS_FETCH,
+});
+
+const ingredientsFetchSuccess = (payload) => ({
+  type: INGREDIENTS_FETCH_SUCCESS,
+  payload,
+});
+
+const ingredientsFetchErrored = (error) => ({
+  type: INGREDIENTS_FETCH_ERROR,
+  error,
+});
+
 const recipeRegionFetchSuccess = (payload) => ({
   type: RECIPE_EXPLORE_REGIONS_FETCH_SUCCESS,
   payload,
@@ -78,48 +95,39 @@ const recipeByRegionFetchErrored = (error) => ({
 });
 
 export const getRandomRecipe = (type) => (dispatch) => {
-  const fetcher = type === 'comidas'
-    ? getMealsByRandom
-    : getDrinksByRandom;
+  const fetcher = type === 'comidas' ? getMealsByRandom : getDrinksByRandom;
   dispatch(recipeFetch());
   fetcher()
     .then((recipe) => {
-      const data = type === 'comidas'
-        ? recipe.meals
-        : recipe.drinks;
+      const data = type === 'comidas' ? recipe.meals : recipe.drinks;
       console.log('getIngredients', recipe);
       dispatch(recipeFetchSuccess(data));
     })
     .catch((error) => dispatch(recipeFetchErrored(error)));
 };
 
-export const getIngredients = (type) => (dispatch) => {
-  const fetcher = type === EXPLORE_INGREDIENTS
+export const getIngredients = (pathname) => (dispatch) => {
+  const type = pathname.split('/')[2];
+  const fetcher = type === EXPLORE_INGREDIENTS_BY_FOOD
     ? getMealsIngredients
     : getDrinksIngredients;
-
-  dispatch(recipeFetch());
-  fetcher()
+  dispatch(ingredientsFetch());
+  fetcher('')
     .then((ingre) => {
-      console.log('getIngredients', ingre);
-      const data = type === EXPLORE_INGREDIENTS
-        ? ingre.meals
-        : ingre.drinks;
-      dispatch(recipeFetchSuccess(data));
+      const data = type === EXPLORE_INGREDIENTS_BY_FOOD ? ingre.meals : ingre.drinks;
+      dispatch(ingredientsFetchSuccess(data));
     })
-    .catch((error) => dispatch(recipeFetchErrored(error)));
+    .catch((error) => dispatch(ingredientsFetchErrored(error)));
 };
 
 export const getRecipesByingredient = (id, type) => (dispatch) => {
-  const fetcher = type === EXPLORE_INGREDIENTS
+  const fetcher = type === EXPLORE_INGREDIENTS_BY_FOOD
     ? getMealsDetails
     : getDrinksDetails;
   dispatch(recipeFetch());
   fetcher(id)
     .then((result) => {
-      const data = type === EXPLORE_INGREDIENTS
-        ? result.meals
-        : result.drinks;
+      const data = type === EXPLORE_INGREDIENTS_BY_FOOD ? result.meals : result.drinks;
       console.log('getRecipesByingredient', result);
       dispatch(recipeFetchSuccess(data));
     })
@@ -129,7 +137,6 @@ export const getRecipesByingredient = (id, type) => (dispatch) => {
 export const getRegionRecipe = () => (dispatch) => {
   getMealsByRegions()
     .then((recipe) => {
-      console.log('getRegionRecipe', recipe);
       dispatch(recipeRegionFetchSuccess(recipe.meals));
     })
     .catch((error) => dispatch(recipeRegionFetchErrored(error)));
@@ -140,7 +147,6 @@ export const getExploreMealsByRegion = (region) => (dispatch) => {
   dispatch(recipeByRegionFetch());
   fetcher(region)
     .then((recipe) => {
-      console.log('getExploreMealsByRegion', recipe, region);
       dispatch(recipeByRegionFetchSuccess(recipe.meals));
     })
     .catch((error) => dispatch(recipeByRegionFetchErrored(error)));

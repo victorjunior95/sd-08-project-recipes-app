@@ -4,7 +4,7 @@ const END_POINTS = {
     category: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
     region: 'https://www.themealdb.com/api/json/v1/1/filter.php?a=',
     regions: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
-    ingredients: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
+    ingredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
     name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     byLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
@@ -15,7 +15,7 @@ const END_POINTS = {
     category: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     region: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=',
     regions: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
-    ingredients: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
+    ingredients: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     byLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
@@ -37,7 +37,7 @@ export const getMealsByLetter = (byLetter) => fetchAPI(`${END_POINTS.FOODS
 export const getDrinksByLetter = (byLetter) => fetchAPI(`${END_POINTS.DRINKS
   .byLetter}${byLetter}`);
 
-export const getMealsIngredients = (ingredient) => fetchAPI(`${END_POINTS
+export const getMealsIngredients = (ingredient = '') => fetchAPI(`${END_POINTS
   .FOODS
   .ingredients}${ingredient}`);
 

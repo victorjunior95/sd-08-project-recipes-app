@@ -8,6 +8,9 @@ import {
   RECIPES_BY_REGIONS_FETCH,
   RECIPES_BY_REGIONS_FETCH_SUCCESS,
   RECIPES_BY_REGIONS_FETCH_ERROR,
+  INGREDIENTS_FETCH,
+  INGREDIENTS_FETCH_SUCCESS,
+  INGREDIENTS_FETCH_ERROR,
 } from '../actions/constants';
 
 const randomInitialState = {
@@ -50,14 +53,12 @@ export function randomRecipeReducer(state = randomInitialState, action) {
       },
       isFetching: true,
     };
-
   case RECIPE_FETCH_SUCCESS:
     return {
       ...state,
       recipe: [...action.payload],
       isFetching: false,
     };
-
   case RECIPE_FETCH_ERROR:
     return {
       ...state,
@@ -68,7 +69,6 @@ export function randomRecipeReducer(state = randomInitialState, action) {
       },
       isFetching: false,
     };
-
   default:
     return state;
   }
@@ -79,7 +79,7 @@ export function exploreIngredientsReducer(
   action,
 ) {
   switch (action.type) {
-  case RECIPE_FETCH:
+  case INGREDIENTS_FETCH:
     return {
       ...state,
       error: {
@@ -88,15 +88,13 @@ export function exploreIngredientsReducer(
       },
       isFetching: true,
     };
-
-  case RECIPE_FETCH_SUCCESS:
+  case INGREDIENTS_FETCH_SUCCESS:
     return {
       ...state,
       ingredients: [...action.payload],
       isFetching: false,
     };
-
-  case RECIPE_FETCH_ERROR:
+  case INGREDIENTS_FETCH_ERROR:
     return {
       ...state,
       ingredients: [],

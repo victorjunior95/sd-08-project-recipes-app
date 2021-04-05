@@ -7,7 +7,7 @@ export { default as ExploreIngredientsDrink,
 export { default as ExploreIngredientsFood,
 } from './ExploresRecipes/ExploreIngredientsFood';
 export { default as Explore } from './ExploresRecipes/Explore';
-export { default as ExploreRegionalFoods } from './ExploresRecipes/ExploreRegionalFoods';
+export { default as ExploreRegionalFoods } from './ExploresRecipes/ExploreByRegion';
 export { default as FavoriteRecipes } from './Profile/FavoriteRecipes';
 export { default as Foods } from './Foods';
 export { default as Login } from './Login';

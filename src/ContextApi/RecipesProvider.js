@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import fetchFood from '../services/FoodApi';
@@ -21,6 +22,8 @@ function RecipesProvider({ children }) {
   const [searchParam, setSearchParam] = useState(searchParams);
   const [foodIngredients, setfoodIngredients] = useState([]);
   const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const history = useHistory();
+  const pathName = history.location.pathname;
 
   const handleEmail = ({ target: { value } }) => {
     setEmail(value);
@@ -33,46 +36,50 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
 
-    switch (selectedParam) {
-    case 'ingredient':
-      fetchFood(`filter.php?i=${inputSearch}`)
-        .then((response) => setRecipes(response));
-      break;
-    case 'name':
-      fetchFood(`search.php?s=${inputSearch}`)
-        .then((response) => setRecipes(response));
-      break;
-    case 'first-letter':
-      fetchFood(`search.php?f=${inputSearch}`)
-        .then((response) => setRecipes(response));
-      break;
-    default:
-      fetchFood('search.php?s=').then((response) => setRecipes(response));
-      break;
+    if (pathName === '/comidas') {
+      switch (selectedParam) {
+      case 'ingredient':
+        fetchFood(`filter.php?i=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      case 'name':
+        fetchFood(`search.php?s=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      case 'first-letter':
+        fetchFood(`search.php?f=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      default:
+        fetchFood('search.php?s=').then((response) => setRecipes(response));
+        break;
+      }
     }
-  }, [searchParam]);
+  }, [searchParam, pathName]);
 
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
 
-    switch (selectedParam) {
-    case 'ingredient':
-      fetchDrink(`filter.php?i=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    case 'name':
-      fetchDrink(`search.php?s=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    case 'first-letter':
-      fetchDrink(`search.php?f=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    default:
-      fetchDrink('search.php?s=').then((response) => setCocktails(response));
-      break;
+    if (pathName === '/bebidas') {
+      switch (selectedParam) {
+      case 'ingredient':
+        fetchDrink(`filter.php?i=${inputSearch}`)
+          .then((response) => setCocktails(response));
+        break;
+      case 'name':
+        fetchDrink(`search.php?s=${inputSearch}`)
+          .then((response) => setCocktails(response));
+        break;
+      case 'first-letter':
+        fetchDrink(`search.php?f=${inputSearch}`)
+          .then((response) => setCocktails(response));
+        break;
+      default:
+        fetchDrink('search.php?s=').then((response) => setCocktails(response));
+        break;
+      }
     }
-  }, [searchParam]);
+  }, [searchParam, pathName]);
 
   useEffect(() => {
     fetchCategories().then((data) => setCategories(data));
@@ -93,6 +100,7 @@ function RecipesProvider({ children }) {
     }
     apiIngredientesFood();
   }, []);
+
   const provide = {
     email,
     password,
@@ -107,6 +115,7 @@ function RecipesProvider({ children }) {
     FoodCategories,
     DrinkCategories,
     foodIngredients,
+    history,
   };
 
   return (

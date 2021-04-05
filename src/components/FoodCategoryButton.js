@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import RecipesContext from '../ContextApi/RecipesContext';
-import CategoryButton from './categorisButton/CategoryButton';
+import CategoryButton from './categoriesButton/CategoryButton';
 import fetchFood from '../services/FoodApi';
 import 'bootstrap/dist/css/bootstrap.css';
 

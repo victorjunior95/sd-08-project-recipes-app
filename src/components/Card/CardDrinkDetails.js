@@ -68,7 +68,7 @@ function CardDrinkDetails({ alreadyFavorited, idDaReceita }) {
 
   return (
     <section>
-      {detailDrinks.map((item) => (
+      {detailDrinks && detailDrinks.map((item) => (
         <div key={ item.strDrink } className="imageDetails">
           <img
             src={ item.strDrinkThumb }

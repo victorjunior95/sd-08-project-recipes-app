@@ -9,6 +9,7 @@ function CarouselCard(props) {
       name={ id }
       className="carousel-card-container"
       data-testid={ `${index}-recomendation-card` }
+      hidden={ index > 2 }
     >
       <h4 data-testid={ `${index}-recomendation-title` }>{name}</h4>
       <img src={ img } alt={ name } data-testid={ `${index}-card-img` } />

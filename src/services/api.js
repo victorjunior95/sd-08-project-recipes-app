@@ -6,6 +6,15 @@ const FILTER_FOODS_API = 'https://www.themealdb.com/api/json/v1/1/filter.php';
 const FILTER_DRINKS_API = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php';
 const FILTER_DRINK_ID = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+export const getFoodFiltredById = async (id) => {
+  const api = await fetch(FOOD_DETAILS + id, { 'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true });
+  const { meals } = await api.json();
+  console.log('foods', meals);
+  const res = { ...meals[0] };
+  return res;
+};
+
 export const getDrinkFiltredById = async (id) => {
   const api = await fetch(FILTER_DRINK_ID + id, { 'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true });

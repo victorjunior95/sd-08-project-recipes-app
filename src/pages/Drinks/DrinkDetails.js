@@ -120,7 +120,10 @@ function DrinkDetails(props) {
 
   return (
     <>
-      { shouldRedirect && <Redirect to={ `/bebidas/${id}/in-progress` } /> }
+      { shouldRedirect && <Redirect
+        to={ { pathname: `/bebidas/${id}/in-progress`,
+        } }
+      /> }
       {strDrink && <DrinkDetailsInfo
         copied={ copied }
         strCategory={ strCategory }

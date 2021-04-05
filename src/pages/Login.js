@@ -10,14 +10,6 @@ function Login() {
   const history = useHistory();
   const { data } = useContext(Context);
 
-  // useEffect(() => {
-  //   localStorage.setItem('mealsToken', data.mealsToken);
-  //   localStorage.setItem('cocktailsToken', data.cocktailsToken);
-  //   localStorage.setItem('user', JSON.stringify(data.user));
-  //   localStorage.setItem('doneRecipes', JSON.stringify([]));
-  //   localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-  // }, [data.user, data.mealsToken, data.cocktailsToken]);
-
   function validEmail(typedEmail) {
     const regex = /\S+@\S+\.\S+/;
     return regex.test(typedEmail);
@@ -65,10 +57,9 @@ function Login() {
         data-testid="login-submit-btn"
         disabled={ disabled }
         onClick={ async () => {
-          await data.setUser({ email });
           localStorage.setItem('mealsToken', data.mealsToken);
           localStorage.setItem('cocktailsToken', data.cocktailsToken);
-          localStorage.setItem('user', JSON.stringify(data.user));
+          localStorage.setItem('user', JSON.stringify({ email }));
           localStorage.setItem('doneRecipes', JSON.stringify([]));
           localStorage.setItem('favoriteRecipes', JSON.stringify([]));
           history.push('/comidas');

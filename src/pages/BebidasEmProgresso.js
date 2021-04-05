@@ -43,12 +43,15 @@ function BebidasEmProgresso() {
   //   history.push(`/bebidas/${id}/in-progress`);
   // }
 
+  const verifyChecked = 0;
+
   function renderButton() {
     return (
       <button
         className="finish-recipe-btn"
         type="button"
         data-testid="finish-recipe-btn"
+        disable={ verifyChecked }
         // onClick={ iniciarReceita }
       >
         Finalizar Receita
@@ -83,7 +86,7 @@ function BebidasEmProgresso() {
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              Copy(`http://localhost:3000${history.location.pathname}`);
+              Copy(`http://localhost:3000/bebidas/${id}`);
               setCopied(true);
             } }
           >

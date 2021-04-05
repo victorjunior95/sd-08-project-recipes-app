@@ -8,6 +8,8 @@ function IngredientesEmProcesso({ id, type }) {
   const FINAL_NULL = 4;
   const {
     recipe,
+    countCheck,
+    setCountCheck,
   } = useContext(MyContext);
   const newObj = [];
   let cont = 1;
@@ -38,12 +40,20 @@ function IngredientesEmProcesso({ id, type }) {
     return acumulador;
   }, []);
 
+  function verifyInputChecked() {
+    const arrayChecked = document.getElementsByTagName('input');
+    console.log('tamanho Array', arrayChecked.length);
+    console.log('contador', countCheck);
+    // ;
+  }
+
   function handleClick({ target }) {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const previouslyIngredientsUsed = inProgress[type][id];
     const ingredientClickedNow = target.id;
     if (target.checked) {
       target.parentNode.classList.add('riscado');
+      setCountCheck(countCheck + 1);
       if (previouslyIngredientsUsed === []) {
         previouslyIngredientsUsed.push(ingredientClickedNow);
       } else if (!previouslyIngredientsUsed
@@ -54,10 +64,12 @@ function IngredientesEmProcesso({ id, type }) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     } else {
       target.parentNode.classList.remove('riscado');
+      setCountCheck(countCheck - 1);
       previouslyIngredientsUsed
         .splice(previouslyIngredientsUsed.indexOf(ingredientClickedNow), 1);
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     }
+    verifyInputChecked();
   }
 
   function inputChecked(index) {
@@ -65,12 +77,9 @@ function IngredientesEmProcesso({ id, type }) {
     const ingredientsUsed = inProgress[type][id];
     const input = document.getElementsByTagName('input')[index];
     if (input) {
-      console.log(input.id);
       if (ingredientsUsed.includes(input.id)) {
-        console.log('contém');
         input.setAttribute('checked', true);
       } else {
-        console.log('não contém');
         input.removeAttribute('checked');
       }
     }

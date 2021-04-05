@@ -25,6 +25,7 @@ function Provider({ children }) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [checkedStatus, setCheckedStatus] = useState(false);
+  const [countCheck, setCountCheck] = useState(0);
 
   const contextValue = {
     userEmail,
@@ -67,6 +68,8 @@ function Provider({ children }) {
     setFavorite,
     checkedStatus,
     setCheckedStatus,
+    countCheck,
+    setCountCheck,
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

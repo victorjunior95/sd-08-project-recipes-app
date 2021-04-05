@@ -83,7 +83,7 @@ function ComidasEmProgresso() {
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              Copy(`http://localhost:3000${history.location.pathname}`);
+              Copy(`http://localhost:3000/comidas/${id}`);
               setCopied(true);
             } }
           >

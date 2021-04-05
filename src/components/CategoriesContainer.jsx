@@ -85,7 +85,11 @@ const CategoriesContainer = ({ page, callback }) => {
 
 CategoriesContainer.propTypes = {
   page: PropTypes.string.isRequired,
-  callback: PropTypes.func.isRequired,
+  callback: PropTypes.func,
+};
+
+CategoriesContainer.defaultProps = {
+  callback: () => undefined,
 };
 
 export default CategoriesContainer;

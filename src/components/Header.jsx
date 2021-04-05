@@ -27,7 +27,11 @@ function Header({ label, Search, page }) {
 Header.propTypes = {
   label: PropTypes.string.isRequired,
   Search: PropTypes.func.isRequired,
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
+};
+
+Header.defaultProps = {
+  page: '',
 };
 
 export default Header;

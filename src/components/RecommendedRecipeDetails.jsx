@@ -39,7 +39,7 @@ const RecommendedRecipeDetails = ({ recommendedRecipes, page }) => {
 };
 
 RecommendedRecipeDetails.propTypes = {
-  recommendedRecipes: PropTypes.shape([]).isRequired,
+  recommendedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   page: PropTypes.string.isRequired,
 };
 

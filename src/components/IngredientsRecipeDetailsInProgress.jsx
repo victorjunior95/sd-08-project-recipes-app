@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getIngredientsFinished } from '../services/getLocalStorage';
 import { updateInProgressRecipes } from '../services/setLocalStorage';
@@ -15,24 +15,29 @@ const IngredientsRecipeDetailsInProgress = ({
     setAux(!aux);
   };
 
-  const showCheckBox = () => {
+  useEffect(() => {
     const finishedIngredients = getIngredientsFinished(page, id);
     if (ingredients.length === finishedIngredients.length) {
       callback();
     }
+  }, [aux, callback, id, page, ingredients]);
+
+  const showCheckBox = () => {
+    const finishedIngredients = getIngredientsFinished(page, id);
     return ingredients.map((ingredient, index) => {
       if (finishedIngredients.includes(ingredient)) {
         return (
           <section
             data-testid={ `${index}-ingredient-step` }
             htmlFor="igredient-checkbox"
+            key={ ingredient }
           >
             <input
               type="checkbox"
               name="igredient-checkbox"
               id="igredient-checkbox"
               onClick={ () => handleClick(ingredient) }
-              checked
+              defaultChecked
             />
             {ingredient}
           </section>
@@ -48,7 +53,6 @@ const IngredientsRecipeDetailsInProgress = ({
             type="checkbox"
             name="igredient-checkbox"
             id="igredient-checkbox"
-            key={ ingredient }
             onClick={ () => handleClick(ingredient) }
           />
           {ingredient}

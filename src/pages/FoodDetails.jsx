@@ -19,7 +19,7 @@ function FoodDetails({
       setIsLoading(false);
     }
     requestApi();
-  }, []);
+  }, [id]);
 
   return (
     <section>

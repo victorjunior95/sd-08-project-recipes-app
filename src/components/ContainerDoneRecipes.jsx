@@ -20,7 +20,6 @@ const ContainerDoneRecipes = ({
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const twoSecond = 2000;
-
   const handleClick = () => {
     setIsCopied(true);
     setTimeout(() => {
@@ -29,7 +28,6 @@ const ContainerDoneRecipes = ({
   };
 
   const showTags = () => {
-    console.log(tags);
     if (tags.length === 0) {
       return '';
     }
@@ -42,7 +40,7 @@ const ContainerDoneRecipes = ({
 
   return (
     <section>
-      <Link key={ id } to={ `/${type.concat('s')}/${id}` }>
+      <Link to={ `/${type.concat('s')}/${id}` }>
         <img
           src={ image }
           alt="recipe"
@@ -50,7 +48,7 @@ const ContainerDoneRecipes = ({
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <Link key={ id } to={ `/${type.concat('s')}/${id}` }>
+      <Link to={ `/${type.concat('s')}/${id}` }>
         <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
       </Link>
       {type === 'comida' ? (

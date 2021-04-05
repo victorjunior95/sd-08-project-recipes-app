@@ -27,7 +27,7 @@ function Foods() {
 
   useEffect(() => {
     dispatch(actionThunkMainFoods());
-  }, []);
+  }, [dispatch]);
 
   const mapCards = (array) => (
     <section>

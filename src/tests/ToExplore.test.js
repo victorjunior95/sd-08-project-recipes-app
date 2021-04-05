@@ -9,7 +9,7 @@ const CONTAINER_HEADER_SIMPLE = 'container-header-simple';
 const FOOTER = 'footer';
 const PROFILE_TOP_BTN = 'profile-top-btn';
 
-describe('Testes dos elemntos da tela de explorar', () => {
+describe('Testes dos elementos da tela de explorar', () => {
   it('existe um cabeçalho e um footer no componente', () => {
     const history = createMemoryHistory();
     const path = '/explorar';

@@ -13,8 +13,8 @@ const SEARCH_TOP_BTN = 'search-top-btn';
 describe('Testes dos elemntos da tela de bebidas', () => {
   it('existe um cabeçalho e um footer no componente', () => {
     const history = createMemoryHistory();
-    const path = '/bebidas';
-    history.push(path);
+    // const path = '/bebidas';
+    // history.push(path);
     const { getByTestId } = renderWithRouter(<Drinks />, history);
 
     expect(getByTestId(CONTAINER_HEADER_SEARCH)).toBeInTheDocument();

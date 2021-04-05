@@ -43,7 +43,6 @@ function HeaderSearchBar() {
   const changeVisible = () => {
     setIsvisible(!isVisible);
   };
-
   return (
     <div
       data-testid="container-header-search"
@@ -57,7 +56,7 @@ function HeaderSearchBar() {
             alt="user-profile"
           />
         </button>
-        <h2 data-testid="page-title">{title}</h2>
+        <h2 data-testid="page-title">{title()}</h2>
         <button type="button" onClick={ changeVisible }>
           <img data-testid="search-top-btn" src={ SearchIcon } alt="seach-icon" />
         </button>

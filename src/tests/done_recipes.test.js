@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import ReceitasFeitas from '../pages/ReceitasFeitas';
@@ -28,18 +28,8 @@ const doneRecipes = [
     tags: [],
   },
 ];
-
 beforeEach(() => {
   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  // window.getSelection = () => ({ removeAllRanges: () => {} });
-  // (global).document.createRange = () => ({
-  //   setStart: () => {},
-  //   setEnd: () => {},
-  //   commonAncestorContainer: {
-  //     nodeName: 'BODY',
-  //     ownerDocument: document,
-  //   },
-  // });
 });
 
 afterEach(() => {
@@ -69,21 +59,49 @@ describe(`Implemente os elementos da tela de receitas feitas respeitando
   });
 });
 
+describe('Testar os botões de filtrar', () => {
+  it('Ao clicar no botão de filterDrink é correto', () => {
+    renderWithRouter(<ReceitasFeitas />);
+    const filtrarDrinks = screen.getByTestId('filter-by-drink-btn');
+    userEvent.click(filtrarDrinks);
+
+    expect(screen.getByText('Aquamarine')).toBeInTheDocument();
+  });
+
+  it('Ao clicar no botão de filterFood é correto', () => {
+    renderWithRouter(<ReceitasFeitas />);
+    const filtrarFoods = screen.getByTestId('filter-by-food-btn');
+    userEvent.click(filtrarFoods);
+
+    expect(screen.getByText(/Penne/i)).toBeInTheDocument();
+  });
+
+  it('Ao clicar no botão de filterALL é correto', () => {
+    renderWithRouter(<ReceitasFeitas />);
+    const filtrarAll = screen.getByTestId('filter-by-all-btn');
+    userEvent.click(filtrarAll);
+
+    expect(screen.getByText('Aquamarine')).toBeInTheDocument();
+  });
+});
+
 describe('Testar o botão de compartilhar', () => {
   it('Ao clicar no botão de compartilhar a mensagem "Link copiado!" aparece', () => {
     renderWithRouter(<ReceitasFeitas />);
-    const botaoCompartilhar = screen.queryByTestId('0-horizontal-share-btn');
 
-    userEvent.click(botaoCompartilhar);
+    const botaoCompartilhar = screen
+      .getAllByRole('button', { name: 'Botão Compartilhar' });
+    userEvent.click(botaoCompartilhar[0]);
 
-    const mensagem = screen.getByRole('textarea', {
-      'aria-describeBy': 'popover-container',
+    const mensagem = screen.getAllByRole('tooltip', {
+      name: /link copiado!/i,
     });
-    expect(mensagem).toBeInTheDocument();
+    expect(mensagem[0]).toBeInTheDocument();
   });
 
   // it('A URL da tela de detalhes da receita é copiada para o clipboard', () => {
-  //   cy.get('[data-testid="0-horizontal-share-btn"]').click();
+  //   renderWithRouter(<ReceitasFeitas />);
+  //   const botaoCompartilhar = screen.queryByTestId('0-horizontal-share-btn');
 
   //   cy.window().then((win) => {
   //     cy.wrap(win.navigator.clipboard.readText())

@@ -12,14 +12,20 @@ const ExplorerByArea = ({ title }) => {
   const [filterArea, setFilterArea] = useState();
   const history = useHistory();
   const [valor, setValor] = useState('Canadian');
+
   useEffect(() => {
-    getFilterByArea().then((data) => setCategories(data));
+    getFilterByArea().then((data) => setCategories([...data, {strArea: "All"}]));
   }, []);
 
   useEffect(() => {
+
     const getCategories = () => {
-      if (valor) {
+      if (valor && valor !== "All") {
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${valor}`)
+          .then((data) => data.json())
+          .then(({ meals }) => setFilterArea(meals));
+      } else {
+        fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
           .then((data) => data.json())
           .then(({ meals }) => setFilterArea(meals));
       }

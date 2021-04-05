@@ -37,8 +37,8 @@ function App() {
       <Route exact path="/explorar/comidas/ingredientes" component={ ExpComidasIngred } />
       <Route exact path="/explorar/comidas/area" component={ ExpComidasOrigem } />
       <Route exact path="/explorar/bebidas/ingredientes" component={ ExpBebidasIngred } />
-      <Route path="/comidas/:id/in-progress" component={ EmProgresso } />
-      <Route path="/bebidas/:id/in-progress" component={ EmProgressoBebidas } />
+      <Route exact path="/comidas/:id/in-progress" component={ EmProgresso } />
+      <Route exact path="/bebidas/:id/in-progress" component={ EmProgressoBebidas } />
       <Route path="/" component={ NotFound } />
     </Switch>
   );

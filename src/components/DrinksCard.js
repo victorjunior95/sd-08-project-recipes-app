@@ -6,7 +6,7 @@ function DrinksCard(props) {
   const history = useHistory();
   const { index, drink, id } = props;
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div data-testid={ `${index}-recipe-card` } className="recipe-card">
       <input
         className="card-image"
         type="image"

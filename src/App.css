@@ -1,3 +1,18 @@
+.normal {
+  text-decoration: none;
+}
+
+.riscado {
+  text-decoration: line-through;
+}
+
+.recipe-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .ingredient-item input:checked + label {
   text-decoration: line-through;
 }
@@ -25,7 +40,7 @@
 }
 
 .recommended li:not( :last-child ) {
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 .start {

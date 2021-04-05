@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { requestDrinkRecipe } from '../services/apiRequests';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,7 +15,11 @@ function EmProgresso() {
   const [ingredients, setIngredients] = useState([]);
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [checked, setChecked] = useState([]);
+  const [checkBoxCounter, setCheckBoxCounter] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const history = useHistory();
+  const MAX_LENGTH_DRINK_URL = 36;
+  const MAX_LENGTH_INGREDIENTS = 3;
 
   function parseIngredients(data) {
     const arrayIngredients = Object.keys(data);
@@ -28,6 +32,8 @@ function EmProgresso() {
   }
 
   useEffect(() => {
+    if (checkBoxCounter === MAX_LENGTH_INGREDIENTS) return setIsDisabled(false);
+    setIsDisabled(true);
     async function requestById() {
       // setIsLoading(true);
       const clickedRecipe = await requestDrinkRecipe(id);
@@ -42,7 +48,7 @@ function EmProgresso() {
     }
     requestById();
     verifyFavorites();
-  }, [id, drink.idDrink]);
+  }, [id, drink.idDrink, checkBoxCounter]);
 
   async function addToFavorite() {
     setFavorite(!favorite);
@@ -67,11 +73,15 @@ function EmProgresso() {
     localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
   }
 
-  function handleClick(i) {
-    const currChecked = checked;
-    setChecked([...currChecked, i]);
+  function handleCheckBox({ target }) {
+    if (target.checked) {
+      setCheckBoxCounter(checkBoxCounter + 1);
+      target.parentNode.className = 'riscado';
+      return;
+    }
+    target.parentNode.className = 'normal';
+    setCheckBoxCounter(checkBoxCounter - 1);
   }
-  console.log('loading', isLoading);
 
   return (
     <main>
@@ -89,7 +99,7 @@ function EmProgresso() {
               />
               <br />
               <CopyToClipboard
-                text={ window.location.href }
+                text={ (window.location.href).slice(0, MAX_LENGTH_DRINK_URL) }
                 onCopy={ () => setCopied(true) }
               >
                 <input
@@ -130,17 +140,11 @@ function EmProgresso() {
                     data-testid={ `${index}-ingredient-step` }
                     key={ index }
                   >
-                    <input
-                      type="checkbox"
-                      name="ingredient"
-                      className="ingredient-item"
-                      checked={ checked.includes(index) }
-                      onClick={ () => handleClick(index) }
-                    />
-                    <label htmlFor="ingredent">
+                    <label htmlFor={ index }>
+                      <input type="checkbox" id={ index } onClick={ handleCheckBox } />
                       { `${drink[item]}` }
                     </label>
-                    {/* <span>{ `${drink[item]}` }</span> */}
+                    {/* <span>{ `${meal[item]}` }</span> */}
                   </li>
                 ))}
               </ul>
@@ -150,6 +154,8 @@ function EmProgresso() {
               <button
                 type="button"
                 data-testid="finish-recipe-btn"
+                disabled={ isDisabled }
+                onClick={ () => history.push('/receitas-feitas') }
               >
                 Finalizar receita
               </button>

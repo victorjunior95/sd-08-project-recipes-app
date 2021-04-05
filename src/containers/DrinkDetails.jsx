@@ -82,7 +82,7 @@ const DrinkDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    if (drink.length > 0 && foods.length > 0) {
+    if (drink && drink.length > 0 && foods && foods.length > 0) {
       return setLoading(false);
     }
     return setLoading(true);

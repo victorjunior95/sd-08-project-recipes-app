@@ -5,11 +5,12 @@ import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 
 describe('Tests profile page', () => {
   localStorage.setItem('user', '{ "email": "email@mail.com" }');
+  const EMAIL = 'profile-email';
 
   it('A tela de perfil tem os seguintes atributos descritos', () => {
     const { getByTestId } = renderWithRouterAndRedux(<Perfil />);
 
-    expect(getByTestId('profile-email')).toBeInTheDocument();
+    expect(getByTestId(EMAIL)).toBeInTheDocument();
     expect(getByTestId('profile-done-btn')).toBeInTheDocument();
     expect(getByTestId('profile-favorite-btn')).toBeInTheDocument();
     expect(getByTestId('profile-logout-btn')).toBeInTheDocument();
@@ -18,7 +19,7 @@ describe('Tests profile page', () => {
   it('O e-mail armazenado em localStorage está visível', () => {
     const { getByTestId } = renderWithRouterAndRedux(<Perfil />);
     const local = JSON.parse(localStorage.getItem('user'));
-    expect(getByTestId('profile-email').innerHTML).toBe(local.email);
+    expect(getByTestId(EMAIL).innerHTML).toBe(local.email);
   });
 
   it('Redirecione ao clicar no botão de "Receitas Feitas"', () => {
@@ -39,10 +40,10 @@ describe('Tests profile page', () => {
     expect(history.location.pathname).toBe('/');
   });
 
-  it('Caso não tenha nada no localStorage, apresenta "No email found!"', () =>{
+  it('Caso não tenha nada no localStorage, apresenta "No email found!"', () => {
     const { getByTestId } = renderWithRouterAndRedux(<Perfil />);
     localStorage.clear();
 
-    expect(getByTestId('profile-email').innerHTML).toBe('No email found!');
+    expect(getByTestId(EMAIL).innerHTML).toBe('No email found!');
   });
 });

@@ -1,65 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import RecipesFood from '../foods/RecipesFood';
-// import Header from '../../components/Header';
-// // import DoneRecipesButton from '../../components/DondeRecipesButton/DoneRecipesButton';
-
-// const mockLocalRecipes = [
-//   {
-//     id: '52771',
-//     type: 'comida',
-//     area: 'Italian',
-//     category: 'Vegetarian',
-//     alcoholicOrNot: '',
-//     name: 'Spicy Arrabiata Penne',
-//     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-//     doneDate: '23/06/2020',
-//     tags: ['Pasta', 'Curry'],
-//   },
-//   {
-//     id: '178319',
-//     type: 'bebida',
-//     area: '',
-//     category: 'Cocktail',
-//     alcoholicOrNot: 'Alcoholic',
-//     name: 'Aquamarine',
-//     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-//     doneDate: '23/06/2020',
-//     tags: [],
-//   },
-// ];
-
-// export default function DoneRecipes() {
-//   const [recipes, setRecipes] = useState([]);
-
-//   const setLocalStorage = () => {
-//     localStorage.setItem('doneRecipes', JSON.stringify(mockLocalRecipes));
-//   };
-
-//   // const getRecipesFromLocalStorage = () => {
-//   //   const favoriteRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-//   //   favoriteRecipes = favoriteRecipes === null ? [] : favoriteRecipes;
-//   //   setRecipes([...favoriteRecipes]);
-//   // };
-
-//   useEffect(() => {
-//     setLocalStorage();
-//     getRecipesFromLocalStorage();
-//   }, []);
-
-//   return (
-//     <div>
-//       <Header title="Receitas Feitas" />
-//       {/* <DoneRecipesButton handleFilters={ handleFilters } />
-//       { filtering(recipes, filters).map((recipe, index) => (<DoneCard
-//         key={ recipe.id }
-//         index={ index }
-//         recipe={ recipe }
-//       />
-//       ))} */}
-//     </div>
-//   );
-// }
-
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
@@ -232,18 +170,5 @@ function DoneRecipes() {
     </div>
   );
 }
+
 export default DoneRecipes;
-// const mockDoneRecipes = [{
-//   id: 500,
-//   type: 'comida',
-//   area: 'Brasil',
-//   category: 'comida mineira',
-//   alcoholicOrNot: '',
-//   name: 'Tropeiro',
-//   image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.soubh.com.br%2Fnoticias%2Fgastronomia%2Fdia-do-feijao-tropeiro-restaurantes-em-bh&psig=AOvVaw0pjipbI3VwLNhdJEIzsBYt&ust=1617306383060000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKjDhfal2-8CFQAAAAAdAAAAABAD',
-//   doneDate: 'hoje',
-//   tags: ['deliciosa', 'caseira'],
-// }];
-// useEffect(() => {
-//   localStorage.setItem('doneRecipes', JSON.stringify(mockDoneRecipes));
-// }, []);

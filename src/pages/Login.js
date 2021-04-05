@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import login from '../store/actions/user.actions';
 
 class Login extends Component {
@@ -62,8 +63,8 @@ class Login extends Component {
               data-testid="password-input"
               onChange={ (event) => this.change(event) }
             />
-            <button
-              className="btn-login"
+            <Button
+              className="Primary"
               type="button"
               data-testid="login-submit-btn"
               disabled={ buttonDisabled }
@@ -76,7 +77,7 @@ class Login extends Component {
               } }
             >
               Entrar
-            </button>
+            </Button>
           </div>
         </main>
       </div>

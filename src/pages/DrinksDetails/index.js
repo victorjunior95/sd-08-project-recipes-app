@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
+import { getlocalStorage } from '../../services/localStorage';
 import DetailsHeader from '../../components/DetailsHeader';
 import InstructionsSection from '../../components/InstructionsSection';
 import Loading from '../../components/Loading';
@@ -12,15 +13,16 @@ import { FetchFoodsOnMount } from '../../services/theMeadlDB';
 // import { Container } from './styles';
 
 function DrinksDetails() {
-  const { id } = useParams();
+  const { id: idPage } = useParams();
   const [drinkData, setDrinkData] = useState([{}]);
   const [isFetching, setIsFetching] = useState(true);
   const [recomendations, setRecomendations] = useState([{}]);
+  const [useShowRecipeButton, setUseShowRecipeButton] = useState(true);
 
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const recipe = await getDrinkDetails(id);
+        const recipe = await getDrinkDetails(idPage);
         setDrinkData(recipe);
         const currentRecomendations = await FetchFoodsOnMount();
         setRecomendations(currentRecomendations);
@@ -30,7 +32,19 @@ function DrinksDetails() {
       }
     };
     fetchDetails();
-  }, [id]);
+  }, [idPage]);
+
+  useEffect(() => {
+    const verifyDoneStorage = () => {
+      const doneRecipes = getlocalStorage('doneRecipes');
+      const isDone = doneRecipes && doneRecipes.some(
+        ({ id: idDrink }) => idDrink === idPage,
+      );
+      setUseShowRecipeButton(isDone);
+    };
+    verifyDoneStorage();
+  }, [idPage]);
+
   if (isFetching) return <Loading />;
   const { strDrink, strCategory, strDrinkThumb, strAlcoholic } = drinkData ? drinkData[0]
     : {
@@ -41,7 +55,6 @@ function DrinksDetails() {
     };
   return (
     <Container className="m-0 p-0 d-flex justify-content-center flex-column" fluid>
-      { console.log({ strDrink })}
       <Container className="m-0 p-0">
         <DetailsHeader
           title={ strDrink }
@@ -55,7 +68,9 @@ function DrinksDetails() {
           <InstructionsSection fullRecipe={ drinkData } />
         </Container>)}
       <Recomendations recomendations={ recomendations } />
-      <RecipeButton />
+      { !useShowRecipeButton && (
+        <RecipeButton />
+      )}
     </Container>
   );
 }

@@ -6,7 +6,8 @@ function RecipeButton() {
   return (
     <Button data-testid="start-recipe-btn" variant="success" className="recipe-button">
       Iniciar Receita
-    </Button>);
+    </Button>
+  );
 }
 
 export default RecipeButton;

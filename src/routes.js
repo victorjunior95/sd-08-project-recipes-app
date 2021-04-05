@@ -49,6 +49,9 @@ const Routes = () => (
     <Route exact path="/explorar/comidas/area">
       <ExplorerByArea title="Explorar Origem" />
     </Route>
+    <Route exact path="/explorar/bebidas/area">
+      <div>Not Found</div>
+    </Route>
     <Route
       exact path="/comidas/:id"
       render={ (props) => (

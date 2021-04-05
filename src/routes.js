@@ -32,10 +32,10 @@ const Routes = () => (
       <ExplorerFoodsDrinks title="Explorar Bebidas" visible={ false } />
     </Route>
     <Route exact path="/explorar/comidas/ingredientes">
-      <ExplorerByIngridients title="Explorar Ingredientes de Comidas" visible={ false } />
+      <ExplorerByIngridients title="Explorar Ingredientes de Comidas" visible={ true } />
     </Route>
     <Route exact path="/explorar/bebidas/ingredientes">
-      <ExplorerByIngridients title="Explorar Ingredientes de Bebidas" visible={ false } />
+      <ExplorerByIngridients title="Explorar Ingredientes de Bebidas" visible={ true } />
     </Route>
     <Route exact path="/perfil">
       <Profile title="Perfil" visible={ false } />

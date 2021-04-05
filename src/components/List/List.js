@@ -5,6 +5,7 @@ import Cards from '../Card/Cards';
 import { getAllRecipes, getRecipesByIngredient } from '../../services/FoodsDrinksRequests';
 import Context from '../../contextApi/Context';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
 import { Redirect } from 'react-router-dom';
@@ -17,6 +18,7 @@ const List = ({ title, results, refCard}) => {
   const [manipulatedResult, setManipulatedResult] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [recipesByIngredient, setRecipesByIngredient] = useState([]);
+  const [load, setLoad] = useState(true);
 
 
     useEffect(() => {
@@ -54,11 +56,11 @@ const List = ({ title, results, refCard}) => {
     }
 
     const handleClickToFilter = (event) => {
-      if (activatedFilters.includes(event.target.id)) {
-        setActivatedFilters( activatedFilters.filter(element => element !== event.target.id))
+      if (activatedFilters.includes(event.target.name)) {
+        setActivatedFilters( activatedFilters.filter(element => element !== event.target.name))
       } else {
         setActivatedFilters([
-          ...activatedFilters, event.target.id ])
+          ...activatedFilters, event.target.name ])
       }
     }
 
@@ -107,36 +109,80 @@ const List = ({ title, results, refCard}) => {
             // console.log(manipulatedResults)
   
             activatedFilters.forEach((ingredient, index) => {
-              manipulatedList = manipulatedList.filter((recipe, index) => {
-                const listValues = Object.values(recipe);
-                // console.log(recipe)
-                // console.log(listValues)
-                const existIngredient = listValues.includes(ingredient)
-                // console.log(existIngredient)
-                if (existIngredient) {
-                  return recipe
-                }
-              });
-              console.log(manipulatedList)
+              if (index > 0) {
+                manipulatedList = manipulatedList.filter((recipe) => {
+                    const listValues = Object.values(recipe);
+                    // console.log(recipe)
+                    console.log(listValues)
+
+                    const lowerList = listValues.map((value) => value && value.toLowerCase() );
+                    console.log(lowerList);
+
+                    // const existIngredient = lowerList.includes(ingredient.toLowerCase())
+
+                    const existIngredient = lowerList.some((element) => element && element.includes(ingredient.toLowerCase()))
+                    // console.log(existIngredient)
+                    if (existIngredient) {
+                      return recipe
+                    }
+                });
+                console.log(manipulatedList)
+              }
             });
             setManipulatedResult(manipulatedList)
+            setLoad(false)
           }
         })();
       }
     }, [activatedFilters])
 
+    useEffect(()=> {
+      setLoad(true)
+      if (activatedFilters.length < 2) {
+        // setResults([])
+        setManipulatedResult([])
+        setRecipesByIngredient([])
+      }
+    }, [activatedFilters])
+
+    const renderActivatedFilter = () => {
+        return (
+          <>
+            {activatedFilters.map((filter) => (
+              <span key={ filter } >
+                <span >
+                  {filter}
+                  <button
+                    type="button"
+                    name={ filter }
+                    onClick={ handleClickToFilter }
+                  >
+                    X
+                  </button>
+                </span>
+              </span>
+            ))}
+          </>);
+    }
+
   if (results && refCard === "ingredients") {
     // console.log(results)
     return (
       <>
+        {renderActivatedFilter()}
         {redirect && <Redirect to={ title === 'Explorar Ingredientes de Comidas'
                   ? `/comidas`
                   : `/bebidas` } />}
         <Button
               className="btn btn-primary w-100"
               onClick={handleClickToRecipes}
+              disabled={manipulatedResult.length > 0 && manipulatedResult.length !== recipesByIngredient.length ? false : true}
               >
-                Filtrar
+                {activatedFilters.length < 2 ? "Escolha os ingredientes" : (load === true ?
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>:
+                (manipulatedResult.length > 0 && manipulatedResult.length !== recipesByIngredient.length ? `${manipulatedResult.length} receitas encontradas` : `Combinação não encontrada`))}
               </Button>
         {results.map((object, index) => {
           if (index < CARDSFORPAGE) {
@@ -159,7 +205,7 @@ const List = ({ title, results, refCard}) => {
               </Link>
               <Button
               className="btn btn-primary w-100"
-              id={ title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1 }
+              name={ title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1 }
               onClick={handleClickToFilter}
               >
                 {activatedFilters.includes(title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1) ? "-" : "+"}

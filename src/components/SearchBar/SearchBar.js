@@ -6,10 +6,11 @@ import Context from '../../contextApi/Context';
 import { filterRecipes } from '../../services/FoodsDrinksRequests';
 
 const SearchBar = ({ title }) => {
-  const { setResults } = useContext(Context);
+  const { setResults, setUpdatedIngredients, ingredients } = useContext(Context);
   const history = useHistory();
   const [filter, setFilter] = useState('i');
   const [query, setQuery] = useState('');
+
   const submitFilters = async () => {
     if (filter === 'f' && query.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
@@ -27,14 +28,12 @@ const SearchBar = ({ title }) => {
       setResults(recipes);
     }
   };
-  return (
-    <div className="container mt-2">
-      <div className="search-bar">
-        <input
-          type="text"
-          data-testid="search-input"
-          onChange={ (e) => setQuery(e.target.value) }
-        />
+
+
+
+  const renderRadios = () => {
+    if (title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas") {
+      return (
         <div className="radio-group">
           <label htmlFor="ingredient">
             <input
@@ -67,6 +66,14 @@ const SearchBar = ({ title }) => {
             Primeira letra
           </label>
         </div>
+      )
+    }
+  }
+
+  const renderButton = () => {
+
+    if (title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas") {
+      return (
         <button
           className="btn btn-info"
           type="button"
@@ -75,6 +82,26 @@ const SearchBar = ({ title }) => {
         >
           Buscar
         </button>
+      )
+    }
+  }
+
+  
+  const testFunction = (e) => {
+    const filteredIngredients = ingredients.filter(ingredient => ingredient.strIngredient.toLowerCase().includes(e.target.value.toLowerCase()));
+    setUpdatedIngredients(filteredIngredients)
+  }
+
+  return (
+    <div className="container mt-2">
+      <div className="search-bar">
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas" ? (e) => setQuery(e.target.value) : (e) => testFunction(e) }
+        />
+        {renderRadios()}
+        {renderButton()}
       </div>
     </div>
   );

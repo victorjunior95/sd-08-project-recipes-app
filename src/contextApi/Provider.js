@@ -19,6 +19,7 @@ function Login({ children }) {
     meals: {}
   })
   const [ingredients, setIngredients] = useState(null)
+  const [updatedIngredients, setUpdatedIngredients] = useState(ingredients)
 
   const saveToLocalStorage = () => {
     const localOBJ = { email };
@@ -46,7 +47,9 @@ function Login({ children }) {
     ingredients,
     setIngredients,
     favoriteRecipes,
-    setFavoriteRecipes
+    setFavoriteRecipes,
+    updatedIngredients,
+    setUpdatedIngredients
   };
   return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;
 }

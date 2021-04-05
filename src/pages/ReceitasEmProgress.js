@@ -17,7 +17,7 @@ const Detalhes = () => {
     setFoodDetails, hidden, setHidden,
     usedIngri, setUseIngri, inProgress, setInProgress } = useContext(LariContext);
   const [ingredients, setIngredients] = useState([]);
-  const [able, setAble] = useState(false);
+  const [able, setAble] = useState(true);
 
   const location = useLocation();
   const history = useHistory();
@@ -56,12 +56,15 @@ const Detalhes = () => {
     }
   };
 
-  const verifyButnValidation = () => {
-    const ingredient = foodDetails[`strIngredient${usedIngri.length}`];
-    console.log(ingredient);
-    if (ingredient !== '') {
-      return setAble(true);
-    } return setAble(false);
+  const verifyButnValidation = (ingredient) => {
+    console.log(ingredient.length, usedIngri.length);
+    if (ingredient.length - 1 == usedIngri.length) {
+      console.log('terminou');
+      setAble(false);
+    } else {
+      setAble(true);
+      console.log('ainda n terminou');
+    }
   };
 
   useEffect(() => {
@@ -166,7 +169,7 @@ const Detalhes = () => {
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
-                onChange={ ({ target }) => { handleCheckBox((target.value)); verifyButnValidation(); } }
+                onChange={ ({ target }) => { handleCheckBox((target.value)); verifyButnValidation(ingredients); } }
                 type="checkbox"
                 value={ `${ingredientName}` }
                 checked={ usedIngri.indexOf(ingredientName) >= 0 }
@@ -180,7 +183,7 @@ const Detalhes = () => {
         type="button"
         onClick={ () => { history.push('/receitas-feitas'); } }
         data-testid="finish-recipe-btn"
-        disabled={ setAble }
+        disabled={ able }
       >
         Finalizar Receita
 

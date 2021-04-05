@@ -1,53 +1,95 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Footer, Header } from '../../components';
-// import { _ } from '../../store/actions';
+import PropTypes from 'prop-types';
+import { getRegionRecipe, getExploreMealsByRegion } from '../../store/actions';
+import { Header, Footer, Loading } from '../../components';
+
 import '../../styles/pages/Container.css';
 
-class ExploreRegionalFoods extends Component {
-  render() {
-    return (
-      <div>
-        <Header title="Explorar Origem" />
+const MAX_SIX_CARDS = 12;
+const ExploreByAreas = ({
+  isFetching,
+  areas,
+  recipes,
+  areasFetcher,
+  recipesByRegion,
+}) => {
+  const [areaSelector, setAreaSelector] = useState('All');
+
+  useEffect(() => {
+    areasFetcher();
+  }, []);
+
+  useEffect(() => {
+    if (areaSelector) {
+      recipesByRegion(areaSelector);
+    }
+  }, [areaSelector]);
+
+  return (
+    <div>
+      <Header title="Explorar Origem" />
+      <Loading state={ isFetching }>
         <div className="container">
           <select
             data-testid="explore-by-area-dropdown"
+            onChange={ (event) => setAreaSelector(event.target.value) }
           >
-            <option
-              data-testid="All-option"
-              value="All"
-            >
+            <option key="All" data-testid="All-option">
               All
             </option>
-            {/* {_.map((_) => (
-              <option
-                value={ _ }
-                key={ _ }
-                data-testid={ `${_}-option` }
-              >
-                { _ }
+            {areas.map((area) => (
+              <option key={ area.strArea } data-testid={ `${area.strArea}-option` }>
+                {area.strArea}
               </option>
-            ))} */}
+            ))}
           </select>
+          {recipes.length
+            ? recipes.slice(0, MAX_SIX_CARDS).map((recipe, index) => (
+              <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
+                <div data-testid={ `${index}-recipe-card` }>
+                  <img
+                    src={ recipe.strMealThumb }
+                    alt="foto receita"
+                    data-testid={ `${index}-card-img` }
+                  />
+                  <span data-testid={ `${index}-card-name` }>
+                    {recipe.strMeal}
+                  </span>
+                </div>
+              </Link>
+            ))
+            : null}
         </div>
-        <div>
-          {/* map */}
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-}
+      </Loading>
+      <Footer />
+    </div>
+  );
+};
 
-// _.propTypes = {
-//   _: PropTypes._.isRequired,
-// };
+ExploreByAreas.propTypes = {
+  areas: PropTypes.shape({
+    map: PropTypes.func.isRequired,
+  }).isRequired,
+  areasFetcher: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  recipes: PropTypes.shape({
+    length: PropTypes.number.isRequired,
+    slice: PropTypes.func.isRequired,
+  }).isRequired,
+  recipesByRegion: PropTypes.func.isRequired,
+};
 
-// const mapDispatchToProps = (dispatch) => ({
-//   _: (_) => {
-//     dispatch(_(_));
-//   },
-// });
+const mapStateToProps = (state) => ({
+  isFetching: state.exploreRecipesByRegion.isFetching,
+  areas: state.exploreRecipesByRegion.regions,
+  recipes: state.exploreRecipesByRegion.recipes,
+});
 
-export default connect(null, null)(ExploreRegionalFoods);
+const mapDispatchToProps = (dispatch) => ({
+  areasFetcher: () => dispatch(getRegionRecipe()),
+  recipesByRegion: (region) => dispatch(getExploreMealsByRegion(region)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreByAreas);

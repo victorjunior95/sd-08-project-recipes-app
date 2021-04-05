@@ -2,6 +2,7 @@ import {
   getMealsByRandom,
   getDrinksByRandom,
   getMealsByRegion,
+  getMealsByRegions,
   getDrinksByRegion,
   getMealsDetails,
   getDrinksDetails,
@@ -12,10 +13,12 @@ import {
 } from '../../services';
 
 import {
-  RECIPE_FETCH,
-  // RECIPE_FETCH_SUCCESS_DATA,
-  RECIPE_FETCH_SUCCESS,
-  RECIPE_FETCH_ERROR,
+  RECIPE_EXPLORE_REGIONS_FETCH,
+  RECIPE_EXPLORE_REGIONS_FETCH_SUCCESS,
+  RECIPE_EXPLORE_REGIONS_FETCH_ERROR,
+  RECIPES_BY_REGIONS_FETCH,
+  RECIPES_BY_REGIONS_FETCH_SUCCESS,
+  RECIPES_BY_REGIONS_FETCH_ERROR,
 } from './constants';
 
 export const INGREDIENTS = 'INGREDIENTS';
@@ -37,16 +40,40 @@ export const RECIPES_BY_INGREDIENT_FETCHING = 'RECIPES_BY_INGREDIENT_FETCHING';
 export const RECIPES_BY_REGION_FETCHING = 'RECIPES_BY_REGION_FETCHING';
 
 const recipeFetch = () => ({
-  type: RECIPE_FETCH,
+  type: RECIPE_EXPLORE_REGIONS_FETCH,
 });
 
 const recipeFetchSuccess = (payload) => ({
-  type: RECIPE_FETCH_SUCCESS,
+  type: '',
   payload,
 });
 
 const recipeFetchErrored = (error) => ({
-  type: RECIPE_FETCH_ERROR,
+  type: '',
+  error,
+});
+
+const recipeRegionFetchSuccess = (payload) => ({
+  type: RECIPE_EXPLORE_REGIONS_FETCH_SUCCESS,
+  payload,
+});
+
+const recipeRegionFetchErrored = (error) => ({
+  type: RECIPE_EXPLORE_REGIONS_FETCH_ERROR,
+  error,
+});
+
+const recipeByRegionFetch = () => ({
+  type: RECIPES_BY_REGIONS_FETCH,
+});
+
+const recipeByRegionFetchSuccess = (payload) => ({
+  type: RECIPES_BY_REGIONS_FETCH_SUCCESS,
+  payload,
+});
+
+const recipeByRegionFetchErrored = (error) => ({
+  type: RECIPES_BY_REGIONS_FETCH_ERROR,
   error,
 });
 
@@ -100,33 +127,32 @@ export const getRecipesByingredient = (id, type) => (dispatch) => {
 };
 
 export const getRegionRecipe = () => (dispatch) => {
-  dispatch(recipeFetch());
-  getMealsByRegion
+  getMealsByRegions()
     .then((recipe) => {
       console.log('getRegionRecipe', recipe);
-      dispatch(recipeFetchSuccess(recipe.meals));
+      dispatch(recipeRegionFetchSuccess(recipe.meals));
     })
-    .catch((error) => dispatch(recipeFetchErrored(error)));
+    .catch((error) => dispatch(recipeRegionFetchErrored(error)));
 };
 
 export const getExploreMealsByRegion = (region) => (dispatch) => {
-  const fetcher = REGIONS === 'All' ? getMealsByName : getMealsByRegion;
-  dispatch(recipeFetch());
+  const fetcher = region === 'All' ? getMealsByName : getMealsByRegion;
+  dispatch(recipeByRegionFetch());
   fetcher(region)
     .then((recipe) => {
-      console.log('getExploreMealsByRegion', recipe);
-      dispatch(recipeFetchSuccess(recipe.meals));
+      console.log('getExploreMealsByRegion', recipe, region);
+      dispatch(recipeByRegionFetchSuccess(recipe.meals));
     })
-    .catch((error) => dispatch(recipeFetchErrored(error)));
+    .catch((error) => dispatch(recipeByRegionFetchErrored(error)));
 };
 
 export const getExploreDrinksByRegion = (region) => (dispatch) => {
-  const fetcher = REGIONS === 'All' ? getDrinksByName : getDrinksByRegion;
-  dispatch(recipeFetch());
+  const fetcher = region === 'All' ? getDrinksByName : getDrinksByRegion;
+  dispatch(recipeByRegionFetch());
   fetcher(region)
     .then((recipe) => {
       console.log('getExploreDrinksByRegion', recipe);
-      dispatch(recipeFetchSuccess(recipe));
+      dispatch(recipeByRegionFetchSuccess(recipe.drinks));
     })
-    .catch((error) => dispatch(recipeFetchErrored(error)));
+    .catch((error) => dispatch(recipeByRegionFetchErrored(error)));
 };

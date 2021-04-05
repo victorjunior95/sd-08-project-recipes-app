@@ -2,6 +2,12 @@ import {
   RECIPE_FETCH,
   RECIPE_FETCH_SUCCESS,
   RECIPE_FETCH_ERROR,
+  RECIPE_EXPLORE_REGIONS_FETCH,
+  RECIPE_EXPLORE_REGIONS_FETCH_SUCCESS,
+  RECIPE_EXPLORE_REGIONS_FETCH_ERROR,
+  RECIPES_BY_REGIONS_FETCH,
+  RECIPES_BY_REGIONS_FETCH_SUCCESS,
+  RECIPES_BY_REGIONS_FETCH_ERROR,
 } from '../actions/constants';
 
 const randomInitialState = {
@@ -33,9 +39,7 @@ const ingredientsInitialState = {
   },
 };
 
-export function randomRecipeReducer(
-  state = randomInitialState, action,
-) {
+export function randomRecipeReducer(state = randomInitialState, action) {
   switch (action.type) {
   case RECIPE_FETCH:
     return {
@@ -71,7 +75,8 @@ export function randomRecipeReducer(
 }
 
 export function exploreIngredientsReducer(
-  state = ingredientsInitialState, action,
+  state = ingredientsInitialState,
+  action,
 ) {
   switch (action.type) {
   case RECIPE_FETCH:
@@ -108,28 +113,24 @@ export function exploreIngredientsReducer(
   }
 }
 
-export function exploreRecipesByRegion(
-  state = byRegionInitialState, action,
-) {
+export function exploreRecipesByRegion(state = byRegionInitialState, action) {
   switch (action.type) {
-  case RECIPE_FETCH:
+  case RECIPE_EXPLORE_REGIONS_FETCH:
     return {
       ...state,
       error: {
         status: false,
         msg: '',
       },
-      isFetching: true,
     };
 
-  case RECIPE_FETCH_SUCCESS:
+  case RECIPE_EXPLORE_REGIONS_FETCH_SUCCESS:
     return {
       ...state,
-      regions: [...action.payload],
-      isFetching: false,
+      regions: action.payload,
     };
 
-  case RECIPE_FETCH_ERROR:
+  case RECIPE_EXPLORE_REGIONS_FETCH_ERROR:
     return {
       ...state,
       regions: [],
@@ -138,9 +139,24 @@ export function exploreRecipesByRegion(
         status: true,
         msg: action.error,
       },
-      isFetching: false,
     };
-
+  case RECIPES_BY_REGIONS_FETCH:
+    return {
+      ...state,
+      isFetching: !state.isFetching,
+    };
+  case RECIPES_BY_REGIONS_FETCH_SUCCESS:
+    return {
+      ...state,
+      recipes: action.payload,
+      isFetching: !state.isFetching,
+    };
+  case RECIPES_BY_REGIONS_FETCH_ERROR:
+    return {
+      ...state,
+      error: { ...state.error, status: true, msg: action.error },
+      isFetching: !state.isFetching,
+    };
   default:
     return state;
   }

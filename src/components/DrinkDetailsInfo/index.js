@@ -27,11 +27,17 @@ function DrinkDetailsInfo({ strCategory,
         <span>{ strAlcoholic }</span>
       </span>
       <div className="icons">
-        <button type="button" data-testid="share-btn" onClick={ handleClick }>
+        <button
+          className="share-btn"
+          type="button"
+          data-testid="share-btn"
+          onClick={ handleClick }
+        >
           <img src={ shareIcon } alt="Compartilhar" />
           {copied && 'Link copiado!'}
         </button>
         <button
+          className="favorite-btn"
           type="button"
           onClick={ handleFavorite }
         >

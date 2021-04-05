@@ -41,8 +41,3 @@ function Profile() {
 }
 
 export default Profile;
-
-// O elemento de email deve possuir o atributo data-testid="profile-email";
-// O botão com as "Receitas Feitas" deve possuir o atributo data-testid="profile-done-btn";
-// O botão com as "Receitas Favoritas" deve possuir o atributo data-testid="profile-favorite-btn";
-// O botão de sair deve possuir o atributo data-testid="profile-logout-btn".

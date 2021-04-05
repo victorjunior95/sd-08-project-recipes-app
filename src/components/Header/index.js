@@ -5,7 +5,6 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import profile from '../../images/profileIcon.svg';
 import search from '../../images/searchIcon.svg';
-import explorar from '../../images/exploreIcon.svg';
 import Search from '../Search';
 
 function Header(props) {
@@ -27,7 +26,7 @@ function Header(props) {
           {name}
         </h2>
         {
-          (icon === 'false') ? explorar : (
+          (icon === 'false') ? <div /> : (
             <button type="button" onClick={ handleSearch }>
               <img
                 src={ search }

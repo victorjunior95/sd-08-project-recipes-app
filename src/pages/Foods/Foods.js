@@ -8,7 +8,7 @@ import { FoodCtx } from '../../context/ContextFood';
 import Footer from '../../components/Footer';
 import { CategoryButtons } from '../../components/Buttons';
 
-function Foods({ location: { state } }) {
+function Foods({ location: { state = false } }) {
   const STOP_INDEX = 11;
   const { foodApi: { meals }, setFilterFood } = useContext(FoodCtx);
   const [category, setCategory] = useState('');
@@ -65,7 +65,7 @@ function Foods({ location: { state } }) {
               name={ item.strMeal }
               img={ item.strMealThumb }
               index={ index }
-              onClick={ () => history.push(`comidas/${item.idMeal}`) }
+              onClick={ () => history.push(`/comidas/${item.idMeal}`) }
             />
           ))}
 

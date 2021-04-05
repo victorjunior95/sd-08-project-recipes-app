@@ -8,7 +8,7 @@ function Recommended({ recipeType }) {
   const SIX_RECOMMENDATIONS = 6;
 
   return (
-    <section className="recommendations">
+    <section>
       <h5>Recomendadas</h5>
       <Carousel>
         { recipeType === 'Drink' ? (
@@ -22,10 +22,13 @@ function Recommended({ recipeType }) {
                   height="150"
                 />
                 <Carousel.Caption>
-                  <h6>
+                  <h6 className="recommendations">
                     { item.strCategory }
                   </h6>
-                  <h5 data-testid={ `${index}-recomendation-title` }>
+                  <h5
+                    data-testid={ `${index}-recomendation-title` }
+                    className="recommendations"
+                  >
                     { item.strMeal }
                   </h5>
                 </Carousel.Caption>

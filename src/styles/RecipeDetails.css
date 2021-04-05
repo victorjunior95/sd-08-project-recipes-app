@@ -41,6 +41,10 @@
   max-height: 200px;
 }
 
+.recommendations {
+  text-shadow: 1px 1px black;
+}
+
 .instructions {
   font-size: 0.9rem;
 }

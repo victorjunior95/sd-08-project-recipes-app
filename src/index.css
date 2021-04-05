@@ -140,6 +140,14 @@ code {
   box-shadow: 1px 1px 8px rgb(209, 206, 198);
 }
 
+.checkbox-list {
+  list-style: none;
+}
+
+.checkedBox-true {
+  text-decoration: line-through;
+  color: gray;
+}
 .start-recipe {
   bottom: 0px;
   left: 120px;

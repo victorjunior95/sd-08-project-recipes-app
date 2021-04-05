@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../../components/Header';
@@ -15,6 +15,12 @@ function ReceitasFeitas() {
       : doneRecipesStorage.filter((recipe) => filter === recipe.type);
     setDoneRecipes(filtered);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('doneRecipes') === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
 
   const copyL = (allRecipe) => {
     copy(`http://localhost:3000/${allRecipe.type}s/${allRecipe.id}`);

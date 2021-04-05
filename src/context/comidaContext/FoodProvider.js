@@ -25,6 +25,8 @@ function FoodProvider({ children }) {
   const [detailFoods, setDetailsFoods] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
 
+  const [doneRecipe, setDoneRecipe] = useState([]);
+
   const provide = {
     values: {
       searchInput,
@@ -32,6 +34,7 @@ function FoodProvider({ children }) {
       foods,
       detailFoods,
       recomendations,
+      doneRecipe,
     },
     functions: {
       handleSearchInput,
@@ -39,6 +42,7 @@ function FoodProvider({ children }) {
       setFoods,
       setDetailsFoods,
       setRecomendations,
+      setDoneRecipe,
     },
   };
 

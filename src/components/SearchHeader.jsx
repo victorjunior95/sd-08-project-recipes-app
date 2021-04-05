@@ -51,6 +51,9 @@ function SearchHeader({ page }) {
 
   return (
     <form className="search-header-form">
+      <br />
+      <br />
+      <br />
       <input
         type="text"
         placeholder="Buscar Receita"
@@ -91,7 +94,12 @@ function SearchHeader({ page }) {
         </label>
       </section>
       <br />
-      <button type="button" data-testid="exec-search-btn" onClick={ onClick }>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        className="btn btn-info"
+        onClick={ onClick }
+      >
         Buscar
       </button>
     </form>

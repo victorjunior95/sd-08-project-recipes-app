@@ -52,18 +52,20 @@ const CategoriesContainer = ({ page, callback }) => {
         ...drinksCategories,
       ];
     } else if (page === 'Favoritas') {
-      buttons = [{
-        strCategory: 'All',
-      },
-      {
-        strCategory: 'Food',
-      },
-      {
-        strCategory: 'Drink',
-      },
+      buttons = [
+        {
+          strCategory: 'All',
+        },
+        {
+          strCategory: 'Food',
+        },
+        {
+          strCategory: 'Drink',
+        },
       ];
       return buttons.map((button) => (
         <Button
+          className="btn btn-warning"
           name={ button.strCategory }
           key={ button.strCategory }
           data-testid={ `filter-by-${button.strCategory.toLowerCase()}-btn` }

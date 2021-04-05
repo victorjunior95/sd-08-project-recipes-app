@@ -39,6 +39,9 @@ function FavoritesRecipes() {
   return (
     <section>
       <Header label="Receitas Favoritas" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       <CategoriesContainer page="Favoritas" callback={ handleClickFilter } />
       {favorites.map((favorite, index) => {
         const {

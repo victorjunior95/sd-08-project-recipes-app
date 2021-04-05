@@ -33,6 +33,9 @@ function ReadyMadeRecipes() {
   return (
     <section>
       <Header label="Receitas Feitas" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       <CategoriesContainer page="Favoritas" callback={ handleClickFilter } />
       {showCards()}
     </section>

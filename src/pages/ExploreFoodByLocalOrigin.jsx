@@ -56,6 +56,9 @@ function ExploreFoodByLocalOrigin() {
   return (
     <>
       <Header label="Explorar Origem" Search={ SearchButton } />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />

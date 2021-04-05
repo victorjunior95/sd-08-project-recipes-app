@@ -22,6 +22,9 @@ function ProfilePage() {
   return (
     <section className="content">
       <Header label="Perfil" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       <Footer />
       <section className="profile">
         <div data-testid="profile-email">{getUser()}</div>

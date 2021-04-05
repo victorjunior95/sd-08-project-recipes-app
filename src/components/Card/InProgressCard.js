@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
-//comentario
+//  comentario
 const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
@@ -32,7 +32,7 @@ const InProgressCard = (props) => {
   }, [inProgress]);
 
   const onChangeCB = ({ target }, index) => {
-    let novoEstado = {
+    const novoEstado = {
       ...inProgress,
       meals: {
         ...inProgress.meals,

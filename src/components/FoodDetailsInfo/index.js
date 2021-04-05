@@ -26,12 +26,18 @@ function FoodDetailsInfo({
         <h2 data-testid="recipe-title">{ strMeal }</h2>
         <span data-testid="recipe-category">{ strCategory }</span>
         <div className="icons">
-          <button type="button" data-testid="share-btn" onClick={ handleClick }>
+          <button
+            className="share-btn"
+            type="button"
+            data-testid="share-btn"
+            onClick={ handleClick }
+          >
             <img src={ shareIcon } alt="Compartilhar" />
             {copied && 'Link copiado!'}
           </button>
           <button
             type="button"
+            className="favorite-btn"
             onClick={ handleFavorite }
           >
             <img

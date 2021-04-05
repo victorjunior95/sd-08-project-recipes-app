@@ -7,3 +7,6 @@
 .carousel > a > img {
   width: 160px;
 }
+.hidden{
+  display: none
+}

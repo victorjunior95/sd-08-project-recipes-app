@@ -11,6 +11,7 @@ import { Loading } from '../../components';
 import '../../styles/pages/DetailRecipe.css';
 
 const MAX_SIX_RECOMMENDATIONS = 6;
+const LIMIT_INDEX_DISPLAY = 2;
 
 class DetailsRecipeDrink extends Component {
   componentDidMount() {
@@ -96,7 +97,7 @@ class DetailsRecipeDrink extends Component {
               <Link
                 key={ recomendation.idMeal }
                 to={ `/bebidas/${recomendation.idMeal}` }
-                className="carousel-content"
+                className={ index < LIMIT_INDEX_DISPLAY ? 'carousel-content' : 'hidden' }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img

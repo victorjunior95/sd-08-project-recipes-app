@@ -18,7 +18,7 @@ const InProgressCard = (props) => {
     console.log(forMap);
   };
 
-  const consoleFunction2 = () => console.log(ingredients);
+  const consoleFunction2 = () => console.log(ingredients, forMap);
 
   const theButton1 = <button type="button" onClick={ consoleFunction1 }>BOTÃO1</button>;
   const theButton2 = <button type="button" onClick={ consoleFunction2 }>BOTÃO2</button>;

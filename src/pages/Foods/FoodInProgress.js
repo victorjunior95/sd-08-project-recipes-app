@@ -53,7 +53,12 @@ function FoodInProgress(props) {
 
   const buttonsDiv = (
     <div className="icons">
-      <button type="button" data-testid="share-btn" onClick={ copyFunction }>
+      <button
+        src={ shareIcon }
+        type="button"
+        data-testid="share-btn"
+        onClick={ copyFunction }
+      >
         <img src={ shareIcon } alt="Compartilhar" />
         {copied && 'Link copiado!'}
       </button>

@@ -23,6 +23,9 @@ function BebidasEmProgresso() {
     setCopied,
     favorite,
     setFavorite,
+    countCheck,
+    verifyChecked,
+    setVerifyChecked,
   } = useContext(MyContext);
 
   // async function requestRecipe() {
@@ -38,12 +41,24 @@ function BebidasEmProgresso() {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
   }, [favorite, id, setFavorite]); // favorite
 
+  useEffect(() => {
+    const tamanhoArray = document.getElementsByTagName('input').length;
+    console.log(typeof countCheck);
+    console.log(typeof tamanhoArray);
+    if (countCheck > 0 && countCheck === tamanhoArray) {
+      console.log('entrou no if');
+      setVerifyChecked(false);
+    } else {
+      setVerifyChecked(true);
+      console.log('entrou no else');
+    }
+    console.log(verifyChecked);
+  }, [countCheck]);
+
   // function iniciarReceita() {
   //   verifyInProgress(id, 'cocktails');
   //   history.push(`/bebidas/${id}/in-progress`);
   // }
-
-  const verifyChecked = 0;
 
   function renderButton() {
     return (
@@ -51,8 +66,8 @@ function BebidasEmProgresso() {
         className="finish-recipe-btn"
         type="button"
         data-testid="finish-recipe-btn"
-        disable={ verifyChecked }
-        // onClick={ iniciarReceita }
+        disabled={ verifyChecked }
+        onClick={ () => { history.push('/receitas-feitas'); } }
       >
         Finalizar Receita
       </button>

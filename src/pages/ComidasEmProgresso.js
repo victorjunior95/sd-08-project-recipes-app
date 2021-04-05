@@ -23,6 +23,9 @@ function ComidasEmProgresso() {
     setCopied,
     favorite,
     setFavorite,
+    countCheck,
+    verifyChecked,
+    setVerifyChecked,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -32,6 +35,15 @@ function ComidasEmProgresso() {
   useEffect(() => {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
   }, [favorite, id, setFavorite]); // favorite
+
+  useEffect(() => {
+    const tamanhoArray = document.getElementsByTagName('input').length;
+    if (countCheck > 0 && countCheck === tamanhoArray) {
+      setVerifyChecked(false);
+    } else {
+      setVerifyChecked(true);
+    }
+  }, [countCheck]);
 
   // async function requestRecipe() {
   //   const recipeFromApi = await requestById(id, 'comidas');
@@ -49,7 +61,8 @@ function ComidasEmProgresso() {
         className="finish-recipe-btn"
         type="button"
         data-testid="finish-recipe-btn"
-        // onClick={ iniciarReceita }
+        disabled={ verifyChecked }
+        onClick={ () => { history.push('/receitas-feitas'); } }
       >
         Finalizar Receita
       </button>

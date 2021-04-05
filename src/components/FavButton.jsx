@@ -5,24 +5,28 @@ import { addFavorite, removeFavorite } from '../actions/recipes';
 import FavIcon from '../images/whiteHeartIcon.svg';
 import BlackFavIcon from '../images/blackHeartIcon.svg';
 
-function FavButton({ type, recipe }) {
+function FavButton({ type, recipe, index }) {
   const favorite = useSelector((state) => state.recipes.favorite);
   const dispatch = useDispatch();
-  const formatedType = type === 'Meal' ? 'comida' : 'bebida';
+  // const formatedType = type === 'Meal' ? 'comida' : 'bebida';
 
   const handleClick = () => {
+    console.log(favorite);
     const fav = favorite
       .find(
-        (currRec) => recipe[`id${type}`] === currRec.id && currRec.type === formatedType,
+        (currRec) => recipe.id === currRec.id && type.startsWith(currRec.type),
       );
-    const { [`id${type}`]: id, strArea: area = '', strCategory: category = '',
-      strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
-      [`str${type}Thumb`]: image } = recipe;
-    const formatedRecipe = {
-      id, area, category, alcoholicOrNot, name, image, type: formatedType };
+    // const { [`id${type}`]: id, strArea: area = '', strCategory: category = '',
+    //   strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
+    //   [`str${type}Thumb`]: image } = recipe;
+    const { id, area, category, alcoholicOrNot, name, image } = recipe;
+    const favType = type.slice(0, 0 - 1);
+    const favObj = { id, area, category, alcoholicOrNot, name, image, type: favType };
+    // const formatedRecipe = {
+    //   id, area, category, alcoholicOrNot, name, image, type: formatedType };
     if (fav) {
-      dispatch(removeFavorite(formatedRecipe));
-    } else dispatch(addFavorite(formatedRecipe));
+      dispatch(removeFavorite(favObj));
+    } else dispatch(addFavorite(favObj));
   };
 
   useEffect(() => {
@@ -32,9 +36,10 @@ function FavButton({ type, recipe }) {
   return (
     <button type="button" onClick={ handleClick }>
       <img
-        data-testid="favorite-btn"
+        data-testid={ index !== undefined
+          ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
         src={ favorite
-          .some((rec) => recipe[`id${type}`] === rec.id && rec.type === formatedType)
+          .some((rec) => recipe.id === rec.id && type.startsWith(rec.type))
           ? BlackFavIcon : FavIcon }
         alt="favorite"
       />
@@ -45,6 +50,7 @@ function FavButton({ type, recipe }) {
 FavButton.propTypes = {
   recipe: PropTypes.shape().isRequired,
   type: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default FavButton;

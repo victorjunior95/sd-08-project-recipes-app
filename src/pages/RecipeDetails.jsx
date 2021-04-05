@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipes, fetchRecommendations } from '../actions/recipes';
@@ -17,78 +17,88 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   const dispatch = useDispatch();
 
   const [shouldFetch, setShouldFetch] = useState(true);
+  // const prevList = useRef([...list]);
 
-  const selectType = { comidas: 'meals', bebidas: 'drinks' };
-  const inProgress = pathname.split('/')[3] === 'in-progress';
-  const type = selectType[pathname.split('/')[1]];
-  const recommendationsType = type === 'meals' ? 'drinks' : 'meals';
+  // const selectType = { comidas: 'meals', bebidas: 'drinks' };
+  // const inProgress = pathname.split('/')[3] === 'in-progress';
+  // const type = selectType[pathname.split('/')[1]];
+  // const type = pathname.split('/')[1];
+  // const recommendationsType = type === 'comidas' ? 'bebidas' : 'comidas';
 
   const token = 1;
+  const inProgress = pathname.split('/')[3] === 'in-progress';
+  // const inProgress = pathname.split('/')[3] === 'in-progress';
+  const type = useRef(pathname.split('/')[1]);
+  const recommendationsType = useRef(type.current === 'comidas' ? 'bebidas' : 'comidas');
 
   useEffect(() => {
-    dispatch(fetchRecipes(token, type,
+    // console.log(recommendationsType);
+    setShouldFetch(true);
+    [type.current] = pathname.split('/').slice(1);
+    recommendationsType.current = type.current === 'comidas' ? 'bebidas' : 'comidas';
+    dispatch(fetchRecipes(token, type.current,
       { request: 'lookup', key: 'i', parameter: params.id }));
-    dispatch(fetchRecommendations(token, recommendationsType));
+    dispatch(fetchRecommendations(token, recommendationsType.current));
     setShouldFetch(false);
-  }, [params]);
-
-  if (isFetching || shouldFetch) return <Loading />;
+  }, [params, pathname]);
 
   const recipe = list[0];
-  const IngredientKeys = Object.keys(recipe)
+  console.log('aqui');
+  const IngredientKeys = Object.keys(recipe || {})
     .filter((ingKey) => (
       ingKey
         .startsWith('strIngredient')
         && recipe[ingKey] !== '' && recipe[ingKey] !== null));
   const IngredientsAndMeasures = IngredientKeys
     .map((key, index) => [recipe[key], recipe[`strMeasure${index + 1}`]]);
-  const formatedType = type[0].toUpperCase() + type.slice(1, 0 - 1);
+  // const formatedType = type[0].toUpperCase() + type.slice(1, 0 - 1);
 
   return (
-    <section>
-      <img
-        className="recipe-photo"
-        data-testid="recipe-photo"
-        src={ recipe[`str${formatedType}Thumb`] }
-        alt={ recipe[`str${formatedType}`] }
-      />
-      <h1 data-testid="recipe-title">{ recipe[`str${formatedType}`] }</h1>
-      <ShareButton type={ pathname.split('/')[1] } id={ params.id } />
-      <FavButton type={ formatedType } recipe={ recipe } />
-      <h2 data-testid="recipe-category">
-        { `${recipe.strAlcoholic || ''} ${recipe.strCategory}` }
-      </h2>
-      <IngredientsList
-        id={ params.id }
-        type={ formatedType }
-        ingredients={ IngredientsAndMeasures }
-      />
-      <p data-testid="instructions">{ recipe.strInstructions }</p>
-      { recipe.strYoutube
+    isFetching || shouldFetch || !recipe ? <Loading /> : (
+      <section>
+        <img
+          className="recipe-photo"
+          data-testid="recipe-photo"
+          src={ recipe.image }
+          alt={ recipe.name }
+        />
+        <h1 data-testid="recipe-title">{ recipe.name }</h1>
+        <ShareButton type={ type.current } id={ params.id } />
+        <FavButton type={ type.current } recipe={ recipe } />
+        <h2 data-testid="recipe-category">
+          { `${recipe.alcoholicOrNot} ${recipe.category}` }
+        </h2>
+        <IngredientsList
+          id={ params.id }
+          type={ type.current }
+          ingredients={ IngredientsAndMeasures }
+        />
+        <p data-testid="instructions">{ recipe.strInstructions }</p>
+        { recipe.strYoutube
         && <iframe
           src={ recipe.strYoutube.split('watch?v=').join('embed/') }
           title="Video"
           data-testid="video"
         /> }
-      { !inProgress && (
-        <div className="recommendations">
-          { recommendations.map((recommendation, index) => (
-            <div data-testid={ `${index}-recomendation-card` } key={ `rec-${index}` }>
-              <RecipeCard
-                index={ index }
-                type={ recommendationsType === 'meals' ? 'Meal' : 'Drink' }
-                recipe={ recommendation }
-                recommendation
-              />
-            </div>)) }
-        </div>)}
-      <ProgressButton
-        id={ params.id }
-        type={ formatedType }
-        ingredientsLength={ IngredientsAndMeasures.length }
-      />
-    </section>
-  );
+        { !inProgress && (
+          <div className="recommendations">
+            { recommendations.map((recommendation, index) => (
+              <div data-testid={ `${index}-recomendation-card` } key={ `rec-${index}` }>
+                <RecipeCard
+                  index={ index }
+                  type={ recommendationsType.current }
+                  recipe={ recommendation }
+                  recommendation
+                />
+              </div>)) }
+          </div>)}
+        <ProgressButton
+          id={ params.id }
+          type={ type.current }
+          ingredientsLength={ IngredientsAndMeasures.length }
+        />
+      </section>
+    ));
 }
 
 RecipeDetails.propTypes = {

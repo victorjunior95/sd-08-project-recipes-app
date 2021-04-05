@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { startRecipe, endRecipe } from '../actions/recipes';
 
-const formatedObject = (obj, type, id) => {
-  const { strArea: area = '', strCategory: category = '',
-    strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
-    [`str${type}Thumb`]: image, doneDate = Date.now(), strTags } = obj;
-  const tags = !strTags ? [] : strTags.split(',');
-  const ptType = type === 'Meal' ? 'comida' : 'bebida';
-  return {
-    id, area, category, alcoholicOrNot, name, image, type: ptType, doneDate, tags };
-};
+// const formatedObject = (obj, type, id) => {
+//   const { strArea: area = '', strCategory: category = '',
+//     strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
+//     [`str${type}Thumb`]: image, doneDate = Date.now(), strTags } = obj;
+//   const tags = !strTags ? [] : strTags.split(',');
+//   const ptType = type === 'Meal' ? 'comida' : 'bebida';
+//   return {
+//     id, area, category, alcoholicOrNot, name, image, type: ptType, doneDate, tags };
+// };
 
 function ProgressButton({ type, id, ingredientsLength }) {
   const { pathname } = useLocation();
@@ -24,7 +24,7 @@ function ProgressButton({ type, id, ingredientsLength }) {
 
   const handleClick = () => {
     if (inProgress) {
-      dispatch(endRecipe(formatedObject(list[0], type, id)));
+      dispatch(endRecipe(list[0]));
       return;
     }
     if (!Object.keys(start[type]).includes(id)) {
@@ -50,6 +50,7 @@ function ProgressButton({ type, id, ingredientsLength }) {
     done.some(({ id: currId, type: currType }) => id === currId && type === currType)
           || (
             <button
+              style={ { display: 'block' } }
               className="start"
               data-testid={ inProgress ? 'finish-recipe-btn' : 'start-recipe-btn' }
               type="button"

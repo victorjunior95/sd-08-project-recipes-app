@@ -20,7 +20,7 @@ function IngredientsList({ type, id, ingredients }) {
   };
 
   useEffect(() => {
-    const { Drink: cocktails, Meal: meals } = start;
+    const { bebidas: cocktails, comidas: meals } = start;
     localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails, meals }));
   }, [start]);
 

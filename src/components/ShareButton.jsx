@@ -3,18 +3,26 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ShareIcon from '../images/shareIcon.svg';
 
-function ShareButton({ type, id }) {
+function ShareButton({ type, id, index }) {
   const [copied, setCopied] = useState(false);
 
-  const handleClick = () => {
-    copy(`http://localhost:3000/${type}/${id}`);
+  const handleClick = async () => {
+    await copy(`http://localhost:3000/${type}/${id}`);
     setCopied(true);
   };
 
   return (
     <div>
-      <button type="button" data-testid="share-btn" onClick={ handleClick }>
-        <img src={ ShareIcon } alt="share" />
+      <button
+        type="button"
+        onClick={ handleClick }
+      >
+        <img
+          data-testid={ index !== undefined
+            ? `${index}-horizontal-share-btn` : 'share-btn' }
+          src={ ShareIcon }
+          alt="share"
+        />
       </button>
       { copied && 'Link copiado!' }
     </div>
@@ -24,6 +32,7 @@ function ShareButton({ type, id }) {
 ShareButton.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default ShareButton;

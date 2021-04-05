@@ -38,4 +38,11 @@ describe('Tests profile page', () => {
     userEvent.click(getByTestId('profile-logout-btn'));
     expect(history.location.pathname).toBe('/');
   });
+
+  it('Caso não tenha nada no localStorage, apresenta "No email found!"', () =>{
+    const { getByTestId } = renderWithRouterAndRedux(<Perfil />);
+    localStorage.clear();
+
+    expect(getByTestId('profile-email').innerHTML).toBe('No email found!');
+  });
 });

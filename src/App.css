@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Advent+Pro:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@1&display=swap');
 
 :root {
   font-size: 15px;
@@ -6,86 +8,20 @@
   --first-color: #C45F90;
   --second-color: #D691A0;
   --third-color: #4D4C60;
-  --fourth-color: #FADCDC
-  ;
+  --fourth-color: #FADCDC;
 }
  h3, p, button, label {
   font-family: Montserrat, sans-serif;
+ }
+
+ html, .background {
+   background-color: var(--fourth-color);
  }
 
  * {
    margin: 0;
    padding: 0;
  }
-
-/* .meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
-}
-
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-} */
-
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
-
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
-}
 
 .login-background{
   width: 100vw;
@@ -138,7 +74,7 @@
 
 .nav-header-button {
   text-align: center;
-  width: 15%;
+  width: 10%;
 }
 
 .nav-header-button input {
@@ -147,12 +83,12 @@
 
 .nav-header-title {
   text-align: center;
-  width: 70%;
+  width: 80%;
 }
 
 .nav-header-title > * {
   font-size: 2rem;
-  font-family: 'Georgia', serif;
+  font-family: 'Merriweather', serif;
   font-weight: 600;
 }
 
@@ -243,26 +179,14 @@
 }
 
 .filter-buttons {
-  padding: 20px 5px 20px 5px;
+  padding: 20px 5px 0px 5px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   background-color: var(--fourth-color);
 }
 
-.filter-buttons button {
-  /* border-radius: 10%;
-  box-shadow: 2px 2px var(--first-color);
-  border-color: var(--first-color);
-  background: var(--first-color);
-  color: var(--third-color);
-  font-weight: 600;
-  
-  font-size: 1.3rem;
-  font-family: 'Monaco', monospace;
-  padding: 5px;
-  border: none;
-  border: 2px solid var(--third-color); */
+.filter-buttons button, .explore-container button, .explore-area {
   margin: 0 5px 7px 0;
   background: none;
   display: inline-block;
@@ -278,38 +202,8 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  outline: none !important;
 }
-/* .filter-buttons button:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10rem;
-    z-index: -2;
-  } */
-/* .filter-buttons button:before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    transition: all .3s;
-    border-radius: 10rem;
-    z-index: -1;
-  }
-.filter-buttons button:hover {
-    color: #fff;
-  }
-    .filter-buttons button:before {
-      width: 100%;
-    } */
-
-/* .filter-buttons button:active {
-  transform: translateY(3px);
-}*/
 
 .filter-buttons button:active {
   border-color: var(--first-color);
@@ -321,6 +215,7 @@
   background-color: var(--fourth-color);
   display: flex;
   flex-wrap: wrap;
+  padding-top: 20px;
   padding-left: 15%;
   padding-right: 15%;
   margin-bottom: 60px;
@@ -331,10 +226,12 @@
   margin-bottom: 20px;
   border: none;
   box-shadow: 0 0 15px var(--third-color);
+  width: 100%;
 }
 
 .recipe-list img {
   clip-path: polygon(0 0,100% 0, 100% 85%, 0 100%);
+  background-color: var(--fourth-color);
 }
 
 .recipe-list p {
@@ -344,4 +241,23 @@
   font-size: 30px;
   font-weight: bold;
   text-align: right;
+}
+
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 50px;
+  background-color: var(--fourth-color);
+}
+
+.explore-container button {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.explore-area {
+ font-size: 1rem;
+ margin-top: 20px;
+ margin-left: 25%;
+ margin-right: 25%;
 }

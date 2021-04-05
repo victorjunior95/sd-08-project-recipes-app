@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import Input from '../components/Inputs';
 import Arrow from '../images/arrow.svg';
 

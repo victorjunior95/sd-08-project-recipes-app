@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { useParams, useRouteMatch } from 'react-router';
+import { useHistory, useParams, useRouteMatch } from 'react-router';
 import { getlocalStorage } from '../../services/localStorage';
 import './styles.css';
 
 function RecipeButton() {
   const { id: idPage } = useParams();
   const { path } = useRouteMatch();
+  const history = useHistory();
   const [useRecipeInProgress, setUseRecipeInProgress] = useState(false);
   useEffect(() => {
     const verifyDoneStorage = () => {
@@ -28,12 +29,22 @@ function RecipeButton() {
     };
     verifyDoneStorage();
   }, [idPage, path]);
+
+  const goToProgressPage = () => {
+    if (path.includes('/comidas')) {
+      history.push(`/comidas/${idPage}/in-progress`);
+    } else {
+      history.push(`/bebidas/${idPage}/in-progress`);
+    }
+  };
+
   return (
     <Button
       data-testid="start-recipe-btn"
       variant="success"
       className="recipe-button"
       size="lg"
+      onClick={ goToProgressPage }
     >
       {
         useRecipeInProgress ? 'Continuar Receita' : 'Iniciar Receita'

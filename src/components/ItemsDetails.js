@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-// actions
 import Button from 'react-bootstrap/Button';
-import { drinkInProgress as drinkInProgressAction,
-  mealInProgress as mealInProgressAction } from '../action';
 
 // svg && icon
 import shareIcon from '../images/shareIcon.svg';
@@ -73,7 +69,8 @@ class ItemsDetails extends Component {
     }
     if (type === 'Drink') {
       if (inLocalStorage !== null) {
-        const newArray = { ...inLocalStorage, cocktails: { ...inLocalStorage.cocktails, [id]: [] } };
+        const newArray = { ...inLocalStorage,
+          cocktails: { ...inLocalStorage.cocktails, [id]: [] } };
         localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
         return;
       }
@@ -142,17 +139,7 @@ class ItemsDetails extends Component {
   }
 }
 
-const mapStateToProps = ({ recipesInProgress, recipesDone }) => ({
-  recipesProgress: recipesInProgress.recipesProgress,
-  recipesDone: recipesDone.doneRecipes,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  startDrinkRecipe: (drink) => dispatch(drinkInProgressAction(drink)),
-  startMealRecipe: (drink) => dispatch(mealInProgressAction(drink)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ItemsDetails);
+export default ItemsDetails;
 
 ItemsDetails.propTypes = {
   type: PropTypes.string.isRequired,
@@ -160,25 +147,4 @@ ItemsDetails.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ])).isRequired,
-  recipesProgress: PropTypes.shape({
-    meals: PropTypes.arrayOf(PropTypes.string),
-    drinks: PropTypes.arrayOf(PropTypes.string),
-  }),
-  recipesDone: PropTypes.shape({
-    meals: PropTypes.arrayOf(PropTypes.string),
-    drinks: PropTypes.arrayOf(PropTypes.string),
-  }),
-  startDrinkRecipe: PropTypes.func.isRequired,
-  startMealRecipe: PropTypes.func.isRequired,
-};
-
-ItemsDetails.defaultProps = {
-  recipesProgress: {
-    meals: [],
-    drinks: [],
-  },
-  recipesDone: {
-    meals: [],
-    drinks: [],
-  },
 };

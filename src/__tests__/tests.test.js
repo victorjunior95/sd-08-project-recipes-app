@@ -98,6 +98,7 @@ describe('01) Renders the App and Login Page', () => {
     fireEvent.click(loginButton);
 
     const store = JSON.parse(localStorage.getItem('user'));
+    console.log(store);
 
     expect(store.email).toBe(login.VALID_EMAIL);
   });

@@ -33,6 +33,7 @@ function FavoriteRecipes() {
   const getRecipesFromLocalStorage = () => {
     let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     favoriteRecipes = favoriteRecipes === null ? [] : favoriteRecipes;
+    console.log(favoriteRecipes);
     setRecipes([...favoriteRecipes]);
   };
 

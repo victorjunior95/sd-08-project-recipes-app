@@ -15,6 +15,7 @@ const FoodDetailsInProgress = () => {
       .then((result) => setData(result.meals));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(data);
   return (
 
     <div>

@@ -25,6 +25,7 @@ const Login = () => {
 
   useEffect(() => {
     const isValidEmail = core.validateEmail(email);
+    console.log('validEmail', isValidEmail);
     if (isValidEmail) {
       setUser(email);
       return setvalidEmail(true);
@@ -34,6 +35,7 @@ const Login = () => {
 
   useEffect(() => {
     const isValidPassword = core.validatePassword(password);
+    console.log('validPassword', isValidPassword);
     if (isValidPassword) {
       return setvalidPassword(true);
     }
@@ -49,6 +51,7 @@ const Login = () => {
     }
   }, [redirect, history, email]);
   const TRYBE = 'TRYBE';
+  console.log(data);
   return (
     <div data-testid="login">
       <div className="meals">

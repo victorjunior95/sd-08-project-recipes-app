@@ -62,15 +62,19 @@ const creatLocalObj = (usedIngridients,
 
 function handleCheckBox(name,
   inProgress, foodDetail, ObjUsedIngri = { obj: [], fun: () => {}, isMeal: true }) {
-  let usedIngredients = [...ObjUsedIngri.obj];
+  console.log(name, inProgress, foodDetail);
+  const usedIngriObj = ObjUsedIngri.obj;
+  const FunUsedIngri = ObjUsedIngri.fun;
+  const isFood = ObjUsedIngri.isMeal;
+  let usedIngredients = [...usedIngriObj];
   const index = usedIngredients.indexOf(name);
   if (index >= 0) {
     usedIngredients.splice(index, 1);
   } else {
     usedIngredients = [...usedIngredients, name];
   }
-  ObjUsedIngri.fun(usedIngredients);
-  creatLocalObj(usedIngredients, inProgress, foodDetail, ObjUsedIngri.isMeal);
+  FunUsedIngri(usedIngredients);
+  creatLocalObj(usedIngredients, inProgress, foodDetail, isFood);
 }
 
 const Detalhes = () => {
@@ -127,7 +131,7 @@ const Detalhes = () => {
   }, [location.pathname]);
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
-
+  const ObjUsedIngri = { obj: usedIngri, fun: setUseIngri, isMeal };
   return (
     <div>
       <img
@@ -177,8 +181,8 @@ const Detalhes = () => {
 
               <input
                 onChange={ ({ target }) => {
-                  handleCheckBox((target.value, inProgress,
-                  foodDetails, { obj: usedIngri, fun: setUseIngri, isMeal }));
+                  handleCheckBox(target.value, inProgress,
+                    foodDetails, ObjUsedIngri);
                 } }
                 type="checkbox"
                 value={ `${ingredientName}` }

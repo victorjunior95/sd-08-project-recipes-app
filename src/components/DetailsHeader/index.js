@@ -11,7 +11,6 @@ function DetailsHeader(props) {
   const { title, imgSrc, category, alcoholic } = props;
   const [useShow, setUseShow] = useState(false);
 
-  // const url = navigator.clipboard.writeText(urlSite);
   function onclickUrl() {
     const urlSite = document.URL;
     const url = copy(urlSite);

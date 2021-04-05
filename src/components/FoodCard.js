@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function FoodCard({ recipes, order }) {
   const { strMeal, idMeal, strMealThumb } = recipes;
+  console.log(strMealThumb);
 
   return (
     <Link to={ `comidas/${idMeal} ` }>

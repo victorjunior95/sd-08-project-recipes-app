@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
@@ -12,13 +12,50 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FoodDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
-  const [recipeById, setRecipeById] = useState();
   const [favorite, setFavorite] = useState(false);
+  const [recipeById, setRecipeById] = useState();
   const [copyLink, setCopyLink] = useState(false);
   const { id } = params;
 
-  const storageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const storageRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const progressRecipe = storageRecipe && storageRecipe.includes(id);
+
+  useEffect(() => {
+    if (storageRecipe === null) {
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }, [storageRecipe]);
+  console.log(storageRecipe);
+
+  const getFavoriteRecipes = useCallback(() => (
+    storageRecipe === null ? [] : storageRecipe
+      .some((item) => item.id === id && setFavorite(true))), [id, storageRecipe]);
+
+  function setLocalStorage() {
+    const recipe = JSON.stringify(id);
+    localStorage.setItem('inProgressRecipes', recipe);
+  }
+
+  function favoriteRecipe() {
+    if (favorite) {
+      const filtered = storageRecipe.filter((obj) => obj.id !== id);
+      setFavorite(false);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(filtered));
+    }
+    const recipe = [...storageRecipe,
+      {
+        id: recipeById.idMeal,
+        type: 'Comida',
+        area: recipeById.strArea,
+        category: recipeById.strCategory,
+        alcoholicOrNot: '',
+        name: recipeById.strMeal,
+        image: recipeById.strMealThumb,
+      }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
+    setFavorite(!favorite);
+  }
 
   useEffect(() => {
     setSearchParam({
@@ -29,22 +66,10 @@ export default function FoodDetails({ match: { params } }) {
 
   useEffect(() => {
     setRecipeById(recipeDetails);
-  }, [recipeDetails]);
+    getFavoriteRecipes();
+  }, [recipeDetails, getFavoriteRecipes]);
 
   if (!recipeById) return <div>Loading...</div>;
-
-  // Vídeo da receita
-
-  const ytVideo = () => (
-    recipeById.strYoutube ? <iframe
-      frameBorder="0"
-      data-testid="video"
-      key={ recipeById.strYoutube }
-      src={ recipeById.strYoutube.split('watch?v=').join('embed/') }
-      title="recipe video"
-    />
-      : ''
-  );
 
   // Acessando chaves ingredient e measure da receita
 
@@ -57,31 +82,6 @@ export default function FoodDetails({ match: { params } }) {
     .filter((item) => item.includes('strMeasure')
     && recipeById[item])
     .map((measure) => recipeById[measure]);
-
-  // Salvando receita no localStorage
-  function setLocalStorage() {
-    const recipe = JSON.stringify(id);
-    localStorage.setItem('inProgressRecipes', recipe);
-  }
-
-  function favoriteRecipe() {
-    const recipe = [{
-      id: recipeById.idMeal,
-      type: 'Comida',
-      area: recipeById.strArea,
-      category: recipeById.strCategory,
-      alcoholicOrNot: '',
-      name: recipeById.strMeal,
-      image: recipeById.strMealThumb,
-    }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
-    setFavorite(!favorite);
-  }
-
-  // function handleCopyLink() {
-  //   setCopyLink(true);
-  //   Copy(`http://localhost:3000/comidas/${id}`);
-  // }
 
   return (
     <div style={ { width: '50%' } }>
@@ -99,7 +99,6 @@ export default function FoodDetails({ match: { params } }) {
       <input
         type="image"
         data-testid="share-btn"
-        // onClick={ handleCopyLink }
         onClick={ () => {
           Copy(window.location.href);
           setCopyLink(true);
@@ -122,7 +121,6 @@ export default function FoodDetails({ match: { params } }) {
         </b>
       </h5>
       <h2>Ingredientes</h2>
-      {console.log(recipeById)}
       <ul>
         {
           ingredients
@@ -135,7 +133,16 @@ export default function FoodDetails({ match: { params } }) {
       <section>
         <h2>Instruções</h2>
         <p data-testid="instructions">{recipeById.strInstructions}</p>
-        {ytVideo()}
+        {
+          recipeById.strYoutube ? <iframe
+            frameBorder="0"
+            data-testid="video"
+            key={ recipeById.strYoutube }
+            src={ recipeById.strYoutube.split('watch?v=').join('embed/') }
+            title="recipe video"
+          />
+            : ''
+        }
       </section>
       <DrinkCarousel />
       <Link

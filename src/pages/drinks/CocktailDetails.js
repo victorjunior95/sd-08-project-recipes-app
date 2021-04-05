@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Copy from 'clipboard-copy';
@@ -16,6 +16,46 @@ export default function CocktailDetails({ match: { params } }) {
   const [copyLink, setCopyLink] = useState(false);
   const { id } = params;
 
+  const storageRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const progressRecipe = storageRecipe && storageRecipe.includes(id);
+
+  useEffect(() => {
+    if (storageRecipe === null) {
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }, [storageRecipe]);
+  console.log(storageRecipe);
+
+  const getFavoriteRecipes = useCallback(() => (
+    storageRecipe === null ? [] : storageRecipe
+      .some((item) => item.id === id && setFavorite(true))), [id, storageRecipe]);
+
+  function setLocalStorage() {
+    const recipe = JSON.stringify(id);
+    localStorage.setItem('inProgressRecipes', recipe);
+  }
+
+  function favoriteRecipe() {
+    if (favorite) {
+      const filtered = storageRecipe.filter((obj) => obj.id !== id);
+      setFavorite(false);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(filtered));
+    }
+    const recipe = [...storageRecipe,
+      {
+        id: recipeById.idDrink,
+        type: 'Bebida',
+        area: recipeById.strArea,
+        category: recipeById.strCategory,
+        alcoholicOrNot: recipeById.strAlcoholic || '',
+        name: recipeById.strDrink,
+        image: recipeById.strMealThumb,
+      }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
+    setFavorite(!favorite);
+  }
+
   useEffect(() => {
     setSearchParam({
       selectedParam: 'drink-details',
@@ -25,7 +65,8 @@ export default function CocktailDetails({ match: { params } }) {
 
   useEffect(() => {
     setRecipeById(recipeDetails);
-  }, [recipeDetails]);
+    getFavoriteRecipes();
+  }, [recipeDetails, getFavoriteRecipes]);
 
   if (!recipeById) return <div>Loading...</div>;
 
@@ -38,30 +79,6 @@ export default function CocktailDetails({ match: { params } }) {
     .filter((item) => item.includes('strMeasure')
     && recipeById[item])
     .map((measure) => recipeById[measure]);
-
-  function setLocalStorage() {
-    const recipe = JSON.stringify(id);
-    localStorage.setItem('inProgressRecipes', recipe);
-  }
-
-  function favoriteRecipe() {
-    const recipe = [{
-      id: recipeById.idDrink,
-      type: 'Bebida',
-      area: recipeById.strArea,
-      category: recipeById.strCategory,
-      alcoholicOrNot: recipeById.strAlcoholic || '',
-      name: recipeById.strDrink,
-      image: recipeById.strMealThumb,
-    }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
-    setFavorite(!favorite);
-  }
-
-  // function handleCopyLink() {
-  //   Copy(`http://localhost:3000/bebidas/${id}`);
-  //   setCopyLink(true);
-  // }
 
   return (
     <div style={ { width: '50%' } }>
@@ -123,7 +140,7 @@ export default function CocktailDetails({ match: { params } }) {
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ setLocalStorage }
       >
-        Iniciar Receita
+        {progressRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
       </Link>
     </div>
   );

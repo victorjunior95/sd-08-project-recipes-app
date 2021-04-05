@@ -25,17 +25,22 @@ class ItemsDetails extends Component {
   }
 
   checkRecipeProgress(type, id) {
-    const { recipesProgress } = this.props;
-    if (type === 'Meal') {
-      const inProgress = recipesProgress.meals.includes(id);
-      if (inProgress) return 'Continuar Receita';
-      return 'Iniciar Receita';
+    const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (type === 'Meal' && inLocalStorage && inLocalStorage.meals) {
+      const filterId = Object.keys(inLocalStorage.meals)
+        .find((localId) => id === localId);
+      if (filterId) {
+        return 'Continuar Receita';
+      }
     }
-    if (type === 'Drink') {
-      const inProgress = recipesProgress.drinks.includes(id);
-      if (inProgress) return 'Continuar Receita';
-      return 'Iniciar Receita';
+    if (type === 'Drink' && inLocalStorage && inLocalStorage.cocktails) {
+      const filterId = Object.keys(inLocalStorage.cocktails)
+        .find((localId) => id === localId);
+      if (filterId) {
+        return 'Continuar Receita';
+      }
     }
+    return 'Iniciar Receita';
   }
 
   ingredientesComQuantidades(itemValue) {
@@ -54,13 +59,27 @@ class ItemsDetails extends Component {
   }
 
   startRecipe(type, id) {
-    const { startDrinkRecipe, recipesProgress, startMealRecipe } = this.props;
-    if (type === 'Drink') {
-      const checkProgress = recipesProgress.drinks.includes(id);
-      if (!checkProgress) startDrinkRecipe(id);
+    const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (type === 'Meal') {
+      console.log(inLocalStorage);
+      if (inLocalStorage !== null) {
+        const newArray = { ...inLocalStorage,
+          meals: { ...inLocalStorage.meals, [id]: [] } };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
+        return;
+      }
+      const newArray = { meals: { [id]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
     }
-    const checkProgress = recipesProgress.meals.includes(id);
-    if (!checkProgress) startMealRecipe(id);
+    if (type === 'Drink') {
+      if (inLocalStorage !== null) {
+        const newArray = { ...inLocalStorage, cocktails: { ...inLocalStorage.cocktails, [id]: [] } };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
+        return;
+      }
+      const newArray = { cocktails: { [id]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
+    }
   }
 
   render() {
@@ -108,10 +127,12 @@ class ItemsDetails extends Component {
           {result.strInstructions}
         </p>
         <Recommendation />
+
         <Button
           className="start-recipe-btn"
           data-testid="start-recipe-btn"
           variant="success"
+          block
           onClick={ () => this.startRecipe(type, result[`id${type}`]) }
         >
           {this.checkRecipeProgress(type, result[`id${type}`])}

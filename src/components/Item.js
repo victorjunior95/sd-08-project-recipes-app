@@ -43,9 +43,13 @@ export default class Item extends Component {
     return (
       <div>
         {
+          type === 'bebidas'
+          && results && <ItemsDetails type="Drink" result={ results[0] } />
+
+        }
+        {
           type === 'comidas' && results
-            ? <ItemsDetails type="Meal" result={ results[0] } />
-            : <ItemsDetails type="Drink" result={ results[0] } />
+          && <ItemsDetails type="Meal" result={ results[0] } />
         }
       </div>
     );

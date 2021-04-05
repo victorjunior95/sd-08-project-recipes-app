@@ -19,7 +19,7 @@ class ListCard extends Component {
     return (
       <section>
         <ul className="card-list">
-          {result && result.map((item, index) => {
+          {result && result.length && result.map((item, index) => {
             const TOTAL_ITEMS = 12;
             if (index >= TOTAL_ITEMS) {
               return null;

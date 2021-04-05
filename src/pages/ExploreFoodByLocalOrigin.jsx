@@ -26,7 +26,7 @@ function ExploreFoodByLocalOrigin() {
       setIsLoading(false);
     }
     requestAreas();
-  }, []);
+  }, [dispatch]);
 
   const showFoods = () => mainFoods.slice(0, maxArrayLength).map((food, index) => (
     <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>

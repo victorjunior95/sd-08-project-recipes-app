@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeaderRecipeDetails from './HeaderRecipeDetails';
@@ -14,7 +14,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
   const [recipeInfo, setRecipeInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [buttonState, setButtonState] = useState(true);
-  const getIngredientsMeasure = (ingredientsSize) => {
+  const getIngredientsMeasure = useCallback((ingredientsSize) => {
     const arrayIngredients = [];
     for (let i = 1; i <= ingredientsSize; i += 1) {
       if (
@@ -29,9 +29,9 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       }
     }
     return arrayIngredients;
-  };
+  }, [recipe]);
 
-  const foodInfo = () => {
+  const foodInfo = useCallback(() => {
     const {
       idMeal: idRecipe,
       strMeal: name,
@@ -58,9 +58,9 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       area,
       strTags,
     });
-  };
+  }, [getIngredientsMeasure, recipe]);
 
-  const drinkInfo = () => {
+  const drinkInfo = useCallback(() => {
     const {
       idDrink: idRecipe,
       strDrink: name,
@@ -87,16 +87,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
       area: '',
       strTags,
     });
-  };
-
-  /*
-    category: categoria-da-receita-ou-texto-vazio,
-    alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-    name: nome-da-receita,
-    image: imagem-da-receita,
-    doneDate: quando-a-receita-foi-concluida,
-    tags: array-de-tags-da-receita-ou-array-vazio
-*/
+  }, [getIngredientsMeasure, recipe]);
 
   const {
     idRecipe,
@@ -134,7 +125,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
     }
     setInProgressRecipes(id, page);
     setIsLoading(false);
-  }, []);
+  }, [drinkInfo, foodInfo, id, page]);
 
   return (
     <main>
@@ -177,21 +168,38 @@ ContainerInProgressRecipes.propTypes = {
   page: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
-    strMeal: PropTypes.string.isRequired,
+    strMeal: PropTypes.string,
     strCategory: PropTypes.string.isRequired,
-    strMealThumb: PropTypes.string.isRequired,
+    strMealThumb: PropTypes.string,
     strInstructions: PropTypes.string.isRequired,
-    strYoutube: PropTypes.string.isRequired,
-    strDrinkAlternate: PropTypes.string.isRequired,
-    strDrink: PropTypes.string.isRequired,
-    strDrinkThumb: PropTypes.string.isRequired,
-    strVideo: PropTypes.string.isRequired,
-    strAlcoholic: PropTypes.string.isRequired,
-    idMeal: PropTypes.string.isRequired,
-    idDrink: PropTypes.string.isRequired,
-    strArea: PropTypes.string.isRequired,
-    strTags: PropTypes.string.isRequired,
-  }).isRequired,
+    strYoutube: PropTypes.string,
+    strDrinkAlternate: PropTypes.string,
+    strDrink: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strVideo: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
+    strArea: PropTypes.string,
+    strTags: PropTypes.string,
+  }),
+};
+
+ContainerInProgressRecipes.defaultProps = {
+  recipe: PropTypes.shape({
+    strDrinkAlternate: '',
+    strDrink: '',
+    strDrinkThumb: '',
+    strVideo: '',
+    strAlcoholic: '',
+    idDrink: '',
+    strMeal: '',
+    strMealThumb: '',
+    strYoutube: '',
+    idMeal: '',
+    strArea: '',
+    strTags: '',
+  }),
 };
 
 export default ContainerInProgressRecipes;

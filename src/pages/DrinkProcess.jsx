@@ -17,7 +17,7 @@ function DrinkProcess({
       setIsLoading(false);
     }
     requestApi();
-  }, []);
+  }, [id]);
   return (
     <section>
       {isLoading ? (

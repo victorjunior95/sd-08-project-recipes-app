@@ -17,7 +17,7 @@ function FoodProcess({
       setIsLoading(false);
     }
     requestApi();
-  }, []);
+  }, [id]);
   return (
     <section>
       {isLoading ? (

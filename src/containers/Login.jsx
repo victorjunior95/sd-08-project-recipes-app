@@ -12,7 +12,7 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { data, setUser, setData, setMealData } = useContext(RecipesContext);
+  const { setUser, setData, setMealData } = useContext(RecipesContext);
 
   useEffect(() => {
     api.fetchMeals()

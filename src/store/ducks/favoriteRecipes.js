@@ -1,3 +1,5 @@
+import mapRecipe from '../../helpers/utils';
+
 export const Types = {
   ADD_RECIPE: 'favoriteRecipes/ADD_RECIPE',
   REMOVE_RECIPE: 'favoriteRecipes/REMOVE_RECIPE',
@@ -7,19 +9,9 @@ const INITIAL_STATE = {
   favoriteRecipes: [],
 };
 
-const mapFavorite = (favorite) => ({
-  id: favorite.idMeal || favorite.idDrink,
-  type: favorite.idMeal ? 'comida' : 'bebida',
-  area: favorite.strArea || '',
-  category: favorite.strCategory || '',
-  alcoholicOrNot: favorite.strAlcoholic || '',
-  name: favorite.strMeal || favorite.strDrink,
-  image: favorite.strMealThumb || favorite.strDrinkThumb || '',
-});
-
 const addRecipe = (state, action) => ({
   ...state,
-  favoriteRecipes: [...state.favoriteRecipes, mapFavorite(action.payload)],
+  favoriteRecipes: [...state.favoriteRecipes, mapRecipe(action.payload)],
 });
 
 const removeRecipe = (state, action) => ({

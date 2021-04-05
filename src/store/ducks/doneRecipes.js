@@ -5,17 +5,12 @@ export const Types = {
 
 const INITIAL_STATE = {
   doneRecipes: [],
-  idCount: 0,
 };
 
-const addRecipe = (state, action) => {
-  const newRecipe = { id: state.idCount, ...action.payload };
-  return {
-    ...state,
-    doneRecipes: [...state.doneRecipes, newRecipe],
-    idCount: state.idCount + 1,
-  };
-};
+const addRecipe = (state, action) => ({
+  ...state,
+  doneRecipes: [...state.doneRecipes, action.payload],
+});
 
 const removeRecipe = (state, action) => ({
   ...state,

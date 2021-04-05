@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../styles/components/RenderIngredients.module.css';
+import styles from '../styles/components/RecipeIngredients.module.css';
 
-const RenderIngredients = ({ ingredients, measures }) => (
+const RecipeIngredients = ({ ingredients, measures }) => (
   <div className={ styles.ingredientsContainer }>
     <h2>Ingredients</h2>
     <section className={ styles.ingredients }>
@@ -19,9 +19,9 @@ const RenderIngredients = ({ ingredients, measures }) => (
   </div>
 );
 
-RenderIngredients.propTypes = {
+RecipeIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   measures: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default RenderIngredients;
+export default RecipeIngredients;

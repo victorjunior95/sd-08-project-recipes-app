@@ -25,11 +25,17 @@ export default function Routes() {
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/perfil" component={ Profile } />
 
-      <Route path="/comidas/:id/in-progress" component={ ProgressRecipe } />
+      <Route
+        path="/comidas/:id/in-progress"
+        render={ (props) => <ProgressRecipe isMeal { ...props } /> }
+      />
       <Route path="/comidas/:id" component={ MealsDetails } />
       <Route path="/comidas" component={ Meals } />
 
-      <Route path="/bebidas/:id/in-progress" component={ ProgressRecipe } />
+      <Route
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <ProgressRecipe isMeal={ false } { ...props } /> }
+      />
       <Route path="/bebidas/:id" component={ CocktailDetails } />
       <Route path="/bebidas" component={ Cocktails } />
 

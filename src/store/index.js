@@ -26,6 +26,10 @@ const INITIAL_STATE = {
   favoriteRecipes: {
     favoriteRecipes: JSON.parse(storage.getFavoriteRecipes()) || [],
   },
+
+  doneRecipes: {
+    doneRecipes: JSON.parse(storage.getDoneRecipes()) || [],
+  },
 };
 
 const store = createStore(

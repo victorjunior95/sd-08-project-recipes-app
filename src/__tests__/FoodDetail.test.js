@@ -6,13 +6,11 @@ import renderWithReduxandRouter from '../renderWithReduxandRouter';
 import App from '../App';
 import {
   user,
-  ArrabiataSingleRecipe,
   fetchInitialCategoryMeal,
 } from '../TestsMocks/mockMealrecipes';
-import {
-  fetchInitialCategoryDrink,
-  dryMartiniSingleRecipe,
-} from '../TestsMocks/mockDrinkRecipes';
+import { ArrabiataSingleRecipe } from '../TestsMocks/singleMealRecipe';
+import { fetchInitialCategoryDrink } from '../TestsMocks/mockDrinkRecipes';
+import { dryMartiniSingleRecipe } from '../TestsMocks/singleDrinkRecipe';
 
 const ENTRIES_MEAL = '/comidas/52771';
 const ENTRIES_DRINK = '/bebidas/11005';

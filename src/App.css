@@ -8,9 +8,9 @@
 
 .recipe-card {
   align-items: center;
-  justify-content: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .ingredient-item input:checked + label {

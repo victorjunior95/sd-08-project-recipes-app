@@ -114,7 +114,7 @@ function FoodInProgress(props) {
     <div>
       {!isEmpty(filteredById)
         ? (
-          <section style={ { display: 'flex', flexFlow: 'column wrap' } }>
+          <section className="in-progress-container">
             {buttonsDiv}
             <InProgressCard
               url={ url }

@@ -15,7 +15,7 @@ describe('Tests login page', () => {
     expect(getByText(/trybe/i)).toBeInTheDocument();
     expect(getByRole('button', { name: /entrar/i })).toBeDisabled();
 
-    userEvent.type(getByLabelText(/email/i), 'user@email.com');
+    userEvent.type(getByLabelText(/email/i), 'user1@email.com');
     userEvent.type(getByLabelText(/senha/i), '12345678');
     expect(getByRole('button', { name: /entrar/i })).not.toBeDisabled();
     userEvent.click(getByRole('button', { name: /entrar/i }));
@@ -29,7 +29,7 @@ describe('Tests login page', () => {
     } = renderWithRouterAndRedux(<App />);
 
     expect(getByRole('button', { name: /entrar/i })).toBeDisabled();
-    userEvent.type(getByLabelText(/email/i), 'user@email.com');
+    userEvent.type(getByLabelText(/email/i), 'user2@email.com');
     userEvent.type(getByLabelText(/senha/i), '1234');
     expect(getByRole('button', { name: /entrar/i })).toBeDisabled();
   });
@@ -44,7 +44,7 @@ describe('Tests login page', () => {
     expect(localStorage.getItem('mealsToken')).toBe(null);
     expect(localStorage.getItem('cocktailsToken')).toBe(null);
 
-    userEvent.type(getByLabelText(/email/i), 'user@email.com');
+    userEvent.type(getByLabelText(/email/i), 'user3@email.com');
     userEvent.type(getByLabelText(/senha/i), '12345678');
     expect(getByRole('button', { name: /entrar/i })).not.toBeDisabled();
     userEvent.click(getByRole('button', { name: /entrar/i }));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -26,11 +26,11 @@ const renderWithRouter = (
   const history = createMemoryHistory({ initialEntries });
   return {
     ...render(
-      <BrowserRouter history={ history }>
+      <Router history={ history }>
         <Provider store={ store }>
           {component}
         </Provider>
-      </BrowserRouter>,
+      </Router>,
     ),
     history,
     store,

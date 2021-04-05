@@ -2,19 +2,40 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import Perfil from '../Pages/Perfil';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
-import mockFetch from '../../cypress/mocks/fetch';
 
 describe('Tests profile page', () => {
-  it('A tela de perfil tem os seguintes atributos descritos', async () => {
-    const {
-      history,
-      getByText,
-      getByLabelText,
-      getByRole,
-      getByTestId,
-    } = renderWithRouterAndRedux(<Perfil />);
-    localStorage.setItem('user', '{ "email": "email@mail.com" }');
-    console.log(history.location.pathname);
-    
+  localStorage.setItem('user', '{ "email": "email@mail.com" }');
+
+  it('A tela de perfil tem os seguintes atributos descritos', () => {
+    const { getByTestId } = renderWithRouterAndRedux(<Perfil />);
+
+    expect(getByTestId('profile-email')).toBeInTheDocument();
+    expect(getByTestId('profile-done-btn')).toBeInTheDocument();
+    expect(getByTestId('profile-favorite-btn')).toBeInTheDocument();
+    expect(getByTestId('profile-logout-btn')).toBeInTheDocument();
+  });
+
+  it('O e-mail armazenado em localStorage está visível', () => {
+    const { getByTestId } = renderWithRouterAndRedux(<Perfil />);
+    const local = JSON.parse(localStorage.getItem('user'));
+    expect(getByTestId('profile-email').innerHTML).toBe(local.email);
+  });
+
+  it('Redirecione ao clicar no botão de "Receitas Feitas"', () => {
+    const { history, getByTestId } = renderWithRouterAndRedux(<Perfil />);
+    userEvent.click(getByTestId('profile-done-btn'));
+    expect(history.location.pathname).toBe('/receitas-feitas');
+  });
+
+  it('Redirecione ao clicar no botão de "Receitas Favoritas"', () => {
+    const { history, getByTestId } = renderWithRouterAndRedux(<Perfil />);
+    userEvent.click(getByTestId('profile-favorite-btn'));
+    expect(history.location.pathname).toBe('/receitas-favoritas');
+  });
+
+  it('Redirecione ao clicar no botão de "Sair"', () => {
+    const { history, getByTestId } = renderWithRouterAndRedux(<Perfil />);
+    userEvent.click(getByTestId('profile-logout-btn'));
+    expect(history.location.pathname).toBe('/');
   });
 });

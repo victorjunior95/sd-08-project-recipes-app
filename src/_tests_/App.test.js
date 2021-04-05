@@ -51,7 +51,7 @@ describe('Teste tela de login', () => {
               meals,
             },
             recommendData: [],
-            loading: 'idle',
+            loading: 'fullfilled',
             recommendLoading: 'idle',
             explore: '',
           },
@@ -59,7 +59,7 @@ describe('Teste tela de login', () => {
             categories: {
               mealCategories,
             },
-            loading: 'idle',
+            loading: 'fullfilled',
           },
           surprise: {
             surpriseRedirect: false,
@@ -79,7 +79,7 @@ describe('Teste tela de login', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/comidas');
 
-    const titleFood = screen.getByTestId('page-title');
+    const titleFood = screen.getByText('Corba');
     expect(titleFood).toBeInTheDocument();
   });
 });

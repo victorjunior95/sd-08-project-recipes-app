@@ -7,6 +7,72 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { fetchProductDetailsById } from '../services';
 import LariContext from '../context/Context';
 
+const handleInProgress = (idCurrentRecipe, isFood, setInProgress, setUseIngri) => {
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    const recipesInProgress = {
+      cocktails: {},
+      meals: {},
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+    setUseIngri([]);
+  } else {
+    const storageProgessRecipes = (
+      JSON.parse(localStorage.getItem('inProgressRecipes')));
+    setInProgress(storageProgessRecipes);
+    if (isFood) {
+      const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
+      if (result >= 0) {
+        console.log(result, 'ingrediente');
+        setUseIngri(storageProgessRecipes.meals[idCurrentRecipe]);
+      } else {
+        setUseIngri([]);
+      }
+    } else {
+      const result = Object.keys(storageProgessRecipes.cocktails)
+        .indexOf(idCurrentRecipe);
+      if (result >= 0) {
+        setUseIngri(storageProgessRecipes.cocktails[idCurrentRecipe]);
+      } else {
+        setUseIngri([]);
+      }
+    }
+  }
+};
+
+const creatLocalObj = (usedIngridients,
+  inProgress = { meals: {}, cocktails: {} }, foodDetails = { idMeal: '' }, isMeal) => {
+  let result = { ...inProgress };
+
+  if (!isMeal) {
+    result = {
+      cocktails: { ...inProgress.cocktails,
+        [foodDetails.idDrink]: [...usedIngridients] },
+      meals: { ...inProgress.meals },
+    };
+    // result.cocktails[foodDetails.idDrink] = [...usedIngridients];
+  } else {
+    result = {
+      meals: { ...inProgress.meals,
+        [foodDetails.idMeal]: [...usedIngridients] },
+      cocktails: { ...inProgress.cocktails },
+    };
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(result));
+};
+
+function handleCheckBox(name,
+  inProgress, foodDetail, ObjUsedIngri = { obj: [], fun: () => {}, isMeal: true }) {
+  let usedIngredients = [...ObjUsedIngri.obj];
+  const index = usedIngredients.indexOf(name);
+  if (index >= 0) {
+    usedIngredients.splice(index, 1);
+  } else {
+    usedIngredients = [...usedIngredients, name];
+  }
+  ObjUsedIngri.fun(usedIngredients);
+  creatLocalObj(usedIngredients, inProgress, foodDetail, ObjUsedIngri.isMeal);
+}
+
 const Detalhes = () => {
   const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
     setFoodDetails, hidden, setHidden, usedIngri, setUseIngri,
@@ -16,39 +82,6 @@ const Detalhes = () => {
 
   const location = useLocation();
   const history = useHistory();
-
-  const handleInProgress = (idCurrentRecipe, isFood) => {
-    if (localStorage.getItem('inProgressRecipes') === null) {
-      const recipesInProgress = {
-        cocktails: {},
-        meals: {},
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
-      setUseIngri([]);
-    } else {
-      const storageProgessRecipes = (
-        JSON.parse(localStorage.getItem('inProgressRecipes')));
-      setInProgress(storageProgessRecipes);
-      if (isFood) {
-        const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
-        if (result >= 0) {
-          console.log(result, 'ingrediente');
-          setUseIngri(storageProgessRecipes.meals[idCurrentRecipe]);
-        } else {
-          setUseIngri([]);
-        }
-        console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.meals), 'recipes');
-      } else {
-        const result = Object.keys(storageProgessRecipes.cocktails)
-          .indexOf(idCurrentRecipe);
-        if (result >= 0) {
-          setUseIngri(storageProgessRecipes.cocktails[idCurrentRecipe]);
-        } else {
-          setUseIngri([]);
-        }
-      }
-    }
-  };
 
   useEffect(() => {
     const verifyButnValidation = (ingredient) => {
@@ -87,43 +120,11 @@ const Detalhes = () => {
       setFoodDetails(foodDetail);
       setIngredients(ingredientFilter);
 
-      handleInProgress(id, type === 'comidas');
+      handleInProgress(id, type === 'comidas', setInProgress, setUseIngri);
     };
 
     fetchData();
   }, [location.pathname]);
-
-  const creatLocalObj = (usedIngridients) => {
-    let result = { ...inProgress };
-
-    if (!isMeal) {
-      result = {
-        cocktails: { ...inProgress.cocktails,
-          [foodDetails.idDrink]: [...usedIngridients] },
-        meals: { ...inProgress.meals },
-      };
-      // result.cocktails[foodDetails.idDrink] = [...usedIngridients];
-    } else {
-      result = {
-        meals: { ...inProgress.meals,
-          [foodDetails.idMeal]: [...usedIngridients] },
-        cocktails: { ...inProgress.cocktails },
-      };
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(result));
-  };
-
-  const handleCheckBox = (name) => {
-    let usedIngredients = [...usedIngri];
-    const index = usedIngredients.indexOf(name);
-    if (index >= 0) {
-      usedIngredients.splice(index, 1);
-    } else {
-      usedIngredients = [...usedIngredients, name];
-    }
-    setUseIngri(usedIngredients);
-    creatLocalObj(usedIngredients);
-  };
 
   if (!Object.keys(foodDetails).length) return <h2>Loading...</h2>;
 
@@ -176,7 +177,8 @@ const Detalhes = () => {
 
               <input
                 onChange={ ({ target }) => {
-                  handleCheckBox((target.value));
+                  handleCheckBox((target.value, inProgress,
+                  foodDetails, { obj: usedIngri, fun: setUseIngri, isMeal }));
                 } }
                 type="checkbox"
                 value={ `${ingredientName}` }

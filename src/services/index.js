@@ -102,3 +102,21 @@ export const ingredients = async (type) => {
   const json = await result.json();
   return json;
 };
+
+export const fetchMealsByArea = async (area) => {
+  let results = [];
+  if (area) {
+    const apiRequest = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+    results = await apiRequest.json();
+  } else {
+    results = await fetchFood();
+  }
+
+  return results.meals;
+};
+
+export const fetchAreas = async () => {
+  const apiRequest = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const results = await apiRequest.json();
+  return results.meals.map(({ strArea }) => strArea);
+};

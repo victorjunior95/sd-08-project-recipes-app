@@ -128,9 +128,10 @@ const Detalhes = () => {
       </h3>
       <input
         type="image"
-        onClick={ () => {
+        onClick={ async () => {
           const ONE_SECOND = 1000;
-          copy(window.location); setHidden(true);
+          await copy(window.location.href);
+          setHidden(true);
           setTimeout(() => setHidden(false), ONE_SECOND);
         } }
         data-testid="share-btn"

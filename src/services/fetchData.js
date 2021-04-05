@@ -60,11 +60,11 @@ export const getDrinksByRandom = () => fetchAPI(END_POINTS.DRINKS.random);
 
 export const getMealsByRegions = () => fetchAPI(END_POINTS.FOODS.regions);
 
-export const getDrinksByRegions = () => fetchAPI(END_POINTS.FOODS.regions);
+export const getDrinksByRegions = () => fetchAPI(END_POINTS.DRINKS.regions);
 
 export const getMealsByRegion = (region) => fetchAPI(END_POINTS.FOODS.region + region);
 
-export const getDrinksByRegion = (region) => fetchAPI(END_POINTS.FOODS.region + region);
+export const getDrinksByRegion = (region) => fetchAPI(END_POINTS.DRINKS.region + region);
 
 export const getMealsByCategory = (
   category,

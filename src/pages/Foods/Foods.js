@@ -65,7 +65,7 @@ function Foods({ location: { state = false } }) {
               name={ item.strMeal }
               img={ item.strMealThumb }
               index={ index }
-              onClick={ () => history.push(`comidas/${item.idMeal}`) }
+              onClick={ () => history.push(`/comidas/${item.idMeal}`) }
             />
           ))}
 

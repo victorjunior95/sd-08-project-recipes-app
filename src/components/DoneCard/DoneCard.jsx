@@ -50,6 +50,8 @@ const DoneCard = ({ index, recipe }) => {
       <Link to={ `/${type}s/${id}` }>
         <div className="image-container">
           <img
+            style={ { width: '250px',
+              height: '250px' } }
             src={ image }
             alt={ `${type} ${name}` }
             data-testid={ `${index}-horizontal-image` }

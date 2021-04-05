@@ -150,13 +150,12 @@ class ProgressRecipesMeal extends Component {
           <h2>Instructions</h2>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
-
         <div className="start-btn">
           <Link
             data-testid="finish-recipe-btn"
             className="start-recipe-btn"
             exact
-            to={ `/comidas/${idMeal}/in-progress` }
+            to={ `/comidas/${idDrink}/in-progress` }
           >
             Finalizar receita
           </Link>

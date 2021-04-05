@@ -113,10 +113,11 @@ class DetailsRecipeDrink extends Component {
               </Link>
             ))}
         </div>
-        <div className="start-btn">
+        <div>
           <Link
+            className="start-btn"
             data-testid="start-recipe-btn"
-            className="start-recipe-btn"
+            exact
             to={ `/bebidas/${idDrink}/in-progress` }
           >
             Iniciar receita

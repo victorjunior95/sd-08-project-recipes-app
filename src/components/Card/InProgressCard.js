@@ -26,7 +26,6 @@ const InProgressCard = (props) => {
   // }, [ingredients]);
 
   const onChangeCB = ({ target }) => {
-    const newObject = { id, checkedIngredients: [] };
     console.log('teste id: ', newObject);
   };
 

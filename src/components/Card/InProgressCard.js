@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
-
+//comentario
 const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;

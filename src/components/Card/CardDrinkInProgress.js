@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import DrinkContext from '../../context/bebidaContext/DrinkContext';
+import { setLocalStorageDoneRecipesDrinks } from '../../services/LocalStorage';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import '../../index.css';
-import DrinkContext from '../../context/bebidaContext/DrinkContext';
 
 function copyToClipboard(id, callback) {
   navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
@@ -50,22 +51,7 @@ function CardDrinkInProgress({ alreadyFavorited, idDaReceita }) {
   const [redirect, setRedirect] = useState(false);
 
   const handleClick = () => {
-    const previousDoceRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    localStorage.setItem('doneRecipes', JSON.stringify(
-      [...previousDoceRecipes,
-        {
-          id: detailDrinks[0].idDrink,
-          type: 'bebida',
-          area: '',
-          category: detailDrinks[0].strCategory,
-          alcoholicOrNot: detailDrinks[0].strAlcoholic,
-          name: detailDrinks[0].strDrink,
-          image: detailDrinks[0].strDrinkThumb,
-          doneDate: date,
-          tags: [detailDrinks[0].strTags],
-        },
-      ],
-    ));
+    setLocalStorageDoneRecipesDrinks(detailDrinks, date);
     setDoneRecipe(detailDrinks.strDrink);
     setRedirect(true);
   };
@@ -163,7 +149,7 @@ function CardDrinkInProgress({ alreadyFavorited, idDaReceita }) {
             data-testid="finish-recipe-btn"
             className="finalizar-receita"
             disabled={ disableButton }
-            onClick={ () => { handleClick(); } }
+            onClick={ () => handleClick() }
           >
             Finalizar Receita
           </button>

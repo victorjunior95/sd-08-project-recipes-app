@@ -109,3 +109,13 @@ code {
   padding: 25px;
   text-align: center;
 }
+
+.notRisked {
+  text-decoration: none;
+}
+
+.risked {
+  text-decoration: line-through;
+}
+
+

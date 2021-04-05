@@ -82,7 +82,8 @@ export default function RecipesProvider({ children }) {
     }
   }, [data]);
 
-  const context = { getAPI, data, setData, foodRandom, drinkRandom };
+  const context = {
+    getAPI, data, setData, foodRandom, drinkRandom };
 
   return (
     <RecipesContext.Provider value={ context }>

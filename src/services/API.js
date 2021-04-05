@@ -69,7 +69,7 @@ export const getDrinkById = async (id) => (
 export const getFoodRandom = async () => {
   const results = await fetch(endPointFoodRandom).then((res) => res.json());
   const { meals } = results;
-  console.log(meals.map((i) => i.strCategory));
+  // console.log(meals.map((i) => i.strCategory));
   return meals;
 };
 

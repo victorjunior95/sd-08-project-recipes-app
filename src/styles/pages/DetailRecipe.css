@@ -1,0 +1,9 @@
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.carousel > a > img {
+  width: 160px;
+}

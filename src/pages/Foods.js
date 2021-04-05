@@ -2,37 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Header, Footer, Cards } from '../components';
-import { fetchFoodsRandom, fetchFoodCategory } from '../store/actions';
+import { Header, Footer, Cards, Loading } from '../components';
+import { getMealsAll } from '../store/actions';
 import '../styles/pages/Container.css';
 
-const MAX_NUMBER_CARDS = 11;
+const MAX_NUMBER_CARDS = 12;
 
 class Foods extends Component {
   componentDidMount() {
-    const { getFood, getFoodCategory } = this.props;
-    getFood();
-    getFoodCategory();
+    const { asyncMealsAll } = this.props;
+    asyncMealsAll();
   }
 
   render() {
-    const { meals, renderOnlyCardByFilter } = this.props;
-    console.log(meals);
+    const { meals,
+      isFetching,
+      renderOnlyCardByFilter,
+      mealsCategories,
+    } = this.props;
     if (meals && meals.length === 1 && renderOnlyCardByFilter) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
     return (
       <div>
-        <Header title="Comidas" />
+        <Header title="Comidas" btnCategories={ mealsCategories } />
         <div className="container">
-
-          { meals && meals.reduce((acc, cur, index) => {
-            if (index <= MAX_NUMBER_CARDS) {
-              acc = [...acc, cur];
-            }
-            return acc;
-          }, [])
-            .map((food, index) => (
+          <Loading state={ isFetching }>
+            { meals.slice(0, MAX_NUMBER_CARDS).map((food, index) => (
               <Cards
                 route={ `/comidas/${food.idMeal}` }
                 key={ index }
@@ -43,6 +39,7 @@ class Foods extends Component {
                 title="Comidas"
               />
             ))}
+          </Loading>
         </div>
         <Footer />
       </div>
@@ -52,24 +49,26 @@ class Foods extends Component {
 
 Foods.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.objectOf),
-  getFood: PropTypes.func.isRequired,
-  getFoodCategory: PropTypes.func.isRequired,
+  mealsCategories: PropTypes.arrayOf(PropTypes.objectOf),
+  asyncMealsAll: PropTypes.func.isRequired,
   renderOnlyCardByFilter: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 Foods.defaultProps = {
   meals: [],
+  mealsCategories: [],
 };
 
 const mapStateToProps = (state) => ({
-  meals: state.foodsReducer.data.meals,
+  meals: state.foodsReducer.recipes,
+  mealsCategories: state.foodsReducer.categories,
   renderOnlyCardByFilter: state.headerReducer.showButtonSearch,
+  isFetching: state.drinksReducer.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFood: (value) => dispatch(fetchFoodsRandom(value)),
-  getFoodCategory: () => dispatch(fetchFoodCategory()),
-
+  asyncMealsAll: () => dispatch(getMealsAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foods);

@@ -3,12 +3,6 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUserAction } from '../store/actions';
-import {
-  setMealsTokenLocalStorage,
-  setCocktailsTokenLocalStorage,
-  setUserLocalStorage,
-  setProgressDrink,
-} from '../services';
 import logoImage from '../images/logo.svg';
 import '../styles/components/LoginForm.css';
 
@@ -31,10 +25,6 @@ class LoginForm extends Component {
     const { email } = this.state;
     setLoginState(email);
 
-    setUserLocalStorage(email);
-    setMealsTokenLocalStorage();
-    setCocktailsTokenLocalStorage();
-    setProgressDrink();
     this.setState({
       redirectFoods: true,
     });

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchFood, fetchDrink } from '../../store/actions';
+import { getDrinksBySearch, getMealsBySearch } from '../../store/actions';
 import { alertSearch } from '../../serviceWorker';
 import '../../styles/components/Header/SearchBar.css';
 
-const SEARCH_LENGTH = 1;
+const ONE_LETTER = 1;
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -26,15 +26,13 @@ class SearchBar extends Component {
 
   handleClick() {
     const { search, searchRadio } = this.state;
-    const { getFood, title, getDrink } = this.props;
-    const ARGUMENT_REQUEST = { search, searchRadio };
-    if (searchRadio === 'firstLetter' && search.length > SEARCH_LENGTH) {
-      return alertSearch('14');
-    }
-    if (title === 'Comidas') {
-      return getFood(ARGUMENT_REQUEST);
-    }
-    return getDrink(ARGUMENT_REQUEST);
+    const { getMealsRadio, getDrinksRadio, title } = this.props;
+    if (searchRadio === 'firstLetter'
+    && search.length > ONE_LETTER) return alertSearch('14');
+    const getFilterCheckBox = title === 'Comidas'
+      ? getMealsRadio
+      : getDrinksRadio;
+    getFilterCheckBox({ search, searchRadio });
   }
 
   render() {
@@ -98,12 +96,13 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  getFood: PropTypes.func,
+  getMealsRadio: PropTypes.func,
+  getDrinksRadio: PropTypes.func,
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  getFood: (value) => dispatch(fetchFood(value)),
-  getDrink: (value) => dispatch(fetchDrink(value)),
+  getMealsRadio: (radio) => dispatch(getMealsBySearch(radio)),
+  getDrinksRadio: (radio) => dispatch(getDrinksBySearch(radio)),
 });
 
 export default connect(null, mapDispatchToProps)(SearchBar);

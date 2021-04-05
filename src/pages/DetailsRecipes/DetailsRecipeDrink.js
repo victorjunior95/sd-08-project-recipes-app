@@ -1,75 +1,49 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
 // import favIconDisabled from '../../images/whiteHeartIcon.svg';
-import filterFood from '../../utils/filterDetailsRecipes';
-import { fetchDrinkDetails } from '../../services';
+import { getDetailsAll as getDrinksDetailsAll } from '../../store/actions';
+import { Loading } from '../../components';
 
-const INITIAL_STATE_RECIPE_FOOD = {
-  idDrink: '',
-  ingredients: [],
-  measures: [],
-  strArea: '',
-  strCategory: '',
-  strInstructions: '',
-  strDrink: '',
-  strDrinkThumb: '',
-  strTags: '',
-  strYoutube: '',
-};
+import '../../styles/pages/DetailRecipe.css';
 
-class RecipeFood extends Component {
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE_RECIPE_FOOD;
+const MAX_SIX_RECOMMENDATIONS = 6;
 
-    this.handleRequestDrink = this.handleRequestDrink.bind(this);
-  }
-
+class DetailsRecipeDrink extends Component {
   componentDidMount() {
-    this.handleRequestDrink();
-  }
-
-  handleRequestDrink() {
     const {
-      match: {
-        params: { id },
-      },
+      asyncDrinksAll,
+      location: { pathname },
     } = this.props;
-
-    fetchDrinkDetails(id).then((response) => {
-      const drink = filterFood(response, 'drinks');
-      this.setState((state) => ({
-        ...state,
-        ...drink,
-      }));
-    });
+    asyncDrinksAll(pathname);
   }
 
   render() {
+    const { isFetching, recipe, recommendations } = this.props;
     const {
       idDrink,
       strDrinkThumb,
       strDrink,
       strInstructions,
-      strYoutube,
       ingredients,
       measures,
       strAlcoholic,
-    } = this.state;
+    } = recipe;
 
     return (
-      <div className="recipe-details">
-        <img
-          style={ { width: '50%' } }
-          src={ strDrinkThumb }
-          alt="Drink Thumbnail"
-          data-testid="recipe-photo"
-          className="recipe-photo"
-        />
+      <Loading state={ isFetching }>
+
         <div className="recipe-header box-content">
+          <img
+            style={ { width: '50%' } }
+            src={ strDrinkThumb }
+            alt="Drink Thumbnail"
+            data-testid="recipe-photo"
+            className="recipe-photo"
+          />
           <h1 data-testid="recipe-title" className="recipe-title">
             {strDrink}
           </h1>
@@ -114,35 +88,29 @@ class RecipeFood extends Component {
           <h2>Instructions</h2>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
-        <div className="video-content">
-          <h2 className="box-content">Video</h2>
-          <iframe
-            data-testid="video"
-            title={ strDrink }
-            width="360"
-            height="202.5"
-            src={ `https://www.youtube.com/embed/${strYoutube.split('/')[3]}` }
-            frameBorder="0"
-            allow="accelerometer;autoplay;clipboard-write;encrypted-media;
-            gyroscope;picture-in-picture"
-            allowFullScreen
-          />
-        </div>
         <h2 className="box-content">Recomendadas</h2>
         <div className="carousel">
-
-          <Link
-            to={ `/bebidas/${'_'}` }
-            className="carousel-content"
-            data-testid={ `${0}-recomendation-card` }
-          >
-            <img
-              src="img.png"
-              alt="titulo"
-              className="carousel-item-image"
-            />
-          </Link>
-
+          {recommendations.recipe
+            .slice(0, MAX_SIX_RECOMMENDATIONS)
+            .map((recomendation, index) => (
+              <Link
+                key={ recomendation.idMeal }
+                to={ `/bebidas/${recomendation.idMeal}` }
+                className="carousel-content"
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  src={ recomendation.strMealThumb }
+                  alt="titulo"
+                  className="carousel-item-image"
+                />
+                <span
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {recomendation.strMeal}
+                </span>
+              </Link>
+            ))}
         </div>
         <div className="start-btn">
           <Link
@@ -153,17 +121,46 @@ class RecipeFood extends Component {
             Iniciar receita
           </Link>
         </div>
-      </div>
+      </Loading>
     );
   }
 }
 
-RecipeFood.propTypes = {
+DetailsRecipeDrink.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+  asyncDrinksAll: PropTypes.func.isRequired,
+  recipe: PropTypes.shape({
+    idDrink: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strDrink: PropTypes.string,
+    strInstructions: PropTypes.string,
+    strYoutube: PropTypes.string,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
+    measures: PropTypes.arrayOf(PropTypes.string),
+    strAlcoholic: PropTypes.string,
+  }).isRequired,
+  recommendations: PropTypes.shape({
+    recipe: PropTypes.arrayOf }).isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
-export default RecipeFood;
+const mapStateToProps = ({
+  detailsReducers: { recipe, recommendations, isFetching },
+}) => ({
+  recipe,
+  recommendations,
+  isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  asyncDrinksAll: (pathname) => dispatch(getDrinksDetailsAll(pathname)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsRecipeDrink);

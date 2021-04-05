@@ -1,4 +1,4 @@
-import { fetchFoodsByCategories, fetchDrinksByCategories } from '../../services';
+import { getMealsByCategories, getDrinksByCategories } from '../../services';
 
 export const TOGGLE_BUTTON_SEARCH = 'TOGGLE_BUTTON_SEARCH';
 export const TOGGLE_HEADER_TITLE = 'TOGGLE_HEADER_TITLE';
@@ -18,12 +18,8 @@ const setFiltersDrinksButtons = (payload) => ({
   type: SET_FILTERS_DRINKS_BUTTONS, payload });
 
 export const fetchFoodCategory = () => (dispatch) => {
-  fetchFoodsByCategories().then((data) => dispatch(setFiltersFoodsButtons(data)));
+  getMealsByCategories().then((data) => dispatch(setFiltersFoodsButtons(data)));
 };
 export const fetchDrinkCategory = () => (dispatch) => {
-  fetchDrinksByCategories().then((data) => dispatch(setFiltersDrinksButtons(data)));
+  getDrinksByCategories().then((data) => dispatch(setFiltersDrinksButtons(data)));
 };
-
-// export const fetchFoodsRandom = () => (dispatch) => {
-//   fetchFoodsByRandom().then((data) => dispatch(getSearchFood(data)));
-// };

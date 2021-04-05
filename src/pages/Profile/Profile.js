@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Footer, Header } from '../../components';
 import { logoutUserAction } from '../../store/actions';
-import { getProfileEmailLocalStorage as emailLocalStorage } from '../../services';
+// import { loadFromLS } from '../../services';
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userEmail: emailLocalStorage(),
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     userEmail: loadFromLS('user'),
+  //   };
+  // }
 
   render() {
-    const { userEmail: { user: { email } } } = this.state;
+    // const { userEmail: { user: { email } } } = this.state;
     const { logoutUser } = this.props;
     return (
       <div>
         <Header title="Perfil" />
         <div className="container">
 
-          <p data-testid="profile-email">{email}</p>
+          <p data-testid="profile-email">email@emai.com</p>
           <Link
             to="/receitas-feitas"
           >

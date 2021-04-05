@@ -1,37 +1,53 @@
-// import md5 from 'crypto-js/md5'; // Biblioteca que gera Hash
-
-const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-
-const getLocalStorage = (key) => {
-  const keyLocalStorage = localStorage.getItem(key);
-  return {
-    [key]: JSON.parse(keyLocalStorage) || '',
-  };
+export const endpointLS = {
+  mealsToken: 1,
+  cocktailsToken: 1,
+  user: '',
+  doneRecipes: [{
+    id: '',
+    type: '',
+    area: '',
+    category: '',
+    alcoholicOrNot: '',
+    name: '',
+    image: '',
+    doneDate: '',
+    tags: '',
+  }],
+  favoriteRecipes: [{
+    id: '',
+    type: '',
+    area: '',
+    category: '',
+    alcoholicOrNot: '',
+    name: '',
+    image: '',
+  }],
+  inProgressRecipes: {
+    cocktails: {},
+    meals: {},
+  },
 };
 
-export const setMealsTokenLocalStorage = () => setLocalStorage('mealsToken', 1);
-export const setCocktailsTokenLocalStorage = () => setLocalStorage('cocktailsToken', 1);
-export const setUserLocalStorage = (email) => setLocalStorage('user', { email });
-export const setDoneRecipes = (recipes) => setLocalStorage('doneRecipes', recipes);
-export const setFavoriteRecipe = (recipes) => setLocalStorage('favoriteRecipes', recipes);
-
-export const setProgressDrink = () => {
-  setLocalStorage('inProgressRecipes', [{ cocktails: {}, meals: {} }]);
+const keyLS = {
+  user: JSON.parse(localStorage.getItem('user')),
+  inProgressRecipes: JSON.parse(localStorage.getItem('inProgressRecipes')),
+  doneRecipes: JSON.parse(localStorage.getItem('doneRecipes')),
 };
 
-export const setInProgressRecipe = (recipes) => {
-  setLocalStorage('progressRecipes', recipes);
+export const loadFromLS = (key) => {
+  const formatted = JSON.parse(keyLS[key]);
+  return formatted;
 };
 
-export const getProfileEmailLocalStorage = () => getLocalStorage('user');
-export const deleteKeyLocalStorage = (key) => localStorage.clear(key);
+export const saveToLS = (key, entry) => {
+  const formatted = JSON.stringify(entry);
+  localStorage.setItem(key, formatted);
+};
 
-export const getArrayIngredients = (idDrink, ingredientes) => {
-  const current = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const newValue = {
-    ...current,
-    cocktails:
-      { ...current.cocktails, [idDrink]: ingredientes },
-  };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newValue));
+export const deleteFromLS = (key) => {
+  localStorage.removeItem(key);
+};
+
+export const clearLS = () => {
+  localStorage.clear();
 };

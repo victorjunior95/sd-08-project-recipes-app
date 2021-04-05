@@ -2,44 +2,42 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Header, Footer, Cards } from '../components';
-import { fetchDrinksRandom, fetchDrinkCategory } from '../store/actions';
+import { Header, Footer, Cards, Loading } from '../components';
+import { getDrinksAll } from '../store/actions';
 import '../styles/pages/Container.css';
 
-const MAX_NUMBER_CARDS = 11;
+const MAX_NUMBER_CARDS = 12;
 class Drinks extends Component {
   componentDidMount() {
-    const { getDrink, getDrinkCategory } = this.props;
-    getDrinkCategory();
-    getDrink();
+    const { asyncDrinksAll } = this.props;
+    asyncDrinksAll();
   }
 
   render() {
-    const { drinks } = this.props;
-    if (drinks && drinks.length === 1) {
+    const { drinks, drinksCategories, isFetching } = this.props;
+    if (drinks.length === 1) {
       return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     }
     return (
       <div>
-        <Header title="Bebidas" />
+        <Header title="Bebidas" btnCategories={ drinksCategories } />
         <div className="container">
+          <Loading state={ isFetching }>
 
-          {drinks && drinks.reduce((acc, cur, index) => {
-            if (index <= MAX_NUMBER_CARDS) {
-              acc = [...acc, cur];
-            }
-            return acc;
-          }, []).map((drink, index) => (
-            <Cards
-              route={ `/bebidas/${drink.idDrink}` }
-              data-testid={ `${index}-recipe-card` }
-              key={ index }
-              strThumb={ drink.strDrinkThumb }
-              str={ drink.strDrink }
-              index={ index }
-              id={ drink.idDrink }
-            />
-          ))}
+            {drinks
+              .slice(0, MAX_NUMBER_CARDS)
+              .map((drink, index) => (
+                <Cards
+                  route={ `/bebidas/${drink.idDrink}` }
+                  data-testid={ `${index}-recipe-card` }
+                  key={ index }
+                  strThumb={ drink.strDrinkThumb }
+                  str={ drink.strDrink }
+                  index={ index }
+                  id={ drink.idDrink }
+                />
+              ))}
+          </Loading>
         </div>
         <Footer />
       </div>
@@ -49,22 +47,26 @@ class Drinks extends Component {
 
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.objectOf),
-  getDrink: PropTypes.func.isRequired,
-  getDrinkCategory: PropTypes.func.isRequired,
+  drinksCategories: PropTypes.arrayOf(PropTypes.objectOf),
+  asyncDrinksAll: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 
 };
 
 Drinks.defaultProps = {
   drinks: [],
+  drinksCategories: [],
 };
 
-const mapStateToProps = ({ drinksReducer: { data: { drinks } } }) => ({
-  drinks,
+const mapStateToProps = (state) => ({
+  drinks: state.drinksReducer.recipes,
+  drinksCategories: state.drinksReducer.categories,
+  isFetching: state.drinksReducer.isFetching,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getDrink: (value) => dispatch(fetchDrinksRandom(value)),
-  getDrinkCategory: () => dispatch(fetchDrinkCategory()),
+  asyncDrinksAll: (value) => dispatch(getDrinksAll(value)),
 
 });
 

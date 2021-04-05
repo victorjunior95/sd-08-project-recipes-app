@@ -1,54 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
 // import favIconDisabled from '../../images/whiteHeartIcon.svg';
-import filterFood from '../../utils/filterDetailsRecipes';
-import { fetchFoodDetails } from '../../services';
+import { getDetailsAll as getMealsDetailsAll } from '../../store/actions';
+import { Loading } from '../../components';
 
-const INITIAL_STATE_RECIPE_FOOD = {
-  idMeal: '',
-  ingredients: [],
-  measures: [],
-  strArea: '',
-  strCategory: '',
-  strInstructions: '',
-  strMeal: '',
-  strMealThumb: '',
-  strTags: '',
-  strYoutube: '',
-};
+import '../../styles/pages/DetailRecipe.css';
 
-class RecipeFood extends Component {
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE_RECIPE_FOOD;
+const MAX_SIX_RECOMMENDATIONS = 6;
 
-    this.handleRequestFood = this.handleRequestFood.bind(this);
-  }
-
+class DetailsRecipeFood extends Component {
   componentDidMount() {
-    this.handleRequestFood();
-  }
-
-  handleRequestFood() {
     const {
-      match: {
-        params: { id },
-      },
+      asyncMealsAll,
+      location: { pathname },
     } = this.props;
-
-    fetchFoodDetails(id).then((response) => {
-      const meal = filterFood(response, 'meals');
-      this.setState((state) => ({
-        ...state,
-        ...meal,
-      }));
-    });
+    asyncMealsAll(pathname);
   }
 
   render() {
+    const { isFetching, recipe, recommendations } = this.props;
     const {
       idMeal,
       strMealThumb,
@@ -58,18 +32,19 @@ class RecipeFood extends Component {
       strYoutube,
       ingredients,
       measures,
-    } = this.state;
+    } = recipe;
 
     return (
-      <div className="recipe-details">
-        <img
-          style={ { width: '50%' } }
-          src={ strMealThumb }
-          alt="Meal Thumbnail"
-          data-testid="recipe-photo"
-          className="recipe-photo"
-        />
+      <Loading state={ isFetching }>
+
         <div className="recipe-header box-content">
+          <img
+            style={ { width: '50%' } }
+            src={ strMealThumb }
+            alt="Meal Thumbnail"
+            data-testid="recipe-photo"
+            className="recipe-photo"
+          />
           <h1 data-testid="recipe-title" className="recipe-title">
             {strMeal}
           </h1>
@@ -86,6 +61,7 @@ class RecipeFood extends Component {
             </p>
             <button type="button" className="action-button">
               <img
+                style={ { width: '20%' } }
                 src={ favIconEnabled }
                 alt="favorite"
                 data-testid="favorite-btn"
@@ -130,17 +106,27 @@ class RecipeFood extends Component {
         </div>
         <h2 className="box-content">Recomendadas</h2>
         <div className="carousel">
-          <Link
-            to={ `/comidas/${'_'}` }
-            className="carousel-content"
-            data-testid={ `${0}-recomendation-card` }
-          >
-            <img
-              src="img.png"
-              alt="titulo"
-              className="carousel-item-image"
-            />
-          </Link>
+          {recommendations.recipe
+            .slice(0, MAX_SIX_RECOMMENDATIONS)
+            .map((recomendation, index) => (
+              <Link
+                key={ recomendation.idDrink }
+                to={ `/bebidas/${recomendation.idDrink}` }
+                className="carousel-content"
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  src={ recomendation.strDrinkThumb }
+                  alt="titulo"
+                  className="carousel-item-image"
+                />
+                <span
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {recomendation.strDrink}
+                </span>
+              </Link>
+            ))}
         </div>
         <div className="start-btn">
           <Link
@@ -153,17 +139,47 @@ class RecipeFood extends Component {
             Iniciar receita
           </Link>
         </div>
-      </div>
+      </Loading>
     );
   }
 }
 
-RecipeFood.propTypes = {
+DetailsRecipeFood.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+  asyncMealsAll: PropTypes.func.isRequired,
+  recipe: PropTypes.shape({
+    idMeal: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    strMeal: PropTypes.string,
+    strCategory: PropTypes.string,
+    strInstructions: PropTypes.string,
+    strYoutube: PropTypes.string,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
+    measures: PropTypes.arrayOf(PropTypes.string),
+    strAlcoholic: PropTypes.string,
+  }).isRequired,
+  recommendations: PropTypes.shape({
+    recipe: PropTypes.arrayOf }).isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
-export default RecipeFood;
+const mapStateToProps = ({
+  detailsReducers: { recipe, recommendations, isFetching },
+}) => ({
+  recipe,
+  recommendations,
+  isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  asyncMealsAll: (pathname) => dispatch(getMealsDetailsAll(pathname)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsRecipeFood);

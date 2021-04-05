@@ -7,7 +7,7 @@ const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
-  const [forMap, setForMap] = useState({});
+  const [forMap, setForMap] = useState([]);
 
   useEffect(() => {
     setForMap(ingredients.filter((noTwoSpace) => noTwoSpace !== '  ')
@@ -23,8 +23,21 @@ const InProgressCard = (props) => {
   const theButton1 = <button type="button" onClick={ consoleFunction1 }>BOTÃO1</button>;
   const theButton2 = <button type="button" onClick={ consoleFunction2 }>BOTÃO2</button>;
   const onChangeCB = ({ target }) => {
-    forMap.map((element) => (element.name === target.name ? element.checked = target.checked : element));
-    console.log(forMap);
+    const reInsertAtCorrectPos = (array, position, ...elementToInsert) => {
+      array.splice(position, 0, ...elementToInsert);
+    };
+
+    const theIndex = forMap.findIndex((position) => position.name === target.name);
+    const inserting = { name: target.name, checked: target.checked };
+    const theMap = forMap.filter(((filtered) => filtered.name !== target.name));
+
+    reInsertAtCorrectPos(theMap, theIndex, inserting);
+
+    // const newMap = [...oldMap, { name: target.name, checked: target.checked }];
+    // forMap.map((element) => (element.name === target.name ? element.checked = target.checked : element));
+
+    console.log(theMap);
+    localStorage.setItem('test', JSON.stringify(theMap));
     // localStorage.setItem(JSON.stringify(fromLocalStorage));
   };
 
@@ -49,22 +62,22 @@ const InProgressCard = (props) => {
         </label>
       </li>
     ));
-    // : fromLocalStorage.map((ingredient, index) => (
-    //   (
-    //     <li key={ `${index}-${ingredient.name}` } data-testid="ingredient-step">
-    //       <input
-    //         id={ `id-${index}` }
-    //         name={ ingredient.name }
-    //         type="checkbox"
-    //         value={ ingredient.name }
-    //         onChange={ onChangeCB }
-    //         checked={ ingredient.checked }
-    //       />
-    //       <label htmlFor={ `id-${index}` }>
-    //         {ingredient.name}
-    //       </label>
-    //     </li>
-    //   )));
+    //  forMap.map((ingredient, index) => (
+    //    (
+    //      <li key={ `${index}-${ingredient.name}` } data-testid="ingredient-step">
+    //        <input
+    //          id={ `id-${index}` }
+    //          name={ ingredient.name }
+    //          type="checkbox"
+    //          value={ ingredient.name }
+    //          onChange={ onChangeCB }
+    //          checked={ ingredient.checked }
+    //        />
+    //        <label htmlFor={ `id-${index}` }>
+    //          {ingredient.name}
+    //        </label>
+    //      </li>
+    //    )));
 
   const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
     if (instructions.split(/,|\. | ;/g).length !== index + 1) {

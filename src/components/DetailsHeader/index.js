@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Col, Container, Row } from 'react-bootstrap';
 import copy from 'clipboard-copy';
+import { useParams, useRouteMatch } from 'react-router';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import { getlocalStorage } from '../../services/localStorage';
 // import { Container } from './styles';
 
 function DetailsHeader(props) {
   const { title, imgSrc, category, alcoholic } = props;
+  const [useRecipeIsFavorite, setUseRecipeIsFavorite] = useState(false);
   const [useShow, setUseShow] = useState(false);
-
-  function onclickUrl() {
+  const { id: idPage } = useParams();
+  const { path } = useRouteMatch();
+  useEffect(() => {
+    const verifyDoneStorage = () => {
+      const favoriteRecipes = getlocalStorage('favoriteRecipes');
+      const isFavorite = favoriteRecipes && favoriteRecipes.some(
+        ({ id }) => id === idPage,
+      );
+      setUseRecipeIsFavorite(isFavorite);
+    };
+    verifyDoneStorage();
+  }, [idPage, path]);
+  function copyUrl() {
     const urlSite = document.URL;
-    const url = copy(urlSite);
+    copy(urlSite);
     setUseShow(true);
-    return url;
   }
   return (
     <>
@@ -39,11 +52,11 @@ function DetailsHeader(props) {
               alt="Share Button"
               className="mr-2"
               data-testid="share-btn"
-              onClick={ onclickUrl }
+              onClick={ copyUrl }
             />
             <input
               type="image"
-              src={ whiteHeartIcon }
+              src={ useRecipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Favorite Button"
               data-testid="favorite-btn"
             />

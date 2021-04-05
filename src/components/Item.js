@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
+import Recommendation from './Recommendation';
+
 export default class Item extends Component {
   constructor() {
     super();
@@ -12,15 +14,15 @@ export default class Item extends Component {
     };
 
     this.fetchRecipe = this.fetchRecipe.bind(this);
+    this.renderMeal = this.renderMeal.bind(this);
   }
 
   componentDidMount() {
     this.fetchRecipe();
   }
 
-  juntar(chave) {
-    const { results } = this.state;
-    return Object.entries(results.meals[0]).map((nome) => {
+  juntar(chave, itemValue) {
+    return Object.entries(itemValue).map((nome) => {
       if (nome[0].includes(chave)) {
         return nome[1];
       }
@@ -28,22 +30,15 @@ export default class Item extends Component {
     }).filter((element) => element !== undefined);
   }
 
-  ingredientesComQuantidades() {
-    const ingredient = this.juntar('strIngredient');
-    const measure = this.juntar('strMeasure');
+  ingredientesComQuantidades(itemValue) {
+    const ingredient = this.juntar('strIngredient', itemValue);
+    const measure = this.juntar('strMeasure', itemValue);
     return ingredient.map((nome, index) => {
       if (nome) {
         return (
-          <>
-            <input
-              key={ nome }
-              type="checkbox"
-
-            />
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${nome} - ${measure[index]}`}
-            </p>
-          </>
+          <p data-testid={ `${index}-ingredient-name-and-measure` }>
+            {`${nome} - ${measure[index]}`}
+          </p>
         );
       }
       return undefined;
@@ -64,6 +59,17 @@ export default class Item extends Component {
       const results = await req.json();
       this.setState({ results });
     }
+  }
+
+  showAlternate(value) {
+    value.strDrinkAlternate.map((drinkAlternate, index) => (
+      <p
+        key={ drinkAlternate }
+        data-testid={ `${index}-recomendation-card` }
+      >
+        {drinkAlternate}
+      </p>
+    ));
   }
 
   renderMeal() {
@@ -97,23 +103,14 @@ export default class Item extends Component {
                   data-testid="video"
                   src={ results.meals[0].strYoutube.replace('watch?v=', 'embed/') }
                 />
-                {results.meals[0].strDrinkAlternate
-                && results.meals[0].strDrinkAlternate
-                  .map((drinkAlternate, index) => (
-                    <p
-                      key={ drinkAlternate }
-                      data-testid={ `${index}-recomendation-card` }
-                    >
-                      {drinkAlternate}
-                    </p>
-                  ))}
                 <div>
-                  {this.ingredientesComQuantidades()}
+                  {this.ingredientesComQuantidades(results.meals[0])}
                 </div>
                 <p data-testid="instructions">
                   Instruções:
                   {results.meals[0].strInstructions}
                 </p>
+                <Recommendation />
                 <button data-testid="start-recipe-btn" type="button">
                   Iniciar Receita
                 </button>
@@ -127,19 +124,30 @@ export default class Item extends Component {
                   alt="img"
                   width="70px"
                 />
+                <button type="button" data-testid="share-btn">
+                  <img src={ shareIcon } alt="share icon" />
+                </button>
+                <button type="button" data-testid="favorite-btn">
+                  <img src={ whiteHeartIcon } alt="favorite" />
+                </button>
                 <h1 data-testid="recipe-title">{ results.drinks[0].strDrink }</h1>
                 <p data-testid="recipe-category">
-                  { results.drinks[0].strCategory }
+                  { results.drinks[0].strAlcoholic}
                 </p>
+                <div>
+                  {this.ingredientesComQuantidades(results.drinks[0])}
+                </div>
+                <p data-testid="instructions">
+                  Instruções:
+                  {results.drinks[0].strInstructions}
+                </p>
+                <Recommendation />
+                <button data-testid="start-recipe-btn" type="button">
+                  Iniciar Receita
+                </button>
               </>
             )
         }
-
-        <p
-          data-testid="ingredient-name-and-measure"
-        >
-          Ingredientes:
-        </p>
 
       </div>
     );

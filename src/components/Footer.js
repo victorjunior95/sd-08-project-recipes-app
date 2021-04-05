@@ -12,7 +12,7 @@ export default class Footer extends Component {
         <Link to="/bebidas" src={ drinkIcon } data-testid="drinks-bottom-btn">
           <img src={ drinkIcon } alt="Drink Icon" />
         </Link>
-        <Link to="/comidas" src={ exploreIcon } data-testid="explore-bottom-btn">
+        <Link to="/explorar" src={ exploreIcon } data-testid="explore-bottom-btn">
           <img src={ exploreIcon } alt="Explore Icon" />
         </Link>
         <Link to="/comidas" src={ mealIcon } data-testid="food-bottom-btn">

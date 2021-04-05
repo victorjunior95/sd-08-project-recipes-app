@@ -29,7 +29,7 @@ export default class Food extends Component {
       <div>
         <Header params={ values } />
         <Filtro pathname={ pathname } />
-        <ListCard infos={ food } />
+        <ListCard infos={ food } params={ values } />
         <Footer />
       </div>
     );

@@ -3,8 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Card from './Card';
+import { fetchIngredient as fetchIngredientAction } from '../action';
 
 class ListCard extends Component {
+  componentDidMount() {
+    const { searchIngredient,
+      params: { url: { byName }, defaultSearch } } = this.props;
+    const url = byName + defaultSearch;
+    searchIngredient(url);
+  }
+
   render() {
     const { result, infos } = this.props;
     const { history } = infos;
@@ -38,7 +46,11 @@ const mapStateToProps = (({ search: { result, isFetching } }) => ({
   isFetching,
 }));
 
-export default connect(mapStateToProps)(ListCard);
+const mapDispatchToProps = (dispatch) => ({
+  searchIngredient: (url) => dispatch(fetchIngredientAction(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListCard);
 
 ListCard.propTypes = {
   result: PropTypes.arrayOf(PropTypes.object),
@@ -49,6 +61,13 @@ ListCard.propTypes = {
     linkRedirect: PropTypes.string,
     history: PropTypes.func.isRequired,
   }),
+  params: PropTypes.shape({
+    url: PropTypes.shape({
+      byName: PropTypes.string.isRequired,
+    }).isRequired,
+    defaultSearch: PropTypes.string.isRequired,
+  }).isRequired,
+  searchIngredient: PropTypes.func.isRequired,
 };
 
 ListCard.defaultProps = {

@@ -29,7 +29,7 @@ export default class Drinks extends Component {
       <div>
         <Header params={ values } />
         <Filtros pathname={ pathname } />
-        <ListCard infos={ drinks } />
+        <ListCard infos={ drinks } params={ values } />
         <Footer />
       </div>
     );

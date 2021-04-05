@@ -24,11 +24,24 @@ function DoneRecipeCard({ index, recipe }) {
   const shareButtonId = `${index}-horizontal-share-btn`;
   const path = `/${type}s/${id}`;
 
-  function showTags(allTags) {
+  function showTags() {
+    if (!tags) return;
+    let tagsToShow;
+
+    if (typeof tags === 'string') {
+      tagsToShow = tags.split(',');
+    } else {
+      tagsToShow = [...tags];
+    }
+
+    if (tagsToShow.length > 2) {
+      tagsToShow = tagsToShow.slice(0, 2);
+    }
+
     return (
       <div>
         {
-          allTags.map((tag) => {
+          tagsToShow.map((tag) => {
             const tagId = `${index}-${tag}-horizontal-tag`;
             return <span key={ tagId } data-testid={ tagId }>{ tag }</span>;
           })
@@ -72,7 +85,7 @@ function DoneRecipeCard({ index, recipe }) {
         </Link>
         { 'Feita em: ' }
         <span data-testid={ doneDateId }>{ doneDate }</span>
-        { type === 'comida' && showTags(tags) }
+        { type === 'comida' && showTags() }
       </section>
     </section>
   );
@@ -88,7 +101,7 @@ DoneRecipeCard.propTypes = {
     id: PropTypes.string,
     image: PropTypes.string,
     name: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.string),
+    tags: PropTypes.string,
     type: PropTypes.string,
   }).isRequired,
 };

@@ -11,11 +11,10 @@ function DetailsHeader(props) {
   const { title, imgSrc, category, alcoholic } = props;
   const [useShow, setUseShow] = useState(false);
 
-  function onclickUrl() {
+  function copyUrl() {
     const urlSite = document.URL;
-    const url = copy(urlSite);
+    copy(urlSite);
     setUseShow(true);
-    return url;
   }
   return (
     <>
@@ -39,7 +38,7 @@ function DetailsHeader(props) {
               alt="Share Button"
               className="mr-2"
               data-testid="share-btn"
-              onClick={ onclickUrl }
+              onClick={ copyUrl }
             />
             <input
               type="image"

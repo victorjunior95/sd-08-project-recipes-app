@@ -39,7 +39,7 @@ function FoodDetails() {
     verifyDoneStorage();
   }, [idPage]);
 
-  const { strMeal, strCategory, strMealThumb, strYoutube } = mealData[0];
+  const { strMeal, strCategory, strMealThumb, strYoutube, strArea } = mealData[0];
   if (isFetching) return <Loading />;
   return (
     <Container className="m-0 p-0 d-flex justify-content-center flex-column mb-5" fluid>
@@ -48,6 +48,7 @@ function FoodDetails() {
           title={ strMeal }
           imgSrc={ strMealThumb }
           category={ strCategory }
+          area={ strArea }
         />
       </Container>
       <Container>

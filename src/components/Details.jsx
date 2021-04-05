@@ -60,31 +60,27 @@ function Details(props) {
 
   function renderDetails() {
     return (
-      <>
-        <img
-          src={ currentFood.strMealThumb || currentFood.strDrinkThumb }
-          data-testid="recipe-photo"
-          alt="Thumbnail"
-        />
-        <h1 data-testid="recipe-title">
-          { currentFood.strMeal || currentFood.strDrink }
-        </h1>
-        <input
-          type="image"
-          src={ shareIcon }
-          alt="share"
-          data-testid="share-btn"
-          onClick={ shareButtonClick }
-        />
-        { message ? renderMessage() : null }
-        <FavoriteButton currentFood={ currentFood } />
-        <h6
-          data-testid="recipe-category"
-        >
-          { currentFood.strAlcoholic
-            ? currentFood.strAlcoholic : currentFood.strCategory }
-        </h6>
-        <h2>Ingredientes</h2>
+      <div className="background-dark details-container">
+        <section className="detail-image-container">
+          <img
+            src={ currentFood.strMealThumb || currentFood.strDrinkThumb }
+            data-testid="recipe-photo"
+            alt="Thumbnail"
+          />
+          <h4
+            data-testid="recipe-category"
+          >
+            { currentFood.strAlcoholic
+              ? currentFood.strAlcoholic : currentFood.strCategory }
+          </h4>
+        </section>
+        <section className="detail-top-bar">
+          <h1 data-testid="recipe-title">
+            { currentFood.strMeal || currentFood.strDrink }
+          </h1>
+          <FavoriteButton currentFood={ currentFood } />
+        </section>
+        <h3>Ingredientes</h3>
         <ul>
           { ingredients.map((curr, index) => (
             <li
@@ -95,18 +91,29 @@ function Details(props) {
             </li>
           ))}
         </ul>
-        <h2>Instruções</h2>
+        <h3>Instruções</h3>
         <p data-testid="instructions">{ currentFood.strInstructions }</p>
-        <YtVideo currentFood={ currentFood } />
-        <Recomendations />
-        <Button
-          disabled={ disabled }
-          className="start-recipe-btn"
-          datatestid="start-recipe-btn"
-          label={ btnLabel }
-          onClick={ historyPath }
-        />
-      </>
+        <section className="detail-bottom-content">
+          <input
+            type="image"
+            src={ shareIcon }
+            alt="share"
+            data-testid="share-btn"
+            onClick={ shareButtonClick }
+            width="30px"
+          />
+          { message ? renderMessage() : null }
+          <YtVideo currentFood={ currentFood } />
+          <Recomendations />
+          <Button
+            disabled={ disabled }
+            className="start-recipe-btn"
+            datatestid="start-recipe-btn"
+            label={ btnLabel }
+            onClick={ historyPath }
+          />
+        </section>
+      </div>
     );
   }
 

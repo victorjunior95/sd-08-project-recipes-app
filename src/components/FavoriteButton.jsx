@@ -50,8 +50,8 @@ const FavoriteButton = (props) => {
       alt="share"
       data-testid="favorite-btn"
       onClick={ favRecipesBtn }
+      className="favorite-btn"
     />
-
   );
 };
 

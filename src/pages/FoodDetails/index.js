@@ -42,7 +42,7 @@ function FoodDetails() {
   const { strMeal, strCategory, strMealThumb, strYoutube } = mealData[0];
   if (isFetching) return <Loading />;
   return (
-    <Container className="m-0 p-0 d-flex justify-content-center flex-column" fluid>
+    <Container className="m-0 p-0 d-flex justify-content-center flex-column mb-5" fluid>
       <Container className="m-0 p-0">
         <DetailsHeader
           title={ strMeal }

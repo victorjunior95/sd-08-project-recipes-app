@@ -1,5 +1,7 @@
 .recipe-button {
   bottom: 0;
+  right: 56%;
+  margin-right: -100px;
   position: fixed;
-  z-index: 2;
+  z-index: 50;
 }

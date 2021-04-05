@@ -114,15 +114,6 @@
 }
 */
 
-.footer {
-  background-color: rgba(57, 62, 65, 0.3);
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  width: 100vw;
-}
-
 .notFound {
   background-image: url('https://zlionbrasil.com.br/img/icons/404.png');
   background-size: cover;

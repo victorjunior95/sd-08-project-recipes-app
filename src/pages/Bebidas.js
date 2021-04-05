@@ -105,7 +105,7 @@ class Bebidas extends Component {
               return null;
             })
           }
-          <Footer />
+          <Footer className="footer orange" />
         </div>
       );
     }

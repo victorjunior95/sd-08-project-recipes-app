@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
-import SearchBarLocation from './SearchBar';
+import profileIcon from '../../images/profileIcon.svg';
+import searchIcon from '../../images/searchIcon.svg';
+import SearchBarLocation from '../SearchBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container } from 'react-bootstrap';
+import './styles.css';
 
 class Header extends Component {
   constructor() {
@@ -69,8 +72,8 @@ class Header extends Component {
     const { location, history } = this.props;
     const { hidden } = this.state;
     return (
-      <div>
-        <button type="button" onClick={ () => { history.push('./perfil'); } }>
+      <Container>
+        <button className="profile-button" type="button" onClick={ () => { history.push('./perfil'); } }>
           <img
             src={ profileIcon }
             alt="imagem-profile"
@@ -79,7 +82,7 @@ class Header extends Component {
           />
         </button>
         <div data-testid="page-title">
-          {this.title(location.pathname)}
+          <h2>{this.title(location.pathname)}</h2>
         </div>
         {
           (location.pathname === '/comidas'
@@ -104,7 +107,7 @@ class Header extends Component {
               <div />
             )
         }
-      </div>
+      </Container>
     );
   }
 }

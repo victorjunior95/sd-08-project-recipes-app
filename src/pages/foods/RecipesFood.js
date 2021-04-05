@@ -13,7 +13,7 @@ function RecipesFood() {
 
   return (
     <div>
-      <Header title="Comidas" search="" />
+      <Header title="Receitas Feitas" search="" />
       <FoodCategoryButton />
       {
         recipeMeals

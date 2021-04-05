@@ -41,7 +41,7 @@ function Ingredients({ page, id }) {
       <h5>Ingredients</h5>
       {
         page !== 'details' ? (
-          <fieldset id="fieldset">
+          <fieldset id="fieldset" className="bg-light bg-gradient">
             {
               Object.keys(details[0]).map((item, index) => (
                 recipe[`strIngredient${index + 1}`] !== ''
@@ -67,7 +67,7 @@ function Ingredients({ page, id }) {
             }
           </fieldset>
         ) : (
-          <ul>
+          <ul className="bg-light bg-gradient py-2">
             {
               Object.keys(details[0]).map((item, index) => (
                 recipe[`strIngredient${index + 1}`] !== ''
@@ -88,9 +88,11 @@ function Ingredients({ page, id }) {
         )
       }
       <h5>Instructions</h5>
-      <p data-testid="instructions">
-        { recipe.strInstructions }
-      </p>
+      <div className="bg-light bg-gradient">
+        <p data-testid="instructions" className="instructions py-2 px-3">
+          { recipe.strInstructions }
+        </p>
+      </div>
 
     </section>
   );

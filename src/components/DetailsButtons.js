@@ -4,39 +4,23 @@ import { Link, Redirect } from 'react-router-dom';
 import Context from '../context/Context';
 // import { saveState } from '../services/LocalStorage';
 
-function SaveFinishedRecipes(idRecipe, recipeDetails, route) {
-  const recipe = Object.values(recipeDetails[0])[0][0];
+function SaveProgressRecipes(idRecipe, route) {
+  // const recipe = Object.values(recipeDetails[0])[0][0];
   let a = [];
-  a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
+  a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
   if (route === 'comidas') {
     a.push({
       idRecipe,
       type: route,
-      area: recipe.strArea,
-      category: recipe.strCategory,
-      alcoholicOrNot: '',
-      name: recipe.strMeal,
-      image: recipe.strMealThumb,
-      doneDate: '',
-      tags: '',
     });
   }
   if (route === 'bebidas') {
     a.push({
       idRecipe,
       type: route,
-      area: '',
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic,
-      name: recipe.strDrink,
-      image: recipe.strDrinkThumb,
-      doneDate: '',
-      tags: '',
     });
   }
-  localStorage.setItem('doneRecipes', JSON.stringify(a));
-  // saveState('doneRecipes', [...a]);
+  localStorage.setItem('inProgressRecipes', JSON.stringify(a));
 }
 
 function DetailsButtons({ route, id, page }) {
@@ -56,41 +40,57 @@ function DetailsButtons({ route, id, page }) {
     }
   }, []);
 
-  function SaveProgressRecipes(idRecipe) {
-    // const recipe = Object.values(recipeDetails[0])[0][0];
+  function SaveFinishedRecipes(idRecipe) {
+    const recipe = Object.values(recipeDetails[0])[0][0];
     let a = [];
-    a = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    a = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
     if (route === 'comidas') {
       a.push({
         idRecipe,
         type: route,
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+        doneDate: '',
+        tags: '',
       });
     }
     if (route === 'bebidas') {
       a.push({
         idRecipe,
         type: route,
+        area: '',
+        category: recipe.strCategory,
+        alcoholicOrNot: recipe.strAlcoholic,
+        name: recipe.strDrink,
+        image: recipe.strDrinkThumb,
+        doneDate: '',
+        tags: '',
       });
     }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(a));
+    localStorage.setItem('doneRecipes', JSON.stringify(a));
+    // saveState('doneRecipes', [...a]);
   }
 
   if (shouldRedirect === id) return <Redirect to="/receitas-feitas" />;
 
   return (
-    <div>
+    <div className="d-grid gap-2">
       {
         page === 'details' ? (
           <Link
             to={ `/${route}/${id}/in-progress` }
-            className="last-btn"
+            className="last-btn btn btn-secondary"
             data-testid="start-recipe-btn"
             style={ { display: 'none' } }
             id="start-recipe-btn"
             onClick={ () => {
               idsP.push(id);
               // localStorage.setItem('inProgressRecipes', JSON.stringify(idsP));
-              SaveProgressRecipes(id);
+              SaveProgressRecipes(id, route);
             } }
           >
             Continuar Receita
@@ -99,14 +99,15 @@ function DetailsButtons({ route, id, page }) {
           <button
             to="/receitas-feitas"
             type="submit"
-            className={ disableButton ? 'last-btn disable' : 'last-btn' }
+            className={ disableButton ? 'last-btn disable btn btn-primary'
+              : 'last-btn btn btn-primary' }
             data-testid="finish-recipe-btn"
             id="finish-recipe-btn"
             disabled={ disableButton }
             onClick={ () => {
               idsF.push(id);
               // localStorage.setItem('doneRecipes', JSON.stringify(idsF));
-              SaveFinishedRecipes(id, recipeDetails, route);
+              SaveFinishedRecipes(id);
               setShouldRedirect(id);
             } }
           >

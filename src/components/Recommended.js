@@ -8,7 +8,7 @@ function Recommended({ recipeType }) {
   const SIX_RECOMMENDATIONS = 6;
 
   return (
-    <section>
+    <section className="recommendations">
       <h5>Recomendadas</h5>
       <Carousel>
         { recipeType === 'Drink' ? (
@@ -19,7 +19,7 @@ function Recommended({ recipeType }) {
                   className="d-block w-100"
                   alt="Recipe thumbnail"
                   src={ item.strMealThumb }
-                  height="100"
+                  height="150"
                 />
                 <Carousel.Caption>
                   <h6>
@@ -36,9 +36,10 @@ function Recommended({ recipeType }) {
             index < SIX_RECOMMENDATIONS ? (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img
+                  className="d-block w-100"
                   alt="Recipe thumbnail"
                   src={ item.strDrinkThumb }
-                  height="100"
+                  height="150"
                 />
                 <Carousel.Caption>
                   <h6>

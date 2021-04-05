@@ -54,15 +54,12 @@ const handleIsFavorite = (favorite, isMeal, foodDetails, setIsFavorite) => {
 };
 
 const Detalhes = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isMeal, setIsMeal] = useState(true);
-  const [foodDetails, setFoodDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [buttonRecipe, setButtonRecipe] = useState(true);
   const [inProgress, setProgress] = useState(false);
   const [hidden, setHidden] = useState(false);
-  // const [favoriteRecipe, setFavoriteRecipe] = useState({});
-
+  const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
+    setFoodDetails, favoriteRecipe, setFavoriteRecipe } = useContext(LariContext);
   const location = useLocation();
   const history = useHistory();
 

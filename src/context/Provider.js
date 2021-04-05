@@ -19,7 +19,7 @@ const Provider = ({ children }) => {
   const [hidden, setHidden] = useState(false);
   const [usedIngri, setUseIngri] = useState(['ElisaEumaGenia']);
   const [inProgress, setInProgress] = useState({});
-
+  const [favoriteRecipe, setFavoriteRecipe] = useState({});
   const setMeals = async (array) => {
     if (array.meals === null) {
       // eslint-disable-next-line no-alert
@@ -66,6 +66,48 @@ const Provider = ({ children }) => {
     }
   };
 
+  const saveFavoriteRecipes = (isMeal, foodDetails) => {
+    let results = {};
+    if (isMeal) {
+      results = {
+        id: foodDetails.idMeal,
+        type: 'comida',
+        area: foodDetails.strArea,
+        category: foodDetails.strCategory,
+        alcoholicOrNot: '',
+        name: foodDetails.strMeal,
+        image: foodDetails.strMealThumb,
+      };
+    } else {
+      results = {
+        id: foodDetails.idDrink,
+        type: 'bebida',
+        area: '',
+        category: foodDetails.strCategory,
+        alcoholicOrNot: foodDetails.strAlcoholic,
+        name: foodDetails.strDrink,
+        image: foodDetails.strDrinkThumb,
+      };
+    }
+    return results;
+    // setFavoriteRecipe(results);
+  };
+  const handleIsFavorite = (favorite, isMeal, foodDetails, setIsFavorite) => {
+    // const [,, id] = location.pathname.split('/');
+    const favoriteRecipe = saveFavoriteRecipes(isMeal, foodDetails);
+    localStorage.setItem('isFavorite', favorite);
+    setIsFavorite(favorite);
+    const recipeFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    let result = '';
+    if (favorite) {
+      result = [...recipeFavorite, favoriteRecipe];
+    } else if (isMeal) {
+      result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idMeal);
+    } else {
+      result = recipeFavorite.filter((recipe) => recipe.id !== foodDetails.idDrink);
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(result));
+  };
   // console.log(drink);
 
   const context = {
@@ -87,7 +129,9 @@ const Provider = ({ children }) => {
     setUseIngri,
     inProgress,
     setInProgress,
-
+    handleIsFavorite,
+    favoriteRecipe,
+    setFavoriteRecipe,
   };
   return (
     <div>

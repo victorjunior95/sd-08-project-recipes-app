@@ -10,7 +10,7 @@ import LariContext from '../context/Context';
 const Detalhes = () => {
   const { isFavorite, setIsFavorite, isMeal, setIsMeal, foodDetails,
     setFoodDetails, hidden, setHidden,
-    usedIngri, setUseIngri, inProgress, setInProgress } = useContext(LariContext);
+    usedIngri, setUseIngri, inProgress, setInProgress, favoriteRecipe, setFavoriteRecipe } = useContext(LariContext);
   const [ingredients, setIngredients] = useState([]);
   const [able, setAble] = useState(true);
 
@@ -52,16 +52,17 @@ const Detalhes = () => {
 
   useEffect(() => {
     const verifyButnValidation = (ingredient) => {
-      console.log(ingredient.length, usedIngri.length);
+      // console.log(ingredient.length, usedIngri.length);
       if (ingredient.length === usedIngri.length) {
-        console.log('terminou');
+        // console.log('terminou');
         setAble(false);
       } else {
         setAble(true);
-        console.log('ainda n terminou');
+        // console.log('ainda n terminou');
       }
     };
     verifyButnValidation(ingredients);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usedIngri.length]);
 
   useEffect(() => {

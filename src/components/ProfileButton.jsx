@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import profileIcon from '../images/profileIcon.svg';
+import profileIconWhite from '../images/profileIconWhite.svg';
 
 function ProfileButton() {
   const history = useHistory();
@@ -12,7 +12,7 @@ function ProfileButton() {
   return (
     <input
       type="image"
-      src={ profileIcon }
+      src={ profileIconWhite }
       alt="Imagem do Perfil"
       data-testid="profile-top-btn"
       onClick={ handleClick }

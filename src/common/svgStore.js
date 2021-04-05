@@ -9,6 +9,11 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import infinity from '../images/infinity.svg';
 import magnifyngIcon from '../images/magnifyingIcon.svg';
+import searchIconWhite from '../images/searchIconWhite.svg';
+import profileIconWhite from '../images/profileIconWhite.svg';
+import mealIconWhite from '../images/mealIconWhite.svg';
+import drinkIconWhite from '../images/drinkIconWhite.svg';
+import exploreIconWhite from '../images/exploreIconWhite.svg';
 
 export {
   blackHeartIcon,
@@ -22,4 +27,9 @@ export {
   whiteHeartIcon,
   infinity,
   magnifyngIcon,
+  searchIconWhite,
+  profileIconWhite,
+  mealIconWhite,
+  drinkIconWhite,
+  exploreIconWhite,
 };

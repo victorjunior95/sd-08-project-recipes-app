@@ -76,7 +76,7 @@ function ExploreFoodByLocalOrigin() {
               {showAreasOptions()}
             </select>
           </label>
-          <section>{showFoods()}</section>
+          <section className="card-food">{showFoods()}</section>
         </section>
       )}
       <Footer />

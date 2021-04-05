@@ -1,5 +1,4 @@
 :root {
-
   --gray: gray;
 
   --white: white;
@@ -39,13 +38,12 @@
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-
   0% {
     transform: rotate(5deg);
   }
@@ -60,7 +58,6 @@
 }
 
 @keyframes clink {
-
   0% {
     transform: rotate(-10deg);
   }
@@ -76,7 +73,7 @@
 
 .login {
   align-items: center;
-  background-image: url('https://images.unsplash.com/photo-1495461199391-8c39ab674295?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');
+  background-image: url("https://images.unsplash.com/photo-1495461199391-8c39ab674295?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");
   background-size: cover;
   display: flex;
   height: 100vh;
@@ -92,10 +89,9 @@
   justify-content: center;
 }
 
-@media only screen and ( max-width : 400px ) {
-
+@media only screen and (max-width: 400px) {
   .login {
-    background-image: url('https://cdn.discordapp.com/attachments/822564174428110883/825021234646876210/unknown.png');
+    background-image: url("https://cdn.discordapp.com/attachments/822564174428110883/825021234646876210/unknown.png");
     background-size: cover;
   }
 }
@@ -116,7 +112,7 @@
 }
 
 .card-food {
-  align-items: center;
+  align-items: flex-end;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -149,23 +145,116 @@
   margin-left: 5px;
 }
 
-@media screen and ( min-width : 680px ) {
-
+@media screen and (min-width: 680px) {
   .card-item {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and ( min-width : 1040px ) {
-
+@media screen and (min-width: 1040px) {
   .card-item {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and ( min-width : 1400px ) {
-
+@media screen and (min-width: 1400px) {
   .card-item {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .explorar {
+    display: flex;
+    min-height: 70vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .explorar button {
+    font-size: 1.5em;
+    margin-bottom: 60px;
+  }
+
+  .header-recipe-detail {
+    margin-bottom: 30px;
+  }
+
+  .header-recipe-detail img {
+    margin: 0 0 15px 0;
+    width: 100%;
+  }
+
+  .header-recipe-detail h3 {
+    font-size: 2em;
+    margin-left: 20px;
+    color: rgb(71, 70, 70);
+  }
+  
+  .header-recipe-detail h5 {
+    font-size: 1.5em;
+    margin-left: 20px;
+    color: gray;
+  }
+
+  .header-recipe-detail input {
+    margin: 5px 10px;
+  }
+
+  .header-recipe-detail section {
+    align-items: center;
+    display: flex;
+    margin-right: 15px;
+    justify-content: space-between;
+  }
+
+  .header-recipe-detail p {
+    color: red;
+    margin-left: 20px;
+  }
+
+  .ingredients-recipe-details {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+  }
+
+  .ingredients-recipe-details h3 {
+    font-size: 1.9em;
+    margin-bottom: 15px;
+  }
+
+  .instructions-recipe-details {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .instructions-recipe-details h3 {
+    font-size: 1.9em;
+    margin-bottom: 15px;
+  }
+
+  .instructions-recipe-details p {
+    text-align: justify;
+    font-size: 1.055em;
+    margin-bottom: 15px;
+  }
+
+  .video-recipe-details {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+  }
+
+  .video-recipe-details h3 {
+    font-size: 1.9em;
+    margin-bottom: 15px;
+  }
+
+  .recommended-recipe-details h3{
+    font-size: 1.9em;
+    margin-bottom: 15px;
   }
 }

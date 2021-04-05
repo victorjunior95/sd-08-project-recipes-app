@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ContainerRecipeDetails from '../components/ContainerRecipeDetails';
 import { requestDrinkById } from '../services/requestDrinksAPI';
+import { infinity } from '../common/svgStore';
 
 function DrinkDetails({
   match: {
@@ -20,13 +21,19 @@ function DrinkDetails({
   }, [id]);
 
   if (!drink) {
-    return <h1>LOADING...</h1>;
+    return (
+      <section className="loading-section">
+        <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+      </section>
+    );
   }
 
   return (
     <section>
       {isLoading ? (
-        <h1>LOADING...</h1>
+        <section className="loading-section">
+          <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+        </section>
       ) : (
         <ContainerRecipeDetails recipe={ drink[0] } page="Bebidas" />
       )}

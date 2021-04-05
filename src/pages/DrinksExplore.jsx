@@ -20,14 +20,24 @@ function DrinksExplore() {
   return (
     <>
       <Header label="Explorar Bebidas" Search={ () => '' } />
-      <Link to="/explorar/bebidas/ingredientes">
-        <Button name="Por Ingredientes" data-testid="explore-by-ingredient" />
-      </Link>
-      <Button
-        name="Me Surpreenda!"
-        onClick={ handleClick }
-        data-testid="explore-surprise"
-      />
+      <br />
+      <br />
+      <br />
+      <section className="explorar">
+        <Link to="/explorar/bebidas/ingredientes">
+          <Button
+            name="Por Ingredientes"
+            data-testid="explore-by-ingredient"
+            className="btn btn-warning"
+          />
+        </Link>
+        <Button
+          className="btn btn-warning"
+          name="Me Surpreenda!"
+          onClick={ handleClick }
+          data-testid="explore-surprise"
+        />
+      </section>
       <Footer />
     </>
   );

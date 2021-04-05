@@ -6,16 +6,29 @@ import Button from '../components/Button';
 
 function Explore() {
   return (
-    <>
+    <div>
       <Header label="Explorar" Search={ () => '' } page="Explorar" />
-      <Link to="/explorar/comidas">
-        <Button name="Explorar Comidas" data-testid="explore-food" />
-      </Link>
-      <Link to="/explorar/bebidas">
-        <Button name="Explorar Bebidas" data-testid="explore-drinks" />
-      </Link>
+      <br />
+      <br />
+      <br />
+      <section className="explorar">
+        <Link to="/explorar/comidas">
+          <Button
+            className="btn btn-warning"
+            name="Explorar Comidas"
+            data-testid="explore-food"
+          />
+        </Link>
+        <Link to="/explorar/bebidas">
+          <Button
+            className="btn btn-warning"
+            name="Explorar Bebidas"
+            data-testid="explore-drinks"
+          />
+        </Link>
+      </section>
       <Footer />
-    </>
+    </div>
   );
 }
 

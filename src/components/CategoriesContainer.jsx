@@ -73,7 +73,7 @@ const CategoriesContainer = ({ page, callback }) => {
     }
     return buttons.map((button) => (
       <Button
-        className="btn btn-secondary"
+        className="btn btn-warning"
         name={ button.strCategory }
         key={ button.strCategory }
         data-testid={ `${button.strCategory}-category-filter` }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // import whiteHearticon from '../images/whiteHeartIcon.svg';
 import ContainerRecipeDetails from '../components/ContainerRecipeDetails';
 import { requestFoodById } from '../services/requestFoodsAPI';
+import { infinity } from '../common/svgStore';
 
 function FoodDetails({
   match: {
@@ -24,7 +25,9 @@ function FoodDetails({
   return (
     <section>
       {isLoading ? (
-        <h1>LOADING...</h1>
+        <section className="loading-section">
+          <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+        </section>
       ) : (
         <ContainerRecipeDetails recipe={ meal[0] } page="Comidas" />
       )}

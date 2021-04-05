@@ -11,28 +11,32 @@ import { requestSixDrinks } from '../services/requestDrinksAPI';
 import { requestSixMeals } from '../services/requestFoodsAPI';
 import { setInProgressRecipes } from '../services/setLocalStorage';
 import { nameButtonRecipe } from '../services/getLocalStorage';
+import { infinity } from '../common/svgStore';
 
 const ContainerRecipeDetails = ({ recipe, page }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [recommended, setRecommended] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState({});
 
-  const getIngredientsMeasure = useCallback((ingredientsSize) => {
-    const arrayIngredients = [];
-    for (let i = 1; i <= ingredientsSize; i += 1) {
-      if (
-        recipe[`strIngredient${i}`] !== ''
-        && recipe[`strIngredient${i}`] !== null
-      ) {
-        const ingredient = recipe[`strIngredient${i}`];
-        const measure = recipe[`strMeasure${i}`];
-        arrayIngredients.push(
-          `${ingredient} - ${measure}`.replace('- null', ''),
-        );
+  const getIngredientsMeasure = useCallback(
+    (ingredientsSize) => {
+      const arrayIngredients = [];
+      for (let i = 1; i <= ingredientsSize; i += 1) {
+        if (
+          recipe[`strIngredient${i}`] !== ''
+          && recipe[`strIngredient${i}`] !== null
+        ) {
+          const ingredient = recipe[`strIngredient${i}`];
+          const measure = recipe[`strMeasure${i}`];
+          arrayIngredients.push(
+            `${ingredient} - ${measure}`.replace('- null', ''),
+          );
+        }
       }
-    }
-    return arrayIngredients;
-  }, [recipe]);
+      return arrayIngredients;
+    },
+    [recipe],
+  );
 
   const foodInfo = useCallback(() => {
     const {
@@ -123,7 +127,9 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
   return (
     <div>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <section className="loading-section">
+          <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+        </section>
       ) : (
         <main>
           <HeaderRecipeDetails
@@ -146,10 +152,12 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             <Button
               name={ nameButtonRecipe(id, page) }
               data-testid="start-recipe-btn"
-              className="start-recipe-btn"
+              className="start-recipe-btn btn btn-danger"
               onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
             />
           </Link>
+          <br />
+          <br />
         </main>
       )}
     </div>

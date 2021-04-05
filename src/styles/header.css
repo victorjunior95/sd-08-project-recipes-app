@@ -1,13 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 .header {
-  background: #b1a7a6;
+  align-items: center;
+  background: #FD3C06;
+  color: white;
   display: flex;
+  font-family: 'Pacifico', 'cursive';
   height: 60px;
   justify-content: space-between;
   margin-bottom: 10px;
-  padding: 3px;
+  padding: 10px;
+  position: fixed;
   width: 100%;
+  z-index: 1;
 }
 
-.header input {
-  width: 45px;
+.header h1 {
+  font-size: 1.9em;
 }

@@ -67,20 +67,23 @@ function Foods() {
   };
   return (
     <div className="div-foods">
+      <Header label="Comidas" Search={ SearchButton } page="Comidas" />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
         </section>
       ) : (
         <>
-          <Header label="Comidas" Search={ SearchButton } page="Comidas" />
           <CategoriesContainer page="Comidas" />
           <div className="card-food">
             {showCards()}
           </div>
-          <Footer />
         </>
       )}
+      <Footer />
     </div>
   );
 }

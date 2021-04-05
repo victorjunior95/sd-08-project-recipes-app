@@ -21,25 +21,33 @@ function ExploreFoodsByIngredients() {
   }, []);
 
   return (
-    <>
+    <div className="div-foods">
       <Header label="Explorar Ingredientes" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
         </section>
       ) : (
-        mealsIngredientsList.map((ingredient, index) => (
-          <IngredientCard
-            key={ index }
-            imagePath={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-            title={ ingredient.strIngredient }
-            index={ index }
-            page="comidas"
-          />
-        ))
+        <div className="card-food">
+          {mealsIngredientsList.map((ingredient, index) => (
+            <IngredientCard
+              key={ index }
+              imagePath={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+              title={ ingredient.strIngredient }
+              index={ index }
+              page="comidas"
+            />
+          ))}
+        </div>
       )}
+      <br />
+      <br />
+      <br />
       <Footer />
-    </>
+    </div>
   );
 }
 

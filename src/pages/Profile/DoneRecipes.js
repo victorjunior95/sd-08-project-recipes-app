@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
-// import FoodDetailsInfo from '../../components/FoodDetailsInfo';
-// import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
 import shareIcon from '../../images/shareIcon.svg';
 import './DoneRecipes.css';
 
@@ -23,8 +22,8 @@ function DoneRecipes() {
     console.log('lista de receitas filtradas', filteredDoneRecipes);
   }, []);
 
-  function handleClick() {
-    copy(window.location.href);
+  function copyDetailsPageLink(recipe) {
+    copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
     setCopied(true);
   }
 
@@ -39,8 +38,104 @@ function DoneRecipes() {
     }
     if (name === 'Drinks') {
       const filteredByDrink = doneRecipesList
-        .filter((rec) => rec.type === ' bebida');
+        .filter((rec) => rec.type === 'bebida');
       setFilteredDoneRecipes(filteredByDrink);
+    }
+  }
+
+  function renderRecipe(recipe, index) {
+    if (recipe.type === 'comida') {
+      return (
+        <div key={ recipe.name }>
+          <Link to={ `/comidas/${recipe.id}` }>
+            <img
+              style={ { width: '300px' } }
+              alt={ recipe.name }
+              src={ recipe.image }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+          <Link to={ `/comidas/${recipe.id}` }>
+            <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+          </Link>
+          <span
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            { `${recipe.area} - ${recipe.category}` }
+          </span>
+          <span
+            data-testid={ `${index}-horizontal-done-date` }
+          >
+            { recipe.doneDate}
+          </span>
+          { recipe.tags
+            .filter((_tag, ind) => ind < 2)
+            .map((tag) => (
+              <span
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            )) }
+          <button
+            type="button"
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            onClick={ () => copyDetailsPageLink(recipe) }
+          >
+            <img src={ shareIcon } alt="compartilhar" />
+            {copied && 'Link copiado!'}
+          </button>
+        </div>);
+    }
+    if (recipe.type === 'bebida') {
+      return (
+        <div key={ recipe.name }>
+          <Link to={ `/bebidas/${recipe.id}` }>
+            <img
+              style={ { width: '300px' } }
+              alt={ recipe.name }
+              src={ recipe.image }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+          <Link to={ `/bebidas/${recipe.id}` }>
+            <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+          </Link>
+          <span
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            { `${recipe.category} - ${recipe.alcoholicOrNot}` }
+          </span>
+          <span>{recipe.alcoholicOrNot}</span>
+          <span>{recipe.area}</span>
+          <span
+            data-testid={ `${index}-horizontal-done-date` }
+          >
+            { recipe.doneDate}
+          </span>
+          <button
+            type="button"
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            onClick={ () => copyDetailsPageLink(recipe) }
+          >
+            <img src={ shareIcon } alt="compartilhar" />
+            {copied && 'Link copiado!'}
+          </button>
+          { recipe.tags
+            .filter((_tag, ind) => ind < 2)
+            .map((tag) => (
+              <span
+                key={ `${tag}-${index}` }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            )) }
+        </div>
+      );
     }
   }
 
@@ -73,40 +168,7 @@ function DoneRecipes() {
       </button>
 
       { filteredDoneRecipes.length > 0 && filteredDoneRecipes
-        .map((recipe, index) => (
-          <div key={ recipe.name }>
-            <img
-              alt={ recipe.name }
-              src={ recipe.image }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <span
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { recipe.category }
-            </span>
-            <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              { recipe.doneDate}
-            </span>
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-              onClick={ handleClick }
-            >
-              <img src={ shareIcon } alt="Compartilhar" />
-              {copied && 'Link copiado!'}
-            </button>
-            { recipe.tags
-              .map((tag) => (
-                <span
-                  key={ tag }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                />
-              )) }
-          </div>))}
+        .map((recipe, index) => (renderRecipe(recipe, index)))}
     </div>
   );
 }

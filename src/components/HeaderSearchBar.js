@@ -19,7 +19,7 @@ function HeaderSearchBar() {
     handleSearchByName,
     handleClickSearch,
     nameSearchRadio,
-    ingredientSearchRadio,
+    // ingredientSearchRadio,
     firstLetterSearchRadio,
     searchInputMeal,
   } = mealsContext;
@@ -29,7 +29,7 @@ function HeaderSearchBar() {
     handleSearchByIngredientsDrink,
     handleSearchByFirstLetterDrink,
     nameSearchRadioDrink,
-    ingredientSearchRadioDrink,
+    // ingredientSearchRadioDrink,
     firstLetterSearchRadioDrink,
     handleClickSearchDrink,
     handleChangeSearchDrink,

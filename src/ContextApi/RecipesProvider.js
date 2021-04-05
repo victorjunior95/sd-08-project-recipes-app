@@ -100,6 +100,7 @@ function RecipesProvider({ children }) {
     setCocktails,
     FoodCategories,
     DrinkCategories,
+    history,
   };
 
   return (

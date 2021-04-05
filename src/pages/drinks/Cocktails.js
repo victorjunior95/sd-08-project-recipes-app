@@ -7,13 +7,19 @@ import CocktailCard from '../../components/CocktailCard';
 import DrinkCategoryButton from '../../components/DrinkCategoryButton';
 
 function Cocktails() {
-  const { cocktails } = useContext(RecipesContext);
+  const { cocktails, history } = useContext(RecipesContext);
 
   const cocktailsRecipes = cocktails.drinks;
   const cardMaximun = 12;
 
+  const isNotUndefined = cocktailsRecipes !== undefined;
+  const isNotNull = cocktailsRecipes !== null;
+
+  if (isNotUndefined && isNotNull && cocktailsRecipes.length === 1) {
+    history.push(`/bebidas/${cocktailsRecipes[0].idDrink}`);
+  }
   if (isNull(cocktailsRecipes)) {
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   return (
     <div>

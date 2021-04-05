@@ -1,15 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-
 import { useLocation, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { result } from 'lodash';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import LariContext from '../context/Provider'
-
 import { fetchProductDetailsById } from '../services';
-
 import LariContext from '../context/Context';
 
 const Detalhes = () => {
@@ -44,11 +39,10 @@ const Detalhes = () => {
         }
         console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.meals), 'recipes');
       } else {
-        const result = Object.keys(storageProgessRecipes.cocktails).indexOf(idCurrentRecipe);
+        const result = Object.keys(storageProgessRecipes.cocktails)
+          .indexOf(idCurrentRecipe);
         if (result >= 0) {
           setUseIngri(storageProgessRecipes.cocktails[idCurrentRecipe]);
-
-          console.log(idCurrentRecipe, Object.keys(storageProgessRecipes.cocktails), 'recipes');
         } else {
           setUseIngri([]);
         }
@@ -56,16 +50,19 @@ const Detalhes = () => {
     }
   };
 
-  const verifyButnValidation = (ingredient) => {
-    console.log(ingredient.length, usedIngri.length);
-    if (ingredient.length - 1 == usedIngri.length) {
-      console.log('terminou');
-      setAble(false);
-    } else {
-      setAble(true);
-      console.log('ainda n terminou');
-    }
-  };
+  useEffect(() => {
+    const verifyButnValidation = (ingredient) => {
+      console.log(ingredient.length, usedIngri.length);
+      if (ingredient.length === usedIngri.length) {
+        console.log('terminou');
+        setAble(false);
+      } else {
+        setAble(true);
+        console.log('ainda n terminou');
+      }
+    };
+    verifyButnValidation(ingredients);
+  }, [usedIngri.length]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -169,7 +166,9 @@ const Detalhes = () => {
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
-                onChange={ ({ target }) => { handleCheckBox((target.value)); verifyButnValidation(ingredients); } }
+                onChange={ ({ target }) => {
+                  handleCheckBox((target.value));
+                } }
                 type="checkbox"
                 value={ `${ingredientName}` }
                 checked={ usedIngri.indexOf(ingredientName) >= 0 }

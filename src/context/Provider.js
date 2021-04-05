@@ -15,7 +15,7 @@ const Provider = ({ children }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isMeal, setIsMeal] = useState(true);
   const [foodDetails, setFoodDetails] = useState({});
-  const [ingredients, setIngredients] = useState([]);
+  // const [ingredients, setIngredients] = useState([]);
   const [hidden, setHidden] = useState(false);
   const [usedIngri, setUseIngri] = useState(['ElisaEumaGenia']);
   const [inProgress, setInProgress] = useState({});
@@ -43,9 +43,9 @@ const Provider = ({ children }) => {
     }
   };
 
-  const recipesFetch = async (isMeal) => {
+  const recipesFetch = async (isMeals) => {
     let results = {};
-    if (isMeal) {
+    if (isMeals) {
       results = await fetchFood();
       setFood(results.meals);
     } else {

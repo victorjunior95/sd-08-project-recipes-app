@@ -7,41 +7,64 @@ const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
-  const [test, setTest] = useState('');
+  const [forMap, setForMap] = useState({});
 
-  const verifyRender = () => {
-    const obj = { id1: true, id2: false, id3: true };
-    const arr = [];
-    for (key in obj) {
-      arr.push({ [key]: arr[key] });
-    }
-    setTest(arr);
+  useEffect(() => {
+    setForMap(ingredients.filter((noTwoSpace) => noTwoSpace !== '  ')
+      .map((element) => ({ name: element, checked: false })));
+  }, [ingredients]);
+
+  const consoleFunction1 = () => {
+    console.log(forMap);
   };
 
-  const consoleFunction = () => {
-    verifyRender();
-    console.log(test);
+  const consoleFunction2 = () => console.log(ingredients);
+
+  const theButton1 = <button type="button" onClick={ consoleFunction1 }>BOTÃO1</button>;
+  const theButton2 = <button type="button" onClick={ consoleFunction2 }>BOTÃO2</button>;
+  const onChangeCB = ({ target }) => {
+    forMap.map((element) => (element.name === target.name ? element.checked = target.checked : element));
+    console.log(forMap);
+    // localStorage.setItem(JSON.stringify(fromLocalStorage));
   };
-
-  const theButton = <button type="button" onClick={ consoleFunction }>BOTÃO</button>;
-
-  /* Ideia renderização checkbox =>
- salvar tudo como objeto; const arr => {id1: true, id2:false, id3: true }
- no localStorage jogar como um array => (
-let newarr = []
-for(prop in arr) {
-  newarr.push({[prop]: arr[prop]})
-}
-)
-renderização condicional no componente
- console.log(newarr.map((element, index) => `${Object.keys(element)} => ${element[`id${index + 1}`]}`))
- */
 
   useEffect(() => {
     if (url.includes('bebidas')) {
       setIsDrinkOrFood('Drink');
     } else { setIsDrinkOrFood('Food'); }
   }, [url]);
+
+  const ingredientsMapping = ingredients.filter((element) => element !== '  ')
+    .map((ingredient, index) => (
+      <li key={ `${index}-${ingredient}` } data-testid="ingredient-step">
+        <input
+          id={ `id-${index}` }
+          name={ ingredient }
+          type="checkbox"
+          value={ ingredient }
+          onChange={ onChangeCB }
+        />
+        <label htmlFor={ `id-${index}` }>
+          {ingredient}
+        </label>
+      </li>
+    ));
+    // : fromLocalStorage.map((ingredient, index) => (
+    //   (
+    //     <li key={ `${index}-${ingredient.name}` } data-testid="ingredient-step">
+    //       <input
+    //         id={ `id-${index}` }
+    //         name={ ingredient.name }
+    //         type="checkbox"
+    //         value={ ingredient.name }
+    //         onChange={ onChangeCB }
+    //         checked={ ingredient.checked }
+    //       />
+    //       <label htmlFor={ `id-${index}` }>
+    //         {ingredient.name}
+    //       </label>
+    //     </li>
+    //   )));
 
   const instructionsMapping = instructions.split(/,|\. | ;/g).map((string, index) => {
     if (instructions.split(/,|\. | ;/g).length !== index + 1) {
@@ -57,36 +80,6 @@ renderização condicional no componente
         {`${string.trim().charAt(0).toUpperCase()}${string.trim().slice(1)}`}
         {' '}
       </li>);
-  });
-
-  const ingredientsMapping = ingredients.map((ingredient, index) => {
-    if (ingredient !== '  ') {
-      return (
-        <li key={ `${index}-${ingredient}` } data-testid="ingredient-step">
-          <input
-            id={ `id-${index}` }
-            type="checkbox"
-            value={ ingredient }
-          />
-          <label htmlFor={ `id-${index}` }>
-            {ingredient}
-          </label>
-        </li>
-      );
-    }
-    // return (
-    //   <li data-testid={ `${index}-ingredient-step` } key={ `${index}-${ingredient}` }>
-    //     <input
-    //       id={ `${index}-ingredient-step` }
-    //       type="checkbox"
-    //       value={ ingredient }
-    //     />
-    //     <label htmlFor={ `${index}-ingredient-step` }>
-    //       {ingredient}
-    //     </label>
-    //   </li>
-    // );
-    return '';
   });
 
   const renderFood = () => (
@@ -145,7 +138,8 @@ renderização condicional no componente
 
   return (
     <main>
-      {theButton}
+      {theButton1}
+      {theButton2}
       {isDrinkOrFood === 'Drink' ? renderDrink() : renderFood()}
 
     </main>

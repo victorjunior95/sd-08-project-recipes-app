@@ -1,3 +1,11 @@
+.normal {
+  text-decoration: none;
+}
+
+.riscado {
+  text-decoration: line-through;
+}
+
 .recipe-card {
   align-items: center;
   justify-content: center;

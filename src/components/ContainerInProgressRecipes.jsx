@@ -2,21 +2,18 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeaderRecipeDetails from './HeaderRecipeDetails';
-import IngredientsRecipeDetails from './IngredientsRecipeDetails';
+import IngredientsRecipeDetailsInProgress from './IngredientsRecipeDetailsInProgress';
 import InstructionsRecipeDetails from './InstructionsRecipeDetails';
-import VideoRecipeDetails from './VideoRecipeDetails';
-import RecommendedRecipeDetails from './RecommendedRecipeDetails';
 import Button from './Button';
-import { requestSixDrinks } from '../services/requestDrinksAPI';
-import { requestSixMeals } from '../services/requestFoodsAPI';
-import { setInProgressRecipes } from '../services/setLocalStorage';
-import { nameButtonRecipe } from '../services/getLocalStorage';
+import {
+  setInProgressRecipes,
+  setDoneRecipes,
+} from '../services/setLocalStorage';
 
-const ContainerRecipeDetails = ({ recipe, page }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [recommended, setRecommended] = useState([]);
+const ContainerInProgressRecipes = ({ recipe, page, id }) => {
   const [recipeInfo, setRecipeInfo] = useState({});
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [buttonState, setButtonState] = useState(true);
   const getIngredientsMeasure = useCallback((ingredientsSize) => {
     const arrayIngredients = [];
     for (let i = 1; i <= ingredientsSize; i += 1) {
@@ -36,7 +33,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
 
   const foodInfo = useCallback(() => {
     const {
-      idMeal: id,
+      idMeal: idRecipe,
       strMeal: name,
       strCategory: category,
       strMealThumb: image,
@@ -44,11 +41,12 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       strYoutube: video,
       strDrinkAlternate: aternateRecipe,
       strArea: area,
+      strTags,
     } = recipe;
     const ingredientsSize = 20;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
-      id,
+      idRecipe,
       name,
       category,
       image,
@@ -58,13 +56,13 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       arrayIngredients,
       drinkCategory: '',
       area,
-      route: `/comidas/${id}/in-progress`,
+      strTags,
     });
   }, [getIngredientsMeasure, recipe]);
 
   const drinkInfo = useCallback(() => {
     const {
-      idDrink: id,
+      idDrink: idRecipe,
       strDrink: name,
       strAlcoholic: category,
       strDrinkThumb: image,
@@ -72,11 +70,12 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       strVideo: video,
       strDrinkAlternate: aternateRecipe,
       strCategory: drinkCategory,
+      strTags,
     } = recipe;
     const ingredientsSize = 15;
     const arrayIngredients = getIngredientsMeasure(ingredientsSize);
     setRecipeInfo({
-      id,
+      idRecipe,
       name,
       category,
       image,
@@ -86,78 +85,88 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
       arrayIngredients,
       drinkCategory,
       area: '',
-      route: `/bebidas/${id}/in-progress`,
+      strTags,
     });
   }, [getIngredientsMeasure, recipe]);
 
-  useEffect(() => {
-    async function getRecommendeds() {
-      setIsLoading(true);
-      if (page === 'Comidas') {
-        const foodsRecommended = await requestSixDrinks();
-        setRecommended(foodsRecommended);
-        foodInfo();
-      } else if (page === 'Bebidas') {
-        const drinksRecommended = await requestSixMeals();
-        setRecommended(drinksRecommended);
-        drinkInfo();
-      }
-      setIsLoading(false);
-    }
-    getRecommendeds();
-  }, [drinkInfo, foodInfo, page]);
-
   const {
-    id,
+    idRecipe,
     name,
     category,
     image,
     instructions,
-    video,
     arrayIngredients,
-    route,
     area,
     drinkCategory,
+    strTags,
   } = recipeInfo;
 
+  const finishRecipe = () => {
+    const doneRecipe = {
+      id: idRecipe,
+      type: page.toLowerCase().replace('s', ''),
+      area,
+      category,
+      alcoholicOrNot: drinkCategory,
+      name,
+      image,
+      doneDate: new Date().toLocaleDateString(),
+      tags: strTags ? strTags.split(',') : '',
+    };
+    setDoneRecipes(doneRecipe);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (page === 'Comidas') {
+      foodInfo();
+    } else if (page === 'Bebidas') {
+      drinkInfo();
+    }
+    setInProgressRecipes(id, page);
+    setIsLoading(false);
+  }, [drinkInfo, foodInfo, id, page]);
+
   return (
-    <div>
+    <main>
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <main>
+        <section>
           <HeaderRecipeDetails
             title={ name }
             category={ category }
             imgPath={ image }
             page={ page.toLowerCase() }
-            id={ id }
+            id={ idRecipe }
             area={ area }
             drinkCategory={ drinkCategory }
           />
-          <IngredientsRecipeDetails ingredients={ arrayIngredients } />
-          <InstructionsRecipeDetails instruction={ instructions } />
-          {video ? <VideoRecipeDetails videoPath={ video } /> : ''}
-          <RecommendedRecipeDetails
-            recommendedRecipes={ recommended }
+          <IngredientsRecipeDetailsInProgress
+            ingredients={ arrayIngredients }
             page={ page }
+            id={ idRecipe }
+            callback={ () => setButtonState(false) }
           />
-          <Link to={ route }>
+          <InstructionsRecipeDetails instruction={ instructions } />
+          <Link to="/receitas-feitas">
             <Button
-              name={ nameButtonRecipe(id, page) }
-              data-testid="start-recipe-btn"
+              name="Finalizar Receita"
+              data-testid="finish-recipe-btn"
               className="start-recipe-btn"
-              onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
+              onClick={ finishRecipe }
+              disabled={ buttonState }
             />
           </Link>
-        </main>
+        </section>
       )}
-    </div>
+    </main>
   );
 };
 
-ContainerRecipeDetails.propTypes = {
+ContainerInProgressRecipes.propTypes = {
   page: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     strMeal: PropTypes.string,
     strCategory: PropTypes.string.isRequired,
@@ -172,10 +181,11 @@ ContainerRecipeDetails.propTypes = {
     idMeal: PropTypes.string,
     idDrink: PropTypes.string,
     strArea: PropTypes.string,
+    strTags: PropTypes.string,
   }),
 };
 
-ContainerRecipeDetails.defaultProps = {
+ContainerInProgressRecipes.defaultProps = {
   recipe: PropTypes.shape({
     strDrinkAlternate: '',
     strDrink: '',
@@ -188,6 +198,8 @@ ContainerRecipeDetails.defaultProps = {
     strYoutube: '',
     idMeal: '',
     strArea: '',
+    strTags: '',
   }),
 };
-export default ContainerRecipeDetails;
+
+export default ContainerInProgressRecipes;

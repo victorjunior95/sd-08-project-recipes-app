@@ -9,7 +9,7 @@ import {
 
 import Button from './Button';
 
-const CategoriesContainer = ({ page }) => {
+const CategoriesContainer = ({ page, callback }) => {
   const foodsCategories = useSelector(
     (state) => state.CategoriesRecipes.foodsCategories,
   );
@@ -51,6 +51,25 @@ const CategoriesContainer = ({ page }) => {
         },
         ...drinksCategories,
       ];
+    } else if (page === 'Favoritas') {
+      buttons = [{
+        strCategory: 'All',
+      },
+      {
+        strCategory: 'Food',
+      },
+      {
+        strCategory: 'Drink',
+      },
+      ];
+      return buttons.map((button) => (
+        <Button
+          name={ button.strCategory }
+          key={ button.strCategory }
+          data-testid={ `filter-by-${button.strCategory.toLowerCase()}-btn` }
+          onClick={ () => callback(button.strCategory) }
+        />
+      ));
     }
     return buttons.map((button) => (
       <Button
@@ -67,6 +86,11 @@ const CategoriesContainer = ({ page }) => {
 
 CategoriesContainer.propTypes = {
   page: PropTypes.string.isRequired,
+  callback: PropTypes.func,
+};
+
+CategoriesContainer.defaultProps = {
+  callback: () => undefined,
 };
 
 export default CategoriesContainer;

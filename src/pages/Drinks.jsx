@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchButton from '../components/SearchButton';
 import Card from '../components/Card';
@@ -21,19 +21,20 @@ function Drinks() {
 
   useEffect(() => {
     dispatch(actionThunkMainDrinks());
-  }, []);
+  }, [dispatch]);
 
   const mapCards = (array) => (
     <section>
       {array.map((drink, index) => (
-        <Card
-          index={ index }
-          key={ drink.idDrink }
-          id={ drink.idDrink }
-          imagePath={ drink.strDrinkThumb }
-          title={ drink.strDrink }
-          category={ drink.strCategory }
-        />
+        <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.idDrink }>
+          <Card
+            index={ index }
+            id={ drink.idDrink }
+            imagePath={ drink.strDrinkThumb }
+            title={ drink.strDrink }
+            category={ drink.strCategory }
+          />
+        </Link>
       ))}
     </section>
   );

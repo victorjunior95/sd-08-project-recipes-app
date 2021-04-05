@@ -17,7 +17,12 @@ function DrinkDetails({
       setIsLoading(false);
     }
     requestApi();
-  }, []);
+  }, [id]);
+
+  if (!drink) {
+    return <h1>LOADING...</h1>;
+  }
+
   return (
     <section>
       {isLoading ? (

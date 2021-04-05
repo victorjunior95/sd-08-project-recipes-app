@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchButton from '../components/SearchButton';
 import Card from '../components/Card';
@@ -27,19 +27,20 @@ function Foods() {
 
   useEffect(() => {
     dispatch(actionThunkMainFoods());
-  }, []);
+  }, [dispatch]);
 
   const mapCards = (array) => (
     <section className="card-item">
       {array.map((food, index) => (
-        <Card
-          index={ index }
-          key={ food.idMeal }
-          id={ food.idMeal }
-          imagePath={ food.strMealThumb }
-          title={ food.strMeal }
-          category={ food.strCategory }
-        />
+        <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
+          <Card
+            index={ index }
+            id={ food.idMeal }
+            imagePath={ food.strMealThumb }
+            title={ food.strMeal }
+            category={ food.strCategory }
+          />
+        </Link>
       ))}
     </section>
   );

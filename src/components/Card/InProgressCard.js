@@ -15,7 +15,9 @@ const InProgressCard = (props) => {
   }, [ingredients]);
 
   const consoleFunction1 = () => {
-    console.log(forMap);
+    // console.log(forMap);
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(favorites);
   };
 
   const consoleFunction2 = () => console.log(ingredients, forMap);

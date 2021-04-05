@@ -8,6 +8,7 @@ import Drinks from './pages/Drinks';
 import Item from './components/Item';
 import Perfil from './pages/Perfil';
 import Explore from './pages/Explore';
+import Progress from './components/Progress';
 
 function App() {
   return (
@@ -16,13 +17,20 @@ function App() {
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
         <Route exact path="/comidas/:id" render={ (props) => <Item { ...props } /> } />
         <Route exact path="/bebidas/:id" render={ (props) => <Item { ...props } /> } />
-        <Route path="/comidas" render={ (props) => <Food { ...props } /> } />
-        <Route path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
-        <Route path="/perfil" component={ Perfil } />
-        <Route path="/explorar" component={ Explore } />
-        { /* <Route path="/comidas/{id-da-receita}/in-progress" />
+        <Route exact path="/comidas" render={ (props) => <Food { ...props } /> } />
+        <Route exact path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
+        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route
+          path="/comidas/:id/in-progress"
+          render={ (props) => <Progress { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <Progress { ...props } /> }
+        />
+        { /*
         <Route path="/explorar/comidas" />
-        <Route path="/bebidas/{id-da-receita}/in-progress" />
         <Route path="/explorar/bebidas" />
         <Route path="/explorar/comidas/ingredientes" />
         <Route path="/explorar/bebidas/ingredientes" />

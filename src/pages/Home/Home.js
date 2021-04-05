@@ -7,6 +7,7 @@ import List from '../../components/List/List';
 import Footer from '../../components/Footer/Footer';
 import Categories from '../../components/Categories/Categories';
 import { getAllRecipes } from '../../services/FoodsDrinksRequests';
+import './home.css'
 
 const Home = ({ title }) => {
   const { searchBar, results, setResults, setALL } = useContext(Context);
@@ -26,7 +27,9 @@ const Home = ({ title }) => {
       {searchBar && <SearchBar title={title} />}
       <Categories title={title} />
       {results && (
-        <List title={title} results={results} />
+        <div className="list-recipes">
+          <List title={title} results={results} />
+        </div>
       )}
       <Footer />
     </>

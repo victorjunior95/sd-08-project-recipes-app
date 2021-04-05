@@ -46,10 +46,10 @@ const Categories = ({ title }) => {
           >
             All
           </button>
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <button
               className="btn btn-info"
-              key={category.strCategory}
+              key={index}
               type="button"
               data-testid={`${category.strCategory}-category-filter`}
               value={category.strCategory}

@@ -21,33 +21,14 @@ const List = ({ title, results, refCard }) => {
     }
   }, [title]);
 
-  console.log(prevResults);
-
   const handleClick = (event) => {
     console.log(event.target.innerText);
-
-    // Filtragem sem requisição
-    // const recipeContainingIngredient = prevResults.filter((recipe, index) => {
-    //   const listValues = Object.values(recipe);
-    //   // console.log(recipe)
-    //   // console.log(listValues)
-    //   const existIngredient = listValues.includes(event.target.innerText)
-    //   // console.log(existIngredient)
-    //   if (existIngredient) {
-    //     return recipe
-    //   }
-    // });
-    // console.log(recipeContainingIngredient)
-    // setResults(recipeContainingIngredient)
-
-    //Filtragem com requisição
     getRecipesByIngredient(title, event.target.innerText).then((response) => {
       setResults(response);
     });
   };
 
   if (results && refCard === 'ingredients') {
-    // console.log(results)
     return (
       <div>
         Teste

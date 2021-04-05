@@ -2,46 +2,50 @@ import React, { useEffect, useState } from 'react';
 
 import './InProgressCard.css';
 import PropTypes from 'prop-types';
+// objeto = [
+//   {id: 2, checkedIngredients: [], ingredients: []}
+// ]
 
 const InProgressCard = (props) => {
   const { url,
     id, category, title, img, ingredients, alcohol, instructions } = props;
   const [isDrinkOrFood, setIsDrinkOrFood] = useState('');
-  const [forMap, setForMap] = useState([]);
+  // const [forMap, setForMap] = useState([]);
+  const [currentInProgress, setCurrentInProgress] = useState({});
+  const [inProgress, setInProgress] = useState([]);
 
   useEffect(() => {
-    setForMap(ingredients.filter((noTwoSpace) => noTwoSpace !== '  ')
-      .map((element) => ({ name: element, checked: false })));
-  }, [ingredients]);
+    const progressStatus = localStorage.getItem('recipeProgressStatus');
+    const progressList = progressStatus ? JSON.parse(progressStatus) : [];
+    setInProgress(progressList);
+  }, []);
 
-  const consoleFunction1 = () => {
-    // console.log(forMap);
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favorites);
-  };
+  // useEffect(() => {
+  //   setForMap(ingredients.filter((noTwoSpace) => noTwoSpace !== '  ')
+  //     .map((element) => ({ name: element, checked: false })));
+  // }, [ingredients]);
 
-  const consoleFunction2 = () => console.log(ingredients, forMap);
-
-  const theButton1 = <button type="button" onClick={ consoleFunction1 }>BOTÃO1</button>;
-  const theButton2 = <button type="button" onClick={ consoleFunction2 }>BOTÃO2</button>;
   const onChangeCB = ({ target }) => {
-    const reInsertAtCorrectPos = (array, position, ...elementToInsert) => {
-      array.splice(position, 0, ...elementToInsert);
-    };
-
-    const theIndex = forMap.findIndex((position) => position.name === target.name);
-    const inserting = { name: target.name, checked: target.checked };
-    const theMap = forMap.filter(((filtered) => filtered.name !== target.name));
-
-    reInsertAtCorrectPos(theMap, theIndex, inserting);
-
-    // const newMap = [...oldMap, { name: target.name, checked: target.checked }];
-    // forMap.map((element) => (element.name === target.name ? element.checked = target.checked : element));
-
-    console.log(theMap);
-    localStorage.setItem('test', JSON.stringify(theMap));
-    // localStorage.setItem(JSON.stringify(fromLocalStorage));
+    const newObject = { id, checkedIngredients: [] };
+    console.log('teste id: ', newObject);
   };
+
+  //   localStorage.setItem('recipeProgressStatus', JSON.stringify(inProgress));
+  //   };
+
+  //   const theIndex = forMap.findIndex((position) => position.name === target.name);
+  //   const inserting = { name: target.name, checked: target.checked };
+  //   const theMap = forMap.filter(((filtered) => filtered.name !== target.name));
+
+  //   reInsertAtCorrectPos(theMap, theIndex, inserting);
+
+  //   // const newMap = [...oldMap, { name: target.name, checked: target.checked }];
+  //   // forMap.map((element) => (element.name === target.name ? element.checked = target.checked : element));
+
+  //   console.log(theMap);
+  //   localStorage.setItem('test', JSON.stringify(theMap));
+  //   // localStorage.setItem(JSON.stringify(fromLocalStorage));
+  // };
 
   useEffect(() => {
     if (url.includes('bebidas')) {
@@ -153,8 +157,6 @@ const InProgressCard = (props) => {
 
   return (
     <main>
-      {theButton1}
-      {theButton2}
       {isDrinkOrFood === 'Drink' ? renderDrink() : renderFood()}
 
     </main>

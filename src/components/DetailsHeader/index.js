@@ -6,11 +6,11 @@ import { useParams, useRouteMatch } from 'react-router';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
-import { getlocalStorage } from '../../services/localStorage';
+import { getlocalStorage, setLocalStorage } from '../../services/localStorage';
 // import { Container } from './styles';
 
 function DetailsHeader(props) {
-  const { title, imgSrc, category, alcoholic } = props;
+  const { title, imgSrc, category, alcoholic, area } = props;
   const [useRecipeIsFavorite, setUseRecipeIsFavorite] = useState(false);
   const [useShow, setUseShow] = useState(false);
   const { id: idPage } = useParams();
@@ -30,6 +30,36 @@ function DetailsHeader(props) {
     copy(urlSite);
     setUseShow(true);
   }
+
+  const handleLocalStorageFavorites = (e) => {
+    const currentSrc = e.target.getAttribute('src');
+    const type = path.includes('/comidas') ? 'comida' : 'bebida';
+    if (currentSrc === whiteHeartIcon) {
+      const addItem = {
+        id: idPage,
+        type,
+        area,
+        category,
+        alcoholicOrNot: alcoholic,
+        name: title,
+        image: imgSrc,
+      };
+      const currentFavorites = getlocalStorage('favoriteRecipes');
+      if (currentFavorites) {
+        currentFavorites.push(addItem);
+        setLocalStorage('favoriteRecipes', currentFavorites);
+      } else {
+        setLocalStorage('favoriteRecipes', [addItem]);
+      }
+      setUseRecipeIsFavorite(true);
+    } else {
+      const currentFavorites = getlocalStorage('favoriteRecipes');
+      const removeFavorite = currentFavorites.filter(({ id }) => id !== idPage);
+      setLocalStorage('favoriteRecipes', removeFavorite);
+      setUseRecipeIsFavorite(false);
+    }
+  };
+
   return (
     <>
       <Container className="fluid p-0">
@@ -52,6 +82,7 @@ function DetailsHeader(props) {
               alt="Share Button"
               className="mr-2"
               data-testid="share-btn"
+              width="30px"
               onClick={ copyUrl }
             />
             <input
@@ -59,6 +90,8 @@ function DetailsHeader(props) {
               src={ useRecipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Favorite Button"
               data-testid="favorite-btn"
+              width="30px"
+              onClick={ (e) => handleLocalStorageFavorites(e) }
             />
           </Col>
         </Row>
@@ -77,6 +110,7 @@ function DetailsHeader(props) {
 
 DetailsHeader.defaultProps = {
   alcoholic: '',
+  area: '',
 };
 
 DetailsHeader.propTypes = {
@@ -84,5 +118,6 @@ DetailsHeader.propTypes = {
   imgSrc: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   alcoholic: PropTypes.string,
+  area: PropTypes.string,
 };
 export default DetailsHeader;

@@ -9,13 +9,25 @@ class Filtros extends Component {
     super();
     this.state = {
       results: [],
+      filter: '',
     };
 
     this.fetchList = this.fetchList.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
 
   componentDidMount() {
     this.fetchList();
+  }
+
+  handleFilter({ target }) {
+    const { filter } = this.state;
+    if (target.value === filter) {
+      return this.setState(() => ({ filter: '' }), () => {
+        this.submitSearch();
+      });
+    }
+    this.setState(() => ({ filter: target.value }), () => this.submitSearch());
   }
 
   async fetchList() {
@@ -43,15 +55,18 @@ class Filtros extends Component {
     }
   }
 
-  submitSearch(category) {
+  submitSearch() {
     const { pathname, searchIngredient } = this.props;
-    const mealUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-    const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+    const { filter } = this.state;
+    const mealUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`;
+    const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
     if (pathname === '/comidas') {
-      return searchIngredient(mealUrl);
+      if (filter) return searchIngredient(mealUrl);
+      return searchIngredient('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
     if (pathname === '/bebidas') {
-      return searchIngredient(drinkUrl);
+      if (filter) return searchIngredient(drinkUrl);
+      return searchIngredient('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
   }
 
@@ -78,7 +93,9 @@ class Filtros extends Component {
               data-testid={ `${category.strCategory}-category-filter` }
               key={ category.strCategory }
               type="button"
-              onClick={ () => this.submitSearch(category.strCategory) }
+              // onClick={ () => this.submitSearch(category.strCategory) }
+              onClick={ this.handleFilter }
+              value={ category.strCategory }
             >
               {category.strCategory}
             </button>

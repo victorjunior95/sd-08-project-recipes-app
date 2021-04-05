@@ -14,8 +14,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
-        <Route path="/comidas/:id" render={ (props) => <Item { ...props } /> } />
-        <Route path="/bebidas/:id" render={ (props) => <Item { ...props } /> } />
+        <Route exact path="/comidas/:id" render={ (props) => <Item { ...props } /> } />
+        <Route exact path="/bebidas/:id" render={ (props) => <Item { ...props } /> } />
         <Route path="/comidas" render={ (props) => <Food { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
         <Route path="/perfil" component={ Perfil } />

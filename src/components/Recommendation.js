@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Carousel from 'react-bootstrap/Carousel';
 
 const Recommendation = () => {
   const MAX_ITEMS_CAROUSEL = 6;
@@ -27,35 +26,32 @@ const Recommendation = () => {
   }, []);
 
   return (
-    <Carousel
-      data-testid="recomendation-card"
-      showThumbs={ false }
-      autoPlay
-      className="carousel"
-    >
+    <Carousel indicators={ false } className="carousel-container">
       {result.length > 0 && result.map((item, index) => {
         if (pathname === 'bebidas') {
           return (
-            <div
+            <Carousel.Item
               data-testid={ `${index}-recomendation-card` }
               key={ index }
-              className="carousel-item"
             >
               <img src={ item.strMealThumb } alt="drink" />
-              <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
-            </div>
+              <Carousel.Caption className="carousel-caption">
+                <h3 data-testid={ `${index}-recomendation-title` }>{item.strMeal}</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
           );
         }
         if (pathname === 'comidas') {
           return (
-            <div
+            <Carousel.Item
               data-testid={ `${index}-recomendation-card` }
               key={ index }
-              className="carousel-item"
             >
               <img src={ item.strDrinkThumb } alt="drink" />
-              <p data-testid={ `${index}-recomendation-title` }>{item.strDrink}</p>
-            </div>
+              <Carousel.Caption className="carousel-caption">
+                <h3 data-testid={ `${index}-recomendation-title` }>{item.strDrink}</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
           );
         }
         return null;

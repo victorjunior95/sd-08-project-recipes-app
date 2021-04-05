@@ -28,3 +28,17 @@ export function fetchIngredient(url) {
     }
   };
 }
+
+export const mealInProgress = (meal) => ({
+  type: 'RECIPE_IN_PROGRESS_MEALS',
+  payload: {
+    mealInProgress: meal,
+  },
+});
+
+export const drinkInProgress = (drink) => ({
+  type: 'RECIPE_IN_PROGRESS_DRINKS',
+  payload: {
+    drinkInProgress: drink,
+  },
+});

@@ -7,6 +7,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import requestById from '../services/requestById';
+import verifyDone from '../services/verifyDone';
 import verifyInFavorite from '../services/verifyInFavorite';
 import verifyStorage from '../services/verifyStorage';
 import '../styles/Comida.css';
@@ -43,17 +44,12 @@ function ComidasEmProgresso() {
     } else {
       setVerifyChecked(true);
     }
-  }, [countCheck]);
+  }, [countCheck, setVerifyChecked]); // countCheck
 
-  // async function requestRecipe() {
-  //   const recipeFromApi = await requestById(id, 'comidas');
-  //   setRecipe(recipeFromApi.meals[0]);
-  // }
-
-  // function iniciarReceita() {
-  //   verifyInProgress(id, 'meals');
-  //   history.push(`/comidas/${id}/in-progress`);
-  // }
+  function finalizaReceita() {
+    verifyDone('Meal', recipe);
+    history.push('/receitas-feitas');
+  }
 
   function renderButton() {
     return (
@@ -62,7 +58,7 @@ function ComidasEmProgresso() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ verifyChecked }
-        onClick={ () => { history.push('/receitas-feitas'); } }
+        onClick={ finalizaReceita }
       >
         Finalizar Receita
       </button>

@@ -7,6 +7,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import requestById from '../services/requestById';
+import verifyDone from '../services/verifyDone';
 import verifyInFavorite from '../services/verifyInFavorite';
 import verifyStorage from '../services/verifyStorage';
 import '../styles/Bebida.css';
@@ -28,11 +29,6 @@ function BebidasEmProgresso() {
     setVerifyChecked,
   } = useContext(MyContext);
 
-  // async function requestRecipe() {
-  //   const recipeFromApi = await requestById(id, 'bebidas');
-  //   setRecipe(recipeFromApi.drinks[0]);
-  // }
-
   useEffect(() => {
     setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
   }, [id, renderButtonComparison, setRenderButtonComparison]); // renderButtonComparison
@@ -53,12 +49,12 @@ function BebidasEmProgresso() {
       console.log('entrou no else');
     }
     console.log(verifyChecked);
-  }, [countCheck]);
+  }, [countCheck, setVerifyChecked, verifyChecked]); // countCheck
 
-  // function iniciarReceita() {
-  //   verifyInProgress(id, 'cocktails');
-  //   history.push(`/bebidas/${id}/in-progress`);
-  // }
+  function finalizaReceita() {
+    verifyDone('Drink', recipe);
+    history.push('/receitas-feitas');
+  }
 
   function renderButton() {
     return (
@@ -67,7 +63,7 @@ function BebidasEmProgresso() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ verifyChecked }
-        onClick={ () => { history.push('/receitas-feitas'); } }
+        onClick={ finalizaReceita }
       >
         Finalizar Receita
       </button>

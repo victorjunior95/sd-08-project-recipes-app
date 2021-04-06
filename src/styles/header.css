@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 .header {
   align-items: center;
   background: #ea1d2c;
   color: white;
   display: flex;
-  font-family: 'Pacifico', 'cursive';
+  font-family: "Pacifico", "cursive";
   height: 60px;
   justify-content: space-between;
   margin-bottom: 10px;

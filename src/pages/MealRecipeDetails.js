@@ -9,7 +9,7 @@ import favIconDisabled from '../images/whiteHeartIcon.svg';
 import CarouselCocktails from '../components/CarouselCoktails';
 import row from '../images/spacer.png';
 
-class MealRecipeDetails extends Component {
+export default class MealRecipeDetails extends Component {
   constructor() {
     super();
 
@@ -145,6 +145,7 @@ class MealRecipeDetails extends Component {
     } = meals.meals[0];
     const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
 
+    console.log(ingredients);
     return (
       <div className="recipe-details">
         <img
@@ -245,5 +246,3 @@ MealRecipeDetails.propTypes = {
     }).isRequired,
   }).isRequired,
 };
-
-export default MealRecipeDetails;

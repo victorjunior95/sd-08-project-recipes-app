@@ -103,7 +103,6 @@ label {
   background-image: url('../images/food-366875_1280.jpg');
   background-repeat: no-repeat;
   background-size: 360px auto;
-  rotate: 180;
   display: flex;
   flex-flow: wrap;
   flex-direction: row;

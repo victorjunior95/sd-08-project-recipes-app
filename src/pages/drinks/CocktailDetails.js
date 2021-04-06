@@ -32,7 +32,7 @@ export default function CocktailDetails({ match: { params } }) {
       .some((item) => item.id === id && setFavorite(true))), [id, storageRecipe]);
 
   function setLocalStorage() {
-    const recipe = JSON.stringify(id);
+    const recipe = JSON.stringify({ meals: {}, cocktails: { id } });
     localStorage.setItem('inProgressRecipes', recipe);
   }
 

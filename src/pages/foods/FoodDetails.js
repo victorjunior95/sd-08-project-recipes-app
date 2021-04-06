@@ -18,13 +18,17 @@ export default function FoodDetails({ match: { params } }) {
   const { id } = params;
 
   const storageRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes')).meals;
   const progressRecipe = storageRecipe && storageRecipe.includes(id);
+
+  console.log(inProgress);
 
   useEffect(() => {
     if (storageRecipe === null) {
       localStorage
         .setItem('favoriteRecipes', JSON.stringify([]));
     }
+    // if ()
   }, [storageRecipe]);
   console.log(storageRecipe);
 
@@ -33,7 +37,7 @@ export default function FoodDetails({ match: { params } }) {
       .some((item) => item.id === id && setFavorite(true))), [id, storageRecipe]);
 
   function setLocalStorage() {
-    const recipe = JSON.stringify(id);
+    const recipe = JSON.stringify({ meals: { id }, cocktails: {} });
     localStorage.setItem('inProgressRecipes', recipe);
   }
 

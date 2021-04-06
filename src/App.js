@@ -6,6 +6,7 @@ import {
   Details,
 } from './Pages';
 import ReceitasProgresso from './Pages/RecipesProgress/ReceitasProgresso';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -28,8 +29,8 @@ function App() {
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route path="*" component={ NotFound } />
       </Switch>
-      {/* <Route path="**" /> */}
     </BrowserRouter>
   );
 }

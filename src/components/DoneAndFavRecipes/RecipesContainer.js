@@ -13,7 +13,6 @@ const RecipesContainer = ({ type, recipes, filter, removeFav }) => {
   return (
     <Grid
       container
-      justify="center"
       alignItems="center"
       wrap="wrap"
       spacing={ 2 }

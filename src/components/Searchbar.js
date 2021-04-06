@@ -23,9 +23,7 @@ const Searchbar = ({ type }) => {
   const radioClass = type === 'food' ? '' : 'radio-search-drink';
   const radioColor = type === 'food' ? 'secondary' : 'primary';
 
-  const radioChange = (evt) => {
-    setRadioValue(evt.target.value);
-  };
+  const radioChange = (evt) => { setRadioValue(evt.target.value); };
 
   useEffect(() => {
     if (search.length > 1 && radioValue === 'search.php?f=') {

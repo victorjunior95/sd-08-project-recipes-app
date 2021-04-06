@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from '../RecipeCard';
@@ -30,14 +30,14 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
   const { image, name, redirectPath, idName } = cardTypes[cardType];
 
   return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className="recipe-cards-container"
-    >
+    // <Grid
+    //   container
+    //   justify="center"
+    //   alignItems="center"
+    //   className="recipe-cards-container"
+    // >
+    <div className="recipe-cards-container">
       {cardsToRender().map((card, index) => (
-
         <RecipeCard
           key={ index }
           title={ card[name] }
@@ -47,7 +47,8 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
           cardType="recipe"
         />
       ))}
-    </Grid>
+    </div>
+    // </Grid>
   );
 };
 

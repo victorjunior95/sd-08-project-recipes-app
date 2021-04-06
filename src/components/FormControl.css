@@ -1,5 +1,7 @@
-.formControl {
+.MuiFormControl-root.formControl {
   background-color: white;
+  border: 6px solid white;
   justify-content: center;
-  width: 200px;
+  margin: 10px;
+  width: calc(100% - 32px);
 }

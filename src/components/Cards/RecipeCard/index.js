@@ -1,5 +1,5 @@
 import {
-  Card, CardActionArea, CardContent, CardMedia, Grid, Typography,
+  Card, CardActionArea, CardContent, CardMedia, Typography,
 } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -10,7 +10,8 @@ const RecipeCard = ({ title, thumbnail, index, clickRedirectPath, cardType }) =>
   const history = useHistory();
 
   return (
-    <Grid item xs={ 6 } sm={ 4 } md={ 3 } lg={ 2 }>
+    // <Grid container item xs={ 6 } sm={ 4 } md={ 3 } lg={ 2 }>
+    <div className="recipe-card-item">
       <Card
         data-testid={ `${index}-${cardType}-card` }
         className="recipe-card"
@@ -36,7 +37,8 @@ const RecipeCard = ({ title, thumbnail, index, clickRedirectPath, cardType }) =>
           </Typography>
         </CardContent>
       </Card>
-    </Grid>
+    </div>
+    // </Grid>
   );
 };
 RecipeCard.propTypes = {

@@ -21,7 +21,10 @@ body {
 
 .loading-data-animation {
   display: block;
-  margin: 40vw auto;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /*

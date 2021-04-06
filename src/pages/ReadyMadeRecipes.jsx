@@ -37,7 +37,7 @@ function ReadyMadeRecipes() {
       <br />
       <br />
       <CategoriesContainer page="Favoritas" callback={ handleClickFilter } />
-      {showCards()}
+      <section className="cards-favorites">{showCards()}</section>
     </section>
   );
 }

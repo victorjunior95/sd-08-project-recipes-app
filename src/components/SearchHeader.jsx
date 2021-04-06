@@ -36,7 +36,6 @@ function SearchHeader({ page }) {
         searchText,
         filterRadio,
       );
-      console.log(drinks);
       if (drinks) {
         dispatch(actionFilteredDrinks(drinks));
       } else {

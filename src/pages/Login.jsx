@@ -58,7 +58,7 @@ const Login = () => {
           </div>
           <div className="form-group">
             <Input
-              class="form-control"
+              className="form-control"
               id="exampleInputPassword1"
               name="password"
               type="password"

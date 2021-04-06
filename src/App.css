@@ -191,7 +191,7 @@
     margin-left: 20px;
     color: rgb(71, 70, 70);
   }
-  
+
   .header-recipe-detail h5 {
     font-size: 1.5em;
     margin-left: 20px;
@@ -253,7 +253,7 @@
     margin-bottom: 15px;
   }
 
-  .recommended-recipe-details h3{
+  .recommended-recipe-details h3 {
     font-size: 1.9em;
     margin-bottom: 15px;
   }
@@ -281,5 +281,89 @@
     width: 200px;
     height: 30px;
     /* color: rgb(95, 93, 93); */
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 70vh;
+    margin: 0 20px;
+    align-items: center;
+    /* font-size: 1.7em; */
+  }
+
+  .profile div {
+    font-size: 1.9em;
+  }
+
+  .profile button {
+    font-size: 1.3em;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .done-recipe {
+    margin-bottom: 25px;
+    box-shadow: 1px 1px 5px 2px gray;
+    border-radius: 20px;
+    padding: 8px;
+    width: 300px;
+    background-color: white;
+    padding-bottom: 20px;
+  }
+
+  .done-recipe img{
+    border-radius: 20px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  
+  .cards-favorites {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+
+  .share-btn-favorite {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .tag-favorites {
+    background-color: lightcoral;
+    color: white;
+    border-radius: 20px;
+    padding: 8px;
+    margin-right: 5px;
+  }
+
+  .favorite-recipe {
+    margin-bottom: 25px;
+    box-shadow: 1px 1px 5px 2px gray;
+    border-radius: 20px;
+    padding: 8px;
+    width: 300px;
+    background-color: white;
+    padding-bottom: 20px;
+  }
+
+  .favorite-recipe img{
+    border-radius: 20px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+
+  .btn-favorite-share {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
   }
 }

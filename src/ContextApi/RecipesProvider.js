@@ -12,6 +12,9 @@ const searchParams = {
   inputSearch: '',
   id: '',
 };
+const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const urlListArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const RecipesAll = 'search.php?s=';
 
 function RecipesProvider({ children }) {
   const [email, setEmail] = useState('');
@@ -23,7 +26,7 @@ function RecipesProvider({ children }) {
   const [searchParam, setSearchParam] = useState(searchParams);
   const [recipeDetails, setRecipeDetails] = useState();
   const [foodIngredients, setfoodIngredients] = useState([]);
-  const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const [listArea, setListArea] = useState([]);
   const history = useHistory();
   const pathName = history.location.pathname;
 
@@ -36,6 +39,7 @@ function RecipesProvider({ children }) {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     const { selectedParam, inputSearch, id } = searchParam;
 
     switch (selectedParam) {
@@ -58,10 +62,33 @@ function RecipesProvider({ children }) {
     default:
       fetchFood('search.php?s=').then((response) => setRecipes(response));
       break;
+=======
+    const { selectedParam, inputSearch } = searchParam;
+
+    if (pathName === '/comidas') {
+      switch (selectedParam) {
+      case 'ingredient':
+        fetchFood(`filter.php?i=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      case 'name':
+        fetchFood(`search.php?s=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      case 'first-letter':
+        fetchFood(`search.php?f=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      default:
+        fetchFood(RecipesAll).then((response) => setRecipes(response));
+        break;
+      }
+>>>>>>> ad948a0fb887a54ca775f78d68cc1bc2c3a0e97f
     }
   }, [searchParam, pathName]);
 
   useEffect(() => {
+<<<<<<< HEAD
     const { selectedParam, inputSearch, id } = searchParam;
 
     switch (selectedParam) {
@@ -84,6 +111,28 @@ function RecipesProvider({ children }) {
     default:
       fetchDrink('search.php?s=').then((response) => setCocktails(response));
       break;
+=======
+    const { selectedParam, inputSearch } = searchParam;
+
+    if (pathName === '/bebidas') {
+      switch (selectedParam) {
+      case 'ingredient':
+        fetchDrink(`filter.php?i=${inputSearch}`)
+          .then((response) => setCocktails(response));
+        break;
+      case 'name':
+        fetchDrink(`search.php?s=${inputSearch}`)
+          .then((response) => setCocktails(response));
+        break;
+      case 'first-letter':
+        fetchDrink(`search.php?f=${inputSearch}`)
+          .then((response) => setCocktails(response));
+        break;
+      default:
+        fetchDrink(RecipesAll).then((response) => setCocktails(response));
+        break;
+      }
+>>>>>>> ad948a0fb887a54ca775f78d68cc1bc2c3a0e97f
     }
   }, [searchParam, pathName]);
 
@@ -106,6 +155,36 @@ function RecipesProvider({ children }) {
     }
     apiIngredientesFood();
   }, []);
+  useEffect(() => {
+    async function apiAreaFood() {
+      const apiArea = await fetch(urlListArea)
+        .then((json) => json.json())
+        .then((data) => data.meals)
+        .catch((error) => console.log(error));
+
+      setListArea(apiArea);
+    }
+    apiAreaFood();
+  }, []);
+  useEffect(() => {
+    const { selectedParam, inputSearch } = searchParam;
+
+    if (pathName === '/explorar/comidas/area') {
+      switch (selectedParam) {
+      case 'option':
+        fetchFood(`filter.php?a=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      case 'option-All':
+        fetchFood(RecipesAll)
+          .then((response) => setRecipes(response));
+        break;
+      default:
+        fetchFood(RecipesAll).then((response) => setRecipes(response));
+        break;
+      }
+    }
+  }, [searchParam, pathName]);
 
   const provide = {
     email,
@@ -123,6 +202,7 @@ function RecipesProvider({ children }) {
     recipeDetails,
     foodIngredients,
     history,
+    listArea,
   };
 
   return (

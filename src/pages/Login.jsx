@@ -24,13 +24,11 @@ function Login() {
     setLoged(true);
   }
 
-  const url2 = 'http://fazendasantaignacia.com.br/wp-content/uploads/2014/08/receitas.png';
   return (
     <>
       <form>
         <div className="container">
           <div className="box">
-            {/* <img src={ url2 } alt="imagem titulo" className="titulo" /> */}
             <h1 className="titulo">Receitas</h1>
             <img src={ logo } alt="imagem recipe" className="imagem" />
             <input

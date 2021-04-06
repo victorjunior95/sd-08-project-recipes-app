@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { requestMeals, requestDrinks } from '../../redux/actions';
 
 import { fetchByIngredients, fetchApi } from '../../services/API';
+import Loading from '../Loading/Loading';
 
 export default function Ingredients({ path }) {
   const [ingredients, setIngredients] = useState([]);
@@ -88,7 +89,7 @@ export default function Ingredients({ path }) {
 
   return (
     <main>
-      {isLoading && (<h1>Loading...</h1>)}
+      {isLoading && (<Loading />)}
       {path === 'comidas' && renderMealsIng()}
       {path === 'bebidas' && renderDrinksIng()}
     </main>

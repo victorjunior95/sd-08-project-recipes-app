@@ -6,7 +6,7 @@ import { fetchDetails, fetchDrinks, fetchMeal } from '../../services/API';
 import { saveActualRecipe, saveRecommendations } from '../../redux/actions/details';
 import './details.css';
 
-import Loading from '../../components/Details/Loading';
+import Loading from '../../components/Loading/Loading';
 import CoverImg from '../../components/Details/CoverImg';
 import Title from '../../components/Details/Title';
 import ShareFavBtn from '../../components/Details/ShareFavBtn';

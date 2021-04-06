@@ -77,10 +77,10 @@ const tresSegundos = 3000;
 const copy = require('clipboard-copy');
 
 export const copyLink = (url, exibirMensagemState) => {
-  const urlSemTextoInProgress = url.replace('/in-progress', '');
-  copy(urlSemTextoInProgress);
   exibirMensagemState('');
   setTimeout(() => { exibirMensagemState('hidden'); }, tresSegundos);
+  const urlSemTextoInProgress = url.replace('/in-progress', '');
+  copy(urlSemTextoInProgress);
 };
 
 export const adicionarFavorito = (

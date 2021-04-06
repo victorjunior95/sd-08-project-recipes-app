@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import './cards.css';
+import './cards.scss';
 
 function Card({ data }) {
   const [cardSelected, setCardSelected] = useState(false);
@@ -13,7 +13,7 @@ function Card({ data }) {
   }
 
   return (
-    <section data-testid={ `${index}-card-name` } className="card">
+    <section data-testid={ `${index}-card-name` } className="card cardFade">
       <button
         onClick={ () => setCardSelected(true) }
         data-testid={ `${index}${recipeCard}` }

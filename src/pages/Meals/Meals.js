@@ -6,6 +6,8 @@ import Card from '../../components/cards/MealCard';
 import Categories from '../../components/Categorie/MealsCategories';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Loading from '../../components/Loading/Loading';
+import './Meals.scss';
 
 function Comidas({ history }) {
   const QUANTITY_OF_CARDS = 12;
@@ -15,7 +17,7 @@ function Comidas({ history }) {
 
   useEffect(() => {
     if (meals === undefined) dispatch(getMeals());
-  }, [dispatch]);
+  }, [dispatch, meals]);
 
   if (meals) mealsFiltred = meals.filter((meal, index) => index < QUANTITY_OF_CARDS);
 
@@ -23,11 +25,14 @@ function Comidas({ history }) {
     <>
       <Header history={ history } />
       <Categories />
-      {mealsFiltred
-        .map((meal, index) => (<Card
-          key={ meal.idMeal }
-          data={ { meal, index, recipeCard: '-recipe-card' } }
-        />))}
+      <section className="recipesCard">
+        {(meals) ? mealsFiltred
+          .map((meal, index) => (<Card
+            key={ meal.idMeal }
+            data={ { meal, index, recipeCard: '-recipe-card' } }
+          />))
+          : <Loading />}
+      </section>
       <Footer />
     </>
   );

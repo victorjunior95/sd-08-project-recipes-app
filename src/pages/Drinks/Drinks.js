@@ -6,6 +6,8 @@ import Card from '../../components/cards/DrinkCard';
 import Categories from '../../components/Categorie/DrinkCategories';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Loading from '../../components/Loading/Loading';
+import '../Meals/Meals.scss';
 
 function Bebidas({ history }) {
   const QUANTITY_OF_CARDS = 12;
@@ -15,19 +17,25 @@ function Bebidas({ history }) {
 
   useEffect(() => {
     if (drinks === undefined) dispatch(getDrinks());
-  }, [dispatch]);
+  }, [dispatch, drinks]);
 
-  if (drinks) drinksFiltred = drinks.filter((meal, index) => index < QUANTITY_OF_CARDS);
+  if (drinks) {
+    drinksFiltred = drinks
+      .filter((meal, index) => index < QUANTITY_OF_CARDS);
+  } else { return <Loading />; }
 
   return (
     <>
       <Header history={ history } />
       <Categories />
-      {drinksFiltred
-        .map((drink, index) => (<Card
-          key={ drink.idDrink }
-          data={ { drink, index, recipeCard: '-recipe-card' } }
-        />))}
+      <section className="recipesCard">
+        {drinksFiltred
+          .map((drink, index) => (<Card
+            className="cardsFade"
+            key={ drink.idDrink }
+            data={ { drink, index, recipeCard: '-recipe-card' } }
+          />))}
+      </section>
       <Footer />
     </>
   );

@@ -1,0 +1,31 @@
+.card {
+  align-items: center;
+  background-color: rgb(202, 199, 199);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  margin: 2px;
+  padding: 3px;
+  width: 150px;
+  img {
+      height: 100px;
+      width: 100px;
+    }
+  }
+
+.cardFade {
+  -webkit-animation: fadeEffect 2s;
+  animation: fadeEffect 2s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+

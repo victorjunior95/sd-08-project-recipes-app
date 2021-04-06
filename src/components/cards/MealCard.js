@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './cards.css';
+import './cards.scss';
 
 function Card({ data }) {
   const [cardSelected, setCardSelected] = useState(false);

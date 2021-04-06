@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDrinkCategories, requestDrinks } from '../../redux/actions';
 import { fetchDrinks } from '../../services/API';
+import './buttonsCategories.scss';
 
 // import PropTypes from 'prop-types';
 
@@ -35,8 +36,9 @@ function Categories() {
   }
 
   return (
-    <>
+    <div className="buttonCategories">
       <button
+        className="buttons"
         value="All"
         type="button"
         onClick={ (e) => handleClick(e) }
@@ -47,6 +49,7 @@ function Categories() {
       {categoriesFiltred
         .map((categorie) => (
           <button
+            className="buttons"
             value={ categorie.strCategory }
             key={ categorie.strCategory }
             data-testid={ `${categorie.strCategory}-category-filter` }
@@ -55,7 +58,7 @@ function Categories() {
           >
             {categorie.strCategory}
           </button>))}
-    </>
+    </div>
   );
 }
 

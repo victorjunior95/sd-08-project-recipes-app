@@ -11,8 +11,6 @@ const searchParams = {
   selectedParam: '',
   inputSearch: '',
 };
-const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
-const urlListArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const RecipesAll = 'search.php?s=';
 
 function RecipesProvider({ children }) {
@@ -39,48 +37,47 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
 
-    if (pathName === '/comidas') {
-      switch (selectedParam) {
-      case 'ingredient':
-        fetchFood(`filter.php?i=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      case 'name':
-        fetchFood(`search.php?s=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      case 'first-letter':
-        fetchFood(`search.php?f=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      default:
-        fetchFood(RecipesAll).then((response) => setRecipes(response));
-        break;
-      }
+    switch (selectedParam) {
+    case 'ingredient':
+      fetchFood(`filter.php?i=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    case 'name':
+      fetchFood(`search.php?s=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    case 'first-letter':
+      fetchFood(`search.php?f=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    case 'option':
+      fetchFood(`filter.php?a=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    default:
+      fetchFood(RecipesAll).then((response) => setRecipes(response));
+      break;
     }
   }, [searchParam, pathName]);
 
   useEffect(() => {
     const { selectedParam, inputSearch } = searchParam;
-
-    if (pathName === '/bebidas') {
-      switch (selectedParam) {
-      case 'ingredient':
-        fetchDrink(`filter.php?i=${inputSearch}`)
-          .then((response) => setCocktails(response));
-        break;
-      case 'name':
-        fetchDrink(`search.php?s=${inputSearch}`)
-          .then((response) => setCocktails(response));
-        break;
-      case 'first-letter':
-        fetchDrink(`search.php?f=${inputSearch}`)
-          .then((response) => setCocktails(response));
-        break;
-      default:
-        fetchDrink(RecipesAll).then((response) => setCocktails(response));
-        break;
-      }
+    switch (selectedParam) {
+    case 'ingredient':
+      fetchDrink(`filter.php?i=${inputSearch}`)
+        .then((response) => setCocktails(response));
+      break;
+    case 'name':
+      fetchDrink(`search.php?s=${inputSearch}`)
+        .then((response) => setCocktails(response));
+      break;
+    case 'first-letter':
+      fetchDrink(`search.php?f=${inputSearch}`)
+        .then((response) => setCocktails(response));
+      break;
+    default:
+      fetchDrink(RecipesAll).then((response) => setCocktails(response));
+      break;
     }
   }, [searchParam, pathName]);
 
@@ -94,8 +91,7 @@ function RecipesProvider({ children }) {
 
   useEffect(() => {
     async function apiIngredientesFood() {
-      const apiIngredientes = await fetch(urlIngredientesFood)
-        .then((json) => json.json())
+      const apiIngredientes = await fetchFood('list.php?i=list')
         .then((data) => data.meals)
         .catch((error) => console.log(error));
 
@@ -105,8 +101,7 @@ function RecipesProvider({ children }) {
   }, []);
   useEffect(() => {
     async function apiAreaFood() {
-      const apiArea = await fetch(urlListArea)
-        .then((json) => json.json())
+      const apiArea = await fetchFood('list.php?a=list')
         .then((data) => data.meals)
         .catch((error) => console.log(error));
 
@@ -114,25 +109,6 @@ function RecipesProvider({ children }) {
     }
     apiAreaFood();
   }, []);
-  useEffect(() => {
-    const { selectedParam, inputSearch } = searchParam;
-
-    if (pathName === '/explorar/comidas/area') {
-      switch (selectedParam) {
-      case 'option':
-        fetchFood(`filter.php?a=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      case 'option-All':
-        fetchFood(RecipesAll)
-          .then((response) => setRecipes(response));
-        break;
-      default:
-        fetchFood(RecipesAll).then((response) => setRecipes(response));
-        break;
-      }
-    }
-  }, [searchParam, pathName]);
 
   const provide = {
     email,

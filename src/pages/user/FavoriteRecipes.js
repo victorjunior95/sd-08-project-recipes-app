@@ -18,9 +18,9 @@ export default function FavoriteRecipes() {
   return (
     <div>
       <Header
-        name="Receitas Favoritas"
-        currentPage="Favorites"
-        icon="false"
+        title="Receitas Favoritas"
+        currentPage="Fav"
+        search="false"
       />
       <div className="filter-btn">
         <button

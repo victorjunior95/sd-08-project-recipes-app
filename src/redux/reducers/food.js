@@ -3,10 +3,11 @@ import {
   FETCH_API_FOODS,
   ERROR_REQUEST_API_FOODS,
   FETCH_API_CATEGORIES,
-  GET_FILTER_BTN_FOOD,
   GET_MEALS_BY_AREA,
   GET_AREAS,
   FETCH_AREAS,
+  GET_FILTER_BTN_FOOD,
+  GET_MEALS_BY_INGREDIENT,
 } from '../actions/types';
 
 const INITIALSTATE = {
@@ -15,7 +16,6 @@ const INITIALSTATE = {
   areas: [],
   isFetching: false,
   isFetchingAreas: false,
-  onClickFilter: false,
 };
 
 const food = (state = INITIALSTATE, action) => {
@@ -30,6 +30,16 @@ const food = (state = INITIALSTATE, action) => {
       ...state,
       isFetchingCategories: true,
     };
+  case GET_FILTER_BTN_FOOD:
+    return { ...state,
+      meals: action.payload,
+      isFetching: false,
+    };
+  case GET_MEALS_BY_INGREDIENT:
+    return { ...state,
+      isFetching: false,
+      meals: action.payload,
+    };
   case FETCH_AREAS:
     return {
       ...state,
@@ -40,13 +50,6 @@ const food = (state = INITIALSTATE, action) => {
       meals: action.payload.meals,
       categories: action.payload.categories,
       isFetching: false,
-      onClickFilter: false,
-    };
-  case GET_FILTER_BTN_FOOD:
-    return { ...state,
-      meals: action.payload,
-      isFetching: false,
-      onClickFilter: true,
     };
   case GET_AREAS:
     return { ...state,
@@ -56,7 +59,7 @@ const food = (state = INITIALSTATE, action) => {
   case GET_MEALS_BY_AREA:
     return { ...state,
       meals: action.payload,
-      isFetching: false,
+      isFetchingAreas: false,
     };
   case ERROR_REQUEST_API_FOODS:
     return { ...state,

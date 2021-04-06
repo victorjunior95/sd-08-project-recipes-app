@@ -9,9 +9,12 @@ import FilterButtonsSection from '../../components/FilterButtonsSection';
 
 function Drinks() {
   const dispatch = useDispatch();
+  const { onClickByDrink } = useSelector((state) => state.flags);
   useEffect(() => {
-    dispatch(drinksOnMount());
-  }, [dispatch]);
+    if (!onClickByDrink) {
+      dispatch(drinksOnMount());
+    }
+  }, [dispatch, onClickByDrink]);
 
   const { isFetching, onClickFilter, drinks } = useSelector((state) => state.drinks);
   const oneDrink = drinks ? drinks.length : false;

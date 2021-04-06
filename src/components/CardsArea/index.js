@@ -7,10 +7,11 @@ import Loading from '../Loading';
 
 // import { Container } from './styles';
 function CardsArea({ type }) {
-  const { meals, isFetching: FetchingFoods } = useSelector((state) => state.foods);
+  const { meals,
+    isFetching: FetchingFoods, isFetchingAreas } = useSelector((state) => state.foods);
   const { drinks, isFetching: FetchingDrinks } = useSelector((state) => state.drinks);
   const TWELVE_CARDS = 12;
-  if (FetchingFoods || FetchingDrinks) return <Loading />;
+  if (FetchingFoods || FetchingDrinks || isFetchingAreas) return <Loading />;
   if (type === 'foods') {
     return (
       <Container

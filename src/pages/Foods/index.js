@@ -9,11 +9,15 @@ import FilterButtonsSection from '../../components/FilterButtonsSection';
 
 function Foods() {
   const dispatch = useDispatch();
+  const { onClickByRecipe } = useSelector((state) => state.flags);
   useEffect(() => {
-    dispatch(foodsOnMount());
-  }, [dispatch]);
+    if (!onClickByRecipe) {
+      dispatch(foodsOnMount());
+    }
+  }, [dispatch, onClickByRecipe]);
 
-  const { isFetching, onClickFilter, meals } = useSelector((state) => state.foods);
+  const { isFetching, meals } = useSelector((state) => state.foods);
+  const { onClickFilter } = useSelector((state) => state.flags);
   const oneMeal = meals ? meals.length : false;
   return (
     <ContainerDefault title="Comidas">

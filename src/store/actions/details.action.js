@@ -65,7 +65,7 @@ export default (pathname) => (dispatch) => {
     }).then(() => dispatch(recipeFetch()));
 };
 
-// Ls tem o is da recetias, cada receita tem um array com o checks que foram
+// Ls tem o is da receitas, cada receita tem um array com o checks que foram
 // Pegar a key no LS
 // Check se a receita já existe no LS
 // Se ela existir a gente pegar os dados e retorna

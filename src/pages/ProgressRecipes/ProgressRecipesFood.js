@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
+// import { loadFromLS/* , saveToLS */ } from '../../services';
 
 import '../../styles/pages/Container.css';
 
@@ -11,18 +12,36 @@ class ProgressRecipesMeal extends Component {
   constructor(props) {
     super(props);
     this.state = JSON.parse(localStorage.getItem('inProgressRecipe'));
-    this.checkLS = this.checkLS.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.ingredientExistState = this.ingredientExistState.bind(this);
   }
 
-  checkLS(ingredient) {
+  handleChange(ingredient) {
     const { recipe: { idMeal } } = this.props;
-    console.log(idMeal);
-    this.setState((state) => ({
-      ...state,
-      meals: {
-        ...state.meals,
-        [idMeal]: [state.meals[idMeal], ingredient] },
-    }));
+    const { meals } = this.state;
+
+    if (!meals[idMeal]) {
+      this.setState((state) => ({
+        ...state, meals: { [idMeal]: [ingredient] },
+      }));
+    } else {
+      this.setState((state) => ({
+        ...state, meals: this.ingredientExistState(idMeal, ingredient, meals),
+      }));
+    }
+  }
+
+  ingredientExistState(idMeal, ingredient, meals) {
+    let dataSetState = meals[idMeal];
+    const checkExist = dataSetState.some((element) => element === ingredient);
+
+    if (!checkExist) {
+      dataSetState = { [idMeal]: [...dataSetState, ingredient] };
+    } else {
+      dataSetState = { [idMeal]: dataSetState
+        .filter((element) => element !== ingredient) };
+    }
+    return dataSetState;
   }
 
   render() {
@@ -90,7 +109,7 @@ class ProgressRecipesMeal extends Component {
                 <input
                   id={ `${ingredient}-id` }
                   type="checkbox"
-                  onChange={ () => this.checkLS(ingredient) }
+                  onChange={ () => this.handleChange(ingredient) }
                   /*                   checked={ checkedIngredientsLS('meal', idMeal)
                     .includes(ingredient) } */
                 />

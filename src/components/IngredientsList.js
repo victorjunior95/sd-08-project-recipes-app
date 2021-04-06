@@ -6,6 +6,16 @@ import {
   getLocalStorageRecipesInProgress,
 } from '../localStorage/recipeProgressStorage';
 
+function setInitStateRecipe(id, type) {
+  const local = getLocalStorageRecipesInProgress();
+  const mealOrDrink = type === 'drink' ? 'cocktails' : 'meals';
+  if (!local[mealOrDrink].id) {
+    const result = { ...local, [mealOrDrink]: { ...local[mealOrDrink], [id]: [] } };
+    console.log(result);
+    saveRecipeInProgressStorage(result);
+  }
+}
+
 function setIngredientsStorage(idIngredient, id, recipe) {
   if (recipe[id]) {
     const currentRecipe = recipe[id];
@@ -99,6 +109,12 @@ function ListIngredients({ recipe, type }) {
   useEffect(() => {
     setChecked(setCheckIngredient());
   }, [setCheckIngredient]);
+
+  useEffect(() => {
+    if (id) {
+      setInitStateRecipe(id, type);
+    }
+  }, [id, type]);
 
   useEffect(() => {
     verifyRecipeCompleted();

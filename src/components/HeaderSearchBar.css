@@ -74,7 +74,7 @@ label {
   background-color: gray;
   margin-top: 2%;
   width: 100%;
-  z-index: 3147483647;
+  /* z-index: 3147483647; */
 }
 
 h2 {

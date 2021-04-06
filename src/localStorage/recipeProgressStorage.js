@@ -21,7 +21,16 @@ const getLocalStorageRecipesInProgress = () => {
   return initialState;
 };
 
+const getRecipeById = (type, id) => {
+  const local = getLocalStorageRecipesInProgress();
+  if (local[type][id]) {
+    return true;
+  }
+  return false;
+};
+
 export {
   saveRecipeInProgressStorage,
   getLocalStorageRecipesInProgress,
+  getRecipeById,
 };

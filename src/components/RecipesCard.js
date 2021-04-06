@@ -5,12 +5,10 @@ import { useHistory } from 'react-router-dom';
 function RecipesCard(props) {
   const history = useHistory();
   const { index, meal, id } = props;
-  console.log(id);
   return (
     <div
       data-testid={ `${index}-recipe-card` }
       className="recipe-card"
-      // onClick={ () => history.push(`/comidas/${id}`) }
     >
       <input
         className="card-image"
@@ -20,7 +18,12 @@ function RecipesCard(props) {
         alt="comida"
         onClick={ () => history.push(`/comidas/${id}`) }
       />
-      <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+      <p
+        data-testid={ `${index}-card-name` }
+        className="recipe-card-title"
+      >
+        {meal.strMeal}
+      </p>
     </div>
   );
 }

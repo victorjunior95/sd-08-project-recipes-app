@@ -26,103 +26,115 @@ function FavoriteRecipeCard({ recipe, index }) {
       {
         recipe.type === 'comida'
           ? (
-            <section>
-              <button
-                type="button"
-                data-testid={ `${index}-horizontal-name` }
-                onClick={ () => history.push(`/comidas/${recipe.id}`) }
-              >
-                {recipe.name}
-              </button>
-              <input
-                className="card-image"
-                type="image"
-                src={ recipe.image }
-                data-testid={ `${index}-horizontal-image` }
-                alt={ `Recipe: ${recipe.name}` }
-                onClick={ () => history.push(`/comidas/${recipe.id}`) }
-              />
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {`${recipe.area} - ${recipe.category}`}
-              </p>
-              <CopyToClipboard
-                text={ `http://localhost:3000/comidas/${recipe.id}` }
-                onCopy={ () => {
-                  setCopied(index);
-                  setTimeout(() => setCopied(''), FOUR_SECONDS);
-                } }
-              >
+            <section className="favorite-container">
+              <div className="favorite-img-card">
                 <input
-                  data-testid={ `${index}-horizontal-share-btn` }
+                  className="card-image"
                   type="image"
-                  src={ shareIcon }
-                  alt="button share with friends"
+                  src={ recipe.image }
+                  data-testid={ `${index}-horizontal-image` }
+                  alt={ `Recipe: ${recipe.name}` }
+                  onClick={ () => history.push(`/comidas/${recipe.id}`) }
                 />
-              </CopyToClipboard>
-              {
-                copied === index
-                  ? <span style={ { color: 'red' } }>Link copiado!</span>
-                  : null
-              }
-              <input
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                type="image"
-                src={ blackHeartIcon }
-                alt="unfavorite"
-                onClick={ () => removeFromFavorite() }
-              />
+              </div>
+              <div className="favorite-info-card">
+                <button
+                  type="button"
+                  data-testid={ `${index}-horizontal-name` }
+                  onClick={ () => history.push(`/comidas/${recipe.id}`) }
+                >
+                  {recipe.name}
+                </button>
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {`${recipe.area} - ${recipe.category}`}
+                </p>
+                <div className="favorite-share-btn">
+                  <CopyToClipboard
+                    text={ `http://localhost:3000/comidas/${recipe.id}` }
+                    onCopy={ () => {
+                      setCopied(index);
+                      setTimeout(() => setCopied(''), FOUR_SECONDS);
+                    } }
+                  >
+                    <input
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      type="image"
+                      src={ shareIcon }
+                      alt="button share with friends"
+                    />
+                  </CopyToClipboard>
+                  {
+                    copied === index
+                      ? <span style={ { color: 'red' } }>Link copiado!</span>
+                      : null
+                  }
+                </div>
+                <input
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  type="image"
+                  src={ blackHeartIcon }
+                  alt="unfavorite"
+                  onClick={ () => removeFromFavorite() }
+                />
+              </div>
             </section>
           )
           : (
-            <section>
-              <button
-                type="button"
-                data-testid={ `${index}-horizontal-name` }
-                onClick={ () => history.push(`/bebidas/${recipe.id}`) }
-              >
-                {recipe.name}
-              </button>
-              <input
-                className="card-image"
-                type="image"
-                src={ recipe.image }
-                data-testid={ `${index}-horizontal-image` }
-                alt={ `Recipe: ${recipe.name}` }
-                onClick={ () => history.push(`/bebidas/${recipe.id}`) }
-              />
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {recipe.alcoholicOrNot}
-              </p>
-              <CopyToClipboard
-                text={ `http://localhost:3000/comidas/${recipe.id}` }
-                onCopy={ () => {
-                  setCopied(index);
-                  setTimeout(() => setCopied(''), FOUR_SECONDS);
-                } }
-              >
+            <section className="favorite-container">
+              <div className="favorite-img-card">
                 <input
-                  data-testid={ `${index}-horizontal-share-btn` }
+                  className="card-image"
                   type="image"
-                  src={ shareIcon }
-                  alt="button share with friends"
+                  src={ recipe.image }
+                  data-testid={ `${index}-horizontal-image` }
+                  alt={ `Recipe: ${recipe.name}` }
+                  onClick={ () => history.push(`/bebidas/${recipe.id}`) }
                 />
-              </CopyToClipboard>
-              {
-                copied === index
-                  ? <span style={ { color: 'red' } }>Link copiado!</span>
-                  : null
-              }
-              <input
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                type="image"
-                src={ blackHeartIcon }
-                alt="unfavorite"
-                onClick={ () => removeFromFavorite() }
-              />
+              </div>
+              <div className="favorite-info-card">
+                <button
+                  type="button"
+                  data-testid={ `${index}-horizontal-name` }
+                  onClick={ () => history.push(`/bebidas/${recipe.id}`) }
+                >
+                  {recipe.name}
+                </button>
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {recipe.alcoholicOrNot}
+                </p>
+                <div className="favorite-share-btn">
+                  <CopyToClipboard
+                    text={ `http://localhost:3000/comidas/${recipe.id}` }
+                    onCopy={ () => {
+                      setCopied(index);
+                      setTimeout(() => setCopied(''), FOUR_SECONDS);
+                    } }
+                  >
+                    <input
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      type="image"
+                      src={ shareIcon }
+                      alt="button share with friends"
+                    />
+                  </CopyToClipboard>
+                  {
+                    copied === index
+                      ? <span style={ { color: 'red' } }>Link copiado!</span>
+                      : null
+                  }
+                </div>
+                <input
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  type="image"
+                  src={ blackHeartIcon }
+                  alt="unfavorite"
+                  onClick={ () => removeFromFavorite() }
+                />
+              </div>
             </section>
           )
       }

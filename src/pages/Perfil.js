@@ -23,42 +23,42 @@ function Perfil() {
   }
 
   return (
-    <div>
-      <div>
-        <HeaderWithoutSearch />
+    <>
+      <HeaderWithoutSearch />
+      <div className="explore-container">
+        { getEmail() }
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+          onClick={ () => {
+            history.push('/receitas-feitas');
+          } }
+        >
+          Receitas Feitas
+        </button>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          onClick={ () => {
+            history.push('/receitas-favoritas');
+          } }
+        >
+          Receitas Favoritas
+        </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ () => {
+            // window.localStorage.clear();
+            localStorage.clear();
+            history.push('/');
+          } }
+        >
+          Sair
+        </button>
       </div>
-      { getEmail() }
-      <button
-        type="button"
-        data-testid="profile-done-btn"
-        onClick={ () => {
-          history.push('/receitas-feitas');
-        } }
-      >
-        Receitas Feitas
-      </button>
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
-        onClick={ () => {
-          history.push('/receitas-favoritas');
-        } }
-      >
-        Receitas Favoritas
-      </button>
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
-        onClick={ () => {
-          // window.localStorage.clear();
-          localStorage.clear();
-          history.push('/');
-        } }
-      >
-        Sair
-      </button>
       <Footer />
-    </div>
+    </>
   );
 }
 

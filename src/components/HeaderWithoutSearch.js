@@ -16,7 +16,7 @@ function HeaderWithoutSearch() {
             alt="profile page"
           />
         </button>
-        <h1 data-testid="page-title"><Title /></h1>
+        <h1 data-testid="page-title" className="title"><Title /></h1>
       </div>
     </header>
   );

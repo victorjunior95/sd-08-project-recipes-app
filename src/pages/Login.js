@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
+import logo from '../images/logo.png';
 
 function Login() {
   const numberLength = 5;
@@ -33,7 +34,8 @@ function Login() {
   }
 
   return (
-    <form>
+    <form className="container">
+      <img src={ logo } alt="app logo" />
       <label htmlFor="email-input">
         E-mail
         <input
@@ -52,6 +54,7 @@ function Login() {
           onChange={ handleChange }
         />
       </label>
+      <br />
       <button
         type="button"
         data-testid="login-submit-btn"

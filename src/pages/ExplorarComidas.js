@@ -18,37 +18,39 @@ function ExplorarComidas() {
   }, []);
 
   return (
-    <div>
+    <>
       <HeaderWithoutSearch />
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ () => {
-          history.push('/explorar/comidas/ingredientes');
-        } }
-      >
-        Por Ingredientes
-      </button>
-      <button
-        type="button"
-        data-testid="explore-by-area"
-        onClick={ () => {
-          history.push('/explorar/comidas/area');
-        } }
-      >
-        Por Local de Origem
-      </button>
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ () => {
-          history.push(`/comidas/${mealsId}`);
-        } }
-      >
-        Me Surpreenda!
-      </button>
+      <main className="explore-food-container">
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          onClick={ () => {
+            history.push('/explorar/comidas/ingredientes');
+          } }
+        >
+          Por Ingredientes
+        </button>
+        <button
+          type="button"
+          data-testid="explore-by-area"
+          onClick={ () => {
+            history.push('/explorar/comidas/area');
+          } }
+        >
+          Por Local de Origem
+        </button>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => {
+            history.push(`/comidas/${mealsId}`);
+          } }
+        >
+          Me Surpreenda!
+        </button>
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

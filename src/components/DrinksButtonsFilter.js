@@ -18,7 +18,7 @@ function DrinksButtonsFilter() {
 
   if (!drinksCategoriesList) return <span>Loading...</span>;
   return (
-    <main>
+    <main className="filters-container">
       <button
         type="button"
         key="all"

@@ -83,8 +83,8 @@ function DetalhesComidas() {
         isLoading
           ? <Loading />
           : (
-            <>
-              <h1 data-testid="recipe-title">{meal.strMeal}</h1>
+            <div className="details-container">
+              <h1 className="title" data-testid="recipe-title">{meal.strMeal}</h1>
               <img
                 className="card-image"
                 src={ meal.strMealThumb }
@@ -92,43 +92,46 @@ function DetalhesComidas() {
                 data-testid="recipe-photo"
               />
               <br />
-              <CopyToClipboard
-                text={ window.location.href }
-                onCopy={ () => setCopied(true) }
-              >
-                <input
-                  data-testid="share-btn"
-                  type="image"
-                  src={ shareIcon }
-                  alt="button share with friends"
-                />
-              </CopyToClipboard>
-              {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-              {
-                favorite
-                  ? (
-                    <input
-                      type="image"
-                      src={ blackHeartIcon }
-                      data-testid="favorite-btn"
-                      alt="favorite btn"
-                      onClick={ removeFromFavorite }
-                    />
-                  )
-                  : (
-                    <input
-                      type="image"
-                      src={ whiteHeartIcon }
-                      data-testid="favorite-btn"
-                      alt="favorite btn"
-                      onClick={ addToFavorite }
-                    />
-                  )
-              }
+              <div className="share-favorite-btn">
+                <CopyToClipboard
+                  text={ window.location.href }
+                  onCopy={ () => setCopied(true) }
+                >
+                  <input
+                    data-testid="share-btn"
+                    type="image"
+                    src={ shareIcon }
+                    alt="button share with friends"
+                  />
+                </CopyToClipboard>
+                {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
+                {
+                  favorite
+                    ? (
+                      <input
+                        type="image"
+                        src={ blackHeartIcon }
+                        data-testid="favorite-btn"
+                        alt="favorite btn"
+                        onClick={ removeFromFavorite }
+                      />
+                    )
+                    : (
+                      <input
+                        type="image"
+                        src={ whiteHeartIcon }
+                        data-testid="favorite-btn"
+                        alt="favorite btn"
+                        onClick={ addToFavorite }
+                      />
+                    )
+                }
+              </div>
               <p data-testid="recipe-category">
                 { meal.strCategory }
               </p>
-              <ul>
+              <ul className="ul-ingredients">
+                <h4>Ingredients: </h4>
                 { recipe.map((item, index) => (
                   <li
                     data-testid={ `${index}-ingredient-name-and-measure` }
@@ -138,7 +141,7 @@ function DetalhesComidas() {
                   </li>
                 ))}
               </ul>
-              <p data-testid="instructions">
+              <p className="recipe-instructions" data-testid="instructions">
                 { meal.strInstructions }
               </p>
               <video src={ meal.strYoutube } data-testid="video" controls>
@@ -153,7 +156,7 @@ function DetalhesComidas() {
               >
                 Iniciar Receita
               </button>
-            </>
+            </div>
           )
       }
     </main>

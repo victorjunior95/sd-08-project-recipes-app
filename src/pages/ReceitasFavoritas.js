@@ -32,31 +32,33 @@ function ReceitasFavoritas() {
   return (
     <>
       <HeaderWithoutSearch />
-      <main>
-        <button
-          data-testid="filter-by-all-btn"
-          type="button"
-          value="all"
-          onClick={ () => handleFilter('') }
-        >
-          All
-        </button>
-        <button
-          data-testid="filter-by-food-btn"
-          type="button"
-          value="food"
-          onClick={ () => handleFilter('food') }
-        >
-          Food
-        </button>
-        <button
-          data-testid="filter-by-drink-btn"
-          type="button"
-          value="drinks"
-          onClick={ () => handleFilter('drinks') }
-        >
-          Drinks
-        </button>
+      <main className="favorites-container">
+        <div className="filters-container">
+          <button
+            data-testid="filter-by-all-btn"
+            type="button"
+            value="all"
+            onClick={ () => handleFilter('') }
+          >
+            All
+          </button>
+          <button
+            data-testid="filter-by-food-btn"
+            type="button"
+            value="food"
+            onClick={ () => handleFilter('food') }
+          >
+            Food
+          </button>
+          <button
+            data-testid="filter-by-drink-btn"
+            type="button"
+            value="drinks"
+            onClick={ () => handleFilter('drinks') }
+          >
+            Drinks
+          </button>
+        </div>
         {
           favoriteRecipesList !== null || undefined
             ? favoriteRecipesList.map(

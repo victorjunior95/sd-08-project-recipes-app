@@ -37,16 +37,13 @@ function ExplorarComidasOrigem() {
 
   return (
     <div>
-      <div>
-        <HeaderWithSearch />
-      </div>
-      <div>
+      <HeaderWithSearch />
+      <div className="select-container">
         <select
           data-testid="explore-by-area-dropdown"
           onChange={ ({ target }) => setMealsList(target.value) }
+          className="select-origin"
         >
-          {console.log('TESTE', mealsByArea)}
-          {console.log('Teste', mealsList)}
           <option value="all" key="all" data-testid="All-option">All</option>
           {
             areaList.map((area) => (
@@ -66,32 +63,29 @@ function ExplorarComidasOrigem() {
           mealsByArea.slice(MIN_INDEX, MAX_INDEX)
             .map((idMeal, index) => (
               <div
+                className="recipe-card"
                 key={ idMeal.idMeal }
                 data-testid={ `${index}-recipe-card` }
               >
-                <button
-                  type="button"
-                  key={ idMeal.strMeal }
+                <input
+                  type="image"
+                  className="card-image"
+                  src={ idMeal.strMealThumb }
+                  alt={ idMeal.strMeal }
+                  data-testid={ `${index}-card-img` }
                   onClick={ () => history.push(`/comidas/${idMeal.idMeal}`) }
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                  className="recipe-card-title"
                 >
-                  <img
-                    src={ idMeal.strMealThumb }
-                    alt={ idMeal.strMeal }
-                    data-testid={ `${index}-card-img` }
-                  />
-                  <span
-                    data-testid={ `${index}-card-name` }
-                  >
-                    { idMeal.strMeal }
-                  </span>
-                </button>
+                  { idMeal.strMeal }
+                </p>
               </div>
             ))
         }
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

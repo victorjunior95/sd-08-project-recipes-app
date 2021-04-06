@@ -4,8 +4,9 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import Provider from '../../core/Provider';
 
-const renderWithRouter = (component) => {
+const renderWithRouter = (component, route = '/') => {
   const history = createMemoryHistory();
+  history.push(route);
   return {
     ...render(
       <Router history={ history }>

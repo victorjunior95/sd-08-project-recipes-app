@@ -139,7 +139,7 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header name="Receitas Feitas" icon="false" />
+      <Header title="Receitas Feitas" search="false" />
       <button
         type="button"
         className="filter-btn"

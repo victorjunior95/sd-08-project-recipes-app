@@ -1,4 +1,5 @@
-@media (min-width: 361px) {
+@media ( min-width : 361px ) {
+  
   .list-recipes {
     display: grid;
     grid-gap: 20px;

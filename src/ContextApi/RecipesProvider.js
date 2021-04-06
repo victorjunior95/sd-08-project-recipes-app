@@ -11,6 +11,9 @@ const searchParams = {
   selectedParam: '',
   inputSearch: '',
 };
+const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const urlListArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const RecipesAll = 'search.php?s=';
 
 function RecipesProvider({ children }) {
   const [email, setEmail] = useState('');
@@ -21,7 +24,7 @@ function RecipesProvider({ children }) {
   const [DrinkCategories, setDrinkCategories] = useState([]);
   const [searchParam, setSearchParam] = useState(searchParams);
   const [foodIngredients, setfoodIngredients] = useState([]);
-  const urlIngredientesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const [listArea, setListArea] = useState([]);
   const history = useHistory();
   const pathName = history.location.pathname;
 
@@ -51,7 +54,7 @@ function RecipesProvider({ children }) {
           .then((response) => setRecipes(response));
         break;
       default:
-        fetchFood('search.php?s=').then((response) => setRecipes(response));
+        fetchFood(RecipesAll).then((response) => setRecipes(response));
         break;
       }
     }
@@ -75,7 +78,7 @@ function RecipesProvider({ children }) {
           .then((response) => setCocktails(response));
         break;
       default:
-        fetchDrink('search.php?s=').then((response) => setCocktails(response));
+        fetchDrink(RecipesAll).then((response) => setCocktails(response));
         break;
       }
     }
@@ -100,6 +103,36 @@ function RecipesProvider({ children }) {
     }
     apiIngredientesFood();
   }, []);
+  useEffect(() => {
+    async function apiAreaFood() {
+      const apiArea = await fetch(urlListArea)
+        .then((json) => json.json())
+        .then((data) => data.meals)
+        .catch((error) => console.log(error));
+
+      setListArea(apiArea);
+    }
+    apiAreaFood();
+  }, []);
+  useEffect(() => {
+    const { selectedParam, inputSearch } = searchParam;
+
+    if (pathName === '/explorar/comidas/area') {
+      switch (selectedParam) {
+      case 'option':
+        fetchFood(`filter.php?a=${inputSearch}`)
+          .then((response) => setRecipes(response));
+        break;
+      case 'option-All':
+        fetchFood(RecipesAll)
+          .then((response) => setRecipes(response));
+        break;
+      default:
+        fetchFood(RecipesAll).then((response) => setRecipes(response));
+        break;
+      }
+    }
+  }, [searchParam, pathName]);
 
   const provide = {
     email,
@@ -116,6 +149,7 @@ function RecipesProvider({ children }) {
     DrinkCategories,
     foodIngredients,
     history,
+    listArea,
   };
 
   return (

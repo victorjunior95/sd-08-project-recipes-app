@@ -34,7 +34,7 @@ function DetailsMeal() {
 
   return (
     <div>
-      <div className="container-card-meal-details">
+      <div className="styles.container-card-meal-details">
         <div className="card-meal-details" key={ mealDetail.idMeal }>
           <img
             data-testid="recipe-photo"
@@ -97,19 +97,20 @@ function DetailsMeal() {
             Iniciar Receita
           </Link>
         </div>
+        <div className="share-favorite-btn">
+          <button type="button" variant="warning">
+            <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
+          </button>
+          <button type="button" variant="danger">
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+              alt="favorite-icon"
+            />
+          </button>
+        </div>
       </div>
-      <div className="share-favorite-btn">
-        <button type="button" variant="warning">
-          <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
-        </button>
-        <button type="button" variant="danger">
-          <img
-            data-testid="favorite-btn"
-            src={ whiteHeartIcon }
-            alt="favorite-icon"
-          />
-        </button>
-      </div>
+
     </div>
   );
 }

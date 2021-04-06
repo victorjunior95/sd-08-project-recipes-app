@@ -2,6 +2,7 @@ body {
   background-color: darkcyan;
   display: flex;
   justify-content: center;
+  background-image: url('../images/menu-3206749_1280.jpg');
 }
 
 form {

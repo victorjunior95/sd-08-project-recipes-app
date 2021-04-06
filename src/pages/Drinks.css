@@ -104,14 +104,6 @@ label {
   flex-flow: wrap;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 2%;
   width: 100vw;
 }
 
-.category-filter button {
-  background-color: pink;
-  margin-bottom: 2%;
-  margin-right: 2px;
-  width: 25%;
-  word-wrap: break-word;
-}

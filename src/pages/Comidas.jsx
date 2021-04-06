@@ -61,7 +61,7 @@ function Comidas() {
   return (
     <div>
       <Header />
-      <div className="btn-group" role="group" id="divBotoes">
+      <div className="btn-group div-botoes" role="group">
         {!categoriasComidas
           ? <h1>Carregando ...</h1>
 

@@ -26,7 +26,7 @@
 
 .detalhe-categoria {
   color: rgb(191, 49, 0);
-  font-family: 'Pacifico' , cursive;
+  font-family: Pacifico , cursive;
   text-align: center;
 }
 
@@ -62,27 +62,27 @@
 
 .ingredientes {
   color: black;
-  font-family: 'Molengo' , sans-serif;
+  font-family: Molengo , sans-serif;
   margin-left: 5%;
 }
 
 
 h4 {
   color: rgb(215, 106, 3);
-  font-family: 'Dancing Script' , cursive;
+  font-family: Dancing Script , cursive;
   margin-bottom: 5%;
   margin-left: 5%;
 }
 
 .preparo {
-  font-family: 'Molengo' , sans-serif;
+  font-family: Molengo , sans-serif;
   margin-left: 5%;
   text-align: justify;
 }
 
 .title-detalhes {
   color: rgb(191, 49, 0);
-  font-family: 'Dancing Script' , cursive;
+  font-family: Dancing Script , cursive;
   font-size: 20vw;
   text-align: center;
 }

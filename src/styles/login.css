@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap') ;
 
 
 body {
@@ -15,8 +15,8 @@ body {
 .button-color {
   background-color: rgb(191, 49, 0);
   color: white;
-  text-transform: uppercase;
   font-weight: 800;
+  text-transform: uppercase;
 }
 
 .center {
@@ -43,7 +43,7 @@ input {
 
 .titulo {
   color: rgb(191, 49, 0);
-  font-family: 'Dancing Script', cursive;
+  font-family: Dancing Script , cursive;
   font-size: 25vw;
   margin-top: 5%;
   text-align: center;
@@ -54,6 +54,7 @@ input {
 }
 
 @media screen and ( max-width : 360px ) {
+
   .box, .container {
     height: 100%;
     width: 100%;

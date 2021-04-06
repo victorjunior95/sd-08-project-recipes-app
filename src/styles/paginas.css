@@ -15,14 +15,14 @@
 
 .btn-category {
   color: black;
-  font-family: 'Molengo' , sans-serif;
+  font-family: Molengo , sans-serif;
   font-weight: 300;
   padding: 2%;
 }
 
 .btn-category-bebidas {
   color: black;
-  font-family: 'Molengo' , sans-serif;
+  font-family: Molengo , sans-serif;
   font-size: 12px;
   font-weight: 300;
   height: 55px;
@@ -44,22 +44,12 @@
   width: 30%;
 }
 
-#color-buttom-pesquisar {
-  background-color: rgb(236, 159, 5);
-  border: none;
-}
-
-#divBotoes {
-  align-items: center;
-  display: flex;
-}
-
 .divHeader {
   display: flex;
   flex-direction: column;
 }
 
-#div-botoes-bebidas {
+.div-botoes {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -68,8 +58,7 @@
 
 .div-cards {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: center;
 }
 
@@ -103,11 +92,11 @@
   width: 85%;
 }
 
-input[ type = radio ] {
+input [ type = 'radio' ] {
   display: none;
 }
 
-input[ type = text ] {
+input [ type = 'text' ] {
   align-self: center;
   background-color: rgb(253, 232, 163, 0.999);
   border: 1px solid black;
@@ -129,18 +118,16 @@ input[ type = text ] {
 
 .title {
   color: rgb(191, 49, 0);
-  font-family: 'Dancing Script' , cursive;
+  font-family: Dancing Script , cursive;
   font-size: 20vw;
   text-align: center;
 }
 
 .titulo-card {
   color: rgb(191, 49, 0);
-  font-family: 'Molengo' , sans-serif;
+  font-family: Molengo , sans-serif;
   font-size: 5vw;
   text-align: center;
   text-indent: 1%;
-
-  /* width: min-content; */
 }
 

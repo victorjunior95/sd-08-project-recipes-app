@@ -62,7 +62,7 @@ function Bebidas() {
   return (
     <div>
       <Header />
-      <div className="btn-group" role="group" id="div-botoes-bebidas">
+      <div className="btn-group div-botoes" role="group">
         {!categoriasBebidas
           ? <h1>Carregando ...</h1>
           : categoriasBebidas.map(({ strCategory }) => (

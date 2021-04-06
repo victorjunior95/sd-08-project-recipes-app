@@ -28,7 +28,8 @@ function Header() {
             type="button"
             onClick={ () => mudarStatusBarraPesquisa(!statusBarraPesquisa) }
             className="btn btn-secondary"
-            id="color-buttom-pesquisar"
+            style={ { backgroundColor: 'rgb(236, 159, 5)',
+              border: 'none' } }
           >
             <img
               alt="Ícone do Botão de Pesquisa"

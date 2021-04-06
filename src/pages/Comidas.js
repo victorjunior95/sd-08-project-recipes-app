@@ -58,6 +58,7 @@ class Comidas extends Component {
       return (
         <div>
           <HeaderLocation />
+
           <button
             type="button"
             onClick={ (event) => this.handleClick(event.target.name) }
@@ -105,7 +106,7 @@ class Comidas extends Component {
               return null;
             })
           }
-          <Footer />
+          <Footer className="footer orange" />
         </div>
       );
     }
@@ -160,7 +161,7 @@ class Comidas extends Component {
             return null;
           })
         }
-        <Footer />
+        <Footer className="footer orange" />
       </div>
     );
   }

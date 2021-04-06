@@ -9,29 +9,39 @@ const Cards = ({
   index,
   testid = '-recipe-card',
   cardTitle = '-card-name',
-  refCard
+  refCard,
 }) => {
-  if (refCard === "ingredients") {
+  if (refCard === 'ingredients') {
     // console.log(object)
     // console.log(object.strIngredient)
     return (
-      <Card
-      className="card-ingredient"
-      data-testid={`${index}-ingredient-card`}
-      >
-        <Card.Img
-          data-testid={`${index}-card-img`}
-          className="card-ingredient-image"
-          src={title === 'Explorar Ingredientes de Comidas' ? `https://www.themealdb.com/images/ingredients/${object.strIngredient}-Small.png` : `https://www.thecocktaildb.com/images/ingredients/${object.strIngredient1}-Small.png`}
-        />
-        <Card.Body>
-          <Card.Title
-          data-testid={`${index}-card-name`}>
-            {title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1}
-          </Card.Title>
-        </Card.Body>
-      </Card>
-    )
+      <>
+        <Card
+          className="card-ingredient"
+          data-testid={`${index}-ingredient-card`}
+        >
+          <Card.Img
+            data-testid={`${index}-card-img`}
+            className="card-ingredient-image"
+            src={
+              title === 'Explorar Ingredientes de Comidas'
+                ? `https://www.themealdb.com/images/ingredients/${object.strIngredient}-Small.png`
+                : `https://www.thecocktaildb.com/images/ingredients/${object.strIngredient1}-Small.png`
+            }
+          />
+          <Card.Body>
+            <Card.Title
+              className="card-title"
+              data-testid={`${index}-card-name`}
+            >
+              {title === 'Explorar Ingredientes de Comidas'
+                ? object.strIngredient
+                : object.strIngredient1}
+            </Card.Title>
+          </Card.Body>
+        </Card>
+      </>
+    );
   } else {
     return (
       <Card data-testid={`${index}${testid}`}>
@@ -46,9 +56,9 @@ const Cards = ({
           </Card.Title>
         </Card.Body>
       </Card>
-    )
+    );
   }
-  };
+};
 Cards.propTypes = {
   title: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,

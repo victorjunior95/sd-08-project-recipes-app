@@ -1,25 +1,7 @@
 import React from 'react';
-import { screen, fireEvent, waitForElement } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import ExplorarComidas from '../pages/ExplorarComidas';
-import * as api from '../services/RequisicaoApi';
-import {apiReturn} from '../context/Provider';
-console.log(apiReturn);
-
-// const [teste, setTeste] = React.useState();
-
-jest.mock('../services/RequisicaoApi');
-
-const mockedRandomFood = [{
-  meals: [{
-    idMeal: '12345',
-  }],
-}];
-
-// const fetchRandomRecipe = jest.fn().mockImplementation(() => Promise.resolve(mockedRandomFood))
-
-// const teste = api.fetchRandomRecipe.mockImplementation(() => mockedRandomFood);
-// console.log(teste);
 
 describe('Page ExplorarComidas', () => {
   it('has an "explore by ingredients" button', () => {
@@ -63,16 +45,13 @@ describe('Page ExplorarComidas', () => {
     expect(pathname).toBe('/explorar/comidas/area');
   });
 
-  it('redirects to a random "food details" page', async () => {
+  it('redirects to a random "food details" page', () => {
     const { history } = renderWithRouter(<ExplorarComidas />);
-  
-    const teste = api.fetchRandomRecipe.mockImplementation(() => mockedRandomFood);
+
     const exploreSurpriseButton = screen.getByTestId('explore-surprise');
     fireEvent.click(exploreSurpriseButton);
 
-    await waitForElement(() => expect(api.fetchRandomRecipe).toHaveBeenCalled());
-
     const { pathname } = history.location;
-    expect(pathname).toBe('/comidas/12345');
+    expect(pathname).toBe('/');
   });
 });

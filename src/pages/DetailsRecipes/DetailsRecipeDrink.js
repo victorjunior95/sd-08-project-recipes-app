@@ -35,8 +35,11 @@ class DetailsRecipeDrink extends Component {
   }
 
   handleTextButton(id) {
-    const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const check = Object.values(data).includes(id);
+    const data = localStorage.getItem('inProgressRecipes');
+    if (!data) return false;
+    const arr = Object.values(JSON.parse(data));
+    const check = arr.some((el) => (Number(Object.keys(el))) === Number(id));
+    console.log(check);
     return check;
   }
 
@@ -137,7 +140,7 @@ class DetailsRecipeDrink extends Component {
             data-testid="start-recipe-btn"
             to={ `/bebidas/${id}/in-progress` }
           >
-            { this.handleTextButton(id) ? 'Começar Receita' : 'Continuar Receita'}
+            { this.handleTextButton(id) ? 'Continuar Receita' : 'Começar Receita' }
           </Link>
         </div>
       </Loading>

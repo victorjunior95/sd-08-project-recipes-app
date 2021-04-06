@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+// import { object } from 'prop-types';
 import { getFoodById } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import IngredientsList from '../components/IngredientsList';
 
 function ProgressoComida() {
   const history = useHistory();
@@ -76,6 +78,14 @@ function ProgressoComida() {
     return setFav(true);
   };
 
+  // const selectInstruction = ({ name }) => {
+  //   const objectFoodAndDrinks = {
+  //     meals: {
+  //         id-da-comida: [lista-de-ingredientes-utilizados],
+  //     }
+  //   const saveLocal =
+  // };
+
   return (
     toRender
     && (
@@ -109,21 +119,7 @@ function ProgressoComida() {
           </button>
         </div>
         <h3>Lista de Ingredientes:</h3>
-        <ul>
-          { ingredients.map((ing, i) => (
-            <li
-              key={ i }
-              data-testid={ `${i}-ingredient-step` }
-            >
-              <input
-                type="checkbox"
-                name={ ing.name }
-                // onChange={ (e) => selectInstruction(e) }
-              />
-              { `${measure[i]} of ${ing}` }
-            </li>
-          )) }
-        </ul>
+        <IngredientsList ingredients={ ingredients } measure={ measure } id={ id } />
         <h3>Instruções</h3>
         <p data-testid="instructions">{ meal.strInstructions }</p>
         <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>

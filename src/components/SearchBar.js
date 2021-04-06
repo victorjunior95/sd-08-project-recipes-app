@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import RecipesContext from '../ContextApi/RecipesContext';
 
 export default function SearchBar() {
-  const { searchParam, setSearchParam } = useContext(RecipesContext);
+  const { setSearchParam } = useContext(RecipesContext);
+
   const [inputChange, setInputChange] = useState({
     inputSearch: '',
     selectedParam: '',
@@ -20,6 +21,7 @@ export default function SearchBar() {
     const maxCaracter = 1;
     const paramType = inputChange.selectedParam;
     const inputLength = inputChange.inputSearch.length;
+
     if (paramType === 'first-letter' && inputLength > maxCaracter) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
@@ -28,8 +30,6 @@ export default function SearchBar() {
       inputSearch: '',
     });
   }
-
-  console.log(searchParam);
 
   return (
     <span>

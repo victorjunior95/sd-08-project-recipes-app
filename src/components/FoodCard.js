@@ -1,16 +1,11 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 
 export default function FoodCard({ recipes, order }) {
   const { strMeal, strMealThumb } = recipes;
 
   return (
-    <div
-      key={ strMeal }
-      data-testid={ `${order}-recipe-card` }
-      style={ { width: '50%' } }
-    >
+    <div key={ strMeal } data-testid={ `${order}-recipe-card` }>
       <img
         src={ strMealThumb }
         alt={ strMeal }
@@ -24,6 +19,7 @@ export default function FoodCard({ recipes, order }) {
 FoodCard.propTypes = {
   recipes: PropTypes.shape({
     strMeal: PropTypes.string.isRequired,
+    idMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
   }).isRequired,
   order: PropTypes.number.isRequired,

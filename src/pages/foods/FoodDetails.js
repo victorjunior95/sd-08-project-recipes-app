@@ -9,11 +9,12 @@ import RecipesContext from '../../ContextApi/RecipesContext';
 import ShareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import FoodCard from '../../components/cards/FoodCard';
 
 export default function FoodDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
   const [favorite, setFavorite] = useState(false);
-  const [recipeById, setRecipeById] = useState();
+  const [recipeById, setRecipeById] = useState({});
   const [copyLink, setCopyLink] = useState(false);
   const { id } = params;
 
@@ -30,7 +31,6 @@ export default function FoodDetails({ match: { params } }) {
     }
     // if ()
   }, [storageRecipe]);
-  console.log(storageRecipe);
 
   const getFavoriteRecipes = useCallback(() => (
     storageRecipe === null ? [] : storageRecipe
@@ -88,15 +88,14 @@ export default function FoodDetails({ match: { params } }) {
     .map((measure) => recipeById[measure]);
 
   return (
-    <div style={ { width: '50%' } }>
-      <figure className="figure">
-        <img
-          src={ recipeById.strMealThumb }
-          data-testid="recipe-photo"
-          className="figure-img img-fluid rounded"
-          alt="Thumbnail"
-        />
-      </figure>
+    <div>
+      <div
+        data-testid="recipe-photo"
+        className="figure-img img-fluid rounded"
+        alt="Thumbnail"
+      >
+        <FoodCard recipes={ recipeById } order="0" />
+      </div>
       <h1 data-testid="recipe-title">
         {recipeById.strMeal}
       </h1>

@@ -17,6 +17,7 @@ import ExploreArea from './pages/explorer/ExploreArea';
 import Profile from './pages/user/Profile';
 import DoneRecipes from './pages/user/DoneRecipes';
 import FavoriteRecipes from './pages/user/FavoriteRecipes';
+import NotFound from './pages/NotFound';
 
 export default function Routes() {
   return (
@@ -43,6 +44,7 @@ export default function Routes() {
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route path="/**" component={ NotFound } />
     </Switch>
   );
 }

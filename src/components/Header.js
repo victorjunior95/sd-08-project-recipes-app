@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
@@ -10,7 +11,7 @@ export default function Header({ title, search }) {
   const [searchBar, setSearchBar] = useState(false);
   return (
     <>
-      <header>
+      <header className="navbar navbar-expand-lg">
         <Link to="/perfil">
           <button type="button">
             <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profile-icon" />

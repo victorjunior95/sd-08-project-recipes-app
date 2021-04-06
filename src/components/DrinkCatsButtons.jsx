@@ -15,9 +15,9 @@ function DrinkCatsButtons() {
   }, []);
   const drinkFilter = useSelector((state) => state.search.drinkFilter);
 
-  function handleClick(e) {
-    if (drinkFilter === '') {
-      dispatch(filterDrinkCatsAction(e.target.value));
+  function handleClick({ target }) {
+    if (drinkFilter !== target.value) {
+      dispatch(filterDrinkCatsAction(target.value));
     } else {
       dispatch(clearRecipesAction());
       dispatch(clearSearchAction());

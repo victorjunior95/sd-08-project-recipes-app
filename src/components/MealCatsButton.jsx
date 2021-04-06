@@ -15,9 +15,9 @@ function MealCatsButtons() {
   }, []);
   const mealFilter = useSelector((state) => state.search.mealFilter);
 
-  function handleClick(e) {
-    if (mealFilter === '') {
-      dispatch(filterMealCatsAction(e.target.value));
+  function handleClick({ target }) {
+    if (mealFilter !== target.value) {
+      dispatch(filterMealCatsAction(target.value));
     } else {
       dispatch(clearRecipesAction());
       dispatch(clearSearchAction());

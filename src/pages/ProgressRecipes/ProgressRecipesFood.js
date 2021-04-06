@@ -21,20 +21,20 @@ class ProgressRecipesMeal extends Component {
     const { meals } = this.state;
 
     if (!meals[idMeal]) {
+      const newRecipe = { [idMeal]: [ingredient] };
       this.setState((state) => ({
-        //        ...state, meals: { [idMeal]: [ingredient] },
-        ...state, meals: { [idMeal]: [ingredient] },
-
+        ...state, meals: { ...state.meals, ...newRecipe },
       }
       ));
     } else {
       this.setState((state) => ({
-        ...state, meals: this.ingredientExistState(idMeal, ingredient, meals),
+        ...state,
+        meals: { ...this.ingredientExistState(idMeal, ingredient, meals, state) },
       }));
     }
   }
 
-  ingredientExistState(idMeal, ingredient, meals) {
+  ingredientExistState(idMeal, ingredient, meals, state) {
     let dataSetState = meals[idMeal];
     const checkExist = dataSetState.some((element) => element === ingredient);
 
@@ -44,11 +44,10 @@ class ProgressRecipesMeal extends Component {
       dataSetState = { [idMeal]: dataSetState
         .filter((element) => element !== ingredient) };
     }
-    return dataSetState;
+    return { ...state.meals, ...dataSetState };
   }
 
   upDateLS() {
-    // const ls = JSON.parse(localStorage.getItem('inProgressRecipe'));
     const { meals, cocktails } = this.state;
     saveToLS('inProgressRecipe', { meals, cocktails });
   }

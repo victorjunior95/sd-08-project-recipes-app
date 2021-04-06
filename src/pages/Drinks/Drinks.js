@@ -31,7 +31,6 @@ function Bebidas({ history }) {
       <section className="recipesCard">
         {drinksFiltred
           .map((drink, index) => (<Card
-            className="cardsFade"
             key={ drink.idDrink }
             data={ { drink, index, recipeCard: '-recipe-card' } }
           />))}

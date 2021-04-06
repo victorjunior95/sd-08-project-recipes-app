@@ -1,0 +1,16 @@
+.footer {
+  background-color: #ffffff;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
+  .buttonFooter{
+    background-color:transparent;
+    &:active{
+      background-color: turquoise;
+    }
+  }
+
+}

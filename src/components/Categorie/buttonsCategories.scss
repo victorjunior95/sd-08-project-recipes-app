@@ -1,22 +1,31 @@
 .buttonCategories {
   height: 18vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
+  background-color: rgba(117, 116, 114, 0.151);
+  margin: 2vw;
+  border-radius: 8px;
+  padding: 2px;
+  box-shadow: 1px 1px 3px 0px #0000008a;
   .buttons {
-    background-color: transparent;
+    border-radius: 8px;
+    margin: 2px;
+    // box-shadow: 1px 1px 3px 0px #0000008a;
+    background-color: rgba(255, 160, 51, 0.788);
     text-align: center;
-    color: gray;
+    color: rgba(128, 128, 128, 0.781);
     font-size: medium;
     font-weight: 900;
     border: none;
-    height: 6vh;
+    height: 5vh;
     padding: 0.7em;
     outline: none;
     &:focus {
       border-style: solid;
-      border-width: 0 0 5px 0;
+      border-width: 0 0 3px 0;
       border-color: rgb(248, 183, 63);
+      box-shadow: -1px -1px 3px 0px #f8991c8a;
     }
   }
 

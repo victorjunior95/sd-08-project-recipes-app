@@ -1,22 +1,41 @@
 .card {
   align-items: center;
-  background-color: rgb(202, 199, 199);
-  border-radius: 5px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   height: 150px;
-  margin: 2px;
-  padding: 3px;
+  margin: auto;
   width: 150px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.377);
   img {
-      height: 100px;
-      width: 100px;
+      height: 100%;
+      min-width: 100%;
+      border-radius: 15px;
+    }
+    .buttonContainer{
+      width: 100%;
+      margin-top: -8vh;
+      button {
+        text-align: center;
+        font-family: ubuntu;
+        position: relative;
+        font-size: 4.5vw;
+        font-weight: 800;
+        color: rgba(53, 53, 53, 0.692);
+        border: none;
+        width: 34vw;
+        height: 8vh;
+        border-radius: 0px 35px 0px 13px;
+        background-color: #e0e0dfdc;
+        padding: 0 0 0 6px;
+      }
     }
   }
 
 .cardFade {
   -webkit-animation: fadeEffect 2s;
-  animation: fadeEffect 2s; /* Fading effect takes 1 second */
+  animation: fadeEffect 2s; /* Fading effect takes 2 second */
 }
 
 @-webkit-keyframes fadeEffect {

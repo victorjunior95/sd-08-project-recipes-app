@@ -6,21 +6,6 @@
   font-family: sans-serif;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   height: 100vh;
-  row-gap: 2px;
+  row-gap: 6px;
   width: 100%;
-}
-
-/** Register your custom effects  **/
-@-webkit-keyframes fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@keyframes fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-/** Usage css **/
-.cardsFade {
-  -webkit-animation: fadeEffect 1s;
-  animation: fadeEffect 2s; /* Fading effect takes 1 second */
 }

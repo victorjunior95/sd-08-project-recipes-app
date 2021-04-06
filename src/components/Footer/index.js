@@ -1,6 +1,6 @@
 import React from 'react';
 import FooterButton from './FooterButton';
-import './footer.css';
+import './footer.scss';
 
 function Footer() {
   return (

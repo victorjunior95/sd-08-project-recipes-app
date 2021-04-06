@@ -24,6 +24,7 @@ function FooterButton({ toPage }) {
   return (
     <Link to={ `${pages[toPage].path}` }>
       <img
+        className="buttonFooter"
         data-testid={ `${toPage}-bottom-btn` }
         src={ pages[toPage].image }
         alt={ `${toPage} icon` }

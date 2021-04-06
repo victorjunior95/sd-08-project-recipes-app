@@ -1,5 +1,5 @@
 import {
-  getDrinksIngredients,
+  getDrinksIngredient,
   getDrinksByName,
   getDrinksByLetter,
   getDrinksByRandom,
@@ -13,7 +13,7 @@ export const RECIPE_FETCH_SUCCESS = 'RECIPE_FETCH_SUCCESS';
 export const RECIPE_FETCH_ERROR = 'RECIPE_FETCH_ERROR';
 
 const createDrink = (value) => ({
-  ingredient: getDrinksIngredients(value),
+  ingredient: getDrinksIngredient(value),
   name: getDrinksByName(value),
   firstLetter: getDrinksByLetter(value),
 });

@@ -7,6 +7,7 @@ export {
 
 export {
   getDrinksByName,
+  getDrinksIngredient,
   getDrinksIngredients,
   getDrinksByLetter,
   getDrinksByCategories,
@@ -16,6 +17,7 @@ export {
   getDrinksDetails,
   getDrinksByCategory,
   getMealsByName,
+  getMealsIngredient,
   getMealsIngredients,
   getMealsByLetter,
   getMealsByCategories,

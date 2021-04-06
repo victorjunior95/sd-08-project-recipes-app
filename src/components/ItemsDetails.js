@@ -23,6 +23,11 @@ class ItemsDetails extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleFav = this.handleFav.bind(this);
+    this.handleBlackIcon = this.handleBlackIcon.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleBlackIcon();
   }
 
   handleClick() {
@@ -42,23 +47,29 @@ class ItemsDetails extends Component {
   }
 
   handleFav(id) {
-    // const { favorited } = this.state;
-    // this.setState({ favorited: !favorited });
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites && Array.isArray(favorites)) {
-      const checkFav = favorites.includes(id);
-      if (checkFav === true) {
-        const filterFav = favorites.filter((favorite) => id !== favorite);
-        console.log(filterFav);
-        localStorage.setItem('favoriteRecipes', JSON.stringify(filterFav));
+    if (favorites) {
+      const checkFav = favorites.find((favId) => favId.id === id);
+      if (checkFav !== undefined) {
+        const filterFav = favorites.filter((favorite) => id !== favorite.id);
+        return localStorage.setItem('favoriteRecipes', JSON.stringify(filterFav));
       }
-      const fav = [...favorites, id];
-      return localStorage.setItem('favoriteRecipes', JSON.stringify(fav));
-    } if (favorites) {
-      const fav = [favorites, id];
+      const fav = [...favorites, { id }];
       return localStorage.setItem('favoriteRecipes', JSON.stringify(fav));
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(id));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([{ id }]));
+  }
+
+  handleBlackIcon() {
+    const { type, result } = this.props;
+    const id = result[`id${type}`];
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let checkFav = false;
+    if (favorites) checkFav = favorites.find((favId) => favId.id === id);
+    if (!checkFav || checkFav === undefined) {
+      return this.setState({ favorited: false });
+    }
+    return this.setState({ favorited: true });
   }
 
   juntar(chave, itemValue) {
@@ -131,7 +142,8 @@ class ItemsDetails extends Component {
 
   render() {
     const { copied, favorited } = this.state;
-    const { type, result, pathname } = this.props;
+    const { type, result } = this.props;
+
     return (
       <>
         <img
@@ -157,10 +169,17 @@ class ItemsDetails extends Component {
         {copied && <span>Link copiado!</span>}
         <button
           type="button"
-          onClick={ () => this.handleFav(result[`id${type}`]) }
-          data-testid="favorite-btn"
+          onClick={ () => {
+            this.handleFav(result[`id${type}`]);
+            this.handleBlackIcon(result[`id${type}`]);
+          } }
         >
-          <img src={ favorited ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
+          <img
+            data-testid="favorite-btn"
+            src={ favorited ? blackHeartIcon
+              : whiteHeartIcon }
+            alt="favorite"
+          />
         </button>
         <h1 data-testid="recipe-title">{ result[`str${type}`] }</h1>
         <p>
@@ -186,12 +205,10 @@ class ItemsDetails extends Component {
           data-testid="start-recipe-btn"
           variant="success"
           block
-          onClick={
-            () => {
-              this.startRecipe(type, result[`id${type}`]);
-              this.handleProgress(type, result[`id${type}`]);
-            }
-          }
+          onClick={ () => {
+            this.startRecipe(type, result[`id${type}`]);
+            this.handleProgress(type, result[`id${type}`]);
+          } }
         >
           {this.checkRecipeProgress(type, result[`id${type}`])}
         </Button>
@@ -208,4 +225,7 @@ ItemsDetails.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ])).isRequired,
+  pathname: PropTypes.string.isRequired,
+  history: PropTypes.string.isRequired,
+  push: PropTypes.func.isRequired,
 };

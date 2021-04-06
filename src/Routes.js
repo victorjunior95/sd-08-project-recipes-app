@@ -18,6 +18,7 @@ import {
   Profile,
   RecipesMade,
 } from './pages';
+import GenericNotFound from './pages/GenericNotFound';
 
 export default function Routes() {
   return (
@@ -45,6 +46,7 @@ export default function Routes() {
       <Route exact path="/explorar/comidas/area" component={ FoodsByOrigin } />
       <Route exact path="/receitas-feitas" component={ RecipesMade } />
       <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
+      <Route path="*" exact component={ GenericNotFound } />
     </Switch>
   );
 }

@@ -9,7 +9,7 @@ function Cards(props) {
   const history = useHistory();
   const { path } = useRouteMatch();
   const goToDetailsPage = () => {
-    if (path === '/comidas') {
+    if (path.includes('comidas')) {
       history.push(`/comidas/${id}`);
     } else {
       history.push(`/bebidas/${id}`);

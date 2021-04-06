@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
-// import { loadFromLS/* , saveToLS */ } from '../../services';
+import { /* loadFromLS */ saveToLS } from '../../services';
 
 import '../../styles/pages/Container.css';
 
@@ -22,8 +22,11 @@ class ProgressRecipesMeal extends Component {
 
     if (!meals[idMeal]) {
       this.setState((state) => ({
+        //        ...state, meals: { [idMeal]: [ingredient] },
         ...state, meals: { [idMeal]: [ingredient] },
-      }));
+
+      }
+      ));
     } else {
       this.setState((state) => ({
         ...state, meals: this.ingredientExistState(idMeal, ingredient, meals),
@@ -44,7 +47,15 @@ class ProgressRecipesMeal extends Component {
     return dataSetState;
   }
 
+  upDateLS() {
+    // const ls = JSON.parse(localStorage.getItem('inProgressRecipe'));
+    const { meals, cocktails } = this.state;
+    saveToLS('inProgressRecipe', { meals, cocktails });
+  }
+
   render() {
+    this.upDateLS();
+
     const { recipe } = this.props;
     const {
       idMeal,

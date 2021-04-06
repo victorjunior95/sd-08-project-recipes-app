@@ -13,6 +13,16 @@ function DrinkCatsButtons() {
     const fetchData = () => dispatch(fetchDrinkCatsThunk());
     fetchData();
   }, []);
+  const drinkFilter = useSelector((state) => state.search.drinkFilter);
+
+  function handleClick({ target }) {
+    if (drinkFilter !== target.value) {
+      dispatch(filterDrinkCatsAction(target.value));
+    } else {
+      dispatch(clearRecipesAction());
+      dispatch(clearSearchAction());
+    }
+  }
 
   return (
     <div>
@@ -22,7 +32,7 @@ function DrinkCatsButtons() {
             type="button"
             key={ elem.strCategory }
             value={ elem.strCategory }
-            onClick={ (event) => dispatch(filterDrinkCatsAction(event.target.value)) }
+            onClick={ (event) => handleClick(event) }
             data-testid={ `${elem.strCategory}-category-filter` }
           >
             { elem.strCategory }

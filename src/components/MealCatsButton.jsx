@@ -13,6 +13,16 @@ function MealCatsButtons() {
     const fetchData = () => dispatch(fetchMealCatsThunk());
     fetchData();
   }, []);
+  const mealFilter = useSelector((state) => state.search.mealFilter);
+
+  function handleClick({ target }) {
+    if (mealFilter !== target.value) {
+      dispatch(filterMealCatsAction(target.value));
+    } else {
+      dispatch(clearRecipesAction());
+      dispatch(clearSearchAction());
+    }
+  }
 
   return (
     <div>
@@ -22,7 +32,7 @@ function MealCatsButtons() {
             type="button"
             key={ elem.strCategory }
             value={ elem.strCategory }
-            onClick={ (event) => dispatch(filterMealCatsAction(event.target.value)) }
+            onClick={ (event) => handleClick(event) }
             data-testid={ `${elem.strCategory}-category-filter` }
           >
             { elem.strCategory }

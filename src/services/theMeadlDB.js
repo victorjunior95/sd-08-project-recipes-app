@@ -46,3 +46,19 @@ export async function getMealDetails(id) {
   const { meals } = data;
   return meals;
 }
+
+export async function getMealsAreas() {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { meals } = data;
+  return meals;
+}
+
+export async function getMealsByArea(country) {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`;
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { meals } = data;
+  return meals;
+}

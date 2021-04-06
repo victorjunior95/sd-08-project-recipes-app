@@ -9,6 +9,8 @@ import {
   FetchFoodsCategories,
   FetchFoodsOnMount,
   filterFoodsByButton,
+  getMealsAreas,
+  getMealsByArea,
 } from '../../services/theMeadlDB';
 import {
   GET_API_FOOD,
@@ -20,6 +22,9 @@ import {
   ERROR_REQUEST_API_DRINKS,
   GET_FILTER_BTN_FOOD,
   GET_FILTER_BTN_DRINK,
+  GET_MEALS_BY_AREA,
+  GET_AREAS,
+  FETCH_AREAS,
 } from './types';
 
 const setFood = (data) => ({
@@ -38,6 +43,19 @@ const isFetchingFoods = () => ({
 
 export const isFetchingCategories = () => ({
   type: FETCH_API_CATEGORIES,
+});
+
+export const isFetchingAreas = () => ({
+  type: FETCH_AREAS,
+});
+const setAreas = (data) => ({
+  type: GET_AREAS,
+  payload: data,
+});
+
+const setMealsByArea = (data) => ({
+  type: GET_MEALS_BY_AREA,
+  payload: data,
 });
 
 const isFetchingDrinks = () => ({
@@ -126,5 +144,25 @@ export const filterBtnDrink = (category) => async (dispatch) => {
     dispatch(setByButtonDrink(apiData));
   } catch (error) {
     dispatch(errorFetchingDrinks(error));
+  }
+};
+
+export const mealsAreas = () => async (dispatch) => {
+  dispatch(isFetchingAreas());
+  try {
+    const apiData = await getMealsAreas();
+    dispatch(setAreas(apiData));
+  } catch (error) {
+    dispatch(errorFetchingFoods(error));
+  }
+};
+
+export const filterByArea = (area) => async (dispatch) => {
+  dispatch(isFetchingFoods());
+  try {
+    const apiData = await getMealsByArea(area);
+    dispatch(setMealsByArea(apiData));
+  } catch (error) {
+    dispatch(errorFetchingFoods(error));
   }
 };

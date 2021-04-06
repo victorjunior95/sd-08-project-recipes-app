@@ -9,7 +9,15 @@ export function createObject(currentFood, pathAndId) {
     '/comidas': 'comida',
     '/bebidas': 'bebida',
   };
-  const tagArray = currentFood.strTags.split(',');
+
+  let tagArray;
+
+  if (typeRecipe[pathAndId[1]] === 'comida') {
+    const array = currentFood.strTags.split(',');
+    tagArray = [array[0], array[1]]
+  } else {
+    tagArray = [];
+  }
 
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
@@ -26,6 +34,6 @@ export function createObject(currentFood, pathAndId) {
     name: currentFood.strMeal || currentFood.strDrink,
     image: currentFood.strMealThumb || currentFood.strDrinkThumb,
     doneDate: today,
-    tags: [tagArray[0], tagArray[1]],
+    tags: tagArray,
   };
 }

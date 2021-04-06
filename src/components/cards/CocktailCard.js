@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 export default function CocktailCard({ recipes, order }) {
   const { strDrink, strDrinkThumb } = recipes;
   return (
-    <div key={ strDrink } data-testid={ `${order}-recipe-card` }>
+    <div
+      key={ strDrink }
+      data-testid={ `${order}-recipe-card` }
+      style={ { width: '50%' } }
+    >
       <img
         src={ strDrinkThumb }
         alt={ strDrink }
@@ -18,7 +22,6 @@ export default function CocktailCard({ recipes, order }) {
 CocktailCard.propTypes = {
   recipes: PropTypes.shape({
     strDrink: PropTypes.string.isRequired,
-    idDrink: PropTypes.string.isRequired,
     strDrinkThumb: PropTypes.string.isRequired,
   }).isRequired,
   order: PropTypes.number.isRequired,

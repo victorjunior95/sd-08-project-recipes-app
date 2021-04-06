@@ -8,6 +8,7 @@ import RecipesContext from '../../ContextApi/RecipesContext';
 import ShareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import CocktailCard from '../../components/cards/CocktailCard';
 
 export default function CocktailDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
@@ -25,7 +26,6 @@ export default function CocktailDetails({ match: { params } }) {
         .setItem('favoriteRecipes', JSON.stringify([]));
     }
   }, [storageRecipe]);
-  console.log(storageRecipe);
 
   const getFavoriteRecipes = useCallback(() => (
     storageRecipe === null ? [] : storageRecipe
@@ -81,12 +81,14 @@ export default function CocktailDetails({ match: { params } }) {
     .map((measure) => recipeById[measure]);
 
   return (
-    <div style={ { width: '50%' } }>
-      <img
-        src={ recipeById.strDrinkThumb }
-        data-testid="recipe-photo"
-        alt="Thumbnail"
-      />
+    <div
+      data-testid="recipe-photo"
+      alt="Thumbnail"
+      className="figure-img img-fluid rounded"
+    >
+      <div>
+        <CocktailCard recipes={ recipeById } order={ 0 } />
+      </div>
       <h1 data-testid="recipe-title">
         {recipeById.strDrink}
       </h1>

@@ -9,6 +9,7 @@ import RecipesContext from '../../ContextApi/RecipesContext';
 import ShareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import FoodCard from '../../components/cards/FoodCard';
 
 export default function FoodDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
@@ -76,7 +77,6 @@ export default function FoodDetails({ match: { params } }) {
     .filter((item) => item.includes('strIngredient')
     && recipeById[item])
     .map((ingredient) => recipeById[ingredient]);
-  console.log(recipeById);
 
   const measures = Object.keys(recipeById)
     .filter((item) => item.includes('strMeasure')
@@ -84,15 +84,14 @@ export default function FoodDetails({ match: { params } }) {
     .map((measure) => recipeById[measure]);
 
   return (
-    <div style={ { width: '50%' } }>
-      <figure className="figure">
-        <img
-          src={ recipeById.strMealThumb }
-          data-testid="recipe-photo"
-          className="figure-img img-fluid rounded"
-          alt="Thumbnail"
-        />
-      </figure>
+    <div>
+      <div
+        data-testid="recipe-photo"
+        className="figure-img img-fluid rounded"
+        alt="Thumbnail"
+      >
+        <FoodCard recipes={ recipeById } order="0" />
+      </div>
       <h1 data-testid="recipe-title">
         {recipeById.strMeal}
       </h1>

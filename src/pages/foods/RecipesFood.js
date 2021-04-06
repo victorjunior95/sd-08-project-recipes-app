@@ -22,6 +22,7 @@ function RecipesFood() {
   if (isNull(recipeMeals)) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
+
   return (
     <div>
       <Header title="Comidas" search="" />

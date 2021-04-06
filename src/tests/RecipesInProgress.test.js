@@ -61,4 +61,23 @@ describe('1 - Verifica os elementos presentes na tela receitas em progresso e se
     userEvent.click(finalizarReceitaBtn)
     expect(history.location.pathname).toBe('/receitas-feitas')
   })
+  test('Verifica a funcionalidade do botao de favoritar',async()=>{
+    const { history,getByTestId,findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    history.push('comidas/52977/in-progress')
+    const favoritebtn = await findByTestId('favorite-btn')
+    userEvent.click(favoritebtn)
+    const favoriteRecipes = [{
+      "id": "52771",
+      "type": "comida",
+      "area": "Italian",
+      "category": "Vegetarian",
+      "alcoholicOrNot": "",
+      "name": "Spicy Arrabiata Penne",
+      "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).not.toBe(null)
+  
+
+  })
 })

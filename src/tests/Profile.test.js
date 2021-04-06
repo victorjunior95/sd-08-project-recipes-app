@@ -13,9 +13,12 @@ describe('1 - Verifica os testes da página de Perfil', () => {
     );
     const receitasProntasButton = getByTestId('profile-done-btn')
     expect(receitasProntasButton).toBeInTheDocument()
+    expect(receitasProntasButton).toHaveTextContent('Receitas Feitas')
     const receitasFavoritasButton = getByTestId('profile-favorite-btn')
     expect(receitasFavoritasButton).toBeInTheDocument()
+    expect(receitasFavoritasButton).toHaveTextContent('Receitas Favoritas')
     const leaveButton = getByTestId('profile-logout-btn')
+    expect(leaveButton).toHaveTextContent('Sair')
     expect(leaveButton).toBeInTheDocument()
     const profileButton = getByTestId('profile-top-btn')
     expect(profileButton).toBeInTheDocument()

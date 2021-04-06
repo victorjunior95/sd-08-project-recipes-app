@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
@@ -9,6 +8,8 @@ import LikeButton from '../components/LikeButton';
 import Recomendation from '../components/Recomendation';
 import { clearSingleRecipe } from '../redux/actions/clearRecipesAction';
 import IngredientList from '../components/IngredientList';
+import '../CSS/foodDetail.css';
+import BeginContinueRecipeBtn from '../components/BeginContinueRecipeBtn';
 
 function FoodDetail() {
   const dispatch = useDispatch();
@@ -16,8 +17,6 @@ function FoodDetail() {
   const arrayId = pathname.split('/')[2];
   const arrayRecipes = pathname.split('/')[1];
   const { singleRecipe } = useSelector((state) => state.recipes);
-
-  const history = useHistory();
 
   useEffect(() => {
     let fetchData;
@@ -69,17 +68,10 @@ function FoodDetail() {
       }
       Recomendadas
       <Recomendation />
-      <button
-        onClick={ () => history.push(`/${arrayRecipes}/${arrayId}/in-progress`) }
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
+      <BeginContinueRecipeBtn />
     </div>
   );
 
-  // if (recipe) return <main><span>Loading</span></main>;
   return (
     <main>
       <div>

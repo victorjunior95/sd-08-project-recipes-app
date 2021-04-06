@@ -15,6 +15,7 @@ const HeaderRecipeDetails = ({
   drinkCategory,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
+  const [shouldUpdate, setShouldUpdate] = useState(false);
   const toFavorite = {
     id,
     type: page,
@@ -35,10 +36,11 @@ const HeaderRecipeDetails = ({
 
   const handleClickHeart = () => {
     setFavoriteRecipes(toFavorite);
-    setIsCopied(!isCopied);
+    setShouldUpdate(!shouldUpdate);
   };
+
   return (
-    <section>
+    <section className="header-recipe-detail">
       <img
         src={ imgPath }
         alt="recipe"
@@ -46,25 +48,29 @@ const HeaderRecipeDetails = ({
         data-testid="recipe-photo"
       />
       <h3 data-testid="recipe-title">{title}</h3>
-      <h5 data-testid="recipe-category">{category}</h5>
-      <CopyToClipboard
-        text={ `http://localhost:3000/${page}/${id}` }
-        onCopy={ handleClick }
-      >
-        <input
-          type="image"
-          src={ shareIcon }
-          alt="share icon"
-          data-testid="share-btn"
-        />
-      </CopyToClipboard>
-      <input
-        type="image"
-        src={ getHeartType(id) ? blackHeartIcon : whiteHeartIcon }
-        alt="white heart icon"
-        data-testid="favorite-btn"
-        onClick={ handleClickHeart }
-      />
+      <section>
+        <h5 data-testid="recipe-category">{category}</h5>
+        <div>
+          <CopyToClipboard
+            text={ `http://localhost:3000/${page}/${id}` }
+            onCopy={ handleClick }
+          >
+            <input
+              type="image"
+              src={ shareIcon }
+              alt="share icon"
+              data-testid="share-btn"
+            />
+          </CopyToClipboard>
+          <input
+            type="image"
+            src={ getHeartType(id) ? blackHeartIcon : whiteHeartIcon }
+            alt="white heart icon"
+            data-testid="favorite-btn"
+            onClick={ handleClickHeart }
+          />
+        </div>
+      </section>
       {isCopied ? <p>Link copiado!</p> : ''}
     </section>
   );

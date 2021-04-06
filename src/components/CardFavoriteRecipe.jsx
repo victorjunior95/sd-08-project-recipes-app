@@ -42,7 +42,7 @@ const CardFavoritRecipe = ({
     callback();
   };
   return (
-    <section>
+    <section className="favorite-recipe">
       <Link key={ id } to={ `/${page}/${id}` }>
         <img
           src={ imgPath }
@@ -57,24 +57,26 @@ const CardFavoritRecipe = ({
       <h5 data-testid={ `${index}-horizontal-top-text` }>
         {`${area} - ${category}`}
       </h5>
-      <CopyToClipboard
-        text={ `http://localhost:3000/${page}/${id}` }
-        onCopy={ handleClick }
-      >
+      <section className="btn-favorite-share">
+        <CopyToClipboard
+          text={ `http://localhost:3000/${page}/${id}` }
+          onCopy={ handleClick }
+        >
+          <input
+            type="image"
+            src={ shareIcon }
+            alt="share icon"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
+        </CopyToClipboard>
         <input
           type="image"
-          src={ shareIcon }
-          alt="share icon"
-          data-testid={ `${index}-horizontal-share-btn` }
+          src={ getHeartType(id) ? blackHeartIcon : whiteHeartIcon }
+          alt="white heart icon"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          onClick={ handleClickHeart }
         />
-      </CopyToClipboard>
-      <input
-        type="image"
-        src={ getHeartType(id) ? blackHeartIcon : whiteHeartIcon }
-        alt="white heart icon"
-        data-testid={ `${index}-horizontal-favorite-btn` }
-        onClick={ handleClickHeart }
-      />
+      </section>
       {isCopied ? <p>Link copiado!</p> : ''}
     </section>
   );

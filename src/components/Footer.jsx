@@ -2,25 +2,25 @@ import React from 'react';
 
 import FooterButton from './FooterButton';
 import '../styles/footer.css';
-import { drinkIcon, exploreIcon, mealIcon } from '../common/svgStore';
+import { exploreIconWhite, mealIconWhite, drinkIconWhite } from '../common/svgStore';
 
 function Footer() {
   return (
     <footer className="footer" data-testid="footer">
       <FooterButton
-        src={ drinkIcon }
+        src={ drinkIconWhite }
         alt="Ícone Bebidas"
         data-testid="drinks-bottom-btn"
         path="/bebidas"
       />
       <FooterButton
-        src={ exploreIcon }
+        src={ exploreIconWhite }
         alt="Ícone Explorar"
         data-testid="explore-bottom-btn"
         path="/explorar"
       />
       <FooterButton
-        src={ mealIcon }
+        src={ mealIconWhite }
         alt="Ícone Comidas"
         data-testid="food-bottom-btn"
         path="/comidas"

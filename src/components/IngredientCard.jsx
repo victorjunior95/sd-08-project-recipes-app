@@ -30,7 +30,7 @@ const IngredientCard = ({ imagePath, title, index, page }) => {
       tabIndex={ 0 }
     >
       <img src={ imagePath } alt={ title } data-testid={ `${index}-card-img` } />
-      <p data-testid={ `${index}-card-name` }>{title}</p>
+      <p data-testid={ `${index}-card-name` } className="card-title">{title}</p>
     </section>
   );
 };

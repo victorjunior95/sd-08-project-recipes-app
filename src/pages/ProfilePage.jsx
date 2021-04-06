@@ -22,10 +22,14 @@ function ProfilePage() {
   return (
     <section className="content">
       <Header label="Perfil" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       <Footer />
       <section className="profile">
         <div data-testid="profile-email">{getUser()}</div>
         <button
+          className="btn btn-warning"
           type="button"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/receitas-feitas') }
@@ -33,6 +37,7 @@ function ProfilePage() {
           Receitas Feitas
         </button>
         <button
+          className="btn btn-warning"
           type="button"
           data-testid="profile-favorite-btn"
           onClick={ () => history.push('/receitas-favoritas') }
@@ -40,6 +45,7 @@ function ProfilePage() {
           Receitas Favoritas
         </button>
         <button
+          className="btn btn-warning"
           type="button"
           data-testid="profile-logout-btn"
           onClick={ handleLogout }

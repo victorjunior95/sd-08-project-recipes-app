@@ -33,13 +33,14 @@ const IngredientsRecipeDetailsInProgress = ({
             key={ ingredient }
           >
             <input
+              className="form-check-input"
               type="checkbox"
               name="igredient-checkbox"
               id="igredient-checkbox"
               onClick={ () => handleClick(ingredient) }
               defaultChecked
             />
-            {ingredient}
+            <span className="form-check-label">{ingredient}</span>
           </section>
         );
       }
@@ -62,9 +63,9 @@ const IngredientsRecipeDetailsInProgress = ({
   };
 
   return (
-    <section>
+    <section className="ingredients-recipe-inprogress">
       <h3>Ingredientes</h3>
-      {showCheckBox()}
+      <div className="form-check">{showCheckBox()}</div>
     </section>
   );
 };

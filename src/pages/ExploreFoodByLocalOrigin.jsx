@@ -56,6 +56,9 @@ function ExploreFoodByLocalOrigin() {
   return (
     <>
       <Header label="Explorar Origem" Search={ SearchButton } />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
@@ -64,6 +67,7 @@ function ExploreFoodByLocalOrigin() {
         <section>
           <label htmlFor="drop-origem">
             <select
+              className="form-select select-by-origin"
               name="drop-origem"
               id="drop-origem"
               value={ actualSelect }
@@ -76,7 +80,9 @@ function ExploreFoodByLocalOrigin() {
               {showAreasOptions()}
             </select>
           </label>
-          <section>{showFoods()}</section>
+          <section className="card-food">{showFoods()}</section>
+          <br />
+          <br />
         </section>
       )}
       <Footer />

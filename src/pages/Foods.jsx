@@ -30,7 +30,7 @@ function Foods() {
   }, [dispatch]);
 
   const mapCards = (array) => (
-    <section>
+    <section className="card-item">
       {array.map((food, index) => (
         <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
           <Card
@@ -66,19 +66,24 @@ function Foods() {
     return mapCards(foodsToMap);
   };
   return (
-    <div>
+    <div className="div-foods">
+      <Header label="Comidas" Search={ SearchButton } page="Comidas" />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
         </section>
       ) : (
         <>
-          <Header label="Comidas" Search={ SearchButton } page="Comidas" />
           <CategoriesContainer page="Comidas" />
-          {showCards()}
-          <Footer />
+          <div className="card-food">
+            {showCards()}
+          </div>
         </>
       )}
+      <Footer />
     </div>
   );
 }

@@ -32,14 +32,18 @@ const ContainerDoneRecipes = ({
       return '';
     }
     return tags.slice(0, 2).map((tag) => (
-      <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+      <span
+        className="tag-favorites"
+        key={ tag }
+        data-testid={ `${index}-${tag}-horizontal-tag` }
+      >
         {tag}
       </span>
     ));
   };
 
   return (
-    <section>
+    <section className="done-recipe">
       <Link to={ `/${type.concat('s')}/${id}` }>
         <img
           src={ image }
@@ -60,18 +64,20 @@ const ContainerDoneRecipes = ({
           {`${alcoholicOrNot}`}
         </h5>
       )}
-      <h5 data-testid={ `${index}-horizontal-done-date` }>{doneDate}</h5>
-      <CopyToClipboard
-        text={ `http://localhost:3000/${type.concat('s')}/${id}` }
-        onCopy={ handleClick }
-      >
-        <input
-          type="image"
-          src={ shareIcon }
-          alt="share icon"
-          data-testid={ `${index}-horizontal-share-btn` }
-        />
-      </CopyToClipboard>
+      <section className="share-btn-favorite">
+        <h5 data-testid={ `${index}-horizontal-done-date` }>{doneDate}</h5>
+        <CopyToClipboard
+          text={ `http://localhost:3000/${type.concat('s')}/${id}` }
+          onCopy={ handleClick }
+        >
+          <input
+            type="image"
+            src={ shareIcon }
+            alt="share icon"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
+        </CopyToClipboard>
+      </section>
       {isCopied ? <section>Link copiado!</section> : ''}
       <section>{showTags()}</section>
     </section>

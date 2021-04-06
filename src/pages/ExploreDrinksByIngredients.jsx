@@ -23,6 +23,9 @@ function ExploreDrinksByIngredients() {
   return (
     <>
       <Header label="Explorar Ingredientes" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
         <section className="loading-section">
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />

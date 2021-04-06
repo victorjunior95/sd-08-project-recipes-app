@@ -39,32 +39,37 @@ function FavoritesRecipes() {
   return (
     <section>
       <Header label="Receitas Favoritas" Search={ () => '' } />
+      <br />
+      <br />
+      <br />
       <CategoriesContainer page="Favoritas" callback={ handleClickFilter } />
-      {favorites.map((favorite, index) => {
-        const {
-          id,
-          type,
-          area,
-          category,
-          alcoholicOrNot,
-          name,
-          image,
-        } = favorite;
-        return (
-          <CardFavoritRecipe
-            key={ id }
-            imgPath={ image }
-            title={ name }
-            category={ type === 'bebida' ? alcoholicOrNot : category }
-            page={ type.concat('s') }
-            id={ id }
-            area={ area }
-            drinkCategory={ alcoholicOrNot }
-            index={ index }
-            callback={ handleClick }
-          />
-        );
-      })}
+      <section className="cards-favorites">
+        {favorites.map((favorite, index) => {
+          const {
+            id,
+            type,
+            area,
+            category,
+            alcoholicOrNot,
+            name,
+            image,
+          } = favorite;
+          return (
+            <CardFavoritRecipe
+              key={ id }
+              imgPath={ image }
+              title={ name }
+              category={ type === 'bebida' ? alcoholicOrNot : category }
+              page={ type.concat('s') }
+              id={ id }
+              area={ area }
+              drinkCategory={ alcoholicOrNot }
+              index={ index }
+              callback={ handleClick }
+            />
+          );
+        })}
+      </section>
     </section>
   );
 }

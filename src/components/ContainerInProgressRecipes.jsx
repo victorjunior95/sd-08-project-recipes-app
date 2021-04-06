@@ -153,7 +153,7 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
             <Button
               name="Finalizar Receita"
               data-testid="finish-recipe-btn"
-              className="start-recipe-btn"
+              className="start-recipe-btn btn btn-danger"
               onClick={ finishRecipe }
               disabled={ buttonState }
             />

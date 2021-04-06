@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { requestFoodById } from '../services/requestFoodsAPI';
 import ContainerInProgressRecipes from '../components/ContainerInProgressRecipes';
+import { infinity } from '../common/svgStore';
 
 function FoodProcess({
   match: {
@@ -21,10 +22,14 @@ function FoodProcess({
   return (
     <section>
       {isLoading ? (
-        <h1>Loading</h1>
+        <section className="loading-section">
+          <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+        </section>
       ) : (
         <ContainerInProgressRecipes recipe={ meal[0] } page="Comidas" id={ id } />
       )}
+      <br />
+      <br />
     </section>
   );
 }

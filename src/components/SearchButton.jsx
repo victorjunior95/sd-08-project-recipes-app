@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import searchIcon from '../images/searchIcon.svg';
+import { searchIconWhite } from '../common/svgStore';
 
 function SearchButton({ callback }) {
   return (
     <input
       type="image"
-      src={ searchIcon }
+      src={ searchIconWhite }
       alt="Imagem da Busca"
       data-testid="search-top-btn"
       onClick={ callback }

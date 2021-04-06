@@ -38,28 +38,37 @@ const Login = () => {
     setUser(email);
     setShouldRedirect(true);
   };
-
   return (
-    <div>
+    <div className="login">
       {shouldRedirect ? (
         <Redirect to="/comidas" />
       ) : (
         <form>
-          <Input
-            name="email"
-            type="email"
-            placeholder="Email"
-            data-testid="email-input"
-            onChange={ emailChange }
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Senha"
-            data-testid="password-input"
-            onChange={ passwordChange }
-          />
+          <div className="form-group">
+            <Input
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              name="email"
+              type="email"
+              placeholder="Email"
+              data-testid="email-input"
+              onChange={ emailChange }
+            />
+          </div>
+          <div className="form-group">
+            <Input
+              className="form-control"
+              id="exampleInputPassword1"
+              name="password"
+              type="password"
+              placeholder="Senha"
+              data-testid="password-input"
+              onChange={ passwordChange }
+            />
+          </div>
           <Button
+            className="btn btn-success"
             name="Entrar"
             data-testid="login-submit-btn"
             disabled={ checkEmailAndPassword() }

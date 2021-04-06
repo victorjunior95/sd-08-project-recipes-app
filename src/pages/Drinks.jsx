@@ -8,6 +8,7 @@ import '../styles/card.css';
 import Footer from '../components/Footer';
 import { actionThunkMainDrinks } from '../redux/actions';
 import CategoriesContainer from '../components/CategoriesContainer';
+import { infinity } from '../common/svgStore';
 
 function Drinks() {
   const MAX_ARRAY_SIZE = 12;
@@ -24,7 +25,7 @@ function Drinks() {
   }, [dispatch]);
 
   const mapCards = (array) => (
-    <section>
+    <section className="card-food">
       {array.map((drink, index) => (
         <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.idDrink }>
           <Card
@@ -59,17 +60,22 @@ function Drinks() {
     return mapCards(drinksToMap);
   };
   return (
-    <div>
+    <div className="div-foods">
+      <Header label="Bebidas" Search={ SearchButton } page="Bebidas" />
+      <br />
+      <br />
+      <br />
       {isLoading ? (
-        <h1>Loading...</h1>
+        <section className="loading-section">
+          <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
+        </section>
       ) : (
         <>
-          <Header label="Bebidas" Search={ SearchButton } page="Bebidas" />
           <CategoriesContainer page="Bebidas" />
           {showCards()}
-          <Footer />
         </>
       )}
+      <Footer />
     </div>
   );
 }

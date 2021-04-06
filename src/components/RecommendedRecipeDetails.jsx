@@ -31,7 +31,7 @@ const RecommendedRecipeDetails = ({ recommendedRecipes, page }) => {
     }
   };
   return (
-    <section>
+    <section className="recommended-recipe-details">
       <h3>Recomendados</h3>
       <div className="div-carousel">{showCards()}</div>
     </section>

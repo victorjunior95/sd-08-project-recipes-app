@@ -23,7 +23,16 @@ export const getInProgressCocktails = () => {
   return null;
 };
 
+export const getDoneRecipes = () => {
+  if (localStorage.getItem('doneRecipes') === null) {
+    return [];
+  }
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  return doneRecipes;
+};
+
 export const nameButtonRecipe = (id, type) => {
+  if (getDoneRecipes().some((recipe) => recipe.id === id)) return 'none';
   const startRecipe = 'Iniciar Receita';
   const continueRecipe = 'Continuar Receita';
   if (type === 'Comidas') {
@@ -64,12 +73,4 @@ export const getIngredientsFinished = (type, id) => {
     return finishedIgredients[id];
   }
   return [];
-};
-
-export const getDoneRecipes = () => {
-  if (localStorage.getItem('doneRecipes') === null) {
-    return [];
-  }
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  return doneRecipes;
 };

@@ -5,8 +5,8 @@ import '../styles/card.css';
 const Card = ({ id, imagePath, title, category, index }) => (
   <section key={ id } className="card" data-testid={ `${index}-recipe-card` }>
     <img src={ imagePath } alt={ title } data-testid={ `${index}-card-img` } />
-    <p>{category}</p>
-    <p data-testid={ `${index}-card-name` }>{title}</p>
+    <p className="card-category">{category}</p>
+    <p className="card-title" data-testid={ `${index}-card-name` }>{title}</p>
   </section>
 );
 

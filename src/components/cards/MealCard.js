@@ -14,18 +14,20 @@ function Card({ data }) {
 
   return (
     <section data-testid={ `${index}-card-name` } className="card">
-      <button
-        onClick={ () => setCardSelected(true) }
-        data-testid={ `${index}${recipeCard}` }
-        type="button"
-      >
-        <img
-          data-testid={ `${index}-card-img` }
-          src={ strMealThumb }
-          alt={ strMeal }
-        />
-        { strMeal }
-      </button>
+      <img
+        data-testid={ `${index}-card-img` }
+        src={ strMealThumb }
+        alt={ strMeal }
+      />
+      <div className="buttonContainer">
+        <button
+          onClick={ () => setCardSelected(true) }
+          data-testid={ `${index}${recipeCard}` }
+          type="button"
+        >
+          { strMeal }
+        </button>
+      </div>
     </section>
   );
 }

@@ -19,19 +19,23 @@ function Comidas({ history }) {
     if (meals === undefined) dispatch(getMeals());
   }, [dispatch, meals]);
 
-  if (meals) mealsFiltred = meals.filter((meal, index) => index < QUANTITY_OF_CARDS);
+  // if (meals) mealsFiltred = meals.filter((meal, index) => index < QUANTITY_OF_CARDS);
+
+  if (meals) {
+    mealsFiltred = meals
+      .filter((meal, index) => index < QUANTITY_OF_CARDS);
+  } else { return <Loading />; }
 
   return (
     <>
       <Header history={ history } />
       <Categories />
       <section className="recipesCard">
-        {(meals) ? mealsFiltred
+        {mealsFiltred
           .map((meal, index) => (<Card
             key={ meal.idMeal }
             data={ { meal, index, recipeCard: '-recipe-card' } }
-          />))
-          : <Loading />}
+          />))}
       </section>
       <Footer />
     </>

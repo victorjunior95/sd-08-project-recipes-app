@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar';
 
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
-import './header.css';
+import './header.scss';
 
 function Header({ history }) {
   const [searchButton, setSearchButton] = useState(false);
@@ -68,10 +68,12 @@ function Header({ history }) {
         <h1 data-testid="page-title">{title}</h1>
         {search && (
           <button
+            className="searchButton"
             type="button"
             onClick={ () => setSearchButton((previousState) => !(previousState)) }
           >
             <img
+              className="searchIcon"
               data-testid="search-top-btn"
               src={ SearchIcon }
               alt="search icon"
@@ -79,7 +81,7 @@ function Header({ history }) {
           </button>
         ) }
       </nav>
-      <section>
+      <section className="searchBarFade">
         {searchButton && <SearchBar history={ history } />}
       </section>
     </header>

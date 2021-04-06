@@ -31,7 +31,7 @@ function SearchBar({ history }) {
   }
 
   return (
-    <form>
+    <form className="searchBarFade">
       <div className="input-container">
         <input
           className="input"

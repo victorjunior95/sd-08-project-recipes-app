@@ -13,7 +13,7 @@ function Card({ data }) {
   }
 
   return (
-    <section data-testid={ `${index}-card-name` } className="card">
+    <section data-testid={ `${index}-card-name` } className="card cardFade">
       <img
         data-testid={ `${index}-card-img` }
         src={ strMealThumb }

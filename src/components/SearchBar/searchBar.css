@@ -36,3 +36,18 @@ form {
   padding: 8px;
   width: 90%;
 }
+
+
+.searchBarFade {
+  -webkit-animation: fadeEffect 0.5s;
+  animation: fadeEffect 1s; /* Fading effect takes 2 second */
+}
+
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

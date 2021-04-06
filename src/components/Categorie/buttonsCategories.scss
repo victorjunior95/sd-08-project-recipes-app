@@ -1,25 +1,26 @@
 .buttonCategories {
   height: 18vh;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+	grid-template-columns: repeat(2, 50%);
+  gap: 5px;
   background-color: rgba(255, 255, 255, 0.151);
-  margin: 2vw;
+  margin-top: 110px;
+  // margin: 2vw;
   border-radius: 8px;
   padding: 2px;
   box-shadow: 1px 1px 3px 0px #0000008a;
   .buttons {
+    width: 95%;
     border-radius: 8px;
     margin: 2px;
-    // box-shadow: 1px 1px 3px 0px #0000008a;
-    background-color: rgba(247, 163, 8, 0.815);
+    box-shadow: 1px 1px 3px 0px #8d8b8b8a;
+    background-color: #ffc27c;
     text-align: center;
-    color: rgba(128, 128, 128, 0.781);
+    color: #faf8f9;
     font-size: medium;
     font-weight: 900;
     border: none;
-    height: 5vh;
-    padding: 0.7em;
+    height: 4.5vh;
     outline: none;
     &:focus {
       border-style: solid;

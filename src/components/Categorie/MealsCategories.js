@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsCategories, requestMeals } from '../../redux/actions';
 import { fetchMeal } from '../../services/API';
+import './buttonsCategories.scss';
 
 function Categories() {
   const [selected, setSelected] = useState('');
@@ -33,8 +34,9 @@ function Categories() {
   }
 
   return (
-    <>
+    <div className="buttonCategories">
       <button
+        className="buttons"
         value="All"
         type="button"
         onClick={ (e) => handleClick(e) }
@@ -45,6 +47,7 @@ function Categories() {
       {categoriesFiltred
         .map((categorie) => (
           <button
+            className="buttons"
             value={ categorie.strCategory }
             key={ categorie.strCategory }
             data-testid={ `${categorie.strCategory}-category-filter` }
@@ -53,7 +56,7 @@ function Categories() {
           >
             {categorie.strCategory}
           </button>))}
-    </>
+    </div>
   );
 }
 

@@ -39,12 +39,20 @@ const apiSlice = createSlice({
     recommendData: [],
     loading: 'idle',
     recommendLoading: 'idle',
+    explore: '',
   },
-  reducers: {},
+  reducers: {
+    explore: (state, action) => ({
+      ...state,
+      explore: action.payload,
+    }),
+  },
   extraReducers: {
     ...mainReducers,
     ...recommendReducers,
   },
 });
+
+export const { explore } = apiSlice.actions;
 
 export default apiSlice.reducer;

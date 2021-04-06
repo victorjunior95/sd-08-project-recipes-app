@@ -8,14 +8,17 @@ import { fetchItem } from '../store/apiSlice';
 import { fetchCategories } from '../store/apiCategoriesSlice';
 import CardItens from './Card';
 
-const FETCH_ALL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const PRIMEIRO = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 function Comidas() {
+  const name = useSelector((state) => state.api.explore);
+  const SEGUNDO = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`;
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
-    dispatch(fetchItem(FETCH_ALL));
-  }, [dispatch]);
+    dispatch(fetchItem(name === '' ? PRIMEIRO : SEGUNDO));
+  }, [dispatch, SEGUNDO, name]);
   const loadingAPI = useSelector((state) => state.api.loading);
   const loadingCategoriesAPI = useSelector((state) => state.categoriesButton.loading);
   const foodsArray = useSelector((state) => state.api.data.meals);
@@ -49,7 +52,7 @@ function Comidas() {
                     dispatch(fetchItem(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categories.strCategory}`));
                     setValue(e.target.value);
                   } else if (e.target.value === value) {
-                    dispatch(fetchItem(FETCH_ALL));
+                    dispatch(fetchItem(PRIMEIRO));
                     setValue('5');
                   }
                 } }
@@ -60,7 +63,7 @@ function Comidas() {
             <Button
               variant="secondary"
               style={ { margin: '10px 0px', borderRadius: '5px' } }
-              onClick={ () => dispatch(fetchItem(FETCH_ALL)) }
+              onClick={ () => dispatch(fetchItem(PRIMEIRO)) }
               data-testid="All-category-filter"
             >
               All
@@ -89,6 +92,7 @@ function Comidas() {
 
   if ((foodsArray === null && loadingAPI === 'fulfilled')
     || loadingAPI === 'rejected') {
+    // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 

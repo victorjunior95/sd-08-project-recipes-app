@@ -123,7 +123,6 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
     area,
     drinkCategory,
   } = recipeInfo;
-
   return (
     <div>
       {isLoading ? (
@@ -148,14 +147,18 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             recommendedRecipes={ recommended }
             page={ page }
           />
-          <Link to={ route }>
-            <Button
-              name={ nameButtonRecipe(id, page) }
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn btn btn-danger"
-              onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
-            />
-          </Link>
+          {nameButtonRecipe(id, page) === 'none' ? (
+            ''
+          ) : (
+            <Link to={ route }>
+              <Button
+                name={ nameButtonRecipe(id, page) }
+                data-testid="start-recipe-btn"
+                className="start-recipe-btn btn btn-danger"
+                onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
+              />
+            </Link>
+          )}
           <br />
           <br />
         </main>

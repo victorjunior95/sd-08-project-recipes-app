@@ -6,6 +6,7 @@ import {
   Details,
 } from './Pages';
 import ReceitasProgresso from './Pages/RecipesProgress/ReceitasProgresso';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (

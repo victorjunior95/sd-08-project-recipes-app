@@ -53,7 +53,7 @@ export default (pathname) => (dispatch) => {
           recommendations: drinksRecommendations,
         });
       } else {
-        console.log(recipe);
+        // console.log(recipe);
         const drinksDetails = filtered(recipe[0], 'drinks');
         const mealsRecommendations = recipe[1].meals;
         Object.assign(story, {

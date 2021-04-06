@@ -4,21 +4,53 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
-import { /* loadFromLS */ saveToLS } from '../../services';
+import { /* loadFromLS */ saveToLS, getDrinksDetails } from '../../services';
+import filterFood from '../../utils/filterDetailsRecipes';
 
 import '../../styles/pages/Container.css';
+
+const INITIAL_STATE_RECIPE_DRINK = {
+  idDrink: '',
+  strDrinkThumb: '',
+  strDrink: '',
+  strCategory: '',
+  strInstructions: '',
+  ingredients: [],
+  measures: [],
+};
 
 class ProgressRecipesDrink extends Component {
   constructor(props) {
     super(props);
-    this.state = JSON.parse(localStorage.getItem('inProgressRecipe'));
+    this.state = { ...JSON.parse(localStorage.getItem('inProgressRecipe')),
+      ...INITIAL_STATE_RECIPE_DRINK };
     this.handleChange = this.handleChange.bind(this);
+    this.handleRequestDrink = this.handleRequestDrink.bind(this);
     this.checkExistIngredientArrRecipes = this.checkExistIngredientArrRecipes.bind(this);
   }
 
+  componentDidMount() {
+    this.handleRequestDrink();
+  }
+
+  handleRequestDrink() {
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    getDrinksDetails(id).then((response) => {
+      const drink = filterFood(response, 'drinks');
+      this.setState((state) => ({
+        ...state,
+        ...drink,
+      }));
+    });
+  }
+
   handleChange(ingredient) {
-    const { recipe: { idDrink } } = this.props;
-    const { cocktails } = this.state;
+    const { cocktails, idDrink } = this.state;
 
     if (!cocktails[idDrink]) {
       const newRecipe = { [idDrink]: [ingredient] };
@@ -57,11 +89,14 @@ class ProgressRecipesDrink extends Component {
     return { ...state.cocktails, ...dataSetState };
   }
 
+  checkedIngredientsLS(ingredient) {
+    const { cocktails = {}, idDrink } = this.state;
+    if (Object.keys(cocktails).length === 0) return false;
+    return cocktails[idDrink].includes(ingredient) || false;
+  }
+
   render() {
     this.setRecipeLocalStorage();
-
-    const { recipe } = this.props;
-
     const {
       idDrink,
       strDrinkThumb,
@@ -70,7 +105,7 @@ class ProgressRecipesDrink extends Component {
       strInstructions,
       ingredients,
       measures,
-    } = recipe;
+    } = this.state;
 
     return (
       <div className="recipe-details">
@@ -120,8 +155,9 @@ class ProgressRecipesDrink extends Component {
               >
                 <input
                   type="checkbox"
-                  id={ `${ingredient}-id` }
+                  id={ `${index}-ingredient-step` }
                   onChange={ () => this.handleChange(ingredient) }
+                  defaultChecked={ this.checkedIngredientsLS(ingredient) }
                 />
                 {`${ingredient} - ${measures[index]}`}
               </label>
@@ -154,8 +190,8 @@ ProgressRecipesDrink.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  recipe: PropTypes.string.isRequired,
-  idDrink: PropTypes.number.isRequired,
+  // recipe: PropTypes.string.isRequired,
+  // idDrink: PropTypes.number.isRequired,
 };
 const mapStateToProps = ({ detailsReducers }) => ({
   recipe: detailsReducers.recipe,

@@ -29,17 +29,19 @@ class ProgressRecipesMeal extends Component {
     this.checkExistIngredientArrRecipes = this.checkExistIngredientArrRecipes.bind(this);
   }
 
+  /// /////////////////////////////
   componentDidMount() {
     this.handleRequestMeal();
   }
 
+  /// /////////////////////////////
   handleRequestMeal() {
     const {
       match: {
         params: { id },
       },
     } = this.props;
-
+    /// /////////////////////////////
     getMealsDetails(id).then((response) => {
       const meal = filterFood(response, 'meals');
       this.setState((state) => ({
@@ -49,9 +51,9 @@ class ProgressRecipesMeal extends Component {
     });
   }
 
+  /// /////////////////////////////
   handleChange(ingredient) {
-    const { recipe: { idMeal } } = this.props;
-    const { meals } = this.state;
+    const { meals, idMeal } = this.state;
 
     if (!meals[idMeal]) {
       const newRecipe = { [idMeal]: [ingredient] };
@@ -72,11 +74,13 @@ class ProgressRecipesMeal extends Component {
     }
   }
 
+  /// /////////////////////////////
   setRecipeLocalStorage() {
     const { meals, cocktails } = this.state;
     saveToLS('inProgressRecipe', { meals, cocktails });
   }
 
+  /// /////////////////////////////
   checkExistIngredientArrRecipes(idMeal, ingredient, meals, state) {
     let dataSetState = meals[idMeal];
     const checkExist = dataSetState.some((element) => element === ingredient);
@@ -90,8 +94,17 @@ class ProgressRecipesMeal extends Component {
     return { ...state.meals, ...dataSetState };
   }
 
+  checkedIngredientsLS(ingredient) {
+    const { meals = {}, idMeal } = this.state;
+    if (Object.keys(meals).length === 0) return false;
+
+    return meals[idMeal].includes(ingredient);
+  }
+
+  /// /////////////////////////////
   render() {
     this.setRecipeLocalStorage();
+    /// /////////////////////////////
     const {
       idMeal,
       strMealThumb,
@@ -101,6 +114,7 @@ class ProgressRecipesMeal extends Component {
       ingredients,
       measures,
     } = this.state;
+    /// /////////////////////////////
 
     return (
       <div className="recipe-details">
@@ -149,8 +163,9 @@ class ProgressRecipesMeal extends Component {
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  id={ `${ingredient}-id` }
                   type="checkbox"
+                  defaultChecked={ this.checkedIngredientsLS(ingredient) }
+                  id={ `${index}-id-${ingredient}` }
                   onChange={ () => this.handleChange(ingredient) }
 
                 />
@@ -183,8 +198,6 @@ ProgressRecipesMeal.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  recipe: PropTypes.string.isRequired,
-  idMeal: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ detailsReducers }) => ({

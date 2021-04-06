@@ -14,12 +14,36 @@ const MAX_SIX_RECOMMENDATIONS = 6;
 const LIMIT_INDEX_DISPLAY = 2;
 
 class DetailsRecipeFood extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { textButton: '' };
+    this.getLS = this.getLS.bind(this);
+  }
+
   componentDidMount() {
     const {
       asyncMealsAll,
       location: { pathname },
     } = this.props;
     asyncMealsAll(pathname);
+    this.getLS();
+  }
+
+  async getLS() {
+    const { idMeal } = this.props;
+    const data = await JSON.parse(localStorage.getItem('inProgressRecipe'));
+    console.log(data);
+    const check1 = Object.keys(data.meals).length === 0;
+    console.log(data.meals);
+    if (check1) {
+      this.setState({
+        textButton: 'Iniciar Receita',
+      });
+    } else {
+      const check2 = Object.keys(data.meals).includes(idMeal);
+      console.log(check2);
+      this.setState({ textButton: 'Continuar Receita' });
+    }
   }
 
   render() {
@@ -34,6 +58,7 @@ class DetailsRecipeFood extends Component {
       ingredients,
       measures,
     } = recipe;
+    const { textButton } = this.state;
 
     return (
       <Loading state={ isFetching }>
@@ -131,14 +156,15 @@ class DetailsRecipeFood extends Component {
         </div>
         <div>
           <Link
-            data-testid="start-recipe-btn"
             className="start-btn"
+            data-testid="start-recipe-btn"
             exact
             to={ `/comidas/${idMeal}/in-progress` }
-
+            value={ textButton }
           >
-            Iniciar receita
+            { textButton }
           </Link>
+
         </div>
       </Loading>
     );
@@ -169,6 +195,7 @@ DetailsRecipeFood.propTypes = {
   recommendations: PropTypes.shape({
     recipe: PropTypes.arrayOf }).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  idMeal: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({

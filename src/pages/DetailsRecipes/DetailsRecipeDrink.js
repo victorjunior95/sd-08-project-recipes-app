@@ -14,12 +14,37 @@ const MAX_SIX_RECOMMENDATIONS = 6;
 const LIMIT_INDEX_DISPLAY = 2;
 
 class DetailsRecipeDrink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { textButton: '' };
+    this.getLS = this.getLS.bind(this);
+  }
+
   componentDidMount() {
     const {
       asyncDrinksAll,
       location: { pathname },
     } = this.props;
     asyncDrinksAll(pathname);
+    this.getLS();
+  }
+
+  async getLS() {
+    const { idDrink } = this.props;
+    const data = await JSON.parse(localStorage.getItem('inProgressRecipe'));
+    console.log(data);
+    const check1 = Object.keys(data.cocktails).length === 0;
+    console.log(data.cocktails);
+    if (check1) {
+      this.setState({
+        textButton: 'Iniciar Receita',
+      });
+    } else {
+      const check2 = Object.keys(data.cocktails).includes(idDrink);
+      console.log(check2);
+
+      this.setState({ textButton: 'Continuar Receita' });
+    }
   }
 
   render() {
@@ -33,6 +58,8 @@ class DetailsRecipeDrink extends Component {
       measures,
       strAlcoholic,
     } = recipe;
+
+    const { textButton } = this.state;
 
     return (
       <Loading state={ isFetching }>
@@ -120,7 +147,7 @@ class DetailsRecipeDrink extends Component {
             exact
             to={ `/bebidas/${idDrink}/in-progress` }
           >
-            Iniciar receita
+            { textButton}
           </Link>
         </div>
       </Loading>
@@ -151,6 +178,7 @@ DetailsRecipeDrink.propTypes = {
   recommendations: PropTypes.shape({
     recipe: PropTypes.arrayOf }).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  idDrink: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({

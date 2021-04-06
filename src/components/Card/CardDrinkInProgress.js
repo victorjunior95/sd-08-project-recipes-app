@@ -147,7 +147,7 @@ function CardDrinkInProgress({ alreadyFavorited, idDaReceita }) {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            className="finalizar-receita"
+            className="page-buttons finalizar-receita"
             disabled={ disableButton }
             onClick={ () => handleClick() }
           >

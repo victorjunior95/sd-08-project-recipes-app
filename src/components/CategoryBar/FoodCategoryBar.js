@@ -15,7 +15,7 @@ function FoodCategoryBar() {
         type="button"
         key="All"
         data-testid="All-category-filter"
-        className="search-button"
+        className="page-buttons"
         onClick={ handleFilteredMeals }
       >
         All
@@ -29,7 +29,7 @@ function FoodCategoryBar() {
             type="button"
             key={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
-            className="search-button"
+            className="page-buttons"
             onClick={ handleFilteredMeals }
           >
             {strCategory}

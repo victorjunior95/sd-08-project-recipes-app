@@ -113,7 +113,7 @@ function CardFoodDetails({ alreadyFavorited, idDaReceita }) {
         <button
           type="button"
           onClick={ () => { startRecipe(); } }
-          className="start-recipe"
+          className="page-buttons start-recipe"
           data-testid="start-recipe-btn"
         >
           {(recipeStarted) ? 'Continuar Receita' : 'Iniciar Receita'}

@@ -56,12 +56,13 @@ function SearchBarFood() {
   if (redirect) return <Redirect to={ path } />;
 
   return (
-    <section>
+    <section className="search-bar-container">
       <input
         type="text"
         data-testid="search-input"
         value={ searchInput }
         onChange={ handleSearchInput }
+        className="input-field"
       />
       <label htmlFor="ingredient-search">
         <input
@@ -100,6 +101,7 @@ function SearchBarFood() {
         data-testid="exec-search-btn"
         type="button"
         onClick={ requestAPI }
+        className="page-buttons"
       >
         Procurar
       </button>

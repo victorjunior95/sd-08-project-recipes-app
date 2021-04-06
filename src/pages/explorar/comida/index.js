@@ -15,19 +15,23 @@ function ExplorarComida() {
   return (
     <>
       <Header explore="false">Explorar Comidas</Header>
-      <section>
+      <section className="explore-container">
         <Link to="/explorar/comidas/ingredientes">
-          <button type="button" data-testid="explore-by-ingredient">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            className="page-buttons"
+          >
             Por Ingredientes
           </button>
         </Link>
         <Link to="/explorar/comidas/area">
-          <button type="button" data-testid="explore-by-area">
+          <button type="button" data-testid="explore-by-area" className="page-buttons">
             Por Local de Origem
           </button>
         </Link>
         <Link to={ `/comidas/${idFood}` }>
-          <button type="button" data-testid="explore-surprise">
+          <button type="button" data-testid="explore-surprise" className="page-buttons">
             Me Surpreenda!
           </button>
         </Link>

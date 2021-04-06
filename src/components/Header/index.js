@@ -32,6 +32,7 @@ function Header({ children, explore, component }) {
             src={ profileIcon }
             alt="Ícone de Perfil"
             data-testid="profile-top-btn"
+            className="header-search-button"
           />
         </Link>
         <h2 data-testid="page-title">{children}</h2>

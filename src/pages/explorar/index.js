@@ -8,14 +8,14 @@ function Explorar() {
   return (
     <>
       <Header explore="false">Explorar</Header>
-      <section>
+      <section className="explore-container">
         <Link to="/explorar/comidas">
-          <button type="button" data-testid="explore-food">
+          <button type="button" data-testid="explore-food" className="page-buttons">
             Explorar Comidas
           </button>
         </Link>
         <Link to="/explorar/bebidas" data-testid="explore-drinks">
-          <button type="button">
+          <button type="button" className="page-buttons">
             Explorar Bebidas
           </button>
         </Link>

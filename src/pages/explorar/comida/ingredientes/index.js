@@ -35,26 +35,29 @@ function ComidaIngredientes() {
   return (
     <>
       <Header explore="false">Explorar Ingredientes</Header>
-      {ingredients && ingredients.map((ingredient, index) => (
-        <button
-          key={ ingredient }
-          type="button"
-          onClick={ handleExploreIngredients }
-        >
-          <Link to="/comidas" type="button">
-            <div data-testid={ `${index}-ingredient-card` }>
-              <img
-                src={ ingredientsImages[index] }
-                alt={ ingredient }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>
-                { ingredient }
-              </p>
-            </div>
-          </Link>
-        </button>
-      ))}
+      <section className="search-results-container">
+        {ingredients && ingredients.map((ingredient, index) => (
+          <button
+            key={ ingredient }
+            type="button"
+            onClick={ handleExploreIngredients }
+            className="page-buttons search-results"
+          >
+            <Link to="/comidas" type="button">
+              <div data-testid={ `${index}-ingredient-card` }>
+                <img
+                  src={ ingredientsImages[index] }
+                  alt={ ingredient }
+                  data-testid={ `${index}-card-img` }
+                />
+                <p data-testid={ `${index}-card-name` }>
+                  { ingredient }
+                </p>
+              </div>
+            </Link>
+          </button>
+        ))}
+      </section>
       <Footer />
     </>
   );

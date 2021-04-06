@@ -46,3 +46,16 @@ export async function getDrinkDetails(id) {
   const { drinks } = data;
   return drinks;
 }
+
+export async function fetchIngredientDrinks() {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { drinks } = data;
+  return drinks;
+}
+
+export function imgIngredienteDrink(img) {
+  const URL = `https://www.thecocktaildb.com/images/ingredients/${img}-Small.png`;
+  return URL;
+}

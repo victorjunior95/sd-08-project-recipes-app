@@ -4,16 +4,49 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
-import { /* loadFromLS */ saveToLS } from '../../services';
+import { /* loadFromLS */ saveToLS, getMealsDetails } from '../../services';
+import filterFood from '../../utils/filterDetailsRecipes';
 
 import '../../styles/pages/Container.css';
 
+const INITIAL_STATE_RECIPE_MEAL = {
+  idMeal: '',
+  strMealThumb: '',
+  strMeal: '',
+  strCategory: '',
+  strInstructions: '',
+  ingredients: [],
+  measures: [],
+};
 class ProgressRecipesMeal extends Component {
   constructor(props) {
     super(props);
-    this.state = JSON.parse(localStorage.getItem('inProgressRecipe'));
+    this.state = { ...JSON.parse(localStorage.getItem('inProgressRecipe')),
+      ...INITIAL_STATE_RECIPE_MEAL };
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleRequestMeal = this.handleRequestMeal.bind(this);
     this.checkExistIngredientArrRecipes = this.checkExistIngredientArrRecipes.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleRequestMeal();
+  }
+
+  handleRequestMeal() {
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    getMealsDetails(id).then((response) => {
+      const meal = filterFood(response, 'meals');
+      this.setState((state) => ({
+        ...state,
+        ...meal,
+      }));
+    });
   }
 
   handleChange(ingredient) {
@@ -59,8 +92,6 @@ class ProgressRecipesMeal extends Component {
 
   render() {
     this.setRecipeLocalStorage();
-
-    const { recipe } = this.props;
     const {
       idMeal,
       strMealThumb,
@@ -69,7 +100,7 @@ class ProgressRecipesMeal extends Component {
       strInstructions,
       ingredients,
       measures,
-    } = recipe;
+    } = this.state;
 
     return (
       <div className="recipe-details">

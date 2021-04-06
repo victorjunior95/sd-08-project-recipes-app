@@ -72,7 +72,7 @@ function RecipeInProgress() {
 
   useEffect(() => {
     const getReceitaDetalhes = async () => {
-      const arrayReceitaDetalhes = tipoReceita === 'cocktails'
+      const arrayReceitaDetalhes = await tipoReceita === 'cocktails'
         ? await getReceitaBebidasDetalhesPorId(receitaItemId)
         : await getReceitaComidasDetalhesPorId(receitaItemId);
       if (arrayReceitaDetalhes) setDetalhesDaReceita(arrayReceitaDetalhes[0]);

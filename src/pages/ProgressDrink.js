@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
@@ -9,9 +9,10 @@ import { findKey } from '../services/index';
 
 function ProgressDrink() {
   const { singleRecipe } = useSelector((state) => state.recipes);
-
+  const [cocktailStorage, setCocktailStorage] = useState([]);
+  const history = useHistory();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const { pathname } = history.location;
   const arrayId = pathname.split('/')[2];
 
   const arrayDrink = singleRecipe[0];
@@ -19,43 +20,36 @@ function ProgressDrink() {
   useEffect(() => {
     const fetchData = ((id) => dispatch(fetchDrinkActionId(id)));
     fetchData(arrayId);
+    const storage = localStorage.getItem('inProgressRecipes')
+      && JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails;
+    setCocktailStorage((storage && storage[arrayId]) ? storage[arrayId] : []);
   }, []);
 
-  const handleChecked = (event) => {
-    const { parentNode } = event.target;
-    const { checked } = event.target;
+  function saveLocalStorage(id, name) {
+    const getStorage = localStorage.getItem('inProgressRecipes')
+      && JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    const localState = cocktailStorage.includes(name)
+      ? cocktailStorage.filter((e) => e !== name)
+      : cocktailStorage.concat(name);
+    setCocktailStorage(localState);
+
+    const newStorage = getStorage
+      ? Object.assign(getStorage, { cocktails: { [id]: localState } })
+      : { cocktails: { [id]: localState } };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
+  }
+
+  const handleChecked = ({ target }) => {
+    const { parentNode } = target;
+    const { checked } = target;
     if (checked) {
-      parentNode.childNodes[1].className = 'completed';
+      parentNode.className = 'completed';
     } else {
-      parentNode.childNodes[1].className = '';
+      parentNode.className = '';
     }
   };
-
-  function saveLocalStorage(id, name) {
-    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (getStorage) {
-      const ingredient = getStorage.cocktails && getStorage.cocktails[id];
-      let localProgress;
-      if (ingredient) {
-        localProgress = {
-          cocktails: {
-            [id]: [...ingredient, name],
-          },
-        };
-      } else {
-        localProgress = {
-          cocktails: {
-            [id]: [name],
-          },
-        };
-      }
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify(Object.assign(getStorage, localProgress)));
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ cocktails: { [id]: [name] } }));
-    }
-  }
 
   const createIngrediets = () => {
     const ingredient = findKey(arrayDrink, 'strIngredient');
@@ -65,21 +59,36 @@ function ProgressDrink() {
       if (nome) {
         return (
           <div key={ index } data-testid={ `${index}-ingredient-step` }>
-            <input
-              type="checkbox"
-              id={ nome }
-              name={ nome }
-              onClick={ (event) => {
-                saveLocalStorage(arrayId, nome);
-                handleChecked(event);
-              } }
-            />
-            <label htmlFor={ nome }>{`${nome} - ${measure[index]}`}</label>
+            <label
+              htmlFor={ nome }
+              className={ cocktailStorage && cocktailStorage.includes(nome)
+                ? 'completed' : '' }
+            >
+              <input
+                type="checkbox"
+                id={ nome }
+                name={ nome }
+                onChange={ (event) => {
+                  saveLocalStorage(arrayId, nome);
+                  handleChecked(event);
+                } }
+                checked={ cocktailStorage && cocktailStorage.includes(nome) }
+              />
+              {`${nome} - ${measure[index]}`}
+            </label>
           </div>
         );
       }
       return undefined;
     });
+  };
+
+  const verifyDisable = () => {
+    const ingredientLength = findKey(arrayDrink, 'strIngredient').length;
+    if (cocktailStorage && cocktailStorage.length === ingredientLength) {
+      return false;
+    }
+    return true;
   };
 
   const renderDrink = () => (
@@ -103,6 +112,8 @@ function ProgressDrink() {
         <button
           data-testid="finish-recipe-btn"
           type="button"
+          disabled={ verifyDisable() }
+          onClick={ () => history.push('/receitas-feitas') }
         >
           Finalizar Receita
         </button>

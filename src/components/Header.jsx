@@ -11,7 +11,7 @@ function Header(props) {
   const [dropSearch, setDropSearch] = useState(false);
   return (
     <>
-      <header className="header-container">
+      <header className="header-container" data-testid="header-container">
         <ProfileButton />
         <h2 data-testid="page-title">
           {

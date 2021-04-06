@@ -29,6 +29,8 @@ function Provider({ children }) {
   const [verifyChecked, setVerifyChecked] = useState(true);
   const [done, setDone] = useState(JSON.parse(localStorage.getItem('doneRecipes')) || []);
   const [cardId, setCardId] = useState('');
+  const [recipeFavorite, setRecipeFavorite] = useState(JSON.parse(localStorage
+    .getItem('favoriteRecipes')) || []);
 
   const contextValue = {
     userEmail,
@@ -79,6 +81,8 @@ function Provider({ children }) {
     setDone,
     cardId,
     setCardId,
+    recipeFavorite,
+    setRecipeFavorite,
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

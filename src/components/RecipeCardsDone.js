@@ -10,14 +10,11 @@ function RecipeCardsDone() {
   const {
     copied,
     setCopied,
-    cardType,
-    setCardType,
     cardId,
     setCardId,
     done,
   } = useContext(MyContext);
 
-  const doneRecipes = done;
   const LIMIT = 2;
 
   function redirectToDetails(id) {
@@ -26,7 +23,7 @@ function RecipeCardsDone() {
   }
 
   return (
-    doneRecipes.map((card, index) => (
+    done.map((card, index) => (
       <div
         key={ card.id }
         onClick={ () => {
@@ -52,12 +49,11 @@ function RecipeCardsDone() {
             onClick={ () => {
               Copy(`http://localhost:3000/${card.type}s/${card.id}`);
               setCopied(true);
-              setCardType(card.type);
               setCardId(card.id);
             } }
             src={ shareIcon }
           >
-            {copied && cardType === card.type && cardId === card.id && 'Link copiado!'}
+            {copied && cardId === card.id && 'Link copiado!'}
             <span />
           </button>
           <p

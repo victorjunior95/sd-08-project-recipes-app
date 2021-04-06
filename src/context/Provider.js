@@ -27,8 +27,7 @@ function Provider({ children }) {
   const [checkedStatus, setCheckedStatus] = useState(false);
   const [countCheck, setCountCheck] = useState(0);
   const [verifyChecked, setVerifyChecked] = useState(true);
-  const [done, setDone] = useState(JSON.parse(localStorage.getItem('doneRecipes')));
-  const [cardType, setCardType] = useState('');
+  const [done, setDone] = useState(JSON.parse(localStorage.getItem('doneRecipes')) || []);
   const [cardId, setCardId] = useState('');
 
   const contextValue = {
@@ -78,8 +77,6 @@ function Provider({ children }) {
     setVerifyChecked,
     done,
     setDone,
-    cardType,
-    setCardType,
     cardId,
     setCardId,
   };

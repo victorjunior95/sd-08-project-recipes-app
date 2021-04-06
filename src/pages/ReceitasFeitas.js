@@ -17,7 +17,7 @@ function ReceitasFeitas() {
   }
 
   function removeTheFilters() {
-    setDone(JSON.parse(localStorage.getItem('doneRecipes')));
+    setDone(JSON.parse(localStorage.getItem('doneRecipes')) || []);
   }
 
   return (

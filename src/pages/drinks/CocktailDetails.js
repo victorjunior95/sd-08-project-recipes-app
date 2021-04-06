@@ -9,6 +9,7 @@ import ShareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import CocktailCard from '../../components/cards/CocktailCard';
+import setLocalStorage, { initFavoriteRecipes } from '../../services/LocalStorage';
 
 export default function CocktailDetails({ match: { params } }) {
   const { recipeDetails, setSearchParam } = useContext(RecipesContext);
@@ -18,23 +19,16 @@ export default function CocktailDetails({ match: { params } }) {
   const { id } = params;
 
   const storageRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  // const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const progressRecipe = storageRecipe && storageRecipe.includes(id);
 
   useEffect(() => {
-    if (storageRecipe === null) {
-      localStorage
-        .setItem('favoriteRecipes', JSON.stringify([]));
-    }
-  }, [storageRecipe]);
+    initFavoriteRecipes();
+  });
 
   const getFavoriteRecipes = useCallback(() => (
     storageRecipe === null ? [] : storageRecipe
       .some((item) => item.id === id && setFavorite(true))), [id, storageRecipe]);
-
-  function setLocalStorage() {
-    const recipe = JSON.stringify({ meals: {}, cocktails: { id } });
-    localStorage.setItem('inProgressRecipes', recipe);
-  }
 
   function favoriteRecipe() {
     if (favorite) {
@@ -140,7 +134,7 @@ export default function CocktailDetails({ match: { params } }) {
         data-testid="start-recipe-btn"
         to={ `/bebidas/${id}/in-progress` }
         style={ { position: 'fixed', bottom: '0px' } }
-        onClick={ setLocalStorage }
+        onClick={ () => setLocalStorage(id) }
       >
         {progressRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
       </Link>

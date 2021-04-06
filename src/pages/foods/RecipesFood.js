@@ -31,7 +31,7 @@ function RecipesFood() {
         && recipeMeals.map((recipe, i) => (
           i < cardMaximun
              && (
-               <Link to={ recipe.idMeal }>
+               <Link to={ `comidas/${recipe.idMeal}` }>
                  <FoodCard key={ i } order={ i } recipes={ recipe } />
                </Link>
              )

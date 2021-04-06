@@ -20,7 +20,7 @@ function DropdownAreas() {
     }
   };
 
-  const { areas, isFetchingAreas } = useSelector((state) => state.foods);
+  const { areas, isFetching } = useSelector((state) => state.foods);
   return (
     <Form className="mb-4">
       <Form.Group controlId="countries" className="mb-0">
@@ -32,7 +32,7 @@ function DropdownAreas() {
           data-testid="explore-by-area-dropdown"
         >
           <option data-testid="All-option">All</option>
-          {!isFetchingAreas && areas.map(({ strArea }) => (
+          {!isFetching && areas.map(({ strArea }) => (
             <option key={ strArea } data-testid={ `${strArea}-option` }>
               {strArea}
             </option>))}

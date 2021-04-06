@@ -4,6 +4,7 @@ import
   FETCH_API_DRINKS,
   GET_FILTER_BTN_DRINK,
   ERROR_REQUEST_API_DRINKS,
+  GET_DRINKS_BY_INGREDIENT,
 
 } from '../actions/types';
 
@@ -25,13 +26,17 @@ const drinks = (state = INITIALSTATE, action) => {
       drinks: action.payload.drinks,
       categories: action.payload.categories,
       isFetching: false,
-      onClick: false,
     };
   case GET_FILTER_BTN_DRINK:
     return { ...state,
       drinks: action.payload,
       isFetching: false,
       onClickFilter: true,
+    };
+  case GET_DRINKS_BY_INGREDIENT:
+    return { ...state,
+      isFetching: false,
+      drinks: action.payload,
     };
   case ERROR_REQUEST_API_DRINKS:
     return { ...state,

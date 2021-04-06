@@ -3,6 +3,7 @@ import {
   FetchDrinksOnMount,
   fetchDrinksCategories,
   filterDrinksByButton,
+  getDrinksByIngredient,
 } from '../../services/theCockTailDB';
 import {
   FecthMeals,
@@ -11,6 +12,7 @@ import {
   filterFoodsByButton,
   getMealsAreas,
   getMealsByArea,
+  getMealsByIngredient,
 } from '../../services/theMeadlDB';
 import {
   GET_API_FOOD,
@@ -25,6 +27,12 @@ import {
   GET_MEALS_BY_AREA,
   GET_AREAS,
   FETCH_AREAS,
+  GET_DRINKS_BY_INGREDIENT,
+  GET_MEALS_BY_INGREDIENT,
+  RENDER_DRINKS_BY_INGREDIENT,
+  RENDER_MEALS_BY_INGREDIENT,
+  RENDER_DRINKS_BY_ORIGIN,
+  RENDER_MEALS_BY_ORIGIN,
 } from './types';
 
 const setFood = (data) => ({
@@ -35,6 +43,32 @@ const setFood = (data) => ({
 const setDrinks = (data) => ({
   type: GET_API_DRINKS,
   payload: data,
+});
+
+const setMealsByIngredient = (data) => ({
+  type: GET_MEALS_BY_INGREDIENT,
+  payload: data,
+});
+
+const setDrinksByIngredient = (data) => ({
+  type: GET_DRINKS_BY_INGREDIENT,
+  payload: data,
+});
+
+const renderByDrinksIngredient = () => ({
+  type: RENDER_DRINKS_BY_INGREDIENT,
+});
+
+const renderByMealsIngredient = () => ({
+  type: RENDER_MEALS_BY_INGREDIENT,
+});
+
+export const renderByDrinksOrigin = () => ({
+  type: RENDER_DRINKS_BY_ORIGIN,
+});
+
+export const renderByMealsOrigin = () => ({
+  type: RENDER_MEALS_BY_ORIGIN,
 });
 
 const isFetchingFoods = () => ({
@@ -158,11 +192,33 @@ export const mealsAreas = () => async (dispatch) => {
 };
 
 export const filterByArea = (area) => async (dispatch) => {
-  dispatch(isFetchingFoods());
+  dispatch(isFetchingAreas());
   try {
     const apiData = await getMealsByArea(area);
     dispatch(setMealsByArea(apiData));
   } catch (error) {
     dispatch(errorFetchingFoods(error));
+  }
+};
+
+export const filterMealsByIngrendient = (ingredient) => async (dispatch) => {
+  dispatch(isFetchingFoods());
+  try {
+    dispatch(renderByMealsIngredient());
+    const apiData = await getMealsByIngredient(ingredient);
+    dispatch(setMealsByIngredient(apiData));
+  } catch (error) {
+    dispatch(errorFetchingFoods(error));
+  }
+};
+
+export const filterDrinksByIngrendient = (ingredient) => async (dispatch) => {
+  dispatch(isFetchingDrinks());
+  try {
+    dispatch(renderByDrinksIngredient());
+    const apiData = await getDrinksByIngredient(ingredient);
+    dispatch(setDrinksByIngredient(apiData));
+  } catch (error) {
+    dispatch(errorFetchingDrinks(error));
   }
 };

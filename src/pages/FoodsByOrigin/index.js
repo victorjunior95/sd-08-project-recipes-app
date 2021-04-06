@@ -12,14 +12,15 @@ function FoodsByOrigin() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(foodsOnMount());
+    console.log('entrei');
   }, [dispatch]);
 
-  const { isFetching, areas } = useSelector((state) => state.foods);
+  const { isFetching, areas, isFetchingAreas } = useSelector((state) => state.foods);
   const MIN_AREAS = 2;
   return (
     <ContainerDefault title="Explorar Origem">
       {
-        isFetching && areas.length < MIN_AREAS ? <Loading />
+        (isFetching || isFetchingAreas) && areas.length < MIN_AREAS ? <Loading />
           : (
             <>
               <DropdownAreas />

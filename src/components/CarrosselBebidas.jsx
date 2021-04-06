@@ -63,14 +63,7 @@ function CarrosselBebidas({ listItem }) {
             </div>
           )
       )) }
-      <button
-        type="button"
-        name="menos"
-        onClick={ clickHandle }
-        className="btn-carrossel"
-      >
-        {'>'}
-      </button>
+      <button type="button" name="menos" onClick={ clickHandle } className="btn-carrossel">{'>'}</button>
 
     </div>
   );

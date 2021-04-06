@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
+import copy from 'clipboard-copy';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 // svg && icon
 import shareIcon from '../images/shareIcon.svg';
@@ -11,6 +13,54 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Recommendation from './Recommendation';
 
 class ItemsDetails extends Component {
+  constructor() {
+    super();
+    this.state = {
+      copied: false,
+      favorited: false,
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleProgress = this.handleProgress.bind(this);
+    this.handleFav = this.handleFav.bind(this);
+  }
+
+  handleClick() {
+    const { pathname } = this.props;
+    copy(`http://localhost:3000${pathname}`);
+    this.setState({
+      copied: true,
+    });
+  }
+
+  handleProgress(type, id) {
+    const { history } = this.props;
+    if (type === 'Meal') {
+      return history.push(`/comidas/${id}/in-progress`);
+    }
+    return history.push(`/bebidas/${id}/in-progress`);
+  }
+
+  handleFav(id) {
+    // const { favorited } = this.state;
+    // this.setState({ favorited: !favorited });
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites && Array.isArray(favorites)) {
+      const checkFav = favorites.includes(id);
+      if (checkFav === true) {
+        const filterFav = favorites.filter((favorite) => id !== favorite);
+        console.log(filterFav);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(filterFav));
+      }
+      const fav = [...favorites, id];
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(fav));
+    } if (favorites) {
+      const fav = [favorites, id];
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(fav));
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(id));
+  }
+
   juntar(chave, itemValue) {
     return Object.entries(itemValue).map((nome) => {
       if (nome[0].includes(chave)) {
@@ -80,7 +130,8 @@ class ItemsDetails extends Component {
   }
 
   render() {
-    const { type, result } = this.props;
+    const { copied, favorited } = this.state;
+    const { type, result, pathname } = this.props;
     return (
       <>
         <img
@@ -100,11 +151,16 @@ class ItemsDetails extends Component {
           </p>
         )}
 
-        <button type="button" data-testid="share-btn">
+        <button type="button" onClick={ this.handleClick } data-testid="share-btn">
           <img src={ shareIcon } alt="share icon" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="favorite" />
+        {copied && <span>Link copiado!</span>}
+        <button
+          type="button"
+          onClick={ () => this.handleFav(result[`id${type}`]) }
+          data-testid="favorite-btn"
+        >
+          <img src={ favorited ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
         </button>
         <h1 data-testid="recipe-title">{ result[`str${type}`] }</h1>
         <p>
@@ -130,7 +186,12 @@ class ItemsDetails extends Component {
           data-testid="start-recipe-btn"
           variant="success"
           block
-          onClick={ () => this.startRecipe(type, result[`id${type}`]) }
+          onClick={
+            () => {
+              this.startRecipe(type, result[`id${type}`]);
+              this.handleProgress(type, result[`id${type}`]);
+            }
+          }
         >
           {this.checkRecipeProgress(type, result[`id${type}`])}
         </Button>

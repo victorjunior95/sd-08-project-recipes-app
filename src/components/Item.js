@@ -36,7 +36,7 @@ export default class Item extends Component {
   }
 
   renderMeal() {
-    const { location: { pathname } } = this.props;
+    const { location: { pathname }, history } = this.props;
     const type = pathname.split('/')[1];
     const { results } = this.state;
     if (results && results.length === 0) return (<Redirect to={ `/${type}` } />);
@@ -44,12 +44,12 @@ export default class Item extends Component {
       <div>
         {
           type === 'bebidas'
-          && results && <ItemsDetails type="Drink" result={ results[0] } />
+          && results && <ItemsDetails type="Drink" pathname={ pathname } history={ history } result={ results[0] } />
 
         }
         {
           type === 'comidas' && results
-          && <ItemsDetails type="Meal" result={ results[0] } />
+          && <ItemsDetails type="Meal" pathname={ pathname } history={ history } result={ results[0] } />
         }
       </div>
     );

@@ -1,8 +1,14 @@
 import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
 import DoneRecipes from '../containers/DoneRecipes';
+import App from '../App';
 
 describe('The elements of the made recipes done', () => {
+  it('Mostra a tela de Receitas Feitas se a rota é `/receitas-feitas`', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/receitas-feitas');
+    expect(history.location.pathname).toBe('/receitas-feitas');
+  });
   it('existe um cabeçalho no componente', () => {
     const { getByTestId } = renderWithRouter(<DoneRecipes />);
     const headerContainer = getByTestId('header-container');

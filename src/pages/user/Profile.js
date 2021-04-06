@@ -12,7 +12,10 @@ export default function Profile() {
       <Header title="Perfil" search="false" />
       <div>
         <h3 data-testid="profile-email">
-          {emailObject.email}
+          {
+            emailObject
+            && emailObject.email
+          }
         </h3>
         <Link to="/receitas-feitas">
           <button

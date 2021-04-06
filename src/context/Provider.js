@@ -31,6 +31,7 @@ function Provider({ children }) {
   const [cardId, setCardId] = useState('');
   const [recipeFavorite, setRecipeFavorite] = useState(JSON.parse(localStorage
     .getItem('favoriteRecipes')) || []);
+  const [resposta, setResposta] = useState([]);
 
   const contextValue = {
     userEmail,
@@ -83,6 +84,8 @@ function Provider({ children }) {
     setCardId,
     recipeFavorite,
     setRecipeFavorite,
+    resposta,
+    setResposta,
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

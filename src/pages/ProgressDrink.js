@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
+import '../CSS/Completed.css';
 import { findKey } from '../services/index';
 
 function ProgressDrink() {
@@ -20,6 +21,42 @@ function ProgressDrink() {
     fetchData(arrayId);
   }, []);
 
+  const handleChecked = (event) => {
+    const { parentNode } = event.target;
+    const { checked } = event.target;
+    if (checked) {
+      parentNode.childNodes[1].className = 'completed';
+    } else {
+      parentNode.childNodes[1].className = '';
+    }
+  };
+
+  function saveLocalStorage(id, name) {
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getStorage) {
+      const ingredient = getStorage.cocktails && getStorage.cocktails[id];
+      let localProgress;
+      if (ingredient) {
+        localProgress = {
+          cocktails: {
+            [id]: [...ingredient, name],
+          },
+        };
+      } else {
+        localProgress = {
+          cocktails: {
+            [id]: [name],
+          },
+        };
+      }
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify(Object.assign(getStorage, localProgress)));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ cocktails: { [id]: [name] } }));
+    }
+  }
+
   const createIngrediets = () => {
     const ingredient = findKey(arrayDrink, 'strIngredient');
     const measure = findKey(arrayDrink, 'strMeasure');
@@ -32,7 +69,10 @@ function ProgressDrink() {
               type="checkbox"
               id={ nome }
               name={ nome }
-
+              onClick={ (event) => {
+                saveLocalStorage(arrayId, nome);
+                handleChecked(event);
+              } }
             />
             <label htmlFor={ nome }>{`${nome} - ${measure[index]}`}</label>
           </div>

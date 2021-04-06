@@ -40,33 +40,7 @@ describe('Teste tela de login', () => {
   });
 
   it('verifica se a pagina de login está redirecionando para pagina de comidas depois de efetuar o login', () => {
-    const { history } = renderWithRouterAndRedux(
-      <App />,
-      {
-        initialState: {
-          search: { isSearching: false },
-          login: { redirect: false },
-          api: {
-            data: {
-              meals,
-            },
-            recommendData: [],
-            loading: 'fullfilled',
-            recommendLoading: 'idle',
-            explore: '',
-          },
-          categoriesButton: {
-            categories: {
-              mealCategories,
-            },
-            loading: 'fullfilled',
-          },
-          surprise: {
-            surpriseRedirect: false,
-          },
-        },
-      },
-    );
+    const { history } = renderWithRouterAndRedux(<App />);
 
     const inputEmail = screen.getByTestId('email-input');
     const inputPassword = screen.getByTestId('password-input');

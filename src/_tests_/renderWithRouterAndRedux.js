@@ -14,7 +14,6 @@ const renderWithRouterAndRedux = (
   component,
   {
     initialEntries = ['/'],
-    initialState,
     store = configureStore({
       reducer: {
         search,
@@ -23,7 +22,7 @@ const renderWithRouterAndRedux = (
         categoriesButton,
         surprise,
       },
-    }, initialState),
+    }),
   } = {},
 ) => {
   const history = createMemoryHistory({ initialEntries });

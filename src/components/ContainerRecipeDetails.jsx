@@ -152,7 +152,7 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             <Button
               name={ nameButtonRecipe(id, page) }
               data-testid="start-recipe-btn"
-              className="start-recipe-btn"
+              className="start-recipe-btn btn btn-danger"
               onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
             />
           </Link>

@@ -67,6 +67,7 @@ function ExploreFoodByLocalOrigin() {
         <section>
           <label htmlFor="drop-origem">
             <select
+              className="form-select select-by-origin"
               name="drop-origem"
               id="drop-origem"
               value={ actualSelect }
@@ -80,6 +81,8 @@ function ExploreFoodByLocalOrigin() {
             </select>
           </label>
           <section className="card-food">{showFoods()}</section>
+          <br />
+          <br />
         </section>
       )}
       <Footer />

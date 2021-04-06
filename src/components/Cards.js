@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
+import '../styles/Cards.css';
 
 function Cards({ title }) {
   const history = useHistory();
@@ -13,9 +14,10 @@ function Cards({ title }) {
   } = useContext(MyContext);
   const LIMIT = 11;
   let array = [];
-  if (title === 'Comidas') {
+
+  if (title === 'Comidas' && comidas !== null) {
     array = comidas;
-  } else {
+  } else if (title === 'Bebidas' && bebidas !== null) {
     array = bebidas;
   }
 
@@ -31,7 +33,7 @@ function Cards({ title }) {
         palavra: 'Drink',
       });
     }
-  }, []);
+  }, [setType, title]); // []
 
   function redirectToDetails(id) {
     history.push(`/${title.toLowerCase()}/${id}`);
@@ -51,15 +53,18 @@ function Cards({ title }) {
             onKeyPress={ () => console.log('clicou') }
             role="button"
             tabIndex={ index }
+            className="cardsContainer"
           >
-            <h3 data-testid={ `${index}-card-name` }>
-              { item[`str${type.palavra}`] }
-            </h3>
-            <img
-              alt={ item[`str${type.palavra}`] }
-              data-testid={ `${index}-card-img` }
-              src={ item[`str${type.palavra}Thumb`] }
-            />
+            <div className="imagesContainer">
+              <h3 data-testid={ `${index}-card-name` }>
+                { item[`str${type.palavra}`] }
+              </h3>
+              <img
+                alt={ item[`str${type.palavra}`] }
+                data-testid={ `${index}-card-img` }
+                src={ item[`str${type.palavra}Thumb`] }
+              />
+            </div>
           </div>
         );
       }

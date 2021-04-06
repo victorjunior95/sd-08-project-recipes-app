@@ -1,8 +1,10 @@
 async function requestById(id, type) {
   let sucess;
+
   if (type === 'comidas') {
     try {
-      const fetchApi = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const fetchApi = await
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const jsonApi = await fetchApi.json();
       sucess = await jsonApi;
     } catch (error) {
@@ -10,7 +12,8 @@ async function requestById(id, type) {
     }
   } else {
     try {
-      const fetchApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const fetchApi = await
+      fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const jsonApi = await fetchApi.json();
       sucess = await jsonApi;
     } catch (error) {

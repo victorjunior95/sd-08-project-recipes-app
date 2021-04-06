@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
-import firstRequest from '../services/firstRequest';
 import filterCategoryRequest from '../services/filterCategoryRequest';
+import firstRequest from '../services/firstRequest';
+import '../styles/Categorys.css';
 
 function Categorys({ title }) {
   const {
@@ -26,7 +27,6 @@ function Categorys({ title }) {
     const { comidasApi, bebidasApi } = await firstRequest();
     setComidas(comidasApi.meals);
     setBebidas(bebidasApi.drinks);
-
     setToggleCategoryFilter(false);
   }
 
@@ -36,9 +36,7 @@ function Categorys({ title }) {
       firstContent();
       return null;
     }
-
     target.classList.add('ativo');
-
     const { foodRequest, drinkRequest } = await filterCategoryRequest(target.name);
     if (drinkRequest) {
       setBebidas(drinkRequest);
@@ -48,7 +46,7 @@ function Categorys({ title }) {
   }
 
   return (
-    <div>
+    <div className="category-btn-container">
       <button
         type="button"
         data-testid="All-category-filter"

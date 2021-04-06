@@ -1,8 +1,10 @@
 const filterCategoryRequest = async (name) => {
   let foodRequest;
   let drinkRequest;
+
   try {
-    const fetchApi = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`);
+    const fetchApi = await
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`);
     const apiJson = await fetchApi.json();
     foodRequest = await apiJson.meals;
   } catch (error) {
@@ -10,7 +12,8 @@ const filterCategoryRequest = async (name) => {
   }
 
   try {
-    const fetchApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`);
+    const fetchApi = await
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`);
     const apiJson = await fetchApi.json();
     drinkRequest = await apiJson.drinks;
   } catch (error) {

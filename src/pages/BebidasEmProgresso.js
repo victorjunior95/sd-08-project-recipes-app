@@ -1,24 +1,20 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Copy from 'clipboard-copy';
-import Ingredientes from '../components/Ingredientes';
-import RecomendedCards from '../components/RecomendedCards';
+import IngredientesEmProcesso from '../components/IngredientesEmProcesso';
 import MyContext from '../context/MyContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import requestById from '../services/requestById';
+import verifyDone from '../services/verifyDone';
 import verifyInFavorite from '../services/verifyInFavorite';
-import verifyInProgress from '../services/verifyInProgress';
 import verifyStorage from '../services/verifyStorage';
-import verifyText from '../services/verifyText';
 import '../styles/Bebida.css';
 
-function Bebida() {
-  const INICIO_CORTE = 9;
+function BebidasEmProgresso() {
   const history = useHistory();
-  const id = history.location.pathname
-    .substr(INICIO_CORTE, history.location.pathname.length);
+  const id = history.location.pathname.split('/')[2];
   const {
     recipe,
     setRecipe,
@@ -28,12 +24,10 @@ function Bebida() {
     setCopied,
     favorite,
     setFavorite,
+    countCheck,
+    verifyChecked,
+    setVerifyChecked,
   } = useContext(MyContext);
-
-  // async function requestRecipe() {
-  //   const recipeFromApi = await requestById(id, 'bebidas');
-  //   setRecipe(recipeFromApi.drinks[0]);
-  // }
 
   useEffect(() => {
     setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
@@ -43,21 +37,35 @@ function Bebida() {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
   }, [favorite, id, setFavorite]); // favorite
 
-  function iniciarReceita() {
-    verifyInProgress(id, 'cocktails');
-    history.push(`/bebidas/${id}/in-progress`);
+  useEffect(() => {
+    const tamanhoArray = document.getElementsByTagName('input').length;
+    console.log(typeof countCheck);
+    console.log(typeof tamanhoArray);
+    if (countCheck > 0 && countCheck === tamanhoArray) {
+      console.log('entrou no if');
+      setVerifyChecked(false);
+    } else {
+      setVerifyChecked(true);
+      console.log('entrou no else');
+    }
+    console.log(verifyChecked);
+  }, [countCheck, setVerifyChecked, verifyChecked]); // countCheck
+
+  function finalizaReceita() {
+    verifyDone('Drink', recipe);
+    history.push('/receitas-feitas');
   }
 
   function renderButton() {
-    const textButton = verifyText(id, 'cocktails');
     return (
       <button
-        className="iniciar-receita-btn"
+        className="finish-recipe-btn"
         type="button"
-        data-testid="start-recipe-btn"
-        onClick={ iniciarReceita }
+        data-testid="finish-recipe-btn"
+        disabled={ verifyChecked }
+        onClick={ finalizaReceita }
       >
-        { textButton }
+        Finalizar Receita
       </button>
     );
   }
@@ -89,7 +97,7 @@ function Bebida() {
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              Copy(`http://localhost:3000${history.location.pathname}`);
+              Copy(`http://localhost:3000/bebidas/${id}`);
               setCopied(true);
             } }
           >
@@ -109,18 +117,14 @@ function Bebida() {
         </div>
       </div>
       <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
-      <Ingredientes />
-      <div>
+      <IngredientesEmProcesso id={ id } type="cocktails" />
+      <div className="instruções">
         <h2>Instruções</h2>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
-      <div className="recomendadas">
-        <h2>Recomendadas</h2>
-        <RecomendedCards title="comidas" />
-      </div>
-      {renderButtonComparison && renderButton()}
+      {renderButton()}
     </div>
   );
 }
 
-export default Bebida;
+export default BebidasEmProgresso;

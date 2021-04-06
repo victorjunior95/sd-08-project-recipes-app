@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
+import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
-
 import ExploreButton from './ExploreButton';
+import profileIcon from '../images/profileIcon.svg';
+import '../styles/Header.css';
 
 function Header({ title, explore }) {
   const {
@@ -14,6 +14,7 @@ function Header({ title, explore }) {
 
   useEffect(() => {
     if (title === 'Comidas') {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       name = {
         palavra: 'Meal',
         item: 'meals',
@@ -29,7 +30,7 @@ function Header({ title, explore }) {
   }, []);
 
   return (
-    <div>
+    <div className="headerContainer">
       <Link to="/perfil">
         <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
       </Link>

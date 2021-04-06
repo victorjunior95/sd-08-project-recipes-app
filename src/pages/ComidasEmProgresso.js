@@ -1,24 +1,20 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Copy from 'clipboard-copy';
-import Ingredientes from '../components/Ingredientes';
-import RecomendedCards from '../components/RecomendedCards';
+import IngredientesEmProcesso from '../components/IngredientesEmProcesso';
 import MyContext from '../context/MyContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import requestById from '../services/requestById';
+import verifyDone from '../services/verifyDone';
 import verifyInFavorite from '../services/verifyInFavorite';
-import verifyInProgress from '../services/verifyInProgress';
 import verifyStorage from '../services/verifyStorage';
-import verifyText from '../services/verifyText';
-import '../styles/Bebida.css';
+import '../styles/Comida.css';
 
-function Bebida() {
-  const INICIO_CORTE = 9;
+function ComidasEmProgresso() {
   const history = useHistory();
-  const id = history.location.pathname
-    .substr(INICIO_CORTE, history.location.pathname.length);
+  const id = history.location.pathname.split('/')[2];
   const {
     recipe,
     setRecipe,
@@ -28,12 +24,10 @@ function Bebida() {
     setCopied,
     favorite,
     setFavorite,
+    countCheck,
+    verifyChecked,
+    setVerifyChecked,
   } = useContext(MyContext);
-
-  // async function requestRecipe() {
-  //   const recipeFromApi = await requestById(id, 'bebidas');
-  //   setRecipe(recipeFromApi.drinks[0]);
-  // }
 
   useEffect(() => {
     setRenderButtonComparison(verifyStorage(id, 'doneRecipes'));
@@ -43,34 +37,43 @@ function Bebida() {
     setFavorite(verifyStorage(id, 'favoriteRecipes'));
   }, [favorite, id, setFavorite]); // favorite
 
-  function iniciarReceita() {
-    verifyInProgress(id, 'cocktails');
-    history.push(`/bebidas/${id}/in-progress`);
+  useEffect(() => {
+    const tamanhoArray = document.getElementsByTagName('input').length;
+    if (countCheck > 0 && countCheck === tamanhoArray) {
+      setVerifyChecked(false);
+    } else {
+      setVerifyChecked(true);
+    }
+  }, [countCheck, setVerifyChecked]); // countCheck
+
+  function finalizaReceita() {
+    verifyDone('Meal', recipe);
+    history.push('/receitas-feitas');
   }
 
   function renderButton() {
-    const textButton = verifyText(id, 'cocktails');
     return (
       <button
-        className="iniciar-receita-btn"
+        className="finish-recipe-btn"
         type="button"
-        data-testid="start-recipe-btn"
-        onClick={ iniciarReceita }
+        data-testid="finish-recipe-btn"
+        disabled={ verifyChecked }
+        onClick={ finalizaReceita }
       >
-        { textButton }
+        Finalizar Receita
       </button>
     );
   }
 
   function favoriteRecipe(status) {
-    verifyInFavorite(recipe, 'Drink', status);
+    verifyInFavorite(recipe, 'Meal', status);
     setFavorite(status);
   }
 
   useEffect(() => {
     async function requestRecipe() {
-      const recipeFromApi = await requestById(id, 'bebidas');
-      setRecipe(recipeFromApi.drinks[0]);
+      const recipeFromApi = await requestById(id, 'comidas');
+      setRecipe(recipeFromApi.meals[0]);
     }
     requestRecipe();
   }, [id, setRecipe]); // []
@@ -79,17 +82,17 @@ function Bebida() {
     <div>
       <img
         data-testid="recipe-photo"
-        src={ recipe.strDrinkThumb }
-        alt={ recipe.strDrink }
+        src={ recipe.strMealThumb }
+        alt={ recipe.strMeal }
       />
       <div className="nomeEbotões">
-        <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
+        <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
         <div>
           <button
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              Copy(`http://localhost:3000${history.location.pathname}`);
+              Copy(`http://localhost:3000/comidas/${id}`);
               setCopied(true);
             } }
           >
@@ -108,19 +111,15 @@ function Bebida() {
           </button>
         </div>
       </div>
-      <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
-      <Ingredientes />
-      <div>
+      <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+      <IngredientesEmProcesso id={ id } type="meals" />
+      <div className="instruções">
         <h2>Instruções</h2>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
-      <div className="recomendadas">
-        <h2>Recomendadas</h2>
-        <RecomendedCards title="comidas" />
-      </div>
-      {renderButtonComparison && renderButton()}
+      {renderButton()}
     </div>
   );
 }
 
-export default Bebida;
+export default ComidasEmProgresso;

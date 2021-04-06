@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import searchIcon from '../images/searchIcon.svg';
 import requestApi from '../services/requestApi';
+import '../styles/ExploreButton.css';
 
 function ExploreButton({ title }) {
   const history = useHistory();
@@ -33,26 +34,22 @@ function ExploreButton({ title }) {
 
   async function requisitarReceitas() {
     let url = { name: 'thecocktaildb', id: 'idDrink', type: 'drinks' };
-
     if (title === 'Comidas') {
       url = { name: 'themealdb', id: 'idMeal', type: 'meals' };
     }
-
     const {
       tamanhoResposta,
       terminatedRequest,
     } = await requestApi(url, searchFilter, inputSearch);
-
     if (title === 'Comidas') {
       setComidas(terminatedRequest.meals);
     } else {
       setBebidas(terminatedRequest.drinks);
     }
-
     if (!tamanhoResposta || !terminatedRequest[url.type]) {
+      // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (terminatedRequest[url.type].length === 1) {
-      console.log(terminatedRequest[url.type][0][url.id]);
       history.push(`/${title.toLowerCase()}/${terminatedRequest[url.type][0][url.id]}`);
     } else {
       setCreateCards(true);
@@ -61,7 +58,7 @@ function ExploreButton({ title }) {
 
   function renderInput() {
     return (
-      <>
+      <div className="exploreContainer">
         <input
           type="text"
           placeholder="Buscar Receita"
@@ -108,7 +105,7 @@ function ExploreButton({ title }) {
         >
           Buscar
         </button>
-      </>
+      </div>
     );
   }
 

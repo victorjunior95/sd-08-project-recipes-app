@@ -6,10 +6,10 @@ function Ingredientes() {
   const {
     recipe,
   } = useContext(MyContext);
-
   const newObj = [];
   let cont = 1;
   const keys = Object.keys(recipe);
+
   keys.map((key) => {
     if (key.includes('strIngredient')) {
       newObj.push(
@@ -29,16 +29,19 @@ function Ingredientes() {
   }, []);
 
   return (
-    <ul>
-      {objPronto.map((ingrediente, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingrediente}
-        </li>
-      ))}
-    </ul>
+    <div className="ingredientes">
+      <h2>Ingredientes</h2>
+      <ul>
+        {objPronto.map((ingrediente, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingrediente}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

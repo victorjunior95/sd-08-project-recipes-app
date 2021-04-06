@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './MyContext';
-import firstRequest from '../services/firstRequest';
 import categoryRequest from '../services/categoryRequest';
+import firstRequest from '../services/firstRequest';
 
 function Provider({ children }) {
   const [userEmail, setEmail] = useState('');
@@ -21,6 +21,16 @@ function Provider({ children }) {
   const [recipe, setRecipe] = useState({});
   const [recomendados, setRecomendados] = useState([]);
   const [renderRec, setRenderRec] = useState(false);
+  const [renderButtonComparison, setRenderButtonComparison] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+  const [checkedStatus, setCheckedStatus] = useState(false);
+  const [countCheck, setCountCheck] = useState(0);
+  const [verifyChecked, setVerifyChecked] = useState(true);
+  const [done, setDone] = useState(JSON.parse(localStorage.getItem('doneRecipes')));
+  const [cardType, setCardType] = useState('');
+  const [cardId, setCardId] = useState('');
+
   const contextValue = {
     userEmail,
     setEmail,
@@ -54,8 +64,27 @@ function Provider({ children }) {
     setRecomendados,
     renderRec,
     setRenderRec,
+    renderButtonComparison,
+    setRenderButtonComparison,
+    copied,
+    setCopied,
+    favorite,
+    setFavorite,
+    checkedStatus,
+    setCheckedStatus,
+    countCheck,
+    setCountCheck,
+    verifyChecked,
+    setVerifyChecked,
+    done,
+    setDone,
+    cardType,
+    setCardType,
+    cardId,
+    setCardId,
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const { comidasApi, bebidasApi } = await firstRequest();
     setComidas(comidasApi.meals);
@@ -72,10 +101,10 @@ function Provider({ children }) {
     </Context.Provider>);
 }
 
-export default Provider;
-
 Provider.propTypes = {
   children: PropTypes.objectOf(
     PropTypes.any,
   ).isRequired,
 };
+
+export default Provider;

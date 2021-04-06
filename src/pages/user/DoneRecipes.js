@@ -18,7 +18,7 @@ function DoneRecipes() {
     checkDoneRecipes();
     console.log('liste de receitas feitas', doneRecipesList);
     console.log('lista de receitas filtradas', filteredDoneRecipes);
-  }, []);
+  });
 
   function copyDetailsPageLink(recipe) {
     copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);

@@ -90,7 +90,7 @@ export default function FoodDetails({ match: { params } }) {
         className="figure-img img-fluid rounded"
         alt="Thumbnail"
       >
-        <FoodCard recipes={ recipeById } order="0" />
+        <FoodCard recipes={ recipeById } order={ 0 } />
       </div>
       <h1 data-testid="recipe-title">
         {recipeById.strMeal}

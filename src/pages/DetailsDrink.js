@@ -1,10 +1,14 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-// import { Button } from 'react-bootstrap';
+import Copy from 'clipboard-copy';
 import { getDrinkRecipesDetails, getMealByName } from '../services/getAPIs';
 import { LoginAndFoodContext } from '../context/ContextFood';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { getRecipeById } from '../localStorage/recipeProgressStorage';
+import { saveRecipeFavorites,
+  getRecipeFavoriteById } from '../localStorage/recipeFavorite';
 import './DetailsDrink.css';
 
 function DetailsDrink() {
@@ -12,14 +16,33 @@ function DetailsDrink() {
   const { meals } = dataFood;
   const Params = useParams();
   const [drinkDetail, setDrinkDetail] = useState([]);
+  const [continueRecipe, setContinueRecipe] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
+  const [startRecipeBtnVisible, setStartRecipeBtnVisible] = useState(true);
+  const [copyLink, setCopyLink] = useState(false);
+  const isFavorite = useCallback(
+    () => getRecipeFavoriteById(Params.id) && setFavoriteRecipe(true),
+    [Params.id],
+  );
+
+  const isContinue = useCallback(
+    () => getRecipeById('cocktails', Params.id) && setContinueRecipe(true),
+    [Params.id],
+  );
+
   useEffect(() => {
     async function fetchDetails() {
       const saveDetail = await getDrinkRecipesDetails(Params.id);
       setDrinkDetail(saveDetail);
+      JSON.parse(localStorage.doneRecipes).filter(
+        (item) => item.id === Params.id && setStartRecipeBtnVisible(false),
+      );
     }
+    isContinue();
+    isFavorite();
     getMealByName('');
     fetchDetails();
-  }, [Params.id]);
+  }, [Params.id, isContinue, isFavorite]);
 
   const sizeOfLength = 2;
   const startOfSlice = 0;
@@ -30,6 +53,11 @@ function DetailsDrink() {
     }
     return acc;
   }, []);
+
+  const onClickCopyLink = () => {
+    setCopyLink(true);
+    Copy(`http://localhost:3000/bebidas/${Params.id}`);
+  };
 
   return (
     <div>
@@ -89,26 +117,40 @@ function DetailsDrink() {
                 ))}
             </div>
           </div>
-          <Link
-            to={ `/bebidas/${Params.id}/in-progress` }
-            className="start-recipe-btn"
-            data-testid="start-recipe-btn"
-          >
-            Iniciar Receita
-          </Link>
+          {!!startRecipeBtnVisible && (
+            <Link
+              to={ `/bebidas/${Params.id}/in-progress` }
+              className="start-recipe-btn"
+              data-testid="start-recipe-btn"
+            >
+              {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+            </Link>
+          )}
         </div>
       </div>
       <div className="share-favorite-btn">
-        <button type="button" variant="warning">
+        <button
+          onClick={ () => onClickCopyLink() }
+          type="button"
+          variant="warning"
+        >
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
         </button>
-        <button type="button" variant="danger">
+        <button
+          onClick={ () => {
+            saveRecipeFavorites(drinkDetail);
+            setFavoriteRecipe(!favoriteRecipe);
+          } }
+          type="button"
+          variant="danger"
+        >
           <img
             data-testid="favorite-btn"
-            src={ whiteHeartIcon }
+            src={ favoriteRecipe ? blackHeartIcon : whiteHeartIcon }
             alt="favorite-icon"
           />
         </button>
+        {copyLink && <span>Link copiado!</span>}
       </div>
     </div>
   );

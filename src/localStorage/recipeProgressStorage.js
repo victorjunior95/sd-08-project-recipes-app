@@ -2,7 +2,6 @@ const initialState = {
   cocktails: {},
   meals: {},
 };
-
 const KEY = 'inProgressRecipes';
 
 const saveRecipeInProgressStorage = (recipes = initialState) => {

@@ -92,7 +92,7 @@ class ProgressRecipesDrink extends Component {
   checkedIngredientsLS(ingredient) {
     const { cocktails = {}, idDrink } = this.state;
     if (Object.keys(cocktails).length === 0) return false;
-    return cocktails[idDrink].includes(ingredient) || false;
+    return cocktails[idDrink].includes(ingredient);
   }
 
   render() {

@@ -26,7 +26,6 @@ class DetailsRecipeDrink extends Component {
       location: { pathname },
     } = this.props;
     asyncDrinksAll(pathname);
-    this.getLS();
   }
 
   async getLS() {
@@ -48,6 +47,7 @@ class DetailsRecipeDrink extends Component {
   }
 
   render() {
+    this.getLS();
     const { isFetching, recipe, recommendations } = this.props;
     const {
       idDrink,
@@ -147,7 +147,7 @@ class DetailsRecipeDrink extends Component {
             exact
             to={ `/bebidas/${idDrink}/in-progress` }
           >
-            { textButton}
+            { textButton || 'Iniciar Receita'}
           </Link>
         </div>
       </Loading>

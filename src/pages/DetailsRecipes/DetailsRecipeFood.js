@@ -26,7 +26,6 @@ class DetailsRecipeFood extends Component {
       location: { pathname },
     } = this.props;
     asyncMealsAll(pathname);
-    this.getLS();
   }
 
   async getLS() {
@@ -47,6 +46,7 @@ class DetailsRecipeFood extends Component {
   }
 
   render() {
+    this.getLS();
     const { isFetching, recipe, recommendations } = this.props;
     const {
       idMeal,
@@ -160,9 +160,8 @@ class DetailsRecipeFood extends Component {
             data-testid="start-recipe-btn"
             exact
             to={ `/comidas/${idMeal}/in-progress` }
-            value={ textButton }
           >
-            { textButton }
+            { textButton || 'Iniciar Receita'}
           </Link>
 
         </div>

@@ -42,10 +42,10 @@
 .loginFormContainer > button {
   margin-top: 10px;
 }
+
 .start-btn {
   background-color: #fd951f;
   bottom: 0;
-  position: fixed;
   font-size: 40px;
-  }
-
+  position: fixed;
+}

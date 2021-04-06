@@ -1,20 +1,34 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import searchIcon from '../../images/searchIcon.svg';
 import LariContext from '../../context/Context';
 
 const SearchBar = (props) => {
-  const { showInput, typeAPI } = props;
+  const { showInput, typeAPI, setHidden } = props;
   const [filter, setFilter] = useState('ingredients');
   const [search, setSearch] = useState('');
   const { handleHeaderSearch } = useContext(LariContext);
 
   return (
     <>
-      <div className="input">
-        { showInput && (<input
-          data-testid="search-input"
-          onChange={ ({ target }) => setSearch(target.value) }
-        />)}
+      <div className="input-and-searchBtn">
+        <button
+          className="searchBtnInput"
+          type="button"
+          onClick={ () => setHidden(!showInput) }
+        >
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="search icon"
+          />
+        </button>
+        <div className="input">
+          { showInput && (<input
+            data-testid="search-input"
+            onChange={ ({ target }) => setSearch(target.value) }
+          />)}
+        </div>
       </div>
       <div className="radioBtns">
         <label htmlFor="ingredients">

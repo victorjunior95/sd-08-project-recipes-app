@@ -48,7 +48,7 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
         data-testid={ `${index}-recipe-card` }
       >
         {/* {console.log(history.location.pathname)} */}
-        <p data-testid={ `${index}-card-name` }>{name}</p>
+        <h4 data-testid={ `${index}-card-name` }>{name}</h4>
         <img
         // style={ `max-width:200px;
         //     max-height:150px;

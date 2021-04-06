@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
+// import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from '../searchBar/SeachBar';
 import '../../styles/main.css';
 
@@ -29,8 +29,8 @@ const Header = ({ title, showSearchButton = true }) => {
         <h2 data-testid="page-title">{title}</h2>
       </div>
       {showSearchButton && (
-        <div>
-          <button
+        <div className="margin-div-space">
+          {/* <button
             className="searchBtnInput"
             type="button"
             onClick={ () => setHidden(!showInput) }
@@ -40,8 +40,8 @@ const Header = ({ title, showSearchButton = true }) => {
               src={ searchIcon }
               alt="search icon"
             />
-          </button>
-          <SearchBar showInput={ showInput } typeAPI={ title } />
+          </button> */}
+          <SearchBar setHidden={ setHidden } showInput={ showInput } typeAPI={ title } />
 
         </div>
       )}

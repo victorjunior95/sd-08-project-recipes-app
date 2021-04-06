@@ -9,52 +9,64 @@
 }
 
 #root{
-    background-color: rgb(168, 24, 24);
-    display: flex;
-    margin: 0px;
-    padding: 0px;
-    justify-content: center;
+  background-color: #fff;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  justify-content: center;
 }
 
 @media screen and (max-width: 360px){
-    .header {
-        position:sticky;
-        top: 0;
-        display: flex;
-        background-color: #E66337;
-        flex-flow: row nowrap ;
-        justify-content: center;
-        height: 45px;
-        border-radius: 0 0 20px 20px;
-     
-    }
+  .header {
+    position:sticky;
+    top: 0;
+    display: flex;
+    background-color: #E66337;
+    flex-flow: row nowrap ;
+    justify-content: center;
+    height: 45px;
+    border-radius: 0 0 20px 20px;
+  }
 
-    .profileIcon {
-        position: fixed;
-        top:3px;
-        left: 10px;
-    }
-    .searchBtnInput {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
+  .profileIcon {
+    position: fixed;
+    top:  3px;
+    left: 25px;
+  }
 
+  .margin-div-space {
+    box-shadow: 0 0 10px 5px lightgrey;
+    margin: 8px auto;
+    padding: 5px;
+  }
 
+  .input-and-searchBtn {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+/* 
+  .searchBtnInput {
+    display: block;
+    float: right;
+  } */
 
-    }
-    .input {
-
-       width: fit-content;
-       margin: 0 auto;
-    }
-.radioBtns{
+  .input {
+    width: fit-content;
+    margin: 0 auto;
+  }
+    
+  .radioBtns  {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+    padding: 4px;
+  }
 
+  /* .radioBtns label {
+    margin: 2px;
+  } */
 
-}
-.footer {
+  .footer {
     background-color: #E66337;
     flex-flow: row nowrap ;
     justify-content: space-evenly;
@@ -62,26 +74,28 @@
     position:sticky;
     display: flex;
     height: 45px;
-    border-radius:20px 20px 0 0;
-    
+    border-radius: 20px 20px 0 0;
+  }
 
-}
-.imgIcons {
-   overflow: hidden;
+  .imgIcons {
+    overflow: hidden;
     border-radius: 50%;
+  }
 
-}
-.imgCards > button{
- overflow: hidden;
- border-radius: 10%;
- display: flex;
-flex-direction: column;
-justify-content: center;
-
-
-}
-.imgCards > button  p {
+  .imgCards > button {
+    overflow: hidden;
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 12px auto;
+    background: #403d39;
+    color: white;
+  }
+  
+  .imgCards > button > h4 {
     text-align: center;
-}
-
+    margin: 3px auto;
+    padding: 4px;
+  }
 }

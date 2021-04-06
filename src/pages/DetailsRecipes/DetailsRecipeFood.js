@@ -16,8 +16,14 @@ const LIMIT_INDEX_DISPLAY = 2;
 class DetailsRecipeFood extends Component {
   constructor(props) {
     super(props);
-    this.state = { textButton: '' };
-    this.getLS = this.getLS.bind(this);
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    this.state = {
+      ...{ id } };
   }
 
   componentDidMount() {
@@ -28,26 +34,15 @@ class DetailsRecipeFood extends Component {
     asyncMealsAll(pathname);
   }
 
-  async getLS() {
-    const { idMeal } = this.props;
-    const data = await JSON.parse(localStorage.getItem('inProgressRecipe'));
-    console.log(data);
-    const check1 = Object.keys(data.meals).length === 0;
-    console.log(data.meals);
-    if (check1) {
-      this.setState({
-        textButton: 'Iniciar Receita',
-      });
-    } else {
-      const check2 = Object.keys(data.meals).includes(idMeal);
-      console.log(check2);
-      this.setState({ textButton: 'Continuar Receita' });
-    }
+  handleTextButton(id) {
+    const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const check = Object.values(data).includes(id);
+    return check;
   }
 
   render() {
-    this.getLS();
     const { isFetching, recipe, recommendations } = this.props;
+    const { id } = this.state;
     const {
       idMeal,
       strMealThumb,
@@ -58,7 +53,6 @@ class DetailsRecipeFood extends Component {
       ingredients,
       measures,
     } = recipe;
-    const { textButton } = this.state;
 
     return (
       <Loading state={ isFetching }>
@@ -161,7 +155,7 @@ class DetailsRecipeFood extends Component {
             exact
             to={ `/comidas/${idMeal}/in-progress` }
           >
-            { textButton || 'Iniciar Receita'}
+            { this.handleTextButton(id) ? 'Começar Receita' : 'Continuar Receita'}
           </Link>
 
         </div>

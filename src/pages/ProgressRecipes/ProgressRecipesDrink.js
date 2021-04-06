@@ -50,10 +50,15 @@ class ProgressRecipesDrink extends Component {
   }
 
   handleChange(ingredient) {
-    const { cocktails, idDrink } = this.state;
+    const { cocktails = {} } = this.state;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
 
-    if (!cocktails[idDrink]) {
-      const newRecipe = { [idDrink]: [ingredient] };
+    if (Object.keys(cocktails).length === 0) {
+      const newRecipe = { [id]: [ingredient] };
       this.setState((state) => ({
         ...state, cocktails: { ...state.cocktails, ...newRecipe },
       }
@@ -62,7 +67,7 @@ class ProgressRecipesDrink extends Component {
       this.setState((state) => ({
         ...state,
         cocktails: { ...this.checkExistIngredientArrRecipes(
-          idDrink,
+          id,
           ingredient,
           cocktails,
           state,
@@ -90,13 +95,13 @@ class ProgressRecipesDrink extends Component {
   }
 
   checkedIngredientsLS(ingredient) {
-    const { cocktails = {}, idDrink } = this.state;
-    if (Object.keys(cocktails).length === 0) return false;
-    return cocktails[idDrink].includes(ingredient);
+    const cocktails = { ...JSON.parse(localStorage.getItem('inProgressRecipe')) };
+    const arrCocktail = Object.keys(cocktails);
+    if (arrCocktail.length === 0) return false;
+    return arrCocktail.includes(ingredient);
   }
 
   render() {
-    this.setRecipeLocalStorage();
     const {
       idDrink,
       strDrinkThumb,

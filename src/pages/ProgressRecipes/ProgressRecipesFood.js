@@ -29,19 +29,16 @@ class ProgressRecipesMeal extends Component {
     this.checkExistIngredientArrRecipes = this.checkExistIngredientArrRecipes.bind(this);
   }
 
-  /// /////////////////////////////
   componentDidMount() {
-    this.handleRequestMeal();
-  }
-
-  /// /////////////////////////////
-  handleRequestMeal() {
     const {
       match: {
         params: { id },
       },
     } = this.props;
-    /// /////////////////////////////
+    this.handleRequestMeal(id);
+  }
+
+  handleRequestMeal(id) {
     getMealsDetails(id).then((response) => {
       const meal = filterFood(response, 'meals');
       this.setState((state) => ({
@@ -49,12 +46,12 @@ class ProgressRecipesMeal extends Component {
         ...meal,
       }));
     });
+    this.setRecipeLocalStorage(id);
   }
 
-  /// /////////////////////////////
   handleChange(ingredient) {
     const { meals, idMeal } = this.state;
-
+    console.log(meals);
     if (!meals[idMeal]) {
       const newRecipe = { [idMeal]: [ingredient] };
       this.setState((state) => ({
@@ -65,7 +62,6 @@ class ProgressRecipesMeal extends Component {
       this.setState((state) => ({
         ...state,
         meals: { ...this.checkExistIngredientArrRecipes(
-          idMeal,
           ingredient,
           meals,
           state,
@@ -74,37 +70,38 @@ class ProgressRecipesMeal extends Component {
     }
   }
 
-  /// /////////////////////////////
   setRecipeLocalStorage() {
     const { meals, cocktails } = this.state;
     saveToLS('inProgressRecipe', { meals, cocktails });
   }
 
-  /// /////////////////////////////
-  checkExistIngredientArrRecipes(idMeal, ingredient, meals, state) {
-    let dataSetState = meals[idMeal];
+  checkExistIngredientArrRecipes(ingredient, meals, state) {
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    let dataSetState = meals[id];
     const checkExist = dataSetState.some((element) => element === ingredient);
 
     if (!checkExist) {
-      dataSetState = { [idMeal]: [...dataSetState, ingredient] };
+      dataSetState = { [id]: [...dataSetState, ingredient] };
     } else {
-      dataSetState = { [idMeal]: dataSetState
+      dataSetState = { [id]: dataSetState
         .filter((element) => element !== ingredient) };
     }
     return { ...state.meals, ...dataSetState };
   }
 
   checkedIngredientsLS(ingredient) {
-    const { meals = {}, idMeal } = this.state;
-    if (Object.keys(meals).length === 0) return false;
-
-    return meals[idMeal].includes(ingredient);
+    const { meals = {} } = this.state;
+    console.log(meals);
+    const arrMeals = Object.keys(meals);
+    if (arrMeals.length === 0) return false;
+    return arrMeals.includes(ingredient);
   }
 
-  /// /////////////////////////////
   render() {
-    this.setRecipeLocalStorage();
-    /// /////////////////////////////
     const {
       idMeal,
       strMealThumb,
@@ -114,7 +111,6 @@ class ProgressRecipesMeal extends Component {
       ingredients,
       measures,
     } = this.state;
-    /// /////////////////////////////
 
     return (
       <div className="recipe-details">
@@ -166,7 +162,8 @@ class ProgressRecipesMeal extends Component {
                   type="checkbox"
                   defaultChecked={ this.checkedIngredientsLS(ingredient) }
                   id={ `${index}-id-${ingredient}` }
-                  onChange={ () => this.handleChange(ingredient) }
+                  onChange={ () => this.handleChange(ingredient)
+                    || this.setRecipeLocalStorage() }
 
                 />
                 {`${ingredient} - ${measures[index]}`}

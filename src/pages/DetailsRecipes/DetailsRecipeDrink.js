@@ -16,8 +16,14 @@ const LIMIT_INDEX_DISPLAY = 2;
 class DetailsRecipeDrink extends Component {
   constructor(props) {
     super(props);
-    this.state = { textButton: '' };
-    this.getLS = this.getLS.bind(this);
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    this.state = {
+      ...{ id } };
   }
 
   componentDidMount() {
@@ -28,29 +34,16 @@ class DetailsRecipeDrink extends Component {
     asyncDrinksAll(pathname);
   }
 
-  async getLS() {
-    const { idDrink } = this.props;
-    const data = await JSON.parse(localStorage.getItem('inProgressRecipe'));
-    console.log(data);
-    const check1 = Object.keys(data.cocktails).length === 0;
-    console.log(data.cocktails);
-    if (check1) {
-      this.setState({
-        textButton: 'Iniciar Receita',
-      });
-    } else {
-      const check2 = Object.keys(data.cocktails).includes(idDrink);
-      console.log(check2);
-
-      this.setState({ textButton: 'Continuar Receita' });
-    }
+  handleTextButton(id) {
+    const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const check = Object.values(data).includes(id);
+    return check;
   }
 
   render() {
-    this.getLS();
     const { isFetching, recipe, recommendations } = this.props;
+    const { id } = this.state;
     const {
-      idDrink,
       strDrinkThumb,
       strDrink,
       strInstructions,
@@ -58,8 +51,6 @@ class DetailsRecipeDrink extends Component {
       measures,
       strAlcoholic,
     } = recipe;
-
-    const { textButton } = this.state;
 
     return (
       <Loading state={ isFetching }>
@@ -120,22 +111,22 @@ class DetailsRecipeDrink extends Component {
         <div className="carousel">
           {recommendations.recipe
             .slice(0, MAX_SIX_RECOMMENDATIONS)
-            .map((recomendation, index) => (
+            .map((recommendation, index) => (
               <Link
-                key={ recomendation.idMeal }
-                to={ `/bebidas/${recomendation.idMeal}` }
+                key={ recommendation.idMeal }
+                to={ `/bebidas/${recommendation.idMeal}` }
                 className={ index < LIMIT_INDEX_DISPLAY ? 'carousel-content' : 'hidden' }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
-                  src={ recomendation.strMealThumb }
+                  src={ recommendation.strMealThumb }
                   alt="titulo"
                   className="carousel-item-image"
                 />
                 <span
                   data-testid={ `${index}-recomendation-title` }
                 >
-                  {recomendation.strMeal}
+                  {recommendation.strMeal}
                 </span>
               </Link>
             ))}
@@ -144,10 +135,9 @@ class DetailsRecipeDrink extends Component {
           <Link
             className="start-btn"
             data-testid="start-recipe-btn"
-            exact
-            to={ `/bebidas/${idDrink}/in-progress` }
+            to={ `/bebidas/${id}/in-progress` }
           >
-            { textButton || 'Iniciar Receita'}
+            { this.handleTextButton(id) ? 'Começar Receita' : 'Continuar Receita'}
           </Link>
         </div>
       </Loading>
@@ -166,7 +156,6 @@ DetailsRecipeDrink.propTypes = {
   }).isRequired,
   asyncDrinksAll: PropTypes.func.isRequired,
   recipe: PropTypes.shape({
-    idDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
     strInstructions: PropTypes.string,
@@ -175,10 +164,8 @@ DetailsRecipeDrink.propTypes = {
     measures: PropTypes.arrayOf(PropTypes.string),
     strAlcoholic: PropTypes.string,
   }).isRequired,
-  recommendations: PropTypes.shape({
-    recipe: PropTypes.arrayOf }).isRequired,
+  recommendations: PropTypes.objectOf(PropTypes.arrayOf).isRequired,
   isFetching: PropTypes.bool.isRequired,
-  idDrink: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({

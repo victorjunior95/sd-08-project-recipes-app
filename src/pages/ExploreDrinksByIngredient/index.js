@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import ContainerDefault from '../../components/ContainerDefault';
-import { fetchIngredientDrinks, imgIngredienteDrink } from '../../services/theCockTailDB';
+import {
+  fetchIngredientDrinks,
+  imgIngredienteDrink,
+} from '../../services/theCockTailDB';
 
 // import { Container } from './styles';
 
@@ -20,24 +23,18 @@ function ExploreDrinksByIngredient() {
   return (
     <ContainerDefault title="Explorar Ingredientes">
       <div className="d-flex flex-wrap">
-        {useingredient.map((ingredient, index) => (index < numberIngredient
-
-          ? <Card
-              data-testid={ `${index}-ingredient-card` }
-              key={ index }
-          >
+        {useingredient.map((ingredient, index) => (index < numberIngredient ? (
+          <Card data-testid={ `${index}-ingredient-card` } key={ index }>
             <Card.Img
               data-testid={ `${index}-card-img` }
               alt={ ingredient.strIngredient1 }
               src={ imgIngredienteDrink(ingredient.strIngredient1) }
             />
-            <Card.Title
-              data-testid={ `${index}-card-name` }
-            >
+            <Card.Title data-testid={ `${index}-card-name` }>
               {ingredient.strIngredient1}
             </Card.Title>
-            </Card> : null
-        ))}
+          </Card>
+        ) : null))}
       </div>
     </ContainerDefault>
   );

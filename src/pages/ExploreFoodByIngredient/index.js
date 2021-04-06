@@ -18,24 +18,18 @@ function ExploreFoodByIngredient() {
   return (
     <ContainerDefault title="Explorar Ingredientes">
       <div className="d-flex flex-wrap">
-        {useingredient.map((ingredient, index) => (index < numberIngredient
-
-          ? <Card
-              data-testid={ `${index}-ingredient-card` }
-              key={ index }
-          >
+        {useingredient.map((ingredient, index) => (index < numberIngredient ? (
+          <Card data-testid={ `${index}-ingredient-card` } key={ index }>
             <Card.Img
               data-testid={ `${index}-card-img` }
               alt={ ingredient.strIngredient }
               src={ imgIngrediente(ingredient.strIngredient) }
             />
-            <Card.Title
-              data-testid={ `${index}-card-name` }
-            >
+            <Card.Title data-testid={ `${index}-card-name` }>
               {ingredient.strIngredient}
             </Card.Title>
-            </Card> : null
-        ))}
+          </Card>
+        ) : null))}
       </div>
     </ContainerDefault>
   );

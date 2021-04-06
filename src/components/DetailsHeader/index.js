@@ -25,6 +25,7 @@ function DetailsHeader(props) {
     };
     verifyDoneStorage();
   }, [idPage, path]);
+
   function copyUrl() {
     const urlSite = document.URL;
     copy(urlSite);

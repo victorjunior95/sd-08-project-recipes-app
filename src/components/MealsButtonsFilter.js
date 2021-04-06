@@ -5,7 +5,7 @@ import Context from '../context/Context';
 function MealsButtonsFilter() {
   const MIN_INDEX = 0;
   const MAX_INDEX = 5;
-  const { setInputValue, setSearchParams } = useContext(Context);
+  const { setInputValue, setSearchParams, inputValue } = useContext(Context);
   const [mealsCategoriesList, setMealsCategoriesList] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function MealsButtonsFilter() {
         key="all"
         data-testid="All-category-filter"
         onClick={ () => {
-          setInputValue('all');
+          setInputValue('');
           setSearchParams('');
         } }
       >
@@ -38,8 +38,13 @@ function MealsButtonsFilter() {
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
               onClick={ () => {
-                setInputValue(strCategory);
-                setSearchParams('categorie');
+                if (inputValue !== strCategory) {
+                  setInputValue(strCategory);
+                  setSearchParams('categorie');
+                  return;
+                }
+                setInputValue('');
+                setSearchParams('');
               } }
             >
               { strCategory }

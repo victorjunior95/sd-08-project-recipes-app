@@ -32,14 +32,25 @@
   white-space: nowrap;
 }
 
-.recommended {
+.recommended-meals {
   display: inline-block;
   padding: 14px;
   text-align: center;
   width: 48%;
 }
 
-.recommended li:not( :last-child ) {
+.recommended-meals li:not( :last-child ) {
+  margin-right: 16px;
+}
+
+.recommended-drinks {
+  display: inline-block;
+  padding: 20px;
+  text-align: center;
+  width: 48%;
+}
+
+.recommended-drinks li:not( :last-child ) {
   margin-right: 16px;
 }
 

@@ -34,6 +34,10 @@ function DetalhesBebidas() {
   };
 
   useEffect(() => {
+    const localStorageFavorite = localStorage.getItem('favoriteRecipes');
+    if (localStorageFavorite === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     async function requestById() {
       setIsLoading(true);
       const clickedRecipe = await requestDrinkRecipe(id);
@@ -57,7 +61,7 @@ function DetalhesBebidas() {
     const favoriteRecipe = {
       id: drink.idDrink,
       type: 'bebida',
-      area: drink.strArea,
+      area: '',
       category: drink.strCategory,
       alcoholicOrNot: drink.strAlcoholic,
       name: drink.strDrink,

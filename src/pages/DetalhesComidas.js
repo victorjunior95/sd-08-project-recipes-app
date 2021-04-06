@@ -33,6 +33,10 @@ function DetalhesComidas() {
   };
 
   useEffect(() => {
+    const localStorageFavorite = localStorage.getItem('favoriteRecipes');
+    if (localStorageFavorite === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     async function requestById() {
       setIsLoading(true);
       const clickedRecipe = await requestMealRecipe(id);

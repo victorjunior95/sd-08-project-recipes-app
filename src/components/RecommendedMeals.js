@@ -29,7 +29,7 @@ function RecommendedMeals() {
               <li
                 data-testid={ `${index}-recomendation-card` }
                 key={ index }
-                className="recommended"
+                className="recommended-meals"
               >
                 <h1 data-testid={ `${index}-recomendation-title` }>
                   {meal.strMeal}

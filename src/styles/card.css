@@ -1,16 +1,16 @@
 .card {
-  box-shadow: 1px 3px 5px 2px gray;
+  background-color: white;
   border-radius: 20px;
+  box-shadow: 1px 3px 5px 2px gray;
   margin-bottom: 20px;
   margin-left: 5px;
   min-width: 48%;
   padding: 8px;
   width: 300px;
-  background-color: white;
 }
 
 .card > img {
   border-radius: 20px;
-  object-fit: cover;
   max-width: 290px;
+  object-fit: cover;
 }

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
 import fetchMealActionId from '../redux/actions/fetchMealId';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
 import ShareButton from '../components/ShareButton';
@@ -12,12 +11,11 @@ import IngredientList from '../components/IngredientList';
 
 function FoodDetail() {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const history = useHistory();
+  const { pathname } = history.location;
   const arrayId = pathname.split('/')[2];
   const arrayRecipes = pathname.split('/')[1];
   const { singleRecipe } = useSelector((state) => state.recipes);
-
-  const history = useHistory();
 
   useEffect(() => {
     let fetchData;

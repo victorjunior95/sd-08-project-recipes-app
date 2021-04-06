@@ -3,6 +3,6 @@ export const findKey = (array, value) => Object.entries(array).map((nome) => {
     return nome[1];
   }
   return undefined;
-}).filter((element) => element !== undefined);
+}).filter((element) => element !== undefined && element !== '' && element !== null);
 
 export const etc = 0;

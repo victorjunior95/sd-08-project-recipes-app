@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import Copy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipeCardsDone.css';
 
 function RecipeCardsDone() {
+  const history = useHistory();
   const {
     copied,
     setCopied,
@@ -14,14 +16,27 @@ function RecipeCardsDone() {
     setCardId,
     done,
   } = useContext(MyContext);
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  const doneRecipes = done;
   const LIMIT = 2;
 
-  console.log(done);
+  function redirectToDetails(id) {
+    console.log(id);
+    history.push(`/${id}`);
+  }
 
   return (
     doneRecipes.map((card, index) => (
-      <div key={ card.id } className="cardsDone">
+      <div
+        key={ card.id }
+        onClick={ () => {
+          redirectToDetails(`${card.type}s/${card.id}`);
+        } }
+        onKeyPress={ () => console.log('clicou') }
+        role="button"
+        tabIndex={ card.index }
+        className="cardsDone"
+      >
         <div className="cardsDoneImg">
           <img
             src={ card.image }

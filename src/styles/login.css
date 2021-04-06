@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+
 body {
-  background-color: #d0cccc;
-  max-height: 640px;
-  max-width: 360px;
+  background-color: rgb(245, 187, 0);
 }
 
 .box {
@@ -9,6 +10,13 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.button-color {
+  background-color: rgb(191, 49, 0);
+  color: white;
+  text-transform: uppercase;
+  font-weight: 800;
 }
 
 .center {
@@ -24,26 +32,30 @@ body {
   width: 100vw;
 }
 
-.email {
-  font-size: 20px;
-}
-
 .imagem {
-  background-color: #d0cccc;
-  height: 50%;
-  margin: 20%;
-  width: 50%;
-}
-
-.titulo {
-  height: 20%;
-  margin-bottom: 10%;
+  height: 100%;
   width: 100%;
 }
 
-@media screen and ( max-width : 360px ) {
+input {
+  text-align: center;
+}
 
+.titulo {
+  color: rgb(191, 49, 0);
+  font-family: 'Dancing Script', cursive;
+  font-size: 25vw;
+  margin-top: 5%;
+  text-align: center;
+}
+
+::placeholder {
+  text-align: center;
+}
+
+@media screen and ( max-width : 360px ) {
   .box, .container {
+    height: 100%;
     width: 100%;
   }
 }

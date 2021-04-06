@@ -62,7 +62,7 @@ describe('1 - Verifica os elementos presentes na tela receitas em progresso e se
     expect(history.location.pathname).toBe('/receitas-feitas')
   })
   test('Verifica a funcionalidade do botao de favoritar',async()=>{
-    const { history,getByTestId,findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    const { history,findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
     history.push('comidas/52977/in-progress')
     const favoritebtn = await findByTestId('favorite-btn')
     userEvent.click(favoritebtn)

@@ -5,7 +5,7 @@ class RecipeCard extends React.Component {
   render() {
     const { idRecipeCard, idImg, srcImg, idCardName, mealName } = this.props;
     return (
-      <div data-testid={ idRecipeCard } className="card">
+      <div data-testid={ idRecipeCard }>
         <center>
           <img
             data-testid={ idImg }

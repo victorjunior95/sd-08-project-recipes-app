@@ -33,46 +33,46 @@ class Perfil extends Component {
 
     return (
       <div>
-      <Container fluid className="main-profile">
-        <HeaderLocation />
-        <div className="perfil-container">
-          <h6 className="email" data-testid="profile-email">
-            {(userEmailLocalStorage && userEmailLocalStorage.email)
+        <Container fluid className="main-profile">
+          <HeaderLocation />
+          <div className="perfil-container">
+            <h6 className="email" data-testid="profile-email">
+              {(userEmailLocalStorage && userEmailLocalStorage.email)
               || email || ''}
-          </h6>
-          <Button
-            className="default-button"
-            block
-            type="button"
-            data-testid="profile-done-btn"
-            onClick={ () => this.setRoute('/receitas-feitas') }
-          >
-            Receitas Feitas
-          </Button>
-          <Button
-            className="default-button"
-            block
-            type="button"
-            data-testid="profile-favorite-btn"
-            onClick={ () => this.setRoute('/receitas-favoritas') }
-          >
-            Receitas Favoritas
-          </Button>
-          <Button
-            className="default-button"
-            block
-            type="button"
-            data-testid="profile-logout-btn"
-            onClick={ () => {
-              localStorage.clear('user');
-              setEmail('');
-              this.setRoute('/');
-            } }
-          >
-            Sair
-          </Button>
-        </div>
-      </Container>
+            </h6>
+            <Button
+              className="default-button"
+              block
+              type="button"
+              data-testid="profile-done-btn"
+              onClick={ () => this.setRoute('/receitas-feitas') }
+            >
+              Receitas Feitas
+            </Button>
+            <Button
+              className="default-button"
+              block
+              type="button"
+              data-testid="profile-favorite-btn"
+              onClick={ () => this.setRoute('/receitas-favoritas') }
+            >
+              Receitas Favoritas
+            </Button>
+            <Button
+              className="default-button"
+              block
+              type="button"
+              data-testid="profile-logout-btn"
+              onClick={ () => {
+                localStorage.clear('user');
+                setEmail('');
+                this.setRoute('/');
+              } }
+            >
+              Sair
+            </Button>
+          </div>
+        </Container>
         <Footer className="footer white" />
       </div>
     );

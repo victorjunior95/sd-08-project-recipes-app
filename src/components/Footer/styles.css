@@ -1,5 +1,4 @@
 .footer {
-    background-color: #F7C838;
     bottom: 0;
     display: flex;
     justify-content: space-around;
@@ -18,8 +17,4 @@
 
   .footer-icons img {
       height: 30px;
-  }
-
-  .white {
-    background-color: white;
   }

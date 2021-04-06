@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button, Container } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
@@ -57,40 +58,107 @@ class Comidas extends Component {
     if (selectedCategory.length === 0) {
       return (
         <div>
-          <HeaderLocation />
-
-          <button
-            type="button"
-            onClick={ (event) => this.handleClick(event.target.name) }
-            name="All"
-            data-testid="All-category-filter"
-          >
-            All
-          </button>
-          {
-            recipesCategories.map((category, index) => {
-              if (index < MAX_CATEGORIES) {
-                return (
-                  <button
-                    key={ index }
-                    type="button"
-                    onClick={ () => this.handleClick(category.strCategory) }
-                    data-testid={ `${category.strCategory}-category-filter` }
-                  >
-                    {category.strCategory}
-                  </button>
-                );
+          <Container>
+            <HeaderLocation />
+            <div className="d-flex justify-content-around flex-wrap">
+              <Button
+                className="filter-button orange"
+                type="button"
+                onClick={ (event) => this.handleClick(event.target.name) }
+                name="All"
+                data-testid="All-category-filter"
+              >
+                All
+              </Button>
+              {
+                recipesCategories.map((category, index) => {
+                  if (index < MAX_CATEGORIES) {
+                    return (
+                      <Button
+                        className="filter-button orange"
+                        key={ index }
+                        type="button"
+                        onClick={ () => this.handleClick(category.strCategory) }
+                        data-testid={ `${category.strCategory}-category-filter` }
+                      >
+                        {category.strCategory}
+                      </Button>
+                    );
+                  }
+                  return null;
+                })
               }
-              return null;
-            })
-          }
+            </div>
+            {
+
+              meals.map((meal, index) => {
+                if (index < MAX_CARDS) {
+                  return (
+                    <Link
+                      key={ index }
+                      className="recipe-link"
+                      to={ `/comidas/${meal.idMeal}` }
+                    >
+                      <RecipeCard
+                        idRecipeCard={ `${index}-recipe-card` }
+                        idImg={ `${index}-card-img` }
+                        srcImg={ meal.strMealThumb }
+                        idCardName={ `${index}-card-name` }
+                        mealName={ meal.strMeal }
+                      />
+                    </Link>
+                  );
+                }
+                return null;
+              })
+            }
+          </Container>
+          <Footer className="footer orange" />
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <Container>
+          <HeaderLocation />
+          <div className="d-flex justify-content-around flex-wrap">
+            <Button
+              className="filter-button orange"
+              type="button"
+              onClick={ (event) => this.handleClick(event.target.name) }
+              name="All"
+              data-testid="All-category-filter"
+            >
+              All
+            </Button>
+            {
+              recipesCategories.map((category, index) => {
+                if (index < MAX_CATEGORIES) {
+                  return (
+                    <Button
+                      className="filter-button orange"
+                      type="button"
+                      onClick={ () => this.handleClick(category.strCategory) }
+                      data-testid={ `${category.strCategory}-category-filter` }
+                    >
+                      {category.strCategory}
+                    </Button>
+                  );
+                }
+                return null;
+              })
+            }
+          </div>
+
           {
 
-            meals.map((meal, index) => {
+            selectedCategory.map((meal, index) => {
               if (index < MAX_CARDS) {
+                console.log(meal);
                 return (
                   <Link
-                    key={ index }
+                  className="recipe-link"
                     to={ `/comidas/${meal.idMeal}` }
                   >
                     <RecipeCard
@@ -106,61 +174,7 @@ class Comidas extends Component {
               return null;
             })
           }
-          <Footer className="footer orange" />
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <HeaderLocation />
-        <button
-          type="button"
-          onClick={ (event) => this.handleClick(event.target.name) }
-          name="All"
-          data-testid="All-category-filter"
-        >
-          All
-        </button>
-        {
-          recipesCategories.map((category, index) => {
-            if (index < MAX_CATEGORIES) {
-              return (
-                <button
-                  type="button"
-                  onClick={ () => this.handleClick(category.strCategory) }
-                  data-testid={ `${category.strCategory}-category-filter` }
-                >
-                  {category.strCategory}
-                </button>
-              );
-            }
-            return null;
-          })
-        }
-
-        {
-
-          selectedCategory.map((meal, index) => {
-            if (index < MAX_CARDS) {
-              console.log(meal);
-              return (
-                <Link
-                  to={ `/comidas/${meal.idMeal}` }
-                >
-                  <RecipeCard
-                    idRecipeCard={ `${index}-recipe-card` }
-                    idImg={ `${index}-card-img` }
-                    srcImg={ meal.strMealThumb }
-                    idCardName={ `${index}-card-name` }
-                    mealName={ meal.strMeal }
-                  />
-                </Link>
-              );
-            }
-            return null;
-          })
-        }
+        </Container>
         <Footer className="footer orange" />
       </div>
     );

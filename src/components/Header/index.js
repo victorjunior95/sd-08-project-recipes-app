@@ -73,14 +73,31 @@ class Header extends Component {
     const { hidden } = this.state;
     return (
       <Container>
-        <button className="profile-button" type="button" onClick={ () => { history.push('./perfil'); } }>
-          <img
-            src={ profileIcon }
-            alt="imagem-profile"
-            data-testid="profile-top-btn"
+        <div className="d-flex justify-content-between align-items-baseline">
+          <button
+            className="profile-button"
+            type="button"
+            onClick={ () => { history.push('./perfil'); } }
+          >
+            <img
+              src={ profileIcon }
+              alt="imagem-profile"
+              data-testid="profile-top-btn"
 
-          />
-        </button>
+            />
+          </button>
+          <button
+            className="profile-button"
+            type="button"
+            onClick={ () => this.invertHidden() }
+          >
+            <img
+              src={ searchIcon }
+              alt="search-icon"
+              data-testid="search-top-btn"
+            />
+          </button>
+        </div>
         <div data-testid="page-title">
           <h2>{this.title(location.pathname)}</h2>
         </div>
@@ -91,16 +108,6 @@ class Header extends Component {
           || location.pathname === '/explorar/bebidas/area')
             ? (
               <div>
-                <button
-                  type="button"
-                  onClick={ () => this.invertHidden() }
-                >
-                  <img
-                    src={ searchIcon }
-                    alt="search-icon"
-                    data-testid="search-top-btn"
-                  />
-                </button>
                 {hidden ? <div /> : <SearchBarLocation />}
               </div>
             ) : (

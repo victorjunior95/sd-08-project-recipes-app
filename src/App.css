@@ -37,6 +37,23 @@
   font-size: 14px;
 }
 
+.filter-button.orange {
+  margin: 5px 0;
+  color: black;
+}
+
+.orange {
+  background-color: #F7C838;
+}
+
+.filter-button.orange:hover {
+  background-color: #F7C838;
+}
+
+.white {
+  background-color: white;
+}
+
 .filter-button:hover {
   background-color: black;
   color: white;

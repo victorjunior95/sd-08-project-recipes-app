@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, Redirect } from 'react-router';
 import * as core from '../core/index';
-import api from '../services/index';
 import rockGlass from '../images/rockGlass.svg';
 import RecipesContext from '../core/RecipesContext';
 
@@ -12,16 +11,7 @@ const Login = () => {
   const [validEmail, setvalidEmail] = useState(false);
   const [validPassword, setvalidPassword] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { setUser, setData, setMealData } = useContext(RecipesContext);
-
-  useEffect(() => {
-    api.fetchMeals()
-      .then((response) => response.json()).then((result) => {
-        setData(result.meals);
-        setMealData(result.meals);
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { setUser } = useContext(RecipesContext);
 
   useEffect(() => {
     const isValidEmail = core.validateEmail(email);
@@ -45,12 +35,12 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify({ email }));
       localStorage.setItem('mealsToken', JSON.stringify(1));
       localStorage.setItem('cocktailsToken', JSON.stringify(1));
-      return history.push('/comidas');
     }
   }, [redirect, history, email]);
   const TRYBE = 'TRYBE';
   return (
     <div data-testid="login">
+      {redirect && <Redirect to="/comidas" />}
       <div className="meals">
         <span className="logo">{TRYBE}</span>
         <object

@@ -1,0 +1,87 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 14px;
+  
+}
+
+#root{
+    background-color: rgb(168, 24, 24);
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 360px){
+    .header {
+        position:sticky;
+        top: 0;
+        display: flex;
+        background-color: #E66337;
+        flex-flow: row nowrap ;
+        justify-content: center;
+        height: 45px;
+        border-radius: 0 0 20px 20px;
+     
+    }
+
+    .profileIcon {
+        position: fixed;
+        top:3px;
+        left: 10px;
+    }
+    .searchBtnInput {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+
+
+    }
+    .input {
+
+       width: fit-content;
+       margin: 0 auto;
+    }
+.radioBtns{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+
+}
+.footer {
+    background-color: #E66337;
+    flex-flow: row nowrap ;
+    justify-content: space-evenly;
+    bottom: 0;
+    position:sticky;
+    display: flex;
+    height: 45px;
+    border-radius:20px 20px 0 0;
+    
+
+}
+.imgIcons {
+   overflow: hidden;
+    border-radius: 50%;
+
+}
+.imgCards > button{
+ overflow: hidden;
+ border-radius: 10%;
+ display: flex;
+flex-direction: column;
+justify-content: center;
+
+
+}
+.imgCards > button  p {
+    text-align: center;
+}
+
+}

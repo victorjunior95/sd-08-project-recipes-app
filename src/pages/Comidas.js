@@ -4,6 +4,7 @@ import Footer from '../components/footer/Footer';
 import LariContext from '../context/Context';
 import Card from '../components/Card';
 import { categoryFood, seachFoodByCategory } from '../services';
+import '../styles/main.css';
 
 const Comidas = () => {
   const MAX_RECIPES = 12;
@@ -94,6 +95,7 @@ const Comidas = () => {
                 />
                 {meal.strCategory}
               </label>
+
             );
           }
           return '';
@@ -113,20 +115,25 @@ const Comidas = () => {
   return (
     <div>
       <Header title="Comidas" />
-      {mapCategorys}
-      <label htmlFor="All">
-        All
-        <input
-          type="radio"
-          data-testid="All-category-filter"
-          onClick={ () => {
-            setCurrentCategory('All');
-            setFilteredFoods(food);
-          } }
-          checked={ currentCategory === 'All' }
-        />
-      </label>
-      {mapCards}
+      <div className="radioBtns">
+        {mapCategorys}
+
+        <label htmlFor="All">
+          All
+          <input
+            type="radio"
+            data-testid="All-category-filter"
+            onClick={ () => {
+              setCurrentCategory('All');
+              setFilteredFoods(food);
+            } }
+            checked={ currentCategory === 'All' }
+          />
+        </label>
+      </div>
+      <div className="imgCards">
+        {mapCards}
+      </div>
       <Footer />
     </div>
   );

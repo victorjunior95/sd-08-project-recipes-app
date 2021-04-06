@@ -111,7 +111,8 @@ export default function ShareFavBtn() {
         type="button"
         data-testid="share-btn"
         onClick={ () => {
-          copy(`http://localhost:3000/${mealCocktail}/${id}`);
+          const urlOrigin = window.location.origin;
+          copy(`${urlOrigin}/${mealCocktail}/${id}`);
           setCopied(true);
         } }
       >

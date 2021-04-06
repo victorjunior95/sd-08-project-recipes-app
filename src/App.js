@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { connect } from 'react-redux';
@@ -41,50 +41,48 @@ class App extends React.Component {
   }
 
   render() {
-    // const { rota } = this.props;
     return (
       <div className="App">
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={ Login } />
-            <Route exact path="/comidas" component={ Comidas } />
-            <Route exact path="/bebidas" component={ Bebidas } />
-            <Route exact path="/explorar" component={ Expĺorar } />
-            <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-            <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-            <Route exact path="/comidas/ingredientes" component={ ComidasIngredientes } />
-            <Route exact path="/bebidas/ingredientes" component={ BebidasIngredientes } />
-            <Route exact path="/explorar/comidas/area" component={ ExplorarPorArea } />
-            <Route exact path="/explorar/bebidas/area" component={ NotFound } />
-            <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-            {/* <Route component={ Expĺorar } /> */}
-            <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
-            <Route
-              exact
-              path="/explorar/bebidas/ingredientes"
-              component={ ExplorarBebidasIngredientes }
-            />
-            <Route
-              exact
-              path="/explorar/comidas/ingredientes"
-              component={ ExplorarComidasIngredientes }
-            />
-            <Route exact path="/perfil" component={ Perfil } />
-            <Route
-              path="/comidas/:id/in-progress"
-              component={ ReceitasEmProgresso }
-            />
-            <Route
-              path="/bebidas/:id/in-progress"
-              component={ ReceitasEmProgresso }
-            />
-            <Route path="/comidas/:id" component={ GenericoComidas } />
-            <Route path="/bebidas/:id" component={ GenericoBebidas } />
-            <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-            {/* <Route exact path={ rota } component={ Generico } /> */}
-            <Route component={ NotFound } />
-          </Switch>
-        </BrowserRouter>
+        {/* <BrowserRouter> */}
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ Comidas } />
+          <Route exact path="/bebidas" component={ Bebidas } />
+          <Route exact path="/explorar" component={ Expĺorar } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/comidas/ingredientes" component={ ComidasIngredientes } />
+          <Route exact path="/bebidas/ingredientes" component={ BebidasIngredientes } />
+          <Route exact path="/explorar/comidas/area" component={ ExplorarPorArea } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExplorarBebidasIngredientes }
+          />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExplorarComidasIngredientes }
+          />
+          <Route exact path="/perfil" component={ Perfil } />
+          <Route
+            path="/comidas/:id/in-progress"
+            component={ ReceitasEmProgresso }
+          />
+          <Route
+            path="/bebidas/:id/in-progress"
+            component={ ReceitasEmProgresso }
+          />
+          <Route path="/comidas/:id" component={ GenericoComidas } />
+          <Route path="/bebidas/:id" component={ GenericoBebidas } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+          {/* <Route exact path={ rota } component={ Generico } /> */}
+          <Route component={ NotFound } />
+        </Switch>
+        {/* </BrowserRouter> */}
 
       </div>
     );

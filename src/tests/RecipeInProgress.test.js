@@ -39,7 +39,7 @@ describe('Testa Receitas em Progresso', () => {
       const receitaBotaoCompartilhar = screen.getByTestId('share-btn');
       expect(receitaBotaoCompartilhar).toBeInTheDocument();
 
-      // userEvent.click(receitaBotaoCompartilhar);
+      userEvent.click(receitaBotaoCompartilhar);
     });
 
     it('O botão de favoritar deve possuir o atributo data-testid="favorite-btn"', () => {
@@ -51,7 +51,7 @@ describe('Testa Receitas em Progresso', () => {
       const receitaBotaoFavoritar = screen.getByTestId('favorite-btn');
       expect(receitaBotaoFavoritar).toBeInTheDocument();
 
-      // userEvent.click(receitaBotaoFavoritar);
+      userEvent.click(receitaBotaoFavoritar);
     });
 
     it(`O texto da categoria deve possuir o atributo
@@ -88,17 +88,19 @@ describe('Testa Receitas em Progresso', () => {
     });
 
     it(`O botão para finalizar a receita deve possuir
-    o atributo data-testid="finish-recipe-btn"`, () => {
+    o atributo data-testid="finish-recipe-btn"`, async () => {
       const { history } = renderWithRouter(
         <App />,
         [PAGINA_TESTE_COMIDA],
       );
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify({"cocktails":{},"meals":{"52771":["penne rigate","olive oil","garlic","chopped tomatoes","red chile flakes","italian seasoning","basil","Parmigiano-Reggiano"]}}));
-
       const receitaBotaoFinalizar = screen.getByTestId('finish-recipe-btn');
       expect(receitaBotaoFinalizar).toBeInTheDocument();
+      expect(receitaBotaoFinalizar.disabled).toBe(true);
 
+      const checksIngredientes = await screen.findAllByRole('checkbox');
+      checksIngredientes.map((check) => userEvent.click(check));
+
+      expect(receitaBotaoFinalizar.disabled).toBe(false);
       userEvent.click(receitaBotaoFinalizar);
       expect(history.location.pathname).toBe('/receitas-feitas');
     });

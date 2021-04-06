@@ -19,14 +19,14 @@ function App() {
       <Route exact path="/comidas/:id" component={ Details } />
       <Route exact path="/comidas/:id/in-progress" component={ ReceitasProgresso } />
       <Route exact path="/bebidas/:id/in-progress" component={ ReceitasProgresso } />
-      <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
-      <Route path="/explorar/comidas/area" component={ ExplorarOrigem } />
-      <Route path="/bebidas/:id" component={ Details } />
-      <Route path="/bebidas/:id/in-progress" />
-      <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
-      <Route path="/perfil" component={ Perfil } />
-      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      <Route exact path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
+      <Route exact path="/explorar/comidas/area" component={ ExplorarOrigem } />
+      <Route exact path="/bebidas/:id" component={ Details } />
+      <Route exact ath="/bebidas/:id/in-progress" />
+      <Route exact path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
+      <Route exact path="/perfil" component={ Perfil } />
+      <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
     </Switch>
   );
 }

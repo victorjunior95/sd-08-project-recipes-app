@@ -3,18 +3,18 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockFetch from '../../cypress/mocks/fetch';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
-import Comidas from '../Pages/Comidas';
+import Bebidas from '../Pages/Bebidas';
 
 const TWELVE = 12;
-const BEEF_FILTER = 'Beef-category-filter';
+const ORDINARY_FILTER = 'Ordinary Drink-category-filter';
 
-describe('<Comidas />', () => {
-  // beforeAll(() => {
-  //   jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
-  // });
+describe('<Bebidas />', () => {
+  beforeAll(() => {
+    jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
+  });
 
   it('Verifica se a pagina contem 12 cards', async () => {
-    renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Bebidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
@@ -26,53 +26,54 @@ describe('<Comidas />', () => {
   });
 
   it('Verifica se a pagina contem 6 botões de filtro', async () => {
-    renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Bebidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    expect(screen.getByTestId(BEEF_FILTER)).toBeInTheDocument();
-    expect(screen.getByTestId('Breakfast-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Chicken-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Dessert-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Goat-category-filter')).toBeInTheDocument();
+    expect(screen.getByTestId(ORDINARY_FILTER)).toBeInTheDocument();
+    expect(screen.getByTestId('Cocktail-category-filter')).toBeInTheDocument();
+    expect(screen.getByTestId('Milk / Float / Shake-category-filter'))
+      .toBeInTheDocument();
+    expect(screen.getByTestId('Other/Unknown-category-filter')).toBeInTheDocument();
+    expect(screen.getByTestId('Cocoa-category-filter')).toBeInTheDocument();
     expect(screen.getByTestId('All-category-filter')).toBeInTheDocument();
   });
 
   it('Verifica se o botão filtra as'
-    + 'receitas de acordo com o filtro selecionado'
+    + 'bebidas de acordo com o filtro selecionado'
     + 'e o botão All retira os filtros', async () => {
-    renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Bebidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    const goatButton = screen.getByTestId('Goat-category-filter');
-    userEvent.click(goatButton);
+    const CocoaButton = screen.getByTestId('Cocoa-category-filter');
+    userEvent.click(CocoaButton);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    expect(screen.getByText(/mbuzi choma/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('1-recipe-card')).toBe(null);
+    expect(screen.getByText(/orange scented hot chocolate/i)).toBeInTheDocument();
+    expect(screen.queryByText('GG')).toBe(null);
 
-    const ChickenButton = screen.getByTestId('Chicken-category-filter');
-    userEvent.click(ChickenButton);
+    const CocktailButton = screen.getByTestId('Cocktail-category-filter');
+    userEvent.click(CocktailButton);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    expect(screen.getByText(/Brown Stew Chicken/i)).toBeInTheDocument();
-    expect(screen.queryByText(/mbuzi choma/i)).toBe(null);
+    expect(screen.getByText(/747 drink/i)).toBeInTheDocument();
+    expect(screen.queryByText(/orange scented hot chocolate/i)).toBe(null);
 
     const AllButton = screen.getByTestId('All-category-filter');
     userEvent.click(AllButton);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    expect(screen.getByText(/corba/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Brown Stew Chicken/i)).toBe(null);
+    expect(screen.getByText(/GG/i)).toBeInTheDocument();
+    expect(screen.queryByText(/747 drink/i)).toBe(null);
   });
 
-  it.only('Caso a busca do header conter uma receita ser'
+  it('Caso a busca do header conter uma receita ser'
   + 'redirecionado para a pagina de detalhes da receita', async () => {
-    const { history, debug } = renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Bebidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
@@ -80,21 +81,16 @@ describe('<Comidas />', () => {
     userEvent.click(searchButton);
 
     const searchInput = screen.getByTestId('search-input');
-    userEvent.type(searchInput, 'Goat Meat');
+    userEvent.type(searchInput, 'A1');
 
     const findButton = screen.getByTestId('exec-search-btn');
     userEvent.click(findButton);
-
-    await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
-    debug();
-    console.log(history.location.pathname);
   });
 
   it('Caso a busca não retornar nenhuma receita exibir um alert', async () => {
-    // jest.spyOn(global, 'alert').mockImplementation((alert) => console.log(alert));
     window.alert = jest.fn();
 
-    renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Bebidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
@@ -107,29 +103,28 @@ describe('<Comidas />', () => {
     const findButton = screen.getByTestId('exec-search-btn');
     userEvent.click(findButton);
 
-    // screen.getByText('jkdsafjksfjklkladsffd');
-    expect(window.alert).toHaveBeenCalled();
+    // expect(window.alert).toHaveBeenCalledWith('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   });
 
   it('Verifica se clicar no filtro novamente reseta o filtro', async () => {
-    renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Bebidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    const BeefButton = screen.getByTestId(BEEF_FILTER);
-    userEvent.click(BeefButton);
+    const OrdinaryButton = screen.getByTestId(ORDINARY_FILTER);
+    userEvent.click(OrdinaryButton);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    expect(screen.getByText(/beef wellington/i)).toBeInTheDocument();
-    expect(screen.queryByText(/corba/i)).toBe(null);
+    expect(screen.getByText(/501 blue/i)).toBeInTheDocument();
+    expect(screen.queryByText(/GG/i)).toBe(null);
 
-    const BeefButton2 = screen.getByTestId(BEEF_FILTER);
-    userEvent.click(BeefButton2);
+    const OrdinaryButton2 = screen.getByTestId(ORDINARY_FILTER);
+    userEvent.click(OrdinaryButton2);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
-    expect(screen.getByText(/corba/i)).toBeInTheDocument();
-    expect(screen.queryByText(/beef wellington/i)).toBe(null);
+    expect(screen.getByText(/GG/i)).toBeInTheDocument();
+    expect(screen.queryByText(/501 blue/i)).toBe(null);
   });
 });

@@ -13,7 +13,7 @@ import surprise from '../store/surpriseSlice';
 const renderWithRouterAndRedux = (
   component,
   {
-    initialEntries = ['/'],
+    initialEntries,
     store = configureStore({
       reducer: {
         search,

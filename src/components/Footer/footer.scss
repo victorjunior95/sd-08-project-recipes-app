@@ -7,10 +7,12 @@
   position: fixed;
   width: 100%;
   .buttonFooter{
-    background-color:transparent;
-    &:active{
-      background-color: turquoise;
-    }
+    width: 35px;
+    background-color:rgba(247, 163, 8, 0.815);
+    padding: 8px;
+    border-radius: 50%;
+    margin-top: -35px;
+    box-shadow: 3px 3px 7px 0px #8584848a;
   }
 
 }

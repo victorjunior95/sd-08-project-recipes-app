@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  background-color: rgba(117, 116, 114, 0.151);
+  background-color: rgba(255, 255, 255, 0.151);
   margin: 2vw;
   border-radius: 8px;
   padding: 2px;
@@ -12,7 +12,7 @@
     border-radius: 8px;
     margin: 2px;
     // box-shadow: 1px 1px 3px 0px #0000008a;
-    background-color: rgba(255, 160, 51, 0.788);
+    background-color: rgba(247, 163, 8, 0.815);
     text-align: center;
     color: rgba(128, 128, 128, 0.781);
     font-size: medium;
@@ -24,8 +24,8 @@
     &:focus {
       border-style: solid;
       border-width: 0 0 3px 0;
-      border-color: rgb(248, 183, 63);
-      box-shadow: -1px -1px 3px 0px #f8991c8a;
+      border-color: rgb(241, 139, 4);
+      box-shadow: -1px -1px 3px 0px #3a37348a;
     }
   }
 

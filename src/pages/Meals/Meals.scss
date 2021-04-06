@@ -3,9 +3,10 @@
   color: #464646;
   column-gap: 2px;
   display: grid;
-  font-family: sans-serif;
+  font-family: ubuntu;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   height: 100vh;
-  row-gap: 6px;
+  row-gap: 10px;
   width: 100%;
+  margin-bottom: 380px;
 }

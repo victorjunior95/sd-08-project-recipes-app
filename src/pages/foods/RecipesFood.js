@@ -23,7 +23,7 @@ function RecipesFood() {
   }
   return (
     <div>
-      <Header title="Receitas Feitas" search="" />
+      <Header title="Comidas" search="" />
       <FoodCategoryButton />
       { recipeMeals
         && recipeMeals.map((recipe, i) => (

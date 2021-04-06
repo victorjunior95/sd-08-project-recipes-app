@@ -13,7 +13,7 @@ class ProgressRecipesMeal extends Component {
     super(props);
     this.state = JSON.parse(localStorage.getItem('inProgressRecipe'));
     this.handleChange = this.handleChange.bind(this);
-    this.ingredientExistState = this.ingredientExistState.bind(this);
+    this.checkExistIngredientArrRecipes = this.checkExistIngredientArrRecipes.bind(this);
   }
 
   handleChange(ingredient) {
@@ -29,12 +29,22 @@ class ProgressRecipesMeal extends Component {
     } else {
       this.setState((state) => ({
         ...state,
-        meals: { ...this.ingredientExistState(idMeal, ingredient, meals, state) },
+        meals: { ...this.checkExistIngredientArrRecipes(
+          idMeal,
+          ingredient,
+          meals,
+          state,
+        ) },
       }));
     }
   }
 
-  ingredientExistState(idMeal, ingredient, meals, state) {
+  setRecipeLocalStorage() {
+    const { meals, cocktails } = this.state;
+    saveToLS('inProgressRecipe', { meals, cocktails });
+  }
+
+  checkExistIngredientArrRecipes(idMeal, ingredient, meals, state) {
     let dataSetState = meals[idMeal];
     const checkExist = dataSetState.some((element) => element === ingredient);
 
@@ -47,13 +57,8 @@ class ProgressRecipesMeal extends Component {
     return { ...state.meals, ...dataSetState };
   }
 
-  upDateLS() {
-    const { meals, cocktails } = this.state;
-    saveToLS('inProgressRecipe', { meals, cocktails });
-  }
-
   render() {
-    this.upDateLS();
+    this.setRecipeLocalStorage();
 
     const { recipe } = this.props;
     const {
@@ -108,10 +113,6 @@ class ProgressRecipesMeal extends Component {
           <div>
             {ingredients.map((ingredient, index) => (
               <label
-                /*                 className={ checkedIngredientsLS('meal', idMeal)
-                  .includes(ingredient)
-                  ? 'textUnderline'
-                  : '' } */
                 key={ ingredient }
                 htmlFor={ `${ingredient}-id` }
                 data-testid={ `${index}-ingredient-step` }
@@ -120,8 +121,7 @@ class ProgressRecipesMeal extends Component {
                   id={ `${ingredient}-id` }
                   type="checkbox"
                   onChange={ () => this.handleChange(ingredient) }
-                  /*                   checked={ checkedIngredientsLS('meal', idMeal)
-                    .includes(ingredient) } */
+
                 />
                 {`${ingredient} - ${measures[index]}`}
               </label>

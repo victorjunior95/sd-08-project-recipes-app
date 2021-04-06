@@ -38,56 +38,52 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const { selectedParam, inputSearch, id } = searchParam;
 
-    if (pathName === '/comidas') {
-      switch (selectedParam) {
-      case 'ingredient':
-        fetchFood(`filter.php?i=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      case 'name':
-        fetchFood(`search.php?s=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      case 'first-letter':
-        fetchFood(`search.php?f=${inputSearch}`)
-          .then((response) => setRecipes(response));
-        break;
-      case 'food-details':
-        fetchFood(`lookup.php?i=${id}`)
-          .then((response) => setRecipeDetails(response.meals[0]));
-        break;
-      default:
-        fetchFood('search.php?s=').then((response) => setRecipes(response));
-        break;
-      }
+    switch (selectedParam) {
+    case 'ingredient':
+      fetchFood(`filter.php?i=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    case 'name':
+      fetchFood(`search.php?s=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    case 'first-letter':
+      fetchFood(`search.php?f=${inputSearch}`)
+        .then((response) => setRecipes(response));
+      break;
+    case 'food-details':
+      fetchFood(`lookup.php?i=${id}`)
+        .then((response) => setRecipeDetails(response.meals[0]));
+      break;
+    default:
+      fetchFood('search.php?s=').then((response) => setRecipes(response));
+      break;
     }
   }, [searchParam, pathName]);
 
   useEffect(() => {
     const { selectedParam, inputSearch, id } = searchParam;
 
-    if (pathName === '/bebidas') {
-      switch (selectedParam) {
-      case 'ingredient':
-        fetchDrink(`filter.php?i=${inputSearch}`)
-          .then((response) => setCocktails(response));
-        break;
-      case 'name':
-        fetchDrink(`search.php?s=${inputSearch}`)
-          .then((response) => setCocktails(response));
-        break;
-      case 'first-letter':
-        fetchDrink(`search.php?f=${inputSearch}`)
-          .then((response) => setCocktails(response));
-        break;
-      case 'drink-details':
-        fetchDrink(`lookup.php?i=${id}`)
-          .then((response) => setRecipeDetails(response.drinks[0]));
-        break;
-      default:
-        fetchDrink('search.php?s=').then((response) => setCocktails(response));
-        break;
-      }
+    switch (selectedParam) {
+    case 'ingredient':
+      fetchDrink(`filter.php?i=${inputSearch}`)
+        .then((response) => setCocktails(response));
+      break;
+    case 'name':
+      fetchDrink(`search.php?s=${inputSearch}`)
+        .then((response) => setCocktails(response));
+      break;
+    case 'first-letter':
+      fetchDrink(`search.php?f=${inputSearch}`)
+        .then((response) => setCocktails(response));
+      break;
+    case 'drink-details':
+      fetchDrink(`lookup.php?i=${id}`)
+        .then((response) => setRecipeDetails(response.drinks[0]));
+      break;
+    default:
+      fetchDrink('search.php?s=').then((response) => setCocktails(response));
+      break;
     }
   }, [searchParam, pathName]);
 

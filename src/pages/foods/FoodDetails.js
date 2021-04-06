@@ -26,7 +26,6 @@ export default function FoodDetails({ match: { params } }) {
         .setItem('favoriteRecipes', JSON.stringify([]));
     }
   }, [storageRecipe]);
-  console.log(storageRecipe);
 
   const getFavoriteRecipes = useCallback(() => (
     storageRecipe === null ? [] : storageRecipe
@@ -69,32 +68,33 @@ export default function FoodDetails({ match: { params } }) {
     getFavoriteRecipes();
   }, [recipeDetails, getFavoriteRecipes]);
 
-  // if (!recipeById) return <div>Loading...</div>;
+  if (!recipeById) return <div>Loading...</div>;
 
   // Acessando chaves ingredient e measure da receita
 
-  // const ingredients = Object.keys(recipeById)
-  //   .filter((item) => item.includes('strIngredient')
-  //   && recipeById[item])
-  //   .map((ingredient) => recipeById[ingredient]);
+  const ingredients = Object.keys(recipeById)
+    .filter((item) => item.includes('strIngredient')
+    && recipeById[item])
+    .map((ingredient) => recipeById[ingredient]);
+  console.log(recipeById);
 
-  // const measures = Object.keys(recipeById)
-  //   .filter((item) => item.includes('strMeasure')
-  //   && recipeById[item])
-  //   .map((measure) => recipeById[measure]);
+  const measures = Object.keys(recipeById)
+    .filter((item) => item.includes('strMeasure')
+    && recipeById[item])
+    .map((measure) => recipeById[measure]);
 
   return (
     <div style={ { width: '50%' } }>
       <figure className="figure">
         <img
-          // src={ recipeById.strMealThumb }
+          src={ recipeById.strMealThumb }
           data-testid="recipe-photo"
           className="figure-img img-fluid rounded"
           alt="Thumbnail"
         />
       </figure>
       <h1 data-testid="recipe-title">
-        {/* {recipeById.strMeal} */}
+        {recipeById.strMeal}
       </h1>
       <input
         type="image"
@@ -117,11 +117,11 @@ export default function FoodDetails({ match: { params } }) {
       {copyLink && <span>Link copiado!</span>}
       <h5 data-testid="recipe-category">
         <b>
-          {/* {recipeById.strCategory} */}
+          {recipeById.strCategory}
         </b>
       </h5>
       <h2>Ingredientes</h2>
-      {/* <ul>
+      <ul>
         {
           ingredients
             .map((item, index) => (
@@ -129,11 +129,11 @@ export default function FoodDetails({ match: { params } }) {
                 {`${item} - ${measures[index]}`}
               </li>))
         }
-      </ul> */}
+      </ul>
       <section>
         <h2>Instruções</h2>
-        {/* <p data-testid="instructions">{recipeById.strInstructions}</p> */}
-        {/* {
+        <p data-testid="instructions">{recipeById.strInstructions}</p>
+        {
           recipeById.strYoutube ? <iframe
             frameBorder="0"
             data-testid="video"
@@ -142,7 +142,7 @@ export default function FoodDetails({ match: { params } }) {
             title="recipe video"
           />
             : ''
-        } */}
+        }
       </section>
       <DrinkCarousel />
       <Link

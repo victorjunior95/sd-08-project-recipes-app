@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { isNull } from 'lodash-es';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
@@ -28,7 +29,11 @@ function Cocktails() {
       { cocktailsRecipes
         && cocktailsRecipes.map((recipe, i) => (
           i < cardMaximun
-           && <CocktailCard key={ i } order={ i } recipes={ recipe } />
+           && (
+             <Link to={ `bebidas/${recipe.idDrink}` }>
+               <CocktailCard key={ i } order={ i } recipes={ recipe } />
+             </Link>
+           )
         ))}
       <Footer />
     </div>

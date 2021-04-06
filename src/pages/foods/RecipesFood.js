@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { isNull } from 'lodash-es';
 import FoodCategoryButton from '../../components/FoodCategoryButton';
 import FoodCard from '../../components/cards/FoodCard';
@@ -28,7 +29,13 @@ function RecipesFood() {
       { recipeMeals
         && recipeMeals.map((recipe, i) => (
           i < cardMaximun
-           && <FoodCard key={ i } order={ i } recipes={ recipe } />
+           && (
+             <Link
+               to={ `comidas/${recipe.idMeal} ` }
+             >
+               <FoodCard key={ i } order={ i } recipes={ recipe } />
+             </Link>
+           )
         ))}
       <Footer />
     </div>

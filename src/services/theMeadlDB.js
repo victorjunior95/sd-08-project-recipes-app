@@ -69,7 +69,7 @@ export async function getMealsByArea(country) {
   const { meals } = data;
   return meals;
 }
-  
+
 export function imgIngrediente(img) {
   const URL = `https://www.themealdb.com/images/ingredients/${img}-Small.png`;
   return URL;

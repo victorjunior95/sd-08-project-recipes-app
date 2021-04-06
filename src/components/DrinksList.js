@@ -36,7 +36,7 @@ function DrinksList() {
     requestDrinks(searchParams, inputValue);
   }, [searchParams, inputValue, setIsLoading]);
   return (
-    <main>
+    <main className="recipes-container">
       {
         allDrinks !== null || undefined
           ? allDrinks.map((drink, index) => {

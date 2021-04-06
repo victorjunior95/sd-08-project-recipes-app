@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 import Footer from '../components/Footer';
 import { requestMealsIngredientsList } from '../services/apiRequests';
+import Loading from '../components/Loading';
 
 function ExplorarComidasIngredientes() {
   const history = useHistory();
@@ -20,46 +21,45 @@ function ExplorarComidasIngredientes() {
     requestByIngredients();
   }, []);
 
-  if (!ingredientsMealsList) return <span>Loading...</span>;
-
   return (
-    <div>
-      <div>
-        <HeaderWithoutSearch />
-      </div>
-      <div>
-        {
-          ingredientsMealsList.slice(MIN_INDEX, MAX_INDEX)
-            .map(({ strIngredient }, index) => (
-              <button
-                type="button"
-                key={ strIngredient }
-                data-testid={ `${index}-ingredient-card` }
-                onClick={ () => {
-                  setInputValue(strIngredient);
-                  setSearchParams('ingrediente');
-                  history.push('/comidas');
-                } }
-              >
-                <img
-                  src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-                  alt={ strIngredient }
-                  data-testid={ `${index}-card-img` }
-                />
-                <span
-                  data-testid={ `${index}-card-name` }
-                >
-                  { strIngredient }
-                </span>
-              </button>
-            ))
-        }
-        ;
-      </div>
-      <div>
-        <Footer />
-      </div>
-    </div>
+    <>
+      <HeaderWithoutSearch />
+      {
+        !ingredientsMealsList
+          ? <Loading />
+          : (
+            <main className="explore-ingredients-card">
+              {
+                ingredientsMealsList.slice(MIN_INDEX, MAX_INDEX)
+                  .map(({ strIngredient }, index) => (
+                    <button
+                      type="button"
+                      key={ strIngredient }
+                      data-testid={ `${index}-ingredient-card` }
+                      onClick={ () => {
+                        setInputValue(strIngredient);
+                        setSearchParams('ingrediente');
+                        history.push('/comidas');
+                      } }
+                    >
+                      <img
+                        src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+                        alt={ strIngredient }
+                        data-testid={ `${index}-card-img` }
+                      />
+                      <span
+                        data-testid={ `${index}-card-name` }
+                      >
+                        { strIngredient }
+                      </span>
+                    </button>
+                  ))
+              }
+            </main>
+          )
+      }
+      <Footer />
+    </>
   );
 }
 

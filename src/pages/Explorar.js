@@ -6,28 +6,30 @@ import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 function Explorar() {
   const history = useHistory();
   return (
-    <div>
+    <>
       <HeaderWithoutSearch />
-      <button
-        type="button"
-        data-testid="explore-food"
-        onClick={ () => {
-          history.push('/explorar/comidas');
-        } }
-      >
-        Explorar Comidas
-      </button>
-      <button
-        type="button"
-        data-testid="explore-drinks"
-        onClick={ () => {
-          history.push('/explorar/bebidas');
-        } }
-      >
-        Explorar Bebidas
-      </button>
+      <main className="explore-container">
+        <button
+          type="button"
+          data-testid="explore-food"
+          onClick={ () => {
+            history.push('/explorar/comidas');
+          } }
+        >
+          Explorar Comidas
+        </button>
+        <button
+          type="button"
+          data-testid="explore-drinks"
+          onClick={ () => {
+            history.push('/explorar/bebidas');
+          } }
+        >
+          Explorar Bebidas
+        </button>
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

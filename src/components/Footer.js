@@ -12,6 +12,7 @@ function Footer() {
   return (
     <div data-testid="footer" className="footer">
       <button
+        className="drink-icon"
         type="button"
         onClick={ () => {
           setInputValue('');
@@ -25,7 +26,11 @@ function Footer() {
           alt="icone drinks"
         />
       </button>
-      <button type="button" onClick={ () => history.push('/explorar') }>
+      <button
+        className="explore-icon"
+        type="button"
+        onClick={ () => history.push('/explorar') }
+      >
         <img
           src={ exploreIcon }
           data-testid="explore-bottom-btn"
@@ -33,6 +38,7 @@ function Footer() {
         />
       </button>
       <button
+        className="meal-icon"
         type="button"
         onClick={ () => {
           setInputValue('');

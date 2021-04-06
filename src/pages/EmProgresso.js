@@ -92,8 +92,8 @@ function EmProgresso() {
         isLoading
           ? <Loading />
           : (
-            <>
-              <h1 data-testid="recipe-title">{meal.strMeal}</h1>
+            <div className="details-container">
+              <h1 className="title" data-testid="recipe-title">{meal.strMeal}</h1>
               <img
                 className="card-image"
                 src={ meal.strMealThumb }
@@ -101,43 +101,46 @@ function EmProgresso() {
                 data-testid="recipe-photo"
               />
               <br />
-              <CopyToClipboard
-                text={ (window.location.href).slice(0, MAX_LENGTH_MEAL_URL) }
-                onCopy={ () => setCopied(true) }
-              >
-                <input
-                  data-testid="share-btn"
-                  type="image"
-                  src={ shareIcon }
-                  alt="button share with friends"
-                />
-              </CopyToClipboard>
-              {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-              {
-                favorite
-                  ? (
-                    <input
-                      type="image"
-                      src={ blackHeartIcon }
-                      data-testid="favorite-btn"
-                      alt="favorite btn"
-                      onClick={ removeFromFavorite }
-                    />
-                  )
-                  : (
-                    <input
-                      type="image"
-                      src={ whiteHeartIcon }
-                      data-testid="favorite-btn"
-                      alt="favorite btn"
-                      onClick={ addToFavorite }
-                    />
-                  )
-              }
+              <div className="share-favorite-btn">
+                <CopyToClipboard
+                  text={ (window.location.href).slice(0, MAX_LENGTH_MEAL_URL) }
+                  onCopy={ () => setCopied(true) }
+                >
+                  <input
+                    data-testid="share-btn"
+                    type="image"
+                    src={ shareIcon }
+                    alt="button share with friends"
+                  />
+                </CopyToClipboard>
+                {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
+                {
+                  favorite
+                    ? (
+                      <input
+                        type="image"
+                        src={ blackHeartIcon }
+                        data-testid="favorite-btn"
+                        alt="favorite btn"
+                        onClick={ removeFromFavorite }
+                      />
+                    )
+                    : (
+                      <input
+                        type="image"
+                        src={ whiteHeartIcon }
+                        data-testid="favorite-btn"
+                        alt="favorite btn"
+                        onClick={ addToFavorite }
+                      />
+                    )
+                }
+              </div>
               <p data-testid="recipe-category">
                 { meal.strCategory }
               </p>
-              <ul>
+              <ul className="ul-ingredients">
+                <h4>Ingredients</h4>
                 { ingredients.map((item, index) => (
                   <li
                     data-testid={ `${index}-ingredient-step` }
@@ -151,7 +154,7 @@ function EmProgresso() {
                   </li>
                 ))}
               </ul>
-              <p data-testid="instructions">
+              <p className="recipe-instructions" data-testid="instructions">
                 { meal.strInstructions }
               </p>
               <button
@@ -159,10 +162,11 @@ function EmProgresso() {
                 data-testid="finish-recipe-btn"
                 disabled={ isDisabled }
                 onClick={ () => history.push('/receitas-feitas') }
+                className="start"
               >
                 Finalizar receita
               </button>
-            </>
+            </div>
           )
       }
     </main>

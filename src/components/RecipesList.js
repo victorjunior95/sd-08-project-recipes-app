@@ -36,7 +36,7 @@ function RecipesList() {
     requestRecipes(searchParams, inputValue);
   }, [searchParams, inputValue, setIsLoading]);
   return (
-    <main>
+    <main className="recipes-container">
       {
         allMeals !== null || undefined
           ? allMeals.map((meal, index) => {

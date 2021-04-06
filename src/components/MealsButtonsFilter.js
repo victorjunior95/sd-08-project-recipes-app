@@ -18,7 +18,7 @@ function MealsButtonsFilter() {
 
   if (!mealsCategoriesList) return <span>Loading...</span>;
   return (
-    <main>
+    <main className="filters-container">
       <button
         type="button"
         key="all"

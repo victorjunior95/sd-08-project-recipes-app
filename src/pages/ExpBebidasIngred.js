@@ -25,10 +25,8 @@ function ExplorarBebidasIngredientes() {
 
   return (
     <div>
-      <div>
-        <HeaderWithoutSearch />
-      </div>
-      <div>
+      <HeaderWithoutSearch />
+      <main className="explore-ingredients-card">
         {
           ingredientsList.slice(MIN_INDEX, MAX_INDEX)
             .map(({ strIngredient1 }, index) => (
@@ -55,11 +53,8 @@ function ExplorarBebidasIngredientes() {
               </button>
             ))
         }
-        ;
-      </div>
-      <div>
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }

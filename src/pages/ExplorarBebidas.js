@@ -17,28 +17,30 @@ function ExplorarBebidas() {
   }, []);
 
   return (
-    <div>
+    <>
       <HeaderWithoutSearch />
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ () => {
-          history.push('/explorar/bebidas/ingredientes');
-        } }
-      >
-        Por Ingredientes
-      </button>
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ () => {
-          history.push(`/bebidas/${drinkId}`);
-        } }
-      >
-        Me Surpreenda!
-      </button>
+      <main className="explore-container">
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          onClick={ () => {
+            history.push('/explorar/bebidas/ingredientes');
+          } }
+        >
+          Por Ingredientes
+        </button>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => {
+            history.push(`/bebidas/${drinkId}`);
+          } }
+        >
+          Me Surpreenda!
+        </button>
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

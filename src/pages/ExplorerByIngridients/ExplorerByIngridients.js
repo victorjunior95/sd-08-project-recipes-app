@@ -18,13 +18,18 @@ const ExplorerByIngridients = ({ title, visible }) => {
   }, [title]);
 
   return (
-  <>
-    <Header title={ title } visible={ visible } />
-    {searchBar && <SearchBar title={ title } />}
-    { ingredients && <List title={ title } results={ ingredients } refCard="ingredients" />}
-    <Footer />
-  </>
-)};
+    <>
+      <Header title={title} visible={visible} />
+      {searchBar && <SearchBar title={title} />}
+      {ingredients && (
+        <div className="list-ingridients">
+          <List title={title} results={ingredients} refCard="ingredients" />
+        </div>
+      )}
+      <Footer />
+    </>
+  );
+};
 
 ExplorerByIngridients.propTypes = {
   title: PropTypes.string.isRequired,

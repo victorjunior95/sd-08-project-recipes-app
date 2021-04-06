@@ -17,15 +17,16 @@ const CardDetails = ({ title, object, isLoading, children }) => {
   const { id } = useParams();
   const { pathname } = useLocation();
   const savetoClipboard = () => {
-  
-    const {idDrink,idMeal} = object
-    if(pathname.includes('/in-progress') && title === 'Bebidas'){
-    
-    window.navigator.clipboard.writeText(`http://localhost:3000/${title.toLowerCase()}/${idDrink}`);
-    }else if(pathname.includes('/in-progress') && title === 'Comidas'){
-      window.navigator.clipboard.writeText(`http://localhost:3000/${title.toLowerCase()}/${idMeal}`);
-    }else{
-  
+    const { idDrink, idMeal } = object;
+    if (pathname.includes('/in-progress') && title === 'Bebidas') {
+      window.navigator.clipboard.writeText(
+        `http://localhost:3000/${title.toLowerCase()}/${idDrink}`,
+      );
+    } else if (pathname.includes('/in-progress') && title === 'Comidas') {
+      window.navigator.clipboard.writeText(
+        `http://localhost:3000/${title.toLowerCase()}/${idMeal}`,
+      );
+    } else {
       window.navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
     }
     setSaveClipBoard(true);
@@ -108,7 +109,7 @@ const CardDetails = ({ title, object, isLoading, children }) => {
   }
   if (isLoading === false && object !== {}) {
     return (
-      <Card>
+      <Card className="card-detail">
         <Card.Img
           data-testid="recipe-photo"
           variant="top"
@@ -158,10 +159,17 @@ const CardDetails = ({ title, object, isLoading, children }) => {
           </Card.Text>
           {children}
           <Card.Text data-testid="instructions">
-            {object.strInstructions}
+            <h4>Modo de Preparo</h4>
+            {object.strInstructions &&
+              object.strInstructions
+                .split('.')
+                .map(
+                  (item, index) =>
+                    item.trim('') && <li key={index}>{item + '.'}</li>,
+                )}
           </Card.Text>
           {renderVideo()}
-          <span>Recomendações</span>
+          <h4>Recomendações</h4>
           <SlideCards
             title={title === 'Comidas' ? 'Bebidas' : 'Comidas'}
             results={recomended}

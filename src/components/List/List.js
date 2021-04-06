@@ -7,6 +7,7 @@ import {
   getRecipesByIngredient,
 } from '../../services/FoodsDrinksRequests';
 import Context from '../../contextApi/Context';
+import './list.css';
 
 const List = ({ title, results, refCard }) => {
   const CARDSFORPAGE = 12;
@@ -30,8 +31,7 @@ const List = ({ title, results, refCard }) => {
 
   if (results && refCard === 'ingredients') {
     return (
-      <div>
-        Teste
+      <div className="list-cards">
         {results.map((object, index) => {
           if (index < CARDSFORPAGE) {
             return (
@@ -49,6 +49,7 @@ const List = ({ title, results, refCard }) => {
                 }
               >
                 <Cards
+                  className="card-item"
                   key={
                     title === 'Explorar Ingredientes de Comidas'
                       ? object.strIngredient

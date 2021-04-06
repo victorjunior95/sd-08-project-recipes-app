@@ -11,10 +11,6 @@ function setInitStateRecipe(id, type) {
   const mealOrDrink = type === 'drink' ? 'cocktails' : 'meals';
   if (!local[mealOrDrink].id) {
     const result = { ...local, [mealOrDrink]: { ...local[mealOrDrink], [id]: [] } };
-    const result = {
-      ...local,
-      [mealOrDrink]: { ...local[mealOrDrink], [id]: [] },
-    };
     saveRecipeInProgressStorage(result);
   }
 }

@@ -57,7 +57,7 @@ describe('1 - Verifica os testes da página de Login', () => {
     
   });
   test('Verifica se existe algum localStorage', () => {
-    const { getByTestId } = renderWithRouter(
+    renderWithRouter(
       <Login />,
     );
     const userStorage = JSON.parse(localStorage.getItem('user'))

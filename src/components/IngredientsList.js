@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'react-bootstrap/esm/Image';
 
 function IngredientsList(props) {
   const { ingredients, measure, id } = props;
-  // console.log(id);
+  console.log(ingredients, measure, id);
   // const arrayOfIngredients = [];
 
   const saveLocalStorage = (name) => {
@@ -63,5 +64,11 @@ function IngredientsList(props) {
     </ul>
   );
 }
+
+IngredientsList.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.string),
+  measure: PropTypes.arrayOf(PropTypes.string),
+  id: PropTypes.string,
+}.isRequired;
 
 export default IngredientsList;

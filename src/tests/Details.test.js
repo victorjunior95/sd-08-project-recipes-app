@@ -1,10 +1,8 @@
 import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
-import { waitForElementToBeRemoved, fireEvent, wait, waitForDomChange } from '@testing-library/react';
+import { waitForElementToBeRemoved, fireEvent, waitForDomChange } from '@testing-library/react';
 import Details from '../pages/Details/Details';
 import Home from '../pages/Home/Home';
-// import { findByTestId, screen } from '@testing-library/react';
-// jest.spyOn(window, 'alert').mockImplementation(() => {});
 
 describe('1 - Verifica os elementos presentes em Details', () => {
 
@@ -271,26 +269,6 @@ describe('5 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja
   });
 });
 
-describe.skip('6 - Verifica se uma mensagem avisando que o link foi copiado deve aparecer', () => {
-  test('Verifica a mensagem "Link copiado!" em comidas', async () => {
-
-    const { history: firstHistory } = renderWithRouter(<Home title="Comidas" />);
-
-    const { findByTestId, findByText } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52771"}}} />)
-
-    const shareButton = await findByTestId('share-btn')
-    fireEvent.click(shareButton);
-
-    expect(await findByText('Link copiado!')).toBeInTheDocument();
-
-  });
-
-  // test('Verifica a mensagem "Link copiado!" em bebidas', async () => {
-    
-  // });
-});
-
-
 describe.skip('7 - Implemente o ícone do coração (favorito) de maneira que, deve vir preenchido caso a receita esteja favoritada ', () => {
   
 
@@ -310,7 +288,7 @@ describe.skip('7 - Implemente o ícone do coração (favorito) de maneira que, d
     }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
-    const { findByTestId, findAllByTestId, findAllByRole } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52771"}}} />)
+    const { findByTestId, findAllByTestId } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52771"}}} />)
     
     const favoriteButton = await findByTestId('favorite-btn')
     const buttonsIcons = await findAllByTestId('explore-bottom-btn')
@@ -334,7 +312,7 @@ describe.skip('7 - Implemente o ícone do coração (favorito) de maneira que, d
     }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
-    const { findByTestId, findAllByTestId, findAllByRole } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />)
+    const { findAllByTestId } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />)
 
     
     const buttonsIcons = await findAllByTestId('explore-bottom-btn')
@@ -348,7 +326,7 @@ describe.skip('7 - Implemente o ícone do coração (favorito) de maneira que, d
 
 describe('8 - Implemente a lógica no botão de favoritar, caso seja clicado, o ícone do coração deve mudar seu estado atual, caso esteja preenchido deve mudar para "despreenchido" e vice-versa', () => {
   test('Favorita a comida', async () => {
-    const { findByTestId, findAllByTestId, findAllByRole } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52977"}}} />)
+    const { findByTestId, findAllByTestId } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52977"}}} />)
 
     const favoriteButton = await findByTestId('favorite-btn')
     fireEvent.click(favoriteButton)
@@ -376,7 +354,7 @@ describe('8 - Implemente a lógica no botão de favoritar, caso seja clicado, o 
     // const favoriteRecipesToGet = JSON.parse(localStorage.getItem('favoriteRecipes'));
     // console.log(favoriteRecipesToGet)
 
-    const { findByTestId, findAllByTestId, findAllByRole, queryByTestId } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52977"}}} />)
+    const { findByTestId, findAllByTestId } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52977"}}} />)
 
     const favoriteButton = await findByTestId('favorite-btn')
 
@@ -390,7 +368,7 @@ describe('8 - Implemente a lógica no botão de favoritar, caso seja clicado, o 
   });
 
   test('Favorita a bebida', async () => {
-    const { findByTestId, findAllByTestId, findAllByRole } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />)
+    const { findByTestId, findAllByTestId } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />)
 
     const favoriteButton = await findByTestId('favorite-btn')
     fireEvent.click(favoriteButton)
@@ -413,7 +391,7 @@ describe('8 - Implemente a lógica no botão de favoritar, caso seja clicado, o 
     // const favoriteRecipesToGet = JSON.parse(localStorage.getItem('favoriteRecipes'));
     // console.log(favoriteRecipesToGet)
 
-    const { findByTestId, findAllByTestId, findAllByRole, queryByTestId } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />)
+    const { findByTestId, findAllByTestId } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />)
 
     const favoriteButton = await findByTestId('favorite-btn')
 
@@ -437,6 +415,3 @@ describe('8 - Implemente a lógica no botão de favoritar, caso seja clicado, o 
     
 //   })
 // })
-
-
-

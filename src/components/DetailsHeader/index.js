@@ -27,8 +27,8 @@ function DetailsHeader(props) {
   }, [idPage, path]);
 
   function copyUrl() {
-    const urlSite = document.URL;
-    copy(urlSite);
+    const url = path.includes('/comidas') ? `http://localhost:3000/comidas/${idPage}` : `http://localhost:3000/bebidas/${idPage}`;
+    copy(url);
     setUseShow(true);
   }
 

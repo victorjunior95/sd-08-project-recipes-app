@@ -75,14 +75,12 @@ export default function CocktailDetails({ match: { params } }) {
     .map((measure) => recipeById[measure]);
 
   return (
-    <div
-      data-testid="recipe-photo"
-      alt="Thumbnail"
-      className="figure-img img-fluid rounded"
-    >
-      <div>
-        <CocktailCard recipes={ recipeById } order={ 0 } />
-      </div>
+    <div>
+      <img
+        data-testid="recipe-photo"
+        alt=""
+      />
+      <CocktailCard recipes={ recipeById } order={ 0 } />
       <h1 data-testid="recipe-title">
         {recipeById.strDrink}
       </h1>

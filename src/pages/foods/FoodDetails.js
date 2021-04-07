@@ -81,13 +81,11 @@ export default function FoodDetails({ match: { params } }) {
 
   return (
     <div>
-      <div
+      <img
         data-testid="recipe-photo"
-        className="figure-img img-fluid rounded"
-        alt="Thumbnail"
-      >
-        <FoodCard recipes={ recipeById } order="0" />
-      </div>
+        alt=""
+      />
+      <FoodCard recipes={ recipeById } order="0" />
       <h1 data-testid="recipe-title">
         {recipeById.strMeal}
       </h1>

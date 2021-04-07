@@ -30,7 +30,7 @@ describe('<Details />', () => {
 
     for (let index = 0; index < THIRTEEN; index += 1) {
       expect(screen
-        .getByTestId(`${index}-ingredient-name-and-measure`)).toBeInTheDocument();
+        .getByTestId(`${index}-ingredient-step`)).toBeInTheDocument();
     }
   });
 
@@ -82,7 +82,7 @@ describe('<Details />', () => {
     expect(finishRecipe).toBeDisabled();
   });
 
-  it.only('Verifica se o botão fica ativo se'
+  it('Verifica se o botão fica ativo se'
   + 'todos os ingredientes estão marcados', async () => {
     renderWithRouterAndRedux(<RecipeProgress />);
 

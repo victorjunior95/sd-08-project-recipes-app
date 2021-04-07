@@ -11,8 +11,21 @@ import { Loading } from '../../components';
 import '../../styles/pages/DetailRecipe.css';
 
 const MAX_SIX_RECOMMENDATIONS = 6;
+const LIMIT_INDEX_DISPLAY = 2;
 
 class DetailsRecipeFood extends Component {
+  constructor(props) {
+    super(props);
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    this.state = {
+      ...{ id } };
+  }
+
   componentDidMount() {
     const {
       asyncMealsAll,
@@ -21,8 +34,18 @@ class DetailsRecipeFood extends Component {
     asyncMealsAll(pathname);
   }
 
+  handleTextButton(id) {
+    const data = localStorage.getItem('inProgressRecipes');
+    if (!data) return false;
+    const arr = Object.values(JSON.parse(data));
+    const check = arr.some((el) => (Number(Object.keys(el))) === Number(id));
+    console.log(check);
+    return check;
+  }
+
   render() {
     const { isFetching, recipe, recommendations } = this.props;
+    const { id } = this.state;
     const {
       idMeal,
       strMealThumb,
@@ -112,7 +135,7 @@ class DetailsRecipeFood extends Component {
               <Link
                 key={ recomendation.idDrink }
                 to={ `/bebidas/${recomendation.idDrink}` }
-                className="carousel-content"
+                className={ index < LIMIT_INDEX_DISPLAY ? 'carousel-content' : 'hidden' }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
@@ -128,16 +151,17 @@ class DetailsRecipeFood extends Component {
               </Link>
             ))}
         </div>
-        <div className="start-btn">
+        <div>
           <Link
+            className="start-btn"
             data-testid="start-recipe-btn"
-            className="start-recipe-btn"
             exact
             to={ `/comidas/${idMeal}/in-progress` }
-
           >
-            Iniciar receita
+            { this.handleTextButton(id) ? 'Continuar Receita' : 'Começar Receita' }
+
           </Link>
+
         </div>
       </Loading>
     );
@@ -168,6 +192,7 @@ DetailsRecipeFood.propTypes = {
   recommendations: PropTypes.shape({
     recipe: PropTypes.arrayOf }).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  idMeal: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({

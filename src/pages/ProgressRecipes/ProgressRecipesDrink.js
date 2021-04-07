@@ -1,63 +1,36 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import favIconEnabled from '../../images/blackHeartIcon.svg';
-import {
-  getDrinksDetails,
-} from '../../services';
+import { /* loadFromLS */ saveToLS, getDrinksDetails } from '../../services';
 import filterFood from '../../utils/filterDetailsRecipes';
+
 import '../../styles/pages/Container.css';
 
 const INITIAL_STATE_RECIPE_DRINK = {
   idDrink: '',
-  ingredients: [],
-  measures: [],
-  strArea: '',
+  strDrinkThumb: '',
+  strDrink: '',
   strCategory: '',
   strInstructions: '',
-  strDrink: '',
-  strDrinkThumb: '',
-  strTags: '',
-  usedIngredients: [],
+  ingredients: [],
+  measures: [],
 };
 
 class ProgressRecipesDrink extends Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE_RECIPE_DRINK;
-
+    this.state = { ...JSON.parse(localStorage.getItem('inProgressRecipe')),
+      ...INITIAL_STATE_RECIPE_DRINK };
+    this.handleChange = this.handleChange.bind(this);
     this.handleRequestDrink = this.handleRequestDrink.bind(this);
-    this.handleIndredients = this.handleIndredients.bind(this);
-
-    this.handleLocalStorage = this.handleLocalStorage.bind(this);
+    this.checkExistIngredientArrRecipes = this.checkExistIngredientArrRecipes.bind(this);
   }
 
   componentDidMount() {
     this.handleRequestDrink();
-  }
-
-  handleLocalStorage() {
-    const { usedIngredients, idDrink } = this.state;
-    console.log(idDrink, usedIngredients);
-  }
-
-  handleIndredients(target, newValue) {
-    const { usedIngredients } = this.state;
-    if (target.checked) {
-      this.setState((state) => ({
-        ...state, usedIngredients: [...state.usedIngredients, newValue],
-      }),
-      this.handleLocalStorage);
-    } else {
-      const filterCocktails = usedIngredients.filter(
-        (ingredient) => ingredient !== newValue,
-      );
-      this.setState((state) => ({
-        ...state, usedIngredients: [...filterCocktails],
-      }),
-      this.handleLocalStorage);
-    }
   }
 
   handleRequestDrink() {
@@ -74,6 +47,58 @@ class ProgressRecipesDrink extends Component {
         ...drink,
       }));
     });
+  }
+
+  handleChange(ingredient) {
+    const { cocktails = {} } = this.state;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    if (Object.keys(cocktails).length === 0) {
+      const newRecipe = { [id]: [ingredient] };
+      this.setState((state) => ({
+        ...state, cocktails: { ...state.cocktails, ...newRecipe },
+      }
+      ));
+    } else {
+      this.setState((state) => ({
+        ...state,
+        cocktails: { ...this.checkExistIngredientArrRecipes(
+          id,
+          ingredient,
+          cocktails,
+          state,
+        ) },
+      }));
+    }
+  }
+
+  setRecipeLocalStorage() {
+    const { meals, cocktails } = this.state;
+    saveToLS('inProgressRecipe', { meals, cocktails });
+  }
+
+  checkExistIngredientArrRecipes(idDrink, ingredient, cocktails, state) {
+    let dataSetState = cocktails[idDrink];
+    const checkExist = dataSetState.some((element) => element === ingredient);
+
+    if (!checkExist) {
+      dataSetState = { [idDrink]: [...dataSetState, ingredient] };
+    } else {
+      dataSetState = { [idDrink]: dataSetState
+        .filter((element) => element !== ingredient) };
+    }
+    return { ...state.cocktails, ...dataSetState };
+  }
+
+  checkedIngredientsLS(ingredient) {
+    const cocktails = { ...JSON.parse(localStorage.getItem('inProgressRecipe')) };
+    const arrCocktail = Object.keys(cocktails);
+    if (arrCocktail.length === 0) return false;
+    return arrCocktail.includes(ingredient);
   }
 
   render() {
@@ -129,20 +154,15 @@ class ProgressRecipesDrink extends Component {
           <div>
             {ingredients.map((ingredient, index) => (
               <label
-              /*                 className={ checkedIngredientsLS('meal', idMeal)
-                  .includes(ingredient)
-                  ? 'textUnderline'
-                  : '' } */
                 key={ ingredient }
                 htmlFor={ `${ingredient}-id` }
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  onChange={ ({ target }) => this.handleIndredients(target, ingredient) }
-                  id={ `${ingredient}-id` }
                   type="checkbox"
-                  // checked={ checkedIngredientsLS('cocktails', idDrink)
-                  // .includes(ingredient) }
+                  id={ `${index}-ingredient-step` }
+                  onChange={ () => this.handleChange(ingredient) }
+                  defaultChecked={ this.checkedIngredientsLS(ingredient) }
                 />
                 {`${ingredient} - ${measures[index]}`}
               </label>
@@ -175,6 +195,11 @@ ProgressRecipesDrink.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  // recipe: PropTypes.string.isRequired,
+  // idDrink: PropTypes.number.isRequired,
 };
+const mapStateToProps = ({ detailsReducers }) => ({
+  recipe: detailsReducers.recipe,
+});
 
-export default ProgressRecipesDrink;
+export default connect(mapStateToProps)(ProgressRecipesDrink);

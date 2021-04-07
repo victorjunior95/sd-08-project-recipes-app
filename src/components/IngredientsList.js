@@ -66,8 +66,8 @@ function IngredientsList(props) {
 }
 
 IngredientsList.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  measure: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.array,
+  measure: PropTypes.array,
   id: PropTypes.string,
 }.isRequired;
 

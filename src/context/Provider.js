@@ -31,7 +31,7 @@ const Provider = ({ children }) => {
       setFood(array ? array.meals : []);
     }
   };
-  const setDrinks = async (array) => {
+  const setDrinks = async (array = { drinks: [] }) => {
     if (array.drinks === null) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -60,7 +60,6 @@ const Provider = ({ children }) => {
     const results = await headerSearch(search, type, isDrinkApi);
     if (isDrinkApi) {
       setDrinks(results);
-      // console.log(results);
     } else {
       setMeals(results);
     }

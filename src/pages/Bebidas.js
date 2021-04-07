@@ -27,12 +27,13 @@ const Drinks = () => {
       recipesFetch(false);
     }
     function fetchCategory() {
-      console.log('fetchCategory');
+      // console.log('fetchCategory');
       categoryDrink()
         .then((response) => setCategory(response));
     }
     fetchCategory();
     fetchFetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const Drinks = () => {
     </label>
   ));
   useEffect(() => {
-    console.log('useEffect');
+    // console.log('useEffect');
     if (nameIngredient) {
       handleHeaderSearch(nameIngredient, 'ingredients', 'Bebidas');
       setNameIngredient('');

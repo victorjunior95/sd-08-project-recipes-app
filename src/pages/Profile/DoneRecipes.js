@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import { Header } from '../../components';
 import share from '../../images/shareIcon.svg';
 
@@ -61,19 +62,11 @@ class DoneRecipes extends Component {
     }));
   }
 
-  copyLink(type, id) {
-    window.navigator.clipboard
-      .writeText(`http://localhost:3000/${type}/${id}`).then(
-        () => {
-          const link = document.createElement('span');
-          link.innerHTML = 'Link copiado!';
-          document.getElementById(`link-compartilhar-${id}`).appendChild(link);
-        },
-        () => {
-        // eslint-disable-next-line
-        alert('erro');
-        },
-      );
+  async copyLink(type, id) {
+    await copy(`http://localhost:3000/${type}/${id}`);
+    const link = document.createElement('span');
+    link.innerHTML = 'Link copiado!';
+    document.getElementById(`link-compartilhar-${id}`).appendChild(link);
   }
 
   render() {

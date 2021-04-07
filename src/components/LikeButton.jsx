@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import favoriteRecipesAction from '../redux/actions/favoriteRecipeAction';
 import notLikedBtn from '../images/whiteHeartIcon.svg';
 import likedBtn from '../images/blackHeartIcon.svg';
 
 export default function LikeButton() {
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const recipes = useSelector((state) => state.recipes.singleRecipe);
+  const { singleRecipe } = useSelector((state) => state.recipes);
   const [liked, setLiked] = useState();
 
   const type = (pathname.includes('comidas') ? 'Meal' : 'Drink');
@@ -16,13 +14,13 @@ export default function LikeButton() {
     ? JSON.parse(localStorage.getItem('favoriteRecipes'))
     : [];
   const recipe = {
-    id: recipes[0][`id${type}`],
+    id: singleRecipe[0][`id${type}`],
     type: (type === 'Meal' ? 'comida' : 'bebida'),
-    area: (recipes[0].strArea ? recipes[0].strArea : ''),
-    category: recipes[0].strCategory,
-    alcoholicOrNot: (type === 'Drink' ? recipes[0].strAlcoholic : ''),
-    name: recipes[0][`str${type}`],
-    image: recipes[0][`str${type}Thumb`],
+    area: (singleRecipe[0].strArea ? singleRecipe[0].strArea : ''),
+    category: singleRecipe[0].strCategory,
+    alcoholicOrNot: (type === 'Drink' ? singleRecipe[0].strAlcoholic : ''),
+    name: singleRecipe[0][`str${type}`],
+    image: singleRecipe[0][`str${type}Thumb`],
   };
 
   function verifyIfFavorite() {
@@ -39,7 +37,6 @@ export default function LikeButton() {
       recipeStorage.push(recipe);
       localStorage.setItem('favoriteRecipes', JSON.stringify(recipeStorage));
       setLiked(true);
-      dispatch(favoriteRecipesAction(recipeStorage));
     }
     if (liked) {
       const removeFavorite = recipeStorage.filter((e) => e.id !== recipe.id);
@@ -47,7 +44,6 @@ export default function LikeButton() {
       localStorage.setItem('favoriteRecipes', JSON
         .stringify(removeFavorite));
       setLiked(false);
-      dispatch(favoriteRecipesAction(removeFavorite));
     }
   }
 

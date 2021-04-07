@@ -16,16 +16,16 @@ function FoodDetail() {
   const history = useHistory();
   const { pathname } = history.location;
   const arrayId = pathname.split('/')[2];
-  const arrayRecipes = pathname.split('/')[1];
+  const type = (pathname.split('/')[1] === 'comidas') ? 'Meal' : 'Drink';
   const { singleRecipe } = useSelector((state) => state.recipes);
 
   useEffect(() => {
     let fetchData;
-    if (arrayRecipes === 'comidas' && singleRecipe.length === 0) {
+    if (pathname.split('/')[1] === 'comidas' && singleRecipe.length === 0) {
       fetchData = (id) => dispatch(fetchMealActionId(id));
       fetchData(arrayId);
     }
-    if (arrayRecipes === 'bebidas' && singleRecipe.length === 0) {
+    if (pathname.split('/')[1] === 'bebidas' && singleRecipe.length === 0) {
       fetchData = (id) => dispatch(fetchDrinkActionId(id));
       fetchData(arrayId);
     }
@@ -37,19 +37,11 @@ function FoodDetail() {
 
   const renderMeal = () => recipe !== undefined && (
     <div>
-      {
-        arrayRecipes === 'comidas'
-          ? <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />
-          : <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="img" />
-      }
+      <img data-testid="recipe-photo" src={ recipe[`str${type}Thumb`] } alt="img" />
       <ShareButton recipeId={ recipe.idMeal } recipeType="comida" />
       <LikeButton recipe={ recipe } />
-      {
-        arrayRecipes === 'comidas'
-          ? <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-          : <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
-      }
-      {arrayRecipes === 'bebidas'
+      <h1 data-testid="recipe-title">{recipe[`str${type}`]}</h1>
+      {type === 'Drink'
         && <p data-testid="recipe-category">{recipe.strAlcoholic}</p> }
       <p data-testid="recipe-category">{recipe.strCategory}</p>
       Ingredients
@@ -58,7 +50,7 @@ function FoodDetail() {
       <p data-testid="instructions">{recipe.strInstructions}</p>
       Video
       {
-        arrayRecipes === 'comidas'
+        type === 'Meal'
           && <iframe
             title="Meat"
             data-testid="video"

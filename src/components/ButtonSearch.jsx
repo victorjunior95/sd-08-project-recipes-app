@@ -8,11 +8,7 @@ function ButtonSearch({ type }) {
   const [search, setSearchBar] = useState(false);
 
   const handleClick = () => {
-    if (!search) {
-      setSearchBar(true);
-    } else if (search) {
-      setSearchBar(false);
-    }
+    setSearchBar(!search);
   };
 
   return (

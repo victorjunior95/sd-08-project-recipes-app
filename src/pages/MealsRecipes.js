@@ -39,11 +39,8 @@ function MealsRecipes() {
   }, [inputValue, inputType, mealFilter, ingredientFilter]);
 
   useEffect(() => () => {
-    const clearDispatch = () => {
-      dispatch(clearRecipesAction());
-      dispatch(clearSearchAction());
-    };
-    clearDispatch();
+    dispatch(clearRecipesAction());
+    dispatch(clearSearchAction());
   }, []);
 
   useEffect(() => {

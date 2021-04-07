@@ -13,7 +13,7 @@ function MealCatsButtons() {
     const fetchData = () => dispatch(fetchMealCatsThunk());
     fetchData();
   }, []);
-  const mealFilter = useSelector((state) => state.search.mealFilter);
+  const { mealFilter } = useSelector((state) => state.search);
 
   function handleClick({ target }) {
     if (mealFilter !== target.value) {
@@ -27,7 +27,7 @@ function MealCatsButtons() {
   return (
     <div>
       { meals && meals.map((elem, index) => (
-        index < FIVE ? (
+        (index < FIVE) && (
           <button
             type="button"
             key={ elem.strCategory }
@@ -37,7 +37,7 @@ function MealCatsButtons() {
           >
             { elem.strCategory }
           </button>
-        ) : ''
+        )
       ))}
       <button
         type="button"

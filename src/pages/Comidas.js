@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
@@ -57,11 +57,12 @@ class Comidas extends Component {
     const { selectedCategory } = this.state;
     if (selectedCategory.length === 0) {
       return (
-        <div>
+        <div className="teste">
           <Container>
             <HeaderLocation />
             <div className="d-flex justify-content-around flex-wrap">
               <Button
+                size="sm"
                 className="filter-button orange"
                 type="button"
                 onClick={ (event) => this.handleClick(event.target.name) }
@@ -75,6 +76,7 @@ class Comidas extends Component {
                   if (index < MAX_CATEGORIES) {
                     return (
                       <Button
+                        size="sm"
                         className="filter-button orange"
                         key={ index }
                         type="button"
@@ -89,30 +91,34 @@ class Comidas extends Component {
                 })
               }
             </div>
-            {
+            <Row lg="4" md="3">
+              {
 
-              meals.map((meal, index) => {
-                if (index < MAX_CARDS) {
-                  return (
-                    <Link
-                      key={ index }
-                      className="recipe-link"
-                      to={ `/comidas/${meal.idMeal}` }
-                    >
-                      <RecipeCard
-                        idRecipeCard={ `${index}-recipe-card` }
-                        idImg={ `${index}-card-img` }
-                        srcImg={ meal.strMealThumb }
-                        idCardName={ `${index}-card-name` }
-                        mealName={ meal.strMeal }
-                      />
-                    </Link>
-                  );
-                }
-                return null;
-              })
-            }
+                meals.map((meal, index) => {
+                  if (index < MAX_CARDS) {
+                    return (
+                      <Link
+                        key={ index }
+                        className="recipe-link"
+                        to={ `/comidas/${meal.idMeal}` }
+                      >
+                        <RecipeCard
+                          idRecipeCard={ `${index}-recipe-card` }
+                          idImg={ `${index}-card-img` }
+                          srcImg={ meal.strMealThumb }
+                          idCardName={ `${index}-card-name` }
+                          mealName={ meal.strMeal }
+                        />
+                      </Link>
+                    );
+                  }
+                  return null;
+                })
+              }
+            </Row>
           </Container>
+          <br />
+          <br />
           <Footer className="footer orange" />
         </div>
       );
@@ -124,6 +130,7 @@ class Comidas extends Component {
           <HeaderLocation />
           <div className="d-flex justify-content-around flex-wrap">
             <Button
+              size="sm"
               className="filter-button orange"
               type="button"
               onClick={ (event) => this.handleClick(event.target.name) }
@@ -137,6 +144,7 @@ class Comidas extends Component {
                 if (index < MAX_CATEGORIES) {
                   return (
                     <Button
+                      size="sm"
                       className="filter-button orange"
                       type="button"
                       onClick={ () => this.handleClick(category.strCategory) }
@@ -158,7 +166,7 @@ class Comidas extends Component {
                 console.log(meal);
                 return (
                   <Link
-                  className="recipe-link"
+                    className="recipe-link"
                     to={ `/comidas/${meal.idMeal}` }
                   >
                     <RecipeCard
@@ -175,6 +183,8 @@ class Comidas extends Component {
             })
           }
         </Container>
+        <br />
+        <br />
         <Footer className="footer orange" />
       </div>
     );

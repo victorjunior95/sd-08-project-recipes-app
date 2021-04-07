@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
@@ -64,6 +64,7 @@ class Bebidas extends Component {
             <HeaderLocation />
             <div className="d-flex justify-content-around flex-wrap">
               <Button
+                size="sm"
                 className="filter-button orange"
                 type="submit"
                 onClick={ (event) => this.handleClick(event.target.name) }
@@ -77,6 +78,7 @@ class Bebidas extends Component {
                   if (index < MAX_CATEGORIES) {
                     return (
                       <Button
+                        size="sm"
                         className="filter-button orange"
                         type="submit"
                         onClick={ () => this.handleClick(category.strCategory) }
@@ -90,29 +92,33 @@ class Bebidas extends Component {
                 })
               }
             </div>
-            {
+            <Row lg="4" md="3">
+              {
 
-              drinks.map((drink, index) => {
-                if (index < MAX_CARDS) {
-                  return (
-                    <Link
-                      to={ `/bebidas/${drink.idDrink}` }
-                      className="recipe-link"
-                    >
-                      <RecipeCard
-                        idRecipeCard={ `${index}-recipe-card` }
-                        idImg={ `${index}-card-img` }
-                        srcImg={ drink.strDrinkThumb }
-                        idCardName={ `${index}-card-name` }
-                        mealName={ drink.strDrink }
-                      />
-                    </Link>
-                  );
-                }
-                return null;
-              })
-            }
+                drinks.map((drink, index) => {
+                  if (index < MAX_CARDS) {
+                    return (
+                      <Link
+                        to={ `/bebidas/${drink.idDrink}` }
+                        className="recipe-link"
+                      >
+                        <RecipeCard
+                          idRecipeCard={ `${index}-recipe-card` }
+                          idImg={ `${index}-card-img` }
+                          srcImg={ drink.strDrinkThumb }
+                          idCardName={ `${index}-card-name` }
+                          mealName={ drink.strDrink }
+                        />
+                      </Link>
+                    );
+                  }
+                  return null;
+                })
+              }
+            </Row>
           </Container>
+          <br />
+          <br />
           <Footer className="footer orange" />
         </div>
       );
@@ -124,6 +130,7 @@ class Bebidas extends Component {
           <HeaderLocation />
           <div className="d-flex justify-content-around flex-wrap">
             <Button
+              size="sm"
               className="filter-button orange"
               type="button"
               onClick={ (event) => this.handleClick(event.target.name) }
@@ -136,14 +143,15 @@ class Bebidas extends Component {
               drinksCategories.map((category, index) => {
                 if (index < MAX_CATEGORIES) {
                   return (
-                    <button
+                    <Button
+                      size="sm"
                       className="filter-button orange"
                       type="button"
                       onClick={ () => this.handleClick(category.strCategory) }
                       data-testid={ `${category.strCategory}-category-filter` }
                     >
                       {category.strCategory}
-                    </button>
+                    </Button>
                   );
                 }
                 return null;
@@ -173,6 +181,8 @@ class Bebidas extends Component {
             })
           }
         </Container>
+        <br />
+        <br />
         <Footer />
       </div>
     );

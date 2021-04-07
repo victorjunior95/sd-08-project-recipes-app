@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../../images/drinkIcon.svg';
 import exploreIcon from '../../images/exploreIcon.svg';
@@ -10,7 +11,7 @@ class Footer extends Component {
     const { className } = this.props;
     const arr = [];
     return (
-      <div className={className} data-testid="footer">
+      <Navbar fixed="bottom" className={className} data-testid="footer">
         <Link className="footer-icons" to="/bebidas">
           <img src={ drinkIcon } alt="drinkIcon" data-testid="drinks-bottom-btn" />
         </Link>
@@ -30,7 +31,7 @@ class Footer extends Component {
           />
         </Link>
         {arr.map((item) => item)}
-      </div>
+      </Navbar>
     );
   }
 }

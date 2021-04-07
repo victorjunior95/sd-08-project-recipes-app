@@ -32,15 +32,13 @@
   color: white;
   text-transform: uppercase;
   font-weight: bold;
-  width: 104px;
-  height: 31px;
-  font-size: 14px;
 }
 
 .filter-button.orange {
   margin: 5px 0;
   color: black;
 }
+
 
 .orange {
   background-color: #F7C838;
@@ -60,9 +58,8 @@
 }
 
 .linkImage {
-  justify-content: center;
   margin-top: 10px;
-  width: 80%;
+  max-width: 80%;
 }
 
 .linkVideo {
@@ -146,18 +143,6 @@
 }
 */
 
-<<<<<<< HEAD
-=======
-.footer {
-  background-color: rgba(57, 62, 65, 0.3);
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  width: 50vw;
-}
-
->>>>>>> 060187bb4ba7aefe7f5562e1782fe64da708527b
 .notFound {
   background-image: url('https://zlionbrasil.com.br/img/icons/404.png');
   background-size: cover;

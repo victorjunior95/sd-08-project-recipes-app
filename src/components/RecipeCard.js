@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Image } from 'react-bootstrap';
 
 class RecipeCard extends React.Component {
   render() {
@@ -7,7 +8,8 @@ class RecipeCard extends React.Component {
     return (
       <div data-testid={ idRecipeCard }>
         <center>
-          <img
+          <Image
+            thumbnail
             data-testid={ idImg }
             src={ srcImg }
             alt="recipe pic"

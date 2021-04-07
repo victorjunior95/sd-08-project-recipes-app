@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { validateLogin, saveOnStorage } from '../../services/utils';
 import { redirectLogin } from '../../redux/actions';
 
-import './LoginPage.css';
+import './LoginPage.scss';
 import quatorzeBis from '../../images/14Bis.png';
 
 function enterButtonActions(email, dispatch) {
@@ -30,8 +30,8 @@ export default function LoginPage() {
   }
   return (
     <div className="login-page">
+      <div className="logo"><img src={ quatorzeBis } alt="Logo Quatorze Bis" /></div>
       <form>
-        <div className="logo"><img src={ quatorzeBis } alt="Logo Quatorze Bis" /></div>
         <input
           data-testid="email-input"
           type="email"

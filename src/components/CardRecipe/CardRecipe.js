@@ -18,7 +18,7 @@ const CardRecipe = ({
   tags,
   favorite = false,
 }) => {
-  const {setFavoriteRecipes} =useContext(Context)
+  const { setFavoriteRecipes } = useContext(Context);
   const history = useHistory();
   const [saveClipBoard, setSaveClipBoard] = useState(false);
   const savetoClipboard = (id, type) => {
@@ -28,15 +28,15 @@ const CardRecipe = ({
     setSaveClipBoard(true);
   };
 
-  const removeFav = ()=>{
-    const idDoObj = id
-    if(localStorage.getItem('favoriteRecipes')){
-      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'))
-      const filterFav = favorites.filter(ele=>ele.id !==idDoObj )
-      localStorage.setItem('favoriteRecipes',JSON.stringify(filterFav))
-      setFavoriteRecipes(filterFav)
-     }
+  const removeFav = () => {
+    const idDoObj = id;
+    if (localStorage.getItem('favoriteRecipes')) {
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const filterFav = favorites.filter((ele) => ele.id !== idDoObj);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filterFav));
+      setFavoriteRecipes(filterFav);
     }
+  };
   const redirectToDetails = (type, id) => {
     history.push(`/${type}s/${id}`);
   };
@@ -87,17 +87,21 @@ const CardRecipe = ({
             ))}
         </div>
       </div>
-      <button
+      <button        
         type="button"
         className="card-icon-share"
         src={ShareIcon}
         onClick={() => savetoClipboard(id, type)}
         data-testid={`${index}-horizontal-share-btn`}
       >
-        <img src={ShareIcon} />
+        <img src={ShareIcon} id="btn-share" />
       </button>
       {favorite && (
-        <button className="btn-favorite" type="button" onClick = {()=>removeFav()}>
+        <button
+          className="btn-favorite"
+          type="button"
+          onClick={() => removeFav()}
+        >
           <img
             src={blackHeartIcon}
             alt="Profile icon"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header/Header';
 import './recipesFavDone.css';
@@ -7,10 +7,9 @@ import { useHistory } from 'react-router';
 import Context from '../../contextApi/Context';
 
 const RecipesFavDone = ({ title, visible }) => {
-  const history  = useHistory()
-  const {favoriteRecipes, setFavoriteRecipes} = useContext(Context)
+  const history = useHistory();
+  const { favoriteRecipes, setFavoriteRecipes } = useContext(Context);
   const [doneRecipes, setDoneRecipes] = useState([]);
- 
 
   useEffect(() => {
     if (localStorage.getItem('doneRecipes') === null) {
@@ -25,49 +24,49 @@ const RecipesFavDone = ({ title, visible }) => {
     setFavoriteRecipes(localFavorite);
   }, []);
 
-  const filterBy = (type)=>{
-    if(localStorage.getItem('doneRecipes') && title === 'Receitas Feitas'){
-      if(type === 'food'){
-        
-        const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
-         const filterFood = getRecipes.filter(({type})=>type ==='comida' )
-         setDoneRecipes(filterFood) 
-      }else if(type === 'drink'){
-        const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
-        const filterDrink = getRecipes.filter(({type})=>type ==='bebida' )
-        setDoneRecipes(filterDrink) 
-      }else if(type === 'all'){
-        const getRecipes =JSON.parse(localStorage.getItem('doneRecipes'))
-        setDoneRecipes(getRecipes)
-
+  const filterBy = (type) => {
+    if (localStorage.getItem('doneRecipes') && title === 'Receitas Feitas') {
+      if (type === 'food') {
+        const getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+        const filterFood = getRecipes.filter(({ type }) => type === 'comida');
+        setDoneRecipes(filterFood);
+      } else if (type === 'drink') {
+        const getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+        const filterDrink = getRecipes.filter(({ type }) => type === 'bebida');
+        setDoneRecipes(filterDrink);
+      } else if (type === 'all') {
+        const getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+        setDoneRecipes(getRecipes);
       }
     }
-    if(localStorage.getItem('favoriteRecipes') && title === 'Receitas Favoritas'){
-      if(type === 'food'){
-        
-        const getRecipes =JSON.parse(localStorage.getItem('favoriteRecipes'))
-         const filterFood = getRecipes.filter(({type})=>type ==='comida' )
-         setFavoriteRecipes(filterFood) 
-      }else if(type === 'drink'){
-        const getRecipes =JSON.parse(localStorage.getItem('favoriteRecipes'))
-        const filterDrink = getRecipes.filter(({type})=>type ==='bebida' )
-        setFavoriteRecipes(filterDrink) 
-      }else if(type === 'all'){
-        const getRecipes =JSON.parse(localStorage.getItem('favoriteRecipes'))
-        setFavoriteRecipes(getRecipes)
-
+    if (
+      localStorage.getItem('favoriteRecipes') &&
+      title === 'Receitas Favoritas'
+    ) {
+      if (type === 'food') {
+        const getRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const filterFood = getRecipes.filter(({ type }) => type === 'comida');
+        setFavoriteRecipes(filterFood);
+      } else if (type === 'drink') {
+        const getRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const filterDrink = getRecipes.filter(({ type }) => type === 'bebida');
+        setFavoriteRecipes(filterDrink);
+      } else if (type === 'all') {
+        const getRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        setFavoriteRecipes(getRecipes);
       }
     }
-  }
-  
-  const redirectTo = (id,type)=>{
-    if(type === 'comida'){
-      history.push(`/comidas/${id}`)
-    }else{
-      history.push(`/bebidas/${id}`)
-    }
+  };
 
-  }
+  const redirectTo = ({ target }, id, type) => {
+    if (target.id !== 'btn-share') {
+      if (type === 'comida') {
+        history.push(`/comidas/${id}`);
+      } else {
+        history.push(`/bebidas/${id}`);
+      }
+    }
+  };
   return (
     <div>
       <Header title={title} visible={visible} />
@@ -79,7 +78,7 @@ const RecipesFavDone = ({ title, visible }) => {
         <button
           type="button"
           className="btn btn-info"
-          onClick ={()=>filterBy('all')}
+          onClick={() => filterBy('all')}
           data-testid="filter-by-all-btn"
         >
           All
@@ -87,7 +86,7 @@ const RecipesFavDone = ({ title, visible }) => {
         <button
           type="button"
           className="btn btn-info"
-          onClick ={()=>filterBy('food')}
+          onClick={() => filterBy('food')}
           data-testid="filter-by-food-btn"
         >
           Food
@@ -95,7 +94,7 @@ const RecipesFavDone = ({ title, visible }) => {
         <button
           type="button"
           className="btn btn-info"
-          onClick ={()=>filterBy('drink')}
+          onClick={() => filterBy('drink')}
           data-testid="filter-by-drink-btn"
         >
           Drinks
@@ -104,20 +103,24 @@ const RecipesFavDone = ({ title, visible }) => {
       {title === 'Receitas Feitas' &&
         doneRecipes.length > 0 &&
         doneRecipes.map((recipe, index) => (
-           <button className="btn-recipes" key={index}  onClick = {()=>redirectTo(recipe.id,recipe.type)}>
-          <CardRecipe
+          <button
+            className="btn-recipes"
             key={index}
-            id={recipe.id}
-            type={recipe.type}
-            index={index}
-            image={recipe.image}
-            alcoholicOrNot={recipe.alcoholicOrNot}
-            area={recipe.area}
-            category={recipe.category}
-            name={recipe.name}
-            doneDate={recipe.doneDate}
-            tags={recipe.tags}
-          />
+            onClick={(e) => redirectTo(e, recipe.id, recipe.type)}
+          >
+            <CardRecipe
+              key={index}
+              id={recipe.id}
+              type={recipe.type}
+              index={index}
+              image={recipe.image}
+              alcoholicOrNot={recipe.alcoholicOrNot}
+              area={recipe.area}
+              category={recipe.category}
+              name={recipe.name}
+              doneDate={recipe.doneDate}
+              tags={recipe.tags}
+            />
           </button>
         ))}
       {title === 'Receitas Favoritas' &&

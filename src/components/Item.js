@@ -44,12 +44,23 @@ export default class Item extends Component {
       <div>
         {
           type === 'bebidas'
-          && results && <ItemsDetails type="Drink" pathname={ pathname } history={ history } result={ results[0] } />
+          && results
+          && <ItemsDetails
+            type="Drink"
+            pathname={ pathname }
+            history={ history }
+            result={ results[0] }
+          />
 
         }
         {
           type === 'comidas' && results
-          && <ItemsDetails type="Meal" pathname={ pathname } history={ history } result={ results[0] } />
+          && <ItemsDetails
+            type="Meal"
+            pathname={ pathname }
+            history={ history }
+            result={ results[0] }
+          />
         }
       </div>
     );
@@ -70,4 +81,10 @@ Item.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
+  history: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+    PropTypes.number,
+    PropTypes.object,
+  ])).isRequired,
 };

@@ -9,16 +9,15 @@ import recomendationThunkDrinks from '../redux/actions/recomendationDrinks';
 function Recomendation() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const arrayRecipes = pathname.split('/')[1];
 
   const { recomendation } = useSelector((state) => state.recomendation);
 
   useEffect(() => {
     let fetchData = '';
-    if (arrayRecipes === 'bebidas') {
+    if (pathname.split('/')[1] === 'bebidas') {
       fetchData = () => dispatch(recomendationThunk(''));
     }
-    if (arrayRecipes === 'comidas') {
+    if (pathname.split('/')[1] === 'comidas') {
       fetchData = () => dispatch(recomendationThunkDrinks(''));
     }
     fetchData('');
@@ -28,7 +27,7 @@ function Recomendation() {
     <Carousel>
       {recomendation.map((element, index) => (
         <div key={ index } data-testid={ `${index}-recomendation-card` }>
-          {arrayRecipes === 'comidas'
+          {pathname.split('/')[1] === 'comidas'
             ? (
               <div>
                 <img src={ element.strDrinkThumb } alt="drink" />
@@ -36,7 +35,7 @@ function Recomendation() {
               </div>
             ) : (
               <div>
-                <img src={ element.strMealThumb } alt="drink" />
+                <img src={ element.strMealThumb } alt="meal" />
                 <p data-testid={ `${index}-recomendation-title` }>{element.strMeal}</p>
               </div>
             )}

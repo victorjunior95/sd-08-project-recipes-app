@@ -13,7 +13,7 @@ function DrinkCatsButtons() {
     const fetchData = () => dispatch(fetchDrinkCatsThunk());
     fetchData();
   }, []);
-  const drinkFilter = useSelector((state) => state.search.drinkFilter);
+  const { drinkFilter } = useSelector((state) => state.search);
 
   function handleClick({ target }) {
     if (drinkFilter !== target.value) {
@@ -27,7 +27,7 @@ function DrinkCatsButtons() {
   return (
     <div>
       { drinks && drinks.map((elem, index) => (
-        index < FIVE ? (
+        (index < FIVE) && (
           <button
             type="button"
             key={ elem.strCategory }
@@ -37,7 +37,7 @@ function DrinkCatsButtons() {
           >
             { elem.strCategory }
           </button>
-        ) : ''
+        )
       ))}
       <button
         type="button"

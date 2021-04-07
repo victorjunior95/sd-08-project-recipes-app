@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import likedBtn from '../images/blackHeartIcon.svg';
-import favoriteRecipesAction from '../redux/actions/favoriteRecipeAction';
 
 export default function FavoritePageLikeBtn({
   dataTestId,
@@ -10,7 +8,6 @@ export default function FavoritePageLikeBtn({
   reRender,
   setReRender,
 }) {
-  const dispatch = useDispatch();
   const recipeStorage = (localStorage.getItem('favoriteRecipes'))
     ? JSON.parse(localStorage.getItem('favoriteRecipes'))
     : [];
@@ -19,7 +16,6 @@ export default function FavoritePageLikeBtn({
     localStorage.setItem('favoriteRecipes', JSON
       .stringify(recipeStorage.filter((e) => e.id !== recipeId)));
     setReRender(!reRender);
-    dispatch(favoriteRecipesAction(recipeStorage.filter((e) => e.id !== recipeId)));
   }
 
   return (

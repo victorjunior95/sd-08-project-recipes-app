@@ -34,7 +34,7 @@ class ItemsDetails extends Component {
     this.setState({
       copied: true,
     }, () => {
-      setInterval(() => {
+      setTimeout(() => {
         this.setState({ copied: false });
       }, TWO_SECOND);
     });

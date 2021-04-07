@@ -61,3 +61,7 @@ a {
 span {
   font-size: 1.4rem;
 }
+
+img {
+  max-width: 200px;
+}

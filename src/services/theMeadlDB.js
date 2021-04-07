@@ -82,3 +82,11 @@ export async function getMealsByIngredient(ingredient) {
   const { meals } = data;
   return meals;
 }
+
+export async function getRandomMeal() {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { meals } = data;
+  return meals[0];
+}

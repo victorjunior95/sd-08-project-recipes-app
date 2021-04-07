@@ -67,3 +67,11 @@ export async function getDrinksByIngredient(ingredient) {
   const { drinks } = data;
   return drinks;
 }
+
+export async function getRandomDrink() {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const response = await fetch(URL);
+  const data = await response.json();
+  const { drinks } = data;
+  return drinks[0];
+}

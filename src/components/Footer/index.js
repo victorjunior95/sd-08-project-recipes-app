@@ -37,11 +37,12 @@ function Footer() {
           width="40px"
           onClick={ goToDrinksPage }
         />
-        <Navbar.Brand href="/explorar">
+        <Navbar.Brand href="/explorar" className="m-0">
           <img
             src={ exploreIcon }
             alt="Link para exploração"
             data-testid="explore-bottom-btn"
+            width="40px"
           />
         </Navbar.Brand>
         <input

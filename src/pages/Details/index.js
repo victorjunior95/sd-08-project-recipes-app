@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useIsMeal } from '../../services/customHooks';
 import { fetchDetails, fetchDrinks, fetchMeal } from '../../services/API';
 import { saveActualRecipe, saveRecommendations } from '../../redux/actions/details';
-import './details.css';
+import './details.scss';
 
 import Loading from '../../components/Loading/Loading';
 import CoverImg from '../../components/Details/CoverImg';
@@ -45,14 +45,18 @@ function Details() {
   return (
     <main className="recipe-details">
       <CoverImg />
-      <div className="upper-container">
-        <Title />
-        <ShareFavBtn />
+      <div className="general-container">
+        <div className="upper-container">
+          <Title />
+          <ShareFavBtn />
+        </div>
+        <div className="recipe-description">
+          <IngredientsList />
+          <InstructionsText />
+          { isMeal && <YTVideo /> }
+          <Recommendations />
+        </div>
       </div>
-      <IngredientsList />
-      <InstructionsText />
-      { isMeal && <YTVideo /> }
-      <Recommendations />
       <DynamicButton />
     </main>
   );

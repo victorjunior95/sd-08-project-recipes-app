@@ -26,5 +26,5 @@ FoodCard.propTypes = {
     strMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
   }).isRequired,
-  order: PropTypes.number.isRequired,
+  order: PropTypes.string.isRequired,
 };

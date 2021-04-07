@@ -27,10 +27,10 @@ export default function FoodDetails({ match: { params } }) {
 
   useEffect(() => {
     initFavoriteRecipes();
-  });
+  }, [storageRecipe]);
 
   const getFavoriteRecipes = useCallback(() => (
-    storageRecipe === null ? [] : storageRecipe
+    storageRecipe === null ? '[]' : storageRecipe
       .some((item) => item.id === id && setFavorite(true))), [id, storageRecipe]);
 
   function favoriteRecipe() {

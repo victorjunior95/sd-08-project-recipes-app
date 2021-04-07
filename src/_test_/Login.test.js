@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
+import Login from '../Pages/Login';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 
 describe('Tests login page', () => {
@@ -10,7 +10,7 @@ describe('Tests login page', () => {
       getByText,
       getByLabelText,
       getByRole,
-    } = renderWithRouterAndRedux(<App />);
+    } = renderWithRouterAndRedux(<Login />);
 
     expect(getByText(/trybe/i)).toBeInTheDocument();
     expect(getByRole('button', { name: /entrar/i })).toBeDisabled();
@@ -26,7 +26,7 @@ describe('Tests login page', () => {
     const {
       getByLabelText,
       getByRole,
-    } = renderWithRouterAndRedux(<App />);
+    } = renderWithRouterAndRedux(<Login />);
 
     expect(getByRole('button', { name: /entrar/i })).toBeDisabled();
     userEvent.type(getByLabelText(/email/i), 'user2@email.com');
@@ -38,7 +38,7 @@ describe('Tests login page', () => {
     const {
       getByLabelText,
       getByRole,
-    } = renderWithRouterAndRedux(<App />);
+    } = renderWithRouterAndRedux(<Login />);
     localStorage.clear();
 
     expect(localStorage.getItem('mealsToken')).toBe(null);
@@ -56,7 +56,7 @@ describe('Tests login page', () => {
     const {
       getByLabelText,
       getByRole,
-    } = renderWithRouterAndRedux(<App />);
+    } = renderWithRouterAndRedux(<Login />);
     localStorage.clear();
 
     expect(localStorage.getItem('user')).toBe(null);

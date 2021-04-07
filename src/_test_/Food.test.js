@@ -87,9 +87,6 @@ describe('<Comidas />', () => {
   });
 
   it('Caso a busca não retornar nenhuma receita exibir um alert', async () => {
-    // jest.spyOn(global, 'alert').mockImplementation((alert) => console.log(alert));
-    window.alert = jest.fn();
-
     renderWithRouterAndRedux(<Comidas />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));

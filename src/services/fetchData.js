@@ -5,6 +5,7 @@ const END_POINTS = {
     region: 'https://www.themealdb.com/api/json/v1/1/filter.php?a=',
     regions: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
     ingredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+    ingredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
     name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     byLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
@@ -16,6 +17,7 @@ const END_POINTS = {
     region: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=',
     regions: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     ingredients: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+    ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     byLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     filterCategory: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
@@ -37,12 +39,18 @@ export const getMealsByLetter = (byLetter) => fetchAPI(`${END_POINTS.FOODS
 export const getDrinksByLetter = (byLetter) => fetchAPI(`${END_POINTS.DRINKS
   .byLetter}${byLetter}`);
 
-export const getMealsIngredients = (ingredient = '') => fetchAPI(`${END_POINTS
+export const getMealsIngredient = (ingredient) => fetchAPI(`${END_POINTS
+  .FOODS
+  .ingredient}${ingredient}`);
+export const getMealsIngredients = (ingredient) => fetchAPI(`${END_POINTS
   .FOODS
   .ingredients}${ingredient}`);
 
 export const getDrinksIngredients = (ingredient) => fetchAPI(`${END_POINTS.DRINKS
   .ingredients}${ingredient}`);
+
+export const getDrinksIngredient = (ingredient) => fetchAPI(`${END_POINTS.DRINKS
+  .ingredient}${ingredient}`);
 
 export const getMealsByCategories = () => fetchAPI(END_POINTS.FOODS.category);
 

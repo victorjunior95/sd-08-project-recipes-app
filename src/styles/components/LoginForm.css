@@ -43,3 +43,9 @@
   margin-top: 10px;
 }
 
+.start-btn {
+  background-color: #fd951f;
+  bottom: 0;
+  font-size: 40px;
+  position: fixed;
+}

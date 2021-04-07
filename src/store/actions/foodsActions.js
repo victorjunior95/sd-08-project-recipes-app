@@ -1,7 +1,7 @@
 import {
   getMealsByLetter,
   getMealsByName,
-  getMealsIngredients,
+  getMealsIngredient,
   getMealsByRandom,
   getMealsByCategories,
   getMealsByCategory,
@@ -31,7 +31,7 @@ const recipeFetchErrored = (error) => ({
 });
 
 const createFood = (value) => ({
-  ingredient: getMealsIngredients(value),
+  ingredient: getMealsIngredient(value),
   name: getMealsByName(value),
   firstLetter: getMealsByLetter(value),
 });
@@ -39,6 +39,7 @@ const createFood = (value) => ({
 export const getMealsBySearch = ({ search, searchRadio }) => (dispatch) => {
   dispatch(recipeFetch());
   const fetch = createFood(search);
+
   fetch[searchRadio]
     .then((data) => dispatch(recipeFetchSuccess(data.meals)))
     .catch((error) => dispatch(recipeFetchErrored(error)));

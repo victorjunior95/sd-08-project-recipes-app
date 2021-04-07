@@ -39,7 +39,7 @@ export default function Ingredients({ path }) {
 
   function renderMealsIng() {
     return (
-      <div>
+      <div className="ingredients-explore-cards">
         {ingredients.map((element, index) => (
           <button
             type="button"
@@ -64,7 +64,7 @@ export default function Ingredients({ path }) {
 
   function renderDrinksIng() {
     return (
-      <div>
+      <div className="ingredients-explore-cards">
         {ingredients.map((element, index) => (
           <button
             className="card"
@@ -88,7 +88,7 @@ export default function Ingredients({ path }) {
   }
 
   return (
-    <main>
+    <main className="ingredients-explore">
       {isLoading && (<Loading />)}
       {path === 'comidas' && renderMealsIng()}
       {path === 'bebidas' && renderDrinksIng()}

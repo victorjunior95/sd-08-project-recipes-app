@@ -25,8 +25,8 @@ export default function Origin() {
   }, [areaSelected]);
 
   return (
-    <main>
-      <section>
+    <main className="origin-explore">
+      <section className="origin-explore-selection">
         <select
           data-testid="explore-by-area-dropdown"
           onChange={ (e) => setAreaSelected(e.target.value) }
@@ -41,11 +41,13 @@ export default function Origin() {
           ))}
         </select>
       </section>
-      {recipes
-        .map((meal, index) => (<Card
-          key={ meal.idMeal }
-          data={ { meal, index, recipeCard: '-recipe-card' } }
-        />))}
+      <section className="card-grid">
+        {recipes
+          .map((meal, index) => (<Card
+            key={ meal.idMeal }
+            data={ { meal, index, recipeCard: '-recipe-card' } }
+          />))}
+      </section>
     </main>
   );
 }

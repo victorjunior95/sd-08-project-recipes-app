@@ -4,13 +4,10 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import copy from 'clipboard-copy';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
-// svg && icon
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
-// Components
 import Recommendation from './Recommendation';
+import IngredientList from './IngredientList';
 
 class ItemsDetails extends Component {
   constructor() {
@@ -19,11 +16,11 @@ class ItemsDetails extends Component {
       copied: false,
       favorited: false,
     };
-
     this.handleClick = this.handleClick.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleFav = this.handleFav.bind(this);
     this.handleBlackIcon = this.handleBlackIcon.bind(this);
+    this.ingredientesComQuantidades = this.ingredientesComQuantidades.bind(this);
   }
 
   componentDidMount() {
@@ -32,32 +29,53 @@ class ItemsDetails extends Component {
 
   handleClick() {
     const { pathname } = this.props;
+    const TWO_SECOND = 2000;
     copy(`http://localhost:3000${pathname}`);
     this.setState({
       copied: true,
+    }, () => {
+      setInterval(() => {
+        this.setState({ copied: false });
+      }, TWO_SECOND);
     });
   }
 
   handleProgress(type, id) {
     const { history } = this.props;
-    if (type === 'Meal') {
-      return history.push(`/comidas/${id}/in-progress`);
-    }
+    if (type === 'Meal') return history.push(`/comidas/${id}/in-progress`);
     return history.push(`/bebidas/${id}/in-progress`);
   }
 
-  handleFav(id) {
+  handleFav(result, type) {
+    const itemId = result[`id${type}`];
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorites) {
-      const checkFav = favorites.find((favId) => favId.id === id);
+      const checkFav = favorites.find((favId) => favId.id === itemId);
       if (checkFav !== undefined) {
-        const filterFav = favorites.filter((favorite) => id !== favorite.id);
+        const filterFav = favorites.filter((favorite) => itemId !== favorite.id);
         return localStorage.setItem('favoriteRecipes', JSON.stringify(filterFav));
       }
-      const fav = [...favorites, { id }];
+      const fav = [...favorites,
+        {
+          id: result[`id${type}`],
+          type: (type === 'Meal' ? 'comida' : 'bebida'),
+          area: result.strArea || '',
+          category: result.strCategory,
+          alcoholicOrNot: result.strAlcoholic || '',
+          name: result[`str${type}`],
+          image: result[`str${type}Thumb`],
+        }];
       return localStorage.setItem('favoriteRecipes', JSON.stringify(fav));
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify([{ id }]));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([{
+      id: result[`id${type}`],
+      type: (type === 'Meal' ? 'comida' : 'bebida'),
+      area: result.strArea || '',
+      category: result.strCategory,
+      alcoholicOrNot: result.strAlcoholic || '',
+      name: result[`str${type}`],
+      image: result[`str${type}Thumb`],
+    }]));
   }
 
   handleBlackIcon() {
@@ -66,17 +84,13 @@ class ItemsDetails extends Component {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     let checkFav = false;
     if (favorites) checkFav = favorites.find((favId) => favId.id === id);
-    if (!checkFav || checkFav === undefined) {
-      return this.setState({ favorited: false });
-    }
+    if (!checkFav || checkFav === undefined) return this.setState({ favorited: false });
     return this.setState({ favorited: true });
   }
 
   juntar(chave, itemValue) {
     return Object.entries(itemValue).map((nome) => {
-      if (nome[0].includes(chave)) {
-        return nome[1];
-      }
+      if (nome[0].includes(chave)) return nome[1];
       return undefined;
     }).filter((element) => element !== undefined);
   }
@@ -86,29 +100,31 @@ class ItemsDetails extends Component {
     if (type === 'Meal' && inLocalStorage && inLocalStorage.meals) {
       const filterId = Object.keys(inLocalStorage.meals)
         .find((localId) => id === localId);
-      if (filterId) {
-        return 'Continuar Receita';
-      }
+      if (filterId) return 'Continuar Receita';
     }
     if (type === 'Drink' && inLocalStorage && inLocalStorage.cocktails) {
       const filterId = Object.keys(inLocalStorage.cocktails)
         .find((localId) => id === localId);
-      if (filterId) {
-        return 'Continuar Receita';
-      }
+      if (filterId) return 'Continuar Receita';
     }
     return 'Iniciar Receita';
   }
 
   ingredientesComQuantidades(itemValue) {
+    const { pathname } = this.props;
     const ingredient = this.juntar('strIngredient', itemValue);
     const measure = this.juntar('strMeasure', itemValue);
+    const splitUrl = pathname.split('/')[3];
     return ingredient.map((nome, index) => {
       if (nome) {
         return (
-          <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+          <IngredientList
+            splitUrl={ splitUrl }
+            key={ index }
+            index={ index }
+          >
             {`${nome} - ${measure[index]}`}
-          </p>
+          </IngredientList>
         );
       }
       return undefined;
@@ -152,7 +168,6 @@ class ItemsDetails extends Component {
           alt="img"
           width="70px"
         />
-
         {result.strAlcoholic ? (
           <p data-testid="recipe-category">
             {result.strAlcoholic}
@@ -162,7 +177,6 @@ class ItemsDetails extends Component {
             {result.strCategory}
           </p>
         )}
-
         <button type="button" onClick={ this.handleClick } data-testid="share-btn">
           <img src={ shareIcon } alt="share icon" />
         </button>
@@ -170,7 +184,7 @@ class ItemsDetails extends Component {
         <button
           type="button"
           onClick={ () => {
-            this.handleFav(result[`id${type}`]);
+            this.handleFav(result, type);
             this.handleBlackIcon(result[`id${type}`]);
           } }
         >
@@ -199,7 +213,6 @@ class ItemsDetails extends Component {
           {result.strInstructions}
         </p>
         <Recommendation />
-
         <Button
           className="start-recipe-btn"
           data-testid="start-recipe-btn"
@@ -226,6 +239,11 @@ ItemsDetails.propTypes = {
     PropTypes.number,
   ])).isRequired,
   pathname: PropTypes.string.isRequired,
-  history: PropTypes.string.isRequired,
-  push: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+};
+
+ItemsDetails.defaultProps = {
+  history: undefined,
 };

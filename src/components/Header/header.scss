@@ -1,0 +1,33 @@
+header {
+  top: 0;
+  position: fixed;
+  background-color: #fa9c38;
+  color: white;
+  width: 100%;
+  z-index: 100;
+  nav{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    h1{
+      position: fixed;
+      margin: 0 0 0 10%;
+      text-align: center;
+      width: 80%;
+    }
+  }
+  .searchButton{
+    background-color: #fa9c38;
+    border: none;
+    width: 45px;
+    border-radius: 50%;
+    padding: 2px;
+    // box-shadow: 3px 3px 5px rgba(228, 221, 203, 0.986);
+    margin-bottom: -12px;
+  .searchIcon {
+    padding: 5px;
+    position: static;
+  }
+}
+}

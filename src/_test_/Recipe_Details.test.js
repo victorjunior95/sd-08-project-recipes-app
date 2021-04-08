@@ -1,6 +1,5 @@
 import React from 'react';
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
 import mockFetch from '../../cypress/mocks/fetch';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 import Details from '../Pages/Details/Details';

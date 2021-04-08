@@ -35,7 +35,7 @@ function RecipesMade() {
         currentFilter={ currentFilter }
         setCurrentFilter={ setCurrentFilter }
       />
-      {doneRecipesList.map(({
+      {doneRecipesList && doneRecipesList.map(({
         id, type, area, category, alcoholicOrNot,
         name, image, doneDate, tags,
       }, index) => (

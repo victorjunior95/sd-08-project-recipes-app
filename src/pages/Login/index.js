@@ -20,6 +20,7 @@ export default function Login() {
     setLocalStorage('cocktailsToken', 1);
     setLocalStorage('user', userEmail);
     setLocalStorage('inProgressRecipes', IN_PROGRESS_RECIPES);
+    setLocalStorage('doneRecipes', []);
     setRedirect(true);
   };
 

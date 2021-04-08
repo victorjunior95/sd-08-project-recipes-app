@@ -17,7 +17,7 @@ describe('1 - Implemente os elementos da tela de explorar bebidas ou comidas res
     expect(await findByTestId(`explore-surprise`)).toHaveTextContent('Me Surpreenda!');
   });
 
-  it.skip('Tem os data-testids corretos para a tela de explorar bebidas', async () => {
+  test.skip('Tem os data-testids corretos para a tela de explorar bebidas', async () => {
     const { findByTestId  } = renderWithRouter(<ExplorerFoodsDrinks title="Explorar Bebidas" visible={ false } />);
 
     expect(await findByTestId(`explore-by-ingredient`)).toBeInTheDocument();
@@ -67,32 +67,64 @@ describe('3 - Redirecione a pessoa usuária ao clicar em "Por Local de Origem", 
   });
 });
 
-// describe('4 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rota deve mudar para a tela de detalhes de uma receita, que deve ser escolhida de forma aleatória através da API', () => {
-//   it('Ao clicar no botão "Por Ingredientes" da tela de explorar comidas a rota muda para a página de detalhes de uma comida aleatória', async () => {
-//     const { findByTestId, history  } = renderWithRouter(<ExplorerFoodsDrinks title="Explorar Bebidas" visible={ false } />);
+describe('4 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rota deve mudar para a tela de detalhes de uma receita, que deve ser escolhida de forma aleatória através da API', () => {
+  test('Ao clicar no botão "Por Ingredientes" da tela de explorar comidas a rota muda para a página de detalhes de uma comida aleatória', async () => {
 
-//     const onBeforeLoad = (win) => {
-//       win.fetch = fetchMock;
-//     }
-//     onBeforeLoad(history)
+    const retrieveFoodOrDrink =     
+    {
+      "meals": [
+        {
+          "idMeal": "52959",
+          "strMeal": "Baked salmon with fennel & tomatoes",
+        }
+      ]
+    }
 
-//     const exploreSurpriseButton = await findByTestId(`explore-surprise`)
+    jest.spyOn(global, "fetch")
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(retrieveFoodOrDrink),
+    });
 
-//     fireEvent.click(exploreSurpriseButton)
+    const { findByTestId, history  } = renderWithRouter(<ExplorerFoodsDrinks title="Explorar Comidas" visible={ false } />);
 
-//     const { pathname } = history.location;
-//     expect(pathname).toBe('/');
-//   });
+    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/random.php');
 
-//   // it('Ao clicar no botão "Explorar Bebidas" da tela de explorar bebidas a rota muda para a página de detalhes de uma bebida aleatória', () => {
-//   //   cy.visit('http://localhost:3000/explorar/bebidas', {
-//   //     onBeforeLoad(win) {
-//   //       win.fetch = fetchMock;
-//   //     },
-//   //   });
+    const exploreSurpriseButton = await findByTestId(`explore-surprise`)
 
-//   //   cy.get('[data-testid="explore-surprise"]').click();
-//   //   cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/178319'));
-//   // });
-// });
+    fireEvent.click(exploreSurpriseButton)
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/comidas/52959');
+  });
+
+  test('Ao clicar no botão "Explorar Bebidas" da tela de explorar bebidas a rota muda para a página de detalhes de uma bebida aleatória', async () => {
+    const retrieveFoodOrDrink =     
+    {
+      "drinks": [
+        {
+          'idDrink': '178319',
+          'strDrink': 'Aquamarine',
+        }
+      ]
+    }
+
+    jest.spyOn(global, "fetch")
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(retrieveFoodOrDrink),
+    });
+
+    const { findByTestId, history  } = renderWithRouter(<ExplorerFoodsDrinks title="Explorar Bebidas" visible={ false } />);
+
+    expect(global.fetch).toBeCalledTimes(2);
+    expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/random.php');
+
+    const exploreSurpriseButton = await findByTestId(`explore-surprise`)
+
+    fireEvent.click(exploreSurpriseButton)
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/bebidas/178319');
+  });
+});
 

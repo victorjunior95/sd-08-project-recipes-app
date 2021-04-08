@@ -78,14 +78,6 @@ function ProgressoComida() {
     return setFav(true);
   };
 
-  // const selectInstruction = ({ name }) => {
-  //   const objectFoodAndDrinks = {
-  //     meals: {
-  //         id-da-comida: [lista-de-ingredientes-utilizados],
-  //     }
-  //   const saveLocal =
-  // };
-
   return (
     toRender
     && (

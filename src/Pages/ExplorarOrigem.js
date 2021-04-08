@@ -77,10 +77,10 @@ function ExplorarOrigem() {
     );
   }
 
-  if ((foodsArray === null && loadingAPI === 'fulfilled')
-    || loadingAPI === 'rejected') {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
+  // if ((foodsArray === null && loadingAPI === 'fulfilled')
+  //   || loadingAPI === 'rejected') {
+  //   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  // }
 
   return (
     <>

@@ -60,7 +60,7 @@ function ExplorarIngredientes() {
   return (
     <>
       <Header title="Explorar Ingredientes" searchType="none" />
-      <h2>Carregando....</h2>
+      <h2>Carregando...</h2>
       <Footer />
     </>
   );

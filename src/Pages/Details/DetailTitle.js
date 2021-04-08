@@ -72,6 +72,7 @@ function DetailTitle(props) {
         <Col className="d-flex justify-content-end align-items-start">
           <Button
             variant="link"
+            data-testid="shareBtn"
             onClick={ () => {
               setShow(true);
               navigator.clipboard.writeText(link(url));

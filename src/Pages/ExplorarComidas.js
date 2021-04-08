@@ -1,26 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItem } from '../store/apiSlice';
-import { buttonSurprise } from '../store/surpriseSlice';
 import Header from './Header';
 import Footer from './Footer';
 
 function ExplorarComidas() {
+  const [surprise, setSurprise] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const surprise = useSelector((state) => state.surprise.surpriseRedirect);
   const loadingAPI = useSelector((state) => state.api.loading);
   const data = useSelector((state) => state.api.data.meals);
 
   const surpriseButton = () => {
     dispatch(fetchItem('https://www.themealdb.com/api/json/v1/1/random.php'));
-    dispatch(buttonSurprise());
+    setSurprise(true);
   };
 
   if (loadingAPI === 'fulfilled' && surprise) {
-    dispatch(buttonSurprise());
+    setSurprise(false);
     history.push(`/comidas/${data[0].idMeal}`);
   }
 

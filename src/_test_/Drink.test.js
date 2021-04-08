@@ -88,22 +88,24 @@ describe('<Bebidas />', () => {
   });
 
   it('Caso a busca não retornar nenhuma receita exibir um alert', async () => {
-    window.alert = jest.fn();
-
-    renderWithRouterAndRedux(<Bebidas />);
+    renderWithRouterAndRedux(<Bebidas />, {
+      initialEntries: ['/Bebidas'],
+    });
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
     const searchButton = screen.getByAltText(/pesquisar/i);
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByLabelText(/pesquisar/i);
+    const searchInput = screen.getByTestId('search-input');
     userEvent.type(searchInput, 'XABLAU');
+
+    userEvent.click(screen.getByTestId('name-search-radio'));
+    userEvent.click(screen.getByTestId('first-letter-search-radio'));
+    userEvent.click(screen.getByTestId('ingredient-search-radio'));
 
     const findButton = screen.getByTestId('exec-search-btn');
     userEvent.click(findButton);
-
-    // expect(window.alert).toHaveBeenCalledWith('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   });
 
   it('Verifica se clicar no filtro novamente reseta o filtro', async () => {
@@ -126,5 +128,17 @@ describe('<Bebidas />', () => {
 
     expect(screen.getByText(/GG/i)).toBeInTheDocument();
     expect(screen.queryByText(/501 blue/i)).toBe(null);
+  });
+
+  it('Testa se ao clicar no card vai para a tela de detalhes', async () => {
+    const { history } = renderWithRouterAndRedux(<Bebidas />, {
+      initialEntries: ['/bebidas'],
+    });
+
+    await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
+
+    userEvent.click(screen.getByText('GG'));
+
+    expect(history.location.pathname).toBe('/bebidas/15997');
   });
 });

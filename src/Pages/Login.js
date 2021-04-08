@@ -16,8 +16,8 @@ function Login() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const MIN_PASSWORD_LENGTH = 7;
-    setButton(!(email.match(/\S+@\S+\.\S+/) && senha.length >= MIN_PASSWORD_LENGTH));
+    const MIN_PASSWORD_LENGTH = 6;
+    setButton(!(email.match(/\S+@\S+\.\S+/) && senha.length > MIN_PASSWORD_LENGTH));
   }, [email, senha]);
 
   const handelClick = () => {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import mockFetch from '../../cypress/mocks/fetch';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 import Details from '../Pages/Details/Details';
@@ -65,12 +66,13 @@ describe('<Details />', () => {
   });
 
   it('Verifica se a tela contem botão de compartilhar link e favoritar', async () => {
-    renderWithRouterAndRedux(<Details />);
+    renderWithRouterAndRedux(<Details />, {
+      initialEntries: ['/comidas/52977'],
+    });
 
-    const shareButton = await screen.findByTestId('share-btn');
-    expect(shareButton).toBeInTheDocument();
-
-    const favoriteBUtton = await screen.findByTestId('favorite-btn');
-    expect(favoriteBUtton).toBeInTheDocument();
+    const shareBtn = await screen.findByTestId('share-btn');
+    const favoriteBtn = await screen.findByTestId('favorite-btn');
+    expect(shareBtn).toBeInTheDocument();
+    expect(favoriteBtn).toBeInTheDocument();
   });
 });

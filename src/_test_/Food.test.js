@@ -87,15 +87,21 @@ describe('<Comidas />', () => {
   });
 
   it('Caso a busca não retornar nenhuma receita exibir um alert', async () => {
-    renderWithRouterAndRedux(<Comidas />);
+    renderWithRouterAndRedux(<Comidas />, {
+      initialEntries: ['/comidas'],
+    });
 
     await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
 
     const searchButton = screen.getByAltText(/pesquisar/i);
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByLabelText(/pesquisar/i);
+    const searchInput = screen.getByTestId('search-input');
     userEvent.type(searchInput, 'XABLAU');
+
+    userEvent.click(screen.getByTestId('name-search-radio'));
+    userEvent.click(screen.getByTestId('first-letter-search-radio'));
+    userEvent.click(screen.getByTestId('ingredient-search-radio'));
 
     const findButton = screen.getByTestId('exec-search-btn');
     userEvent.click(findButton);
@@ -121,5 +127,17 @@ describe('<Comidas />', () => {
 
     expect(screen.getByText(/corba/i)).toBeInTheDocument();
     expect(screen.queryByText(/beef wellington/i)).toBe(null);
+  });
+
+  it('Testa se ao clicar no card vai para a tela de detalhes', async () => {
+    const { history } = renderWithRouterAndRedux(<Comidas />, {
+      initialEntries: ['/comidas'],
+    });
+
+    await waitForElementToBeRemoved(() => screen.getByText(/carregando\.\.\./i));
+
+    userEvent.click(screen.getByText('Corba'));
+
+    expect(history.location.pathname).toBe('/comidas/52977');
   });
 });

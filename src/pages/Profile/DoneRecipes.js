@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { Header } from '../../components';
 import share from '../../images/shareIcon.svg';
@@ -70,7 +71,6 @@ class DoneRecipes extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { recipesMade } = this.state;
     return (
       <div>
@@ -100,18 +100,20 @@ class DoneRecipes extends Component {
         </div>
         {recipesMade.map((recipe, index) => (recipe.type === 'comida' ? (
           <div>
-            <button
-              src={ recipe.image }
-              type="button"
-              onClick={ () => history.push(`comidas/${recipe.id}`) }
-            >
-              <img
-                data-testid={ `${index}-horizontal-image` }
+            <Link to={ `comidas/${recipe.id}` }>
+
+              <button
                 src={ recipe.image }
-                alt={ recipe.category }
-              />
-              <h1 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h1>
-            </button>
+                type="button"
+              >
+                <img
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ recipe.image }
+                  alt={ recipe.category }
+                />
+                <h1 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h1>
+              </button>
+            </Link>
             <h3 data-testid={ `${index}-horizontal-top-text` }>
               {`${recipe.area} - ${recipe.category}`}
             </h3>
@@ -137,21 +139,23 @@ class DoneRecipes extends Component {
           </div>
         ) : (
           <div key={ index }>
-            <button
-              src={ recipe.image }
-              type="button"
-              onClick={ () => history.push(`bebidas/${recipe.id}`) }
-            >
-              <img
-                data-testid={ `${index}-horizontal-image` }
+            <Link to={ `bebidas/${recipe.id}` }>
+
+              <button
                 src={ recipe.image }
-                alt={ recipe.category }
-              />
-              <h1 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h1>
-            </button>
-            <h3 data-testid={ `${index}-horizontal-top-text` }>
-              {recipe.alcoholicOrNot}
-            </h3>
+                type="button"
+              >
+                <img
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ recipe.image }
+                  alt={ recipe.category }
+                />
+                <h1 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h1>
+              </button>
+              <h3 data-testid={ `${index}-horizontal-top-text` }>
+                {recipe.alcoholicOrNot}
+              </h3>
+            </Link>
             <h3 data-testid={ `${index}-horizontal-done-date` }>
               {recipe.doneDate}
             </h3>

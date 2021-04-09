@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 import Header from '../components/Header';
 import RecipeCardsDone from '../components/RecipeCardsDone';
@@ -7,7 +7,7 @@ function ReceitasFeitas() {
   const {
     done,
     setDone,
-  } = useState(MyContext);
+  } = useContext(MyContext);
 
   function filterByFood() {
     setDone(done.filter((recipe) => recipe.type === 'comida'));
@@ -17,7 +17,7 @@ function ReceitasFeitas() {
   }
 
   function removeTheFilters() {
-    setDone(done);
+    setDone(JSON.parse(localStorage.getItem('doneRecipes')) || []);
   }
 
   return (

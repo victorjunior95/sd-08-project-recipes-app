@@ -1,27 +1,39 @@
 import React, { useContext } from 'react';
 import Copy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipeCardsDone.css';
 
 function RecipeCardsDone() {
+  const history = useHistory();
   const {
     copied,
     setCopied,
-    cardType,
-    setCardType,
     cardId,
     setCardId,
     done,
   } = useContext(MyContext);
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
   const LIMIT = 2;
 
-  console.log(done);
+  function redirectToDetails(id) {
+    console.log(id);
+    history.push(`/${id}`);
+  }
 
   return (
-    doneRecipes.map((card, index) => (
-      <div key={ card.id } className="cardsDone">
+    done.map((card, index) => (
+      <div
+        key={ card.id }
+        onClick={ () => {
+          redirectToDetails(`${card.type}s/${card.id}`);
+        } }
+        onKeyPress={ () => console.log('clicou') }
+        role="button"
+        tabIndex={ card.index }
+        className="cardsDone"
+      >
         <div className="cardsDoneImg">
           <img
             src={ card.image }
@@ -37,12 +49,11 @@ function RecipeCardsDone() {
             onClick={ () => {
               Copy(`http://localhost:3000/${card.type}s/${card.id}`);
               setCopied(true);
-              setCardType(card.type);
               setCardId(card.id);
             } }
             src={ shareIcon }
           >
-            {copied && cardType === card.type && cardId === card.id && 'Link copiado!'}
+            {copied && cardId === card.id && 'Link copiado!'}
             <span />
           </button>
           <p

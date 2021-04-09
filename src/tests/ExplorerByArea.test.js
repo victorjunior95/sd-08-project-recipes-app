@@ -1,7 +1,7 @@
 import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
 import ExplorerByArea from '../pages/ExplorerByArea/ExplorerByArea';
-import { fireEvent, screen, history } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 describe('1 - Verifica os elementos presentes na tela explorar por area', () => {
   test('Verifica se o título está presente e contém o texto "Explorar Origem"', () => {
@@ -39,8 +39,6 @@ describe('3 - Verifica as requisições a API', () => {
   test('Verifica as requisições a API', async () => {
 
     const categoryArea = require('../../cypress/mocks/areas');
-
-
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(categoryArea),
@@ -65,7 +63,6 @@ describe('4 - Desenvolva as mesmas especificações da tela de receitas principa
     fireEvent.change(areaDropdown, { target: { value: 'Japanese' }})
   
     const japaneseMealsMock = require('../../cypress/mocks/japaneseMeals');
-  
     jest.spyOn(global, "fetch")
       global.fetch.mockResolvedValue({
         json: jest.fn().mockResolvedValue(japaneseMealsMock),

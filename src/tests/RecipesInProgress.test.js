@@ -4,9 +4,6 @@ import userEvent from '@testing-library/user-event';
 import RecipesInProgress from '../pages/RecipesInProgress/RecipesInProgress';
 import { fireEvent, waitForDomChange } from '@testing-library/react';
 
-
-
-
 describe('1 - Verifica os elementos presentes na tela receitas em progresso e seus conteúdos', () => {
   test('Verifica os elementos da Página', async() => {
    const { history,getByTestId,findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
@@ -85,7 +82,7 @@ describe('1 - Verifica os elementos presentes na tela receitas em progresso e se
 
 describe.skip('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
   it('salva o progresso de uma receita de comida em andamento', async () => {
-    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    const { findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
 
 
     fireEvent.click( await findByTestId('0-ingredient-step'))
@@ -106,7 +103,7 @@ describe.skip('50 - Salve o estado do progresso, que deve ser mantido caso a pes
 
 describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da tela de detalhes de uma receita se aplica aqui', () => {
   it('verifica se os botões estão disponíveis na tela de detalhes de uma comida', async () => {
-    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    const { findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
 
 
     expect(await findByTestId('share-btn')).toBeInTheDocument();
@@ -128,7 +125,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
 
     
 
-    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    const { findByTestId } = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
     
     const favoriteButton = await findByTestId('favorite-btn')
     // const buttonsIcons = await findAllByTestId('explore-bottom-btn')
@@ -138,7 +135,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
   });
 
   it.skip('verifica comida não favoritada', async () => {
-    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    const { findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
     
     const favoriteButton = await findByTestId('favorite-btn')
     // const buttonsIcons = await findAllByTestId('explore-bottom-btn')

@@ -1,9 +1,8 @@
 import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
-import { waitForElementToBeRemoved, fireEvent, waitForDomChange, wait, waitForElement, render } from '@testing-library/react';
+import { waitForElementToBeRemoved, fireEvent, waitForDomChange, waitForElement, render } from '@testing-library/react';
 import Details from '../pages/Details/Details';
 import Home from '../pages/Home/Home';
-import meals from './helpers/mocks/meals'
 import oneMeal from './helpers/mocks/oneMeal'
 import ginDrinks from './helpers/mocks/ginDrinks'
 import SlideCards from '../components/SlideCards/SlideCards';
@@ -423,9 +422,7 @@ describe.skip('2 - Verifica se as requisições foram feitas', () => {
     // const meal = oneMeal.meals.meals;
     const recomended = ginDrinks.drinks;
     // const results = ginDrinks.drinks
-    
-    
-   
+       
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mealOrDrink),

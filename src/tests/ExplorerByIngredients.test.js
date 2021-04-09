@@ -42,7 +42,7 @@ describe('2 - Desenvolva cards para os 12 primeiros ingredientes, de forma que c
   test('Tem o nome e a foto corretos para a tela de explorar comidas por ingredientes', async () => {
 
     const mealIngredientsMock = require('../../cypress/mocks/mealIngredients');
-
+    
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mealIngredientsMock),
@@ -63,7 +63,7 @@ describe('2 - Desenvolva cards para os 12 primeiros ingredientes, de forma que c
   test('Tem o nome e a foto corretos para a tela de explorar bebidas por ingredientes', async () => {
 
     const drinkIngredientsMock = require('../../cypress/mocks/drinkIngredients');
-
+    
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(drinkIngredientsMock),
@@ -99,7 +99,6 @@ describe('3 -  Redireciona a pessoa usuária ao clicar no card do ingrediente, a
 
     const { pathname } = history.location;
     expect(pathname).toBe('/bebidas');
-
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(drinksByIngredientMock),

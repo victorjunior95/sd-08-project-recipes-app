@@ -99,7 +99,7 @@ describe('4 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rot
         }
       ]
     }
-
+    
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(retrieveFoodOrDrink),
@@ -128,7 +128,7 @@ describe('4 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rot
         }
       ]
     }
-
+    
     jest.spyOn(global, "fetch")
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(retrieveFoodOrDrink),

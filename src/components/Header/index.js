@@ -40,7 +40,7 @@ export default function Header(props) {
     return <span>{' '}</span>;
   }
   return (
-    <Container className="px-0" fluid>
+    <Container className="px-0 mb-5" fluid>
       <Navbar className="justify-content-around align-items-center bg-warning header">
         <Navbar.Brand href="/perfil">
           <img

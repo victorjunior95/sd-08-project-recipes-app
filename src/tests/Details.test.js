@@ -1,8 +1,12 @@
 import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
-import { waitForElementToBeRemoved, fireEvent, waitForDomChange } from '@testing-library/react';
+import { waitForElementToBeRemoved, fireEvent, waitForDomChange, wait, waitForElement, render } from '@testing-library/react';
 import Details from '../pages/Details/Details';
 import Home from '../pages/Home/Home';
+import meals from './helpers/mocks/meals'
+import oneMeal from './helpers/mocks/oneMeal'
+import ginDrinks from './helpers/mocks/ginDrinks'
+import SlideCards from '../components/SlideCards/SlideCards';
 
 describe('1 - Verifica os elementos presentes em Details', () => {
 
@@ -25,6 +29,7 @@ describe('1 - Verifica os elementos presentes em Details', () => {
     const eighthIngredient = await findByTestId('7-ingredient-name-and-measure')
     const instructions = await findByTestId('instructions')
     // const firstRecomendation = await findByTestId('0-recomendation-card')
+    // const firstRecomendation = await waitForElement(() => findByTestId('0-recomendation-card'));
     const startRecipeButton = await findByTestId('start-recipe-btn')
 
     expect(image).toBeInTheDocument();
@@ -71,7 +76,7 @@ describe('1 - Verifica os elementos presentes em Details', () => {
 
     expect(startRecipeButton).toBeInTheDocument();
     expect(startRecipeButton).toHaveTextContent(/Iniciar Receita/i)
-  });
+  }, 50000);
 
   test('Verifica se os elementos estão presentes na página de bebidas', async() => {
     const { findByTestId, findAllByTestId } = renderWithRouter(<Details title="Bebidas" match={{params: {id: "178319"}}} />);
@@ -130,8 +135,12 @@ describe.skip('2 - Verifica a existência do botão de nome "Iniciar Receita" qu
   test('Verifica posicionamento do botão na tela de detalhes de comida', async () => {
     const { findByTestId } = renderWithRouter(<Details title="Comidas" match={{params: {id: "52771"}}} />);
 
-    const startRecipeButton = await findByTestId('start-recipe-btn')
-    
+    // const startRecipeButton = await findByTestId('start-recipe-btn')
+    const startRecipeButton = await waitForElement(() => findByTestId('start-recipe-btn'));
+
+
+    expect(startRecipeButton).toBeInTheDocument();
+
     expect(startRecipeButton).toHaveStyle(`
     position: fixed;
     bottom: 0px;
@@ -142,6 +151,8 @@ describe.skip('2 - Verifica a existência do botão de nome "Iniciar Receita" qu
 
     const startRecipeButton = await findByTestId('start-recipe-btn')
     
+    expect(startRecipeButton).toBeInTheDocument();
+
     expect(startRecipeButton).toHaveStyle(`
     position: fixed;
     bottom: 0px;
@@ -405,13 +416,37 @@ describe('8 - Implemente a lógica no botão de favoritar, caso seja clicado, o 
   });
 });
 
-// describe('2 - Verifica se as requisições foram feitas', () => {
+describe.skip('2 - Verifica se as requisições foram feitas', () => {
 
-//   test('Verifica se a requisição para a API de comidas foi realizada', async () => {
-
-//   })
-
-//   test('Verifica se a requisição para a API de bebidas foi realizada', async () => {
+  test('Verifica se a requisição para a API de comidas foi realizada', async () => {
+    const mealOrDrink = oneMeal;
+    // const meal = oneMeal.meals.meals;
+    const recomended = ginDrinks.drinks;
+    // const results = ginDrinks.drinks
     
-//   })
-// })
+    
+   
+    jest.spyOn(global, "fetch")
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mealOrDrink),
+    });
+
+    renderWithRouter(<Details title="Comidas" match={{params: {id: "52771"}}} />);
+
+    render(<SlideCards title="Comidas" results={recomended} numberOfCards={6} />)
+
+    expect(global.fetch).toBeCalledTimes(2);
+    expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
+
+    
+
+    
+
+    
+
+  })
+
+  // test('Verifica se a requisição para a API de bebidas foi realizada', async () => {
+    
+  // })
+})

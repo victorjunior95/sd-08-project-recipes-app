@@ -27,6 +27,10 @@ describe('2 - Verifica se o select que filtra as receitas funciona como o espera
     for (let i = 0; i < 12; i += 1) {
       let card = await screen.findByTestId(`${i}-recipe-card`);
       expect(card).toBeInTheDocument();
+      let cardImage = await screen.findByTestId(`${i}-card-img`);
+      expect(cardImage).toBeInTheDocument();
+      let cardName = await screen.findByTestId(`${i}-card-name`);
+      expect(cardName).toBeInTheDocument();
     }
   });
 });

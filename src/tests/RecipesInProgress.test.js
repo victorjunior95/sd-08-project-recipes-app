@@ -2,6 +2,7 @@ import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
 import userEvent from '@testing-library/user-event';
 import RecipesInProgress from '../pages/RecipesInProgress/RecipesInProgress';
+import { fireEvent, waitForDomChange } from '@testing-library/react';
 
 
 
@@ -81,3 +82,68 @@ describe('1 - Verifica os elementos presentes na tela receitas em progresso e se
 
   })
 })
+
+describe.skip('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
+  it('salva o progresso de uma receita de comida em andamento', async () => {
+    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+
+
+    fireEvent.click( await findByTestId('0-ingredient-step'))
+    
+    expect(await findByTestId(`0-checkBox-Ingredient`)).toBeInTheDocument()
+
+    // window.location.reload = jest.fn();
+    window.location.reload();
+    // expect(window.location.reload).toHaveBeenCalled();
+    
+    const check = await findByTestId(`0-checkBox-Ingredient`)
+    expect(check).toBeInTheDocument()
+
+    expect(check).toHaveAttribute("checked")
+
+  });
+});
+
+describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da tela de detalhes de uma receita se aplica aqui', () => {
+  it('verifica se os botões estão disponíveis na tela de detalhes de uma comida', async () => {
+    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+
+
+    expect(await findByTestId('share-btn')).toBeInTheDocument();
+    expect(await findByTestId('favorite-btn')).toBeInTheDocument();
+  });
+
+  it('verifica comida favoritada', async () => {
+
+    const favoriteRecipes = [{
+      "id": "52771",
+      "type": "comida",
+      "area": "Italian",
+      "category": "Vegetarian",
+      "alcoholicOrNot": "",
+      "name": "Spicy Arrabiata Penne",
+      "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+
+    
+
+    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    
+    const favoriteButton = await findByTestId('favorite-btn')
+    // const buttonsIcons = await findAllByTestId('explore-bottom-btn')
+
+    waitForDomChange({ favoriteButton })
+    .then(() => expect(favoriteButton).toHaveAttribute('src', 'blackHeartIcon.svg').then(localStorage.clear()))
+  });
+
+  it.skip('verifica comida não favoritada', async () => {
+    const { history, findByRole, findByTestId} = renderWithRouter(<RecipesInProgress title="Comidas" match={{params:{id:'52977'}}}/>)
+    
+    const favoriteButton = await findByTestId('favorite-btn')
+    // const buttonsIcons = await findAllByTestId('explore-bottom-btn')
+
+    waitForDomChange({ favoriteButton })
+    .then(() => expect(favoriteButton).toHaveAttribute('src', 'whiteHeartIcon.svg'))
+  });
+});

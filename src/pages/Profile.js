@@ -20,7 +20,7 @@ function Profile() {
       <button
         type="button"
         onClick={ () => {
-          history.push('receitas-feitas');
+          history.push('/receitas-feitas');
         } }
         to="/receitas-feitas"
         data-testid="profile-done-btn"

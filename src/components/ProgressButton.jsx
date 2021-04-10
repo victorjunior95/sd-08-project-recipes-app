@@ -47,7 +47,9 @@ function ProgressButton({ type, id, ingredientsLength }) {
   };
 
   return (
-    done.some(({ id: currId, type: currType }) => id === currId && type === currType)
+    done.some(
+      ({ id: currId, type: currType }) => id === currId && type.startsWith(currType),
+    )
           || (
             <button
               style={ { display: 'block' } }

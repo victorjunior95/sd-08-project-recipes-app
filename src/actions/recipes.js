@@ -25,7 +25,7 @@ const formatedObject = (obj, type) => {
   const idApi = `id${apiType}`;
   const id = obj[idApi];
   const searchObject = {
-    id, area, category, alcoholicOrNot, name, image, type, tags };
+    id, area, category, alcoholicOrNot, name, image, type: type.slice(0, 0 - 1), tags };
   // if (key === 'i') {
   //   const IngredientKeys = Object.keys(obj)
   //     .filter((ingKey) => (

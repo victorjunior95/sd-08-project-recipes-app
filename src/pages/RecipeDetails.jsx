@@ -14,6 +14,7 @@ import './RecipeDetails.css';
 
 function RecipeDetails({ match: { params }, location: { pathname } }) {
   const { list, isFetching, recommendations } = useSelector((state) => state.recipes);
+  const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const [shouldFetch, setShouldFetch] = useState(true);
@@ -25,7 +26,6 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   // const type = pathname.split('/')[1];
   // const recommendationsType = type === 'comidas' ? 'bebidas' : 'comidas';
 
-  const token = 1;
   const inProgress = pathname.split('/')[3] === 'in-progress';
   // const inProgress = pathname.split('/')[3] === 'in-progress';
   const type = useRef(pathname.split('/')[1]);
@@ -33,6 +33,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
 
   useEffect(() => {
     // console.log(recommendationsType);
+    const token = pathname === '/comidas' ? mealsToken : cocktailsToken;
     setShouldFetch(true);
     [type.current] = pathname.split('/').slice(1);
     recommendationsType.current = type.current === 'comidas' ? 'bebidas' : 'comidas';
@@ -43,7 +44,6 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   }, [params, pathname]);
 
   const recipe = list[0];
-  console.log('aqui');
   const IngredientKeys = Object.keys(recipe || {})
     .filter((ingKey) => (
       ingKey
@@ -64,7 +64,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         />
         <h1 data-testid="recipe-title">{ recipe.name }</h1>
         <ShareButton type={ type.current } id={ params.id } />
-        <FavButton type={ type.current } recipe={ recipe } />
+        <FavButton recipe={ recipe } />
         <h2 data-testid="recipe-category">
           { `${recipe.alcoholicOrNot} ${recipe.category}` }
         </h2>

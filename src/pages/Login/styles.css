@@ -1,6 +1,6 @@
 .login-page-content {
   align-items: center;
-  background-image: url(../../images/269.jpg);
+  background-image: url('../../images/269.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -9,9 +9,9 @@
 }
 
 .login-form {
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
   padding: 1rem;
   width: 20rem;
 }

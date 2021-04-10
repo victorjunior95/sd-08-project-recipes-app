@@ -2,9 +2,9 @@ import React from 'react';
 
 import Routes from './routes';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/main.css';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Provider from './context/Provider';
 
 function App() {

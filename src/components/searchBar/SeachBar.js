@@ -75,6 +75,7 @@ const SearchBar = (props) => {
 
 SearchBar.propTypes = {
   showInput: PropTypes.bool.isRequired,
+  setHidden: PropTypes.func.isRequired,
   typeAPI: PropTypes.string.isRequired,
 };
 export default SearchBar;

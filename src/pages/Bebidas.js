@@ -4,6 +4,7 @@ import Footer from '../components/footer/Footer';
 import LariContext from '../context/Context';
 import Card from '../components/Card';
 import { categoryDrink, seachDrinkByCategory } from '../services';
+import '../styles/main.css';
 
 const Drinks = () => {
   const MAX_RECIPES = 12;
@@ -93,17 +94,21 @@ const Drinks = () => {
   return (
     <div>
       <Header title="Bebidas" />
-      {mapCategory()}
-      <label htmlFor="All">
-        All
-        <input
-          type="radio"
-          data-testid="All-category-filter"
-          onClick={ () => setFilteredDrinks(drink) }
-          checked={ currentCategory === 'All' }
-        />
-      </label>
-      {mapCards}
+      <div className="radioBtns">
+        {mapCategory()}
+        <label htmlFor="All">
+          All
+          <input
+            type="radio"
+            data-testid="All-category-filter"
+            onClick={ () => setFilteredDrinks(drink) }
+            checked={ currentCategory === 'All' }
+          />
+        </label>
+      </div>
+      <div className="imgCards">
+        {mapCards}
+      </div>
       <Footer />
     </div>
   );

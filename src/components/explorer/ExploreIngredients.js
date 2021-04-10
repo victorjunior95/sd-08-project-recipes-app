@@ -32,7 +32,7 @@ const Teste = ({ type }) => {
 
   return (
     <div>
-      <ul>
+      <ul className="ingredients-list">
         {
           arrayOfIngredients.slice(0, TOTAL_CARDS).map((ingredient, index) => {
             const name = ingredient[type === 'bebidas'

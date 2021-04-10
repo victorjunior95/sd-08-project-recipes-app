@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import './Login.css';
+import './Login.scss';
 
 const loginImg = 'https://firebasestorage.googleapis.com/v0/b/imagenator-ccdab.appspot.com/o/loginImg.png?alt=media&token=ad2a1328-9964-42eb-86a8-514c0e3811f5';
 

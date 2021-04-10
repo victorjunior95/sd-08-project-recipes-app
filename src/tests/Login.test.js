@@ -2,6 +2,7 @@ import React from 'react';
 import renderWithRouter from './helpers/renderWithRouter';
 import Login from '../pages/Login/Login'
 import userEvent from '@testing-library/user-event';
+import { fireEvent } from '@testing-library/react';
 
 
 
@@ -74,3 +75,45 @@ describe('1 - Verifica os testes da página de Login', () => {
     expect(inProgressStorage).toBe(null) 
   });
 })
+
+describe('2 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever sua senha no input de senha', () => {
+  it('É possível escrever a senha', () => {
+    const { getByTestId } = renderWithRouter(
+      <Login />,
+    );
+    fireEvent.change(getByTestId('password-input'), { target: { value: '1234567' } });
+
+    expect(getByTestId('password-input')).toHaveValue('1234567');
+  });
+});
+
+describe('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever seu email no input de email', () => {
+  it('É possível escrever a senha', () => {
+    const { getByTestId } = renderWithRouter(
+      <Login />,
+    );
+    fireEvent.change(getByTestId('email-input'), { target: { value: 'email@mail.com' } });
+
+    expect(getByTestId('email-input')).toHaveValue('email@mail.com');
+
+  });
+});
+
+describe('4 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
+  it('Após a submissão a chave user deve estar salva em localStorage', () => {
+    const { getByTestId } = renderWithRouter(
+      <Login />,
+    );
+
+    fireEvent.change(getByTestId('email-input'), { target: { value: 'email@mail.com' } });
+
+    fireEvent.change(getByTestId('password-input'), { target: { value: '1234567' } });
+
+    fireEvent.click(getByTestId('login-submit-btn'))
+
+
+    const userStorage = JSON.parse(localStorage.getItem('user'))
+
+    expect(userStorage).toEqual({ email: 'email@mail.com' })
+    });
+});

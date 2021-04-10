@@ -20,11 +20,11 @@ const Details = ({ title, match, history }) => {
   const getMealOrDrink = async () => {
     if (title === 'Comidas') {
       const meal = await getMeal(id);
-      console.log(meal);
+      // console.log(meal);
       return meal;
     }
     const drink = await getDrink(id);
-    console.log(drink);
+    // console.log(drink);
     return drink;
   };
   useEffect(() => {

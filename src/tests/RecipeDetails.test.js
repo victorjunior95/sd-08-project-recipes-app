@@ -87,4 +87,21 @@ describe('Recipe Details', () => {
     ingredients.forEach((ingredient) => userEvent.click(ingredient));
     expect(finishButton).not.toBeDisabled();
   });
+  it('Favorite recipe', async () => {
+    const pathname = '/comidas/52771';
+    const props = { match: { params: { id: '52771' } },
+      location: { pathname } };
+    const { store } = renderWithRouterAndStore(
+      <RecipeDetails { ...props } />, { route: pathname },
+    );
+    const favButton = await screen.findByTestId('favorite-btn');
+    expect(favButton).toBeInTheDocument();
+    expect(favButton).toHaveAttribute('src', 'whiteHeartIcon.svg');
+    userEvent.click(favButton);
+    expect(store.getState().recipes.favorite).toHaveLength(1);
+    expect(favButton).toHaveAttribute('src', 'blackHeartIcon.svg');
+    userEvent.click(favButton);
+    expect(store.getState().recipes.favorite).toHaveLength(0);
+    expect(favButton).toHaveAttribute('src', 'whiteHeartIcon.svg');
+  });
 });

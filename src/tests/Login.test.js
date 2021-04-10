@@ -65,5 +65,7 @@ describe('Login page', () => {
     fireEvent.click(button);
 
     expect(store.getState().login.email).toBe(rightEmail);
+    // console.log(history.location);
+    // expect(screen.getByRole('heading', { name: /comidas/i })).toBeInTheDocument();
   });
 });

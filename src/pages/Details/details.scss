@@ -64,6 +64,9 @@
       bottom: 4px;
       position: fixed;
       box-shadow: 3px 3px 5px rgba(228, 221, 203, 0.986);
+      &:disabled{
+        background-color: opacify($color: #bdbbbb, $amount: 0);
+      }
    }
 }
 

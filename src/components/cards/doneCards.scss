@@ -1,0 +1,166 @@
+.filters {
+  position: fixed;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  top: 40px;
+  width: 100%;
+  background-color: white;
+  height: 60px;
+  button {
+    background-color: orange;
+    width: 75px;
+    height: 35px;
+    border: none;
+    border-radius: 25px;
+    color: rgb(245, 239, 239);
+    font-size: medium;
+    font-weight: 700;
+  }
+}
+
+.filter {
+  width: 90px;
+}
+
+.cards {
+  margin-top: 105px;
+  justify-content: space-evenly;
+  .doneCard {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 8px 0px #cbcbcb;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    height: 150px;
+    margin: 10px;
+    animation-name: animacaoBolada;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+  //  animation-delay: 2s;
+  //  animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+    .recipeImage {
+      height: 150px;
+      width: 45%;
+      img {
+        border-radius: 15px 0 0 15px;
+        height: 150px;
+        width: 100%;
+      }
+    }
+    .recipeInfo {
+      width: 55%;
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        span {
+          font-size: 4vw;
+          font-weight: 900;
+          color: rgb(121, 117, 117);
+        }
+        button {
+          width: 50px;
+          background: transparent;
+          border: none;
+          padding: 8px;
+        }
+      }
+      a {
+        text-decoration: none;
+        h3 {
+          margin: 15px 5px 15px 35px;
+        }
+      }
+      .doneDate{
+        color: rgb(121, 117, 117);
+        margin-left: 10px;
+        display: flex;
+        height: 3vh;
+        width: 80%;
+      }
+      .tag {
+        background-color: rgb(215, 216, 213);
+        height: 4vh;
+        font-weight: 900;
+        font-size: larger;
+      }
+    }
+    .favovite-Information {
+      background-color: rgb(255, 255, 255);
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      a {
+        text-decoration: none;
+        h2 {
+          margin-top: 1vh;
+          margin-left: 2vw;
+          margin-bottom: 0;
+        }
+      }
+      h2 {
+        margin-left: 2vw;
+      }
+      .buttons-favorite-recipes{
+        display: flex;
+        justify-content: space-evenly;
+        button {
+          background-color: transparent;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes animacaoBolada {
+  0%   {
+     background: rgb(109, 109, 109);
+     width: 100px;
+     opacity: 10%;
+     transform: translateX(-200px);
+  }
+  25%  { background: rgb(146, 146, 146);  opacity: 20%; }
+  50%  { background: rgb(173, 173, 173);  opacity: 30%; }
+  75%  { background: rgb(219, 218, 218);  opacity: 40%; }
+  100% {
+     background: rgb(255, 255, 255);
+     width: 95%;
+  }
+}
+
+// .doneCard {
+//   background-color: #ddd;
+//   border-radius: 5px;
+//   display: flex;
+//   flex-direction: row;
+//   height: 150px;
+//   margin: 10px;
+// }
+
+// .recipeImage {
+//   height: 150px;
+//   width: 45%;
+// }
+
+// .recipeImage img {
+//   border-radius: 5px 0 0 5px;
+//   height: 150px;
+//   width: 100%;
+// }
+
+// .recipeInfo {
+//   width: 55%;
+// }
+
+// a {
+//   text-decoration: none;
+// }
+
+// h3 {
+//   margin: 5px;
+// }

@@ -39,7 +39,7 @@ function DoneRecipeCard({ index, recipe }) {
     }
 
     return (
-      <div>
+      <div className="tag">
         {
           tagsToShow.map((tag) => {
             const tagId = `${index}-${tag}-horizontal-tag`;
@@ -83,8 +83,11 @@ function DoneRecipeCard({ index, recipe }) {
         <Link to={ path }>
           <h3 data-testid={ nameId }>{ name }</h3>
         </Link>
-        { 'Feita em: ' }
-        <span data-testid={ doneDateId }>{ doneDate }</span>
+        <span className="doneDate" data-testid={ doneDateId }>
+          Feita em:
+          {' '}
+          { doneDate }
+        </span>
         { type === 'comida' && showTags() }
       </section>
     </section>

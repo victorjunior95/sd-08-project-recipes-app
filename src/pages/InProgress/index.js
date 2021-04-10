@@ -29,6 +29,17 @@ async function getRecipe(dispatch, id, isMeal) {
   dispatch(saveActualRecipe(actualRecipe));
 }
 
+function dataAtualFormatada() {
+  const data = new Date();
+  const dia = data.getDate().toString();
+  const diaF = (dia.length === 1) ? `0${dia}` : dia;
+  const mes = (data.getMonth() + 1).toString(); // +1 pois no getMonth Janeiro começa com zero.
+  const mesF = (mes.length === 1) ? `0${mes}` : mes;
+  const anoF = data.getFullYear();
+
+  return `${diaF}/${mesF}/${anoF}`;
+}
+
 function Details() {
   const [redirect, setRedirect] = useState(false);
   const [done, setDone] = useState(false);
@@ -58,7 +69,7 @@ function Details() {
         alcoholicOrNot: '',
         name: actualRecipe.strMeal,
         image: actualRecipe.strMealThumb,
-        doneDate: Date.now(),
+        doneDate: dataAtualFormatada(),
         tags: actualRecipe.strTags,
       };
     }
@@ -70,7 +81,7 @@ function Details() {
       alcoholicOrNot: actualRecipe.strAlcoholic,
       name: actualRecipe.strDrink,
       image: actualRecipe.strDrinkThumb,
-      doneDate: Date.now(),
+      doneDate: dataAtualFormatada(),
       tags: actualRecipe.strTags,
     };
   }
@@ -100,13 +111,18 @@ function Details() {
   return (
     <main className="recipe-details">
       <CoverImg />
-      <div className="upper-container">
-        <Title />
-        <ShareFavBtn />
+      <div className="general-container">
+        <div className="upper-container">
+          <Title />
+          <ShareFavBtn />
+        </div>
+        <div className="recipe-description">
+          <StepList isDone={ isDone } />
+          <InstructionsText />
+        </div>
       </div>
-      <StepList isDone={ isDone } />
-      <InstructionsText />
       <button
+        className="start-recipe"
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ saveOnDoneRecipes }

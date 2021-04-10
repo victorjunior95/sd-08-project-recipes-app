@@ -1,0 +1,102 @@
+.explore-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    margin: 30px auto 15px auto;
+    background-color: orange;
+    text-decoration: none;
+    width: 40vw;
+    height: 8vh;
+    text-align: center;
+    padding: 6px;
+    border-radius: 35px;
+    color: rgb(238, 238, 238);
+    font-size: 95%;
+    font-weight: bolder;
+    line-height: 8vh;
+  }
+  button {
+    width: 40vw;
+    margin: 30px auto 15px auto;
+    background-color: orange;
+    color: rgb(238, 238, 238);
+    width: 40vw;
+    height: 8vh;
+    border: none;
+    font-size: large;
+    font-weight: bolder;
+    border-radius: 35px;
+    text-align: center;
+  }
+}
+
+.explore {
+  margin-top: 30vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  a {
+    margin: 30px auto 15px auto;
+    background-color: orange;
+    text-decoration: none;
+    width: 40vw;
+    height: 8vh;
+    text-align: center;
+    border-radius: 35px;
+    color: rgb(238, 238, 238);
+    font-size: 100%;
+    font-weight: bolder;
+    line-height: 8vh;
+  }
+  button {
+    width: 40vw;
+    margin: 30px auto 15px auto;
+    background-color: orange;
+    color: rgb(238, 238, 238);
+    width: 40vw;
+    height: 8vh;
+    border: none;
+    font-size: large;
+    font-weight: bolder;
+    border-radius: 35px;
+    text-align: center;
+  }
+}
+
+.origin-explore {
+  margin-top: 8vh;
+  .origin-explore-selection{
+    height: 5vh;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    select {
+      display: flex;
+      margin: auto;
+      height: 6vh;
+      width: 35vw;
+      border-radius: 25px;
+      padding: 8px;
+    }
+  }
+  .card-grid {
+    display: grid;
+    font-family: ubuntu;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    row-gap: 8px;
+  }
+}
+
+.ingredients-explore{
+  margin-top: 8vh;
+  margin-bottom: 12vh;
+  .ingredients-explore-cards{
+    display: grid;
+    font-family: ubuntu;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    row-gap: 8px;
+  }
+}

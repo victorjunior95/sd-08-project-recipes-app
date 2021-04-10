@@ -17,10 +17,10 @@ function FavoriteRecipesCard({ favorite, index }) {
 
   return (
     <section key={ id } className="doneCard">
-      <Link to={ path }>
+      <Link to={ path } className="recipeImage">
         <img data-testid={ imageId } className="recipeImage" src={ image } alt={ name } />
       </Link>
-      <section>
+      <section className="favovite-Information">
         <Link to={ path }>
           <h2 data-testid={ nameId }>{ name }</h2>
         </Link>
@@ -29,14 +29,16 @@ function FavoriteRecipesCard({ favorite, index }) {
           : (<h2 data-testid={ categoryId }>{ `${area} - ${category}` }</h2>) }
 
         { isCopiedLink && <span>Link copiado!</span> }
+        <section className="buttons-favorite-recipes">
+          <ShareButton
+            recipeId={ id }
+            recipeType={ type }
+            testid={ shareButtonId }
+            onClick={ setIsCopiedLink }
+          />
+          <FavoriteButton recipeId={ id } testid={ favoriteButtonId } />
+        </section>
       </section>
-      <ShareButton
-        recipeId={ id }
-        recipeType={ type }
-        testid={ shareButtonId }
-        onClick={ setIsCopiedLink }
-      />
-      <FavoriteButton recipeId={ id } testid={ favoriteButtonId } />
     </section>);
 }
 

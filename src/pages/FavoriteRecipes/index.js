@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import FilterButton from '../../components/Buttons/FilterButton';
-import '../../components/cards/doneCards.css';
+import '../../components/cards/doneCards.scss';
 import FavoriteRecipesCard from '../../components/cards/favoriteCards';
 import { saveFavorites } from '../../redux/actions/details';
 
@@ -29,20 +29,23 @@ function FavoriteRecipes({ history }) {
   return (
     <>
       <Header history={ history } />
-      <section className="filters">
-        <FilterButton filter="all" setFilterBy={ setFilterBy } />
-        <FilterButton filter="food" setFilterBy={ setFilterBy } />
-        <FilterButton filter="drink" setFilterBy={ setFilterBy } />
-      </section>
-      <h1>Receitas Favoritas</h1>
-      { (recipesState)
-        ? (recipesState
-          .map((recipe, index) => (<FavoriteRecipesCard
-            key={ recipe.id }
-            index={ index }
-            favorite={ recipe }
-          />)))
-        : (<h2>Não há receitas favoritadas</h2>)}
+      <main>
+        <section className="filters">
+          <FilterButton filter="all" setFilterBy={ setFilterBy } />
+          <FilterButton filter="food" setFilterBy={ setFilterBy } />
+          <FilterButton filter="drink" setFilterBy={ setFilterBy } />
+        </section>
+        <div className="cards">
+          { (recipesState)
+            ? (recipesState
+              .map((recipe, index) => (<FavoriteRecipesCard
+                key={ recipe.id }
+                index={ index }
+                favorite={ recipe }
+              />)))
+            : (<h2>Não há receitas favoritadas</h2>)}
+        </div>
+      </main>
     </>
   );
 }

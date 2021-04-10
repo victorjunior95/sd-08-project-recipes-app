@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import FilterButton from '../../components/Buttons/FilterButton';
 import DoneRecipeCard from '../../components/cards/DoneRecipeCard';
-import '../../components/cards/doneCards.css';
+import '../../components/cards/doneCards.scss';
 
 function DoneRecipes({ history }) {
   const [filterBy, setFilterBy] = useState('');

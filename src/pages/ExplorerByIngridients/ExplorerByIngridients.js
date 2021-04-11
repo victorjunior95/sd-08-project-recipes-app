@@ -8,7 +8,7 @@ import List from '../../components/List/List';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 const ExplorerByIngridients = ({ title, visible }) => {
-  const { ingredients, setIngredients, searchBar } = useContext(Context);
+  const { ingredients, setIngredients, searchBar, updatedIngredients } = useContext(Context);
 
   useEffect(() => {
     getAllIngredients(title).then((response) => {
@@ -23,7 +23,7 @@ const ExplorerByIngridients = ({ title, visible }) => {
       {searchBar && <SearchBar title={title} />}
       {ingredients && (
         <div className="list-ingridients">
-          <List title={title} results={ingredients} refCard="ingredients" />
+          <List title={title} results={ updatedIngredients ? updatedIngredients : ingredients } refCard="ingredients" />
         </div>
       )}
       <Footer />

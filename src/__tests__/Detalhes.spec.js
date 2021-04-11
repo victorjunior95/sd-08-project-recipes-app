@@ -1,14 +1,14 @@
 import React from 'react';
-import { render, fireEvent, queryAllByAltText } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Detalhes from '../pages/Detalhes';
 import Provider from '../context/Provider';
 import fetchMock from '../mocks/fetch';
+import windowMock from '../mocks/windowLocation';
 import copy from 'clipboard-copy';
 jest.mock('clipboard-copy');
-
-
 
 describe('Comidas Page', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('Comidas Page', () => {
   });
 
 
-    const setup = async (url)  => {
+    const setup = (url) => {
       const history = createMemoryHistory({initialEntries: [url]});
       const utils = render(
         <Provider>
@@ -82,7 +82,9 @@ test('33 A - Implemente os elementos da tela de detalhes de uma receita respeita
   });
 
   test('35 B - Desenvolva a tela de forma que contenha uma imagem da receita, o título, a categoria (ou se é ou não alcoólico', async () => {
-    const { utils } = await setup('/comidas/52771');
+    const route = '/comidas/52771';
+    const { utils } = await setup(route);
+    windowMock(route);
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
     // expect(await utils.findByTestId('recipe-photo')).toBe('')
     expect(await utils.findByTestId('recipe-title')).toBeInTheDocument();
@@ -95,14 +97,14 @@ test('33 A - Implemente os elementos da tela de detalhes de uma receita respeita
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   });
   test('43 - Implemente a solução de forma que, ao clicar no botão de compartilhar, o link da receita dentro do app deve ser copiado para o clipboard e uma mensagem avisando que o link foi copiado deve aparecer', async () => {
-    const { utils } = await setup('/comidas/52771');
+    const { utils } = setup('/comidas/52771');
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
     // expect(await utils.findByTestId('recipe-photo')).toBe('')
     const shareBtn = await utils.findByTestId('share-btn');
     // expect(utils.queryAllByText('Link copiado!')[0].hidden).toBeFalsy();
     expect(utils.queryAllByText('Link copiado!')[0].hidden).toBe(true);
     expect(utils.baseElement).toHaveTextContent('Link copiado!');
-    fireEvent.click(shareBtn);
+    userEvent.click(shareBtn);
     expect(utils.queryAllByText('Link copiado!')[0]).toBeInTheDocument();
     expect(copy).toHaveBeenCalledTimes(1);
     expect(copy).toHaveBeenLastCalledWith('http://localhost:3000/comidas/52771')

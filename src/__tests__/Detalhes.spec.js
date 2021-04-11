@@ -97,7 +97,9 @@ test('33 A - Implemente os elementos da tela de detalhes de uma receita respeita
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   });
   test('43 - Implemente a solução de forma que, ao clicar no botão de compartilhar, o link da receita dentro do app deve ser copiado para o clipboard e uma mensagem avisando que o link foi copiado deve aparecer', async () => {
-    const { utils } = setup('/comidas/52771');
+    const route = '/comidas/52771';
+    const { utils } = setup(route);
+    windowMock(route);
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
     // expect(await utils.findByTestId('recipe-photo')).toBe('')
     const shareBtn = await utils.findByTestId('share-btn');

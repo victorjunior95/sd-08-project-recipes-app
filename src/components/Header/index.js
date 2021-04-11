@@ -42,7 +42,7 @@ export default function Header(props) {
     return <span>{' '}</span>;
   }
   return (
-    <Container className="px-0 mb-5" fluid>
+    <Container className="px-0 mb-3" fluid>
       <Navbar className="justify-content-around align-items-center bg-warning header">
         <input
           type="image"

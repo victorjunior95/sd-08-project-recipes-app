@@ -55,7 +55,11 @@ describe('Bebidas Page', () => {
 
 test('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', async () => {
     const { searchTopButton, utils } = await setup();
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     fireEvent.click(searchTopButton);
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const inputSearch = await utils.findByTestId('search-input');
     const radioIngredients =  await utils.findByTestId('ingredient-search-radio');
     const radioName =  await utils.findByTestId('name-search-radio');
@@ -69,26 +73,11 @@ test('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada'
     fireEvent.change(inputSearch, {target: { value: 'gin'}})
     fireEvent.click(radioName);
     fireEvent.click(execSearchButton);
-    expect(fetchMock).toHaveBeenCalled; 
-    //https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=gin
-    // const recipeCard0 =  await utils.findByTestId('0-recipe-card');
-    // const imgCard0 = await utils.findByTestId('0-card-img');
-    // const nameCard0 =  await utils.findByTestId('0-card-name');
-    // const recipeCard12 =  await utils.findByTestId('11-recipe-card');
-    // const imgCard12 = await utils.findByTestId('11-card-img');
-    // const nameCard12 =  await utils.findByTestId('11-card-name');
-    // const recipeCard13 =  await utils.queryByTestId('12-recipe-card');
-    // const imgCard13 = await utils.queryByTestId('12-card-img');
-    // const nameCard13 =  await utils.queryByTestId('12-card-name');
-    // expect(recipeCard12).toBeInTheDocument();
-    // expect(imgCard12).toBeInTheDocument();
-    // expect(nameCard12).toBeInTheDocument();
-    // expect(recipeCard13).not.toBeInTheDocument();
-    // expect(await utils.findByTestId('0-recipe-card')).toBeInTheDocument();
-    // expect(await utils.findByTestId('0-card-img')).toBeInTheDocument();
-    // expect(await utils.findByTestId('0-card-name')).toBeInTheDocument();
-    // expect(imgCard13).not.toBeInTheDocument();
-    // expect(nameCard13).not.toBeInTheDocument();
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=gin');
+    // expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=gin');
     expect(await utils.queryByTestId('0-recipe-card')).toBeInTheDocument();
     expect(await utils.queryByTestId('0-card-img')).toBeInTheDocument();
     expect(await utils.queryByTestId('0-card-name')).toBeInTheDocument();
@@ -102,7 +91,8 @@ test('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada'
 
 test('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card', async () => {
     const { utils, history } = await setup();
-    expect(fetchMock).toHaveBeenCalled(); 
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const categoryFilter0 = await utils.findByTestId('Ordinary Drink-category-filter');
     const categoryFilter1 = await utils.findByTestId('Cocktail-category-filter');
     const categoryFilter2 = await utils.findByTestId('Milk / Float / Shake-category-filter');
@@ -119,15 +109,49 @@ test('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada 
     expect(await utils.queryByTestId('0-card-img')).toBeInTheDocument();
     expect(await utils.queryByTestId('0-card-name')).toBeInTheDocument();
     expect(await utils.queryByTestId('11-recipe-card')).toBeInTheDocument();
+    // expect(await utils.queryByTestId('11-card-img')).toBeInTheDocument();
+    // expect(await utils.queryByTestId('11-card-name')).toBeInTheDocument();
+    expect(await utils.queryByTestId('12-recipe-card')).not.toBeInTheDocument();
+    expect(await utils.queryByTestId('12-card-img')).not.toBeInTheDocument();
+    expect(await utils.queryByTestId('12-card-name')).not.toBeInTheDocument();
+    fireEvent.click(categoryFilterAll);
+    expect(await utils.queryByTestId('0-recipe-card')).toBeInTheDocument();
+    expect(await utils.queryByTestId('0-card-img')).toBeInTheDocument();
+    expect(await utils.queryByTestId('0-card-name')).toBeInTheDocument();
+    expect(await utils.queryByTestId('11-recipe-card')).toBeInTheDocument();
     expect(await utils.queryByTestId('11-card-img')).toBeInTheDocument();
     expect(await utils.queryByTestId('11-card-name')).toBeInTheDocument();
     expect(await utils.queryByTestId('12-recipe-card')).not.toBeInTheDocument();
     expect(await utils.queryByTestId('12-card-img')).not.toBeInTheDocument();
     expect(await utils.queryByTestId('12-card-name')).not.toBeInTheDocument();
-            // const execSearchButton =  await utils.findByTestId('exec-search-btn');
-    // expect(inputSearch).toBeInTheDocument();
-// const radioIngredients =  await utils.findByTestId('ingredient-search-radio');
-    // fireEvent.click(exploreBottomButton);
-    // expect(history.location.pathname).toBe('/explorar');
+  });
+  test('Buscando por ingrediente ', async () => {
+    const { searchTopButton, utils } = await setup();
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    fireEvent.click(searchTopButton);
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const inputSearch = await utils.findByTestId('search-input');
+    const radioIngredients =  await utils.findByTestId('ingredient-search-radio');
+    const execSearchButton =  await utils.findByTestId('exec-search-btn');
+    expect(inputSearch).toBeInTheDocument();
+    expect(radioIngredients).toBeInTheDocument();
+    expect(execSearchButton).toBeInTheDocument();
+    fireEvent.change(inputSearch, {target: { value: 'lemon'}})
+    fireEvent.click(radioIngredients);
+    fireEvent.click(execSearchButton);
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=lemon');
+    expect(await utils.queryByTestId('0-recipe-card')).toBeInTheDocument();
+    expect(await utils.queryByTestId('0-card-img')).toBeInTheDocument();
+    expect(await utils.queryByTestId('0-card-name')).toBeInTheDocument();
+    expect(await utils.queryByTestId('11-recipe-card')).toBeInTheDocument();
+    expect(await utils.queryByTestId('11-card-img')).toBeInTheDocument();
+    expect(await utils.queryByTestId('11-card-name')).toBeInTheDocument();
+    expect(await utils.queryByTestId('12-recipe-card')).not.toBeInTheDocument();
+    expect(await utils.queryByTestId('12-card-img')).not.toBeInTheDocument();
+    expect(await utils.queryByTestId('12-card-name')).not.toBeInTheDocument();
   });
 })

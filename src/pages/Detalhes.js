@@ -67,6 +67,7 @@ const Detalhes = () => {
   useEffect(() => {
     const doneRecipes = getDoneRecipes();
     const [,, id] = location.pathname.split('/');
+    // console.log(doneRecipes);
     const isDone = doneRecipes.some((recipe) => recipe.id === id);
     setButtonRecipe(!isDone);
   }, [location.pathname]);
@@ -83,6 +84,7 @@ const Detalhes = () => {
       const productType = { comidas: 'meals', bebidas: 'drinks' };
 
       const foodDetailRequest = await fetchProductDetailsById(id, type);
+      console.log([productType[type]][0]);
       const foodDetail = foodDetailRequest[productType[type]][0];
 
       const ingredientFilter = Object

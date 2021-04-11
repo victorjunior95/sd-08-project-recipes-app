@@ -13,6 +13,7 @@ const mealsByIngredient = require('./mealsByIngredient');
 const drinks = require('./drinks');
 const oneDrink = require('./oneDrink');
 const ginDrinks = require('./ginDrinks');
+const lemonDrinks = require('./lemonDrinks');
 const ordinaryDrinks = require('./ordinaryDrinks');
 const cocktailDrinks = require('./cocktailDrinks');
 const milkDrinks = require('./milkDrinks');
@@ -77,6 +78,8 @@ const mockFetch = () => {
         if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=xablau') { return Promise.resolve(emptyMeals); }
 
         if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=gin') { return Promise.resolve(ginDrinks); }
+
+        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=lemon') { return Promise.resolve(lemonDrinks); }
 
         if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary Drink') { return Promise.resolve(ordinaryDrinks); }
 

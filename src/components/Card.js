@@ -124,7 +124,7 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
   return null;
 };
 Card.defaultProps = {
-  category: '',
+  cat: '',
   doneDate: '',
   tags: [],
   area: '',
@@ -138,7 +138,7 @@ Card.propTypes = {
   name: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   isFood: PropTypes.bool.isRequired,
-  category: PropTypes.string,
+  cat: PropTypes.string,
   doneDate: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   area: PropTypes.string,

@@ -9,6 +9,8 @@ import { favoriteStorageRecipes } from '../TestsMocks/mockStorageRecipes';
 
 const ENTRIE_FAVORITE = '/receitas-favoritas';
 const FIRSTCARDTESTID = '0-horizontal-name';
+const MEAL_NAME = 'Spicy Arrabiata Penne';
+const DRINK_NAME = 'Aquamarine';
 
 describe('FavoriteRecipes.js', () => {
   test('if the FavoriteRecipes page render', () => {
@@ -33,10 +35,10 @@ describe('FavoriteRecipes.js', () => {
     expect(title).toHaveTextContent('Receitas Favoritas');
 
     const firstRecipe = screen.getByTestId(FIRSTCARDTESTID);
-    expect(firstRecipe).toHaveTextContent('Spicy Arrabiata Penne');
+    expect(firstRecipe).toHaveTextContent(MEAL_NAME);
 
     const secondRecipe = screen.getByTestId('1-horizontal-name');
-    expect(secondRecipe).toHaveTextContent('Aquamarine');
+    expect(secondRecipe).toHaveTextContent(DRINK_NAME);
   });
 
   test('if the FavoriteRecipes render with no recipes', () => {
@@ -79,7 +81,7 @@ describe('FavoriteRecipes.js', () => {
     userEvent.click(foodFilterBtn);
 
     const firstRecipe = screen.getByTestId(FIRSTCARDTESTID);
-    expect(firstRecipe).toHaveTextContent('Spicy Arrabiata Penne');
+    expect(firstRecipe).toHaveTextContent(MEAL_NAME);
   });
 
   test('if the FavoriteRecipes filter by drink', () => {
@@ -102,6 +104,28 @@ describe('FavoriteRecipes.js', () => {
     userEvent.click(drinkFilterBtn);
 
     const firstRecipe = screen.getByTestId(FIRSTCARDTESTID);
-    expect(firstRecipe).toHaveTextContent('Aquamarine');
+    expect(firstRecipe).toHaveTextContent(DRINK_NAME);
+  });
+
+  test('if the FavoriteRecipes filter by all', () => {
+    const INITIAL_ENTRIES = {
+      initialEntries: [ENTRIE_FAVORITE],
+      initialState: {},
+    };
+
+    renderWithReduxandRouter(
+      <LocalStorageMock
+        items={ {
+          favoriteRecipes: JSON.stringify(favoriteStorageRecipes),
+        } }
+      >
+        <App />
+      </LocalStorageMock>, INITIAL_ENTRIES,
+    );
+
+    const firstRecipe = screen.getByTestId(FIRSTCARDTESTID);
+    const allFilterBtn = screen.getByTestId('filter-by-all-btn');
+    userEvent.click(allFilterBtn);
+    expect(firstRecipe).toHaveTextContent(MEAL_NAME);
   });
 });

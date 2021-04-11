@@ -40,7 +40,6 @@ export default function LikeButton() {
     }
     if (liked) {
       const removeFavorite = recipeStorage.filter((e) => e.id !== recipe.id);
-      console.log(removeFavorite);
       localStorage.setItem('favoriteRecipes', JSON
         .stringify(removeFavorite));
       setLiked(false);

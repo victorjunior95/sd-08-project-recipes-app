@@ -147,6 +147,16 @@ export const fetchDrinksByIngredients = [
     strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vaukir1606772580.jpg',
     idDrink: '11034',
   },
+  {
+    strDrink: 'Archbishop',
+    strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/4g6xds1582579703.jpg',
+    idDrink: '11052',
+  },
+  {
+    strDrink: 'Army special',
+    strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/55muhh1493068062.jpg',
+    idDrink: '17066',
+  },
 ];
 
 export const searchByIngredientGin = {

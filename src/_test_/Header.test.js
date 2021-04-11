@@ -94,7 +94,7 @@ describe('<Header />', () => {
       name: /pesquisar/i,
     });
     expect(input).toBeInTheDocument();
-
+    userEvent.type(input, 'aaa');
     const letra = getByText(/primeira letra/i);
     userEvent.click(letra);
     const pesquisar = getByRole('button', {

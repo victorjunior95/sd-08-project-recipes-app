@@ -29,7 +29,7 @@ function SearchBar() {
       dispatch(fetchItem(`https://www.${site}.com/api/json/v1/1/search.php?s=${searchValue}`));
     } else if (searchType === PRIMEIRA_LETRA && searchValue.length === 1) {
       dispatch(fetchItem(`https://www.${site}.com/api/json/v1/1/search.php?f=${searchValue}`));
-    } else if (searchType === PRIMEIRA_LETRA && searchValue.length === 0) {
+    } else if (searchType === PRIMEIRA_LETRA && searchValue.length > 0) {
       // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
     }

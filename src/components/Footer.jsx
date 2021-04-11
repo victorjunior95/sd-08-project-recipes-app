@@ -4,9 +4,9 @@ import './footer.css';
 // import drinkIcon from '../images/drinkIcon.svg';
 // import explorerIcon from '../images/exploreIcon.svg';
 // import mealIcon from '../images/mealIcon.svg';
-import logoDrinks from '../images/Logo_Drinks.png';
-import logoExplore from '../images/Logo_Explore.png';
-import logoMeals from '../images/Logo_Meals.png';
+import logoDrinks from '../images/Logo_drinkIcon.png';
+import logoExplore from '../images/Logo_exploreIcon.png';
+import logoMeals from '../images/Logo_mealIcon.png';
 
 function Footer() {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // import profileIcon from '../images/profileIcon.svg';
-import logoProfile from '../images/Logo_Profile.png';
+import logoProfile from '../images/Logo_profileIcon.png';
 
 function PerfilLink() {
   return (

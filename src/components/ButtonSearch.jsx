@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // import searchIcon from '../images/searchIcon.svg';
-import logoSearch from '../images/Logo_Search.png';
+import logoSearch from '../images/Logo_searchIcon.png';
 import RecipeSearchBar from './RecipeSearchBar';
 import RecipeSearchByArea from './RecipeSearchByArea';
 

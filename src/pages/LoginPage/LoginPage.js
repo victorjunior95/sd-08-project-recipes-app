@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { validateLogin, saveOnStorage } from '../../services/utils';
 import { redirectLogin } from '../../redux/actions';
+import Background from './backgroudLoginPage';
 
 import './LoginPage.scss';
 import quatorzeBis from '../../images/14Bis.png';
@@ -30,7 +31,10 @@ export default function LoginPage() {
   }
   return (
     <div className="login-page">
-      <div className="logo"><img src={ quatorzeBis } alt="Logo Quatorze Bis" /></div>
+      <div className="background">
+        <Background />
+      </div>
+      {/* <div className="logo"><img src={ quatorzeBis } alt="Logo Quatorze Bis" /></div> */}
       <form>
         <input
           data-testid="email-input"

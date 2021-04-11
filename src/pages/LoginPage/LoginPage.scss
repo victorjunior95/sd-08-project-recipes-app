@@ -1,8 +1,8 @@
 .login-page {
-  background-color: white;
+  background-color:transparent;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
   margin: auto;
   .logo {
     background-color: #eee;
@@ -25,9 +25,9 @@
     border-radius: 5px;
     display: flex;
     flex-flow: column wrap;
-    margin: auto;
+    margin-top: 45vh;
     padding: 1rem;
-    width: 80%;
+    width: 60%;
   }
   input {
     background-color: rgba(248, 180, 53, 0.199);
@@ -69,67 +69,76 @@
   }
 }
 
-// .login-page form {
-//   background-color: #92b2db;
-//   border-radius: 5px;
-//   display: flex;
-//   flex-flow: column wrap;
-//   margin: auto;
-//   padding: 1rem;
-//   width: 80%;
-// }
 
-// .login-page .logo {
-//   background-color: #eee;
-//   border-radius: 50%;
-//   display: flex;
-//   margin: auto;
-//   padding: 0.8rem;
-// }
+.background {
+  position: absolute;
+  z-index: -1;
+}
 
-// .login-page .logo img {
-//   height: 50px;
-//   pointer-events: none;
-//   width: 50px;
-// }
+#Vector_5 {
+  animation-name: leftAnimation;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  // animation-delay: 0s;
+  animation-play-state: running;
+}
 
-// .login-page input {
-//   background-color: #eee;
-//   border: none;
-//   border-radius: 5px;
-//   color: #131313;
-//   font-size: 16px;
-//   height: 30px;
-//   margin: 10px auto;
-//   outline: none;
-//   padding: 5px;
-//   width: 95%;
-// }
+#Vector_6 {
+  animation-name: leftAnimation;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  // animation-delay: 0s;
+  animation-play-state: running;
+}
 
-// .login-page input:focus {
-//   border: 2px solid #eee;
-// }
+#Vector_7 {
+  animation-name: leftAnimation;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  // animation-delay: 0s;
+  animation-play-state: running;
+}
 
-// .login-page button {
-//   background-color: #163c84;
-//   border: 2px outset #163c84;
-//   border-radius: 5px;
-//   color: #eee;
-//   font-size: 1.5rem;
-//   margin: auto;
-//   min-height: 50px;
-//   outline: none;
-//   width: 60%;
-// }
+#Vector_4 {
+  animation-name: rigthAnimation;
+  animation-duration: 3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  // animation-delay: 3s;
+  animation-play-state: running;
+}
 
-// .login-page button:active {
-//   background-color: #eee;
-//   border: 2px inset #eee;
-//   color: black;
-//   outline: none;
-// }
+#Vector_3 {
+  animation-name: rigthAnimation;
+  animation-duration: 3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  // animation-delay: 1s;
+  animation-play-state: running;
+}
 
-// .login-page button:disabled {
-//   background-color: #ccc;
-//   border: none;
-// }
+#Vector_2 {
+  animation-name: rigthAnimation;
+  animation-duration: 3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  // animation-delay: 2s;
+  animation-play-state: running;
+  animation-direction: alternate;
+}
+
+@keyframes leftAnimation {
+  0%   {transform: translateX(-300px); opacity: 80%; }
+  25%  { opacity: 60%; }
+  50%  {opacity: 40%; }
+  75%  {opacity: 20%; }
+  100% {opacity: 20%; }
+}
+
+@keyframes rigthAnimation {
+  0%   {transform: translateX(300px);
+        opacity: 10%;
+        display: none;
+      }
+  25%  { opacity: 20%; }
+  50%  {opacity: 30%; }
+  75%  {opacity: 40%; }
+  100% { opacity: 0%; }
+}

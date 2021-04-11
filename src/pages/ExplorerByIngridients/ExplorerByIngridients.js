@@ -19,7 +19,7 @@ const ExplorerByIngridients = ({ title, visible }) => {
 
   return (
     <>
-      <Header title={title} visible={visible} />
+      <Header title={title} visible={visible} dataTestIdSearch="" />
       {searchBar && <SearchBar title={title} />}
       {ingredients && (
         <div className="list-ingridients">

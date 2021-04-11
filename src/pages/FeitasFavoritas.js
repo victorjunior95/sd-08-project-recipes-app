@@ -17,10 +17,8 @@ export default function FeitasFavoritas() {
   const unfavRecipe = (recipeId) => {
     const updatedFavs = JSON.parse(localStorage.getItem('favoriteRecipes'))
       .filter((recipe) => recipe.id !== recipeId);
-    console.log(updatedFavs);
     setFavList(updatedFavs);
     localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavs));
-    console.log(localStorage);
     // updatedFavs.filter((recipe) => recipe.id !== recipeId);
     // localStorage.favoriteRecipes = updatedFavs;
   };

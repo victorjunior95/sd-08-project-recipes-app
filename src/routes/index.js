@@ -32,7 +32,6 @@ const Routes = () => (
       component={ ExplorarIngredientes }
     />
     <Route exact path="/explorar/comidas/area" component={ ExplorarArea } />
-    <Route exact path="/explorar/bebidas/area" component={ NotFound } />
     <Route
       exact
       path="/explorar/bebidas/ingredientes"
@@ -41,6 +40,7 @@ const Routes = () => (
     <Route exact path="/perfil" component={ ProfilePage } />
     <Route exact path="/receitas-feitas" component={ FeitasFavoritas } />
     <Route exact path="/receitas-favoritas" component={ FeitasFavoritas } />
+    <Route component={ NotFound } />
   </Switch>
 );
 

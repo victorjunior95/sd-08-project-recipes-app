@@ -8,33 +8,40 @@ import Drinks from './pages/Drinks';
 import Item from './components/Item';
 import Perfil from './pages/Perfil';
 import Explore from './pages/Explore';
-import Progress from './components/Progress';
+import ExploreFood from './pages/ExploreFood';
+import ExploreDrink from './pages/ExploreDrink';
+import FoodArea from './pages/FoodArea';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
-        <Route exact path="/comidas/:id" render={ (props) => <Item { ...props } /> } />
-        <Route exact path="/bebidas/:id" render={ (props) => <Item { ...props } /> } />
-        <Route exact path="/comidas" render={ (props) => <Food { ...props } /> } />
-        <Route exact path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
-        <Route exact path="/perfil" component={ Perfil } />
-        <Route exact path="/explorar" component={ Explore } />
+        <Route path="/comidas/:id" render={ (props) => <Item { ...props } /> } />
+        <Route path="/bebidas/:id" render={ (props) => <Item { ...props } /> } />
+        <Route path="/comidas" render={ (props) => <Food { ...props } /> } />
+        <Route path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
+        <Route path="/perfil" component={ Perfil } />
+        <Route exact path="/explorar" render={ (props) => <Explore { ...props } /> } />
         <Route
-          path="/comidas/:id/in-progress"
-          render={ (props) => <Progress { ...props } /> }
+          exact
+          path="/explorar/comidas"
+          render={ (props) => <ExploreFood { ...props } /> }
         />
         <Route
-          path="/bebidas/:id/in-progress"
-          render={ (props) => <Progress { ...props } /> }
+          exact
+          path="/explorar/bebidas"
+          render={ (props) => <ExploreDrink { ...props } /> }
         />
-        { /*
-        <Route path="/explorar/comidas" />
-        <Route path="/explorar/bebidas" />
         <Route path="/explorar/comidas/ingredientes" />
         <Route path="/explorar/bebidas/ingredientes" />
-        <Route path="/explorar/comidas/area" />
+        <Route
+          exact
+          path="/explorar/comidas/area"
+          render={ (props) => <FoodArea { ...props } /> }
+        />
+        { /* <Route path="/comidas/{id-da-receita}/in-progress" />
+        <Route path="/bebidas/{id-da-receita}/in-progress" />
         <Route path="/receitas-feitas" />
         <Route path="/receitas-favoritas" /> */}
       </Switch>

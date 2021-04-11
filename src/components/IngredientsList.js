@@ -3,80 +3,61 @@ import PropTypes from 'react-bootstrap/esm/Image';
 
 function IngredientsList(props) {
   const { ingredients, measure, id } = props;
-  // console.log(ingredients, measure, id);
-  // const arrayOfIngredients = [];
-  const [itensChecked, setItensChecked] = useState();
 
-  const saveLocalStorage = (name) => {
-    const recipesProgress = JSON
-      .parse(localStorage.getItem('inProgressRecipes'));
-    // console.log(Object.keys(Object.entries(recipesProgress)[1][1]));
-    // console.log(name);
-    const arrayOfIngredients = Object.keys(Object.entries(recipesProgress)[1][1]);
-    if (!arrayOfIngredients.some((item) => Number(item) === Number(id))) {
-      // console.log(arrayOfIngredients);
-      return localStorage.setItem(
-        'inProgressRecipes',
-        JSON.stringify({
-          ...recipesProgress,
-          meals: { ...recipesProgress.meals,
-            [id]: [name],
-          },
-        }),
-      );
+  const [ingredientsList, setIngredientsList] = useState([]);
+
+  const parseIngredient = () => {
+    const newList = ingredients.map((item, index) => ({
+      id: index,
+      ingredient: item,
+      measure: measure[index],
+      checked: false,
+    }));
+    const store = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (store.meals[id]) {
+      store.meals[id].forEach((item) => {
+        const index = newList.findIndex((i) => i.ingredient === item);
+        newList[index].checked = true;
+      });
     }
-    const removeItem = recipesProgress.meals[id].indexOf(name);
-    return removeItem >= 0
-      ? localStorage.setItem('inProgressRecipes', JSON.stringify({ ...recipesProgress,
-        meals: { ...recipesProgress.meals,
-          [id]: recipesProgress.meals[id].filter((index) => index !== name),
-        } }))
-      : localStorage.setItem('inProgressRecipes', JSON.stringify({ ...recipesProgress,
-        meals: { ...recipesProgress.meals,
-          [id]: [...recipesProgress.meals[id], name],
-        } }));
+    return newList;
   };
 
-  const handleIngredients = ({ name }) => {
-    // console.log(name);
-    saveLocalStorage(name);
+  const setStorage = () => {
+    const store = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const aux = [...ingredientsList];
+    const newList = aux.filter((item) => item.checked).map((i) => i.ingredient);
+    store.meals[id] = newList;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(store));
   };
 
   useEffect(() => {
-    const recipesProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // console.log(id);
-    // console.log(recipesProgress.meals[id]);
-    const getLocalStorage = recipesProgress.meals[id];
-    const getTags = document.getElementsByTagName('input');
-    console.log(getTags);
-    if (getLocalStorage !== undefined) {
-      for (let i = 0; i < ingredients.length; i += 1) {
-        for (let x = 0; x < getLocalStorage.length; x += 1) {
-          if (ingredients[i] === getLocalStorage[x]) {
-            console.log('xablau');
-          }
-        }
-      }
-    }
-  }, []);
+    setIngredientsList(parseIngredient());
+  }, [id]);
 
-  // console.log(ingredients);
+  const handleIngredients = ({ target }) => {
+    const newList = [...ingredientsList];
+    const listIndex = newList.findIndex((i) => i.ingredient === target.name);
+    newList[listIndex].checked = target.checked;
+    setIngredientsList(newList);
+    setStorage();
+  };
+
   return (
     <ul>
-      { ingredients.map((ing, i) => (
+      { ingredientsList.length > 0 && ingredientsList.map((ing) => (
         <li
-          key={ i }
-
+          key={ ing.id }
         >
-          <label htmlFor={ ing } data-testid={ `${i}-ingredient-step` }>
-
+          <label htmlFor={ ing.ingredient } data-testid={ `${ing.id}-ingredient-step` }>
             <input
               type="checkbox"
-              name={ ing }
-              id={ ing }
-              onChange={ (e) => handleIngredients(e.target) }
+              name={ ing.ingredient }
+              value={ ing.ingredient }
+              checked={ ing.checked }
+              onChange={ handleIngredients }
             />
-            { `${measure[i]} of ${ing}` }
+            { `${measure[ing.id]} of ${ing.ingredient}` }
           </label>
         </li>
       )) }
@@ -85,7 +66,7 @@ function IngredientsList(props) {
 }
 
 IngredientsList.propTypes = {
-  ingredients: PropTypes.array,
+  ingredient: PropTypes.array,
   measure: PropTypes.array,
   id: PropTypes.string,
 }.isRequired;

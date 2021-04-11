@@ -16,11 +16,12 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import NotFound from './pages/NotFound';
 import ProgressMeal from './pages/ProgressMeal';
 import ProgressDrink from './pages/ProgressDrink';
+import './CSS/AppMain.css';
 
 function App() {
   return (
     <main>
-      <div className="main-container">
+      <div className="main-section">
         <Switch>
           <Route exact path="/perfil" component={ ProfilePage } />
           <Route exact path="/explorar" component={ Explore } />

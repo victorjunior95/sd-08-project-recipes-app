@@ -10,6 +10,7 @@ import MealCatsButtons from '../components/MealCatsButton';
 import fetchRecipesMealCatsThunk from '../redux/actions/fetchMealCatRecipesAction';
 import { fetchMealIFilterThunk } from '../redux/actions/fetchIngridientsAction';
 import RecipesCards from '../components/RecipesCards';
+import '../CSS/MealRecipePage.css';
 
 function MealsRecipes() {
   const dispatch = useDispatch();
@@ -48,20 +49,24 @@ function MealsRecipes() {
   }, []);
 
   return (
-    <section>
+    <section className="meal-image main-container">
       {(recipes && recipes.length === 1 && mealFilter === '')
       && <Redirect to={ `/comidas/${recipes[0].idMeal}` } />}
-      <Header />
-      <MealCatsButtons />
-      { recipes && recipes.map((elem, index) => (
-        <RecipesCards
-          key={ elem.idMeal }
-          path="/comidas"
-          elem={ elem }
-          index={ index }
-          type="Meal"
-        />
-      )) }
+      <div className="header-section">
+        <Header />
+        <MealCatsButtons />
+      </div>
+      <div className="cards-section">
+        { recipes && recipes.map((elem, index) => (
+          <RecipesCards
+            key={ elem.idMeal }
+            path="/comidas"
+            elem={ elem }
+            index={ index }
+            type="Meal"
+          />
+        )) }
+      </div>
       <Footer />
     </section>
   );

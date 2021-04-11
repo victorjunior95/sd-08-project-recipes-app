@@ -34,7 +34,7 @@ export default function Login() {
   return (
     <div>
       {redirect && <Redirect to="/comidas" />}
-      <form>
+      <form className="form-container">
         <div>
           <label htmlFor="email-login" className="form-label">
             Email address
@@ -66,6 +66,7 @@ export default function Login() {
           data-testid="login-submit-btn"
           onClick={ handleClick }
           disabled={ !verification }
+          className="regular-button"
         >
           Entrar
         </button>

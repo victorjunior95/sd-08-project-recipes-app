@@ -10,6 +10,7 @@ import clearSearchAction from '../redux/actions/clearSearchAction';
 import DrinkCatsButtons from '../components/DrinkCatsButtons';
 import { fetchDrinkIFilterThunk } from '../redux/actions/fetchIngridientsAction';
 import RecipesCards from '../components/RecipesCards';
+import '../CSS/DrinkRecipePage.css';
 
 function DrinksRecipes() {
   const dispatch = useDispatch();
@@ -48,20 +49,24 @@ function DrinksRecipes() {
   }, []);
 
   return (
-    <section>
+    <section className="cocktail-image main-container">
       { recipes && recipes.length === 1
-        && <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />}
-      <Header />
-      <DrinkCatsButtons />
-      { recipes && recipes.map((elem, index) => (
-        <RecipesCards
-          key={ elem.idDrink }
-          path="/bebidas"
-          elem={ elem }
-          index={ index }
-          type="Drink"
-        />
-      )) }
+        && <Redirect to={ `/bebidas/${recipes[0].idDrink}` } /> }
+      <div className="header-section">
+        <Header />
+        <DrinkCatsButtons />
+      </div>
+      <div className="cards-section">
+        { recipes && recipes.map((elem, index) => (
+          <RecipesCards
+            key={ elem.idDrink }
+            path="/bebidas"
+            elem={ elem }
+            index={ index }
+            type="Drink"
+          />
+        )) }
+      </div>
       <Footer />
     </section>
   );

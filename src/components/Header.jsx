@@ -13,26 +13,32 @@ export default function Header() {
   if (!pathname.includes('explorar') && !pathname.includes('perfil')
     && !pathname.includes('receitas')) {
     return (
-      <header>
-        <PerfilLink />
-        <HeaderTitle title={ pathname } />
-        <ButtonSearch type="search" />
+      <header className="header-container">
+        <div className="header-info">
+          <PerfilLink />
+          <HeaderTitle title={ pathname } />
+          <ButtonSearch type="search" />
+        </div>
       </header>
     );
   }
   if (aTitle[3] === 'origem') {
     return (
-      <header>
-        <PerfilLink />
-        <HeaderTitle title={ pathname } />
-        <ButtonSearch type="origem" />
+      <header className="header-container">
+        <div className="header-info">
+          <PerfilLink />
+          <HeaderTitle title={ pathname } />
+          <ButtonSearch type="origem" />
+        </div>
       </header>
     );
   }
   return (
-    <header>
-      <PerfilLink />
-      <HeaderTitle title={ pathname } />
+    <header className="header-container">
+      <div className="header-info">
+        <PerfilLink />
+        <HeaderTitle title={ pathname } />
+      </div>
     </header>
   );
 }

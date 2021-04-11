@@ -1,0 +1,26 @@
+.login-image {
+  background-image: url('../images/Login_Mobile.png');
+}
+
+.form-container {
+  align-items: center;
+  background-color: #0c0909;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  margin-top: 160px;
+  max-width: 80%;
+}
+
+.form-label {
+  color: #e3e0de;
+  display: flex;
+  flex-flow: column wrap;
+  font-weight: 600;
+  justify-content: flex-end;
+}
+
+.form-label input {
+  background-color: #e3e0de;
+  border-radius: 5px;
+}

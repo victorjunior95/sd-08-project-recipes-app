@@ -130,3 +130,18 @@ export const getFoodsByArea = async (area) => {
     .then((res) => res.json());
   return result;
 };
+
+export const ProgressFoodFunc = () => {
+  const recipesProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!recipesProgress) {
+    localStorage.setItem(
+      'inProgressRecipes',
+      JSON.stringify({
+        cocktails: {
+        },
+        meals: {
+        },
+      }),
+    );
+  }
+};

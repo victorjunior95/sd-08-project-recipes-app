@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { getDrinkById } from '../services/API';
+import { getDrinkById, ProgressFoodFunc } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import IngredientsCocktail from '../components/IngredientsCocktail';
 
 function ProgressoBebida() {
   const history = useHistory();
@@ -30,6 +31,7 @@ function ProgressoBebida() {
         setFav(false);
       }
     });
+    ProgressFoodFunc();
   }, []);
 
   const PROP_LIMITER = 20;
@@ -49,7 +51,7 @@ function ProgressoBebida() {
 
   const share = (e) => {
     e.target.innerText = 'Link copiado!';
-    copy(`http://localhost:3000${location.pathname}`);
+    copy(`http://localhost:3000/bebidas/${id}`);
   };
 
   const favorite = () => {
@@ -108,17 +110,7 @@ function ProgressoBebida() {
         </button>
       </div>
       <h3>Lista de Ingredientes:</h3>
-      <ul>
-        { ingredients.map((ing, i) => (
-          <li key={ i } data-testid={ `${i}-ingredient-step` }>
-            <input
-              type="checkbox"
-              name={ ing.name }
-            />
-            { `${measure[i]} of ${ing}` }
-          </li>
-        )) }
-      </ul>
+      <IngredientsCocktail ingredients={ ingredients } measure={ measure } id={ id } />
       <h3>Instruções</h3>
       <p data-testid="instructions">{ drink.strInstructions }</p>
       <button

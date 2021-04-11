@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 // import { object } from 'prop-types';
-import { getFoodById } from '../services/API';
+import { getFoodById, ProgressFoodFunc } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import IngredientsList from '../components/IngredientsList';
@@ -34,6 +34,7 @@ function ProgressoComida() {
         setFav(false);
       }
     });
+    ProgressFoodFunc();
   }, []);
 
   if (toRender) {
@@ -45,9 +46,11 @@ function ProgressoComida() {
     }
   }
 
+  console.log(location.pathname);
+
   const share = (e) => {
     e.target.innerText = 'Link copiado!';
-    copy(`http://localhost:3000${location.pathname}`);
+    copy(`http://localhost:3000/comidas/${id}`);
   };
 
   const favorite = () => {

@@ -10,6 +10,7 @@ function FinishButton(props) {
   const { checkedInstructions, instructions, id, type, area, category,
     alcoholicOrNot, name, image, tags } = props;
   const history = useHistory();
+  // https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
   const today = new Date();
   const day = String(today.getDate()).padStart(2, '0');
   const month = String(today.getMonth() + 1).padStart(2, '0');

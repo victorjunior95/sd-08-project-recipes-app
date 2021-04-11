@@ -131,6 +131,22 @@ export const getFoodsByArea = async (area) => {
   return result;
 };
 
+export const favsLocalStorage = () => {
+  const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (!getFavsFromLocal) {
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify([{ id: 0,
+        type: '',
+        area: '',
+        category: '',
+        alcoholicOrNot: '',
+        name: '',
+        image: '',
+        doneDate: '',
+        tags: [] }]));
+  }
+};
+
 export const ProgressFoodFunc = () => {
   const recipesProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!recipesProgress) {

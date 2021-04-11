@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 // import { object } from 'prop-types';
-import { getFoodById, ProgressFoodFunc } from '../services/API';
+import { favsLocalStorage, getFoodById, ProgressFoodFunc } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import IngredientsList from '../components/IngredientsList';
@@ -24,6 +24,7 @@ function ProgressoComida() {
   const PROPS_LIMITER = 20;
 
   useEffect(() => {
+    favsLocalStorage();
     getFoodById(id).then(({ meals }) => {
       setMeal(meals[0]);
       setToRender(true);
@@ -117,7 +118,13 @@ function ProgressoComida() {
         <IngredientsList ingredients={ ingredients } measure={ measure } id={ id } />
         <h3>Instruções</h3>
         <p data-testid="instructions">{ meal.strInstructions }</p>
-        <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          // disabled={ checkValidity }
+        >
+          Finalizar Receita
+        </button>
       </div>
     )
   );

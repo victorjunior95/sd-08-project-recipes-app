@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { getDrinkById, ProgressFoodFunc } from '../services/API';
+import { favsLocalStorage, getDrinkById, ProgressFoodFunc } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import IngredientsCocktail from '../components/IngredientsCocktail';
@@ -21,6 +21,7 @@ function ProgressoBebida() {
   const measure = [];
 
   useEffect(() => {
+    favsLocalStorage();
     getDrinkById(id).then(({ drinks }) => {
       setDrink(drinks[0]);
       setToRender(true);

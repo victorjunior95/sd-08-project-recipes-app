@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { getFoodById } from '../services/API';
+import { favsLocalStorage, getFoodById } from '../services/API';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -24,6 +24,7 @@ function DetalhesComida() {
   const { drinkRandom, data } = useContext(RecipesContext);
 
   useEffect(() => {
+    favsLocalStorage();
     getFoodById(id).then(({ meals }) => {
       setMeal(meals[0]);
       drinkRandom();

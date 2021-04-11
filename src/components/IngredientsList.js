@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'react-bootstrap/esm/Image';
+import PropTypes from 'prop-types';
 
 function IngredientsList(props) {
   const { ingredients, measure, id } = props;
@@ -22,6 +22,8 @@ function IngredientsList(props) {
     }
     return newList;
   };
+
+  // console.log(ingredientsList);
 
   const setStorage = () => {
     const store = JSON.parse(localStorage.getItem('inProgressRecipes'));

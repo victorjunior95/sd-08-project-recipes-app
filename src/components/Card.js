@@ -121,6 +121,7 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
       </div>
     );
   }
+  return null;
 };
 Card.defaultProps = {
   category: '',

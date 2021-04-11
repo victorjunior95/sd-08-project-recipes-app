@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 
 import ExplorarIngredientes from '../pages/ExplorarIngredientes';
 

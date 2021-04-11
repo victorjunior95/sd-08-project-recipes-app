@@ -61,13 +61,8 @@ function DrinksProcess() {
 
   if (isFetching) return <Loading />;
 
-  const { strDrink, strCategory, strDrinkThumb, strAlcoholic } = drinkData ? drinkData[0]
-    : {
-      strDrink: ' ',
-      strCategory: ' ',
-      strDrinkThumb: ' ',
-      strAlcoholic: ' ',
-    };
+  const { strDrink, strCategory,
+    strDrinkThumb, strAlcoholic } = drinkData && drinkData[0];
 
   const allDrinkData = drinkData && drinkData[0];
 

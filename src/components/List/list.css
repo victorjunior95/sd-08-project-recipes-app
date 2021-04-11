@@ -1,12 +1,28 @@
-.list-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding-bottom: 80px;
-  width: 100%;
+.container-list {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr 1fr;
 }
 
-.list-cards a {
-  margin: 8px;
-  width: 44%;
+.card-button {
+  background-color: transparent;
+  border: none;
+}
+
+.remove-button {
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-left: 2px;
+  padding: 0 6px;
+}
+
+.filtered-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 4px;
+}
+
+.filtered-content {
+  margin: 4px;
 }

@@ -7,7 +7,7 @@ function Login({ children }) {
   const [password, setPassword] = useState();
   const [searchBar, setSearchBar] = useState(false);
   const [results, setResults] = useState([]);
-  const [checkbox,setCheckbox] = useState()
+  const [checkbox,setCheckbox] = useState(false)
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [productDetails, setProductDetails] = useState(
     {object: "",

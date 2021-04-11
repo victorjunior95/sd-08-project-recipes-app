@@ -7,3 +7,7 @@
   margin: 15px 0;
   text-align: center;
 }
+
+.action-buttons button {
+  margin: 8px;
+}

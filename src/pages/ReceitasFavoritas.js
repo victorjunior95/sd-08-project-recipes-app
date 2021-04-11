@@ -55,10 +55,10 @@ const ReceitasFavoritas = () => {
 
   const msgTime = 5000;
   const copiarURL = (tipo, id, e) => {
-    copy(`http://localhost:3000/${tipo}/${id}`);
     setRenderMSG(true);
     setTarget(e.target);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
+    copy(`http://localhost:3000/${tipo}/${id}`);
   };
   const NUMERO_DE_CARDS_MAX = 4;
   const classCardHeigth = favoriteRecipes

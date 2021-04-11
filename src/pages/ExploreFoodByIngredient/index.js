@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router';
+import { useHistory } from 'react-router';
 import ContainerDefault from '../../components/ContainerDefault';
 import { filterMealsByIngrendient } from '../../redux/actions';
 import { fetchIngredient, imgIngrediente } from '../../services/theMeadlDB';
@@ -11,7 +11,6 @@ function ExploreFoodByIngredient() {
   const [useingredient, setIngredient] = useState([{}]);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { path } = useRouteMatch();
 
   useEffect(() => {
     const apiIngredient = async () => {
@@ -21,11 +20,10 @@ function ExploreFoodByIngredient() {
     apiIngredient();
   }, []);
 
-  const mealsByIngredient = (ingredient) => {
+  const mealsByIngredient = (ingredient, e) => {
+    e.preventDefault();
     dispatch(filterMealsByIngrendient(ingredient));
-    if (path.includes('/comidas')) {
-      history.push('/comidas');
-    }
+    history.push('/comidas');
   };
   const numberIngredient = 12;
   return (
@@ -35,7 +33,7 @@ function ExploreFoodByIngredient() {
           <Card
             data-testid={ `${index}-ingredient-card` }
             key={ index }
-            onClick={ () => mealsByIngredient(ingredient.strIngredient) }
+            onClick={ (e) => mealsByIngredient(ingredient.strIngredient, e) }
           >
             <Card.Img
               data-testid={ `${index}-card-img` }

@@ -77,12 +77,10 @@
       .doneDate{
         color: rgb(121, 117, 117);
         margin-left: 10px;
-        display: flex;
         height: 3vh;
-        width: 80%;
+        width: 50%;
       }
       .tag {
-        background-color: rgb(215, 216, 213);
         height: 4vh;
         font-weight: 900;
         font-size: larger;
@@ -103,6 +101,7 @@
       }
       h2 {
         margin-left: 2vw;
+        font-size: 1.3rem;
       }
       .buttons-favorite-recipes{
         display: flex;

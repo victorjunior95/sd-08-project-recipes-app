@@ -6,11 +6,10 @@ import Context from '../../contextApi/Context';
 import { filterRecipes } from '../../services/FoodsDrinksRequests';
 
 const SearchBar = ({ title }) => {
-  const { setResults, setUpdatedIngredients, ingredients } = useContext(Context);
+  const { setResults } = useContext(Context);
   const history = useHistory();
   const [filter, setFilter] = useState('i');
   const [query, setQuery] = useState('');
-
   const submitFilters = async () => {
     if (filter === 'f' && query.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
@@ -28,12 +27,14 @@ const SearchBar = ({ title }) => {
       setResults(recipes);
     }
   };
-
-
-
-  const renderRadios = () => {
-    if (title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas") {
-      return (
+  return (
+    <div className="container mt-2">
+      <div className="search-bar">
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ (e) => setQuery(e.target.value) }
+        />
         <div className="radio-group">
           <label htmlFor="ingredient">
             <input
@@ -66,14 +67,6 @@ const SearchBar = ({ title }) => {
             Primeira letra
           </label>
         </div>
-      )
-    }
-  }
-
-  const renderButton = () => {
-
-    if (title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas") {
-      return (
         <button
           className="btn btn-info"
           type="button"
@@ -82,32 +75,6 @@ const SearchBar = ({ title }) => {
         >
           Buscar
         </button>
-      )
-    }
-  }
-
-  
-  const filterIngredients = (e) => {
-    const filteredIngredients = ingredients.filter(ingredient => ingredient.strIngredient.toLowerCase().includes(e.target.value.toLowerCase()));
-    setUpdatedIngredients(filteredIngredients)
-  }
-
-  const handleChange = () => {
-    return(
-      title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas" ? (e) => setQuery(e.target.value) : (e) => filterIngredients(e)
-    )
-  }
-
-  return (
-    <div className="container mt-2">
-      <div className="search-bar">
-        <input
-          type="text"
-          data-testid="search-input"
-          onChange={ handleChange() }
-        />
-        {renderRadios()}
-        {renderButton()}
       </div>
     </div>
   );

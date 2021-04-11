@@ -10,7 +10,6 @@ import Profile from './pages/Profile/Profile';
 import RecipesFavDone from './pages/RecipesFavDone/RecipesFavDone';
 import Details from './pages/Details/Details';
 import RecipesInProgress from './pages/RecipesInProgress/RecipesInProgress';
-import NotFound from './pages/NotFound/NotFound';
 
 const Routes = () => (
   <Switch>
@@ -33,10 +32,10 @@ const Routes = () => (
       <ExplorerFoodsDrinks title="Explorar Bebidas" visible={ false } />
     </Route>
     <Route exact path="/explorar/comidas/ingredientes">
-      <ExplorerByIngridients title="Explorar Ingredientes de Comidas" visible={ true } />
+      <ExplorerByIngridients title="Explorar Ingredientes de Comidas" visible={ false } />
     </Route>
     <Route exact path="/explorar/bebidas/ingredientes">
-      <ExplorerByIngridients title="Explorar Ingredientes de Bebidas" visible={ true } />
+      <ExplorerByIngridients title="Explorar Ingredientes de Bebidas" visible={ false } />
     </Route>
     <Route exact path="/perfil">
       <Profile title="Perfil" visible={ false } />
@@ -51,7 +50,7 @@ const Routes = () => (
       <ExplorerByArea title="Explorar Origem" />
     </Route>
     <Route exact path="/explorar/bebidas/area">
-      <NotFound />
+      <div>Not Found</div>
     </Route>
     <Route
       exact path="/comidas/:id"

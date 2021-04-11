@@ -7,7 +7,7 @@ import './header.css';
 
 import Context from '../../contextApi/Context';
 
-const Header = ({ title, visible, dataTestIdSearch = "search-top-btn" }) => {
+const Header = ({ title, visible }) => {
   const { setSearchBar, searchBar } = useContext(Context);
   const [redirect, setRedirect] = useState(false);
   return (
@@ -27,7 +27,7 @@ const Header = ({ title, visible, dataTestIdSearch = "search-top-btn" }) => {
             <img
               src={ searchIcon }
               alt="Search icon"
-              data-testid={dataTestIdSearch}
+              data-testid="search-top-btn"
             />
           </button>
         )}
@@ -41,7 +41,6 @@ Header.defaultProps = {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   visible: PropTypes.bool,
-  dataTestIdSearch: PropTypes.string.isRequired,
 };
 
 export default Header;

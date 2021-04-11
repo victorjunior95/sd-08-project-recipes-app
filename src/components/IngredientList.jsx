@@ -7,19 +7,14 @@ const IngredientList = () => {
   const ingredient = findKey(singleRecipe[0], 'strIngredient');
   const measure = findKey(singleRecipe[0], 'strMeasure');
 
-  return ingredient.map((nome, index) => {
-    if (nome) {
-      return (
-        <p
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ index }
-        >
-          {`${nome} - ${measure[index]}`}
-        </p>
-      );
-    }
-    return undefined;
-  });
+  return ingredient.map((nome, index) => (
+    <p
+      data-testid={ `${index}-ingredient-name-and-measure` }
+      key={ index }
+    >
+      {`${nome} - ${measure[index]}`}
+    </p>
+  ));
 };
 
 export default IngredientList;

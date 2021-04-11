@@ -32,14 +32,12 @@ function ProgressMeal() {
     const localState = meatStorage.includes(name)
       ? meatStorage.filter((e) => e !== name)
       : meatStorage.concat(name);
-    console.log(localState, 'state');
     setMeatStorage(localState);
 
     const newStorage = getStorage
       ? Object.assign(getStorage, { meals: { [id]: localState } })
       : { meals: { [id]: localState } };
 
-    console.log(newStorage, 'newStorage');
     localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
   }
 
@@ -56,7 +54,6 @@ function ProgressMeal() {
   const createIngrediets = () => {
     const ingredient = findKey(arrayMeat, 'strIngredient');
     const measure = findKey(arrayMeat, 'strMeasure');
-    console.log(ingredient);
     return ingredient.map((nome, index) => {
       if (nome) {
         return (

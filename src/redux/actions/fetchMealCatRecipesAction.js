@@ -19,7 +19,7 @@ const fetchRecipesMealCatsAction = (filteredRecipes) => ({
 
 const fetchRecipesMealCatsThunk = (filter) => async (dispatch) => {
   const { meals } = await fetchMealByFilter(filter, 'c');
-  const result = meals !== null ? filterToTwelve(meals) : meals;
+  const result = filterToTwelve(meals);
   dispatch(fetchRecipesMealCatsAction(result));
 };
 

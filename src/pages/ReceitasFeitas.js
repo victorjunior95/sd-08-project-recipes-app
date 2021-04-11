@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Card, CardDeck, Nav, Overlay, Popover } from 'react-bootstrap';
+import copy from 'clipboard-copy';
 
 import Header from '../components/Header';
 import ContextRecipes from '../context/ContextRecipes';
 import ShareIcon from '../images/shareIcon.svg';
-
-const copy = require('clipboard-copy');
 
 const ReceitasFeitas = () => {
   const { setHeaderInfo } = useContext(ContextRecipes);
@@ -41,10 +40,11 @@ const ReceitasFeitas = () => {
 
   const msgTime = 5000;
   const copiarURL = (tipo, id, e) => {
-    copy(`http://localhost:3000/${tipo}/${id}`);
+    console.log(tipo);
     setRenderMSG(true);
     setTarget(e.target);
     setTimeout(() => { setRenderMSG(false); }, msgTime);
+    copy(`http://localhost:3000/${tipo}/${id}`);
   };
   const NUMERO_DE_CARDS_MAX = 4;
   const classCardHeigth = doneRecipes.length < NUMERO_DE_CARDS_MAX
@@ -124,7 +124,7 @@ const ReceitasFeitas = () => {
                         </small>
                       </Card.Text>
                       <input
-                        type="image"
+                        type="button"
                         src={ ShareIcon }
                         alt="Botão Compartilhar"
                         data-testid={ `${index}-horizontal-share-btn` }
@@ -138,6 +138,7 @@ const ReceitasFeitas = () => {
                         target={ target }
                         placement="bottom"
                         container={ ref.current }
+                        data-testid="mensagem"
                       >
                         <Popover id="popover-contained">
                           Link copiado!

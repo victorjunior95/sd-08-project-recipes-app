@@ -8,11 +8,13 @@ const renderWithRouter = (component) => {
   const history = createMemoryHistory();
   return ({
     ...render(
-      <Router history={ history }>
-        <ProviderRecipes>
+      <ProviderRecipes>
+        <Router
+          history={ history }
+        >
           {component}
-        </ProviderRecipes>
-      </Router>,
+        </Router>
+      </ProviderRecipes>,
     ),
     history,
   });

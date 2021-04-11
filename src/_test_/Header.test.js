@@ -1,7 +1,7 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { response as mockDataC } from './Corba';
-import { response as mockDataL } from './Letra';
+import mockDataC from './Corba';
+import mockDataL from './Letra';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 import Header from '../Pages/Header';
 

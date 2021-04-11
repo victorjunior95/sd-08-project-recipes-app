@@ -1,4 +1,4 @@
-const response = {
+const mockDataC = {
   meals: [
     {
       idMeal: '52977',
@@ -61,4 +61,4 @@ const response = {
   ],
 };
 
-export default response;
+export default mockDataC;

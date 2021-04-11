@@ -1,4 +1,4 @@
-response = {
+const mockDataL = {
   meals: [
     {
       idMeal: '52768',
@@ -64,7 +64,7 @@ response = {
       strCategory: 'Dessert',
       strArea: 'British',
       strInstructions:
-        'Heat oven to 190C/170C fan/gas 5. Tip the flour and sugar into a large bow.',
+        'Heat oven to 190C/170C fan/gas 5. Tip the flour and sugar into a large bow',
       strMealThumb:
         'https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg',
       strTags: 'Pudding',
@@ -118,4 +118,4 @@ response = {
   ],
 };
 
-export default response;
+export default mockDataL;

@@ -6,6 +6,7 @@ import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 import Header from '../Pages/Header';
 
 const ENTRIES_URL = '/comidas';
+const SEARCH = 'search-top-btn';
 
 describe('<Header />', () => {
   it('Verifica a pesquisa por nome', async () => {
@@ -13,17 +14,17 @@ describe('<Header />', () => {
       json: () => Promise.resolve(mockDataC),
       ok: true,
     });
-  
+
     const mockedExchange = jest.spyOn(global, 'fetch')
       .mockImplementation(() => apiResponse);
-  
+
     afterEach(() => jest.clearAllMocks());
 
     const { getByTestId, getByRole, getByText } = renderWithRouterAndRedux(<Header />, {
       initialEntries: [ENTRIES_URL],
     });
 
-    const pesquisa = getByTestId('search-top-btn');
+    const pesquisa = getByTestId(SEARCH);
     userEvent.click(pesquisa);
 
     const input = getByRole('textbox', {
@@ -58,7 +59,7 @@ describe('<Header />', () => {
       initialEntries: [ENTRIES_URL],
     });
 
-    const pesquisa = getByTestId('search-top-btn');
+    const pesquisa = getByTestId(SEARCH);
     userEvent.click(pesquisa);
 
     const input = getByRole('textbox', {
@@ -86,7 +87,7 @@ describe('<Header />', () => {
       initialEntries: [ENTRIES_URL],
     });
 
-    const pesquisa = getByTestId('search-top-btn');
+    const pesquisa = getByTestId(SEARCH);
     userEvent.click(pesquisa);
 
     const input = getByRole('textbox', {

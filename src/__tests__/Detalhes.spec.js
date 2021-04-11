@@ -104,8 +104,8 @@ test('33 A - Implemente os elementos da tela de detalhes de uma receita respeita
     expect(utils.baseElement).toHaveTextContent('Link copiado!');
     fireEvent.click(shareBtn);
     expect(utils.queryAllByText('Link copiado!')[0]).toBeInTheDocument();
-    expect(copy).toHaveBeenCalledTimes(1);
     expect(copy).toHaveBeenLastCalledWith('http://localhost:3000/comidas/52771')
+    expect(copy).toHaveBeenCalledTimes(1);
     // const favoriteBtn = await utils.findByTestId('favorite-btn');
     // const displayedImage = await utils.f ("img");
     // const imagem = screen.getAllByRole('img');

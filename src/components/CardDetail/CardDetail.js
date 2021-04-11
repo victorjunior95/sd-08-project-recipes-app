@@ -90,16 +90,18 @@ const CardDetails = ({ title, object, isLoading, children }) => {
   const renderVideo = () => {
     if (title === 'Comidas' && object.strYoutube !== undefined) {
       const urlVideo = object.strYoutube.replace('watch', 'embed');
+      console.log(urlVideo)
       return (
         <iframe
           data-testid="video"
           width="300"
           height="200"
           src={urlVideo}
-          frameBorder="0"
-          allowFullScreen
-          title="vídeo"
-        />
+          // frameBorder="0"
+          // allowFullScreen
+          // title="vídeo"
+        >
+        </iframe>
       );
     }
   };
@@ -119,41 +121,43 @@ const CardDetails = ({ title, object, isLoading, children }) => {
           <Card.Title data-testid="recipe-title">
             {title === 'Comidas' ? object.strMeal : object.strDrink}
           </Card.Title>
-          <Button
-            variant="outline-secondary"
-            data-testid="share-btn"
-            onClick={() => savetoClipboard()}
-          >
-            {saveClipBoard === true ? (
-              'Link copiado!'
-            ) : (
-              <img
-                src={shareIcon}
-                alt="Profile icon"
-                data-testid="explore-bottom-btn"
-              />
-            )}
-          </Button>
-          <Button
-            variant="outline-secondary"
-            data-testid="favorite-btn"
-            src={favorite ? blackHeartIcon : whiteHeartIcon}
-            onClick={() => savetoFavorites()}
-          >
-            {favorite === true ? (
-              <img
-                src={blackHeartIcon}
-                alt="Profile icon"
-                data-testid="explore-bottom-btn"
-              />
-            ) : (
-              <img
-                src={whiteHeartIcon}
-                alt="Profile icon"
-                data-testid="explore-bottom-btn"
-              />
-            )}
-          </Button>
+          <div className='action-buttons'>
+            <Button
+              variant="outline-secondary"
+              data-testid="share-btn"
+              onClick={() => savetoClipboard()}
+            >
+              {saveClipBoard === true ? (
+                'Link copiado!'
+              ) : (
+                <img
+                  src={shareIcon}
+                  alt="Profile icon"
+                  data-testid="explore-bottom-btn"
+                />
+              )}
+            </Button>
+            <Button
+              variant="outline-secondary"
+              data-testid="favorite-btn"
+              src={favorite ? blackHeartIcon : whiteHeartIcon}
+              onClick={() => savetoFavorites()}
+            >
+              {favorite === true ? (
+                <img
+                  src={blackHeartIcon}
+                  alt="Profile icon"
+                  data-testid="explore-bottom-btn"
+                />
+              ) : (
+                <img
+                  src={whiteHeartIcon}
+                  alt="Profile icon"
+                  data-testid="explore-bottom-btn"
+                />
+              )}
+            </Button>
+          </div>
           <Card.Text data-testid="recipe-category">
             {title === 'Comidas' ? object.strCategory : object.strAlcoholic}
           </Card.Text>

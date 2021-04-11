@@ -10,6 +10,7 @@ const Cards = ({
   testid = '-recipe-card',
   cardTitle = '-card-name',
   refCard,
+  children,
 }) => {
   if (refCard === 'ingredients') {
     // console.log(object)
@@ -19,6 +20,7 @@ const Cards = ({
         <Card
           className="card-ingredient"
           data-testid={`${index}-ingredient-card`}
+
         >
           <Card.Img
             data-testid={`${index}-card-img`}
@@ -29,7 +31,7 @@ const Cards = ({
                 : `https://www.thecocktaildb.com/images/ingredients/${object.strIngredient1}-Small.png`
             }
           />
-          <Card.Body>
+          <Card.Body className='card-body'>
             <Card.Title
               className="card-title"
               data-testid={`${index}-card-name`}
@@ -38,6 +40,7 @@ const Cards = ({
                 ? object.strIngredient
                 : object.strIngredient1}
             </Card.Title>
+            {children}
           </Card.Body>
         </Card>
       </>

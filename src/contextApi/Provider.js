@@ -7,7 +7,7 @@ function Login({ children }) {
   const [password, setPassword] = useState();
   const [searchBar, setSearchBar] = useState(false);
   const [results, setResults] = useState([]);
-  const [checkbox,setCheckbox] = useState()
+  const [checkbox,setCheckbox] = useState(false)
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [productDetails, setProductDetails] = useState(
     {object: "",
@@ -18,7 +18,8 @@ function Login({ children }) {
     cocktails: {},
     meals: {}
   })
-  const [ingredients, setIngredients] = useState(null)
+  const [ingredients, setIngredients] = useState(null);
+  const [updatedIngredients, setUpdatedIngredients] = useState(ingredients);
 
   const saveToLocalStorage = () => {
     const localOBJ = { email };
@@ -46,7 +47,9 @@ function Login({ children }) {
     ingredients,
     setIngredients,
     favoriteRecipes,
-    setFavoriteRecipes
+    setFavoriteRecipes,
+    updatedIngredients,
+    setUpdatedIngredients
   };
   return <Context.Provider value={ OBJVALUE }>{children}</Context.Provider>;
 }

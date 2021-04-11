@@ -77,6 +77,7 @@ const CheckBoxIngredients = ({ object, title }) => {
       setClicked(!isClicked);
       (title === "Comidas") ? updateInProgressRecipes(mealId, "meals") : updateInProgressRecipes(drinkId, "cocktails")
     }
+    setCheckbox(false);
     // return () => saveOnLocalStorage
   },[])
 
@@ -151,6 +152,7 @@ const CheckBoxIngredients = ({ object, title }) => {
               <input
                 className="checkClass"
                 type="checkbox"
+                data-testid={ `${index}-checkBox-Ingredient` }
                 name={ingredient}
                 id={ingredient}
                 onClick={handleClick}
@@ -171,6 +173,7 @@ const CheckBoxIngredients = ({ object, title }) => {
             data-testid={ `${index}-ingredient-step` }>
               <input
                 className="checkClass"
+                data-testid={ `${index}-checkBox-Ingredient` }
                 type="checkbox"
                 name={ingredient}
                 id={ingredient}

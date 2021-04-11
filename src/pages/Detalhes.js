@@ -105,7 +105,7 @@ const Detalhes = () => {
       const inProgres = await inProgressRecipes(isMeal);
       const [,, id] = location.pathname.split('/');
       if (!inProgres) return;
-      setProgress(!!inProgres[id]); gcam;
+      setProgress(!!inProgres[id]);
     };
     fetchInProgress();
   }, [location.pathname, isMeal]);

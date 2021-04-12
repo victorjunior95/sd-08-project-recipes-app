@@ -27,6 +27,7 @@ export default class ExploreFood extends Component {
         byName: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
         byFirstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
       },
+      defaultSearch: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     };
 
     return (

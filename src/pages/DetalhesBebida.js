@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { favsLocalStorage, getDrinkById } from '../services/API';
+import { favsLocalStorage, getDrinkById, handleUseEffectDetalhes } from '../services/API';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -30,17 +30,7 @@ function DetalhesBebida() {
       setDrink(drinks[0]);
       foodRandom();
       setToRender(true);
-      const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (getFavsFromLocal.some((recipe) => Number(recipe.id) === Number(id))) {
-        setFav(true);
-      } else {
-        setFav(false);
-      }
-      const getInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (getInProgress) {
-        const cocktailsInLS = Object.keys(getInProgress.cocktails);
-        setInProgress(cocktailsInLS.some((ct) => Number(ct) === Number(id)));
-      }
+      handleUseEffectDetalhes(id, setFav, setInProgress, false);
     });
   }, []);
 

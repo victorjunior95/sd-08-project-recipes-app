@@ -153,3 +153,20 @@ export const ProgressFoodFunc = () => {
     );
   }
 };
+
+export const handleUseEffectDetalhes = (id, setFav, setInProgress, type) => {
+  const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (getFavsFromLocal.some((recipe) => Number(recipe.id) === Number(id))) {
+    setFav(true);
+  } else {
+    setFav(false);
+  }
+  const getInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (getInProgress && type) {
+    const mealsInLS = Object.keys(getInProgress.meals);
+    setInProgress(mealsInLS.some((m) => Number(m) === Number(id)));
+  } else if (getInProgress && !type) {
+    const cocktailsInLS = Object.keys(getInProgress.cocktails);
+    setInProgress(cocktailsInLS.some((ct) => Number(ct) === Number(id)));
+  }
+};

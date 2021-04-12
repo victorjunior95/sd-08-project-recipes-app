@@ -32,6 +32,8 @@ class Header extends Component {
     return (
       <header className="headerContainer">
         <div>
+          <p data-testid="profile-email">email@mail.com</p>
+
           <div>
             <Link to="/perfil">
               <img

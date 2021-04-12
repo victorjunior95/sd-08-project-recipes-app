@@ -21,8 +21,8 @@ class Profile extends Component {
       <div>
         <Header title="Perfil" />
         <div className="container">
+          <p data-testid="profile-email">email@mail.com</p>
 
-          <p data-testid="profile-email">email@emai.com</p>
           <Link
             to="/receitas-feitas"
           >

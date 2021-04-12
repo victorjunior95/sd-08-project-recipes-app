@@ -48,10 +48,10 @@ class Filtros extends Component {
     const mealUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     if (pathname === '/comidas') {
-      return searchIngredient(mealUrl);
+      return searchIngredient(mealUrl, true);
     }
     if (pathname === '/bebidas') {
-      return searchIngredient(drinkUrl);
+      return searchIngredient(drinkUrl, true);
     }
   }
 
@@ -61,11 +61,11 @@ class Filtros extends Component {
     const mealUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`;
     const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
     if (pathname === '/comidas') {
-      if (filter) return searchIngredient(mealUrl);
+      if (filter) return searchIngredient(mealUrl, true);
       return searchIngredient('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
     if (pathname === '/bebidas') {
-      if (filter) return searchIngredient(drinkUrl);
+      if (filter) return searchIngredient(drinkUrl, true);
       return searchIngredient('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
   }
@@ -107,7 +107,9 @@ class Filtros extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  searchIngredient: (url) => dispatch(fetchIngredientAction(url)),
+  searchIngredient: (url, filterButton) => dispatch(
+    fetchIngredientAction(url, filterButton),
+  ),
 });
 
 export default connect(null, mapDispatchToProps)(Filtros);

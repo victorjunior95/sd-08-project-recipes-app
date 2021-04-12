@@ -159,7 +159,7 @@ class ItemsDetails extends Component {
 
   render() {
     const { copied, favorited } = this.state;
-    const { type, result, pathname } = this.props;
+    const { type, result, pathname, history } = this.props;
     const checkPage = pathname.split('/')[3];
 
     return (
@@ -221,6 +221,7 @@ class ItemsDetails extends Component {
           handleProgress={ this.handleProgress }
           type={ type }
           id={ result[`id${type}`] }
+          history={ history }
           checkRecipeProgress={ this.checkRecipeProgress }
         />
       </>

@@ -14,6 +14,7 @@ import FoodArea from './pages/FoodArea';
 import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
 import NotFound from './pages/NotFound';
+import RecipesDone from './pages/RecipesDone';
 
 function App() {
   return (
@@ -52,9 +53,12 @@ function App() {
           render={ (props) => <FoodArea { ...props } /> }
         />
         <Route exact path="/explorar/bebidas/area" component={ NotFound } />
+        <Route
+          path="/receitas-feitas"
+          render={ (props) => <RecipesDone { ...props } /> }
+        />
         { /* <Route path="/comidas/{id-da-receita}/in-progress" />
         <Route path="/bebidas/{id-da-receita}/in-progress" />
-        <Route path="/receitas-feitas" />
         <Route path="/receitas-favoritas" /> */}
       </Switch>
     </BrowserRouter>

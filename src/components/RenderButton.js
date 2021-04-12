@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 export default class RenderButton extends Component {
   render() {
     const { checkPage, startRecipe, handleProgress,
-      checkRecipeProgress, type, id } = this.props;
+      checkRecipeProgress, type, id, history } = this.props;
     return (
       <>
         {!checkPage && (
@@ -29,6 +29,7 @@ export default class RenderButton extends Component {
             className="start-recipe-btn"
             block
             data-testid="finish-recipe-btn"
+            onClick={ () => history.push('/receitas-feitas') }
           >
             Finalizar receita
           </Button>
@@ -45,8 +46,12 @@ RenderButton.propTypes = {
   checkRecipeProgress: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
 RenderButton.defaultProps = {
   checkPage: undefined,
+  history: undefined,
 };

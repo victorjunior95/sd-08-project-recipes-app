@@ -119,6 +119,7 @@ function ProgressoBebida() {
         // onClick={ () => handleClick() }
         className="g6-start-recipe-btn"
         data-testid="finish-recipe-btn"
+        onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar Receita
       </button>

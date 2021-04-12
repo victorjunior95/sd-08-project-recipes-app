@@ -121,6 +121,7 @@ function ProgressoComida() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          onClick={ () => history.push('/receitas-feitas') }
           // disabled={ checkValidity }
         >
           Finalizar Receita

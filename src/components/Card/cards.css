@@ -1,7 +1,7 @@
 .card-ingredient {
   align-items: center;
   box-shadow: 5px 5px 5px darkgray;
-  height: 200px;
+  height: 150px;
   width: 100%;
 }
 
@@ -17,15 +17,4 @@
 
 .card-container {
   height: 50px;
-}
-
-.card-body {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.card-body button {
-  width: 50px;
 }

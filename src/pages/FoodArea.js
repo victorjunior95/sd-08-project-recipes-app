@@ -2,7 +2,7 @@ import React from 'react';
 
 function FoodArea() {
   return (
-    <div>
+    <div data-testid="explore-by-area-dropdown">
       Local Origem
     </div>
   );

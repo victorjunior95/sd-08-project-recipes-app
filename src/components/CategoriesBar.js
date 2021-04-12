@@ -108,7 +108,16 @@ function CategoriesBar(props) {
             All
           </button>
         </div>
-        <div className="category widthM800 widthM360 mx-auto btn-group btn-group-toggle d-flex">
+        <div
+          className="
+            category
+            widthM800
+            widthM360
+            mx-auto
+            btn-group
+            btn-group-toggle
+            d-flex"
+        >
           { title === 'Comidas' && mealsCategories.slice(zero, maxLength)
             .map((categorie, index) => (
               <button

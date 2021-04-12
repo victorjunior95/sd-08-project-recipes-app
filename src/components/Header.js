@@ -68,3 +68,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+Header.propTypes = ({
+  title: PropTypes.string.isRequired,
+  toggle: PropTypes.bool.isRequired,
+  toggleAction: PropTypes.func.isRequired,
+});

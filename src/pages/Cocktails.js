@@ -70,6 +70,7 @@ Cocktails.propTypes = {
   searchRandomCocktails: PropTypes.func.isRequired,
   ingredientCurrency: PropTypes.string.isRequired,
   sendCocktailsIngredientsCurrency: PropTypes.func.isRequired,
+  isFetchingCocktails: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cocktails);

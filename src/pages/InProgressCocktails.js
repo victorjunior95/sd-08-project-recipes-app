@@ -45,15 +45,9 @@ export default class InProgressCocktails extends Component {
     if (checkeds) {
       const checkedsValues = Object.values(checkeds);
       const allTrue = checkedsValues.every((item) => item === true);
-      if (!Object.keys(checkeds).length) {
-        this.stateUpdate();
-      }
-      if (!isDone && allTrue) {
-        this.setDone(true);
-      }
-      if (isDone && !allTrue) {
-        this.setDone(false);
-      }
+      if (!Object.keys(checkeds).length) { this.stateUpdate(); }
+      if (!isDone && allTrue) { this.setDone(true); }
+      if (isDone && !allTrue) { this.setDone(false); }
     }
   }
 
@@ -125,10 +119,8 @@ export default class InProgressCocktails extends Component {
     } else {
       const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       if (storage) {
-        localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify([...storage, cocktailsFavorite]),
-        );
+        localStorage.setItem('favoriteRecipes',
+          JSON.stringify([...storage, cocktailsFavorite]));
       } else {
         localStorage.setItem('favoriteRecipes', JSON.stringify([cocktailsFavorite]));
       }
@@ -195,7 +187,6 @@ export default class InProgressCocktails extends Component {
       checkeds,
       isDone,
     } = this.state;
-    if (isLoading) return <Loading />;
     const {
       idDrink,
       strDrinkThumb,
@@ -203,7 +194,7 @@ export default class InProgressCocktails extends Component {
       strInstructions,
       strCategory,
     } = cocktails.drinks[0];
-
+    if (isLoading) return <Loading />;
     return (
       <div className="recipe-details container">
         <ImageInProgres strThumb={ strDrinkThumb } />
@@ -247,7 +238,6 @@ export default class InProgressCocktails extends Component {
     );
   }
 }
-
 InProgressCocktails.propTypes = ({
   match: PropTypes.shape({
     params: PropTypes.shape({

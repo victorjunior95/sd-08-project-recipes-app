@@ -15,7 +15,7 @@ class ListCard extends Component {
 
   render() {
     const { result, infos } = this.props;
-    // const { history } = infos;
+    const { history } = infos;
     return (
       <section>
         <ul className="card-list">
@@ -24,10 +24,10 @@ class ListCard extends Component {
             if (index >= TOTAL_ITEMS) {
               return null;
             }
-            // if (result.length === 1) {
-            //   const redirect = `${infos.linkRedirect}${item[infos.id]}`;
-            //   return history(redirect);
-            // }
+            if (result.length === 1) {
+              const redirect = `${infos.linkRedirect}${item[infos.id]}`;
+              return history(redirect);
+            }
             return (<Card
               infos={ infos }
               key={ item[infos.name] ? item[infos.name] : Math.random() * 100 }

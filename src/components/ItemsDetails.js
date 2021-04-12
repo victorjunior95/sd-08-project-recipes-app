@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'react-bootstrap/Button';
 import copy from 'clipboard-copy';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Recommendation from './Recommendation';
 import IngredientList from './IngredientList';
+import RenderButton from './RenderButton';
 
 class ItemsDetails extends Component {
   constructor() {
@@ -29,8 +29,10 @@ class ItemsDetails extends Component {
 
   handleClick() {
     const { pathname } = this.props;
+    const splitPathname = pathname.split('/');
+    const pathUrl = `/${splitPathname[1]}/${splitPathname[2]}`;
     const TWO_SECOND = 2000;
-    copy(`http://localhost:3000${pathname}`);
+    copy(`http://localhost:3000${pathUrl}`);
     this.setState({
       copied: true,
     }, () => {
@@ -134,7 +136,6 @@ class ItemsDetails extends Component {
   startRecipe(type, id) {
     const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (type === 'Meal') {
-      console.log(inLocalStorage);
       if (inLocalStorage !== null) {
         const newArray = { ...inLocalStorage,
           meals: { ...inLocalStorage.meals, [id]: [] } };
@@ -158,7 +159,8 @@ class ItemsDetails extends Component {
 
   render() {
     const { copied, favorited } = this.state;
-    const { type, result } = this.props;
+    const { type, result, pathname } = this.props;
+    const checkPage = pathname.split('/')[3];
 
     return (
       <>
@@ -213,18 +215,14 @@ class ItemsDetails extends Component {
           {result.strInstructions}
         </p>
         <Recommendation />
-        <Button
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-          variant="success"
-          block
-          onClick={ () => {
-            this.startRecipe(type, result[`id${type}`]);
-            this.handleProgress(type, result[`id${type}`]);
-          } }
-        >
-          {this.checkRecipeProgress(type, result[`id${type}`])}
-        </Button>
+        <RenderButton
+          checkPage={ checkPage }
+          startRecipe={ this.startRecipe }
+          handleProgress={ this.handleProgress }
+          type={ type }
+          id={ result[`id${type}`] }
+          checkRecipeProgress={ this.checkRecipeProgress }
+        />
       </>
     );
   }

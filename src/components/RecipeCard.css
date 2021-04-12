@@ -1,0 +1,12 @@
+.card {
+  height: 100%;
+}
+
+.card img {
+  height: 50%;
+}
+
+.card-body {
+  min-height: 1.5rem;
+  padding: 1rem;
+}

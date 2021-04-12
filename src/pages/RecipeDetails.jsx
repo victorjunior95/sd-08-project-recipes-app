@@ -1,38 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import Carousel from 'react-multi-carousel';
 import { fetchRecipes, fetchRecommendations } from '../actions/recipes';
-
 import Loading from '../components/Loading';
 import RecipeCard from '../components/RecipeCard';
 import IngredientsList from '../components/IngredientsList';
 import ProgressButton from '../components/ProgressButton';
 import FavButton from '../components/FavButton';
 import ShareButton from '../components/ShareButton';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './RecipeDetails.css';
+import 'react-multi-carousel/lib/styles.css';
 
 function RecipeDetails({ match: { params }, location: { pathname } }) {
   const { list, isFetching, recommendations } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
-
   const [shouldFetch, setShouldFetch] = useState(true);
-  // const prevList = useRef([...list]);
-
-  // const selectType = { comidas: 'meals', bebidas: 'drinks' };
-  // const inProgress = pathname.split('/')[3] === 'in-progress';
-  // const type = selectType[pathname.split('/')[1]];
-  // const type = pathname.split('/')[1];
-  // const recommendationsType = type === 'comidas' ? 'bebidas' : 'comidas';
-
   const token = 1;
   const inProgress = pathname.split('/')[3] === 'in-progress';
-  // const inProgress = pathname.split('/')[3] === 'in-progress';
   const type = useRef(pathname.split('/')[1]);
   const recommendationsType = useRef(type.current === 'comidas' ? 'bebidas' : 'comidas');
 
   useEffect(() => {
-    // console.log(recommendationsType);
     setShouldFetch(true);
     [type.current] = pathname.split('/').slice(1);
     recommendationsType.current = type.current === 'comidas' ? 'bebidas' : 'comidas';
@@ -43,7 +33,6 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   }, [params, pathname]);
 
   const recipe = list[0];
-  console.log('aqui');
   const IngredientKeys = Object.keys(recipe || {})
     .filter((ingKey) => (
       ingKey
@@ -51,7 +40,17 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
         && recipe[ingKey] !== '' && recipe[ingKey] !== null));
   const IngredientsAndMeasures = IngredientKeys
     .map((key, index) => [recipe[key], recipe[`strMeasure${index + 1}`]]);
-  // const formatedType = type[0].toUpperCase() + type.slice(1, 0 - 1);
+
+  const responsive = {
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
 
   return (
     isFetching || shouldFetch || !recipe ? <Loading /> : (
@@ -62,18 +61,26 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
           src={ recipe.image }
           alt={ recipe.name }
         />
-        <h1 data-testid="recipe-title">{ recipe.name }</h1>
-        <ShareButton type={ type.current } id={ params.id } />
-        <FavButton type={ type.current } recipe={ recipe } />
+        <header className="header-details">
+          <h1 data-testid="recipe-title">{ recipe.name }</h1>
+          <div>
+            <ShareButton type={ type.current } id={ params.id } />
+            <FavButton type={ type.current } recipe={ recipe } />
+          </div>
+        </header>
         <h2 data-testid="recipe-category">
           { `${recipe.alcoholicOrNot} ${recipe.category}` }
         </h2>
-        <IngredientsList
-          id={ params.id }
-          type={ type.current }
-          ingredients={ IngredientsAndMeasures }
-        />
-        <p data-testid="instructions">{ recipe.strInstructions }</p>
+        <section className="section-recipe">
+          <IngredientsList
+            id={ params.id }
+            type={ type.current }
+            ingredients={ IngredientsAndMeasures }
+          />
+        </section>
+        <section className="section-recipe">
+          <p data-testid="instructions">{ recipe.strInstructions }</p>
+        </section>
         { recipe.strYoutube
         && <iframe
           src={ recipe.strYoutube.split('watch?v=').join('embed/') }
@@ -81,17 +88,20 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
           data-testid="video"
         /> }
         { !inProgress && (
-          <div className="recommendations">
+          <Carousel responsive={ responsive }>
             { recommendations.map((recommendation, index) => (
-              <div data-testid={ `${index}-recomendation-card` } key={ `rec-${index}` }>
+              <div className="cards-recommendations" key={ `rec-${index}` }>
                 <RecipeCard
+                  data-testid={ `${index}-recomendation-card` }
                   index={ index }
-                  type={ recommendationsType.current }
                   recipe={ recommendation }
                   recommendation
+                  type={ recommendationsType.current }
                 />
-              </div>)) }
-          </div>)}
+              </div>
+            )) }
+          </Carousel>
+        )}
         <ProgressButton
           id={ params.id }
           type={ type.current }

@@ -1,16 +1,11 @@
 .header {
-  background-color: #a5a5a5;
+  align-items: center;
+  background-color: orangered;
   display: flex;
-  justify-content: space-between;
-  padding: 15px;
+  margin: 0;
+  min-height: 15vh;
 }
 
-.search-bar-input {
-  display: flex;
-  justify-content: center;
-  margin: 5px 0;
-}
-
-.search-bar-input input {
-  width: 97%;
+.header div {
+  text-align: center;
 }

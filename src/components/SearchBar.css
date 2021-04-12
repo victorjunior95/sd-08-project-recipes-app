@@ -1,0 +1,9 @@
+.search-bar {
+  line-height: 30px;
+  margin: 10px -5px;
+}
+
+.search-bar-btn {
+  color: white;
+  font-weight: 600;
+}

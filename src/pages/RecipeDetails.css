@@ -6,24 +6,33 @@
   display: none;
 }
 
-.recommendations {
-  display: flex;
-  -webkit-overflow-scrolling: touch;
-  overflow-x: scroll;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-}
-
-.recommendations > div {
-  min-width: 51%;
-  scroll-snap-align: start;
-}
-
-.recommendations img, .recipe-photo {
+.recipe-photo {
   width: 100%;
 }
 
-.start {
-  bottom: 0;
-  position: fixed;
+.header-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.section-recipe {
+  background: white;
+  margin: 10px;
+  opacity: 80%;
+  padding: 10px;
+}
+
+.cards-container {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.cards-recommendations {
+  height: 190px;
+  margin-bottom: 10px;
+  width: 98%;
 }

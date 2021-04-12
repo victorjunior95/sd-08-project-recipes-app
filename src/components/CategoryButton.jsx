@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Button } from 'react-bootstrap';
 import { fetchRecipes } from '../actions/recipes';
 
 function CategoryButton({ name, type }) {
@@ -18,13 +18,17 @@ function CategoryButton({ name, type }) {
   };
 
   return (
-    <button
-      type="button"
-      onClick={ () => click(name) }
+    <Button
+      className="custom-btn"
       data-testid={ `${name}-category-filter` }
+      onClick={ () => click(name) }
+      size="sm"
+      type="button"
+      variant="primary"
+      // block={ name === 'All' || name.length > 15 }
     >
       {name}
-    </button>
+    </Button>
   );
 }
 

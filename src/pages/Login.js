@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
+import { Button, Form } from 'react-bootstrap';
 import login from '../actions/login';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Login.css';
 
 function Login() {
   const dispatch = useDispatch();
@@ -39,37 +42,42 @@ function Login() {
   if (redirect) return <Redirect to="/comidas" />;
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <label htmlFor="email">
-        Email:
-        <input
-          data-testid="email-input"
-          type="text"
-          name="email"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-          placeholder="Email"
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-          placeholder="Senha"
-        />
-      </label>
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        disabled={ validation() }
-      >
-        Entrar
-      </button>
-    </form>
+    <section className="login">
+      <form onSubmit={ handleSubmit }>
+        <Form.Group>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            data-testid="email-input"
+            type="text"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+            placeholder="Email"
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Senha:</Form.Label>
+          <Form.Control
+            data-testid="password-input"
+            type="password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+            placeholder="Senha"
+          />
+        </Form.Group>
+
+        <Button
+          block
+          className="custom-btn"
+          data-testid="login-submit-btn"
+          disabled={ validation() }
+          type="submit"
+          variant="primary"
+        >
+          Entrar
+        </Button>
+      </form>
+    </section>
   );
 }
 

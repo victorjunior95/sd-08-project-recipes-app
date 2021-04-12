@@ -1,28 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import './RecipeCard.css';
 
 function RecipeCard({ type, index, recipe, recommendation }) {
   return (
-    <Link
-      to={ `/${type}/${recipe.id}` }
-      data-testid={ `${index}-recipe-card` }
-    >
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ recipe.image }
-        alt={ recipe.name }
-      />
-      { recommendation
-          && <p>{ type === 'comidas' ? recipe.category : recipe.alcoholicOrNot }</p> }
-      <p
-        data-testid={
-          recommendation ? `${index}-recomendation-title` : `${index}-card-name`
-        }
+    <Card border="dark" className="card">
+      <Link
+        to={ `/${type}/${recipe.id}` }
+        data-testid={ `${index}-recipe-card` }
       >
-        { recipe.name }
-      </p>
-    </Link>
+        <Card.Img
+          data-testid={ `${index}-card-img` }
+          src={ recipe.image }
+          alt={ recipe.name }
+        />
+        <Card.Body className="card-body">
+          { recommendation && (
+            <Card.Text>
+              { type === 'comidas' ? recipe.category : recipe.alcoholicOrNot }
+            </Card.Text>) }
+          <Card.Title
+            data-testid={
+              recommendation ? `${index}-recomendation-title` : `${index}-card-name`
+            }
+          >
+            { recipe.name }
+          </Card.Title>
+        </Card.Body>
+      </Link>
+    </Card>
   );
 }
 

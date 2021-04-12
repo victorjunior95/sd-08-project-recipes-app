@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import './Header.css';
+import { Col, Row } from 'react-bootstrap';
 import ProfileIcon from './ProfileIcon';
 import SearchBar from './SearchBar';
 import searchSvg from '../images/searchIcon.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Header.css';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -63,23 +65,23 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <div className="header-container">
-      <div className="header">
-        <ProfileIcon />
-        <h1 data-testid="page-title">
-          { headerTitle }
-        </h1>
-        { searchIcon
-          && <img
-            role="presentation"
-            data-testid="search-top-btn"
-            src={ searchSvg }
-            alt="search-btn"
-            onClick={ () => setSearchBar(!searchBar) }
-          /> }
-      </div>
+    <header>
+      <Row className="header">
+        <Col><ProfileIcon /></Col>
+        <Col><h1 data-testid="page-title">{ headerTitle }</h1></Col>
+        <Col>
+          { searchIcon
+            && <img
+              role="presentation"
+              data-testid="search-top-btn"
+              src={ searchSvg }
+              alt="search-btn"
+              onClick={ () => setSearchBar(!searchBar) }
+            /> }
+        </Col>
+      </Row>
       { searchBar && <SearchBar /> }
-    </div>
+    </header>
   );
 };
 

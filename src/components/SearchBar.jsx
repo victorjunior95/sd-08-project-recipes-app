@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchRecipes } from '../actions/recipes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './SearchBar.css';
 
 const SearchBar = () => {
   const [filter, setFilter] = useState('');
@@ -11,14 +14,21 @@ const SearchBar = () => {
   const { pathname } = useLocation();
   const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
 
-  // const selectType = { '/comidas': 'meals', '/bebidas': 'drinks' };
-  // const type = selectType[pathname];
-
   const filterRecipes = (e) => {
     e.preventDefault();
+    console.log(filter, searchText);
     if (filter === 'f' && searchText.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-      return;
+      // alert('Sua busca deve conter somente 1 (um) caracter');
+      return (
+        <Alert style={ { marginTop: '20px' } } variant="danger">
+          {
+            (Date.now() % 2 === 0)
+              ? <Alert.Heading>Bah...</Alert.Heading>
+              : <Alert.Heading>Arri...</Alert.Heading>
+          }
+          <p>Sua busca deve conter somente 1 (um) caracter</p>
+        </Alert>
+      );
     }
     const token = pathname === 'comidas' ? mealsToken : cocktailsToken;
     if (filter === 'i') {
@@ -33,60 +43,52 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="search-bar">
-      <form>
-        <div className="search-bar-input">
-          <input
-            type="text"
-            data-testid="search-input"
-            value={ searchText }
-            onChange={ (e) => setSearchText(e.target.value) }
-          />
-        </div>
-        <div>
-          <label htmlFor="ingredient">
-            <input
-              type="radio"
-              value="i"
-              data-testid="ingredient-search-radio"
-              name="filter"
-              id="ingredient"
-              onClick={ (e) => setFilter(e.target.value) }
-            />
-            Ingrediente
-          </label>
-          <label htmlFor="name">
-            <input
-              type="radio"
-              value="s"
-              data-testid="name-search-radio"
-              name="filter"
-              id="name"
-              onClick={ (e) => setFilter(e.target.value) }
-            />
-            Nome
-          </label>
-          <label htmlFor="first-l">
-            <input
-              type="radio"
-              value="f"
-              data-testid="first-letter-search-radio"
-              name="filter"
-              id="first-l"
-              onClick={ (e) => setFilter(e.target.value) }
-            />
-            Primeira letra
-          </label>
-        </div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ (e) => { filterRecipes(e); } }
-        >
-          buscar
-        </button>
-      </form>
-    </div>
+    <Form className="search-bar">
+      <Form.Label>Campo de busca:</Form.Label>
+      <Form.Control
+        type="text"
+        data-testid="search-input"
+        value={ searchText }
+        onChange={ (e) => setSearchText(e.target.value) }
+      />
+      <Form.Check
+        data-testid="ingredient-search-radio"
+        inline
+        label="Ingrediente"
+        name="filter"
+        onClick={ (e) => setFilter(e.target.value) }
+        type="radio"
+        value="i"
+      />
+      <Form.Check
+        data-testid="name-search-radio"
+        inline
+        label="Nome"
+        name="filter"
+        onClick={ (e) => setFilter(e.target.value) }
+        type="radio"
+        value="s"
+      />
+      <Form.Check
+        data-testid="first-letter-search-radio"
+        inline
+        label="Primeira letra"
+        name="filter"
+        onClick={ (e) => setFilter(e.target.value) }
+        type="radio"
+        value="f"
+      />
+
+      <Button
+        block
+        className="search-bar-btn"
+        data-testid="exec-search-btn"
+        onClick={ (e) => { filterRecipes(e); } }
+        variant="primary"
+      >
+        Buscar
+      </Button>
+    </Form>
   );
 };
 

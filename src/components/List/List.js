@@ -9,6 +9,8 @@ import {
 import Context from '../../contextApi/Context';
 import './list.css';
 
+// Alteração para Pull Request
+
 const List = ({ title, results, refCard }) => {
   const CARDSFORPAGE = 12;
 

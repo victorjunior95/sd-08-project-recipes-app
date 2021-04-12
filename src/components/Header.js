@@ -125,7 +125,7 @@ class Header extends Component {
           <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ ProfileIcon } alt="Profile icon" />
           </Link>
-          <h1 data-testid="page-title">{name}</h1>
+          <h2 data-testid="page-title">{name}</h2>
           <button
             type="button"
             onClick={ this.showSearchBar }
@@ -149,11 +149,22 @@ Header.propTypes = {
   params: PropTypes.shape({
     name: PropTypes.string.isRequired,
     url: PropTypes.shape({
-      byIngredient: PropTypes.string.isRequired,
-      byName: PropTypes.string.isRequired,
-      byFirstLetter: PropTypes.string.isRequired,
-    }).isRequired,
-    defaultSearch: PropTypes.string.isRequired,
-  }).isRequired,
+      byIngredient: PropTypes.string,
+      byName: PropTypes.string,
+      byFirstLetter: PropTypes.string,
+    }),
+    defaultSearch: PropTypes.string,
+  }),
   searchIngredient: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  params: {
+    url: {
+      byIngredient: '',
+      byName: '',
+      byFirstLetter: '',
+    },
+    defaultSearch: '',
+  },
 };

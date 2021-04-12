@@ -33,9 +33,7 @@ class ItemsDetails extends Component {
     const pathUrl = `/${splitPathname[1]}/${splitPathname[2]}`;
     const TWO_SECOND = 2000;
     copy(`http://localhost:3000${pathUrl}`);
-    this.setState({
-      copied: true,
-    }, () => {
+    this.setState({ copied: true }, () => {
       setTimeout(() => {
         this.setState({ copied: false });
       }, TWO_SECOND);
@@ -53,8 +51,10 @@ class ItemsDetails extends Component {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorites) {
       const checkFav = favorites.find((favId) => favId.id === itemId);
+      console.log(checkFav);
       if (checkFav !== undefined) {
         const filterFav = favorites.filter((favorite) => itemId !== favorite.id);
+        console.log(filterFav);
         return localStorage.setItem('favoriteRecipes', JSON.stringify(filterFav));
       }
       const fav = [...favorites,
@@ -223,6 +223,7 @@ class ItemsDetails extends Component {
           id={ result[`id${type}`] }
           history={ history }
           checkRecipeProgress={ this.checkRecipeProgress }
+          recipe={ result }
         />
       </>
     );

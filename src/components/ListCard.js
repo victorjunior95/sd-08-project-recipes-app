@@ -14,7 +14,7 @@ class ListCard extends Component {
   }
 
   render() {
-    const { result, infos } = this.props;
+    const { result, infos, filterButton } = this.props;
     const { history } = infos;
     return (
       <section>
@@ -24,7 +24,7 @@ class ListCard extends Component {
             if (index >= TOTAL_ITEMS) {
               return null;
             }
-            if (result.length === 1) {
+            if (result.length === 1 && !filterButton) {
               const redirect = `${infos.linkRedirect}${item[infos.id]}`;
               return history(redirect);
             }
@@ -41,9 +41,10 @@ class ListCard extends Component {
   }
 }
 
-const mapStateToProps = (({ search: { result, isFetching } }) => ({
+const mapStateToProps = (({ search: { result, isFetching, filterButton } }) => ({
   result: result.meals || result.drinks,
   isFetching,
+  filterButton,
 }));
 
 const mapDispatchToProps = (dispatch) => ({
@@ -68,6 +69,7 @@ ListCard.propTypes = {
     defaultSearch: PropTypes.string.isRequired,
   }).isRequired,
   searchIngredient: PropTypes.func.isRequired,
+  filterButton: PropTypes.bool,
 };
 
 ListCard.defaultProps = {
@@ -78,4 +80,5 @@ ListCard.defaultProps = {
     thumb: '',
     linkRedirect: '',
   },
+  filterButton: false,
 };

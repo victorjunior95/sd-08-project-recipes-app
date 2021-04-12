@@ -1,9 +1,10 @@
 export const SEARCH_BY_INGREDIENT = 'SEARCH_BY_INGREDIENT';
 
-export const ingredientResult = (ingredient) => ({
+export const ingredientResult = (ingredient, filterButton) => ({
   type: SEARCH_BY_INGREDIENT,
   payload: {
     ingredient,
+    filterButton,
   },
 });
 
@@ -11,7 +12,7 @@ export const isLoading = () => ({
   type: 'IS_FETCHING',
 });
 
-export function fetchIngredient(url) {
+export function fetchIngredient(url, filterButton = false) {
   return async (dispatch) => {
     dispatch(isLoading());
     try {
@@ -21,7 +22,7 @@ export function fetchIngredient(url) {
         dispatch(isLoading());
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
-      dispatch(ingredientResult(result));
+      dispatch(ingredientResult(result, filterButton));
       dispatch(isLoading());
     } catch (e) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

@@ -38,7 +38,7 @@ export default function Login() {
   return (
     <Container fluid className="login-page-content">
       <Form className="login-form">
-        <img src={ logo } alt="cuscuz redux logo" />
+        <img src={ logo } alt="cuscuz redux logo" className="mb-3" />
         <Form.Group controlId="email-input">
           <Form.Label>
             Email

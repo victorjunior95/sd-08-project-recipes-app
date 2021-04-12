@@ -31,9 +31,14 @@ function FinishButton(props) {
 
   const goToDoneRecipes = () => {
     const updateFinalized = getlocalStorage('doneRecipes');
-    history.push('/receitas-feitas');
-    const addNewDoneRecipe = [...updateFinalized, newDoneRecipe];
+    let addNewDoneRecipe = [];
+    if (updateFinalized) {
+      addNewDoneRecipe = [...updateFinalized, newDoneRecipe];
+    } else {
+      addNewDoneRecipe = [newDoneRecipe];
+    }
     setLocalStorage('doneRecipes', addNewDoneRecipe);
+    history.push('/receitas-feitas');
   };
 
   return (

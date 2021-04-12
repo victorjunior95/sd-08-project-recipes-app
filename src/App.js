@@ -15,6 +15,7 @@ import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
 import NotFound from './pages/NotFound';
 import RecipesDone from './pages/RecipesDone';
+import RecipesFavorites from './pages/RecipesFavorites';
 
 function App() {
   return (
@@ -56,6 +57,10 @@ function App() {
         <Route
           path="/receitas-feitas"
           render={ (props) => <RecipesDone { ...props } /> }
+        />
+        <Route
+          path="/receitas-favoritas"
+          render={ (props) => <RecipesFavorites { ...props } /> }
         />
         { /* <Route path="/comidas/{id-da-receita}/in-progress" />
         <Route path="/bebidas/{id-da-receita}/in-progress" />

@@ -1,11 +1,11 @@
 import React from 'react';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 import Header from '../components/Header';
 
 function FoodArea() {
   const values = {
-    name: 'Explorar Origem',
+    name: 'Receitas Favoritas',
     url: {
       byIngredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
       byName: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
@@ -15,8 +15,7 @@ function FoodArea() {
   return (
     <div>
       <Header params={ values } />
-      Local Origem
-      <Footer />
+      Favoritas
     </div>
   );
 }

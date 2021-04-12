@@ -98,7 +98,7 @@ class DoneRecipes extends Component {
             Food
           </button>
         </div>
-        {recipesMade.map((recipe, index) => (recipe.type === 'comida' ? (
+        {recipesMade && recipesMade.map((recipe, index) => (recipe.type === 'comida' ? (
           <div>
             <Link to={ `comidas/${recipe.id}` }>
 

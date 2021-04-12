@@ -7,22 +7,22 @@ import { logoutUserAction } from '../../store/actions';
 // import { loadFromLS } from '../../services';
 
 class Profile extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     userEmail: loadFromLS('user'),
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userEmail: JSON.parse(localStorage.getItem('user')),
+    };
+  }
 
   render() {
-    // const { userEmail: { user: { email } } } = this.state;
+    const { userEmail: { email } } = this.state;
     const { logoutUser } = this.props;
     return (
       <div>
         <Header title="Perfil" />
         <div className="container">
 
-          <p data-testid="profile-email">email@emai.com</p>
+          <p data-testid="profile-email">{email}</p>
           <Link
             to="/receitas-feitas"
           >

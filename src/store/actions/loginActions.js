@@ -1,4 +1,4 @@
-import { saveToLS, deleteFromLS } from '../../services';
+import { saveToLS } from '../../services';
 import { endpointLS } from '../../services/localStorage';
 
 export const LOGIN_USER = 'LOGIN_USER';
@@ -34,7 +34,7 @@ export function loginUserAction(email) {
 
 export function logoutUserAction() {
   return (dispatch) => {
-    deleteFromLS('user');
+    localStorage.clear();
     dispatch(logoutUser());
   };
 }

@@ -112,7 +112,7 @@ class FavoriteRecipes extends Component {
             Food
           </button>
         </div>
-        {recipesSave.map((recipe, index) => (recipe.type === 'comida' ? (
+        {recipesSave && recipesSave.map((recipe, index) => (recipe.type === 'comida' ? (
 
           <div key={ index }>
             <Link to={ `comidas/${recipe.id}` }>

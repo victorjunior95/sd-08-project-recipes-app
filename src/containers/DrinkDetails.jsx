@@ -108,7 +108,7 @@ const DrinkDetails = () => {
     <div style={ { padding: 10 } }>
       {loading
         ? (
-          'Loading...'
+          <>Loading</>
         ) : (
           <div>
             <div>

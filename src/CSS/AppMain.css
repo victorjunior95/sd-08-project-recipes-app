@@ -41,9 +41,9 @@
 }
 
 .form-search-container {
+  align-content: flex-start;
   display: flex;
   flex-flow: row wrap;
-  margin: 90px 0 10px;
   width: 90%;
 }
 
@@ -53,6 +53,8 @@
 }
 
 .input-tag {
+  background-color: #e3e0de;
+  border-radius: 5px;
   width: 100%;
 }
 
@@ -70,6 +72,7 @@
 }
 
 .radio-tag {
+  background-color: #e3e0de;
   margin-right: 5px;
 }
 
@@ -142,4 +145,11 @@
 .card-img {
   height: 45px;
   width: 100%;
+}
+
+.share-like-btn {
+  border-radius: 20px;
+  height: 40px;
+  margin: 3px;
+  width: 40px;
 }

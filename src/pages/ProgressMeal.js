@@ -6,6 +6,7 @@ import '../CSS/Completed.css';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import { findKey } from '../services/index';
+import '../CSS/FoodDetail.css';
 
 function ProgressMeal() {
   const { singleRecipe } = useSelector((state) => state.recipes);
@@ -73,7 +74,7 @@ function ProgressMeal() {
                 } }
                 checked={ meatStorage && meatStorage.includes(nome) }
               />
-              {`${nome} - ${measure[index]}`}
+              {` ${nome} - ${measure[index]}`}
             </label>
           </div>
         );
@@ -92,25 +93,45 @@ function ProgressMeal() {
 
   const renderMeal = () => (
     arrayMeat !== undefined && (
-      <div>
-        <img data-testid="recipe-photo" src={ arrayMeat.strMealThumb } alt="recipe" />
-        <h1 data-testid="recipe-title">{ arrayMeat.strMeal }</h1>
-        <ShareButton recipeId={ arrayMeat.idMeal } recipeType="comida" />
-        <LikeButton />
+      <div className="detail-main-container">
+        <div className="detail-header-container">
+          <img
+            data-testid="recipe-photo"
+            src={ arrayMeat.strMealThumb }
+            alt="recipe"
+            className="detail-img"
+          />
+          <h1
+            data-testid="recipe-title"
+            className="detail-title"
+          >
+            { arrayMeat.strMeal }
+          </h1>
+          <div className="buttons-container">
+            <ShareButton recipeId={ arrayMeat.idMeal } recipeType="comida" />
+            <LikeButton />
+          </div>
+        </div>
+        <div className="detail-info">
+          <p data-testid="recipe-category">{arrayMeat.strCategory}</p>
 
-        <p data-testid="recipe-category">{arrayMeat.strCategory}</p>
+          <span className="detail-subtitle">Ingredients:</span>
+          <div className="detail-ingredients">
+            { createIngrediets() }
+          </div>
 
-        Ingredients
-        {createIngrediets()}
+          <span className="detail-subtitle">Instructions:</span>
+          <div className="detail-ingredients">
+            <p data-testid="instructions">{arrayMeat.strInstructions}</p>
+          </div>
 
-        Instructions
-        <p data-testid="instructions">{arrayMeat.strInstructions}</p>
-
+        </div>
         <button
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ verifyDisable() }
           onClick={ () => history.push('/receitas-feitas') }
+          className="regular-button"
         >
           Finalizar Receita
         </button>

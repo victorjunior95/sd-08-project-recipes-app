@@ -26,15 +26,19 @@ function Recomendation() {
   return (
     <Carousel>
       {recomendation.map((element, index) => (
-        <div key={ index } data-testid={ `${index}-recomendation-card` }>
+        <div
+          key={ index }
+          data-testid={ `${index}-recomendation-card` }
+          className="carousel-container"
+        >
           {pathname.split('/')[1] === 'comidas'
             ? (
-              <div>
+              <div className="recomendation-card">
                 <img src={ element.strDrinkThumb } alt="drink" />
                 <p data-testid={ `${index}-recomendation-title` }>{element.strDrink}</p>
               </div>
             ) : (
-              <div>
+              <div className="recomendation-card">
                 <img src={ element.strMealThumb } alt="meal" />
                 <p data-testid={ `${index}-recomendation-title` }>{element.strMeal}</p>
               </div>

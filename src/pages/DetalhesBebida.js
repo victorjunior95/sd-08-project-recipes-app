@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { favsLocalStorage, getDrinkById } from '../services/API';
+import { favsLocalStorage, getDrinkById, handleUseEffectDetalhes } from '../services/API';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -17,6 +17,7 @@ function DetalhesBebida() {
   const [fav, setFav] = useState(false);
   const [drink, setDrink] = useState({});
   const [toRender, setToRender] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
 
   const ingredients = [];
   const measure = [];
@@ -29,12 +30,7 @@ function DetalhesBebida() {
       setDrink(drinks[0]);
       foodRandom();
       setToRender(true);
-      const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (getFavsFromLocal.some((recipe) => recipe.id === Number(id))) {
-        setFav(true);
-      } else {
-        setFav(false);
-      }
+      handleUseEffectDetalhes(id, setFav, setInProgress, false);
     });
   }, []);
 
@@ -59,21 +55,21 @@ function DetalhesBebida() {
   };
 
   const favorite = () => {
+    setFav(!fav);
     const recipe = {
-      id: Number(drink.idDrink),
+      id: drink.idDrink,
       type: 'bebida',
       area: '',
       category: drink.strCategory,
       alcoholicOrNot: drink.strAlcoholic,
       name: drink.strDrink,
       image: drink.strDrinkThumb,
-      doneDate: '',
-      tags: [],
+      // doneDate: '',
+      // tags: [],
     };
 
     const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getFavsFromLocal.some((r) => r.id === Number(drink.idDrink))) {
-      setFav(false);
       return localStorage.setItem(
         'favoriteRecipes',
         JSON.stringify(getFavsFromLocal.filter((r) => r.id !== Number(drink.idDrink))),
@@ -83,7 +79,6 @@ function DetalhesBebida() {
       'favoriteRecipes',
       JSON.stringify([...getFavsFromLocal, recipe]),
     );
-    return setFav(true);
   };
 
   return toRender && (
@@ -129,7 +124,7 @@ function DetalhesBebida() {
         className="g6-start-recipe-btn"
         data-testid="start-recipe-btn"
       >
-        Iniciar Receita
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
       <h3>Receitas Recomendadas</h3>
       <div className="g6-caroussel">

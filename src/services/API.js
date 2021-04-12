@@ -135,15 +135,7 @@ export const favsLocalStorage = () => {
   const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (!getFavsFromLocal) {
     localStorage.setItem('favoriteRecipes',
-      JSON.stringify([{ id: 0,
-        type: '',
-        area: '',
-        category: '',
-        alcoholicOrNot: '',
-        name: '',
-        image: '',
-        doneDate: '',
-        tags: [] }]));
+      JSON.stringify([]));
   }
 };
 
@@ -159,5 +151,22 @@ export const ProgressFoodFunc = () => {
         },
       }),
     );
+  }
+};
+
+export const handleUseEffectDetalhes = (id, setFav, setInProgress, type) => {
+  const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (getFavsFromLocal.some((recipe) => Number(recipe.id) === Number(id))) {
+    setFav(true);
+  } else {
+    setFav(false);
+  }
+  const getInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (getInProgress && type) {
+    const mealsInLS = Object.keys(getInProgress.meals);
+    setInProgress(mealsInLS.some((m) => Number(m) === Number(id)));
+  } else if (getInProgress && !type) {
+    const cocktailsInLS = Object.keys(getInProgress.cocktails);
+    setInProgress(cocktailsInLS.some((ct) => Number(ct) === Number(id)));
   }
 };

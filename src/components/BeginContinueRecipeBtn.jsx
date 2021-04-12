@@ -7,7 +7,10 @@ function BeginContinueRecipeBtn() {
   const arrayId = pathname.split('/')[2];
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
+  console.log(doneRecipes, 'button');
+  console.log(arrayId, 'id');
+  console.log(pathname, 'path');
+  console.log(inProgressRecipes, 'progress');
   return (
     (!doneRecipes || (doneRecipes && !doneRecipes.some(({ id }) => id === arrayId))) && (
       <button
@@ -19,8 +22,8 @@ function BeginContinueRecipeBtn() {
       >
         { (inProgressRecipes && pathname.split('/')[1] === 'comidas'
           && inProgressRecipes.meals[arrayId])
-          || (pathname.split('/')[1] === 'bebidas' && (inProgressRecipes
-          && inProgressRecipes.cocktails[arrayId]))
+          || (inProgressRecipes && pathname.split('/')[1] === 'bebidas'
+          && inProgressRecipes.cocktails[arrayId])
           ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>)
   );

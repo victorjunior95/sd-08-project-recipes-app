@@ -15,6 +15,7 @@ function DetalhesComida() {
   const id = location.pathname.split('/', POS_IN_PATHNAME)[ARR_POS];
 
   const [fav, setFav] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
   const [meal, setMeal] = useState({});
   const [toRender, setToRender] = useState(false);
 
@@ -30,10 +31,15 @@ function DetalhesComida() {
       drinkRandom();
       setToRender(true);
       const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (getFavsFromLocal.some((recipe) => recipe.id === Number(id))) {
+      if (getFavsFromLocal.some((recipe) => Number(recipe.id) === Number(id))) {
         setFav(true);
       } else {
         setFav(false);
+      }
+      const getInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (getInProgress) {
+        const mealsInLS = Object.keys(getInProgress.meals);
+        setInProgress(mealsInLS.some((meal) => Number(meal) === Number(id)));
       }
     });
   }, []);
@@ -59,21 +65,21 @@ function DetalhesComida() {
   };
 
   const favorite = () => {
+    setFav(!fav);
     const recipe = {
-      id: Number(meal.idMeal),
+      id: meal.idMeal,
       type: 'comida',
       area: meal.strArea,
       category: meal.strCategory,
       alcoholicOrNot: '',
       name: meal.strMeal,
       image: meal.strMealThumb,
-      doneDate: '',
-      tags: meal.strTags.split(','),
+      // doneDate: '',
+      // tags: meal.strTags.split(','),
     };
 
     const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getFavsFromLocal.some((r) => r.id === Number(meal.idMeal))) {
-      setFav(false);
       return localStorage.setItem(
         'favoriteRecipes',
         JSON.stringify(getFavsFromLocal.filter((r) => r.id !== Number(meal.idMeal))),
@@ -83,7 +89,6 @@ function DetalhesComida() {
       'favoriteRecipes',
       JSON.stringify([...getFavsFromLocal, recipe]),
     );
-    return setFav(true);
   };
 
   return toRender && (
@@ -131,7 +136,7 @@ function DetalhesComida() {
         className="g6-start-recipe-btn"
         data-testid="start-recipe-btn"
       >
-        Iniciar Receita
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
       <h3>Receitas Recomendadas</h3>
       <div className="g6-caroussel">

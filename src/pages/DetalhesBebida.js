@@ -17,6 +17,7 @@ function DetalhesBebida() {
   const [fav, setFav] = useState(false);
   const [drink, setDrink] = useState({});
   const [toRender, setToRender] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
 
   const ingredients = [];
   const measure = [];
@@ -30,10 +31,15 @@ function DetalhesBebida() {
       foodRandom();
       setToRender(true);
       const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (getFavsFromLocal.some((recipe) => recipe.id === Number(id))) {
+      if (getFavsFromLocal.some((recipe) => Number(recipe.id) === Number(id))) {
         setFav(true);
       } else {
         setFav(false);
+      }
+      const getInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (getInProgress) {
+        const cocktailsInLS = Object.keys(getInProgress.cocktails);
+        setInProgress(cocktailsInLS.some((ct) => Number(ct) === Number(id)));
       }
     });
   }, []);
@@ -59,21 +65,21 @@ function DetalhesBebida() {
   };
 
   const favorite = () => {
+    setFav(!fav);
     const recipe = {
-      id: Number(drink.idDrink),
+      id: drink.idDrink,
       type: 'bebida',
       area: '',
       category: drink.strCategory,
       alcoholicOrNot: drink.strAlcoholic,
       name: drink.strDrink,
       image: drink.strDrinkThumb,
-      doneDate: '',
-      tags: [],
+      // doneDate: '',
+      // tags: [],
     };
 
     const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getFavsFromLocal.some((r) => r.id === Number(drink.idDrink))) {
-      setFav(false);
       return localStorage.setItem(
         'favoriteRecipes',
         JSON.stringify(getFavsFromLocal.filter((r) => r.id !== Number(drink.idDrink))),
@@ -83,7 +89,6 @@ function DetalhesBebida() {
       'favoriteRecipes',
       JSON.stringify([...getFavsFromLocal, recipe]),
     );
-    return setFav(true);
   };
 
   return toRender && (
@@ -129,7 +134,7 @@ function DetalhesBebida() {
         className="g6-start-recipe-btn"
         data-testid="start-recipe-btn"
       >
-        Iniciar Receita
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
       <h3>Receitas Recomendadas</h3>
       <div className="g6-caroussel">

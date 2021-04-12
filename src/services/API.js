@@ -135,15 +135,7 @@ export const favsLocalStorage = () => {
   const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (!getFavsFromLocal) {
     localStorage.setItem('favoriteRecipes',
-      JSON.stringify([{ id: 0,
-        type: '',
-        area: '',
-        category: '',
-        alcoholicOrNot: '',
-        name: '',
-        image: '',
-        doneDate: '',
-        tags: [] }]));
+      JSON.stringify([]));
   }
 };
 

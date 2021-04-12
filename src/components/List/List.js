@@ -10,6 +10,8 @@ import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
 import { Redirect } from 'react-router-dom';
 
+// Alteração para Pull Request
+
 const List = ({ title, results, refCard }) => {
   const CARDSFORPAGE = 12;
 

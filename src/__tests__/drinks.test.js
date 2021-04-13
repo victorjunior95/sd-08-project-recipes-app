@@ -10,6 +10,7 @@ import renderWithRouter from './helpers/renderWithRouter';
 import mockFetch from '../../cypress/mocks/fetch';
 // import MainFood from '../containers/MainFood';
 import Drinks from '../containers/Drinks';
+import { MAIN_FOOD_CARD_LENGTH_12, CATEGORIES_LENGTH_5 } from '../constants';
 
 describe('Drinks section', () => {
   beforeEach(cleanup);
@@ -45,14 +46,14 @@ describe('Fetch apis', () => {
     expect(mockTest).toBeCalledTimes(2);
     const buttons = screen.getAllByRole('button');
     console.log(buttons.length);
-    expect(buttons.length).toBe(10);
+    expect(buttons.length).toBe(CATEGORIES_LENGTH_5 * 2);
 
     buttons.forEach((button) => {
       expect(button).toBeInTheDocument();
     });
 
     const mainCards = screen.getAllByTestId(/-recipe-card/i);
-    expect(mainCards.length).toBe(12);
+    expect(mainCards.length).toBe(MAIN_FOOD_CARD_LENGTH_12);
 
     mainCards.forEach((card) => {
       expect(card).toBeInTheDocument();

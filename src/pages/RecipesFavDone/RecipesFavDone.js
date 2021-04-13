@@ -59,6 +59,29 @@ const RecipesFavDone = ({ title, visible }) => {
   };
 
   const redirectTo = ({ target }, id, type) => {
+    if (target.id === 'delete-doneRecipe') {
+      const localDone = JSON.parse(localStorage.getItem('doneRecipes'));
+      const localProgress = JSON.parse(
+        localStorage.getItem('inProgressRecipes'),
+      );
+      const removeRecipe = localDone.filter(
+        (recipe) => recipe.id !== target.value,
+      );
+      if (type === 'comida') {
+        localProgress.meals[id] = [];
+      } else {
+        localProgress.cocktails[id] = [];
+      }
+
+      localStorage.setItem('doneRecipes', JSON.stringify(removeRecipe));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(localProgress));
+      if (type === 'comida') {
+        history.push(`/comidas/${target.value}/in-progress`);
+      } else {
+        history.push(`/bebidas/${target.value}/in-progress`);
+      }
+      return;
+    }
     if (target.id !== 'btn-share') {
       if (type === 'comida') {
         history.push(`/comidas/${id}`);

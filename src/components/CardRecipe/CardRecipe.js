@@ -5,6 +5,7 @@ import ShareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './cardRecipe.css';
 import Context from '../../contextApi/Context';
+
 const CardRecipe = ({
   id,
   type,
@@ -87,7 +88,7 @@ const CardRecipe = ({
             ))}
         </div>
       </div>
-      <button        
+      <button
         type="button"
         className="card-icon-share"
         src={ShareIcon}
@@ -96,6 +97,8 @@ const CardRecipe = ({
       >
         <img src={ShareIcon} id="btn-share" />
       </button>
+      <button id="delete-doneRecipe" value={id} className="btn-delete"/>
+
       {favorite && (
         <button
           className="btn-favorite"

@@ -33,7 +33,8 @@ function Drinks() {
     api
       .fetchCategoriesDrink()
       .then((response) => response.json())
-      .then((result) => setDataDrinksCategories(result.drinks.slice(0, CATEGORIES_LENGTH_5)));
+      .then((result) => setDataDrinksCategories(result.drinks
+        .slice(0, CATEGORIES_LENGTH_5)));
     if (drinkCategorySelected.length && selectedDrink) {
       api
         .fetchDrinkByCategory(drinkCategorySelected)

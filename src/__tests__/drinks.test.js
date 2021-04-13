@@ -1,7 +1,7 @@
 import React from 'react';
-import { cleanup, screen, wait, waitFor } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 // import { unmountComponentAtNode } from 'react-dom';
 // import mockFetch from '../../cypress/mocks/fetch';
@@ -21,24 +21,16 @@ describe('Drinks section', () => {
         route: '/bebidas',
       },
     );
+    // });
     const header = screen.getByTestId('header-container');
     expect(header).toBeInTheDocument();
-    // });
   });
 });
 
 describe('Fetch apis', () => {
   it('fetchh', async () => {
-    // beforeAll(() => {
-    //   jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
-    // });
     const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
-    // const apiResponse = Promise.resolve({
-    //   json: () => Promise.resolve(drinks.drinks),
-    //   ok: true,
-    // });
-    // const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
-    // afterEach(() => jest.clearAllMocks());
+
     await act(async () => {
       renderWithRouter(
         <Drinks />,
@@ -46,16 +38,68 @@ describe('Fetch apis', () => {
           route: '/bebidas',
         },
       );
-      // });
-      await wait(() => {
-        expect(mockTest).toBeCalled();
-        expect(mockTest).toBeCalledTimes(2);
-        const buttons = screen.getAllByRole('button');
-        console.log(buttons.length);
-        expect(buttons.length).toBe(5);
-        // expect(buttons.length).toBeGreaterThanOrEqual(20);
-      });
     });
-    // });
+    expect(mockTest).toBeCalled();
+    expect(mockTest).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(mockTest).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    expect(mockTest).toBeCalledTimes(2);
+    const buttons = screen.getAllByRole('button');
+    console.log(buttons.length);
+    expect(buttons.length).toBe(10);
+
+    buttons.forEach((button) => {
+      expect(button).toBeInTheDocument();
+    });
+
+    const mainCards = screen.getAllByTestId(/-recipe-card/i);
+    expect(mainCards.length).toBe(12);
+
+    mainCards.forEach((card) => {
+      expect(card).toBeInTheDocument();
+    });
+
+    const buttonAll = screen.getByText(/all/i);
+    expect(buttonAll).toBeInTheDocument();
+
+    userEvent.click(buttonAll);
+    // const mainCards = screen.getAllByTestId(/-recipe-card/i);
+    mainCards.forEach((card, index) => {
+      // console.log(card.childElementCount);
+      expect(card.childElementCount).toBe(2);
+      // console.log(card.firstChild.src);
+      expect(card.firstChild.src).toBe(drinks.drinks[index].strDrinkThumb);
+      // console.log(card.lastChild.innerHTML);
+      expect(card.lastChild.innerHTML.replace('amp;', ''))
+        .toEqual(drinks.drinks[index].strDrink);
+    });
   });
 });
+
+// describe('click on buttons', () => {
+//   it('click button', async () => {
+//     const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
+//     await act(async () => {
+//       renderWithRouter(
+//         <Drinks />,
+//         {
+//           route: '/bebidas',
+//         },
+//       );
+//     });
+
+//     const buttonAll = screen.getByText(/all/i);
+//     expect(buttonAll).toBeInTheDocument();
+
+//     userEvent.click(buttonAll);
+//     const mainCards = screen.getAllByTestId(/-recipe-card/i);
+//     mainCards.forEach((card, index) => {
+//       // console.log(card.childElementCount);
+//       expect(card.childElementCount).toBe(2);
+//       // console.log(card.firstChild.src);
+//       expect(card.firstChild.src).toBe(drinks.drinks[index].strDrinkThumb);
+//       // console.log(card.lastChild.innerHTML);
+//       expect(card.lastChild.innerHTML.replace('amp;', ''))
+//         .toEqual(drinks.drinks[index].strDrink);
+//     });
+//   });
+// });

@@ -93,7 +93,7 @@ describe('CardCarousel component when the recipe is drink: ', () => {
       const cards = screen.getAllByTestId(/-recomendation-card/i);
       expect(cards.length).toBe(NUMBER_SIX);
       // expect(cards[1]).not.toBeInTheDocument();
-      console.log(card);
+      // console.log(card);
       const cardImages = screen.getAllByAltText('recomendation-card-img');
       // console.log(cardImages);
       for (let i = 0; i < NUMBER_SIX; i += 1) {

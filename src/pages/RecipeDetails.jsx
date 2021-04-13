@@ -18,7 +18,6 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const [shouldFetch, setShouldFetch] = useState(true);
-  const token = 1;
   const inProgress = pathname.split('/')[3] === 'in-progress';
   const type = useRef(pathname.split('/')[1]);
   const recommendationsType = useRef(type.current === 'comidas' ? 'bebidas' : 'comidas');

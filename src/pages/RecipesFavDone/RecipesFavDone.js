@@ -143,6 +143,7 @@ const RecipesFavDone = ({ title, visible }) => {
               name={recipe.name}
               doneDate={recipe.doneDate}
               tags={recipe.tags}
+              btnRemake={true}
             />
           </button>
         ))}

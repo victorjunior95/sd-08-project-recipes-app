@@ -18,6 +18,7 @@ const CardRecipe = ({
   doneDate,
   tags,
   favorite = false,
+  btnRemake = false,
 }) => {
   const { setFavoriteRecipes } = useContext(Context);
   const history = useHistory();
@@ -97,7 +98,9 @@ const CardRecipe = ({
       >
         <img src={ShareIcon} id="btn-share" />
       </button>
-      <button id="delete-doneRecipe" value={id} className="btn-delete"/>
+      {btnRemake && (
+        <button id="delete-doneRecipe" value={id} className="btn-delete" />
+      )}
 
       {favorite && (
         <button
@@ -128,6 +131,7 @@ CardRecipe.propTypes = {
   doneDate: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf.isRequired,
   favorite: PropTypes.bool.isRequired,
+  btnRemake: PropTypes.bool.isRequired,
 };
 
 export default CardRecipe;

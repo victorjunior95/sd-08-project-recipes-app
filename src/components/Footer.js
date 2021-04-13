@@ -4,6 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.css';
 
 function Footer() {

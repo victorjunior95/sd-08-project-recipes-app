@@ -15,6 +15,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 function RecipeDetails({ match: { params }, location: { pathname } }) {
   const { list, isFetching, recommendations } = useSelector((state) => state.recipes);
+  const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const [shouldFetch, setShouldFetch] = useState(true);
   const token = 1;
@@ -23,6 +24,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
   const recommendationsType = useRef(type.current === 'comidas' ? 'bebidas' : 'comidas');
 
   useEffect(() => {
+    const token = pathname === '/comidas' ? mealsToken : cocktailsToken;
     setShouldFetch(true);
     [type.current] = pathname.split('/').slice(1);
     recommendationsType.current = type.current === 'comidas' ? 'bebidas' : 'comidas';
@@ -65,7 +67,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
           <h1 data-testid="recipe-title">{ recipe.name }</h1>
           <div>
             <ShareButton type={ type.current } id={ params.id } />
-            <FavButton type={ type.current } recipe={ recipe } />
+            <FavButton recipe={ recipe } />
           </div>
         </header>
         <h2 data-testid="recipe-category">

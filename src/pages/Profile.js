@@ -23,7 +23,7 @@ function Profile() {
           block
           className="custom-btn-profile"
           data-testid="profile-done-btn"
-          onClick={ () => { history.push('receitas-feitas'); } }
+          onClick={ () => { history.push('/receitas-feitas'); } }
           to="/receitas-feitas"
           type="button"
         >

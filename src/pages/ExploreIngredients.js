@@ -97,7 +97,7 @@ function ExploreIngredients({ location: { pathname } }) {
             );
           }) }
       </section>
-      { shouldRedirect && <Redirect to={ `../../${type}` } /> }
+      { shouldRedirect && <Redirect to={ `/${type}` } /> }
       <Footer />
     </>
   );

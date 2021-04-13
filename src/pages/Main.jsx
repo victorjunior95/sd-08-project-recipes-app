@@ -19,7 +19,7 @@ function Main({ location: { pathname } }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const type = pathname.slice(1);
-  const token = 1;
+  const { mealsToken, cocktailsToken } = useSelector((state) => state.login);
 
   const renderRecipes = () => {
     if (list.length === 0) {
@@ -56,6 +56,7 @@ function Main({ location: { pathname } }) {
 
   useEffect(() => {
     const reqType = { request: 'filter', key: 'i', parameter: byIngredient };
+    const token = pathname === 'comidas' ? mealsToken : cocktailsToken;
     dispatch(fetchCategories(token, type));
     if (byIngredient) {
       dispatch(fetchRecipes(token, type, reqType));

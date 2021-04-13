@@ -5,23 +5,23 @@ import { addFavorite, removeFavorite } from '../actions/recipes';
 import FavIcon from '../images/whiteHeartIcon.svg';
 import BlackFavIcon from '../images/blackHeartIcon.svg';
 
-function FavButton({ type, recipe, index }) {
+function FavButton({ // type,
+  recipe, index }) {
   const favorite = useSelector((state) => state.recipes.favorite);
   const dispatch = useDispatch();
   // const formatedType = type === 'Meal' ? 'comida' : 'bebida';
 
   const handleClick = () => {
-    console.log(favorite);
     const fav = favorite
       .find(
-        (currRec) => recipe.id === currRec.id && type.startsWith(currRec.type),
+        ({ id, type }) => recipe.id === id && type === recipe.type, // type.startsWith(currRec.type),
       );
     // const { [`id${type}`]: id, strArea: area = '', strCategory: category = '',
     //   strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
     //   [`str${type}Thumb`]: image } = recipe;
-    const { id, area, category, alcoholicOrNot, name, image } = recipe;
-    const favType = type.slice(0, 0 - 1);
-    const favObj = { id, area, category, alcoholicOrNot, name, image, type: favType };
+    const { id, area, category, alcoholicOrNot, name, image, type } = recipe;
+    // const favType = type.slice(0, 0 - 1);
+    const favObj = { id, area, category, alcoholicOrNot, name, image, type };
     // const formatedRecipe = {
     //   id, area, category, alcoholicOrNot, name, image, type: formatedType };
     if (fav) {
@@ -39,7 +39,7 @@ function FavButton({ type, recipe, index }) {
         data-testid={ index !== undefined
           ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
         src={ favorite
-          .some((rec) => recipe.id === rec.id && type.startsWith(rec.type))
+          .some(({ id, type }) => recipe.id === id && type === recipe.type) // type.startsWith(rec.type))
           ? BlackFavIcon : FavIcon }
         alt="favorite"
       />

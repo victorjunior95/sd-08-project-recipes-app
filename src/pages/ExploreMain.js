@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { fetchRecipes } from '../actions/recipes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Explore.css';
 
 function ExploreMain({ location: { pathname } }) {
   const type = pathname.split('/')[2];
@@ -29,30 +32,46 @@ function ExploreMain({ location: { pathname } }) {
   return (
     <>
       <Header />
-      <Link
-        data-testid="explore-by-ingredient"
-        style={ { display: 'block' } }
-        to={ `${pathname}/ingredientes` }
-      >
-        Por Ingredientes
-      </Link>
-      { (type === 'comidas') && (
+      <section className="explore-button">
         <Link
-          data-testid="explore-by-area"
-          style={ { display: 'block' } }
-          to={ `${pathname}/area` }
+          data-testid="explore-by-ingredient"
+          to={ `${pathname}/ingredientes` }
         >
-          Por Local de Origem
-        </Link>) }
-      <button
-        data-testid="explore-surprise"
-        style={ { display: 'block' } }
-        onClick={ handleClick }
-        type="button"
-      >
-        Me Surpreenda!
-      </button>
-      { id && <Redirect to={ `../${type}/${id}` } /> }
+          <Button
+            block
+            className="custom-btn-explore"
+            variant="primary"
+          >
+            Por Ingredientes
+          </Button>
+        </Link>
+        { (type === 'comidas') && (
+          <Link
+            data-testid="explore-by-area"
+            to={ `${pathname}/area` }
+          >
+            <Button
+              block
+              className="custom-btn-explore"
+              variant="primary"
+            >
+              Por Local de Origem
+            </Button>
+          </Link>) }
+        <div className="surprise-me">
+          <Button
+            block
+            className="custom-btn-explore"
+            data-testid="explore-surprise"
+            onClick={ handleClick }
+            type="button"
+            variant="primary"
+          >
+            Me Surpreenda!
+          </Button>
+        </div>
+        { id && <Redirect to={ `../${type}/${id}` } /> }
+      </section>
       <Footer />
     </>
   );

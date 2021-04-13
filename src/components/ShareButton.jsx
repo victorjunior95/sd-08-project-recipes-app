@@ -14,14 +14,15 @@ function ShareButton({ type, id, index }) {
   return (
     <div>
       <button
-        type="button"
         onClick={ handleClick }
+        type="button"
       >
         <img
+          alt="share"
           data-testid={ index !== undefined
             ? `${index}-horizontal-share-btn` : 'share-btn' }
           src={ ShareIcon }
-          alt="share"
+          style={ { width: '6vw' } }
         />
       </button>
       { copied && 'Link copiado!' }

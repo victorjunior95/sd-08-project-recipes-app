@@ -2,17 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { Button } from 'react-bootstrap';
 import { startRecipe, endRecipe } from '../actions/recipes';
-
-// const formatedObject = (obj, type, id) => {
-//   const { strArea: area = '', strCategory: category = '',
-//     strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
-//     [`str${type}Thumb`]: image, doneDate = Date.now(), strTags } = obj;
-//   const tags = !strTags ? [] : strTags.split(',');
-//   const ptType = type === 'Meal' ? 'comida' : 'bebida';
-//   return {
-//     id, area, category, alcoholicOrNot, name, image, type: ptType, doneDate, tags };
-// };
+import './ProgressButton.css';
 
 function ProgressButton({ type, id, ingredientsLength }) {
   const { pathname } = useLocation();
@@ -51,17 +43,17 @@ function ProgressButton({ type, id, ingredientsLength }) {
       ({ id: currId, type: currType }) => id === currId && type.startsWith(currType),
     )
           || (
-            <button
-              style={ { display: 'block' } }
+            <Button
               className="start"
               data-testid={ inProgress ? 'finish-recipe-btn' : 'start-recipe-btn' }
               type="button"
               onClick={ handleClick }
               disabled={ inProgress
                && (start[type][id] || []).length !== ingredientsLength }
+              block
             >
               { buttonName() }
-            </button>
+            </Button>
           )
   );
 }

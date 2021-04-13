@@ -22,7 +22,7 @@ class Footer extends Component {
           <button
             type="button"
             data-testid="drinks-bottom-btn"
-            className="footerButton  btn mx-3"
+            className="footerButton btn mx-3"
             src={ drinkIcon }
           >
             <img src={ drinkIcon } alt="Menu de bebidas" />
@@ -33,7 +33,7 @@ class Footer extends Component {
           <button
             type="button"
             data-testid="explore-bottom-btn"
-            className="footerButton  btn mx-3"
+            className="footerButton btn mx-3"
             src={ exploreIcon }
           >
             <img src={ exploreIcon } alt="Menu de exploração" />
@@ -44,7 +44,7 @@ class Footer extends Component {
           <button
             type="button"
             data-testid="food-bottom-btn"
-            className="footerButton  btn mx-3"
+            className="footerButton btn mx-3"
             src={ mealIcon }
           >
             <img src={ mealIcon } alt="Menu de comidas" />

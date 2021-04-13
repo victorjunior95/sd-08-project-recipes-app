@@ -44,7 +44,7 @@ class Profile extends Component {
             <button
               type="button"
               data-testid="profile-done-btn"
-              className="btn-profile btn btn-warning px-1 font-weight-bold"
+              className="btn-profile btn btn-warning px-2 font-weight-bold"
             >
               Receitas Feitas
             </button>
@@ -55,7 +55,7 @@ class Profile extends Component {
             <button
               type="button"
               data-testid="profile-favorite-btn"
-              className="btn-profile btn btn-warning px-1 font-weight-bold"
+              className="btn-profile btn btn-warning px-2 font-weight-bold"
             >
               Receitas Favoritas
             </button>
@@ -67,7 +67,7 @@ class Profile extends Component {
               type="button"
               data-testid="profile-logout-btn"
               onClick={ () => localStorage.clear() }
-              className="btn-profile btn btn-warning px-1 font-weight-bold"
+              className="btn-profile btn btn-warning px-2 font-weight-bold"
             >
               Sair
             </button>

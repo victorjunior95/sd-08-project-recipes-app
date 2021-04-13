@@ -48,7 +48,12 @@ function Header({ title, toggle, toggleAction }) {
               type="button"
               onClick={ () => toggleAction(!toggle) }
             >
-              <img data-testid="search-top-btn" src={ SearchIcon } alt="search" />
+              <img
+                data-testid="search-top-btn"
+                src={ SearchIcon }
+                alt="search"
+                className="searchButton"
+              />
             </button>
           </div>
         )}

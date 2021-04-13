@@ -30,9 +30,9 @@ class MealCard extends Component {
 
 MealCard.propTypes = {
   meals: PropTypes.shape({
-    idMeal: PropTypes.string.isRequired,
-    strMealThumb: PropTypes.string.isRequired,
-    strMeal: PropTypes.string.isRequired,
+    idMeal: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    strMeal: PropTypes.string,
   }).isRequired,
   index: PropTypes.number.isRequired,
   testid: PropTypes.string.isRequired,

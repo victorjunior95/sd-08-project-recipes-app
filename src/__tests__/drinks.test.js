@@ -57,11 +57,12 @@ describe('Fetch apis', () => {
     mainCards.forEach((card) => {
       expect(card).toBeInTheDocument();
     });
-
     const buttonAll = screen.getByText(/all/i);
     expect(buttonAll).toBeInTheDocument();
+    act(() => {
+      userEvent.click(buttonAll);
+    });
 
-    userEvent.click(buttonAll);
     // const mainCards = screen.getAllByTestId(/-recipe-card/i);
     mainCards.forEach((card, index) => {
       // console.log(card.childElementCount);

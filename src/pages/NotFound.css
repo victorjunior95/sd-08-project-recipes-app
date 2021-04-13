@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-.container-404 h1, h2 {
+.container-404-title {
   font-weight: 900;
   text-shadow: 2px 2px darkgray;
 }

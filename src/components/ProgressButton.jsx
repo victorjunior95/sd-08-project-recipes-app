@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { Button } from 'react-bootstrap';
 import { startRecipe, endRecipe } from '../actions/recipes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './ProgressButton.css';
 
 function ProgressButton({ type, id, ingredientsLength }) {
   const { pathname } = useLocation();
@@ -43,7 +45,6 @@ function ProgressButton({ type, id, ingredientsLength }) {
     )
           || (
             <Button
-              style={ { display: 'block' } }
               className="start"
               data-testid={ inProgress ? 'finish-recipe-btn' : 'start-recipe-btn' }
               type="button"

@@ -23,6 +23,12 @@
   padding: 10px;
 }
 
+.carousel {
+  margin-bottom: 60px;
+  margin-left: 5px;
+  width: 98%;
+}
+
 .cards-container {
   display: flex;
   flex-flow: wrap;
@@ -34,5 +40,5 @@
 .cards-recommendations {
   height: 190px;
   margin-bottom: 10px;
-  width: 98%;
+  width: 95%;
 }

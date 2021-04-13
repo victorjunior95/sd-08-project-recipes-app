@@ -5,8 +5,8 @@ import './NotFound.css';
 function NotFound() {
   return (
     <div className="container-404">
-      <h1>404</h1>
-      <h2>Not Found</h2>
+      <h1 className="container-404-title">404</h1>
+      <h2 className="container-404-title">Not Found</h2>
     </div>
   );
 }

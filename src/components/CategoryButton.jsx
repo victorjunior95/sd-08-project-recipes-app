@@ -28,7 +28,6 @@ function CategoryButton({ name, type }) {
       size="sm"
       type="button"
       variant="primary"
-      // block={ name === 'All' || name.length > 15 }
     >
       {name}
     </Button>

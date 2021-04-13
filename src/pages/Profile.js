@@ -17,7 +17,7 @@ function Profile() {
   return (
     <>
       <Header />
-      <h3 className="email" data-testid="profile-email">{userEmail.email}</h3>
+      <h4 className="email" data-testid="profile-email">{userEmail.email}</h4>
       <section className="profile-container">
         <Button
           block

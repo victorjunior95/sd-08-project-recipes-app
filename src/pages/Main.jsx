@@ -23,7 +23,7 @@ function Main({ location: { pathname } }) {
 
   const renderRecipes = () => {
     if (list.length === 0) {
-      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return (
         <Alert style={ { marginTop: '20px' } } variant="danger">
           {
@@ -31,7 +31,7 @@ function Main({ location: { pathname } }) {
               ? <Alert.Heading>Uai...</Alert.Heading>
               : <Alert.Heading>Oxi...</Alert.Heading>
           }
-          <p>Sinto muito, não encontramos nenhuma receita para esses filtros.</p>
+          <p>Redefina o campo de busca.</p>
         </Alert>
       );
     }

@@ -89,11 +89,14 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
           data-testid="video"
         /> }
         { !inProgress && (
-          <Carousel responsive={ responsive }>
+          <Carousel className="carousel" responsive={ responsive }>
             { recommendations.map((recommendation, index) => (
-              <div className="cards-recommendations" key={ `rec-${index}` }>
+              <div
+                className="cards-recommendations"
+                data-testid={ `${index}-recomendation-card` }
+                key={ `rec-${index}` }
+              >
                 <RecipeCard
-                  data-testid={ `${index}-recomendation-card` }
                   index={ index }
                   recipe={ recommendation }
                   recommendation

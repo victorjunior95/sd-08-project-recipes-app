@@ -12,6 +12,7 @@ function RecipeCard({ type, index, recipe, recommendation }) {
         data-testid={ `${index}-recipe-card` }
       >
         <Card.Img
+          className="card-img"
           data-testid={ `${index}-card-img` }
           src={ recipe.image }
           alt={ recipe.name }
@@ -22,6 +23,7 @@ function RecipeCard({ type, index, recipe, recommendation }) {
               { type === 'comidas' ? recipe.category : recipe.alcoholicOrNot }
             </Card.Text>) }
           <Card.Title
+            className="recipe-name"
             data-testid={
               recommendation ? `${index}-recomendation-title` : `${index}-card-name`
             }

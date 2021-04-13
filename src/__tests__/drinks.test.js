@@ -28,7 +28,7 @@ describe('Drinks section', () => {
 });
 
 describe('Fetch apis', () => {
-  it('fetchh', () => {
+  it('fetchh', async () => {
     // beforeAll(() => {
     //   jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
     // });
@@ -39,22 +39,23 @@ describe('Fetch apis', () => {
     // });
     // const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
     // afterEach(() => jest.clearAllMocks());
-    // act(() => {
-    renderWithRouter(
-      <Drinks />,
-      {
-        route: '/bebidas',
-      },
-    );
-    // });
-    // wait(() => {
-    expect(mockTest).toBeCalled();
-    expect(mockTest).toBeCalledTimes(2);
-    const buttons = screen.getAllByRole('button');
-    console.log(buttons.length);
-    expect(buttons.length).toBe(5);
-    // expect(buttons.length).toBeGreaterThanOrEqual(20);
-    // });
+    await act(async () => {
+      renderWithRouter(
+        <Drinks />,
+        {
+          route: '/bebidas',
+        },
+      );
+      // });
+      wait(() => {
+        expect(mockTest).toBeCalled();
+        expect(mockTest).toBeCalledTimes(2);
+        const buttons = screen.getAllByRole('button');
+        console.log(buttons.length);
+        expect(buttons.length).toBe(5);
+        // expect(buttons.length).toBeGreaterThanOrEqual(20);
+      });
+    });
     // });
   });
 });

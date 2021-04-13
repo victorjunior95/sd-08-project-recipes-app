@@ -16,14 +16,8 @@ function FavButton({ // type,
       .find(
         ({ id, type }) => recipe.id === id && type === recipe.type, // type.startsWith(currRec.type),
       );
-    // const { [`id${type}`]: id, strArea: area = '', strCategory: category = '',
-    //   strAlcoholic: alcoholicOrNot = '', [`str${type}`]: name,
-    //   [`str${type}Thumb`]: image } = recipe;
     const { id, area, category, alcoholicOrNot, name, image, type } = recipe;
-    // const favType = type.slice(0, 0 - 1);
     const favObj = { id, area, category, alcoholicOrNot, name, image, type };
-    // const formatedRecipe = {
-    //   id, area, category, alcoholicOrNot, name, image, type: formatedType };
     if (fav) {
       dispatch(removeFavorite(favObj));
     } else dispatch(addFavorite(favObj));
@@ -36,12 +30,13 @@ function FavButton({ // type,
   return (
     <button type="button" onClick={ handleClick }>
       <img
+        alt="favorite"
         data-testid={ index !== undefined
           ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
         src={ favorite
           .some(({ id, type }) => recipe.id === id && type === recipe.type) // type.startsWith(rec.type))
           ? BlackFavIcon : FavIcon }
-        alt="favorite"
+        style={ { width: '6vw' } }
       />
     </button>
   );

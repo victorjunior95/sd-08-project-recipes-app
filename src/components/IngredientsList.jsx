@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { Form } from 'react-bootstrap';
 import { startRecipe } from '../actions/recipes';
 
 function IngredientsList({ type, id, ingredients }) {
@@ -32,24 +33,28 @@ function IngredientsList({ type, id, ingredients }) {
 
   if (inProgress) {
     return (
-      <div>
+      <Form>
         { ingredients
           .map((ingsAndMsr, index) => (
-            <label
-              htmlFor={ [ingsAndMsr[0]] }
-              key={ `ing-${index}` }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              <input
-                type="checkbox"
-                id={ [ingsAndMsr[0]] }
-                onClick={ () => handleChange(index) }
-                checked={ usedIngredients.includes(index) }
-                value={ [ingsAndMsr[0]] }
-              />
-              { `${[ingsAndMsr[0]]} - ${[ingsAndMsr[1]]}` }
-            </label>))}
-      </div>
+            <Form.Check key={ `ing-${index}` } type="checkbox">
+              <label
+                data-testid={ `${index}-ingredient-step` }
+                htmlFor={ [ingsAndMsr[0]] }
+              >
+                <Form.Check.Input
+                  checked={ usedIngredients.includes(index) }
+                  id={ [ingsAndMsr[0]] }
+                  onClick={ () => handleChange(index) }
+                  type="checkbox"
+                  value={ [ingsAndMsr[0]] }
+                />
+                <Form.Check.Label>
+                  { `${[ingsAndMsr[0]]} - ${[ingsAndMsr[1]]}` }
+                </Form.Check.Label>
+              </label>
+            </Form.Check>
+          ))}
+      </Form>
     );
   }
 

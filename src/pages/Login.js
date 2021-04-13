@@ -43,7 +43,7 @@ function Login() {
 
   return (
     <section className="login">
-      <form onSubmit={ handleSubmit }>
+      <form className="form" onSubmit={ handleSubmit }>
         <Form.Group>
           <Form.Label>Email:</Form.Label>
           <Form.Control

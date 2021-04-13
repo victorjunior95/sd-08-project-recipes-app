@@ -4,7 +4,6 @@ import { Col, Row } from 'react-bootstrap';
 import ProfileIcon from './ProfileIcon';
 import SearchBar from './SearchBar';
 import searchSvg from '../images/searchIcon.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header.css';
 
 const Header = () => {

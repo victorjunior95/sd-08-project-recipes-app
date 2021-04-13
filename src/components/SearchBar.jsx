@@ -3,7 +3,6 @@ import { Alert, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchRecipes } from '../actions/recipes';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './SearchBar.css';
 
 const SearchBar = () => {

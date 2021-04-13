@@ -29,7 +29,7 @@ function ExploreOrigin() {
   return (
     <>
       <Header />
-      <Form>
+      <Form className="form">
         <Form.Group controlId="select.countryForm">
           <Form.Label>Selecione o país:</Form.Label>
           <Form.Control

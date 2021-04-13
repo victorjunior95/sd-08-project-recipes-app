@@ -69,7 +69,7 @@ function RecipeDetails({ match: { params }, location: { pathname } }) {
             <FavButton recipe={ recipe } />
           </div>
         </header>
-        <h2 data-testid="recipe-category">
+        <h2 className="header-title " data-testid="recipe-category">
           { `${recipe.alcoholicOrNot} ${recipe.category}` }
         </h2>
         <section className="section-recipe">

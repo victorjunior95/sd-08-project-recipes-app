@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-// import { object } from 'prop-types';
-import { favsLocalStorage, getFoodById, ProgressFoodFunc } from '../services/API';
+import { favsLocalStorage,
+  getFoodById,
+  ProgressFoodFunc,
+  saveDoneRecipes } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import IngredientsList from '../components/IngredientsList';
@@ -18,6 +20,7 @@ function ProgressoComida() {
   const [fav, setFav] = useState(false);
   const [meal, setMeal] = useState({});
   const [toRender, setToRender] = useState(false);
+  const [done, setDone] = useState([]);
 
   const ingredients = [];
   const measure = [];
@@ -36,7 +39,8 @@ function ProgressoComida() {
       }
     });
     ProgressFoodFunc();
-  }, []);
+    setDone(saveDoneRecipes());
+  }, [id]);
 
   if (toRender) {
     for (let i = 1; i <= PROPS_LIMITER; i += 1) {
@@ -72,6 +76,7 @@ function ProgressoComida() {
       setFav(false);
       return localStorage.setItem(
         'favoriteRecipes',
+
         JSON.stringify(getFavsFromLocal.filter((r) => r.id !== Number(meal.idMeal))),
       );
     }
@@ -82,6 +87,20 @@ function ProgressoComida() {
     return setFav(true);
   };
 
+  const saveLocalStorage = () => {
+    localStorage.setItem('doneRecipes', JSON.stringify([...done, {
+      id: meal.idMeal,
+      type: 'comida',
+      area: meal.strArea,
+      category: meal.strCategory,
+      alcoholicOrNot: '',
+      name: meal.strMeal,
+      image: meal.strMealThumb,
+      doneDate: '',
+      tags: meal.strTags.split(','),
+    }]));
+    history.push('/receitas-feitas');
+  };
   return (
     toRender
     && (
@@ -121,7 +140,7 @@ function ProgressoComida() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ () => saveLocalStorage() }
           // disabled={ checkValidity }
         >
           Finalizar Receita

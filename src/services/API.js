@@ -170,3 +170,15 @@ export const handleUseEffectDetalhes = (id, setFav, setInProgress, type) => {
     setInProgress(cocktailsInLS.some((ct) => Number(ct) === Number(id)));
   }
 };
+
+export const saveDoneRecipes = () => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!doneRecipes) {
+    localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify([]),
+    );
+    return [];
+  }
+  return doneRecipes;
+};

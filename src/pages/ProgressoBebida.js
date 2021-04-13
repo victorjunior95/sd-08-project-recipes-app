@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import { favsLocalStorage, getDrinkById, ProgressFoodFunc } from '../services/API';
+import { favsLocalStorage,
+  getDrinkById,
+  ProgressFoodFunc,
+  saveDoneRecipes } from '../services/API';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import IngredientsCocktail from '../components/IngredientsCocktail';
@@ -16,7 +19,7 @@ function ProgressoBebida() {
   const [fav, setFav] = useState(false);
   const [drink, setDrink] = useState({});
   const [toRender, setToRender] = useState(false);
-
+  const [done, setDone] = useState([]);
   const ingredients = [];
   const measure = [];
 
@@ -33,7 +36,8 @@ function ProgressoBebida() {
       }
     });
     ProgressFoodFunc();
-  }, []);
+    setDone(saveDoneRecipes());
+  }, [id]);
 
   const PROP_LIMITER = 20;
 
@@ -65,7 +69,7 @@ function ProgressoBebida() {
       name: drink.strDrink,
       image: drink.strDrinkThumb,
       doneDate: '',
-      tags: [],
+      tags: drink.strTags.split(','),
     };
 
     const getFavsFromLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -83,6 +87,20 @@ function ProgressoBebida() {
     return setFav(true);
   };
 
+  const saveLocalStorage = () => {
+    localStorage.setItem('doneRecipes', JSON.stringify([...done, {
+      id: drink.idMeal,
+      type: 'bebida',
+      area: drink.strArea,
+      category: drink.strCategory,
+      alcoholicOrNot: '',
+      name: drink.strMeal,
+      image: drink.strMealThumb,
+      doneDate: '',
+      tags: drink.strTags.split(','),
+    }]));
+    history.push('/receitas-feitas');
+  };
   return toRender && (
     <div>
       <h1 data-testid="recipe-title">{ drink.strDrink }</h1>
@@ -119,7 +137,7 @@ function ProgressoBebida() {
         // onClick={ () => handleClick() }
         className="g6-start-recipe-btn"
         data-testid="finish-recipe-btn"
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ () => saveLocalStorage() }
       >
         Finalizar Receita
       </button>

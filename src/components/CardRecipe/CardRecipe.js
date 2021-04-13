@@ -5,6 +5,7 @@ import ShareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './cardRecipe.css';
 import Context from '../../contextApi/Context';
+
 const CardRecipe = ({
   id,
   type,
@@ -17,6 +18,7 @@ const CardRecipe = ({
   doneDate,
   tags,
   favorite = false,
+  btnRemake = false,
 }) => {
   const { setFavoriteRecipes } = useContext(Context);
   const history = useHistory();
@@ -87,7 +89,7 @@ const CardRecipe = ({
             ))}
         </div>
       </div>
-      <button        
+      <button
         type="button"
         className="card-icon-share"
         src={ShareIcon}
@@ -96,6 +98,10 @@ const CardRecipe = ({
       >
         <img src={ShareIcon} id="btn-share" />
       </button>
+      {btnRemake && (
+        <button id="delete-doneRecipe" value={id} className="btn-delete" />
+      )}
+
       {favorite && (
         <button
           className="btn-favorite"
@@ -125,6 +131,7 @@ CardRecipe.propTypes = {
   doneDate: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf.isRequired,
   favorite: PropTypes.bool.isRequired,
+  btnRemake: PropTypes.bool.isRequired,
 };
 
 export default CardRecipe;

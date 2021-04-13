@@ -9,6 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import getMeal from '../../services/requestMealForId';
 import getDrink from '../../services/RequestDrinkForId';
 import { Redirect } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
 import './list.css';
 
 const List = ({ title, results, refCard }) => {
@@ -128,13 +129,13 @@ const List = ({ title, results, refCard }) => {
 
   const renderActivatedFilter = () => {
       return (
-        <>
+        <div className="filtered-container">
           {activatedFilters.map((filter) => (
-            <span key={ filter } >
+            <span key={ filter } className="filtered-content" >
               <span >
                 {filter}
                 <Button
-                className="btn btn-secondary w-20 small"
+                className="btn btn-secondary w-20 remove-button"
                 type="button"
                 name={ filter }
                 onClick={ handleClickToFilter }
@@ -144,7 +145,7 @@ const List = ({ title, results, refCard }) => {
               </span>
             </span>
           ))}
-        </>);
+        </div>);
   }
 
   // const buttonContent = () => {
@@ -161,7 +162,7 @@ const List = ({ title, results, refCard }) => {
                   ? `/comidas`
                   : `/bebidas` } />}
       <Button
-        className="btn btn-primary w-100"
+        className="btn btn-primary w-100 my-1"
         onClick={handleClickToRecipes}
         disabled={manipulatedResult.length > 0 && manipulatedResult.length !== recipesByIngredient.length ? false : true}
         >
@@ -176,39 +177,41 @@ const List = ({ title, results, refCard }) => {
           if (index < CARDSFORPAGE) {
             return (
               <>
-                <Link
-                  id={
-                    title === 'Explorar Ingredientes de Comidas'
-                      ? object.strIngredient
-                      : object.strIngredient1
-                  }
-                  onClick={handleClick}
-                  to={
-                    title === 'Explorar Ingredientes de Comidas'
-                      ? `/comidas`
-                      : `/bebidas`
-                  }
-                >
-                  <Cards
-                    className="card-item"
-                    key={
+                <Card className='card-container' >
+                  <Link
+                    id={
                       title === 'Explorar Ingredientes de Comidas'
                         ? object.strIngredient
                         : object.strIngredient1
                     }
-                    object={object}
-                    title={title}
-                    index={index}
-                    refCard={refCard}
-                  />
-                </Link>
-                <Button
-                className="btn btn-secondary w-20"
-                name={ title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1 }
-                onClick={handleClickToFilter}
-                >
-                  {activatedFilters.includes(title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1) ? "-" : "+"}
-                </Button>
+                    onClick={handleClick}
+                    to={
+                      title === 'Explorar Ingredientes de Comidas'
+                        ? `/comidas`
+                        : `/bebidas`
+                    }
+                  >
+                    <Cards
+                      className="card-item"
+                      key={
+                        title === 'Explorar Ingredientes de Comidas'
+                          ? object.strIngredient
+                          : object.strIngredient1
+                      }
+                      object={object}
+                      title={title}
+                      index={index}
+                      refCard={refCard}
+                    />
+                  </Link>
+                  <Button
+                  className="btn btn-secondary w-20 card-button"
+                  name={ title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1 }
+                  onClick={handleClickToFilter}
+                  >
+                    {activatedFilters.includes(title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1) ? "-" : "+"}
+                  </Button>
+                </Card>
               </>
             );
           }

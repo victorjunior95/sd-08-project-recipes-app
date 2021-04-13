@@ -16,8 +16,9 @@ const handleInProgress = (idCurrentRecipe, isFood, setInProgress, setUseIngri) =
     localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
     setUseIngri([]);
   } else {
-    const storageProgessRecipes = (
-      JSON.parse(localStorage.getItem('inProgressRecipes')));
+    let storageProgessRecipes = (
+      localStorage.getItem('inProgressRecipes') || '{"meals": "[]", "cocktails": "[]"}');
+    storageProgessRecipes = JSON.parse(storageProgessRecipes);
     setInProgress(storageProgessRecipes);
     if (isFood) {
       const result = Object.keys(storageProgessRecipes.meals).indexOf(idCurrentRecipe);
@@ -62,7 +63,7 @@ const creatLocalObj = (usedIngridients,
 
 function handleCheckBox(name,
   inProgress, foodDetail, ObjUsedIngri = { obj: [], fun: () => {}, isMeal: true }) {
-  console.log(name, inProgress, foodDetail);
+  // console.log(name, inProgress, foodDetail);
   const usedIngriObj = ObjUsedIngri.obj;
   const FunUsedIngri = ObjUsedIngri.fun;
   const isFood = ObjUsedIngri.isMeal;
@@ -103,7 +104,8 @@ const Detalhes = () => {
   }, [usedIngri.length]);
 
   useEffect(() => {
-    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    let fav = localStorage.getItem('favoriteRecipes') || '[]';
+    fav = JSON.parse(fav);
     const [,, id] = location.pathname.split('/');
     setIsFavorite(fav.some((result) => result.id === id));
   }, []);
@@ -180,6 +182,7 @@ const Detalhes = () => {
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
+                data-testid={ `${index}-ingredient-step-input` }
                 onChange={ ({ target }) => {
                   handleCheckBox(target.value, inProgress,
                     foodDetails, ObjUsedIngri);

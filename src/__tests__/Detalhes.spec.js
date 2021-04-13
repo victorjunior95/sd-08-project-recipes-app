@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Detalhes from '../pages/Detalhes';
+// import ReceitasEmProgress from '../pages/ReceitasEmProgress';
 import Provider from '../context/Provider';
 import fetchMock from '../mocks/fetch';
 import windowMock from '../mocks/windowLocation';
@@ -30,6 +31,7 @@ describe('Comidas Page', () => {
         <Provider>
           <Router  history={history}>
                <Detalhes  />
+               {/* <ReceitasEmProgress /> */}
           </Router>
         </Provider>
       );
@@ -110,19 +112,13 @@ test('33 A - Implemente os elementos da tela de detalhes de uma receita respeita
     expect(utils.queryAllByText('Link copiado!')[0]).toBeInTheDocument();
     expect(copy).toHaveBeenLastCalledWith('http://localhost:3000/comidas/52771')
     expect(copy).toHaveBeenCalledTimes(1);
-    // const favoriteBtn = await utils.findByTestId('favorite-btn');
-    // const displayedImage = await utils.f ("img");
-    // const imagem = screen.getAllByRole('img');
-    // console.log(displayedImage)
-    // expect(displayedImage.src).toContain('shareIcon');
-    // expect(shareBtn).toBeInTheDocument();
-    // expect(favoriteBtn).toBeInTheDocument();
-    // expect(await utils.findByTestId('favorite-btn')).toBeInTheDocument();
-    // expect(await utils.findByTestId('recipe-category')).toBeInTheDocument();
-    // expect(await utils.findByTestId('instructions')).toBeInTheDocument();
-    // // expect(await utils.findByTestId('video')).not.toBeInTheDocument();
-    // expect(await utils.findByTestId('start-recipe-btn')).toBeInTheDocument();
-    // expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    // expect(history.location.pathname).toBe('/comidas');
   });
+  // test('38 - Desenvolva um botão de nome "Iniciar Receita" que deve ficar fixo na parte de baixo da tela o tempo todo', async () => {
+  //   const route = '/comidas/52771';
+  //   const { utils } = setup(route);
+  //   windowMock(route);
+  //   const startRecipeBtn = await utils.findByTestId('start-recipe-btn');
+  //   fireEvent.click(startRecipeBtn);
+  //   expect(history.location.pathname).toBe('/comidas/52771/in-progress');
+  // });
 })

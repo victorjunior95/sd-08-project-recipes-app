@@ -66,8 +66,9 @@ const Detalhes = () => {
 
   useEffect(() => {
     const doneRecipes = getDoneRecipes();
+    console.log(location.pathname);
+    console.log(location.pathname.split('/'), typeof (location.pathname));
     const [,, id] = location.pathname.split('/');
-    // console.log(doneRecipes);
     const isDone = doneRecipes.some((recipe) => recipe.id === id);
     setButtonRecipe(!isDone);
   }, [location.pathname]);

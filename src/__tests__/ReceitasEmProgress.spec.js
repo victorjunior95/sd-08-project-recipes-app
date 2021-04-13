@@ -71,7 +71,7 @@ test('47 A- Desenvolva a tela de maneira que contenha uma imagem da receita, seu
     const { utils } = await setup('/comidas/52771/in-progress');
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
     // expect(await utils.findByTestId('recipe-photo')).toBeInTheDocument();
-       const ingredientList = await utils.findByTestId(`0-ingredient-step-input`);
+       const ingredientList = await utils.findByTestId(`0-ingredient-input`);
     // console.log(ingredientList.type);
     expect( ingredientList.type).toBe('checkbox');
     // for(let index=0;  index < 8; index +=1 ){
@@ -83,7 +83,7 @@ test('47 A- Desenvolva a tela de maneira que contenha uma imagem da receita, seu
     const finishBtn = await utils.findByTestId(`finish-recipe-btn`)
     expect(finishBtn).toHaveAttribute('disabled')
     for(let index=0;  index < 8; index +=1 ){
-        const ingredientList = await utils.findByTestId(`${index}-ingredient-step-input`);
+        const ingredientList = await utils.findByTestId(`${index}-ingredient-input`);
         fireEvent.click(ingredientList);
   }
   expect(finishBtn).not.toHaveAttribute('disabled');

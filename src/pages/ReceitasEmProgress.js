@@ -182,7 +182,7 @@ const Detalhes = () => {
                 : `${ingredientName} - ${ingMeasure}` }
 
               <input
-                data-testid={ `${index}-ingredient-step-input` }
+                data-testid={ `${index}-ingredient-input` }
                 onChange={ ({ target }) => {
                   handleCheckBox(target.value, inProgress,
                     foodDetails, ObjUsedIngri);

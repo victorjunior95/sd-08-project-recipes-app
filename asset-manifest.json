@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6a26583b.chunk.css",
+    "main.js": "/static/js/main.151e7ac3.chunk.js",
+    "main.js.map": "/static/js/main.151e7ac3.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.fce06d4f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.fce06d4f.js.map",
+    "static/css/2.3b12a38c.chunk.css": "/static/css/2.3b12a38c.chunk.css",
+    "static/js/2.c9d87e1c.chunk.js": "/static/js/2.c9d87e1c.chunk.js",
+    "static/js/2.c9d87e1c.chunk.js.map": "/static/js/2.c9d87e1c.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.d9b7fe132367aaee4c90ac419a6abe9a.js": "/precache-manifest.d9b7fe132367aaee4c90ac419a6abe9a.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.3b12a38c.chunk.css.map": "/static/css/2.3b12a38c.chunk.css.map",
+    "static/css/main.6a26583b.chunk.css.map": "/static/css/main.6a26583b.chunk.css.map",
+    "static/js/2.c9d87e1c.chunk.js.LICENSE.txt": "/static/js/2.c9d87e1c.chunk.js.LICENSE.txt",
+    "static/media/NotFound.css": "/static/media/alimentos-ricos-em-fibras.jpg.cc80245d.webp",
+    "static/media/blackHeartIcon.svg": "/static/media/blackHeartIcon.b8913346.svg",
+    "static/media/drinkIcon.svg": "/static/media/drinkIcon.f87c47c3.svg",
+    "static/media/exploreIcon.svg": "/static/media/exploreIcon.157945ff.svg",
+    "static/media/Explore.css": "/static/media/food-ingredients.8652095e.jpg",
+    "static/media/mealIcon.svg": "/static/media/mealIcon.b27ba19e.svg",
+    "static/media/profileIcon.svg": "/static/media/profileIcon.74e487e5.svg",
+    "static/media/styles.css": "/static/media/revicons.2feb69cc.eot",
+    "static/media/searchIcon.svg": "/static/media/searchIcon.db812135.svg",
+    "static/media/shareIcon.svg": "/static/media/shareIcon.06215ed4.svg",
+    "static/media/whiteHeartIcon.svg": "/static/media/whiteHeartIcon.ea3b6ba8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fce06d4f.js",
+    "static/css/2.3b12a38c.chunk.css",
+    "static/js/2.c9d87e1c.chunk.js",
+    "static/css/main.6a26583b.chunk.css",
+    "static/js/main.151e7ac3.chunk.js"
+  ]
+}

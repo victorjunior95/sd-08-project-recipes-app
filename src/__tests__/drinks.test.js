@@ -47,7 +47,7 @@ describe('Fetch apis', () => {
         },
       );
       // });
-      wait(() => {
+      await wait(() => {
         expect(mockTest).toBeCalled();
         expect(mockTest).toBeCalledTimes(2);
         const buttons = screen.getAllByRole('button');

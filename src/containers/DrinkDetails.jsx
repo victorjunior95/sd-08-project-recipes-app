@@ -72,8 +72,6 @@ const DrinkDetails = () => {
   });
   const id = history.location.pathname.slice(NUMBER_9);
 
-  console.log(id);
-
   useEffect(() => {
     api.fetchDrinkById(id)
       .then((response) => response.json()).then((result) => setDrink(result.drinks));

@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import DoneRecipes from '../containers/DoneRecipes';
 import App from '../App';
@@ -34,5 +35,35 @@ describe('The elements of the made recipes done', () => {
     expect(buttonAll).toBeInTheDocument();
     expect(buttonFood).toBeInTheDocument();
     expect(buttonDrinks).toBeInTheDocument();
+  });
+  it('clicking on All Buttton takes you to the done recipes page', () => {
+    const { getByText, getByRole } = renderWithRouter(<DoneRecipes />);
+    userEvent.click(getByText(/all/i));
+    const doneFood = getByRole('heading', { name: /spicy arrabiata penne/i });
+    const doneDrink = getByRole('img', { name: /bebida aquamarine/i });
+    expect(doneFood).toBeInTheDocument();
+    expect(doneDrink).toBeInTheDocument();
+  });
+  it('clicking on Food Buttton should only appear the foods made', () => {
+    const { getByText, getByTestId } = renderWithRouter(<DoneRecipes />);
+    const doneFood = getByTestId('0-horizontal-top-text');
+    const doneDrink = getByTestId('1-horizontal-top-text');
+    userEvent.click(getByText(/all/i));
+    expect(doneFood).toBeInTheDocument();
+    expect(doneDrink).toBeInTheDocument();
+    userEvent.click(getByText(/food/i));
+    expect(doneFood).toBeInTheDocument();
+    expect(doneDrink).not.toBeInTheDocument();
+  });
+  it('clicking on Drink Buttton should only appear the Drinks made', () => {
+    const { getByText, getByTestId } = renderWithRouter(<DoneRecipes />);
+    const doneFood = getByTestId('0-horizontal-top-text');
+    const doneDrink = getByTestId('1-horizontal-top-text');
+    userEvent.click(getByText(/all/i));
+    expect(doneFood).toBeInTheDocument();
+    expect(doneDrink).toBeInTheDocument();
+    userEvent.click(getByText(/drinks/i));
+    expect(doneFood).not.toBeInTheDocument();
+    expect(doneDrink).toBeInTheDocument();
   });
 });

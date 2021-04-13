@@ -4,20 +4,29 @@ import { useHistory } from 'react-router-dom';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import Header from '../components/header/Header';
+import Bebidas from '../pages/Bebidas';
 import Provider from '../context/Provider';
+import fetchMock from '../mocks/fetch';
+import soupMeals from '../mocks/ginDrinks';
+import ginDrinks from '../mocks/ginDrinks';
+
 // import userEvent from '@testing-library/user-event';
 
+
+
 describe('Header Page', () => {
-//   beforeEach(() => {
-//     Object.defineProperty(window, 'localStorage', {
-//       value: {
-//         getItem: jest.fn(() => null),
-//         setItem: jest.fn(() => null),
-//         clear: jest.fn(() => null),
-//       },
-//       writable: true,
-//     });
-//   });
+  beforeEach(() => {
+    fetchMock();
+    Object.defineProperty(window, 'localStorage', {
+      value: {
+        getItem: jest.fn(() => null),
+        setItem: jest.fn(() => null),
+        clear: jest.fn(() => null),
+      },
+      writable: true,
+    });
+  });
+
   const setup = async ()  => {
       const history = createBrowserHistory();
       const utils = render(
@@ -58,27 +67,78 @@ test('11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no bot�
 test('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer. O mesmo serve para escondê-la', async () => {
   const {searchTopButton, utils } = await setup();
   // const utils = await setup();
-  const inputSearch = await utils.findByTestId('search-input');
   fireEvent.click(searchTopButton);
+  const inputSearch = await utils.findByTestId('search-input');
   expect(inputSearch).toBeInTheDocument();
   fireEvent.click(searchTopButton);
   expect(inputSearch).not.toBeInTheDocument();
 });
 test('13 - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo', async () => {
-  const {searchTopButton } = await setup();
-  const utils = await setup();
+  const { searchTopButton, utils } = await setup();
+  fireEvent.click(searchTopButton);
   const inputSearch = await utils.findByTestId('search-input');
   const radioIngredients =  await utils.findByTestId('ingredient-search-radio');
   const radioName =  await utils.findByTestId('name-search-radio');
   const radioFirstLetter = await utils.findByTestId('first-letter-search-radio');
   const execSearchButton =  await utils.findByTestId('exec-search-btn');
-  fireEvent.click(searchTopButton);
   expect(inputSearch).toBeInTheDocument();
   expect(radioIngredients).toBeInTheDocument();
   expect(radioName).toBeInTheDocument();
   expect(radioFirstLetter).toBeInTheDocument();
   expect(execSearchButton).toBeInTheDocument();
 
+});
+test('14 - Posicione a barra logo abaixo do header e implemente 3 radio buttons: Ingrediente, Nome e Primeira letra', async () => {
+  const { searchTopButton, utils } = await setup();
+  fireEvent.click(searchTopButton);
+  const inputSearch = await utils.findByTestId('search-input');
+  const radioIngredients =  await utils.findByTestId('ingredient-search-radio');
+  const radioName =  await utils.findByTestId('name-search-radio');
+  const radioFirstLetter = await utils.findByTestId('first-letter-search-radio');
+  const execSearchButton =  await utils.findByTestId('exec-search-btn');
+  expect(inputSearch).toBeInTheDocument();
+  expect(radioIngredients).toBeInTheDocument();
+  expect(radioName).toBeInTheDocument();
+  expect(radioFirstLetter).toBeInTheDocument();
+  expect(execSearchButton).toBeInTheDocument();
+  fireEvent.change(inputSearch, {target: { value: 'soup'}})
+  fireEvent.click(radioName);
+  fireEvent.click(execSearchButton);
+  expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=soup');
+  fireEvent.change(inputSearch, {target: { value: 'a'}})
+  fireEvent.click(radioFirstLetter);
+  fireEvent.click(execSearchButton);
+  expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=a');
+  fireEvent.change(inputSearch, {target: { value: 'chicken'}})
+  fireEvent.click(radioIngredients);
+  fireEvent.click(execSearchButton);
+  expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken');
+});
+test('15 - Busque na API de comidas caso a pessoa esteja na página de comidas e na de bebidas caso esteja na de bebidas', async () => {
+  const { searchTopButton, utils } = await setup();
+  fireEvent.click(searchTopButton);
+  const inputSearch = await utils.findByTestId('search-input');
+  const radioIngredients =  await utils.findByTestId('ingredient-search-radio');
+  const radioName =  await utils.findByTestId('name-search-radio');
+  const radioFirstLetter = await utils.findByTestId('first-letter-search-radio');
+  const execSearchButton =  await utils.findByTestId('exec-search-btn');
+  expect(inputSearch).toBeInTheDocument();
+  expect(radioIngredients).toBeInTheDocument();
+  expect(radioName).toBeInTheDocument();
+  expect(radioFirstLetter).toBeInTheDocument();
+  expect(execSearchButton).toBeInTheDocument();
+  fireEvent.change(inputSearch, {target: { value: 'soup'}})
+  fireEvent.click(radioIngredients);
+  fireEvent.click(execSearchButton);
+  expect(fetchMock).toHaveBeenCalled; 
+  fireEvent.change(inputSearch, {target: { value: 'a'}})
+  fireEvent.click(radioFirstLetter);
+  fireEvent.click(execSearchButton);
+  expect(fetchMock).toHaveBeenCalled; 
+  fireEvent.change(inputSearch, {target: { value: 'chicken'}})
+  fireEvent.click(radioIngredients);
+  fireEvent.click(execSearchButton);
+  expect(fetchMock).toHaveBeenCalled; 
 });
 
 // test('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', async () => {

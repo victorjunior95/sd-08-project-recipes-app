@@ -10,22 +10,16 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
   const history = useHistory();
   const path = history.location.pathname;
   let isClicked = false;
-  //   console.log(history);
-  //   console.log(index);
-  //   console.log(name);
-  //   console.log(thumbnail);
+
   const popTags = () => (
-    tags.map((tagName, tagInex) => {
-      console.log(` ${tagName} ${tagInex} `);
-      return (
-        <p
-          key={ tagInex }
-          data-testid={ `${index}-${tagName}-horizontal-tag` }
-        >
-          {tagName}
-        </p>
-      );
-    })
+    tags.map((tagName, tagInex) => (
+      <p
+        key={ tagInex }
+        data-testid={ `${index}-${tagName}-horizontal-tag` }
+      >
+        {tagName}
+      </p>
+    ))
   );
   function handleClick() {
     if (isFood) {
@@ -47,7 +41,6 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
         onClick={ () => handleClick() }
         data-testid={ `${index}-recipe-card` }
       >
-        {/* {console.log(history.location.pathname)} */}
         <p data-testid={ `${index}-card-name` }>{name}</p>
         <img
         // style={ `max-width:200px;
@@ -63,7 +56,6 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
       </button>
     );
   } if (path === '/receitas-feitas') {
-    console.log('Receitas feitas');
     return (
       <div data-testid={ `${index}-recipe-card` }>
 
@@ -129,9 +121,10 @@ const Card = ({ id, index, name, thumbnail, isFood, cat,
       </div>
     );
   }
+  return null;
 };
 Card.defaultProps = {
-  category: '',
+  cat: '',
   doneDate: '',
   tags: [],
   area: '',
@@ -145,7 +138,7 @@ Card.propTypes = {
   name: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   isFood: PropTypes.bool.isRequired,
-  category: PropTypes.string,
+  cat: PropTypes.string,
   doneDate: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   area: PropTypes.string,

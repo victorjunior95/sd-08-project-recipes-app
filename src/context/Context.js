@@ -1,4 +1,4 @@
 import { createContext } from 'react';
 
-const LariContext = createContext();
+const LariContext = createContext({});
 export default LariContext;

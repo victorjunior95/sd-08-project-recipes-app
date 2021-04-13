@@ -12,7 +12,8 @@ const Comidas = () => {
     food,
     nameIngredient,
     setNameIngredient,
-    handleHeaderSearch } = useContext(LariContext);
+    handleHeaderSearch,
+  } = useContext(LariContext);
   const [mapCards, setMapCards] = useState();
   const [category, setCategory] = useState([]);
   const [mapCategorys, setMapCategorys] = useState();

@@ -1,11 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchSurprised } from '../../services';
 
 const ExplorerType = ({ showAreaButton = true, type }) => {
   const history = useHistory();
   const RedirectPages = (path) => {
+    console.log(path);
     history.push(path);
   };
 

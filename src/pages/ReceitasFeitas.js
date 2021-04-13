@@ -65,7 +65,7 @@ function ReceitasFeitas() {
       {
         recipes
           && recipes.map((recipe, index) => (
-            <CardReceitasFeitas key={ index } recipe={ recipe } />
+            <CardReceitasFeitas key={ index } recipe={ recipe } i={ index } />
           ))
       }
       <Footer />

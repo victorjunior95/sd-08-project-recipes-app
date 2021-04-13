@@ -40,18 +40,17 @@ function Drinks() {
         .fetchDrinkByCategory(drinkCategorySelected)
         .then((response) => response.json())
         .then((result) => setDataDrinks(result.drinks));
-    }
-    if (byIngredient && ingredientName) {
+    } else if (byIngredient && ingredientName) {
       api
         .searchByDrinkIngredient(ingredientName)
         .then((response) => response.json())
         .then((result) => setDataDrinks(result.drinks));
+    } else {
+      api
+        .fetchDrinks()
+        .then((response) => response.json())
+        .then((result) => setDataDrinks(result.drinks));
     }
-    api
-      .fetchDrinks()
-      .then((response) => response.json())
-      .then((result) => setDataDrinks(result.drinks));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [drinkCategorySelected, selectedDrink]);
 

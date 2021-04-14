@@ -18,7 +18,7 @@ function BeginContinueRecipeBtn() {
           .push(`/${pathname.split('/')[1]}/${arrayId}/in-progress`) }
         data-testid="start-recipe-btn"
         type="button"
-        className="beginRecipe-btn"
+        className="beginRecipe-btn regular-button"
       >
         { (inProgressRecipes && pathname.split('/')[1] === 'comidas'
           && inProgressRecipes.meals[arrayId])

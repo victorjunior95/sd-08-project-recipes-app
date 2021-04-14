@@ -124,14 +124,13 @@ function ProgressMeal() {
           <div className="detail-ingredients">
             <p data-testid="instructions">{arrayMeat.strInstructions}</p>
           </div>
-
         </div>
         <button
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ verifyDisable() }
           onClick={ () => history.push('/receitas-feitas') }
-          className="regular-button"
+          className="regular-button beginRecipe-btn"
         >
           Finalizar Receita
         </button>

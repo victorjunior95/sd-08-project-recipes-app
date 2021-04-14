@@ -15,17 +15,19 @@ function DrinkIngredient() {
   }, []);
 
   return (
-    <main>
+    <section className="Explore-main-container-meal">
       <Header />
-      {ingredients && ingredients
-        .map(({ strIngredient1 }, index) => (<IngredientCard
-          key={ strIngredient1 }
-          ingredient={ strIngredient1 }
-          index={ index }
-          recipe="drink"
-        />))}
+      <section className="cards-section">
+        {ingredients && ingredients
+          .map(({ strIngredient1 }, index) => (<IngredientCard
+            key={ strIngredient1 }
+            ingredient={ strIngredient1 }
+            index={ index }
+            recipe="drink"
+          />))}
+      </section>
       <Footer />
-    </main>
+    </section>
   );
 }
 

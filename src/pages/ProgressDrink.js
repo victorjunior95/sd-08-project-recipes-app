@@ -6,6 +6,7 @@ import ShareButton from '../components/ShareButton';
 import fetchDrinkActionId from '../redux/actions/fetchDrink';
 import '../CSS/Completed.css';
 import { findKey } from '../services/index';
+import '../CSS/FoodDetail.css';
 
 function ProgressDrink() {
   const { singleRecipe } = useSelector((state) => state.recipes);
@@ -93,27 +94,47 @@ function ProgressDrink() {
 
   const renderDrink = () => (
     arrayDrink !== undefined && (
-      <div>
-        <img data-testid="recipe-photo" src={ arrayDrink.strDrinkThumb } alt="recipe" />
-        <h1 data-testid="recipe-title">{ arrayDrink.strDrink }</h1>
-        <ShareButton
-          recipeId={ arrayDrink.idDrink }
-          recipeType="bebida"
-        />
-        <LikeButton />
-        <p data-testid="recipe-category">{arrayDrink.strAlcoholic}</p>
-        <p data-testid="recipe-category">{arrayDrink.strCategory}</p>
-        Ingredients
-        {createIngrediets()}
+      <div className="detail-main-container">
+        <div className="detail-header-container">
+          <img
+            data-testid="recipe-photo"
+            src={ arrayDrink.strDrinkThumb }
+            alt="recipe"
+            className="detail-img"
+          />
+          <h1
+            data-testid="recipe-title"
+            className="detail-title"
+          >
+            { arrayDrink.strDrink }
+          </h1>
+          <div className="buttons-container">
+            <ShareButton
+              recipeId={ arrayDrink.idDrink }
+              recipeType="bebida"
+            />
+            <LikeButton />
+          </div>
+        </div>
+        <div className="detail-info">
+          <p data-testid="recipe-category">{arrayDrink.strAlcoholic}</p>
+          <p data-testid="recipe-category">{arrayDrink.strCategory}</p>
+          <span className="detail-subtitle">Ingredients:</span>
+          <div className="detail-ingredients">
+            {createIngrediets()}
+          </div>
 
-        Instructions
-        <p data-testid="instructions">{arrayDrink.strInstructions}</p>
-
+          <span className="detail-subtitle">Instructions:</span>
+          <div className="detail-ingredients">
+            <p data-testid="instructions">{ arrayDrink.strInstructions }</p>
+          </div>
+        </div>
         <button
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ verifyDisable() }
           onClick={ () => history.push('/receitas-feitas') }
+          className="regular-button beginRecipe-btn"
         >
           Finalizar Receita
         </button>
@@ -121,7 +142,7 @@ function ProgressDrink() {
     ));
 
   return (
-    <div>
+    <div className="detail-main-section">
       {renderDrink()}
     </div>
   );

@@ -52,11 +52,11 @@ function MealsRecipes() {
     <section className="meal-image main-container">
       {(recipes && recipes.length === 1 && mealFilter === '')
       && <Redirect to={ `/comidas/${recipes[0].idMeal}` } />}
-      <div className="header-section">
+      <section className="header-section">
         <Header />
         <MealCatsButtons />
-      </div>
-      <div className="cards-section">
+      </section>
+      <section className="cards-section">
         { recipes && recipes.map((elem, index) => (
           <RecipesCards
             key={ elem.idMeal }
@@ -66,7 +66,7 @@ function MealsRecipes() {
             type="Meal"
           />
         )) }
-      </div>
+      </section>
       <Footer />
     </section>
   );

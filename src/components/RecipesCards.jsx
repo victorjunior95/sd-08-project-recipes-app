@@ -14,7 +14,7 @@ export default function RecipesCards({ path, elem, type, index }) {
       <div className="card-content">
         <div className="img-content">
           <img
-            className="card card-img"
+            className="card-img"
             src={ elem[`str${type}Thumb`] }
             alt={ elem[`str${type}`] }
             data-testid={ `${index}-card-img` }

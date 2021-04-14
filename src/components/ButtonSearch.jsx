@@ -14,12 +14,16 @@ function ButtonSearch({ type }) {
 
   return (
     <>
-      <button type="button" onClick={ handleClick } className="transparent-btn logo-size">
+      <button
+        type="button"
+        onClick={ handleClick }
+        className="transparent-btn logo-size search-logo"
+      >
         <img
           data-testid="search-top-btn"
           src={ logoSearch }
           alt="search-icon"
-          className="logo-size"
+          className="logo-size search-logo"
         />
       </button>
       { (type !== 'origem' && search) && <RecipeSearchBar /> }

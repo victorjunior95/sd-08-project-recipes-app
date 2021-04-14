@@ -22,31 +22,36 @@ function ExploreOrigin() {
   }, []);
 
   return (
-    <main>
+    <section className="Explore-main-container-meal">
       <Header />
-      <section className="cards">
+      <section className="cards-section">
         { recipes && recipes.map((elem, index) => (
           <button
             key={ elem.idMeal }
             type="button"
             onClick={ () => history.push(`/comidas/${elem.idMeal}`) }
             data-testid={ `${index}-recipe-card` }
+            className="card-container regular-button"
           >
-            <div>
-              <h4 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h4>
-              <span>{ elem.idMeal }</span>
-              <img
-                className="card"
-                src={ elem.strMealThumb }
-                alt={ elem.strMeal }
-                data-testid={ `${index}-card-img` }
-              />
+            <div className="card-content">
+              <div className="img-content">
+                <img
+                  className="card card-img"
+                  src={ elem.strMealThumb }
+                  alt={ elem.strMeal }
+                  data-testid={ `${index}-card-img` }
+                />
+              </div>
+              <div className="card-title">
+                <h4 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h4>
+                <span>{ elem.idMeal }</span>
+              </div>
             </div>
           </button>
         ))}
       </section>
       <Footer />
-    </main>
+    </section>
   );
 }
 

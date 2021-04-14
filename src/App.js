@@ -20,27 +20,25 @@ import './CSS/AppMain.css';
 
 function App() {
   return (
-    <main>
-      <div className="main-section">
-        <Switch>
-          <Route exact path="/perfil" component={ ProfilePage } />
-          <Route exact path="/explorar" component={ Explore } />
-          <Route path="/explorar/comidas/ingredientes" component={ FoodIngredient } />
-          <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredient } />
-          <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
-          <Route path="/explorar/bebidas/area" component={ NotFound } />
-          <Route exact path="/comidas" component={ MealsRecipes } />
-          <Route exact path="/bebidas" component={ DrinksRecipes } />
-          <Route path="/comidas/:idMeal/in-progress" component={ ProgressMeal } />
-          <Route path="/bebidas/:idDrink/in-progress" component={ ProgressDrink } />
-          <Route path="/comidas/:idMeal?" component={ FoodDetail } />
-          <Route path="/bebidas/:idDrink?" component={ FoodDetail } />
-          <Route exact path="/" component={ LoginPage } />
-          <Route path="/explorar/" component={ ExploreFoodDrink } />
-          <Route path="/receitas-feitas" component={ FinishedRecipes } />
-          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        </Switch>
-      </div>
+    <main className="main-section">
+      <Switch>
+        <Route exact path="/perfil" component={ ProfilePage } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route path="/explorar/comidas/ingredientes" component={ FoodIngredient } />
+        <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredient } />
+        <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
+        <Route exact path="/comidas" component={ MealsRecipes } />
+        <Route exact path="/bebidas" component={ DrinksRecipes } />
+        <Route path="/comidas/:idMeal/in-progress" component={ ProgressMeal } />
+        <Route path="/bebidas/:idDrink/in-progress" component={ ProgressDrink } />
+        <Route path="/comidas/:idMeal?" component={ FoodDetail } />
+        <Route path="/bebidas/:idDrink?" component={ FoodDetail } />
+        <Route exact path="/" component={ LoginPage } />
+        <Route path="/explorar/" component={ ExploreFoodDrink } />
+        <Route path="/receitas-feitas" component={ FinishedRecipes } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      </Switch>
     </main>
   );
 }

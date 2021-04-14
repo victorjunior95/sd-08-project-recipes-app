@@ -14,17 +14,19 @@ function FoodIngredient() {
     dataDispatch();
   }, []);
   return (
-    <main>
+    <section className="Explore-main-container-meal">
       <Header />
-      {ingredients && ingredients
-        .map(({ strIngredient }, index) => (<IngredientCard
-          key={ strIngredient }
-          ingredient={ strIngredient }
-          index={ index }
-          recipe="meal"
-        />))}
+      <section className="cards-section">
+        {ingredients && ingredients
+          .map(({ strIngredient }, index) => (<IngredientCard
+            key={ strIngredient }
+            ingredient={ strIngredient }
+            index={ index }
+            recipe="meal"
+          />))}
+      </section>
       <Footer />
-    </main>
+    </section>
   );
 }
 

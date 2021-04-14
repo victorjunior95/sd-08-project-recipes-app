@@ -1,8 +1,13 @@
+.detail-main-section {
+  height: 100%;
+}
+
 .detail-main-container {
   background-color: #0c0909;
   color: #e3e0de;
   display: flex;
   flex-flow: column wrap;
+  height: 100%;
 }
 
 .detail-header-container {
@@ -34,6 +39,8 @@
 }
 
 .detail-info {
+  display: flex;
+  flex-direction: column;
   margin-left: 20px;
   width: 90%;
 }
@@ -73,6 +80,12 @@
   flex-flow: row wrap;
   justify-content: center;
   width: 40%;
+}
+
+.detail-btn {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
 }
 
 .beginRecipe-btn {

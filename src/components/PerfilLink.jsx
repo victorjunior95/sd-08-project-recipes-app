@@ -10,7 +10,7 @@ function PerfilLink() {
         alt="profile-icon"
         src={ logoProfile }
         data-testid="profile-top-btn"
-        className="logo-size"
+        className="logo-size profile-logo"
       />
     </Link>
   );

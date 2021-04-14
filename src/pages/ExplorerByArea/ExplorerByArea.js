@@ -6,6 +6,7 @@ import { getFilterByArea } from '../../services/FoodsDrinksRequests';
 import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import './explorerByArea.css';
+import Form from 'react-bootstrap/Form'
 
 const ExplorerByArea = ({ title }) => {
   const [categories, setCategories] = useState();
@@ -41,7 +42,9 @@ const ExplorerByArea = ({ title }) => {
   return (
     <>
       <Header title={title} />
-      <select
+      <Form.Control
+        as="select"
+        custom
         className="list-select"
         data-testid="explore-by-area-dropdown"
         onChange={(e) => setValor(e.target.value)}
@@ -54,12 +57,13 @@ const ExplorerByArea = ({ title }) => {
               </option>
             );
           })}
-      </select>
+      </Form.Control>
+      <div className="list-area">
       {filterArea &&
         filterArea.map(({ idMeal, strMeal, strMealThumb }, index) => {
           if (index < 12) {
             return (
-              <div className="list-area">
+              
                 <button onClick={() => redirectToFood(idMeal)} key={index}>
                   <Card data-testid={`${index}-recipe-card`}>
                     <Card.Img
@@ -74,11 +78,10 @@ const ExplorerByArea = ({ title }) => {
                     </Card.Body>
                   </Card>
                 </button>
-              </div>
             );
           }
         })}
-
+      </div>
       <Footer />
     </>
   );

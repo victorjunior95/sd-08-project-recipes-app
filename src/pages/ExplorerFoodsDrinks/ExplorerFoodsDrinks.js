@@ -40,18 +40,18 @@ const FoodsAndDrinks = ({ title, visible }) => {
     <div className="explorer-foods-drinks">
       <Header title={title} visible={visible} />
       <button
-        className="btn btn-info"
+        className="btn btn-danger"
         data-testid="explore-by-ingredient"
         onClick={() => redirectToIgredients()}
       >
         Por Ingredientes
       </button>
       {areaVisible && (
-        <button className="btn btn-info" data-testid="explore-by-area" onClick={()=>history.push('/explorar/comidas/area')}>
+        <button className="btn btn-danger" data-testid="explore-by-area" onClick={()=>history.push('/explorar/comidas/area')}>
           Por Local de Origem
         </button>
       )}
-      <button className="btn btn-info" data-testid="explore-surprise" onClick={()=>redirectToRandom()}>
+      <button className="btn btn-danger" data-testid="explore-surprise" onClick={()=>redirectToRandom()}>
         Me Surpreenda!
       </button>
       <Footer />

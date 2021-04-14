@@ -135,7 +135,7 @@ const List = ({ title, results, refCard }) => {
               <span >
                 {filter}
                 <Button
-                className="btn btn-secondary w-20 remove-button"
+                className="btn remove-button w-20 remove-button"
                 type="button"
                 name={ filter }
                 onClick={ handleClickToFilter }
@@ -162,12 +162,12 @@ const List = ({ title, results, refCard }) => {
                   ? `/comidas`
                   : `/bebidas` } />}
       <Button
-        className="btn btn-primary w-100 my-1"
+        className="btn btn-danger w-100 my-1"
         onClick={handleClickToRecipes}
         disabled={manipulatedResult.length > 0 && manipulatedResult.length !== recipesByIngredient.length ? false : true}
         >
           {activatedFilters.length < 2 ? "Escolha os ingredientes" : (load === true ?
-        <Spinner animation="border" role="status">
+        <Spinner animation="border" role="status" className='spinner'>
           <span className="sr-only">Loading...</span>
         </Spinner>:
         (manipulatedResult.length > 0 && manipulatedResult.length !== recipesByIngredient.length ? `${manipulatedResult.length} receitas encontradas` : `Combinação não encontrada`))}
@@ -205,7 +205,7 @@ const List = ({ title, results, refCard }) => {
                     />
                   </Link>
                   <Button
-                  className="btn btn-secondary w-20 card-button"
+                  className="btn btn-danger w-20 card-button"
                   name={ title === 'Explorar Ingredientes de Comidas' ? object.strIngredient : object.strIngredient1 }
                   onClick={handleClickToFilter}
                   >

@@ -40,7 +40,7 @@ const Profile = ({ title, visible }) => {
       <div className="profile-container">
         <h1 data-testid="profile-email">{email}</h1>
         <button
-          className="btn btn-info w-100 mt-1"
+          className="btn btn-danger w-100 mt-1"
           onClick={() => redirectTo('prontas')}
           data-testid="profile-done-btn"
           type="button"
@@ -48,7 +48,7 @@ const Profile = ({ title, visible }) => {
           Receitas Feitas
         </button>
         <button
-          className="btn btn-info w-100 mt-1"
+          className="btn btn-danger w-100 mt-1"
           onClick={() => redirectTo('favorita')}
           data-testid="profile-favorite-btn"
           type="button"
@@ -56,7 +56,7 @@ const Profile = ({ title, visible }) => {
           Receitas Favoritas
         </button>
         <button
-          className="btn btn-danger w-100 mt-1"
+          className="btn btn-warning w-100 mt-1"
           onClick={() => redirectTo('sair')}
           data-testid="profile-logout-btn"
           type="button"

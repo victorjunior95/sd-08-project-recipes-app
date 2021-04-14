@@ -14,14 +14,14 @@ const Explorer = ({ title, visible }) => {
     <div className="explorer-page">
       <Header title={title} visible={visible} />
       <button
-        className="btn btn-info"
+        className="btn btn-danger"
         data-testid="explore-food"
         onClick={() => redirectToExplore('comidas')}
       >
         Explorar Comidas
       </button>
       <button
-        className="btn btn-info"
+        className="btn btn-danger"
         data-testid="explore-drinks"
         onClick={() => redirectToExplore('bebidas')}
       >

@@ -75,7 +75,7 @@ const SearchBar = ({ title }) => {
     if (title !== "Explorar Ingredientes de Bebidas" && title !== "Explorar Ingredientes de Comidas") {
       return (
         <button
-          className="btn btn-info"
+          className="btn btn-danger"
           type="button"
           data-testid="exec-search-btn"
           onClick={ () => submitFilters() }

@@ -9,19 +9,13 @@ import renderWithRouter from './helpers/renderWithRouter';
 import FavoriteRecipes from '../containers/FavoriteRecipes';
 
 describe('FavoriteRecipes.jsx container', () => {
-  // const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
   it('should render', async () => {
     beforeEach(cleanup);
     await act(async () => {
       renderWithRouter(
         <FavoriteRecipes />,
-        // {
-        //   route: '/receitas-favoritas',
-        // },
       );
     });
-    // expect(mockTest).toBeCalled();
-    // expect(mockTest).toBeCalledTimes(2);
 
     const header = screen.getByTestId('header-container');
     expect(header).toBeInTheDocument();

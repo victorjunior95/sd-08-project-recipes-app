@@ -7,8 +7,8 @@ import logoMeals from '../images/Logo_mealIcon.png';
 
 function Footer() {
   return (
-    <footer data-testid="footer" className="footer-main-section">
-      <section className="footer">
+    <section className="footer-main-section">
+      <footer data-testid="footer" className="footer">
         <Link to="/bebidas">
           <img
             data-testid="drinks-bottom-btn"
@@ -33,8 +33,8 @@ function Footer() {
             className="logo-size logo-space"
           />
         </Link>
-      </section>
-    </footer>
+      </footer>
+    </section>
   );
 }
 

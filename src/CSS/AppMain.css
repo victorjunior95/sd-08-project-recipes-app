@@ -30,9 +30,14 @@
 
 
 .regular-button {
-  background-color: #d0ccc8;
+  background-color: rgb(71, 67, 67);
   border-radius: 4px;
-  font-weight: 600;
+  color: #e3e0de;
+  font-weight: 500;
+}
+
+.regular-button:disabled, .regular-button[ disabled ] {
+  color: rgb(107, 104, 104);
 }
 
 .share-like-btn {

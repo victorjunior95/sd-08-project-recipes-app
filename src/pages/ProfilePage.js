@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
@@ -10,7 +9,7 @@ function ProfilePage() {
   const user = localStorage.getItem('user');
   let email = '';
   if (user) email = JSON.parse(user).email;
-  // const { email } = JSON.parse(localStorage.getItem('user'));
+
   const removeLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('mealsToken');

@@ -100,7 +100,7 @@ const RecipesFavDone = ({ title, visible }) => {
       >
         <button
           type="button"
-          className="btn btn-info"
+          className="btn btn-danger"
           onClick={() => filterBy('all')}
           data-testid="filter-by-all-btn"
         >
@@ -108,7 +108,7 @@ const RecipesFavDone = ({ title, visible }) => {
         </button>
         <button
           type="button"
-          className="btn btn-info"
+          className="btn btn-danger"
           onClick={() => filterBy('food')}
           data-testid="filter-by-food-btn"
         >
@@ -116,7 +116,7 @@ const RecipesFavDone = ({ title, visible }) => {
         </button>
         <button
           type="button"
-          className="btn btn-info"
+          className="btn btn-danger"
           onClick={() => filterBy('drink')}
           data-testid="filter-by-drink-btn"
         >

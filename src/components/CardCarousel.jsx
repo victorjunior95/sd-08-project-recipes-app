@@ -44,7 +44,7 @@ const CardCarousel = (props) => {
                 <img
                   className="recomendation-image"
                   src={ recipe[thumb] }
-                  alt="data"
+                  alt="recomendation-card-img"
                   data-testid="recipe-photo"
                 />
                 <h3 data-testid={ `${index}-recomendation-title` }>{recipe[title]}</h3>
@@ -65,7 +65,7 @@ const CardCarousel = (props) => {
                 <img
                   className="recomendation-image"
                   src={ recipe[thumb] }
-                  alt="data"
+                  alt="recomendation-card-img"
                   data-testid="recipe-photo"
                 />
                 <h3 data-testid={ `${index}-recomendation-title` }>{recipe[title]}</h3>

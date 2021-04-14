@@ -12,12 +12,14 @@
 }
 
 .remove-button {
+  background: rgb(200, 35, 51);
+  border: none;
   border-radius: 50%;
   box-sizing: border-box;
   font-size: small;
   font-weight: 600;
   margin-left: 2px;
-  padding: 0 5px 1px;
+  padding: 0 5px 3px;
 }
 
 .filtered-container {
@@ -33,4 +35,9 @@
 
 .card-button {
   font-weight: 900;
+}
+
+.spinner {
+  margin-top: 5px;
+  margin-bottom: -10px ;
 }

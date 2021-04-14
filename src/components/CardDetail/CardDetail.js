@@ -158,7 +158,7 @@ const CardDetails = ({ title, object, isLoading, children }) => {
             {title === 'Comidas' ? object.strCategory : object.strAlcoholic}
           </Card.Text>
           {children}
-          <Card.Text data-testid="instructions">
+          <Card.Text data-testid="instructions" className="instructions">
             <h4>Modo de Preparo</h4>
             {object.strInstructions &&
               object.strInstructions

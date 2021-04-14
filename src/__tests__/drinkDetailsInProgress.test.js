@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 import mockFetch from '../../cypress/mocks/fetch';
 
 import renderWithRouter from './helpers/renderWithRouter';
-import FoodDetailsInProgress from '../containers/FoodDetailsInProgress';
+import DrinkDetailsInProgress from '../containers/DrinkDetailsInProgress';
 
 describe('FoodDetailsInProgress.jsx container', () => {
   const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
@@ -15,7 +15,7 @@ describe('FoodDetailsInProgress.jsx container', () => {
     beforeEach(cleanup);
     // await act(async () => {
     renderWithRouter(
-      <FoodDetailsInProgress />,
+      <DrinkDetailsInProgress />,
     );
     // });
   });
@@ -24,10 +24,12 @@ describe('FoodDetailsInProgress.jsx container', () => {
     beforeEach(cleanup);
     // await act(async () => {
     renderWithRouter(
-      <FoodDetailsInProgress />,
+      <DrinkDetailsInProgress />,
     );
     // });
     expect(mockTest).toBeCalled();
     expect(mockTest).toBeCalledTimes(2);
   });
+
+  // linha 25 pede para testar as keys de uma div ou se a div renderiza...
 });

@@ -67,7 +67,7 @@ const RecipesInProgress = ({ title, match }) => {
         <CheckBoxIngredients object={object} title={title} />
       </CardDetails>
       <Button
-        className="btn btn-primary w-100"
+        className="btn btn-danger w-100"
         data-testid="finish-recipe-btn"
         disabled={checkbox ? false : true}
         onClick={() => finishRecipe()}

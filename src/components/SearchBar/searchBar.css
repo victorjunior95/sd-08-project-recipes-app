@@ -13,3 +13,7 @@
 .radio-group input {
   margin-right: 4px;
 }
+
+.btn-danger {
+  background-color: rgb(166, 45, 67);
+}

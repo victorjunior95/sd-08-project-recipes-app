@@ -51,7 +51,7 @@ const Cards = ({
           src={title === 'Comidas' ? object.strMealThumb : object.strDrinkThumb}
         />
         <Card.Body>
-          <Card.Title data-testid={`${index}${cardTitle}`}>
+          <Card.Title data-testid={`${index}${cardTitle}`} className="card-title">
             {title === 'Comidas' ? object.strMeal : object.strDrink}
           </Card.Title>
         </Card.Body>

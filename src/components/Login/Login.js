@@ -27,6 +27,8 @@ function Login() {
         re.test(email) === true
       ) {
         setDisabled(false);
+      } else {
+        setDisabled(true)
       }
     };
     validations();
@@ -61,7 +63,7 @@ function Login() {
         />
       </label>
       <Button
-        variant="warning"
+        className='btn btn-danger login-button'
         data-testid="login-submit-btn"
         onClick={submit}
         disabled={disableds}

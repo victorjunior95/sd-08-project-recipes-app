@@ -39,7 +39,7 @@ const Categories = ({ title }) => {
       {categories.length > 0 && (
         <section className="btn-categories">
           <button
-            className="btn btn-info"
+            className="btn btn-danger"
             type="button"
             data-testid="All-category-filter"
             onClick={() => setResults(all)}
@@ -48,7 +48,7 @@ const Categories = ({ title }) => {
           </button>
           {categories.map((category, index) => (
             <button
-              className="btn btn-info"
+              className="btn btn-danger"
               key={index}
               type="button"
               data-testid={`${category.strCategory}-category-filter`}

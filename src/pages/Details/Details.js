@@ -73,7 +73,7 @@ const Details = ({ title, match, history }) => {
       if (!testInitializedRecipe()) {
         return (
           <Button
-            className="btn-recipe btn btn-primary w-100"
+            className="btn-recipe btn btn-danger w-100"
             data-testid="start-recipe-btn"
             onClick={handleClick}
           >
@@ -83,7 +83,7 @@ const Details = ({ title, match, history }) => {
       } else {
         return (
           <Button
-            className="btn-recipe btn btn-primary w-100"
+            className="btn-recipe btn btn-danger w-100"
             data-testid="start-recipe-btn"
             onClick={handleClick}
           >

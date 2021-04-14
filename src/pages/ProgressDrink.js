@@ -92,6 +92,25 @@ function ProgressDrink() {
     return true;
   };
 
+  // const finishRecipe = () => {
+  //   const doneStorage = (localStorage.getItem('doneRecipes'))
+  //     ? JSON.parse(localStorage.getItem('doneRecipes'))
+  //     : [];
+  //   const doneRecipe = {
+  //     id: arrayDrink.idDrink,
+  //     type: 'bebida',
+  //     area: arrayDrink.strArea ? arrayDrink.strArea : '',
+  //     category: arrayDrink.strCategory ? arrayDrink.strCategory : '',
+  //     alcoholicOrNot: arrayDrink.strAlcoholic ? arrayDrink.strAlcoholic : '',
+  //     name: arrayDrink.strDrink,
+  //     image: arrayDrink.strDrinkThumb,
+  //     doneDate: new Date().toLocaleDateString(),
+  //     tags: arrayDrink.strTags ? arrayDrink.strTags.split(',') : [],
+  //   };
+  //   const newStorage = [...doneStorage, doneRecipe];
+  //   localStorage.setItem('doneRecipes', JSON.stringify(newStorage));
+  // };
+
   const renderDrink = () => (
     arrayDrink !== undefined && (
       <div className="detail-main-container">
@@ -133,7 +152,10 @@ function ProgressDrink() {
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ verifyDisable() }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ () => {
+            // finishRecipe();
+            history.push('/receitas-feitas');
+          } }
           className="regular-button beginRecipe-btn"
         >
           Finalizar Receita

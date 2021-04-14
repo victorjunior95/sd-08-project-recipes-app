@@ -22,6 +22,7 @@ export default function FavoritePageLikeBtn({
     <button
       type="button"
       onClick={ handleClick }
+      className="share-like-btn"
     >
       <img
         alt="like-icon"

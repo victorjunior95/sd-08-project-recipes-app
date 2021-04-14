@@ -28,7 +28,7 @@ function IngredientCard({ index, ingredient, recipe }) {
             alt={ ingredient }
             src={ recipe === 'meal' ? `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`
               : `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
-            className="regular-button card-img"
+            className="card-img"
           />
         </div>
         <div className="card-title">

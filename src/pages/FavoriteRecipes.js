@@ -4,6 +4,7 @@ import FilterTypeBtn from '../components/FilterTypeBtn';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
 import FavoritePageLikeBtn from '../components/FavoritePageLikeBtn';
+import '../CSS/ProfilePage.css';
 
 function FavoriteRecipes() {
   const favoriteRecipesStorage = (localStorage.getItem('favoriteRecipes'))
@@ -18,41 +19,50 @@ function FavoriteRecipes() {
 
   function generateCard(recipe, index) {
     return (
-      <div key={ recipe.id }>
-        <Link to={ `/${recipe.type}s/${recipe.id}` }>
-          <img
-            className="card"
-            src={ recipe.image }
-            alt={ recipe.name }
-            data-testid={ `${index}-horizontal-image` }
-          />
-        </Link>
-        <span data-testid={ `${index}-horizontal-top-text` }>
-          { (recipe.area) ? `${recipe.area} - ${recipe.category}` : `${recipe.category}` }
-          { (recipe.alcoholicOrNot) && <span>{ recipe.alcoholicOrNot }</span> }
-        </span>
-        <Link to={ `/${recipe.type}s/${recipe.id}` }>
-          <h4 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h4>
-        </Link>
-        <ShareButton
-          dataTestId={ `${index}-horizontal-share-btn` }
-          recipeId={ recipe.id }
-          recipeType={ recipe.type }
-        />
-        <FavoritePageLikeBtn
-          dataTestId={ `${index}-horizontal-favorite-btn` }
-          recipeId={ recipe.id }
-          reRender={ reRender }
-          setReRender={ setReRender }
-        />
-      </div>
+      <section key={ recipe.id } className="done-section">
+        <div className="info-recipe-done">
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              className="card-done-img"
+              src={ recipe.image }
+              alt={ recipe.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+          <div className="info-text-done">
+            <span data-testid={ `${index}-horizontal-top-text` }>
+              { (recipe.area)
+                ? `${recipe.area} - ${recipe.category}` : `${recipe.category}` }
+              { (recipe.alcoholicOrNot) && <span>{ recipe.alcoholicOrNot }</span> }
+            </span>
+          </div>
+          <div className="buttons-container">
+            <ShareButton
+              dataTestId={ `${index}-horizontal-share-btn` }
+              recipeId={ recipe.id }
+              recipeType={ recipe.type }
+            />
+            <FavoritePageLikeBtn
+              dataTestId={ `${index}-horizontal-favorite-btn` }
+              recipeId={ recipe.id }
+              reRender={ reRender }
+              setReRender={ setReRender }
+            />
+          </div>
+        </div>
+        <div className="title-recipe-done">
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h4>
+          </Link>
+        </div>
+      </section>
     );
   }
 
   function generateListOfCards() {
     if (favoriteRecipesStorage.length === 0) {
       return (
-        <div>No favorite recipes yet!</div>
+        <div className="user-title no-recipe">No favorite recipes yet!</div>
       );
     }
     if (filterSelector === 'all' && favoriteRecipesStorage) {
@@ -83,9 +93,11 @@ function FavoriteRecipes() {
   }
 
   return (
-    <section>
-      <Header />
-      <FilterTypeBtn handleSelector={ handleSelector } />
+    <section className="profile-page-img main-container">
+      <section className="profile-header-section">
+        <Header />
+        <FilterTypeBtn handleSelector={ handleSelector } />
+      </section>
       { generateListOfCards() }
     </section>
   );

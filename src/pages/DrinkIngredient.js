@@ -15,7 +15,7 @@ function DrinkIngredient() {
   }, []);
 
   return (
-    <section className="Explore-main-container-meal">
+    <section className="Explore-main-container-drink">
       <Header />
       <section className="cards-section">
         {ingredients && ingredients

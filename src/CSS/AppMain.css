@@ -30,7 +30,7 @@
 
 
 .regular-button {
-  background-color: rgb(71, 67, 67);
+  background-color: rgb(112, 110, 110);
   border-radius: 4px;
   color: #e3e0de;
   font-weight: 500;
@@ -49,11 +49,14 @@
 
 /* main container MealsRecipes and Drink Recipes */
 .main-container {
+  background-color: #0c0909;
   display: flex;
   flex-flow: row wrap;
   font-family: Arial , Helvetica , sans-serif;
   height: 640px;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* HEADER */
@@ -176,6 +179,7 @@
 .card-content {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   max-height: 120px;
   position: relative;
   width: 85px;
@@ -183,17 +187,20 @@
 }
 
 .card-title {
-  font-size: auto;
+  display: flex;
+  flex-flow: column wrap;
+  font-size: 70%;
+  height: 50px;
+  justify-content: center;
   margin: 0;
-  max-height: 65px;
-  overflow: scroll;
+  overflow: hidden;
   position: relative;
   z-index: 4;
 }
 
 .card-title h4 {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 95%;
+  font-weight: 600;
   margin: 2px 0;
   position: relative;
   z-index: 4;
@@ -210,6 +217,7 @@
 }
 
 .card-img {
+  background-color: rgb(173, 171, 171);
   height: 50px;
   object-fit: cover;
   object-position: 50% 25%;

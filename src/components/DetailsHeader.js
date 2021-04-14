@@ -34,12 +34,10 @@ function DetailsHeader({ recipeType, recipe }) {
     favoritesArray = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
     if (favoritesArray.some((item) => item.id === id)) {
-      console.log('repeteco');
       favoritesArray = favoritesArray.filter((item) => item.id !== id);
       document.getElementById('favorite-btn').setAttribute('src', whiteHeartIcon);
     } else {
       favoritesArray.push(newFavorite);
-      console.log('sou novo aqui');
       document.getElementById('favorite-btn').setAttribute('src', blackHeartIcon);
     }
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesArray));
@@ -79,7 +77,7 @@ function DetailsHeader({ recipeType, recipe }) {
               ? blackHeartIcon : whiteHeartIcon }
             onClick={ () => favoriteRecipe() }
           />
-          { copyURL ? <p>Link copiado!</p> : null }
+          { copyURL ? <p data-testid="share-message">Link copiado!</p> : null }
         </div>
       </div>
       <h6 data-testid="recipe-category" className="text-black-50 ">

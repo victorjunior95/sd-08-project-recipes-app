@@ -8,6 +8,7 @@ function Ingredients({ page, id }) {
 
   const details = Object.values(recipeDetails[0])[0];
   const recipe = Object.values(recipeDetails[0])[0][0];
+  console.log(details);
 
   useEffect(() => {
     const loadChecks = JSON.parse(localStorage.getItem('usedIngredients')) || {};
@@ -41,7 +42,7 @@ function Ingredients({ page, id }) {
       <h5>Ingredients</h5>
       {
         page !== 'details' ? (
-          <fieldset id="fieldset" className="bg-light bg-gradient">
+          <fieldset id="fieldset" className="bg-light bg-gradient text-capitalize">
             {
               Object.keys(details[0]).map((item, index) => (
                 recipe[`strIngredient${index + 1}`] !== ''
@@ -52,7 +53,7 @@ function Ingredients({ page, id }) {
                         type="checkbox"
                         key={ index }
                         id={ index }
-                        className="checkbox"
+                        className="checkbox mx-3"
                         onChange={ saveChecks }
                         required
                       />
@@ -67,7 +68,7 @@ function Ingredients({ page, id }) {
             }
           </fieldset>
         ) : (
-          <ul className="bg-light bg-gradient py-2">
+          <ul className="bg-light bg-gradient py-2 text-capitalize">
             {
               Object.keys(details[0]).map((item, index) => (
                 recipe[`strIngredient${index + 1}`] !== ''

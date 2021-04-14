@@ -1,5 +1,5 @@
 .logo-container {
-  background-color: #fff;
+  background-color:white;
   border-radius: 50%;
   height: 250px;
   margin-bottom: 10px;
@@ -67,6 +67,7 @@
   }
 
 }
+
 @keyframes roll {
 
   100% {
@@ -84,6 +85,7 @@
   }
 
 }
+
 @keyframes balance {
 
   0% {

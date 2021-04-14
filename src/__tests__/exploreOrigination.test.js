@@ -1,6 +1,5 @@
 import React from 'react';
 import { cleanup, screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
@@ -16,7 +15,7 @@ const ITALIAN_OPTION = 'Italian-option';
 describe('ExploreOrigination.jsx container', () => {
   const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
 
-  it('render', async () => {
+  it('renders the section and change cards by selecting an option', async () => {
     beforeEach(cleanup);
     await act(async () => {
       renderWithRouter(

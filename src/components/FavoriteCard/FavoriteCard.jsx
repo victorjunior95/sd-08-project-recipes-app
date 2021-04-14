@@ -38,7 +38,10 @@ const FavoriteCard = ({ handleFavorite, index, recipe }) => {
             </div>
           ) : null
       }
-      <div className="title-details-container">
+      <div
+        className="title-details-container"
+        data-testid="favorite-recipe-card-contaier"
+      >
         <Link to={ `/${type}s/${id}` }>
           <div className="image-container">
             <img
@@ -77,6 +80,7 @@ const FavoriteCard = ({ handleFavorite, index, recipe }) => {
             className="share-favorite-buttons"
             type="button"
             onClick={ (event) => handleFavorite(event) }
+            data-testid={ `${index}-handle-favorite-button` }
           >
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }

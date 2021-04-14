@@ -2,9 +2,35 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Button from '../components/Button';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/share.svg';
 
 const copy = require('clipboard-copy');
+
+function renderTag(data, index) {
+  console.log(data.tags.length);
+  if (data.tags.length === 0) {
+    return (
+      <h6>No Tags</h6>
+    );
+  } if (data.tags.length === 1) {
+    return (
+      <h6 data-testid={ `${index}-${data.tags[0]}-horizontal-tag` }>
+        { data.tags[0]}
+      </h6>
+    );
+  } if (data.tags.length >= 2) {
+    return (
+      <>
+        <h6 data-testid={ `${index}-${data.tags[0]}-horizontal-tag` }>
+          { data.tags[0]}
+        </h6>
+        <h6 data-testid={ `${index}-${data.tags[1]}-horizontal-tag` }>
+          { data.tags[1]}
+        </h6>
+      </>
+    );
+  }
+}
 
 function renderRecipe(data, index) {
   console.log(data);
@@ -16,12 +42,7 @@ function renderRecipe(data, index) {
           { `${data.area} - ${data.category}` }
         </h5>
         <div className="tag-container">
-          <h6 data-testid={ `${index}-${data.tags[0]}-horizontal-tag` }>
-            { data.tags[0]}
-          </h6>
-          <h6 data-testid={ `${index}-${data.tags[1]}-horizontal-tag` }>
-            { data.tags[1]}
-          </h6>
+          { renderTag(data, index) }
         </div>
       </>
     );

@@ -12,9 +12,14 @@ export function createObject(currentFood, pathAndId) {
 
   let tagArray;
 
-  if (typeRecipe[pathAndId[1]] === 'comida') {
+  if (typeRecipe[pathAndId[1]] === 'comida' && currentFood.strTags !== null) {
     const array = currentFood.strTags.split(',');
-    tagArray = [array[0], array[1]]
+    console.log(array);
+    if (array.length === 1) {
+      tagArray = [array[0]];
+    } else {
+      tagArray = [array[0], array[1]];
+    }
   } else {
     tagArray = [];
   }

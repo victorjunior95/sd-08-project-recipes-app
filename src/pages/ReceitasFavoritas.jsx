@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Button from '../components/Button';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/share.svg';
 import blackHeartIcon from '../images/heart2-full.svg';
 
 const copy = require('clipboard-copy');

@@ -63,7 +63,7 @@ function Login() {
         />
       </label>
       <Button
-        className='btn btn-danger login-button'
+        className='btn login-button'
         data-testid="login-submit-btn"
         onClick={submit}
         disabled={disableds}

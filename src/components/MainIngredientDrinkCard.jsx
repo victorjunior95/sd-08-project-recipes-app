@@ -20,6 +20,7 @@ function MainIngredientDrinkCard({ ingredientsDrinksData, index }) {
           setIngredientName(strIngredient1);
         } }
         to="/bebidas/"
+        data-testid={ `${index}-main-ingredient-card-link-image` }
       >
         <img
           data-testid={ `${index}-card-img` }
@@ -34,6 +35,7 @@ function MainIngredientDrinkCard({ ingredientsDrinksData, index }) {
           setByIngredient(true);
           setIngredientName(strIngredient1);
         } }
+        data-testid={ `${index}-main-ingredient-card-link` }
       >
         <p data-testid={ `${index}-card-name` }>{strIngredient1}</p>
       </Link>

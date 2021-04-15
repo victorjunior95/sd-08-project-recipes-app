@@ -1,6 +1,5 @@
 import React from 'react';
 import { cleanup, screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 import mockFetch from '../../cypress/mocks/fetch';
@@ -12,12 +11,12 @@ import renderWithRouter from './helpers/renderWithRouter';
 import MainFood from '../containers/MainFood';
 import { CATEGORIES_LENGTH_5, MAIN_FOOD_CARD_LENGTH_12 } from '../constants';
 
-// const apiResponse = Promise.resolve({
-//   json: () => Promise.resolve(mockData),
-//   ok: true,
-// });
-// const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
-// afterEach(() => jest.clearAllMocks());
+const SEARCH_TOP_BUTTON = 'search-top-btn';
+const SEARCH_INPUT = 'search-input';
+const INGREDIENT_SEARCH_RADIO = 'ingredient-search-radio';
+const EXEC_SEARCH_BTN = 'exec-search-btn';
+
+const FOURTEEN = 14;
 
 beforeAll(() => {
   jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
@@ -26,33 +25,17 @@ beforeAll(() => {
 describe('MainFood section', () => {
   beforeEach(cleanup);
   it('should renders Header', () => {
-    // act(async () => {
     renderWithRouter(
       <MainFood />,
       {
         route: '/comidas',
       },
     );
+
     const header = screen.getByTestId('header-container');
     expect(header).toBeInTheDocument();
-    // const mainCards = screen.getAllByTestId(/-recipe-card/i);
-    // expect(mainCards.length).toBe(MAIN_FOOD_CARD_LENGTH_12);
-    // });
   });
-  // it('should dropdown Search Menu', () => {
-  //   act(() => {
-  //     renderWithRouter(
-  //       <MainFood />,
-  //       {
-  //         route: '/comidas',
-  //       },
-  //     );
-  //     const header = screen.getByTestId('header-container');
-  //     expect(header).toBeInTheDocument();
-  //     // const searchButton = screen.getByTestId('search-top-btn');
-  //     // expect(searchButton).toBeInTheDocument();
-  //   });
-  // });
+
   it('should renders Footer', async () => {
     const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
 
@@ -144,5 +127,51 @@ describe('MainFood section', () => {
       expect(card.lastChild.innerHTML.replace('amp;', ''))
         .toEqual(breakfastMeals.meals[index].strMeal);
     });
+  });
+
+  it('should fetch', async () => {
+    const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
+
+    await act(async () => {
+      renderWithRouter(
+        <MainFood />, '/comidas',
+      );
+    });
+
+    const searchTopBtn = screen.getByTestId(SEARCH_TOP_BUTTON);
+    userEvent.click(searchTopBtn);
+
+    const searchInput = screen.getByTestId(SEARCH_INPUT);
+    const nameSearchRadio = screen.getByTestId('name-search-radio');
+    const firstLetterSearchRadio = screen.getByTestId('first-letter-search-radio');
+    const ingredientSearchRadio = screen.getByTestId(INGREDIENT_SEARCH_RADIO);
+    const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
+
+    userEvent.type(searchInput, 'c');
+    userEvent.click(firstLetterSearchRadio);
+
+    expect(execSearchBtn).not.toBeDisabled();
+    userEvent.click(execSearchBtn);
+
+    expect(mockTest).toBeCalled();
+    expect(mockTest).toBeCalledTimes(FOURTEEN);
+
+    userEvent.click(searchTopBtn);
+    userEvent.type(searchInput, 'corba');
+    userEvent.click(nameSearchRadio);
+    expect(execSearchBtn).not.toBeDisabled();
+    userEvent.click(execSearchBtn);
+
+    expect(mockTest).toBeCalled();
+    expect(mockTest).toBeCalledTimes(FOURTEEN);
+
+    userEvent.click(searchTopBtn);
+    userEvent.type(searchInput, 'beef');
+    userEvent.click(ingredientSearchRadio);
+    expect(execSearchBtn).not.toBeDisabled();
+    userEvent.click(execSearchBtn);
+
+    expect(mockTest).toBeCalled();
+    expect(mockTest).toBeCalledTimes(FOURTEEN);
   });
 });

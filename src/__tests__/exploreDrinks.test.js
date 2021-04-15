@@ -41,7 +41,7 @@ describe('The elements of the Explore Drinks page', () => {
     const { history, getByText } = renderWithRouter(<ExploreDrinks />);
     userEvent.click(getByText(/me surpreenda/i));
     const { pathname } = history.location;
-    expect(pathname).toBe('/bebidas/178319');
+    expect(pathname).toBe('/comidas/52771');
   });
   it('clicking on the `Por Ingredientes` button takes you to the page', () => {
     const { history, getByText } = renderWithRouter(<ExploreDrinks />);

@@ -134,7 +134,7 @@ const FoodDetails = () => {
                     Share
                   </object>
                 </button>
-                {copied && <p>Link copiado!</p>}
+                {copied && <p data-testid="copyed">Link copiado!</p>}
                 <button
                   className="share-favorite-buttons"
                   type="submit"

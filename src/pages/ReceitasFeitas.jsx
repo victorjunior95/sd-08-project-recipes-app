@@ -58,7 +58,7 @@ function renderRecipe(data, index) {
 function renderMessage(index, expectedIndex) {
   if (index === expectedIndex) {
     return (
-      <span>Link copiado!</span>
+      <span className="pink-color">Link copiado!</span>
     );
   }
 }

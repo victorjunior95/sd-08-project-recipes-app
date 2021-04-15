@@ -11,7 +11,7 @@ function ShareButton(props) {
   function renderMessage() {
     return (
       <>
-        <span>Link copiado!</span>
+        <span className="pink-color">Link copiado!</span>
         <br />
       </>
     );

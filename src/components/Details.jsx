@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import Recomendations from './Recomendations';
 import '../css/Details.css';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/share.svg';
 import FavoriteButton from './FavoriteButton';
 import YtVideo from './YtVideo';
 import buttonTextChanges from '../services/Complexity';
@@ -49,7 +49,7 @@ function Details(props) {
 
   function renderMessage() {
     return (
-      <span>Link copiado!</span>
+      <span className="pink-color">Link copiado!</span>
     );
   }
 

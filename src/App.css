@@ -472,3 +472,7 @@ p, button, label {
   font-size: 2rem;
   font-family: 'Merriweather', serif;
 }
+
+.pink-color {
+  color: var(--first-color);
+}

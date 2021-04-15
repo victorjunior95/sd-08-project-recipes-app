@@ -54,7 +54,7 @@ class Login extends Component {
         <div className="d-flex flex-column bd-highlight">
           <div className="d-flex p-2 bd-highlight">
             <input
-              className="ml-2 mr-3 input-group mb-3 border border-dark"
+              className="ml-2 mr-3 input-group mb-3 border border-dark login-input"
               type="text"
               name="Email"
               value={ Email }
@@ -65,7 +65,7 @@ class Login extends Component {
           </div>
           <div className="d-flex p-2 bd-highlight">
             <input
-              className="ml-2  mr-3 mb-5 border border-dark"
+              className="ml-2  mr-3 mb-5 border border-dark login-input"
               type="text"
               name="senha"
               value={ senha }

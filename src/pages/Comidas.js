@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import HeaderLocation from '../components/Header';
 import RecipeCard from '../components/RecipeCard';

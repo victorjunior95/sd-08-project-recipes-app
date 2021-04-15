@@ -54,22 +54,20 @@ class DoneAndFavoriteCards extends Component {
     return (
       <div>
         <Container>
-          {recipes && recipes.filter((element) => !filter
+          <center>
+            {recipes && recipes.filter((element) => !filter
         || filter === 'all' || element.type === filter)
-            .map((obj, index) => (
-              <div key={ obj.id }>
-                <center>
-                  <div className="a">
-                    <Link to={ `${obj.type}s/${obj.id}` }>
-                      <img
-                        data-testid={ `${index}-horizontal-image` }
-                        alt="card"
-                        src={ `${obj.image}` }
-                        className="linkImage"
-                      />
-                    </Link>
+              .map((obj, index) => (
+                <div key={ obj.id }>
+                  <Link to={ `${obj.type}s/${obj.id}` }>
+                    <img
+                      data-testid={ `${index}-horizontal-image` }
+                      alt="card"
+                      src={ `${obj.image}` }
+                      className="linkImage"
+                    />
+                  </Link>
 
-                  </div>
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
                   >
@@ -81,45 +79,45 @@ class DoneAndFavoriteCards extends Component {
                   </Link>
                   <p data-testid={ `${index}-horizontal-done-date` }>{obj.doneDate}</p>
 
-                </center>
-                {obj.tags && obj.tags.map((tag) => (
-                  <div
-                    className="tags"
-                    key={ tag }
-                  >
-                    tags:
-                    <p
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                  {obj.tags && obj.tags.map((tag) => (
+                    <div
+                      className="tags"
+                      key={ tag }
                     >
-                      {tag}
-                    </p>
+                      tags:
+                      <p
+                        data-testid={ `${index}-${tag}-horizontal-tag` }
+                      >
+                        {tag}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="d-flex justify-content-end">
+                    <button
+                      className="recipe-button"
+                      type="button"
+                      onClick={ () => share(obj) }
+                    >
+                      <img
+                        alt="card"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                      />
+                    </button>
+                    <button
+                      className="recipe-button"
+                      type="button"
+                      onClick={ () => this.favoriteThisItem(obj) }
+                    >
+                      <img
+                        src={ favoriteRecipe[Number(obj.id)] ? fav : notFav }
+                        alt="favorite"
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                      />
+                    </button>
                   </div>
-                ))}
-                <div className="d-flex justify-content-end">
-                  <button
-                    className="recipe-button"
-                    type="button"
-                    onClick={ () => share(obj) }
-                  >
-                    <img
-                      alt="card"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                      src={ shareIcon }
-                    />
-                  </button>
-                  <button
-                    className="recipe-button"
-                    type="button"
-                    onClick={ () => this.favoriteThisItem(obj) }
-                  >
-                    <img
-                      src={ favoriteRecipe[Number(obj.id)] ? fav : notFav }
-                      alt="favorite"
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                    />
-                  </button>
-                </div>
-              </div>))}
+                </div>))}
+          </center>
         </Container>
       </div>
     );

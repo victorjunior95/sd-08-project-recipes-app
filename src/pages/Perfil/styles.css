@@ -7,20 +7,6 @@ h6.email {
     margin-bottom: 30px;
 }
 
-.default-button {
-    background-color: white;
-    color: black;
-    text-transform: uppercase;
-    font-weight: bold;
-    border: 2px solid black;
-    margin-bottom: 20px;
-}
-
-.default-button:hover {
-    background-color: white;
-    color: black;
-}
-
 .main-profile {
     height: 100vh;
     background-color: #F7C838;

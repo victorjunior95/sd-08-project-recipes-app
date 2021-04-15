@@ -187,6 +187,7 @@ export default class InProgressCocktails extends Component {
       checkeds,
       isDone,
     } = this.state;
+    if (isLoading) return <Loading />;
     const {
       idDrink,
       strDrinkThumb,
@@ -194,7 +195,6 @@ export default class InProgressCocktails extends Component {
       strInstructions,
       strCategory,
     } = cocktails.drinks[0];
-    if (isLoading) return <Loading />;
     return (
       <div className="recipe-details container">
         <ImageInProgres strThumb={ strDrinkThumb } />

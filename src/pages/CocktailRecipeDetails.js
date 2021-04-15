@@ -150,7 +150,7 @@ export default class CocktailRecipeDetails extends Component {
           data-testid="recipe-photo"
           className="recipe-photo img-fluid width50"
         />
-        <div className="rrecipe-header container d-flex justify-content-between px-1">
+        <div className="recipe-header container d-flex justify-content-between px-1">
           <h1
             data-testid="recipe-title"
             className="recipe-title font-mountains display-4"

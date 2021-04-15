@@ -17,8 +17,6 @@ const INGREDIENT_SEARCH_RADIO = 'ingredient-search-radio';
 const EXEC_SEARCH_BTN = 'exec-search-btn';
 
 const FOURTEEN = 14;
-const EIGHTEEN = 18;
-const TWENTYTWO = 22;
 
 beforeAll(() => {
   jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
@@ -131,58 +129,6 @@ describe('MainFood section', () => {
     });
   });
 
-  it('should fetch apis', async () => {
-    const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
-
-    await act(async () => {
-      renderWithRouter(
-        <MainFood />, '/comidas',
-      );
-    });
-
-    const searchTopBtn = screen.getByTestId(SEARCH_TOP_BUTTON);
-    userEvent.click(searchTopBtn);
-
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    const ingredientSearchRadio = screen.getByTestId(INGREDIENT_SEARCH_RADIO);
-    const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
-
-    userEvent.type(searchInput, 'beef');
-    userEvent.click(ingredientSearchRadio);
-
-    expect(execSearchBtn).not.toBeDisabled();
-    userEvent.click(execSearchBtn);
-
-    expect(mockTest).toBeCalled();
-    expect(mockTest).toBeCalledTimes(FOURTEEN);
-  });
-
-  it('should fetch', async () => {
-    const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
-
-    await act(async () => {
-      renderWithRouter(
-        <MainFood />, '/comidas',
-      );
-    });
-
-    const searchTopBtn = screen.getByTestId(SEARCH_TOP_BUTTON);
-    userEvent.click(searchTopBtn);
-
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    const firstLetterSearchRadio = screen.getByTestId('first-letter-search-radio');
-    const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
-
-    userEvent.type(searchInput, 'c');
-    userEvent.click(firstLetterSearchRadio);
-
-    expect(execSearchBtn).not.toBeDisabled();
-    userEvent.click(execSearchBtn);
-
-    expect(mockTest).toBeCalled();
-    expect(mockTest).toBeCalledTimes(EIGHTEEN);
-  });
-
   it('should fetch', async () => {
     const mockTest = jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
 
@@ -197,15 +143,35 @@ describe('MainFood section', () => {
 
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     const nameSearchRadio = screen.getByTestId('name-search-radio');
+    const firstLetterSearchRadio = screen.getByTestId('first-letter-search-radio');
+    const ingredientSearchRadio = screen.getByTestId(INGREDIENT_SEARCH_RADIO);
     const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
 
-    userEvent.type(searchInput, 'corba');
-    userEvent.click(nameSearchRadio);
+    userEvent.type(searchInput, 'c');
+    userEvent.click(firstLetterSearchRadio);
 
     expect(execSearchBtn).not.toBeDisabled();
     userEvent.click(execSearchBtn);
 
     expect(mockTest).toBeCalled();
-    expect(mockTest).toBeCalledTimes(TWENTYTWO);
+    expect(mockTest).toBeCalledTimes(FOURTEEN);
+
+    userEvent.click(searchTopBtn);
+    userEvent.type(searchInput, 'corba');
+    userEvent.click(nameSearchRadio);
+    expect(execSearchBtn).not.toBeDisabled();
+    userEvent.click(execSearchBtn);
+
+    expect(mockTest).toBeCalled();
+    expect(mockTest).toBeCalledTimes(FOURTEEN);
+
+    userEvent.click(searchTopBtn);
+    userEvent.type(searchInput, 'beef');
+    userEvent.click(ingredientSearchRadio);
+    expect(execSearchBtn).not.toBeDisabled();
+    userEvent.click(execSearchBtn);
+
+    expect(mockTest).toBeCalled();
+    expect(mockTest).toBeCalledTimes(FOURTEEN);
   });
 });

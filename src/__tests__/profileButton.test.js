@@ -1,9 +1,9 @@
 import React from 'react';
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { act } from 'react-dom/test-utils';
+// import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
-import mockFetch from '../../cypress/mocks/fetch';
+// import mockFetch from '../../cypress/mocks/fetch';
 import renderWithRouter from './helpers/renderWithRouter';
 // import FoodInProgressCard from '../components/FoodInProgressCard';
 import ProfileButton from '../components/buttons/ProfileButton';

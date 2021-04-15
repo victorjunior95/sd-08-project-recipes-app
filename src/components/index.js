@@ -17,7 +17,7 @@ import MainIngredientDrinkCard from './MainIngredientDrinkCard';
 import DoneAndFavoriteButtons from './buttons/DoneAndFavoriteButtons';
 import FavoriteCard from './FavoriteCard/FavoriteCard';
 import FoodInProgressCard from './FoodInProgressCard';
-import DrinkInProgressCard from './DrinkInProgressCard';
+// import DrinkInProgressCard from '../../coverage/DrinkInProgressCard';
 import DoneCard from './DoneCard/DoneCard';
 
 const components = {
@@ -40,7 +40,7 @@ const components = {
   DoneAndFavoriteButtons,
   FavoriteCard,
   FoodInProgressCard,
-  DrinkInProgressCard,
+  // DrinkInProgressCard,
   DoneCard,
 };
 

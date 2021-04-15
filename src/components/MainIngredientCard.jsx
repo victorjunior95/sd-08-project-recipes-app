@@ -23,6 +23,7 @@ function MainIngredientCard({ ingredientsData, index }) {
             setIngredientName(strIngredient);
           } }
           to="/comidas"
+          data-testid={ `${index}-main-ingredient-card-link-image` }
         >
           <img
             data-testid={ `${index}-card-img` }
@@ -38,6 +39,7 @@ function MainIngredientCard({ ingredientsData, index }) {
             setIngredientName(strIngredient);
           } }
           to="/comidas"
+          data-testid={ `${index}-main-ingredient-card-link` }
         >
           <p
             data-testid={ `${index}-card-name` }

@@ -92,7 +92,7 @@ function FoodInProgressCard({
   }, [verifiedCheck, verified, idMeal, idDrink]);
 
   return (
-    <div className="MainCard">
+    <div className="MainCard" data-testid="in-progress-card">
       <img className="img" data-testid="recipe-photo" src={ img } alt={ meal } />
       <p data-testid="recipe-title">{meal}</p>
       {values.map((curr, index) => (
@@ -124,7 +124,7 @@ function FoodInProgressCard({
       <button
         onClick={ () => handleFavorite(checkFavorite, setCheckFavorite, data) }
         type="button"
-
+        data-testid="handle-favorite-btn"
       >
         <img
           data-testid="favorite-btn"

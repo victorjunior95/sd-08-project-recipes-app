@@ -7,6 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 import renderWithRouter from './helpers/renderWithRouter';
 import SearchDropDrown from '../components/SearchDropDown';
+import Header from '../components/Header';
 
 describe('NotFound.jsx container', () => {
   beforeEach(cleanup);
@@ -46,4 +47,14 @@ describe('NotFound.jsx container', () => {
     // userEvent.click(searchButton);
     // });
   });
+  // it('should render and fetch', () => {
+  //   // act(() => {
+  //   const { history } = renderWithRouter(<Header />, { route: '/comidas' });
+  //   // expect(mockTest).toBeCalled();
+  //   // expect(mockTest).toBeCalledTimes(2);
+  //   // });
+  //   expect(history.location.pathname).toBe('/comidas');
+  //   const searchButton = screen.getByTestId('search-btn');
+
+  // });
 });

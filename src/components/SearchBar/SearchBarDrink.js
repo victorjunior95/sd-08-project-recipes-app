@@ -104,7 +104,7 @@ function SearchBarFood() {
         data-testid="exec-search-btn"
         type="button"
         onClick={ requestAPI }
-        className="search-bar-button"
+        className="page-buttons"
       >
         Procurar
       </button>

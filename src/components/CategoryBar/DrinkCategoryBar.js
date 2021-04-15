@@ -14,7 +14,7 @@ function DrinkCategoryBar() {
         type="button"
         key="All"
         data-testid="All-category-filter"
-        className="search-button"
+        className="page-buttons"
         onClick={ handleFilteredDrinks }
       >
         All
@@ -28,7 +28,7 @@ function DrinkCategoryBar() {
             type="button"
             key={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
-            className="search-button"
+            className="page-buttons"
             onClick={ handleFilteredDrinks } // setar no estado global o filtro que está sendo selecionado e utilizar ele para expor os drinks
           >
             {strCategory}

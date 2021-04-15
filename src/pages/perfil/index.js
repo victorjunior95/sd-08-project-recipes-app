@@ -13,37 +13,42 @@ function Perfil() {
   return (
     <>
       <Header explore="false">Perfil</Header>
-      <section>
+      <section className="profile-container">
         <p
           data-testid="profile-email"
         >
           { userEmail.email }
         </p>
-        <button
-          data-testid="profile-done-btn"
-          type="button"
-        >
-          <Link to="/receitas-feitas">
-            Receitas Feitas
-          </Link>
-        </button>
-        <button
-          data-testid="profile-favorite-btn"
-          type="button"
-        >
-          <Link to="/receitas-favoritas">
-            Receitas Favoritas
-          </Link>
-        </button>
-        <button
-          data-testid="profile-logout-btn"
-          type="button"
-          onClick={ logout }
-        >
-          <Link to="/">
-            Sair
-          </Link>
-        </button>
+        <div className="profile-buttons-container">
+          <button
+            data-testid="profile-done-btn"
+            type="button"
+            className="page-buttons"
+          >
+            <Link to="/receitas-feitas">
+              Receitas Feitas
+            </Link>
+          </button>
+          <button
+            data-testid="profile-favorite-btn"
+            type="button"
+            className="page-buttons"
+          >
+            <Link to="/receitas-favoritas">
+              Receitas Favoritas
+            </Link>
+          </button>
+          <button
+            data-testid="profile-logout-btn"
+            type="button"
+            className="page-buttons"
+            onClick={ logout }
+          >
+            <Link to="/">
+              Sair
+            </Link>
+          </button>
+        </div>
       </section>
       <Footer />
     </>

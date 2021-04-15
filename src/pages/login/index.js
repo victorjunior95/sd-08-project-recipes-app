@@ -51,36 +51,41 @@ function Login() {
   };
 
   return (
-    <section>
+    <section className="login-page">
       {redirect && <Redirect to="/comidas" />}
-      <label htmlFor="email-input">
-        Email:
-        <input
-          id="email-input"
-          data-testid="email-input"
-          type="email"
-          value={ email }
-          onChange={ handleEmail }
-        />
-      </label>
-      <label htmlFor="password-input">
-        Senha:
-        <input
-          id="password-input"
-          data-testid="password-input"
-          type="password"
-          value={ password }
-          onChange={ handlePassword }
-        />
-      </label>
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ handleClick }
-      >
-        Entrar
-      </button>
+      <div className="login-container">
+        <label htmlFor="email-input">
+          <p>Email:</p>
+          <input
+            id="email-input"
+            data-testid="email-input"
+            type="email"
+            value={ email }
+            onChange={ handleEmail }
+            className="input-field"
+          />
+        </label>
+        <label htmlFor="password-input">
+          <p>Senha:</p>
+          <input
+            id="password-input"
+            data-testid="password-input"
+            type="password"
+            value={ password }
+            onChange={ handlePassword }
+            className="input-field"
+          />
+        </label>
+        <button
+          type="submit"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          onClick={ handleClick }
+          className="page-buttons"
+        >
+          Entrar
+        </button>
+      </div>
     </section>
   );
 }

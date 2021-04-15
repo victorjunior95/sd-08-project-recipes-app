@@ -183,7 +183,7 @@ class Bebidas extends Component {
         </Container>
         <br />
         <br />
-        <Footer />
+        <Footer className="footer orange" />
       </div>
     );
   }

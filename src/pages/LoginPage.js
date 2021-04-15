@@ -6,6 +6,7 @@ import '../CSS/LoginPage.css';
 function LoginPage() {
   return (
     <div className="login-image main-container">
+      <h1 className="login-title">Recipes App</h1>
       <Login />
     </div>
   );

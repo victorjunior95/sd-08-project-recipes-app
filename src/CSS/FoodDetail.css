@@ -25,16 +25,16 @@
 .detail-title {
   align-items: start;
   display: flex;
-  font-size: 28px;
+  font-size: 26px;
   justify-content: center;
   padding: 10px 0 0 10px;
-  width: 45%;
+  width: 40%;
 }
 
 .buttons-container {
   display: flex;
   flex-flow: column wrap;
-  margin: 10px;
+  margin: 10px 17px 0 6px;
   width: 15%;
 }
 

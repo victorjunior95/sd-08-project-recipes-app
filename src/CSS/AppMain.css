@@ -37,7 +37,7 @@
 }
 
 .regular-button:disabled, .regular-button[ disabled ] {
-  color: rgb(107, 104, 104);
+  color: rgb(144, 140, 140);
 }
 
 .share-like-btn {
@@ -93,10 +93,13 @@
 }
 
 .header-info h1 {
+  color: #e3e0de;
+  font-family: Times , serif;
+  font-weight: 800;
   margin-top: 10px;
   max-width: 75%;
   text-align: center;
-  width: 100%;
+  width: 70%;
   z-index: 6;
 }
 
@@ -135,6 +138,10 @@
 .radio-tag {
   background-color: #e3e0de;
   margin-right: 5px;
+}
+
+.area-search-input {
+  width: 50%;
 }
 
 /* CATEGORY BUTTONS */

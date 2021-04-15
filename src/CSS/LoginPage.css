@@ -2,14 +2,26 @@
   background-image: url('../images/Login_Mobile.png');
 }
 
+.login-title {
+  background-color: rgb(7, 6, 6, 0.7);
+  color: #e3e0de;
+  font-family: Times , serif;
+  font-weight: 800;
+  height: 60px;
+  padding-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
 .form-container {
   align-items: center;
-  background-color: #0c0909;
+  background-color: rgb(7, 6, 6, 0.7);
   display: flex;
   flex-flow: column wrap;
-  justify-content: flex-end;
-  margin-top: 160px;
-  max-width: 80%;
+  height: 155px;
+  position: relative;
+  top: -80px;
+  width: 80%;
 }
 
 .form-label {

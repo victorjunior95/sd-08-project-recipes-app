@@ -235,7 +235,7 @@ export default class InProgressMeal extends Component {
         </div>
         <img src={ row } alt="row" className="spacer row-1 img-fluid" />
         <div className="start-btn">
-          <FinishButton isDone={ isDone } />
+          <FinishButton isDone={ isDone } recipe={ meals.meals[0] } />
         </div>
       </div>
     );

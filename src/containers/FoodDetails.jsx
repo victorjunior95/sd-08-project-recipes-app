@@ -188,7 +188,7 @@ const FoodDetails = () => {
             <button
               type="button"
               data-testid="start-recipe-btn"
-              className="btnz2 btn btn-primary start-recipe-btn"
+              className="btnz2 btn btn-success start-recipe-btn"
               onClick={ () => setStart(true) }
             >
               {inProgessRecipes

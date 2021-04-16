@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router';
 import * as core from '../core/index';
-import rockGlass from '../images/rockGlass.svg';
+// import logoFoods from '../images/simpleFood.png';
 import RecipesContext from '../core/RecipesContext';
 
 const Login = () => {
@@ -37,19 +37,13 @@ const Login = () => {
       localStorage.setItem('cocktailsToken', JSON.stringify(1));
     }
   }, [redirect, history, email]);
-  const TRYBE = 'TRYBE';
+
   return (
     <div data-testid="login">
       {redirect && <Redirect to="/comidas" />}
       <div className="meals">
-        <span className="logo">{TRYBE}</span>
-        <object
-          className="rocksGlass"
-          type="image/svg+xml"
-          data={ rockGlass }
-        >
-          Glass
-        </object>
+        <h1 className="rocksGlass"> Simple</h1>
+        <h1 className="rocksGlass"> Food</h1>
         <form action="login" className="login">
           <legend className="login-title">Login</legend>
           <label htmlFor="email">
@@ -78,7 +72,7 @@ const Login = () => {
           </label>
         </form>
         <button
-          className="btn btn-primary"
+          className="btn btn-success"
           type="button"
           disabled={ !(validEmail && validPassword) }
           data-testid="login-submit-btn"

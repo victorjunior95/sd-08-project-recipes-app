@@ -17,7 +17,12 @@ function MainCard(props) {
           src={ strMealThumb || strDrinkThumb }
           alt={ strMeal || strDrink }
         />
-        <p data-testid={ `${index}-card-name` }>{strMeal || strDrink}</p>
+        <p
+          className="img-link"
+          data-testid={ `${index}-card-name` }
+        >
+          {strMeal || strDrink}
+        </p>
       </div>
     </Link>
   );

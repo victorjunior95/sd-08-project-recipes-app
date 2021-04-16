@@ -1,32 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap') ;
 
 html, body {
+  color: rgb(104, 101, 101);
   font-family: Rubik , sans-serif;
+  text-decoration: none;
 }
 
 .meals {
   align-items: center;
-  background: #0fa36b;
-  color: #464646;
+  background-image: url('./images/mediterranean-cuisine.jpg');
+  color: white;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
+  font-weight: 500;
   height: 100vh;
   justify-content: center;
+  text-shadow: black 4px 8px 4px;
   width: 100%;
 }
 
 .rocksGlass {
   animation: shake 1s infinite ease;
-  max-height: 80vh;
-}
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+  font-size: 5em;
+  font-style: italic;
+  font-weight: 500;
+  text-shadow: black 4px 8px 4px;
 }
 
 @keyframes shake {
@@ -71,7 +70,7 @@ html, body {
 
 .header-container {
   align-items: center;
-  background-color: #00bb73;
+  background-color: rgb(241, 168, 32);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -80,7 +79,7 @@ html, body {
 
 .footer-container {
   align-items: center;
-  background-color: #00bb73;
+  background-color: rgb(241, 168, 32);
   bottom: 0;
   display: flex;
   flex-direction: row;
@@ -91,7 +90,7 @@ html, body {
 }
 
 .main-buttons {
-  background-color: #00bb73;
+  background-color: rgb(241, 168, 32);
   border: none;
 }
 
@@ -119,13 +118,13 @@ html, body {
 .btnz {
   height: 70px;
   margin: 10px;
+  text-decoration: none;
   width: 340px;
 }
 
 .search-container {
   align-items: center;
-  background: linear-gradient(180deg, #00bb73 0%, #82cfb2 25%, white 100%);
-  background-color: #caffaf;
+  background-color: rgb(247, 205, 128);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -152,7 +151,7 @@ html, body {
 }
 
 .my-radio-button {
-  border: 2px solid #0fa36b;
+  border: 2px solid;
   border-radius: 50%;
   box-sizing: border-box;
   height: 1.25em;
@@ -162,7 +161,7 @@ html, body {
 }
 
 .my-radio-button:after {
-  background-color: #0fa36b;
+  background-color: rgb(104, 101, 101);
   border-radius: 50%;
   content: '';
   display: block;
@@ -315,4 +314,14 @@ html, body {
 
 .image-favorites {
   width: 140px;
+}
+
+.img-link {
+  color: rgb(104, 101, 101);
+  text-decoration: none;
+}
+
+.title-recipes {
+  color: black;
+  text-decoration: none;
 }

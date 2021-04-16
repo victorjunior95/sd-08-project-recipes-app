@@ -43,6 +43,7 @@ function MainIngredientCard({ ingredientsData, index }) {
         >
           <p
             data-testid={ `${index}-card-name` }
+            className="img-link"
           >
             {strIngredient}
           </p>

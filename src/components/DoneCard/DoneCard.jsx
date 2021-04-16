@@ -60,7 +60,12 @@ const DoneCard = ({ index, recipe }) => {
       </Link>
       <div className="content-card">
         <Link to={ `/${type}s/${id}` }>
-          <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+          <h2
+            className="title-recipes"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { name }
+          </h2>
         </Link>
         <p
           data-testid={ `${index}-horizontal-top-text` }

@@ -51,7 +51,7 @@ function Home() {
       {isLoading ? 'Loading...' : null}
       <div className="main-foods-buttons-container">
         <button
-          className="btn btn-primary"
+          className="btn btn-danger"
           style={ { marginTop: 5,
             marginBottom: 5,
             width: 106 } }
@@ -67,7 +67,7 @@ function Home() {
         {dataFoodsCategories.slice(0, CATEGORIES_LENGTH_5).map(
           ({ strCategory }, index) => (
             <button
-              className="btn btn-primary"
+              className="btn btn-danger"
               style={ { marginTop: 5,
                 marginBottom: 5,
                 width: 106 } }

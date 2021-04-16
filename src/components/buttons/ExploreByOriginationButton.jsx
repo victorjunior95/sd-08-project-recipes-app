@@ -6,7 +6,7 @@ function ExploreByOriginationButton() {
   return (
     <button
       onClick={ () => history.push('/explorar/comidas/area') }
-      className="btnz btn btn-primary"
+      className="btnz btn btn-danger"
       data-testid="explore-by-area"
       type="button"
     >

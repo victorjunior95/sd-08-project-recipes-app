@@ -9,7 +9,7 @@ function LogoutButton() {
         history.push('/');
         localStorage.clear();
       } }
-      className="btnz btn btn-primary"
+      className="btnz btn btn-danger"
       data-testid="profile-logout-btn"
       type="button"
     >

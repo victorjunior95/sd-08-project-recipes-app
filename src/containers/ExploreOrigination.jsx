@@ -67,7 +67,12 @@ function ExploreOrigination() {
                 />
               </Link>
               <Link to={ `/comidas/${idMeal}` }>
-                <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+                <p
+                  className="img-link"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {strMeal}
+                </p>
               </Link>
             </div>
           ))}

@@ -30,6 +30,7 @@ function ExploreFoodsByIngredients() {
               ingredientsData={ ingredient }
               index={ index }
               id={ ingredient.idIngredient }
+              className="img-link"
             />
           ))
         }

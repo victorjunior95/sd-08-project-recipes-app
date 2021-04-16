@@ -60,7 +60,7 @@ function Drinks() {
       {isLoading ? <div>Loading</div> : null}
       <div className="drinks-buttons-container">
         <button
-          className="btn btn-primary"
+          className="btn btn-danger"
           style={ {
             marginTop: '5px',
             marginBottom: '5px',
@@ -78,7 +78,7 @@ function Drinks() {
           .slice(0, CATEGORIES_LENGTH_5)
           .map(({ strCategory }, index) => (
             <button
-              className="btn btn-primary"
+              className="btn btn-danger"
               style={ { marginTop: 5,
                 marginBottom: 5,
                 width: 163 } }

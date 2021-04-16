@@ -6,7 +6,7 @@ function FavoritesButton() {
   return (
     <button
       onClick={ () => history.push('/receitas-favoritas') }
-      className="btnz btn btn-primary"
+      className="btnz btn btn-danger"
       data-testid="profile-favorite-btn"
       type="button"
     >

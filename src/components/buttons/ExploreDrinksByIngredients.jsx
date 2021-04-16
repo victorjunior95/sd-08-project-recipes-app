@@ -6,7 +6,7 @@ function ExploreDrinksByIngredientsButton() {
   return (
     <button
       onClick={ () => history.push('/explorar/bebidas/ingredientes') }
-      className="btnz btn btn-primary"
+      className="btnz btn btn-danger"
       data-testid="explore-by-ingredient"
       type="button"
     >

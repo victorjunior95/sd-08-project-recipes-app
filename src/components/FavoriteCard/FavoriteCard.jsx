@@ -61,7 +61,12 @@ const FavoriteCard = ({ handleFavorite, index, recipe }) => {
             }
           </p>
           <Link to={ `/${type}s/${id}` }>
-            <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
+            <h4
+              className="title-recipes"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              { name }
+            </h4>
           </Link>
         </div>
         <div className="share-like share-favorite-container">
@@ -71,6 +76,7 @@ const FavoriteCard = ({ handleFavorite, index, recipe }) => {
             onClick={ handleShare }
           >
             <img
+              className="img-link"
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
               alt="share button"

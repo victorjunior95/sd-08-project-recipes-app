@@ -82,7 +82,7 @@ function SearchDropDown({ setDropSearch }) {
         disabled={ !inputs.radio }
         data-testid="exec-search-btn"
         type="button"
-        className="btnz btn btn-primary"
+        className="btnz btn btn-success"
         onClick={ handleClick }
       >
         BUSCAR

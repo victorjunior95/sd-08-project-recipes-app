@@ -6,7 +6,7 @@ function DoneRecipesButton() {
   return (
     <button
       onClick={ () => history.push('/receitas-feitas') }
-      className="btnz btn btn-primary"
+      className="btnz btn btn-danger"
       data-testid="profile-done-btn"
       type="button"
     >

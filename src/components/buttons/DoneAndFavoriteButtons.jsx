@@ -6,7 +6,7 @@ const DoneAndFavoriteButtons = ({ handleFilters }) => (
   <div className="main-foods-buttons-container">
     {buttonsDoneAndFavoriteRecipes.map((button) => (
       <button
-        className="btn btn-primary"
+        className="btn btn-danger"
         style={ { marginTop: 5,
           marginBottom: 5,
           width: 106 } }

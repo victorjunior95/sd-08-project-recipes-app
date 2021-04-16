@@ -37,7 +37,12 @@ function MainIngredientDrinkCard({ ingredientsDrinksData, index }) {
         } }
         data-testid={ `${index}-main-ingredient-card-link` }
       >
-        <p data-testid={ `${index}-card-name` }>{strIngredient1}</p>
+        <p
+          data-testid={ `${index}-card-name` }
+          className="img-link"
+        >
+          {strIngredient1}
+        </p>
       </Link>
     </div>
   );

@@ -25,7 +25,7 @@ function Drinks() {
   }, [dispatch]);
 
   const mapCards = (array) => (
-    <section className="card-food">
+    <section className="card-item">
       {array.map((drink, index) => (
         <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.idDrink }>
           <Card
@@ -72,7 +72,9 @@ function Drinks() {
       ) : (
         <>
           <CategoriesContainer page="Bebidas" />
-          {showCards()}
+          <div className="card-section">
+            {showCards()}
+          </div>
         </>
       )}
       <Footer />

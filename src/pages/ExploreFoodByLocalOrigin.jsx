@@ -80,7 +80,7 @@ function ExploreFoodByLocalOrigin() {
               {showAreasOptions()}
             </select>
           </label>
-          <section className="card-food">{showFoods()}</section>
+          <section className="card-section">{showFoods()}</section>
           <br />
           <br />
         </section>

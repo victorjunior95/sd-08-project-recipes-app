@@ -1,6 +1,15 @@
 .start-recipe-btn {
   bottom: 0;
-  margin-left: 10%;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 15%;
   position: fixed;
-  width: 80%;
+  width: 16rem;
+}
+
+@media screen and ( min-width : 1040px ) {
+
+  .start-recipe-btn {
+    margin-left: 35%;
+  }
 }

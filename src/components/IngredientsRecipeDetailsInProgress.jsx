@@ -51,6 +51,7 @@ const IngredientsRecipeDetailsInProgress = ({
           htmlFor="igredient-checkbox"
         >
           <input
+            className="form-check-input"
             type="checkbox"
             name="igredient-checkbox"
             id="igredient-checkbox"

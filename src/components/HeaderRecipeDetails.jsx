@@ -72,8 +72,8 @@ const HeaderRecipeDetails = ({
             onClick={ handleClickHeart }
           />
         </div>
-        {isCopied ? <p className="copied-msg">Link copiado!</p> : ''}
       </section>
+      {isCopied ? <p className="copied-msg">Link copiado!</p> : ''}
     </section>
   );
 };

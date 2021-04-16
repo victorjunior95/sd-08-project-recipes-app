@@ -121,6 +121,14 @@
     width: 15%;
   }
 
+  .form-check-input {
+    margin-right: 5px;
+  }
+
+  .ingredients-recipe-inprogress {
+    margin-left: 20px;
+  }
+
   .ingredients-recipe-details {
     margin-left: 20px;
   }
@@ -209,7 +217,7 @@
 
 .card-title {
   color: var(--gray);
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: 700;
   margin-left: 5px;
 }
@@ -253,6 +261,10 @@
 
   .favorite-btn {
     width: 40px;
+  }
+
+  .ingredients-recipe-inprogress {
+    margin-left: 20px;
   }
 
   .ingredients-recipe-details {

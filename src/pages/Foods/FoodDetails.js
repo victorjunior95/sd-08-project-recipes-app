@@ -7,11 +7,7 @@ import { ShareDisplay, FavoriteButton } from '../../component';
 import { getRecipesInProgress } from '../../services/localStorage';
 import RecipesDetails from '../../styles/RecipesDetails';
 
-export default function FoodDetails({
-  match: {
-    params: { id },
-  },
-}) {
+export default function FoodDetails({ match: { params: { id } } }) {
   const { recipeDetail, setSearchParams } = useContext(Context);
   const history = useHistory();
   const [recipe, setRecipe] = useState();
@@ -65,7 +61,7 @@ export default function FoodDetails({
           image: strMealThumb,
         } }
       />
-      <ShareDisplay />
+      <ShareDisplay url={ history.location.pathname } />
       <h5 data-testid="recipe-category">{strCategory}</h5>
       <div className="ingredient">
         {ingredients.map((ingredient, index) => (

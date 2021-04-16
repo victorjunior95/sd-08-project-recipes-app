@@ -5,9 +5,11 @@ import Header from '../../component/Header';
 import shareIcon from '../../images/shareIcon.svg';
 import StyledProfile from '../../styles/RecipesDone';
 
+const LINK_COPIED_TIMEOUT = 2000;
+
 export default function RecipesDone() {
   const storedDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(storedDone.map(() => false));
   const [doneRecipes, setDoneRecipes] = useState(storedDone);
   const history = useHistory();
 
@@ -18,9 +20,11 @@ export default function RecipesDone() {
     setDoneRecipes(filtered);
   };
 
-  const copyLink = (eachRecipe) => {
-    copy(`http://localhost:3000/${eachRecipe.type}s/${eachRecipe.id}`);
-    setCopied(true);
+  const copyLink = (eachRecipe, index) => {
+    const { type, id } = eachRecipe;
+    copy(`http://localhost:3000/${type}s/${id}`);
+    setCopied(copied.map((_each, i) => i === index));
+    setTimeout(() => setCopied(copied.map(() => false)), LINK_COPIED_TIMEOUT);
   };
 
   const goToLink = (type, id) => history.push(`/${type}s/${id}`);
@@ -83,13 +87,13 @@ export default function RecipesDone() {
                 {eachRecipe.name}
               </button>
 
-              <button type="button" onClick={ () => copyLink(eachRecipe) }>
+              <button type="button" onClick={ () => copyLink(eachRecipe, index) }>
                 <img
                   src={ shareIcon }
                   data-testid={ `${index}-horizontal-share-btn` }
                   alt="Share Button"
                 />
-                {copied && <p>Link copiado!</p>}
+                {copied[index] && <p>Link copiado!</p>}
               </button>
 
               <p data-testid={ `${index}-horizontal-done-date` }>{eachRecipe.doneDate}</p>

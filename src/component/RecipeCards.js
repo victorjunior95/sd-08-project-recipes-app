@@ -11,10 +11,7 @@ export default function RecipeCards({ recipe, type, index, id, recommendation })
   const goToLink = () => history.push(`/${link}/${id}`);
 
   return (
-    <StyledRecipeCards
-      onClick={ goToLink }
-      data-testid={ `${index}-recipe-card` }
-    >
+    <StyledRecipeCards onClick={ goToLink } data-testid={ `${index}-recipe-card` }>
       <img
         src={ recipe[`str${type}Thumb`] }
         alt={ recipe[`str${type}`] }

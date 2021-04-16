@@ -22,6 +22,7 @@ export default function ShareButton({ dataTestId, recipeId, recipeType }) {
     <button
       type="button"
       onClick={ handleClick }
+      className="share-like-btn"
     >
       <img
         alt="share-icon"

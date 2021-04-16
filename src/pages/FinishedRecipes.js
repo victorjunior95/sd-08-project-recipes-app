@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FilterTypeBtn from '../components/FilterTypeBtn';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
-import '../CSS/Cards.css';
+import '../CSS/ProfilePage.css';
 
 function getTags({ tags }, index) {
   if (!tags) return null;
@@ -35,41 +35,48 @@ function FinishedRecipes() {
 
   function generateCard(recipe, index) {
     return (
-      <div key={ recipe.id }>
-        <Link to={ `/${recipe.type}s/${recipe.id}` }>
-          <img
-            className="card"
-            src={ recipe.image }
-            alt={ recipe.name }
-            data-testid={ `${index}-horizontal-image` }
+      <section key={ recipe.id } className="done-section">
+        <div className="info-recipe-done">
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              className="card-done-img"
+              src={ recipe.image }
+              alt={ recipe.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+          <div className="info-text-done">
+            <span data-testid={ `${index}-horizontal-top-text` }>
+              { (recipe.area)
+                ? `${recipe.area} - ${recipe.category}` : `${recipe.category}` }
+              { (recipe.alcoholicOrNot) && <span>{ recipe.alcoholicOrNot }</span> }
+            </span>
+            <span
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              { `Feita em: ${recipe.doneDate} ` }
+            </span>
+            { getTags(recipe, index) }
+          </div>
+          <ShareButton
+            dataTestId={ `${index}-horizontal-share-btn` }
+            recipeId={ recipe.id }
+            recipeType={ recipe.type }
           />
-        </Link>
-        <span data-testid={ `${index}-horizontal-top-text` }>
-          { (recipe.area) ? `${recipe.area} - ${recipe.category}` : `${recipe.category}` }
-          { (recipe.alcoholicOrNot) && <span>{ recipe.alcoholicOrNot }</span> }
-        </span>
-        <Link to={ `/${recipe.type}s/${recipe.id}` }>
-          <h4 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h4>
-        </Link>
-        <span
-          data-testid={ `${index}-horizontal-done-date` }
-        >
-          { `Feita em: ${recipe.doneDate} ` }
-        </span>
-        <ShareButton
-          dataTestId={ `${index}-horizontal-share-btn` }
-          recipeId={ recipe.id }
-          recipeType={ recipe.type }
-        />
-        { getTags(recipe, index) }
-      </div>
+        </div>
+        <div className="title-recipe-done">
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h4>
+          </Link>
+        </div>
+      </section>
     );
   }
 
   function generateListOfCards() {
     if (finishedRecipesStorage.length === 0) {
       return (
-        <div>No done recipes yet!</div>
+        <div className="user-title no-recipe">No done recipes yet!</div>
       );
     }
     if (filterSelector === 'all' && finishedRecipesStorage) {
@@ -100,9 +107,11 @@ function FinishedRecipes() {
   }
 
   return (
-    <section>
-      <Header />
-      <FilterTypeBtn handleSelector={ handleSelector } />
+    <section className="profile-page-img main-container">
+      <section className="profile-header-section">
+        <Header />
+        <FilterTypeBtn handleSelector={ handleSelector } />
+      </section>
       { generateListOfCards() }
     </section>
   );

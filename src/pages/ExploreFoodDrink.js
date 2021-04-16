@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import { RANDOM_RECIPE } from '../redux/actions';
 import { clearRandom, fetchRandomDrinkAction,
   fetchRandomMealAction } from '../redux/actions/randomRecipes';
+import '../CSS/Explore.css';
 
 function ExploreFoodDrink() {
   const history = useHistory();
@@ -40,27 +41,32 @@ function ExploreFoodDrink() {
   useEffect(() => () => dispatch(clearRandom()), []);
 
   return (
-    <main>
+    <section className="Explore-main-container">
       <Header />
-      { pathname === '/explorar/comidas' && <Button /> }
-      <button
-        onClick={ () => history.push(`/explorar/${pathname.split('/')[2]}/ingredientes`) }
-        data-testid="explore-by-ingredient"
-        type="button"
-      >
-        Por Ingredientes
+      <div className="explore-btn-container">
+        { pathname === '/explorar/comidas' && <Button /> }
+        <button
+          onClick={ () => history
+            .push(`/explorar/${pathname.split('/')[2]}/ingredientes`) }
+          data-testid="explore-by-ingredient"
+          type="button"
+          className="explore-btn regular-button"
+        >
+          Por Ingredientes
 
-      </button>
-      <button
-        onClick={ randomClick }
-        data-testid="explore-surprise"
-        type="button"
-      >
-        Me Surpreenda!
+        </button>
+        <button
+          onClick={ randomClick }
+          data-testid="explore-surprise"
+          type="button"
+          className="explore-btn regular-button"
+        >
+          Me Surpreenda!
 
-      </button>
+        </button>
+      </div>
       <Footer />
-    </main>
+    </section>
   );
 }
 

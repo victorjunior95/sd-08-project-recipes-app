@@ -18,8 +18,8 @@ export default function RecipeSearchBar() {
   };
 
   return (
-    <form action="">
-      <label htmlFor="search-input">
+    <form action="" className="form-search-container">
+      <label htmlFor="search-input" className="label-search-input">
         <input
           placeholder="Buscar receita"
           type="text"
@@ -27,48 +27,55 @@ export default function RecipeSearchBar() {
           id="search-input"
           value={ inputValue }
           onChange={ ({ target }) => setInputValue(target.value) }
+          className="input-tag"
         />
       </label>
-      <label htmlFor="ingredient">
-        <input
-          data-testid="ingredient-search-radio"
-          type="radio"
-          id="ingredient"
-          value="ingredient"
-          name="inputType"
-          checked={ inputType === 'ingredient' }
-          onChange={ ({ target }) => setInputType(target.value) }
-        />
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        <input
-          data-testid="name-search-radio"
-          type="radio"
-          id="name"
-          value="name"
-          name="inputType"
-          checked={ inputType === 'name' }
-          onChange={ ({ target }) => setInputType(target.value) }
-        />
-        Nome
-      </label>
-      <label htmlFor="first-letter">
-        <input
-          data-testid="first-letter-search-radio"
-          type="radio"
-          id="first-letter"
-          value="first-letter"
-          name="inputType"
-          checked={ inputType === 'first-letter' }
-          onChange={ ({ target }) => setInputType(target.value) }
-        />
-        Primeira Letra
-      </label>
+      <div className="form-search-radio">
+        <label htmlFor="ingredient" className="label-radio">
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            id="ingredient"
+            value="ingredient"
+            name="inputType"
+            checked={ inputType === 'ingredient' }
+            onChange={ ({ target }) => setInputType(target.value) }
+            className="radio-tag"
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="name" className="label-radio">
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            id="name"
+            value="name"
+            name="inputType"
+            checked={ inputType === 'name' }
+            onChange={ ({ target }) => setInputType(target.value) }
+            className="radio-tag"
+          />
+          Nome
+        </label>
+        <label htmlFor="first-letter" className="label-radio">
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            id="first-letter"
+            value="first-letter"
+            name="inputType"
+            checked={ inputType === 'first-letter' }
+            onChange={ ({ target }) => setInputType(target.value) }
+            className="radio-tag"
+          />
+          Primeira Letra
+        </label>
+      </div>
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ handleClick }
+        className="regular-button"
       >
         Pesquisar
       </button>

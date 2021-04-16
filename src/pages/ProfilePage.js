@@ -1,16 +1,17 @@
 import React from 'react';
-import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../CSS/ProfilePage.css';
+import '../CSS/AppMain.css';
 
 function ProfilePage() {
   const history = useHistory();
   const user = localStorage.getItem('user');
   let email = '';
   if (user) email = JSON.parse(user).email;
-  // const { email } = JSON.parse(localStorage.getItem('user'));
+
   const removeLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('mealsToken');
@@ -22,34 +23,42 @@ function ProfilePage() {
   };
 
   return (
-    <>
-      <Header />
-      {user && <span data-testid="profile-email">{email}</span> }
-      <button
-        type="button"
-        data-testid="profile-done-btn"
-        onClick={ () => history.push('/receitas-feitas') }
-      >
-        Receitas Feitas
-      </button>
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
-        onClick={ () => history.push('/receitas-favoritas') }
-      >
-        Receitas Favoritas
-      </button>
-      <Link to="/">
+    <section className="profile-page-img main-container">
+      <section className="profile-header-section">
+        <Header />
+        { user
+        && <span className="user-title" data-testid="profile-email">{ email }</span> }
+      </section>
+      <section className="profile-section">
         <button
           type="button"
-          data-testid="profile-logout-btn"
-          onClick={ removeLocalStorage }
+          data-testid="profile-done-btn"
+          onClick={ () => history.push('/receitas-feitas') }
+          className="regular-button"
         >
-          Sair
+          Receitas Feitas
         </button>
-      </Link>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          onClick={ () => history.push('/receitas-favoritas') }
+          className="regular-button"
+        >
+          Receitas Favoritas
+        </button>
+        <Link to="/">
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ removeLocalStorage }
+            className="regular-button"
+          >
+            Sair
+          </button>
+        </Link>
+      </section>
       <Footer />
-    </>
+    </section>
   );
 }
 

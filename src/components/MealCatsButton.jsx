@@ -25,7 +25,7 @@ function MealCatsButtons() {
   }
 
   return (
-    <div>
+    <div className="category-buttons-container">
       { meals && meals.map((elem, index) => (
         (index < FIVE) && (
           <button
@@ -34,6 +34,7 @@ function MealCatsButtons() {
             value={ elem.strCategory }
             onClick={ (event) => handleClick(event) }
             data-testid={ `${elem.strCategory}-category-filter` }
+            className="regular-button"
           >
             { elem.strCategory }
           </button>
@@ -46,6 +47,7 @@ function MealCatsButtons() {
           dispatch(clearRecipesAction());
           dispatch(clearSearchAction());
         } }
+        className="regular-button"
       >
         All
       </button>

@@ -50,6 +50,7 @@ export default function LikeButton() {
     <button
       type="button"
       onClick={ handleClick }
+      className="share-like-btn"
     >
       <img
         alt="like-icon"

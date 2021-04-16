@@ -9,16 +9,21 @@ export default function RecipesCards({ path, elem, type, index }) {
       type="button"
       onClick={ () => history.push(`${path}/${elem[`id${type}`]}`) }
       data-testid={ `${index}-recipe-card` }
+      className="card-container regular-button"
     >
-      <div>
-        <h4 data-testid={ `${index}-card-name` }>{ elem[`str${type}`] }</h4>
-        <span>{ elem[`id${type}`] }</span>
-        <img
-          className="card"
-          src={ elem[`str${type}Thumb`] }
-          alt={ elem[`str${type}`] }
-          data-testid={ `${index}-card-img` }
-        />
+      <div className="card-content">
+        <div className="img-content">
+          <img
+            className="card-img"
+            src={ elem[`str${type}Thumb`] }
+            alt={ elem[`str${type}`] }
+            data-testid={ `${index}-card-img` }
+          />
+        </div>
+        <div className="card-title">
+          <h4 data-testid={ `${index}-card-name` }>{ elem[`str${type}`] }</h4>
+          <span>{ elem[`id${type}`] }</span>
+        </div>
       </div>
     </button>
   );

@@ -18,16 +18,23 @@ function IngredientCard({ index, ingredient, recipe }) {
     <button
       type="button"
       data-testid={ `${index}-ingredient-card` }
-      className="card"
       onClick={ handleClick }
+      className="card-container regular-button"
     >
-      <img
-        data-testid={ `${index}-card-img` }
-        alt={ ingredient }
-        src={ recipe === 'meal' ? `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`
-          : `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
-      />
-      <span data-testid={ `${index}-card-name` }>{ingredient}</span>
+      <div className="card-content">
+        <div className="img-content">
+          <img
+            data-testid={ `${index}-card-img` }
+            alt={ ingredient }
+            src={ recipe === 'meal' ? `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`
+              : `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
+            className="card-img"
+          />
+        </div>
+        <div className="card-title">
+          <span data-testid={ `${index}-card-name` }>{ingredient}</span>
+        </div>
+      </div>
     </button>
   );
 }

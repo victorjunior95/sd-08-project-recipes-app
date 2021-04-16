@@ -6,6 +6,7 @@ import '../CSS/Completed.css';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import { findKey } from '../services/index';
+import '../CSS/FoodDetail.css';
 
 function ProgressMeal() {
   const { singleRecipe } = useSelector((state) => state.recipes);
@@ -73,7 +74,7 @@ function ProgressMeal() {
                 } }
                 checked={ meatStorage && meatStorage.includes(nome) }
               />
-              {`${nome} - ${measure[index]}`}
+              {` ${nome} - ${measure[index]}`}
             </label>
           </div>
         );
@@ -90,27 +91,68 @@ function ProgressMeal() {
     return true;
   };
 
+  // const finishRecipe = () => {
+  //   const doneStorage = (localStorage.getItem('doneRecipes'))
+  //     ? JSON.parse(localStorage.getItem('doneRecipes'))
+  //     : [];
+  //   const doneRecipe = {
+  //     id: arrayMeat.idMeal,
+  //     type: 'comida',
+  //     area: arrayMeat.strArea ? arrayMeat.strArea : '',
+  //     category: arrayMeat.strCategory ? arrayMeat.strCategory : '',
+  //     alcoholicOrNot: '',
+  //     name: arrayMeat.strMeal,
+  //     image: arrayMeat.strMealThumb,
+  //     doneDate: new Date().toLocaleDateString(),
+  //     tags: arrayMeat.strTags ? arrayMeat.strTags.split(',') : [],
+  //   };
+  //   const newStorage = [...doneStorage, doneRecipe];
+  //   localStorage.setItem('doneRecipes', JSON.stringify(newStorage));
+  // };
+
   const renderMeal = () => (
     arrayMeat !== undefined && (
-      <div>
-        <img data-testid="recipe-photo" src={ arrayMeat.strMealThumb } alt="recipe" />
-        <h1 data-testid="recipe-title">{ arrayMeat.strMeal }</h1>
-        <ShareButton recipeId={ arrayMeat.idMeal } recipeType="comida" />
-        <LikeButton />
+      <div className="detail-main-container">
+        <div className="detail-header-container">
+          <img
+            data-testid="recipe-photo"
+            src={ arrayMeat.strMealThumb }
+            alt="recipe"
+            className="detail-img"
+          />
+          <h1
+            data-testid="recipe-title"
+            className="detail-title"
+          >
+            { arrayMeat.strMeal }
+          </h1>
+          <div className="buttons-container">
+            <ShareButton recipeId={ arrayMeat.idMeal } recipeType="comida" />
+            <LikeButton />
+          </div>
+        </div>
+        <div className="detail-info">
+          <p data-testid="recipe-category">{arrayMeat.strCategory}</p>
 
-        <p data-testid="recipe-category">{arrayMeat.strCategory}</p>
+          <span className="detail-subtitle">Ingredients:</span>
+          <div className="detail-ingredients">
+            { createIngrediets() }
+          </div>
 
-        Ingredients
-        {createIngrediets()}
-
-        Instructions
-        <p data-testid="instructions">{arrayMeat.strInstructions}</p>
-
+          <span className="detail-subtitle">Instructions:</span>
+          <div className="detail-ingredients">
+            <p data-testid="instructions">{arrayMeat.strInstructions}</p>
+          </div>
+        </div>
         <button
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ verifyDisable() }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ () => {
+            // finishRecipe();
+            history.push('/receitas-feitas');
+          } }
+          className="regular-button beginRecipe-btn"
         >
           Finalizar Receita
         </button>
@@ -125,3 +167,15 @@ function ProgressMeal() {
 }
 
 export default ProgressMeal;
+
+// [{
+//     id: id-da-receita,
+//     type: comida-ou-bebida,
+//     area: area-da-receita-ou-texto-vazio,
+//     category: categoria-da-receita-ou-texto-vazio,
+//     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+//     name: nome-da-receita,
+//     image: imagem-da-receita,
+//     doneDate: quando-a-receita-foi-concluida,
+//     tags: array-de-tags-da-receita-ou-array-vazio
+// }]

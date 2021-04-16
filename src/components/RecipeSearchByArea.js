@@ -22,6 +22,7 @@ function RecipeSearchByArea() {
       data-testid="explore-by-area-dropdown"
       value={ area }
       onChange={ handleChange }
+      className="regular-button area-search-input"
     >
       {areas && areas.map((meal, i) => (
         <option

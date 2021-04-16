@@ -32,44 +32,43 @@ export default function Login() {
   }, [email, password.length]);
 
   return (
-    <div>
+    <form className="form-container">
       {redirect && <Redirect to="/comidas" />}
-      <form>
-        <div>
-          <label htmlFor="email-login" className="form-label">
-            Email address
-            <input
-              id="email-login"
-              type="email"
-              name="email"
-              data-testid="email-input"
-              value={ email }
-              onChange={ ({ target }) => setEmail(target.value) }
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="password-login" className="form-label">
-            Password
-            <input
-              id="password-login"
-              type="password"
-              name="password"
-              data-testid="password-input"
-              value={ password }
-              onChange={ ({ target }) => setPassword(target.value) }
-            />
-          </label>
-        </div>
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          onClick={ handleClick }
-          disabled={ !verification }
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+      <div>
+        <label htmlFor="email-login" className="form-label">
+          Email address
+          <input
+            id="email-login"
+            type="email"
+            name="email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="password-login" className="form-label">
+          Password
+          <input
+            id="password-login"
+            type="password"
+            name="password"
+            data-testid="password-input"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+        </label>
+      </div>
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+        onClick={ handleClick }
+        disabled={ !verification }
+        className="regular-button"
+      >
+        Entrar
+      </button>
+    </form>
   );
 }

@@ -101,8 +101,7 @@ export default function FoodInProgress({
   const goTo = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const doneDate = `${DAY}/${MONTH}/${YEAR}`;
-    const tags = recipe.strTags.split(',');
-    console.log(tags);
+    const tags = recipe.strTags ? recipe.strTags.split(',') : [];
     const recipeInfo = {
       id,
       type: 'comida',

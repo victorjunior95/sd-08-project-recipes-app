@@ -42,18 +42,20 @@ export default function DrinkDetails({ match: { params: { id } } }) {
     <RecipesDetails>
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Recipe Done" />
       <h1 data-testid="recipe-title">{strDrink}</h1>
-      <FavoriteButton
-        recipeInfo={ {
-          id,
-          type: 'bebida',
-          area: '',
-          category: strCategory,
-          alcoholicOrNot: strAlcoholic,
-          name: strDrink,
-          image: strDrinkThumb,
-        } }
-      />
-      <ShareDisplay url={ history.location.pathname } />
+      <div className="interaction-btns">
+        <FavoriteButton
+          recipeInfo={ {
+            id,
+            type: 'bebida',
+            area: '',
+            category: strCategory,
+            alcoholicOrNot: strAlcoholic,
+            name: strDrink,
+            image: strDrinkThumb,
+          } }
+        />
+        <ShareDisplay url={ history.location.pathname } />
+      </div>
       <h5 data-testid="recipe-category">{`${strCategory} ${strAlcoholic}`}</h5>
       <div className="ingredient">
         {ingredients.map((ingredient, index) => (

@@ -7,7 +7,11 @@ import { ShareDisplay, FavoriteButton } from '../../component';
 import { getRecipesInProgress } from '../../services/localStorage';
 import RecipesDetails from '../../styles/RecipesDetails';
 
-export default function FoodDetails({ match: { params: { id } } }) {
+export default function FoodDetails({
+  match: {
+    params: { id },
+  },
+}) {
   const { recipeDetail, setSearchParams } = useContext(Context);
   const history = useHistory();
   const [recipe, setRecipe] = useState();
@@ -50,18 +54,20 @@ export default function FoodDetails({ match: { params: { id } } }) {
     <RecipesDetails>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="Recipe Done" />
       <h1 data-testid="recipe-title">{strMeal}</h1>
-      <FavoriteButton
-        recipeInfo={ {
-          id,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
-        } }
-      />
-      <ShareDisplay url={ history.location.pathname } />
+      <div className="interaction-btns">
+        <FavoriteButton
+          recipeInfo={ {
+            id,
+            type: 'comida',
+            area: strArea,
+            category: strCategory,
+            alcoholicOrNot: '',
+            name: strMeal,
+            image: strMealThumb,
+          } }
+        />
+        <ShareDisplay url={ history.location.pathname } />
+      </div>
       <h5 data-testid="recipe-category">{strCategory}</h5>
       <div className="ingredient">
         {ingredients.map((ingredient, index) => (
@@ -73,13 +79,15 @@ export default function FoodDetails({ match: { params: { id } } }) {
       <p data-testid="instructions" className="instructions">
         {strInstructions}
       </p>
-      <div className="video-container">
-        <iframe
-          data-testid="video"
-          title="Recipe"
-          src={ strYoutube.replace('watch?v=', 'embed/') }
-        />
-      </div>
+      {strYoutube && (
+        <div className="video-container">
+          <iframe
+            data-testid="video"
+            title="Recipe"
+            src={ strYoutube.replace('watch?v=', 'embed/') }
+          />
+        </div>
+      )}
       <Link
         to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"

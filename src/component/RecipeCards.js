@@ -6,7 +6,10 @@ import StyledRecipeCards from '../styles/component/RecipeCards';
 export default function RecipeCards({ recipe, type, index, id, recommendation }) {
   const history = useHistory();
   const { pathname } = useLocation();
-  const link = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+  let link = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+  if (recommendation) {
+    link = pathname.includes('comidas') ? 'bebidas' : 'comidas';
+  }
 
   const goToLink = () => history.push(`/${link}/${id}`);
 

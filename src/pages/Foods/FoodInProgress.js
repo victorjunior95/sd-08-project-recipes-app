@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
 import { FavoriteButton, ShareDisplay } from '../../component';
+import StyledProgress from '../../styles/RecipesInProgress';
 
 const ONE_DIGIT = 10;
 
@@ -123,46 +124,53 @@ export default function FoodInProgress({
   const handleDisable = () => !ingredients.every((ingredient) => handleCheck(ingredient));
 
   return (
-    <>
+    <StyledProgress>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="Recipe Done" />
       <h1 data-testid="recipe-title">{strMeal}</h1>
-      <ShareDisplay url={ history.location.pathname.replace('/in-progress', '') } />
-      <FavoriteButton
-        recipeInfo={ {
-          id,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
-        } }
-      />
+      <div className="interaction-btns">
+        <FavoriteButton
+          recipeInfo={ {
+            id,
+            type: 'comida',
+            area: strArea,
+            category: strCategory,
+            alcoholicOrNot: '',
+            name: strMeal,
+            image: strMealThumb,
+          } }
+        />
+        <ShareDisplay url={ history.location.pathname.replace('/in-progress', '') } />
+      </div>
       <h5 data-testid="recipe-category">{strCategory}</h5>
-      {ingredients.map((ingredient, index) => (
-        <div key={ index } data-testid={ `${index}-ingredient-step` }>
-          <label htmlFor={ ingredient }>
-            <input
-              type="checkbox"
-              id={ ingredient }
-              checked={ handleCheck(ingredient) }
-              onChange={ () => handleChange(ingredient) }
-            />
-            {`-${ingredient} - ${measures[index]}`}
-          </label>
-        </div>
-      ))}
-      <p data-testid="instructions">{strInstructions}</p>
+      <div className="ingredient">
+        {ingredients.map((ingredient, index) => (
+          <div key={ index } data-testid={ `${index}-ingredient-step` }>
+            <label htmlFor={ ingredient }>
+              <input
+                type="checkbox"
+                id={ ingredient }
+                checked={ handleCheck(ingredient) }
+                onChange={ () => handleChange(ingredient) }
+              />
+              {`-${ingredient} - ${measures[index]}`}
+            </label>
+          </div>
+        ))}
+      </div>
+      <p data-testid="instructions" className="instructions">
+        {strInstructions}
+      </p>
       <button
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ goTo }
         disabled={ handleDisable() }
+        className="finish-btn"
       >
         Finalizar Receita
       </button>
       <Recommendations />
-    </>
+    </StyledProgress>
   );
 }
 

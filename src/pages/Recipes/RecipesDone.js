@@ -3,7 +3,7 @@ import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import Header from '../../component/Header';
 import shareIcon from '../../images/shareIcon.svg';
-import StyledProfile from '../../styles/RecipesDone';
+import StyledDone from '../../styles/RecipesDone';
 
 const LINK_COPIED_TIMEOUT = 2000;
 
@@ -30,7 +30,7 @@ export default function RecipesDone() {
   const goToLink = (type, id) => history.push(`/${type}s/${id}`);
 
   return (
-    <StyledProfile>
+    <StyledDone>
       <Header pageTitle="Receitas Feitas" showSearchButton={ false } />
 
       <div className="filter-buttons">
@@ -87,13 +87,17 @@ export default function RecipesDone() {
                 {eachRecipe.name}
               </button>
 
-              <button type="button" onClick={ () => copyLink(eachRecipe, index) }>
+              <button
+                type="button"
+                onClick={ () => copyLink(eachRecipe, index) }
+                className="share-btn"
+              >
                 <img
                   src={ shareIcon }
                   data-testid={ `${index}-horizontal-share-btn` }
                   alt="Share Button"
                 />
-                {copied[index] && <p>Link copiado!</p>}
+                {copied[index] && <span>Link copiado!</span>}
               </button>
 
               <p data-testid={ `${index}-horizontal-done-date` }>{eachRecipe.doneDate}</p>
@@ -111,6 +115,6 @@ export default function RecipesDone() {
           </div>
         ))}
       </div>
-    </StyledProfile>
+    </StyledDone>
   );
 }

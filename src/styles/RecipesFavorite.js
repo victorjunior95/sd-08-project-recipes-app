@@ -22,7 +22,7 @@ const StyledDone = styled.main`
     }
   }
 
-  .done-recipes-container {
+  .favorite-recipes-container {
     display: flex;
     flex-direction: column;
     font-size: 0.9rem;

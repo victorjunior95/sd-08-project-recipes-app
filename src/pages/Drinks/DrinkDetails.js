@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Recommendations from '../../component/Recommendations';
@@ -12,7 +12,12 @@ export default function DrinkDetails({ match: { params: { id } } }) {
   const history = useHistory();
   const [recipe, setRecipe] = useState();
 
-  const recipeInProgress = () => getRecipesInProgress().cocktails[id];
+  if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+    const inProgressRecipes = { cocktails: {}, meals: {} };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }
+
+  const recipeInProgress = getRecipesInProgress().cocktails[id];
 
   useEffect(() => {
     setSearchParams({
@@ -37,6 +42,10 @@ export default function DrinkDetails({ match: { params: { id } } }) {
     .filter((prop) => prop.includes('strMeasure'))
     .map((measure) => recipe[measure])
     .filter((measure) => measure);
+
+  const goTo = () => {
+    history.push(`/bebidas/${id}/in-progress`);
+  };
 
   return (
     <RecipesDetails>
@@ -67,21 +76,14 @@ export default function DrinkDetails({ match: { params: { id } } }) {
       <p data-testid="instructions" className="instructions">
         {strInstructions}
       </p>
-      <Link
-        to={ `/bebidas/${id}/in-progress` }
+      <button
+        type="button"
         data-testid="start-recipe-btn"
         className="start-resume-recipe"
-        onClick={ () => {
-          if (!recipeInProgress) {
-            localStorage.setItem(
-              'RecipesInProgress',
-              JSON.stringify([...getRecipesInProgress(), id]),
-            );
-          }
-        } }
+        onClick={ goTo }
       >
         {recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-      </Link>
+      </button>
       <Recommendations />
     </RecipesDetails>
   );

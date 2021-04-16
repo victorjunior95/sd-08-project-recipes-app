@@ -31,15 +31,17 @@ function ExploreDrinksByIngredients() {
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
         </section>
       ) : (
-        drinksIngredientsList.map((ingredient, index) => (
-          <IngredientCard
-            key={ index }
-            imagePath={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-            title={ ingredient.strIngredient1 }
-            index={ index }
-            page="bebidas"
-          />
-        ))
+        <div className="card-section">
+          {drinksIngredientsList.map((ingredient, index) => (
+            <IngredientCard
+              key={ index }
+              imagePath={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+              title={ ingredient.strIngredient1 }
+              index={ index }
+              page="bebidas"
+            />
+          ))}
+        </div>
       )}
       <Footer />
     </>

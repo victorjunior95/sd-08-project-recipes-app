@@ -78,7 +78,7 @@ function Foods() {
       ) : (
         <>
           <CategoriesContainer page="Comidas" />
-          <div className="card-food">
+          <div className="card-section">
             {showCards()}
           </div>
         </>

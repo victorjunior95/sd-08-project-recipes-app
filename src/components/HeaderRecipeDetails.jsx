@@ -47,8 +47,8 @@ const HeaderRecipeDetails = ({
         className="image-details"
         data-testid="recipe-photo"
       />
-      <h3 data-testid="recipe-title">{title}</h3>
-      <section>
+      <section className="detail-section">
+        <h3 data-testid="recipe-title">{title}</h3>
         <h5 data-testid="recipe-category">{category}</h5>
         <div>
           <CopyToClipboard
@@ -56,6 +56,7 @@ const HeaderRecipeDetails = ({
             onCopy={ handleClick }
           >
             <input
+              className="share-btn"
               type="image"
               src={ shareIcon }
               alt="share icon"
@@ -63,6 +64,7 @@ const HeaderRecipeDetails = ({
             />
           </CopyToClipboard>
           <input
+            className="favorite-btn"
             type="image"
             src={ getHeartType(id) ? blackHeartIcon : whiteHeartIcon }
             alt="white heart icon"
@@ -70,8 +72,8 @@ const HeaderRecipeDetails = ({
             onClick={ handleClickHeart }
           />
         </div>
+        {isCopied ? <p className="copied-msg">Link copiado!</p> : ''}
       </section>
-      {isCopied ? <p>Link copiado!</p> : ''}
     </section>
   );
 };

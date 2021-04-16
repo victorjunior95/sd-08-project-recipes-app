@@ -27,7 +27,7 @@ function ProfilePage() {
       <br />
       <Footer />
       <section className="profile">
-        <div data-testid="profile-email">{getUser()}</div>
+        <div data-testid="profile-email" className="profile-email">{getUser()}</div>
         <button
           className="btn btn-warning"
           type="button"

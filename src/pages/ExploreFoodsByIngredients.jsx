@@ -31,7 +31,7 @@ function ExploreFoodsByIngredients() {
           <img src={ infinity } className="loading-logo" alt="Infinity Logo" />
         </section>
       ) : (
-        <div className="card-food">
+        <div className="card-section">
           {mealsIngredientsList.map((ingredient, index) => (
             <IngredientCard
               key={ index }

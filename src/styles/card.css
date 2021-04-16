@@ -4,13 +4,27 @@
   box-shadow: 1px 3px 5px 2px gray;
   margin-bottom: 20px;
   margin-left: 5px;
-  min-width: 48%;
   padding: 8px;
-  width: 300px;
+  width: 100px;
 }
 
 .card > img {
   border-radius: 20px;
   max-width: 290px;
   object-fit: cover;
+}
+
+@media screen and ( max-width : 680px ) {
+
+  .card {
+    min-width: 48%;
+  }
+}
+
+@media screen and ( min-width : 1040px ) {
+
+  .card {
+    margin-right: 30px;
+    width: 15%;
+  }
 }

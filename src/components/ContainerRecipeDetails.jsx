@@ -151,12 +151,14 @@ const ContainerRecipeDetails = ({ recipe, page }) => {
             ''
           ) : (
             <Link to={ route }>
-              <Button
-                name={ nameButtonRecipe(id, page) }
-                data-testid="start-recipe-btn"
-                className="start-recipe-btn btn btn-danger"
-                onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
-              />
+              <div className="start-finish-btn">
+                <Button
+                  name={ nameButtonRecipe(id, page) }
+                  data-testid="start-recipe-btn"
+                  className="start-recipe-btn btn btn-danger"
+                  onClick={ () => setInProgressRecipes(id, page, arrayIngredients) }
+                />
+              </div>
             </Link>
           )}
           <br />

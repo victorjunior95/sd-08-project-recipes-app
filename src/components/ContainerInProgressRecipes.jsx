@@ -150,13 +150,15 @@ const ContainerInProgressRecipes = ({ recipe, page, id }) => {
           />
           <InstructionsRecipeDetails instruction={ instructions } />
           <Link to="/receitas-feitas">
-            <Button
-              name="Finalizar Receita"
-              data-testid="finish-recipe-btn"
-              className="start-recipe-btn btn btn-danger"
-              onClick={ finishRecipe }
-              disabled={ buttonState }
-            />
+            <div className="start-finish-btn">
+              <Button
+                name="Finalizar Receita"
+                data-testid="finish-recipe-btn"
+                className="start-recipe-btn btn btn-danger"
+                onClick={ finishRecipe }
+                disabled={ buttonState }
+              />
+            </div>
           </Link>
         </section>
       )}

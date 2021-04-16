@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
+import './foodCard.css';
 
 export default function FoodCard({ recipes, order }) {
   const { strMeal, strMealThumb } = recipes;
@@ -9,7 +10,7 @@ export default function FoodCard({ recipes, order }) {
     <div
       key={ strMeal }
       data-testid={ `${order}-recipe-card` }
-      style={ { width: '50%' } }
+      className="food-card"
     >
       <img
         src={ strMealThumb }

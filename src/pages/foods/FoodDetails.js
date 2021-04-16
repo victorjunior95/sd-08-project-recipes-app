@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import Copy from 'clipboard-copy';
+import './foodDetails.css';
 
 import DrinkCarousel from '../../components/carousel/DrinkCarousel';
 import RecipesContext from '../../ContextApi/RecipesContext';
@@ -80,7 +81,7 @@ export default function FoodDetails({ match: { params } }) {
     .map((measure) => recipeById[measure]);
 
   return (
-    <div>
+    <div className="food-details">
       <img
         data-testid="recipe-photo"
         alt=""
@@ -123,7 +124,7 @@ export default function FoodDetails({ match: { params } }) {
               </li>))
         }
       </ul>
-      <section>
+      <section className="instuçoes">
         <h2>Instruções</h2>
         <p data-testid="instructions">{recipeById.strInstructions}</p>
         {

@@ -80,6 +80,7 @@ class Filtros extends Component {
         <button
           data-testid="All-category-filter"
           type="button"
+          className="filter-buttons-search"
           onClick={ () => this.filterAll(pathname, searchIngredient) }
         >
           All
@@ -93,6 +94,7 @@ class Filtros extends Component {
               data-testid={ `${category.strCategory}-category-filter` }
               key={ category.strCategory }
               type="button"
+              className="filter-buttons-search"
               // onClick={ () => this.submitSearch(category.strCategory) }
               onClick={ this.handleFilter }
               value={ category.strCategory }

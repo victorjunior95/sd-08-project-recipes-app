@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import rockGlass from '../images/rockGlass.svg';
 
 class Login extends React.Component {
   constructor() {
@@ -51,27 +52,26 @@ class Login extends React.Component {
         <form>
           <div className="login-input">
             <label htmlFor="email">
-              Enter you email:
               <input
                 type="email"
                 name="email"
                 onChange={ this.handleChange }
                 data-testid="email-input"
                 value={ email }
-                placeholder="exemplo@exemplo.com"
+                placeholder="exemplo@email.com"
                 required
               />
             </label>
           </div>
           <div className="login-input">
             <label htmlFor="name">
-              Enter you password:
               <input
                 type="password"
                 name="password"
                 onChange={ this.handleChange }
                 data-testid="password-input"
                 value={ password }
+                placeholder="Digite sua senha"
                 required
               />
             </label>
@@ -92,7 +92,15 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="meals">
+        <span className="logo">Receitas Trybe</span>
+        <object
+          className="rocksGlass"
+          type="image/svg+xml"
+          data={ rockGlass }
+        >
+          Glass
+        </object>
         {this.renderLogin()}
       </div>
 

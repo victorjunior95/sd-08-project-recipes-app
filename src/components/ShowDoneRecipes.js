@@ -11,9 +11,20 @@ export default class ShowDoneRecipes extends Component {
 
     this.state = {
       copied: {},
+      doneRecipes: [],
     };
 
     this.copyRecipe = this.copyRecipe.bind(this);
+    this.fetchDoneRecipes = this.fetchDoneRecipes.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchDoneRecipes();
+  }
+
+  fetchDoneRecipes() {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) this.setState({ doneRecipes });
   }
 
   copyRecipe(id, type, index) {
@@ -39,8 +50,7 @@ export default class ShowDoneRecipes extends Component {
   }
 
   render() {
-    const { copied } = this.state;
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const { copied, doneRecipes } = this.state;
     return (
       <div>
         {doneRecipes && doneRecipes.map((item, index) => (
